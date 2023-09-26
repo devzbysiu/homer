@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:homer/books_list.dart';
-import 'package:homer/bottom_nav_bar.dart';
+import 'package:get_it/get_it.dart';
+import 'package:homer/core/book/domain/repository/book_repository.dart';
+import 'package:homer/feature/list/widget/books_list.dart';
+import 'package:homer/feature/navigation/widget/bottom_nav_bar.dart';
+
+import 'core/book/data/repository/book_repository_stub.dart';
+
+final getIt = GetIt.instance;
+
+void setupDi() {
+  getIt.registerSingleton<BookRepository>(BookRepositoryStub());
+}
 
 void main() {
+  setupDi();
   runApp(const Homer());
 }
 
@@ -28,10 +39,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       extendBody: true,
       body: BooksList(),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: const Padding(
         padding: EdgeInsets.only(bottom: 10),
         child: BottomNavBar(),
       ),

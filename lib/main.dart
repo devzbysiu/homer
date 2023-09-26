@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:homer/core/book/domain/repository/book_repository.dart';
-import 'package:homer/feature/list/widget/books_list.dart';
+import 'package:homer/feature/book/widget/books_list.dart';
 import 'package:homer/feature/navigation/widget/bottom_nav_bar.dart';
 
 import 'core/book/data/repository/book_repository_stub.dart';

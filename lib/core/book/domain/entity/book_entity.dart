@@ -2,6 +2,18 @@ import 'package:faker/faker.dart';
 
 var faker = Faker();
 
+const someIsbns = [
+  '0062878948',
+  '0747532745',
+  '0545010225',
+  '0061703877',
+  '1740474619',
+  '0761156976',
+  '0142421332',
+  '0415263042',
+  '0679887008',
+];
+
 class BookEntity {
   const BookEntity({
     required this.title,
@@ -20,18 +32,25 @@ class BookEntity {
 
   factory BookEntity.fake() {
     return BookEntity(
-      title: faker.lorem.sentence(),
+      title: faker.lorem
+          .words(faker.randomGenerator.integer(8, min: 1))
+          .join(' ')
+          .capitalize(),
       subtitle: faker.lorem.sentence(),
       author: '${faker.person.firstName()} ${faker.person.lastName()}',
       state: BookState.readLater,
       pageCount: faker.randomGenerator.integer(1000),
       isbn: faker.guid.guid(),
-      thumbnailAddress: faker.internet.httpsUrl(),
+      thumbnailAddress:
+          'https://covers.openlibrary.org/b/isbn/${someIsbns[faker.randomGenerator.integer(someIsbns.length)]}-M.jpg',
       startDate: faker.date.dateTime().microsecondsSinceEpoch,
       endDate: faker.date.dateTime().microsecondsSinceEpoch,
-      rating: faker.randomGenerator.integer(10),
+      rating: faker.randomGenerator.decimal(scale: 10),
       summary: faker.lorem.sentences(10).join(" "),
-      labels: List.empty(),
+      labels: [
+        BookLabel(name: 'type:technical'),
+        BookLabel(name: 'short'),
+      ],
     );
   }
 
@@ -53,7 +72,7 @@ class BookEntity {
 
   final int endDate;
 
-  final int rating;
+  final double rating;
 
   final String? summary;
 
@@ -66,4 +85,14 @@ enum BookState {
   read,
 }
 
-class BookLabel {}
+class BookLabel {
+  BookLabel({required this.name});
+
+  final String name;
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+}

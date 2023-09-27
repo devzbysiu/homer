@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:homer/core/book/domain/repository/book_repository.dart';
 import 'package:homer/feature/book/widget/books_list.dart';
+import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
 import 'package:homer/feature/navigation/widget/bottom_nav_bar.dart';
 
 import 'core/book/data/repository/book_repository_stub.dart';
@@ -14,7 +16,12 @@ void setupDi() {
 
 void main() {
   setupDi();
-  runApp(const Homer());
+  runApp(
+    BlocProvider(
+      create: (_) => AppTabBloc(),
+      child: const Homer(),
+    ),
+  );
 }
 
 class Homer extends StatelessWidget {

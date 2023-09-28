@@ -1,6 +1,6 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homer/core/utils/bloc_extensions.dart';
 import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
@@ -14,7 +14,7 @@ class SwipeableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _onTab = context.select((AppTabBloc bloc) => bloc.state.currentTab);
+    _onTab = context.currentTab();
     return SwipeableTile.swipeToTriggerCard(
       color: Colors.white,
       shadow: BoxShadow(

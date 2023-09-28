@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:homer/core/book/domain/repository/book_repository.dart';
+import 'package:homer/core/utils/bloc_extensions.dart';
 import 'package:homer/feature/book/widget/books_list.dart';
 import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
 import 'package:homer/feature/navigation/widget/bottom_nav_bar.dart';
@@ -48,11 +49,11 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: BooksList(),
-      bottomNavigationBar: const Padding(
-        padding: EdgeInsets.only(bottom: 10),
-        child: BottomNavBar(),
+      body: Container(
+        color: context.figureOutColor(),
+        child: BooksList(),
       ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

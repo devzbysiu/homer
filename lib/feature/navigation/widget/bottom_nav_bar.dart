@@ -1,6 +1,8 @@
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
+import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homer/core/utils/bloc_extensions.dart';
 import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -13,28 +15,24 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
-    final tab = context.select((AppTabBloc bloc) => bloc.state.currentTab);
-    return DotNavigationBar(
-      margin: const EdgeInsets.only(left: 10, right: 10),
-      currentIndex: AppTab.values.indexOf(tab),
-      dotIndicatorColor: Colors.white,
-      unselectedItemColor: Colors.grey[300],
-      splashBorderRadius: 50,
-      onTap: (idx) => _handleIndexChanged(idx, context),
-      items: [
-        DotNavigationBarItem(
-          icon: const Icon(Icons.bookmark),
-          selectedColor: Colors.green,
+    final backgroundColor = context.figureOutColor();
+    return CurvedNavigationBar(
+      backgroundColor: backgroundColor,
+      items: const [
+        CurvedNavigationBarItem(
+          child: Icon(Icons.bookmark, color: Colors.green),
+          label: 'Read Later',
         ),
-        DotNavigationBarItem(
-          icon: const Icon(Icons.book),
-          selectedColor: Colors.blue,
+        CurvedNavigationBarItem(
+          child: Icon(Icons.book, color: Colors.blue),
+          label: 'Reading',
         ),
-        DotNavigationBarItem(
-          icon: const Icon(Icons.done),
-          selectedColor: Colors.amber,
+        CurvedNavigationBarItem(
+          child: Icon(Icons.done, color: Colors.amber),
+          label: 'Read',
         ),
       ],
+      onTap: (idx) => _handleIndexChanged(idx, context),
     );
   }
 

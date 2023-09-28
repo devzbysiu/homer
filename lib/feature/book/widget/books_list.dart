@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
 import 'package:homer/core/book/domain/repository/book_repository.dart';
+import 'package:homer/core/utils/bloc_extensions.dart';
 import 'package:homer/feature/book/widget/book_card.dart';
 import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
 import 'package:homer/main.dart';
@@ -14,8 +14,7 @@ class BooksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final onTab = context.select((AppTabBloc bloc) => bloc.state.currentTab);
-    final books = _findBooks(onTab);
+    final books = _findBooks(context.currentTab());
     return AlignedGridView.count(
       crossAxisCount: 2,
       mainAxisSpacing: 2,

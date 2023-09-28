@@ -31,6 +31,62 @@ class SwipeableCard extends StatelessWidget {
     );
   }
 
+  void _onSwiped(BuildContext context, SwipeDirection direction) {
+    if (_swipingToRight(direction)) {
+      _showSnackbarOnRightSwipe(context);
+      return;
+    }
+    _showSnackbarOnLeftSwipe(context);
+  }
+
+  bool _swipingToRight(SwipeDirection direction) {
+    return direction == SwipeDirection.startToEnd;
+  }
+
+  void _showSnackbarOnRightSwipe(BuildContext context) {
+    switch (_onTab) {
+      case AppTab.readLater:
+        _showSnackbar(context, 'Book moved to Reading!', Colors.blue);
+        return;
+      case AppTab.reading:
+        _showSnackbar(context, 'Book moved to Read!', Colors.amber);
+        return;
+      case AppTab.read:
+        return;
+    }
+  }
+
+  void _showSnackbar(BuildContext context, String msg, Color color) {
+    final snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+        color: color,
+        title: 'Yay!',
+        message: msg,
+        contentType: ContentType.success,
+      ),
+    );
+
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
+  }
+
+  void _showSnackbarOnLeftSwipe(BuildContext context) {
+    switch (_onTab) {
+      case AppTab.readLater:
+        return;
+      case AppTab.reading:
+        _showSnackbar(context, 'Book moved to Read Later!', Colors.green);
+        return;
+      case AppTab.read:
+        _showSnackbar(context, 'Book moved to Reading!', Colors.blue);
+        return;
+    }
+  }
+
   Widget _animatedBackground(
     BuildContext _,
     SwipeDirection direction,
@@ -40,30 +96,22 @@ class SwipeableCard extends StatelessWidget {
       animation: progress,
       builder: (_, __) {
         if (_swipingToRight(direction)) {
-          switch (_onTab) {
-            case AppTab.readLater:
-              return _animateToReadingRight(progress);
-            case AppTab.reading:
-              return _animateToRead(progress);
-            case AppTab.read:
-              return Container();
-          }
+          return _animateRightSwipe(progress);
         }
-        // swiping to left
-        switch (_onTab) {
-          case AppTab.readLater:
-            return Container();
-          case AppTab.reading:
-            return _animateToForLater(progress);
-          case AppTab.read:
-            return _animateToReadingLeft(progress);
-        }
+        return _animateLeftSwipe(progress);
       },
     );
   }
 
-  bool _swipingToRight(SwipeDirection direction) {
-    return direction == SwipeDirection.startToEnd;
+  Widget _animateRightSwipe(AnimationController progress) {
+    switch (_onTab) {
+      case AppTab.readLater:
+        return _animateToReadingRight(progress);
+      case AppTab.reading:
+        return _animateToRead(progress);
+      case AppTab.read:
+        return Container();
+    }
   }
 
   Widget _animateToReadingRight(AnimationController progress) {
@@ -73,36 +121,6 @@ class SwipeableCard extends StatelessWidget {
       MainAxisAlignment.start,
       const EdgeInsets.only(left: 30),
       Colors.blue,
-    );
-  }
-
-  Widget _animateToReadingLeft(AnimationController progress) {
-    return _animateTo(
-      Icons.book,
-      progress,
-      MainAxisAlignment.end,
-      const EdgeInsets.only(right: 30),
-      Colors.blue,
-    );
-  }
-
-  Widget _animateToForLater(AnimationController progress) {
-    return _animateTo(
-      Icons.bookmark,
-      progress,
-      MainAxisAlignment.end,
-      const EdgeInsets.only(right: 30),
-      Colors.green,
-    );
-  }
-
-  Widget _animateToRead(AnimationController progress) {
-    return _animateTo(
-      Icons.done,
-      progress,
-      MainAxisAlignment.start,
-      const EdgeInsets.only(left: 30),
-      Colors.amber,
     );
   }
 
@@ -128,48 +146,44 @@ class SwipeableCard extends StatelessWidget {
     );
   }
 
-  void _onSwiped(BuildContext context, SwipeDirection direction) {
-    if (_swipingToRight(direction)) {
-      switch (_onTab) {
-        case AppTab.readLater:
-          _showSnackbar(context, 'Book moved to Reading!', Colors.blue);
-          return;
-        case AppTab.reading:
-          _showSnackbar(context, 'Book moved to Read!', Colors.amber);
-          return;
-        case AppTab.read:
-          return;
-      }
-    }
+  Widget _animateToRead(AnimationController progress) {
+    return _animateTo(
+      Icons.done,
+      progress,
+      MainAxisAlignment.start,
+      const EdgeInsets.only(left: 30),
+      Colors.amber,
+    );
+  }
 
-    // swiping left
+  Widget _animateLeftSwipe(AnimationController progress) {
     switch (_onTab) {
       case AppTab.readLater:
-        return;
+        return Container();
       case AppTab.reading:
-        _showSnackbar(context, 'Book moved to Read Later!', Colors.green);
-        return;
+        return _animateToForLater(progress);
       case AppTab.read:
-        _showSnackbar(context, 'Book moved to Reading!', Colors.blue);
-        return;
+        return _animateToReadingLeft(progress);
     }
   }
 
-  void _showSnackbar(BuildContext context, String msg, Color color) {
-    final snackBar = SnackBar(
-      elevation: 0,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.transparent,
-      content: AwesomeSnackbarContent(
-        color: color,
-        title: 'Yay!',
-        message: msg,
-        contentType: ContentType.success,
-      ),
+  Widget _animateToForLater(AnimationController progress) {
+    return _animateTo(
+      Icons.bookmark,
+      progress,
+      MainAxisAlignment.end,
+      const EdgeInsets.only(right: 30),
+      Colors.green,
     );
+  }
 
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(snackBar);
+  Widget _animateToReadingLeft(AnimationController progress) {
+    return _animateTo(
+      Icons.book,
+      progress,
+      MainAxisAlignment.end,
+      const EdgeInsets.only(right: 30),
+      Colors.blue,
+    );
   }
 }

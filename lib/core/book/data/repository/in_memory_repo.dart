@@ -1,20 +1,11 @@
 import 'package:homer/core/book/domain/entity/book_entity.dart';
-import 'package:homer/core/book/domain/repository/book_repository.dart';
+import 'package:homer/core/book/domain/repository/books_repository.dart';
 
-class InMemoryRepo extends BookRepository {
-  final _forLater = [
+class InMemoryRepo extends BooksRepository {
+  final _allBooks = [
     BookEntity.fake(),
     BookEntity.fake(),
     BookEntity.fake(),
-    BookEntity.fake(),
-  ];
-
-  final _reading = [
-    BookEntity.fake(),
-    BookEntity.fake(),
-  ];
-
-  final _read = [
     BookEntity.fake(),
     BookEntity.fake(),
     BookEntity.fake(),
@@ -25,20 +16,14 @@ class InMemoryRepo extends BookRepository {
   ];
 
   @override
-  List<BookEntity> findAllForLater() => _forLater;
+  List<BookEntity> findAll() => _allBooks;
+
+  bool _bookInForLater(BookEntity book) => book.state == BookState.readLater;
+
+  bool _bookInReading(BookEntity book) => book.state == BookState.reading;
+
+  bool _bookInRead(BookEntity book) => book.state == BookState.read;
 
   @override
-  void addForLater(BookEntity book) => _forLater.add(book);
-
-  @override
-  List<BookEntity> findAllReading() => _reading;
-
-  @override
-  void addReading(BookEntity book) => _reading.add(book);
-
-  @override
-  List<BookEntity> findAllRead() => _read;
-
-  @override
-  void addRead(BookEntity book) => _read.add(book);
+  void add(BookEntity book) => _allBooks.add(book);
 }

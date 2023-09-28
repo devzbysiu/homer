@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
-import 'package:homer/core/book/domain/repository/book_repository.dart';
 import 'package:homer/core/utils/bloc_extensions.dart';
+import 'package:homer/feature/book/controller/books_list_controller.dart';
 import 'package:homer/feature/book/widget/book_card.dart';
 import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
 import 'package:homer/main.dart';
 
 class BooksList extends StatelessWidget {
-  BooksList({super.key});
+  BooksList({super.key, BooksListController? controller}) {
+    _controller = controller ?? getIt<BooksListController>();
+  }
 
-  final BookRepository _bookRepo = getIt<BookRepository>();
+  late final BooksListController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +31,11 @@ class BooksList extends StatelessWidget {
   List<BookEntity> _findBooks(AppTab onTab) {
     switch (onTab) {
       case AppTab.readLater:
-        return _bookRepo.findAllForLater();
+        return _controller.getBooks(BookState.readLater);
       case AppTab.reading:
-        return _bookRepo.findAllReading();
+        return _controller.getBooks(BookState.reading);
       case AppTab.read:
-        return _bookRepo.findAllRead();
+        return _controller.getBooks(BookState.read);
     }
   }
 }

@@ -1,16 +1,19 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:homer/core/book/domain/entity/book_entity.dart';
 import 'package:homer/core/utils/bloc_extensions.dart';
 import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
 // ignore: must_be_immutable
 class SwipeableCard extends StatelessWidget {
-  SwipeableCard({super.key, required this.child});
+  SwipeableCard({super.key, required this.child, required this.book});
 
   final Widget child;
 
   late AppTab _onTab;
+
+  final BookEntity book;
 
   @override
   Widget build(BuildContext context) {

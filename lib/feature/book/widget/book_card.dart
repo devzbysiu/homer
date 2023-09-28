@@ -11,6 +11,7 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SwipeableCard(
+      book: book,
       child: TransparentImageCard(
         imageProvider: NetworkImage(
           book.thumbnailAddress ??

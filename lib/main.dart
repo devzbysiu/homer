@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:homer/core/book/domain/repository/book_repository.dart';
+import 'package:homer/core/book/domain/use_case/list_books_use_case.dart';
 import 'package:homer/core/utils/bloc_extensions.dart';
+import 'package:homer/feature/book/controller/books_list_controller.dart';
 import 'package:homer/feature/book/widget/books_list.dart';
 import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
 import 'package:homer/feature/navigation/widget/bottom_nav_bar.dart';
@@ -12,7 +13,9 @@ import 'core/book/data/repository/in_memory_repo.dart';
 final getIt = GetIt.instance;
 
 void setupDi() {
-  getIt.registerSingleton<BookRepository>(InMemoryRepo());
+  getIt.registerSingleton<BooksListController>(BooksListController(
+    useCase: ListBooksUseCase(repo: InMemoryRepo()),
+  ));
 }
 
 void main() {

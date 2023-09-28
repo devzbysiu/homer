@@ -30,7 +30,7 @@ class BookCard extends StatelessWidget {
 }
 
 class _BookTitle extends StatelessWidget {
-  const _BookTitle({super.key, required this.title});
+  const _BookTitle({required this.title});
 
   final String title;
 
@@ -51,7 +51,7 @@ class _BookTitle extends StatelessWidget {
 }
 
 class _BookAuthor extends StatelessWidget {
-  const _BookAuthor({super.key, required this.authorName});
+  const _BookAuthor({required this.authorName});
 
   final String authorName;
 
@@ -67,7 +67,7 @@ class _BookAuthor extends StatelessWidget {
 }
 
 class _BookCardFooter extends StatelessWidget {
-  const _BookCardFooter({super.key, required this.book});
+  const _BookCardFooter({required this.book});
 
   final BookEntity book;
 
@@ -111,7 +111,7 @@ class _BookCardFooter extends StatelessWidget {
 }
 
 class _Label extends StatelessWidget {
-  const _Label({super.key, required this.label});
+  const _Label({required this.label});
 
   final BookLabel label;
 

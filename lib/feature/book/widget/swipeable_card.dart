@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
+// ignore: must_be_immutable
 class SwipeableCard extends StatelessWidget {
   SwipeableCard({super.key, required this.child});
 

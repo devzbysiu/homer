@@ -42,5 +42,3 @@ class _BottomNavBarState extends State<BottomNavBar> {
     context.read<AppTabBloc>().add(TabChanged(AppTab.values[i]));
   }
 }
-
-enum _SelectedTab { home, favorite, search, person }

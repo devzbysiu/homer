@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
+import 'package:homer/core/book/domain/entity/book_entity.dart';
+import 'package:homer/core/book/domain/use_case/app_tab/app_tab_bloc.dart';
+import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
 
 extension ContextColorExt on BuildContext {
   Color figureOutColor() {
@@ -17,5 +19,16 @@ extension ContextColorExt on BuildContext {
   AppTab currentTab() {
     return select((AppTabBloc bloc) => bloc.state.currentTab);
   }
+
+  List<BookEntity> booksOfCurrentTab() {
+    return select(_books).where((b) => _belongsToCurrentTab(b)).toList();
+  }
+
+  bool _belongsToCurrentTab(BookEntity book) {
+    return book.state.name == currentTab().name;
+  }
 }
 
+List<BookEntity> _books(BooksBloc bloc) {
+  return bloc.state.books;
+}

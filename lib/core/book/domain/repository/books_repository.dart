@@ -4,4 +4,6 @@ abstract class BooksRepository {
   List<BookEntity> findAll();
 
   void add(BookEntity book);
+
+  void swap(BookEntity book, BookEntity withCopy);
 }

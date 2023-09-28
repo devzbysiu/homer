@@ -18,12 +18,12 @@ class InMemoryRepo extends BooksRepository {
   @override
   List<BookEntity> findAll() => _allBooks;
 
-  bool _bookInForLater(BookEntity book) => book.state == BookState.readLater;
-
-  bool _bookInReading(BookEntity book) => book.state == BookState.reading;
-
-  bool _bookInRead(BookEntity book) => book.state == BookState.read;
-
   @override
   void add(BookEntity book) => _allBooks.add(book);
+
+  @override
+  void swap(BookEntity book, BookEntity withCopy) {
+    _allBooks.remove(book);
+    _allBooks.add(withCopy);
+  }
 }

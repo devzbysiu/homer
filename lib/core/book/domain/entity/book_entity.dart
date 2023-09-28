@@ -1,4 +1,5 @@
 import 'package:faker/faker.dart';
+import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
 
 var faker = Faker();
 
@@ -77,6 +78,23 @@ class BookEntity {
   final String? summary;
 
   final List<BookLabel> labels;
+
+  BookEntity copyWith({BookState? state}) {
+    return BookEntity(
+      title: title,
+      subtitle: subtitle,
+      author: author,
+      state: state ?? this.state,
+      pageCount: pageCount,
+      isbn: isbn,
+      thumbnailAddress: thumbnailAddress,
+      startDate: startDate,
+      endDate: endDate,
+      rating: rating,
+      summary: summary,
+      labels: labels,
+    );
+  }
 }
 
 enum BookState {

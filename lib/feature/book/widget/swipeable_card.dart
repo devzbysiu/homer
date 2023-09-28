@@ -1,8 +1,10 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
+import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
 import 'package:homer/core/utils/bloc_extensions.dart';
-import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
+import 'package:homer/core/book/domain/use_case/app_tab/app_tab_bloc.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
 // ignore: must_be_immutable
@@ -38,6 +40,7 @@ class SwipeableCard extends StatelessWidget {
   void _onSwiped(BuildContext context, SwipeDirection direction) {
     if (_swipingToRight(direction)) {
       _showSnackbarOnRightSwipe(context);
+      context.read<BooksBloc>().add(BookSwipedRight(book, from: AppTab.readLater));
       return;
     }
     _showSnackbarOnLeftSwipe(context);

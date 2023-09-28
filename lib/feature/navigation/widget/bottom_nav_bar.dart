@@ -3,7 +3,7 @@ import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homer/core/utils/bloc_extensions.dart';
-import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
+import 'package:homer/core/book/domain/use_case/app_tab/app_tab_bloc.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});

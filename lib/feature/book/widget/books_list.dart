@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:homer/core/book/domain/entity/book_entity.dart';
 import 'package:homer/core/book/domain/repository/book_repository.dart';
 import 'package:homer/feature/book/widget/book_card.dart';
+import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
 import 'package:homer/main.dart';
 
 class BooksList extends StatelessWidget {
@@ -11,7 +14,8 @@ class BooksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final books = _bookRepo.findAll();
+    final onTab = context.select((AppTabBloc bloc) => bloc.state.currentTab);
+    final books = _findBooks(onTab);
     return AlignedGridView.count(
       crossAxisCount: 2,
       mainAxisSpacing: 2,
@@ -21,5 +25,16 @@ class BooksList extends StatelessWidget {
         return BookCard(book: books[index]);
       },
     );
+  }
+
+  List<BookEntity> _findBooks(AppTab onTab) {
+    switch (onTab) {
+      case AppTab.readLater:
+        return _bookRepo.findAllForLater();
+      case AppTab.reading:
+        return _bookRepo.findAllReading();
+      case AppTab.read:
+        return _bookRepo.findAllRead();
+    }
   }
 }

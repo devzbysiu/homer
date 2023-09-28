@@ -6,12 +6,12 @@ import 'package:homer/feature/book/widget/books_list.dart';
 import 'package:homer/feature/navigation/bloc/app_tab_bloc.dart';
 import 'package:homer/feature/navigation/widget/bottom_nav_bar.dart';
 
-import 'core/book/data/repository/book_repository_stub.dart';
+import 'core/book/data/repository/in_memory_repo.dart';
 
 final getIt = GetIt.instance;
 
 void setupDi() {
-  getIt.registerSingleton<BookRepository>(BookRepositoryStub());
+  getIt.registerSingleton<BookRepository>(InMemoryRepo());
 }
 
 void main() {

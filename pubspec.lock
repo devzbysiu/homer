@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.3"
+  banner_listtile:
+    dependency: "direct main"
+    description:
+      name: banner_listtile
+      sha256: "8a8b9f6712a51147cf0eb9b57c58233b5154e5d88b672df83bc23a4479701757"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.0"
   bloc:
     dependency: transitive
     description:

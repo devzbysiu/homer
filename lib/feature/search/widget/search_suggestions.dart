@@ -24,7 +24,7 @@ class SearchSuggestions extends StatelessWidget {
   }
 
   List<Widget> _searchSuggestions(BuildContext context) {
-    return context.searchedBooks().map((book) {
+    return context.foundBooks().map((book) {
       return SearchSuggestion(book: book, controller: controller);
     }).toList();
   }

@@ -15,8 +15,16 @@ class InMemoryRepo extends BooksRepository {
     BookEntity.fake(),
   ];
 
+  final _foundBooks = [
+    BookEntity.fake(),
+    BookEntity.fake(),
+    BookEntity.fake(),
+    BookEntity.fake(),
+    BookEntity.fake(),
+  ];
+
   @override
-  List<BookEntity> findAll() => List.of(_allBooks);
+  List<BookEntity> listAll() => List.of(_allBooks);
 
   @override
   void add(BookEntity book) => _allBooks.add(book);
@@ -26,4 +34,7 @@ class InMemoryRepo extends BooksRepository {
     _allBooks.remove(book);
     _allBooks.add(withCopy);
   }
+
+  @override
+  List<BookEntity> search(String query) => List.of(_foundBooks);
 }

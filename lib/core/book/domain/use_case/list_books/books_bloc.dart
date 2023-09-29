@@ -10,7 +10,7 @@ part 'books_event.dart';
 part 'books_state.dart';
 
 class BooksBloc extends Bloc<BooksEvent, BooksState> {
-  BooksBloc(this.booksRepo) : super(BooksState(booksRepo.findAll())) {
+  BooksBloc(this.booksRepo) : super(BooksState(booksRepo.listAll())) {
     on<BookAdded>(_onBookAdded);
     on<BookSwipedRight>(_onBookSwipedRight);
     on<BookSwipedLeft>(_onBookSwipedLeft);
@@ -18,7 +18,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
 
   FutureOr<void> _onBookAdded(BookAdded event, Emitter<BooksState> emit) {
     booksRepo.add(event.book);
-    emit(BooksState(booksRepo.findAll()));
+    emit(BooksState(booksRepo.listAll()));
   }
 
   FutureOr<void> _onBookSwipedRight(
@@ -26,7 +26,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) {
     booksRepo.swap(event.book, event.book.moveRight());
-    emit(BooksState(booksRepo.findAll()));
+    emit(BooksState(booksRepo.listAll()));
   }
 
   FutureOr<void> _onBookSwipedLeft(
@@ -35,7 +35,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
   ) {
     final book = event.book;
     booksRepo.swap(book, book.moveLeft());
-    emit(BooksState(booksRepo.findAll()));
+    emit(BooksState(booksRepo.listAll()));
   }
 
   final BooksRepository booksRepo;

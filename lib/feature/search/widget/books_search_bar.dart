@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:homer/core/book/domain/use_case/search_for_books/search_for_books_bloc.dart';
+import 'package:homer/core/utils/extensions.dart';
 import 'package:homer/feature/navigation/widget/bottom_sheet_content.dart';
 import 'package:homer/feature/search/widget/search_suggestions.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
@@ -22,11 +24,15 @@ class BooksSearchBar extends StatelessWidget {
       axisAlignment: 0.0,
       openAxisAlignment: 0.0,
       debounceDelay: const Duration(milliseconds: 500),
-      onQueryChanged: (query) {},
+      onQueryChanged: (query) => _onQueryChanged(context, query),
       transition: CircularFloatingSearchBarTransition(),
       actions: _actions(),
       builder: _suggestionsBuilder,
     );
+  }
+
+  void _onQueryChanged(BuildContext context, String query) {
+    context.emitSearchForBooksEvt(SearchInitiated(query));
   }
 
   List<Widget> _actions() {

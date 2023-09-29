@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
 import 'package:homer/feature/book/widget/swipeable_card.dart';
@@ -13,9 +14,9 @@ class BookCard extends StatelessWidget {
     return SwipeableCard(
       book: book,
       child: TransparentImageCard(
-        imageProvider: NetworkImage(
-          book.thumbnailAddress ??
-              'https://covers.openlibrary.org/b/isbn/9780385533225-M.jpg',
+        imageProvider: CachedNetworkImageProvider(
+            book.thumbnailAddress ??
+                'https://covers.openlibrary.org/b/isbn/9780385533225-M.jpg',
         ),
         tags: _labels(),
         title: _BookTitle(title: book.title),

@@ -1,7 +1,8 @@
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homer/core/book/domain/entity/book_entity.dart';
+import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
 import 'package:homer/core/utils/extensions.dart';
 import 'package:homer/core/book/domain/use_case/app_tab/app_tab_bloc.dart';
 
@@ -13,26 +14,41 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
+  final _bottomBarController = BottomBarWithSheetController(initialIndex: 0);
+
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = context.figureOutColor();
-    return CurvedNavigationBar(
-      backgroundColor: backgroundColor,
+    return BottomBarWithSheet(
+      controller: _bottomBarController,
+      bottomBarTheme: BottomBarTheme(
+        heightOpened: 600,
+        mainButtonPosition: MainButtonPosition.right,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(topRight: Radius.circular(45)),
+        ),
+        itemIconColor: Colors.grey,
+        itemTextStyle: const TextStyle(
+          color: Colors.grey,
+          fontSize: 15.0,
+        ),
+        selectedItemTextStyle: TextStyle(
+          color: context.figureOutColor(),
+          fontSize: 15.0,
+        ),
+      ),
+      onSelectItem: (idx) => _handleIndexChanged(idx, context),
+      sheetChild: Center(
+        child: ElevatedButton(onPressed: () {
+          context.emitBooksEvt(BookAdded(BookEntity.fake()));
+        }, child: const Text('Ok'),
+        ),
+      ),
       items: const [
-        CurvedNavigationBarItem(
-          child: Icon(Icons.bookmark, color: Colors.green),
-          label: 'Read Later',
-        ),
-        CurvedNavigationBarItem(
-          child: Icon(Icons.book, color: Colors.blue),
-          label: 'Reading',
-        ),
-        CurvedNavigationBarItem(
-          child: Icon(Icons.done, color: Colors.amber),
-          label: 'Read',
-        ),
+        BottomBarWithSheetItem(label: 'For Later', icon: Icons.bookmark),
+        BottomBarWithSheetItem(label: 'Reading', icon: Icons.book),
+        BottomBarWithSheetItem(label: 'Read', icon: Icons.done),
       ],
-      onTap: (idx) => _handleIndexChanged(idx, context),
     );
   }
 

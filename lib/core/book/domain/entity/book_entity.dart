@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:faker/faker.dart';
-import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
 
 var faker = Faker();
 
@@ -97,6 +96,14 @@ class BookEntity extends Equatable {
     );
   }
 
+  BookEntity moveRight() {
+    return copyWith(state: state.moveRight());
+  }
+
+  BookEntity moveLeft() {
+    return copyWith(state: state.moveLeft());
+  }
+
   @override
   List<Object?> get props => [
         title,
@@ -120,13 +127,38 @@ enum BookState {
   read,
 }
 
+extension StateChangeExt on BookState {
+  BookState moveRight() {
+    switch (this) {
+      case BookState.readLater:
+        return BookState.reading;
+      case BookState.reading:
+        return BookState.read;
+      case BookState.read:
+        return this;
+    }
+  }
+
+  BookState moveLeft() {
+    switch (this) {
+      case BookState.readLater:
+        return this;
+      case BookState.reading:
+        return BookState.readLater;
+      case BookState.read:
+        return BookState.reading;
+    }
+  }
+
+}
+
 class BookLabel {
   BookLabel({required this.name});
 
   final String name;
 }
 
-extension StringExtension on String {
+extension _StringExt on String {
   String capitalize() {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }

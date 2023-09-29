@@ -2,7 +2,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
 import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
-import 'package:homer/core/utils/bloc_extensions.dart';
+import 'package:homer/core/utils/extensions.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
 // ignore: must_be_immutable
@@ -102,34 +102,59 @@ class SwipeableCard extends StatelessWidget {
     }
   }
 
-  Widget _animatedBackground(
-    BuildContext _,
-    SwipeDirection direction,
-    AnimationController progress,
-  ) {
+  Widget _animatedBackground(BuildContext _,
+      SwipeDirection direction,
+      AnimationController progress,) {
+    return _AnimatedBackground(
+      progress: progress,
+      direction: direction,
+      currentState: book.state,
+    );
+  }
+}
+
+class _AnimatedBackground extends StatelessWidget {
+  const _AnimatedBackground({
+    required this.progress,
+    required this.direction,
+    required this.currentState,
+  });
+
+  final AnimationController progress;
+
+  final SwipeDirection direction;
+
+  final BookState currentState;
+
+  @override
+  Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: progress,
       builder: (_, __) {
-        if (_swipingToRight(direction)) {
-          return _animateRightSwipe(progress);
+        if (_swipingToRight()) {
+          return _animateRightSwipe();
         }
-        return _animateLeftSwipe(progress);
+        return _animateLeftSwipe();
       },
     );
   }
 
-  Widget _animateRightSwipe(AnimationController progress) {
-    switch (book.state) {
+  bool _swipingToRight() {
+    return direction == SwipeDirection.startToEnd;
+  }
+
+  Widget _animateRightSwipe() {
+    switch (currentState) {
       case BookState.readLater:
-        return _animateToReadingRight(progress);
+        return _animateToReadingRight();
       case BookState.reading:
-        return _animateToRead(progress);
+        return _animateToRead();
       case BookState.read:
         return Container();
     }
   }
 
-  Widget _animateToReadingRight(AnimationController progress) {
+  Widget _animateToReadingRight() {
     return _animateTo(
       Icons.book,
       progress,
@@ -161,7 +186,7 @@ class SwipeableCard extends StatelessWidget {
     );
   }
 
-  Widget _animateToRead(AnimationController progress) {
+  Widget _animateToRead() {
     return _animateTo(
       Icons.done,
       progress,
@@ -171,18 +196,18 @@ class SwipeableCard extends StatelessWidget {
     );
   }
 
-  Widget _animateLeftSwipe(AnimationController progress) {
-    switch (book.state) {
+  Widget _animateLeftSwipe() {
+    switch (currentState) {
       case BookState.readLater:
         return Container();
       case BookState.reading:
-        return _animateToForLater(progress);
+        return _animateToForLater();
       case BookState.read:
-        return _animateToReadingLeft(progress);
+        return _animateToReadingLeft();
     }
   }
 
-  Widget _animateToForLater(AnimationController progress) {
+  Widget _animateToForLater() {
     return _animateTo(
       Icons.bookmark,
       progress,
@@ -192,7 +217,7 @@ class SwipeableCard extends StatelessWidget {
     );
   }
 
-  Widget _animateToReadingLeft(AnimationController progress) {
+  Widget _animateToReadingLeft() {
     return _animateTo(
       Icons.book,
       progress,

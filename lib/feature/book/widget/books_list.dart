@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:homer/core/utils/bloc_extensions.dart';
+import 'package:homer/core/utils/extensions.dart';
 import 'package:homer/feature/book/widget/book_card.dart';
 
 class BooksList extends StatelessWidget {

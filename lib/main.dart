@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:homer/core/book/data/repository/in_memory_repo.dart';
 import 'package:homer/core/book/domain/use_case/app_tab/app_tab_bloc.dart';
 import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
-import 'package:homer/core/utils/bloc_extensions.dart';
+import 'package:homer/core/utils/extensions.dart';
 import 'package:homer/feature/book/widget/books_list.dart';
 import 'package:homer/feature/navigation/widget/bottom_nav_bar.dart';
 

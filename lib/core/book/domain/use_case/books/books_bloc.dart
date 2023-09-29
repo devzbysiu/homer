@@ -25,8 +25,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
     BookSwipedRight event,
     Emitter<BooksState> emit,
   ) {
-    final book = event.book;
-    booksRepo.swap(book, book.moveRight());
+    booksRepo.swap(event.book, event.book.moveRight());
     emit(BooksState(booksRepo.findAll()));
   }
 

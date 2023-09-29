@@ -10,9 +10,13 @@ class BookAdded extends BooksEvent {
 }
 
 class BookSwipedRight extends BooksEvent {
-  BookSwipedRight(this.book, {required this.from});
+  BookSwipedRight(this.book);
 
   final BookEntity book;
+}
 
-  final AppTab from;
+class BookSwipedLeft extends BooksEvent {
+  BookSwipedLeft(this.book);
+
+  final BookEntity book;
 }

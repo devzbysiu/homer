@@ -1,25 +1,20 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
 import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
 import 'package:homer/core/utils/bloc_extensions.dart';
-import 'package:homer/core/book/domain/use_case/app_tab/app_tab_bloc.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
 // ignore: must_be_immutable
 class SwipeableCard extends StatelessWidget {
-  SwipeableCard({super.key, required this.child, required this.book});
+  const SwipeableCard({super.key, required this.child, required this.book});
 
   final Widget child;
-
-  late AppTab _onTab;
 
   final BookEntity book;
 
   @override
   Widget build(BuildContext context) {
-    _onTab = context.currentTab();
     return SwipeableTile.swipeToTriggerCard(
       color: Colors.white,
       shadow: BoxShadow(
@@ -38,27 +33,40 @@ class SwipeableCard extends StatelessWidget {
   }
 
   void _onSwiped(BuildContext context, SwipeDirection direction) {
-    if (_swipingToRight(direction)) {
+    if (_swipingToRight(direction) && _canSwipeRight()) {
       _showSnackbarOnRightSwipe(context);
-      context.read<BooksBloc>().add(BookSwipedRight(book, from: AppTab.readLater));
-      return;
+      context.emitBooksEvt(BookSwipedRight(book));
+    } else if (_swipingToLeft(direction) && _canSwipeLeft()) {
+      _showSnackbarOnLeftSwipe(context);
+      context.emitBooksEvt(BookSwipedLeft(book));
     }
-    _showSnackbarOnLeftSwipe(context);
   }
 
   bool _swipingToRight(SwipeDirection direction) {
     return direction == SwipeDirection.startToEnd;
   }
 
+  bool _swipingToLeft(SwipeDirection direction) {
+    return direction == SwipeDirection.endToStart;
+  }
+
+  bool _canSwipeRight() {
+    return book.state != BookState.read;
+  }
+
+  bool _canSwipeLeft() {
+    return book.state != BookState.readLater;
+  }
+
   void _showSnackbarOnRightSwipe(BuildContext context) {
-    switch (_onTab) {
-      case AppTab.readLater:
+    switch (book.state) {
+      case BookState.readLater:
         _showSnackbar(context, 'Book moved to Reading!', Colors.blue);
         return;
-      case AppTab.reading:
+      case BookState.reading:
         _showSnackbar(context, 'Book moved to Read!', Colors.amber);
         return;
-      case AppTab.read:
+      case BookState.read:
         return;
     }
   }
@@ -82,13 +90,13 @@ class SwipeableCard extends StatelessWidget {
   }
 
   void _showSnackbarOnLeftSwipe(BuildContext context) {
-    switch (_onTab) {
-      case AppTab.readLater:
+    switch (book.state) {
+      case BookState.readLater:
         return;
-      case AppTab.reading:
+      case BookState.reading:
         _showSnackbar(context, 'Book moved to Read Later!', Colors.green);
         return;
-      case AppTab.read:
+      case BookState.read:
         _showSnackbar(context, 'Book moved to Reading!', Colors.blue);
         return;
     }
@@ -111,12 +119,12 @@ class SwipeableCard extends StatelessWidget {
   }
 
   Widget _animateRightSwipe(AnimationController progress) {
-    switch (_onTab) {
-      case AppTab.readLater:
+    switch (book.state) {
+      case BookState.readLater:
         return _animateToReadingRight(progress);
-      case AppTab.reading:
+      case BookState.reading:
         return _animateToRead(progress);
-      case AppTab.read:
+      case BookState.read:
         return Container();
     }
   }
@@ -164,12 +172,12 @@ class SwipeableCard extends StatelessWidget {
   }
 
   Widget _animateLeftSwipe(AnimationController progress) {
-    switch (_onTab) {
-      case AppTab.readLater:
+    switch (book.state) {
+      case BookState.readLater:
         return Container();
-      case AppTab.reading:
+      case BookState.reading:
         return _animateToForLater(progress);
-      case AppTab.read:
+      case BookState.read:
         return _animateToReadingLeft(progress);
     }
   }

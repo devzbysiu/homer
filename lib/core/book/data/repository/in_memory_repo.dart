@@ -16,7 +16,7 @@ class InMemoryRepo extends BooksRepository {
   ];
 
   @override
-  List<BookEntity> findAll() => _allBooks;
+  List<BookEntity> findAll() => List.of(_allBooks);
 
   @override
   void add(BookEntity book) => _allBooks.add(book);

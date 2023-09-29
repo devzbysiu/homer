@@ -15,7 +15,9 @@ extension ContextColorExt on BuildContext {
         return Colors.amber;
     }
   }
+}
 
+extension BlocExt on BuildContext {
   AppTab currentTab() {
     return select((AppTabBloc bloc) => bloc.state.currentTab);
   }
@@ -26,6 +28,10 @@ extension ContextColorExt on BuildContext {
 
   bool _belongsToCurrentTab(BookEntity book) {
     return book.state.name == currentTab().name;
+  }
+
+  void emitBooksEvt(BooksEvent event) {
+    read<BooksBloc>().add(event);
   }
 }
 

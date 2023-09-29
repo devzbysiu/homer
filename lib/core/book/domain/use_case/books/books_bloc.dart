@@ -15,6 +15,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
   BooksBloc(this.booksRepo) : super(BooksState(booksRepo.findAll())) {
     on<BookAdded>(_onBookAdded);
     on<BookSwipedRight>(_onBookSwipedRight);
+    on<BookSwipedLeft>(_onBookSwipedLeft);
   }
 
   FutureOr<void> _onBookAdded(BookAdded event, Emitter<BooksState> emit) {
@@ -29,27 +30,38 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) {
     final book = event.book;
-    final from = event.from;
     booksRepo.swap(
       book,
-      book.copyWith(state: _determineNewState(Direction.right, from)),
+      book.copyWith(state: _determineNewState(Direction.right, book.state)),
     );
     emit(BooksState(booksRepo.findAll()));
   }
 
-  BookState _determineNewState(Direction direction, AppTab from) {
+  BookState _determineNewState(Direction direction, BookState from) {
     switch (direction) {
       case Direction.right:
-        if (from == AppTab.readLater) {
+        if (from == BookState.readLater) {
           return BookState.reading;
         }
         return BookState.read;
       case Direction.left:
-        if (from == AppTab.read) {
+        if (from == BookState.read) {
           return BookState.reading;
         }
         return BookState.readLater;
     }
+  }
+
+  FutureOr<void> _onBookSwipedLeft(
+    BookSwipedLeft event,
+    Emitter<BooksState> emit,
+  ) {
+    final book = event.book;
+    booksRepo.swap(
+      book,
+      book.copyWith(state: _determineNewState(Direction.left, book.state)),
+    );
+    emit(BooksState(booksRepo.findAll()));
   }
 }
 

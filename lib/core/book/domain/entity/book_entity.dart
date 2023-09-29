@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:faker/faker.dart';
 import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
 
@@ -15,7 +16,7 @@ const someIsbns = [
   '0679887008',
 ];
 
-class BookEntity {
+class BookEntity extends Equatable {
   const BookEntity({
     required this.title,
     required this.subtitle,
@@ -95,6 +96,22 @@ class BookEntity {
       labels: labels,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        title,
+        subtitle,
+        author,
+        state,
+        pageCount,
+        isbn,
+        thumbnailAddress,
+        startDate,
+        endDate,
+        rating,
+        summary,
+        labels,
+      ];
 }
 
 enum BookState {

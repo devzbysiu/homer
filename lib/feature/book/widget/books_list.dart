@@ -9,6 +9,9 @@ class BooksList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final books = context.booksOfCurrentTab();
+    if (books.isEmpty) {
+      return Container();
+    }
     return AlignedGridView.count(
       crossAxisCount: 2,
       mainAxisSpacing: 2,

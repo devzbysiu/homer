@@ -4,24 +4,25 @@ import 'package:homer/feature/search/widget/search_suggestions.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 class BooksSearchBar extends StatelessWidget {
-  const BooksSearchBar({super.key});
+  BooksSearchBar({super.key});
+
+  final FloatingSearchBarController _controller = FloatingSearchBarController();
 
   @override
   Widget build(BuildContext context) {
     return FloatingSearchBar(
+      controller: _controller,
       body: const BottomSheetContent(),
       backdropColor: Colors.white,
       hint: 'Search...',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-      transitionDuration: const Duration(milliseconds: 800),
+      transitionDuration: const Duration(milliseconds: 400),
       transitionCurve: Curves.easeInOut,
       physics: const BouncingScrollPhysics(),
       axisAlignment: 0.0,
       openAxisAlignment: 0.0,
       debounceDelay: const Duration(milliseconds: 500),
-      onQueryChanged: (query) {
-        // Call your model, bloc, controller here.
-      },
+      onQueryChanged: (query) {},
       transition: CircularFloatingSearchBarTransition(),
       actions: _actions(),
       builder: _suggestionsBuilder,
@@ -44,6 +45,6 @@ class BooksSearchBar extends StatelessWidget {
   }
 
   Widget _suggestionsBuilder(_, __) {
-    return const SearchSuggestions();
+    return SearchSuggestions(controller: _controller);
   }
 }

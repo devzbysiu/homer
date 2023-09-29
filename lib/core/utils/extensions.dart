@@ -42,6 +42,15 @@ extension BlocExt on BuildContext {
   void emitSuggestedBookEvt(SuggestedBookEvent event) {
     read<SuggestedBookBloc>().add(event);
   }
+
+  List<BookEntity> searchedBooks() {
+    return [
+      BookEntity.fake(),
+      BookEntity.fake(),
+      BookEntity.fake(),
+      BookEntity.fake(),
+    ];
+  }
 }
 
 List<BookEntity> _books(BooksBloc bloc) {

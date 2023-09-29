@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/core/book/domain/entity/book_entity.dart';
-import 'package:homer/core/book/domain/use_case/display_suggested_book/suggested_book_bloc.dart';
 import 'package:homer/core/utils/extensions.dart';
+import 'package:homer/feature/search/widget/search_suggestion.dart';
+import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 class SearchSuggestions extends StatelessWidget {
-  const SearchSuggestions({super.key});
+  const SearchSuggestions({super.key, required this.controller});
+
+  final FloatingSearchBarController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +17,15 @@ class SearchSuggestions extends StatelessWidget {
         elevation: 4.0,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: Colors.accents.take(3).map((color) {
-            return GestureDetector(
-              onTap: () {
-                context.emitSuggestedBookEvt(
-                  SuggestedBookPicked(BookEntity.fake()),
-                );
-              },
-              child: Container(
-                height: 112,
-                color: color,
-              ),
-            );
-          }).toList(),
+          children: _searchSuggestions(context),
         ),
       ),
     );
+  }
+
+  List<Widget> _searchSuggestions(BuildContext context) {
+    return context.searchedBooks().map((book) {
+      return SearchSuggestion(book: book, controller: controller);
+    }).toList();
   }
 }

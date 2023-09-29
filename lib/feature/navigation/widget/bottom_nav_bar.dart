@@ -21,7 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       controller: _bottomBarController,
       bottomBarTheme: _bottomBarTheme(context),
       onSelectItem: (idx) => _handleIndexChanged(idx, context),
-      sheetChild: const BooksSearchBar(),
+      sheetChild: BooksSearchBar(),
       items: const [
         BottomBarWithSheetItem(label: 'For Later', icon: Icons.bookmark),
         BottomBarWithSheetItem(label: 'Reading', icon: Icons.book),

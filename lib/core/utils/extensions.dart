@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
-import 'package:homer/core/book/domain/use_case/app_tab/app_tab_bloc.dart';
-import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
+import 'package:homer/core/book/domain/use_case/change_active_tab/app_tab_bloc.dart';
+import 'package:homer/core/book/domain/use_case/display_suggested_book/suggested_book_bloc.dart';
+import 'package:homer/core/book/domain/use_case/list_books/books_bloc.dart';
 
 extension ContextColorExt on BuildContext {
   Color figureOutColor() {
@@ -32,6 +33,14 @@ extension BlocExt on BuildContext {
 
   void emitBooksEvt(BooksEvent event) {
     read<BooksBloc>().add(event);
+  }
+
+  BookEntity? pickedSuggestedBook() {
+    return select((SuggestedBookBloc bloc) => bloc.state.pickedBook);
+  }
+
+  void emitSuggestedBookEvt(SuggestedBookEvent event) {
+    read<SuggestedBookBloc>().add(event);
   }
 }
 

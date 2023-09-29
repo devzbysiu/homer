@@ -1,10 +1,9 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/core/book/domain/entity/book_entity.dart';
-import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
+import 'package:homer/core/book/domain/use_case/change_active_tab/app_tab_bloc.dart';
 import 'package:homer/core/utils/extensions.dart';
-import 'package:homer/core/book/domain/use_case/app_tab/app_tab_bloc.dart';
+import 'package:homer/feature/search/widget/books_search_bar.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -20,35 +19,34 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return BottomBarWithSheet(
       controller: _bottomBarController,
-      bottomBarTheme: BottomBarTheme(
-        heightOpened: 600,
-        mainButtonPosition: MainButtonPosition.right,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(topRight: Radius.circular(45)),
-        ),
-        itemIconColor: Colors.grey,
-        itemTextStyle: const TextStyle(
-          color: Colors.grey,
-          fontSize: 15.0,
-        ),
-        selectedItemTextStyle: TextStyle(
-          color: context.figureOutColor(),
-          fontSize: 15.0,
-        ),
-      ),
+      bottomBarTheme: _bottomBarTheme(context),
       onSelectItem: (idx) => _handleIndexChanged(idx, context),
-      sheetChild: Center(
-        child: ElevatedButton(onPressed: () {
-          context.emitBooksEvt(BookAdded(BookEntity.fake()));
-        }, child: const Text('Ok'),
-        ),
-      ),
+      sheetChild: const BooksSearchBar(),
       items: const [
         BottomBarWithSheetItem(label: 'For Later', icon: Icons.bookmark),
         BottomBarWithSheetItem(label: 'Reading', icon: Icons.book),
         BottomBarWithSheetItem(label: 'Read', icon: Icons.done),
       ],
+    );
+  }
+
+  BottomBarTheme _bottomBarTheme(BuildContext context) {
+    return BottomBarTheme(
+      heightOpened: 600,
+      mainButtonPosition: MainButtonPosition.right,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(topRight: Radius.circular(45)),
+      ),
+      itemIconColor: Colors.grey,
+      itemTextStyle: const TextStyle(
+        color: Colors.grey,
+        fontSize: 15.0,
+      ),
+      selectedItemTextStyle: TextStyle(
+        color: context.figureOutColor(),
+        fontSize: 15.0,
+      ),
     );
   }
 

@@ -1,7 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
-import 'package:homer/core/book/domain/use_case/books/books_bloc.dart';
+import 'package:homer/core/book/domain/use_case/list_books/books_bloc.dart';
 import 'package:homer/core/utils/extensions.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 

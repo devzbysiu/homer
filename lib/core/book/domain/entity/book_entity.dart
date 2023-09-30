@@ -79,20 +79,33 @@ class BookEntity extends Equatable {
 
   final List<BookLabel> labels;
 
-  BookEntity copyWith({BookState? state}) {
+  BookEntity copyWith({
+    String? title,
+    String? subtitle,
+    String? author,
+    BookState? state,
+    int? pageCount,
+    String? isbn,
+    String? thumbnailAddress,
+    int? startDate,
+    int? endDate,
+    double? rating,
+    String? summary,
+    List<BookLabel>? labels,
+  }) {
     return BookEntity(
-      title: title,
-      subtitle: subtitle,
-      author: author,
+      title: title ?? this.title,
+      subtitle: subtitle ?? this.subtitle,
+      author: author ?? this.author,
       state: state ?? this.state,
-      pageCount: pageCount,
-      isbn: isbn,
-      thumbnailAddress: thumbnailAddress,
-      startDate: startDate,
-      endDate: endDate,
-      rating: rating,
-      summary: summary,
-      labels: labels,
+      pageCount: pageCount ?? this.pageCount,
+      isbn: isbn ?? this.isbn,
+      thumbnailAddress: thumbnailAddress ?? this.thumbnailAddress,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      rating: rating ?? this.rating,
+      summary: summary ?? this.summary,
+      labels: labels ?? this.labels,
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:homer/core/book/domain/use_case/search_for_books/search_for_books_bloc.dart';
 import 'package:homer/core/utils/extensions.dart';
@@ -5,11 +6,11 @@ import 'package:homer/feature/navigation/widget/bottom_sheet_content.dart';
 import 'package:homer/feature/search/widget/search_suggestions.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
-class BooksSearchBar extends StatelessWidget {
-  BooksSearchBar({super.key});
+class BookSearchArea extends StatelessWidget {
+  BookSearchArea({super.key});
 
   final FloatingSearchBarController _controller = FloatingSearchBarController();
-
+  
   @override
   Widget build(BuildContext context) {
     return FloatingSearchBar(

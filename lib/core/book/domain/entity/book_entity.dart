@@ -149,7 +149,6 @@ extension StateChangeExt on BookState {
         return BookState.reading;
     }
   }
-
 }
 
 class BookLabel {

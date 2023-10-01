@@ -18,11 +18,17 @@ void setupDi() {
 void main() {
   setupDi();
   final booksRepo = InMemoryRepo();
+  final eventBus = getIt<EventBus>();
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (_) => AppTabBloc()),
-    BlocProvider(create: (_) => BooksBloc(booksRepo)),
-    BlocProvider(create: (_) => SuggestedBookBloc()),
-    BlocProvider(create: (_) => SearchForBooksBloc(booksRepo)),
+    BlocProvider(
+      create: (_) => BooksBloc(
+        booksRepo: booksRepo,
+        eventBus: eventBus,
+      ),
+    ),
+    BlocProvider(create: (_) => SuggestedBookBloc(eventBus: eventBus)),
+    BlocProvider(create: (_) => SearchForBooksBloc(booksRepo: booksRepo)),
   ], child: const Homer()));
 }
 

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:homer/core/utils/extensions.dart';
 import 'package:homer/feature/search/widget/search_suggestion.dart';
-import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 class SearchSuggestions extends StatelessWidget {
-  const SearchSuggestions({super.key, required this.controller});
-
-  final FloatingSearchBarController controller;
+  const SearchSuggestions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +22,7 @@ class SearchSuggestions extends StatelessWidget {
 
   List<Widget> _searchSuggestions(BuildContext context) {
     return context.foundBooks().map((book) {
-      return SearchSuggestion(book: book, controller: controller);
+      return SearchSuggestion(book: book);
     }).toList();
   }
 }

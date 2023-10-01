@@ -3,7 +3,7 @@ import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homer/core/book/domain/use_case/change_active_tab/app_tab_bloc.dart';
-import 'package:homer/core/book/domain/use_case/save_suggested_book/event.dart';
+import 'package:homer/core/book/domain/use_case/list_books/books_bloc.dart';
 import 'package:homer/core/utils/extensions.dart';
 import 'package:homer/feature/search/widget/books_search_area.dart';
 import 'package:homer/main.dart';
@@ -61,9 +61,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   void _closeSheetWhenBookSaved() {
-    getIt<EventBus>().on<BookSaved>().listen((_) {
-      _sheetController.closeSheet();
-    });
+    if (!listenerHooked) {
+      getIt<EventBus>().on<BookSaved>().listen((_) {
+        _sheetController.closeSheet();
+      });
+      listenerHooked = true;
+    }
   }
 }
-

@@ -1,9 +1,11 @@
-import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
+import 'package:homer/core/book/domain/use_case/display_suggested_book/suggested_book_bloc.dart';
 import 'package:homer/core/book/domain/use_case/search_for_books/search_for_books_bloc.dart';
 import 'package:homer/core/utils/extensions.dart';
 import 'package:homer/feature/navigation/widget/bottom_sheet_content.dart';
 import 'package:homer/feature/search/widget/search_suggestions.dart';
+import 'package:homer/main.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 class BookSearchArea extends StatelessWidget {
@@ -13,6 +15,7 @@ class BookSearchArea extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    _closeSuggestionsWhenBookPicked();
     return FloatingSearchBar(
       controller: _controller,
       body: const BottomSheetContent(),
@@ -52,6 +55,12 @@ class BookSearchArea extends StatelessWidget {
   }
 
   Widget _suggestionsBuilder(_, __) {
-    return SearchSuggestions(controller: _controller);
+    return const SearchSuggestions();
+  }
+
+  void _closeSuggestionsWhenBookPicked() {
+    getIt<EventBus>().on<BookPicked>().listen((_) {
+      _controller.close();
+    });
   }
 }

@@ -11,7 +11,7 @@ part 'search_for_books_state.dart';
 
 class SearchForBooksBloc
     extends Bloc<SearchForBooksEvent, SearchForBooksState> {
-  SearchForBooksBloc(this.booksRepo) : super(SearchForBooksInitial()) {
+  SearchForBooksBloc({required this.booksRepo}) : super(SearchForBooksInitial()) {
     on<SearchInitiated>(_onSearchInitiated);
   }
 

@@ -1,13 +1,9 @@
-import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:drop_cap_text/drop_cap_text.dart';
-import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
 import 'package:homer/core/book/domain/use_case/list_books/books_bloc.dart';
-import 'package:homer/core/book/domain/use_case/save_suggested_book/event.dart';
 import 'package:homer/core/utils/extensions.dart';
 import 'package:homer/feature/book/widget/book_card.dart';
-import 'package:homer/main.dart';
 
 class BottomSheetContent extends StatelessWidget {
   const BottomSheetContent({super.key});
@@ -79,6 +75,5 @@ class BottomSheetContent extends StatelessWidget {
     BookState bookState,
   ) {
     context.emitBooksEvt(BookAdded(pickedBook.copyWith(state: bookState)));
-    getIt<EventBus>().fire(BookSaved());
   }
 }

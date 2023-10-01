@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:homer/core/utils/extensions.dart';
 import 'package:homer/feature/search/widget/search_suggestion.dart';
 
-class SearchSuggestions extends StatelessWidget {
+final class SearchSuggestions extends StatelessWidget {
   const SearchSuggestions({super.key});
 
   @override

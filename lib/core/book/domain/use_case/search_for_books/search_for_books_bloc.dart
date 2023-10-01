@@ -9,7 +9,7 @@ import 'package:meta/meta.dart';
 part 'search_for_books_event.dart';
 part 'search_for_books_state.dart';
 
-class SearchForBooksBloc
+final class SearchForBooksBloc
     extends Bloc<SearchForBooksEvent, SearchForBooksState> {
   SearchForBooksBloc({required this.booksRepo}) : super(SearchForBooksInitial()) {
     on<SearchInitiated>(_onSearchInitiated);

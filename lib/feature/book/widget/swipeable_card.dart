@@ -5,8 +5,7 @@ import 'package:homer/core/book/domain/use_case/list_books/books_bloc.dart';
 import 'package:homer/core/utils/extensions.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
-// ignore: must_be_immutable
-class SwipeableCard extends StatelessWidget {
+final class SwipeableCard extends StatelessWidget {
   const SwipeableCard({super.key, required this.child, required this.book});
 
   final Widget child;
@@ -113,7 +112,7 @@ class SwipeableCard extends StatelessWidget {
   }
 }
 
-class _AnimatedBackground extends StatelessWidget {
+final class _AnimatedBackground extends StatelessWidget {
   const _AnimatedBackground({
     required this.progress,
     required this.direction,

@@ -8,7 +8,7 @@ import 'package:homer/feature/search/widget/search_suggestions.dart';
 import 'package:homer/main.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
-class BookSearchArea extends StatelessWidget {
+final class BookSearchArea extends StatelessWidget {
   BookSearchArea({super.key});
 
   final FloatingSearchBarController _controller = FloatingSearchBarController();

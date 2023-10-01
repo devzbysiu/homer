@@ -4,7 +4,7 @@ import 'package:homer/core/book/domain/entity/book_entity.dart';
 import 'package:homer/core/book/domain/use_case/display_suggested_book/suggested_book_bloc.dart';
 import 'package:homer/core/utils/extensions.dart';
 
-class SearchSuggestion extends StatelessWidget {
+final class SearchSuggestion extends StatelessWidget {
   const SearchSuggestion({super.key, required this.book});
 
   final BookEntity book;

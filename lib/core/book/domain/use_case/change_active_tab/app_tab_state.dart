@@ -1,7 +1,7 @@
 part of 'app_tab_bloc.dart';
 
 @immutable
-class AppTabState {
+final class AppTabState {
   const AppTabState._({
     this.currentTab = AppTab.readLater,
   });

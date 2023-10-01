@@ -5,7 +5,7 @@ import 'package:homer/core/book/domain/use_case/list_books/books_bloc.dart';
 import 'package:homer/core/utils/extensions.dart';
 import 'package:homer/feature/book/widget/book_card.dart';
 
-class BottomSheetContent extends StatelessWidget {
+final class BottomSheetContent extends StatelessWidget {
   const BottomSheetContent({super.key});
 
   @override

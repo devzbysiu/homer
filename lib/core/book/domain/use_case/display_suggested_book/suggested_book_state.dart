@@ -7,10 +7,10 @@ abstract class SuggestedBookState {
   final BookEntity? pickedBook;
 }
 
-class SuggestedBookInitial extends SuggestedBookState {
+final class SuggestedBookInitial extends SuggestedBookState {
   const SuggestedBookInitial();
 }
 
-class BookPickedState extends SuggestedBookState {
+final class BookPickedState extends SuggestedBookState {
   const BookPickedState({super.pickedBook});
 }

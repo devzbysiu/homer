@@ -11,7 +11,7 @@ import 'package:meta/meta.dart';
 part 'books_event.dart';
 part 'books_state.dart';
 
-class BooksBloc extends Bloc<BooksEvent, BooksState> {
+final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   BooksBloc({
     required this.booksRepo,
     required this.eventBus,

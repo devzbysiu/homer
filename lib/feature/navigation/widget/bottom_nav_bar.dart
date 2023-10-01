@@ -8,14 +8,14 @@ import 'package:homer/core/utils/extensions.dart';
 import 'package:homer/feature/search/widget/books_search_area.dart';
 import 'package:homer/main.dart';
 
-class BottomNavBar extends StatefulWidget {
+final class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
+final class _BottomNavBarState extends State<BottomNavBar> {
   final _sheetController = BottomBarWithSheetController(initialIndex: 0);
 
   bool listenerHooked = false;

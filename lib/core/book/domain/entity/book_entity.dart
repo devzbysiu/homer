@@ -15,7 +15,7 @@ const someIsbns = [
   '0679887008',
 ];
 
-class BookEntity extends Equatable {
+final class BookEntity extends Equatable {
   const BookEntity({
     required this.title,
     required this.subtitle,

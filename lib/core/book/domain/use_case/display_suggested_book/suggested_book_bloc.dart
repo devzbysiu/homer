@@ -9,7 +9,7 @@ import 'package:meta/meta.dart';
 part 'suggested_book_event.dart';
 part 'suggested_book_state.dart';
 
-class SuggestedBookBloc extends Bloc<SuggestedBookEvent, SuggestedBookState> {
+final class SuggestedBookBloc extends Bloc<SuggestedBookEvent, SuggestedBookState> {
   SuggestedBookBloc({required this.eventBus}) : super(const SuggestedBookInitial()) {
     on<SuggestedBookPicked>(_onSuggestedBookPicked);
   }

@@ -1,3 +1,4 @@
+import 'package:chip_list/chip_list.dart';
 import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/material.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
@@ -10,7 +11,8 @@ final class BottomSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pickedBook = context.pickedSuggestedBook();
+    var pickedBook = context.pickedSuggestedBook()!.copyWith(labels: List.empty());
+    // var pickedBook = context.pickedSuggestedBook();
     return pickedBook == null
         ? Container()
         : Padding(
@@ -26,6 +28,29 @@ final class BottomSheetContent extends StatelessWidget {
                     width: 200,
                     height: 300,
                     child: BookCard(book: pickedBook),
+                  ),
+                ),
+                Positioned(
+                  width: MediaQuery.of(context).size.width,
+                  bottom: 60,
+                  child: ChipList(
+                    padding: const EdgeInsets.only(right: 10),
+                    supportsMultiSelect: true,
+                    listOfChipNames: const [
+                      'One',
+                      'Two',
+                      'Three',
+                      'Four',
+                      'Five',
+                      'Six',
+                      'Seven',
+                      'Eight',
+                      'Nine',
+                      'Ten',
+                    ],
+                    // NOTE: it can't be `const` because selecting a chip won't work
+                    // ignore: prefer_const_literals_to_create_immutables
+                    listOfChipIndicesCurrentlySeclected: [0],
                   ),
                 ),
                 Positioned(

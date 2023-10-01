@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:homer/core/book/data/repository/in_memory_repo.dart';
+import 'package:homer/core/book/domain/repository/books_repository.dart';
 import 'package:homer/core/book/domain/use_case/change_active_tab/app_tab_bloc.dart';
 import 'package:homer/core/book/domain/use_case/display_suggested_book/suggested_book_bloc.dart';
 import 'package:homer/core/book/domain/use_case/list_books/books_bloc.dart';
@@ -12,24 +13,28 @@ import 'package:homer/feature/home/page/home.dart';
 final getIt = GetIt.instance;
 
 void setupDi() {
+  getIt.registerSingleton<BooksRepository>(InMemoryRepo());
   getIt.registerSingleton(EventBus());
 }
 
 void main() {
   setupDi();
-  final booksRepo = InMemoryRepo();
+  final booksRepo = getIt<BooksRepository>();
   final eventBus = getIt<EventBus>();
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider(create: (_) => AppTabBloc()),
-    BlocProvider(
-      create: (_) => BooksBloc(
-        booksRepo: booksRepo,
-        eventBus: eventBus,
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (_) => AppTabBloc()),
+      BlocProvider(
+        create: (_) => BooksBloc(
+          booksRepo: booksRepo,
+          eventBus: eventBus,
+        ),
       ),
-    ),
-    BlocProvider(create: (_) => SuggestedBookBloc(eventBus: eventBus)),
-    BlocProvider(create: (_) => SearchForBooksBloc(booksRepo: booksRepo)),
-  ], child: const Homer()));
+      BlocProvider(create: (_) => SuggestedBookBloc(eventBus: eventBus)),
+      BlocProvider(create: (_) => SearchForBooksBloc(booksRepo: booksRepo)),
+    ],
+    child: const Homer(),
+  ));
 }
 
 class Homer extends StatelessWidget {
@@ -39,7 +44,7 @@ class Homer extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Homer',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,

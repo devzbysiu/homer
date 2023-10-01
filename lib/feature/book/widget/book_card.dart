@@ -14,6 +14,7 @@ final class BookCard extends StatelessWidget {
     return SwipeableCard(
       book: book,
       child: TransparentImageCard(
+        height: 262,
         imageProvider: CachedNetworkImageProvider(
             book.thumbnailAddress ??
                 'https://covers.openlibrary.org/b/isbn/9780385533225-M.jpg',

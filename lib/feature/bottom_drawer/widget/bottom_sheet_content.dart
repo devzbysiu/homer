@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:homer/core/utils/extensions.dart';
-import 'package:homer/feature/navigation/widget/book_with_summary.dart';
-import 'package:homer/feature/navigation/widget/save_buttons.dart';
-import 'package:homer/feature/navigation/widget/tags.dart';
+import 'package:homer/feature/bottom_drawer/widget/book_with_summary.dart';
+import 'package:homer/feature/bottom_drawer/widget/save_buttons.dart';
+import 'package:homer/feature/bottom_drawer/widget/tags.dart';
 
 final class BottomSheetContent extends StatelessWidget {
   const BottomSheetContent({super.key});

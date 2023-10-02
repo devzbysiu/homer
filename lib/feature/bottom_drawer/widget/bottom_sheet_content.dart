@@ -20,7 +20,10 @@ final class BottomSheetContent extends StatelessWidget {
                 Positioned(
                   width: MediaQuery.of(context).size.width,
                   bottom: 60,
-                  child: const Tags(),
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 18.0),
+                    child: Tags(),
+                  ),
                 ),
                 Positioned(
                   width: MediaQuery.of(context).size.width,

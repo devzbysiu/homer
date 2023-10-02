@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:faker/faker.dart';
+import 'package:homer/core/book/domain/entity/tag_entity.dart';
 
 var faker = Faker();
 
@@ -28,10 +29,10 @@ final class BookEntity extends Equatable {
     required this.endDate,
     required this.rating,
     required this.summary,
-    required this.labels,
+    required this.tags,
   });
 
-  factory BookEntity.fake() {
+  factory BookEntity.fake({bool withTags = true}) {
     return BookEntity(
       title: faker.lorem
           .words(faker.randomGenerator.integer(8, min: 1))
@@ -48,10 +49,12 @@ final class BookEntity extends Equatable {
       endDate: faker.date.dateTime().microsecondsSinceEpoch,
       rating: faker.randomGenerator.decimal(scale: 10),
       summary: faker.lorem.sentences(10).join(" "),
-      labels: [
-        BookLabel(name: 'type:technical'),
-        BookLabel(name: 'short'),
-      ],
+      tags: withTags
+          ? {
+              const TagEntity(name: 'type:technical', color: TagColor.brown),
+              const TagEntity(name: 'type:horror', color: TagColor.red),
+            }
+          : {},
     );
   }
 
@@ -77,7 +80,7 @@ final class BookEntity extends Equatable {
 
   final String? summary;
 
-  final List<BookLabel> labels;
+  final Set<TagEntity> tags;
 
   BookEntity copyWith({
     String? title,
@@ -91,7 +94,7 @@ final class BookEntity extends Equatable {
     int? endDate,
     double? rating,
     String? summary,
-    List<BookLabel>? labels,
+    Set<TagEntity>? tags,
   }) {
     return BookEntity(
       title: title ?? this.title,
@@ -105,7 +108,7 @@ final class BookEntity extends Equatable {
       endDate: endDate ?? this.endDate,
       rating: rating ?? this.rating,
       summary: summary ?? this.summary,
-      labels: labels ?? this.labels,
+      tags: tags ?? this.tags,
     );
   }
 
@@ -130,7 +133,7 @@ final class BookEntity extends Equatable {
         endDate,
         rating,
         summary,
-        labels,
+        tags,
       ];
 }
 
@@ -164,8 +167,8 @@ extension StateChangeExt on BookState {
   }
 }
 
-class BookLabel {
-  BookLabel({required this.name});
+class BookTag {
+  BookTag({required this.name});
 
   final String name;
 }

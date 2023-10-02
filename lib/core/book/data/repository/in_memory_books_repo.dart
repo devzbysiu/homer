@@ -1,7 +1,7 @@
 import 'package:homer/core/book/domain/entity/book_entity.dart';
 import 'package:homer/core/book/domain/repository/books_repository.dart';
 
-final class InMemoryRepo extends BooksRepository {
+final class InMemoryBooksRepo extends BooksRepository {
   final _allBooks = [
     BookEntity.fake(),
     BookEntity.fake(),
@@ -16,11 +16,11 @@ final class InMemoryRepo extends BooksRepository {
   ];
 
   final _foundBooks = [
-    BookEntity.fake(),
-    BookEntity.fake(),
-    BookEntity.fake(),
-    BookEntity.fake(),
-    BookEntity.fake(),
+    BookEntity.fake(withTags: false),
+    BookEntity.fake(withTags: false),
+    BookEntity.fake(withTags: false),
+    BookEntity.fake(withTags: false),
+    BookEntity.fake(withTags: false),
   ];
 
   @override

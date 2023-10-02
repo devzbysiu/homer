@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
+import 'package:homer/core/book/domain/entity/tag_entity.dart';
+import 'package:homer/core/utils/color_mapper.dart';
 import 'package:homer/feature/book/widget/swipeable_card.dart';
 import 'package:image_card/image_card.dart';
 
@@ -19,7 +21,7 @@ final class BookCard extends StatelessWidget {
             book.thumbnailAddress ??
                 'https://covers.openlibrary.org/b/isbn/9780385533225-M.jpg',
         ),
-        tags: _labels(),
+        tags: _tags(),
         title: _BookTitle(title: book.title),
         description: _BookAuthor(authorName: book.author),
         footer: _BookCardFooter(book: book),
@@ -27,8 +29,8 @@ final class BookCard extends StatelessWidget {
     );
   }
 
-  List<Widget> _labels() {
-    return book.labels.map((b) => _Label(label: b)).toList();
+  List<Widget> _tags() {
+    return book.tags.map((tag) => _Tag(tag: tag)).toList();
   }
 }
 
@@ -113,10 +115,10 @@ final class _BookCardFooter extends StatelessWidget {
   }
 }
 
-final class _Label extends StatelessWidget {
-  const _Label({required this.label});
+final class _Tag extends StatelessWidget {
+  const _Tag({required this.tag});
 
-  final BookLabel label;
+  final TagEntity tag;
 
   @override
   Widget build(BuildContext context) {
@@ -125,14 +127,14 @@ final class _Label extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
-          color: Colors.green,
+          color: toFlutterColor(tag.color),
         ),
         padding: const EdgeInsets.symmetric(
           horizontal: 8,
           vertical: 2,
         ),
         child: Text(
-          label.name,
+          tag.name,
           style: const TextStyle(color: Colors.white),
         ),
       ),

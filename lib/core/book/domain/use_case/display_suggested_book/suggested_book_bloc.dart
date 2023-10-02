@@ -19,18 +19,18 @@ final class SuggestedBookBloc
     on<ClearPickedBook>(_onClearPickedBook);
   }
 
-  FutureOr<void> _onSuggestedBookPicked(
+  Future<void> _onSuggestedBookPicked(
     SuggestedBookPicked event,
     Emitter<SuggestedBookState> emit,
-  ) {
+  ) async {
     emit(BookPickedState(pickedBook: event.pickedBook));
     eventBus.fire(BookPicked());
   }
 
-  FutureOr<void> _onClearPickedBook(
+  Future<void> _onClearPickedBook(
     ClearPickedBook event,
     Emitter<SuggestedBookState> emit,
-  ) {
+  ) async {
     emit(const BookPickedState(pickedBook: null));
   }
 

@@ -14,17 +14,20 @@ final class AppTabBloc extends Bloc<AppTabEvent, AppTabState> {
     on<TabChanged>(_onTabChanged);
   }
 
-  FutureOr<void> _onTabChanged(
+  Future<void> _onTabChanged(
     TabChanged event,
     Emitter<AppTabState> emit,
   ) async {
     switch (event.selectedTab) {
       case AppTab.readLater:
-        return emit(const AppTabState.readLater());
+        emit(const AppTabState.readLater());
+        break;
       case AppTab.reading:
-        return emit(const AppTabState.reading());
+        emit(const AppTabState.reading());
+        break;
       case AppTab.read:
-        return emit(const AppTabState.read());
+        emit(const AppTabState.read());
+        break;
     }
   }
 }

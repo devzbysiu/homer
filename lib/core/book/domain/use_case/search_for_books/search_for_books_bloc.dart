@@ -15,10 +15,10 @@ final class SearchForBooksBloc
     on<SearchInitiated>(_onSearchInitiated);
   }
 
-  FutureOr<void> _onSearchInitiated(
+  Future<void> _onSearchInitiated(
     SearchInitiated event,
     Emitter<SearchForBooksState> emit,
-  ) {
+  ) async {
     final List<BookEntity> foundBooks =
         event.query.isEmpty ? List.empty() : booksRepo.search(event.query);
     emit(FoundBooks(foundBooks: foundBooks));

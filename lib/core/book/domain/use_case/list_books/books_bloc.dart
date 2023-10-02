@@ -21,24 +21,24 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     on<BookSwipedLeft>(_onBookSwipedLeft);
   }
 
-  FutureOr<void> _onBookAdded(BookAdded event, Emitter<BooksState> emit) {
+  Future<void> _onBookAdded(BookAdded event, Emitter<BooksState> emit) async {
     booksRepo.add(event.book);
     eventBus.fire(BookSaved());
     emit(BooksState(booksRepo.listAll()));
   }
 
-  FutureOr<void> _onBookSwipedRight(
+  Future<void> _onBookSwipedRight(
     BookSwipedRight event,
     Emitter<BooksState> emit,
-  ) {
+  ) async {
     booksRepo.swap(event.book, event.book.moveRight());
     emit(BooksState(booksRepo.listAll()));
   }
 
-  FutureOr<void> _onBookSwipedLeft(
+  Future<void> _onBookSwipedLeft(
     BookSwipedLeft event,
     Emitter<BooksState> emit,
-  ) {
+  ) async {
     final book = event.book;
     booksRepo.swap(book, book.moveLeft());
     emit(BooksState(booksRepo.listAll()));

@@ -23,7 +23,7 @@ class Tags extends StatelessWidget {
       ],
       // NOTE: it can't be `const` because selecting a chip won't work
       // ignore: prefer_const_literals_to_create_immutables
-      listOfChipIndicesCurrentlySeclected: [0],
+      listOfChipIndicesCurrentlySeclected: [],
     );
   }
 }

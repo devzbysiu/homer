@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 part 'app_tab_event.dart';
+
 part 'app_tab_state.dart';
 
 final class AppTabBloc extends Bloc<AppTabEvent, AppTabState> {

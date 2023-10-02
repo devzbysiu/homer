@@ -14,7 +14,7 @@ class Tags extends StatefulWidget {
 
 class _TagsState extends State<Tags> {
 
-  Set<int> _selectedTags = {};
+  final Set<int> _selectedTags = {};
 
   @override
   Widget build(BuildContext context) {

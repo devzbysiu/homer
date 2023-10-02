@@ -1,9 +1,8 @@
-import 'dart:async';
-
-import 'package:event_bus/event_bus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homer/core/book/domain/entity/tag_entity.dart';
 import 'package:homer/core/book/domain/repository/tags_repository.dart';
+
+// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 part 'tags_event.dart';

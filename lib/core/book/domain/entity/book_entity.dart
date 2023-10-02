@@ -50,10 +50,7 @@ final class BookEntity extends Equatable {
       rating: faker.randomGenerator.decimal(scale: 10),
       summary: faker.lorem.sentences(10).join(" "),
       tags: withTags
-          ? {
-              const TagEntity(name: 'type:technical', color: TagColor.brown),
-              const TagEntity(name: 'type:horror', color: TagColor.red),
-            }
+          ? {const TagEntity(name: 'type:technical', color: TagColor.orange)}
           : {},
     );
   }

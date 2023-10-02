@@ -16,7 +16,6 @@ final class BookCard extends StatelessWidget {
     return SwipeableCard(
       book: book,
       child: TransparentImageCard(
-        height: 262,
         imageProvider: _imageProvider() as ImageProvider<Object>,
         tags: _tags(),
         title: _BookTitle(title: book.title),

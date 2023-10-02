@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homer/core/book/domain/entity/book_entity.dart';
 import 'package:homer/core/book/domain/use_case/change_book_tags/book_tags_bloc.dart';
+import 'package:homer/core/book/domain/use_case/display_suggested_book/suggested_book_bloc.dart';
 import 'package:homer/core/book/domain/use_case/list_books/books_bloc.dart';
 import 'package:homer/core/utils/extensions.dart';
 
@@ -55,6 +56,7 @@ class SaveButtons extends StatelessWidget {
       state: bookState,
       tags: selectedTags,
     )));
+    context.emitSuggestedBookEvt(ClearPickedBook());
     context.emitBookTagsEvt(ClearSelectedTags());
   }
 }

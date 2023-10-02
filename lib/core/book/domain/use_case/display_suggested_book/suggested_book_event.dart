@@ -9,4 +9,6 @@ final class SuggestedBookPicked extends SuggestedBookEvent {
   final BookEntity pickedBook;
 }
 
+final class ClearPickedBook extends SuggestedBookEvent {}
+
 final class BookPicked {}

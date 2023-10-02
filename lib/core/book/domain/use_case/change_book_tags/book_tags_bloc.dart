@@ -15,8 +15,6 @@ final class BookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     on<ClearSelectedTags>(_onClearTags);
   }
 
-  final Set<TagEntity> _selectedTags = {};
-
   FutureOr<void> _onTagSelected(
     TagSelected event,
     Emitter<BookTagsState> emit,
@@ -40,4 +38,6 @@ final class BookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     _selectedTags.clear();
     emit(BookTagsState(selectedTags: _selectedTags));
   }
+
+  final Set<TagEntity> _selectedTags = {};
 }

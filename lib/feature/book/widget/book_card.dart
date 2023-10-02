@@ -17,10 +17,7 @@ final class BookCard extends StatelessWidget {
       book: book,
       child: TransparentImageCard(
         height: 262,
-        imageProvider: CachedNetworkImageProvider(
-            book.thumbnailAddress ??
-                'https://covers.openlibrary.org/b/isbn/9780385533225-M.jpg',
-        ),
+        imageProvider: _imageProvider() as ImageProvider<Object>,
         tags: _tags(),
         title: _BookTitle(title: book.title),
         description: _BookAuthor(authorName: book.author),
@@ -31,6 +28,12 @@ final class BookCard extends StatelessWidget {
 
   List<Widget> _tags() {
     return book.tags.map((tag) => _Tag(tag: tag)).toList();
+  }
+
+  Object _imageProvider() {
+    return book.thumbnailAddress == null
+        ? const AssetImage('assets/book-cover-fallback.webp')
+        : CachedNetworkImageProvider(book.thumbnailAddress!);
   }
 }
 

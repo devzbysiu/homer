@@ -16,8 +16,8 @@ final class BooksList extends StatelessWidget {
       crossAxisCount: 2,
       mainAxisSpacing: 2,
       crossAxisSpacing: 2,
+      itemCount: books.length,
       itemBuilder: (context, index) {
-        if (index >= books.length) return null;
         return BookCard(book: books[index]);
       },
     );

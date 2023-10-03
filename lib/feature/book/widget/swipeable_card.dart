@@ -1,9 +1,10 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:homer/core/book/domain/entity/book_entity.dart';
-import 'package:homer/core/book/domain/use_case/list_books/books_bloc.dart';
-import 'package:homer/core/utils/extensions.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
+
+import '../../../core/book/domain/entity/book_entity.dart';
+import '../../../core/book/domain/use_case/list_books/books_bloc.dart';
+import '../../../core/utils/extensions.dart';
 
 final class SwipeableCard extends StatelessWidget {
   const SwipeableCard({super.key, required this.child, required this.book});
@@ -102,9 +103,11 @@ final class SwipeableCard extends StatelessWidget {
     }
   }
 
-  Widget _animatedBackground(BuildContext _,
-      SwipeDirection direction,
-      AnimationController progress,) {
+  Widget _animatedBackground(
+    BuildContext _,
+    SwipeDirection direction,
+    AnimationController progress,
+  ) {
     return _AnimatedBackground(
       progress: progress,
       direction: direction,

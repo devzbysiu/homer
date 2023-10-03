@@ -1,9 +1,10 @@
 import 'package:chip_list/chip_list.dart';
 import 'package:flutter/material.dart';
-import 'package:homer/core/book/domain/entity/tag_entity.dart';
-import 'package:homer/core/book/domain/use_case/change_book_tags/book_tags_bloc.dart';
-import 'package:homer/core/utils/color_mapper.dart';
-import 'package:homer/core/utils/extensions.dart';
+
+import '../../../core/book/domain/entity/tag_entity.dart';
+import '../../../core/book/domain/use_case/change_book_tags/book_tags_bloc.dart';
+import '../../../core/utils/color_mapper.dart';
+import '../../../core/utils/extensions.dart';
 
 class Tags extends StatefulWidget {
   const Tags({super.key});
@@ -13,7 +14,6 @@ class Tags extends StatefulWidget {
 }
 
 class _TagsState extends State<Tags> {
-
   final Set<int> _selectedTags = {};
 
   @override

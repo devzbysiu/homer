@@ -1,5 +1,5 @@
-import 'package:homer/core/book/domain/entity/tag_entity.dart';
-import 'package:homer/core/book/domain/repository/tags_repository.dart';
+import '../../domain/entity/tag_entity.dart';
+import '../../domain/repository/tags_repository.dart';
 
 final class InMemoryTagsRepo extends TagsRepository {
   final _allTags = [

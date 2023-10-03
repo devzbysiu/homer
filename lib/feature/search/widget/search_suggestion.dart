@@ -1,9 +1,10 @@
 import 'package:banner_listtile/banner_listtile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:homer/core/book/domain/entity/book_entity.dart';
-import 'package:homer/core/book/domain/use_case/display_suggested_book/suggested_book_bloc.dart';
-import 'package:homer/core/utils/extensions.dart';
+
+import '../../../core/book/domain/entity/book_entity.dart';
+import '../../../core/book/domain/use_case/display_suggested_book/suggested_book_bloc.dart';
+import '../../../core/utils/extensions.dart';
 
 final class SearchSuggestion extends StatelessWidget {
   const SearchSuggestion({super.key, required this.book});

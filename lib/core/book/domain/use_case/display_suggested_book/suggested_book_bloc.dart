@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/core/book/domain/entity/book_entity.dart';
+
+import '../../entity/book_entity.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';

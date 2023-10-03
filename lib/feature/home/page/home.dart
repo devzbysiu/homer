@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:homer/core/utils/extensions.dart';
-import 'package:homer/feature/book/widget/books_list.dart';
-import 'package:homer/feature/bottom_drawer/widget/bottom_nav_bar.dart';
+
+import '../../../core/utils/extensions.dart';
+import '../../book/widget/books_list.dart';
+import '../../bottom_drawer/widget/bottom_nav_bar.dart';
 
 final class Home extends StatelessWidget {
   const Home({super.key});

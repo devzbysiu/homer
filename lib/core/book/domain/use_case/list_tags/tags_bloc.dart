@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/core/book/domain/entity/tag_entity.dart';
-import 'package:homer/core/book/domain/repository/tags_repository.dart';
+
+import '../../entity/tag_entity.dart';
+import '../../repository/tags_repository.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';

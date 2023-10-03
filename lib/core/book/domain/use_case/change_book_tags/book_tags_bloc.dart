@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/core/book/domain/entity/tag_entity.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
+
+import '../../entity/tag_entity.dart';
 
 part 'book_tags_event.dart';
 

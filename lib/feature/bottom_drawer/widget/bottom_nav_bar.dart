@@ -2,11 +2,12 @@ import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/core/book/domain/use_case/change_active_tab/app_tab_bloc.dart';
-import 'package:homer/core/book/domain/use_case/list_books/books_bloc.dart';
-import 'package:homer/core/utils/extensions.dart';
-import 'package:homer/feature/search/widget/books_search_area.dart';
-import 'package:homer/main.dart';
+
+import '../../../core/book/domain/use_case/change_active_tab/app_tab_bloc.dart';
+import '../../../core/book/domain/use_case/list_books/books_bloc.dart';
+import '../../../core/utils/extensions.dart';
+import '../../../main.dart';
+import '../../search/widget/books_search_area.dart';
 
 final class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});

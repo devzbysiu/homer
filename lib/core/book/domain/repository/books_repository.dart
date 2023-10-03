@@ -1,4 +1,4 @@
-import 'package:homer/core/book/domain/entity/book_entity.dart';
+import '../entity/book_entity.dart';
 
 abstract class BooksRepository {
   List<BookEntity> listAll();

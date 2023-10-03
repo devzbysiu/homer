@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:faker/faker.dart';
-import 'package:homer/core/book/domain/entity/tag_entity.dart';
+
+import 'tag_entity.dart';
 
 var faker = Faker();
 

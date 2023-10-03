@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:homer/core/utils/extensions.dart';
-import 'package:homer/feature/search/widget/search_suggestion.dart';
+
+import '../../../core/utils/extensions.dart';
+import 'search_suggestion.dart';
 
 final class SearchSuggestions extends StatelessWidget {
   const SearchSuggestions({super.key});

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:homer/core/utils/extensions.dart';
-import 'package:homer/feature/book/widget/book_card.dart';
+
+import '../../../core/utils/extensions.dart';
+import 'book_card.dart';
 
 final class BooksList extends StatelessWidget {
   const BooksList({super.key});

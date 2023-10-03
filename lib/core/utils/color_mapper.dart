@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:homer/core/book/domain/entity/tag_entity.dart';
+
+import '../book/domain/entity/tag_entity.dart';
 
 Color toFlutterColor(TagColor color) {
   switch (color) {

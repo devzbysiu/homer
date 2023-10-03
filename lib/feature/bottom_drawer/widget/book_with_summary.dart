@@ -1,7 +1,8 @@
 import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/material.dart';
-import 'package:homer/core/book/domain/entity/book_entity.dart';
-import 'package:homer/feature/book/widget/book_card.dart';
+
+import '../../../core/book/domain/entity/book_entity.dart';
+import '../../book/widget/book_card.dart';
 
 class BookWithSummary extends StatelessWidget {
   const BookWithSummary({super.key, required this.pickedBook});

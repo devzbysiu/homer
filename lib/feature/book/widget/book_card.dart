@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:homer/core/book/domain/entity/book_entity.dart';
-import 'package:homer/core/book/domain/entity/tag_entity.dart';
-import 'package:homer/core/utils/color_mapper.dart';
-import 'package:homer/feature/book/widget/swipeable_card.dart';
 import 'package:image_card/image_card.dart';
+
+import '../../../core/book/domain/entity/book_entity.dart';
+import '../../../core/book/domain/entity/tag_entity.dart';
+import '../../../core/utils/color_mapper.dart';
+import 'swipeable_card.dart';
 
 final class BookCard extends StatelessWidget {
   const BookCard({super.key, required this.book});

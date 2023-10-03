@@ -1,5 +1,5 @@
-import 'package:homer/core/book/domain/entity/book_entity.dart';
-import 'package:homer/core/book/domain/repository/books_repository.dart';
+import '../../domain/entity/book_entity.dart';
+import '../../domain/repository/books_repository.dart';
 
 final class InMemoryBooksRepo extends BooksRepository {
   final _allBooks = [

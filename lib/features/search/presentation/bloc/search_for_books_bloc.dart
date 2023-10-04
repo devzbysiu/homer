@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../books_listing/domain/entities/book_entity.dart';
-import '../../../books_listing/domain/repositories/books_repository.dart';
+import '../../domain/usecases/search_books.dart';
 
 part 'search_for_books_event.dart';
 
@@ -14,8 +14,7 @@ part 'search_for_books_state.dart';
 
 final class SearchForBooksBloc
     extends Bloc<SearchForBooksEvent, SearchForBooksState> {
-  SearchForBooksBloc({required this.booksRepo})
-      : super(SearchForBooksInitial()) {
+  SearchForBooksBloc({required this.searchBooks}) : super(const Empty()) {
     on<SearchInitiated>(_onSearchInitiated);
   }
 
@@ -23,15 +22,15 @@ final class SearchForBooksBloc
     SearchInitiated event,
     Emitter<SearchForBooksState> emit,
   ) async {
-    final searchResult = await booksRepo.search(event.query);
-    final List<BookEntity> foundBooks = event.query.isEmpty
-        ? List.empty()
-        : searchResult.when(
-            (success) => success,
-            (error) => List.empty(),
-          );
-    emit(FoundBooks(foundBooks: foundBooks));
+    if (event.query.isEmpty) {
+      return;
+    }
+    final searchResult = await searchBooks(SearchParams(query: event.query));
+    searchResult.when(
+      (success) => emit(FoundBooks(foundBooks: success)),
+      (error) => emit(const FailedToSearchBooks()),
+    );
   }
 
-  final BooksRepository booksRepo;
+  final SearchBooks searchBooks;
 }

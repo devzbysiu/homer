@@ -7,10 +7,14 @@ abstract class SearchForBooksState {
   final List<BookEntity> foundBooks;
 }
 
-final class SearchForBooksInitial extends SearchForBooksState {
-  SearchForBooksInitial() : super(foundBooks: List.empty());
+final class Empty extends SearchForBooksState {
+  const Empty() : super(foundBooks: const []);
 }
 
 final class FoundBooks extends SearchForBooksState {
   const FoundBooks({required super.foundBooks});
+}
+
+final class FailedToSearchBooks extends SearchForBooksState {
+  const FailedToSearchBooks() : super(foundBooks: const []);
 }

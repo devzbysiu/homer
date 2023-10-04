@@ -1,6 +1,6 @@
 import 'package:multiple_result/multiple_result.dart';
 
-import '../../../../core/error/failure.dart';
+import '../../../../core/error/failures.dart';
 import '../../domain/entities/tag.dart';
 import '../../domain/repositories/tags_repository.dart';
 

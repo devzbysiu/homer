@@ -1,9 +1,9 @@
-import 'package:homer/core/error/failure.dart';
-import 'package:homer/core/usecase/usecase.dart';
-import 'package:homer/features/books_listing/domain/repositories/books_repository.dart';
-import 'package:multiple_result/src/result.dart';
+import 'package:multiple_result/multiple_result.dart';
 
+import '../../../../core/error/failure.dart';
+import '../../../../core/usecase/usecase.dart';
 import '../entities/book.dart';
+import '../repositories/books_repository.dart';
 
 final class ListBooks extends UseCase<List<Book>, NoParams> {
   ListBooks(this.booksRepo);

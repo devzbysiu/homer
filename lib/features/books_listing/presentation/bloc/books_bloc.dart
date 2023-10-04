@@ -1,17 +1,17 @@
 import 'dart:async';
 
-import 'package:event_bus/event_bus.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/features/books_listing/domain/usecases/add_book.dart';
-import 'package:homer/features/books_listing/domain/usecases/list_books.dart';
-import 'package:homer/features/books_listing/domain/usecases/update_book_state.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/book.dart';
+import '../../domain/usecases/add_book.dart';
+import '../../domain/usecases/list_books.dart';
+import '../../domain/usecases/update_book_state.dart';
 
 part 'books_event.dart';
 
@@ -36,7 +36,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   ) async {
     final res = await listBooks(NoParams());
     res.when(
-      (success) => emit(BooksLoaded(success)),
+      (success) => emit(BooksLoaded(books: success)),
       (error) => emit(const FailedToLoadBooks()),
     );
   }
@@ -45,7 +45,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     await addBook(AddParams(book: event.book));
     final res = await listBooks(NoParams());
     res.when(
-      (success) => emit(BooksLoaded(success)),
+      (success) => emit(BooksLoaded(books: success)),
       (error) => emit(const FailedToLoadBooks()),
     );
   }
@@ -58,7 +58,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     await updateBookState(UpdateParams(book: book, withCopy: book.moveRight()));
     final res = await listBooks(NoParams());
     res.when(
-      (success) => emit(BooksLoaded(success)),
+      (success) => emit(BooksLoaded(books: success)),
       (error) => emit(const FailedToLoadBooks()),
     );
   }
@@ -71,7 +71,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     await updateBookState(UpdateParams(book: book, withCopy: book.moveLeft()));
     final res = await listBooks(NoParams());
     res.when(
-      (success) => emit(BooksLoaded(success)),
+      (success) => emit(BooksLoaded(books: success)),
       (error) => emit(const FailedToLoadBooks()),
     );
   }

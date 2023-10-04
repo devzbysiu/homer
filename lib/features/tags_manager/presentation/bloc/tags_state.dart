@@ -1,8 +1,11 @@
 part of 'tags_bloc.dart';
 
 @immutable
-abstract class TagsState {
+abstract class TagsState extends Equatable {
   const TagsState({required this.tags});
+
+  @override
+  List<Object> get props => [tags];
 
   final List<Tag> tags;
 }

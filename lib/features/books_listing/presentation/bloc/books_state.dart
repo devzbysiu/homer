@@ -12,7 +12,7 @@ final class Empty extends BooksState {
 }
 
 final class BooksLoaded extends BooksState {
-  const BooksLoaded(List<Book> books) : super(books: books);
+  const BooksLoaded({required super.books});
 }
 
 final class FailedToLoadBooks extends BooksState {

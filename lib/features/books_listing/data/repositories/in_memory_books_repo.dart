@@ -1,7 +1,7 @@
 import 'package:event_bus/event_bus.dart';
-import 'package:homer/core/error/failure.dart';
 import 'package:multiple_result/multiple_result.dart';
 
+import '../../../../core/error/failure.dart';
 import '../../domain/entities/book.dart';
 import '../../domain/repositories/books_repository.dart';
 import '../../presentation/bloc/books_bloc.dart';

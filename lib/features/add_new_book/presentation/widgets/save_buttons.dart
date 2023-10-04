@@ -57,7 +57,7 @@ class SaveButtons extends StatelessWidget {
       state: bookState,
       tags: selectedTags,
     )));
-    context.emitSuggestedBookEvt(ClearPickedBook());
+    context.emitSuggestedBookEvt(NoBookPicked());
     context.emitBookTagsEvt(ClearSelectedTags());
   }
 }

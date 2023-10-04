@@ -1,7 +1,7 @@
 part of 'suggested_book_bloc.dart';
 
 @immutable
-abstract class SuggestedBookState {
+abstract class SuggestedBookState extends Equatable {
   const SuggestedBookState({this.pickedBook});
 
   final Book? pickedBook;
@@ -9,6 +9,12 @@ abstract class SuggestedBookState {
 
 final class BookPickedState extends SuggestedBookState {
   const BookPickedState({super.pickedBook});
+
+  @override
+  List<Object?> get props => [pickedBook];
 }
 
-final class NoPickedBook extends SuggestedBookState {}
+final class NoPickedBook extends SuggestedBookState {
+  @override
+  List<Object?> get props => [];
+}

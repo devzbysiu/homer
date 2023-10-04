@@ -1,11 +1,12 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/core/usecase/usecase.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
+import '../../../../../core/usecase/usecase.dart';
 import '../../../../books_listing/domain/entities/book.dart';
 import '../../../domain/usecases/close_search_bar.dart';
 
@@ -17,7 +18,7 @@ final class SuggestedBookBloc
     extends Bloc<SuggestedBookEvent, SuggestedBookState> {
   SuggestedBookBloc({required this.closeSearchBar}) : super(NoPickedBook()) {
     on<SuggestedBookPicked>(_onSuggestedBookPicked);
-    on<ClearPickedBook>(_onClearPickedBook);
+    on<NoBookPicked>(_onClearPickedBook);
   }
 
   Future<void> _onSuggestedBookPicked(
@@ -29,7 +30,7 @@ final class SuggestedBookBloc
   }
 
   Future<void> _onClearPickedBook(
-    ClearPickedBook event,
+    NoBookPicked event,
     Emitter<SuggestedBookState> emit,
   ) async {
     emit(NoPickedBook());

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: depend_on_referenced_packages
@@ -12,7 +13,7 @@ part 'book_tags_event.dart';
 part 'book_tags_state.dart';
 
 final class BookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
-  BookTagsBloc() : super(const BookTagsState()) {
+  BookTagsBloc() : super(const Empty()) {
     on<TagSelected>(_onTagSelected);
     on<TagDeselected>(_onTagDeselected);
     on<ClearSelectedTags>(_onClearTags);
@@ -23,7 +24,7 @@ final class BookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     Emitter<BookTagsState> emit,
   ) async {
     _selectedTags.add(event.tag);
-    emit(BookTagsState(selectedTags: Set.of(_selectedTags)));
+    emit(TagsSelected(selectedTags: Set.of(_selectedTags)));
   }
 
   Future<void> _onTagDeselected(
@@ -31,7 +32,7 @@ final class BookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     Emitter<BookTagsState> emit,
   ) async {
     _selectedTags.remove(event.tag);
-    emit(BookTagsState(selectedTags: Set.of(_selectedTags)));
+    emit(TagsSelected(selectedTags: Set.of(_selectedTags)));
   }
 
   Future<void> _onClearTags(
@@ -39,7 +40,7 @@ final class BookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     Emitter<BookTagsState> emit,
   ) async {
     _selectedTags.clear();
-    emit(BookTagsState(selectedTags: _selectedTags));
+    emit(const Empty());
   }
 
   final Set<Tag> _selectedTags = {};

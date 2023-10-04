@@ -1,4 +1,4 @@
-import 'package:multiple_result/src/result.dart';
+import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/usecase/usecase.dart';

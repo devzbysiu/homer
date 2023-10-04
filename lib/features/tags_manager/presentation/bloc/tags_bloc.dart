@@ -1,11 +1,12 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/core/usecase/usecase.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
+import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/tag.dart';
 import '../../domain/usecases/list_tags.dart';
 

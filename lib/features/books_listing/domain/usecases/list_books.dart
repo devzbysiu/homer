@@ -15,5 +15,3 @@ final class ListBooks extends UseCase<List<BookEntity>, NoParams> {
 
   final BooksRepository booksRepo;
 }
-
-final class NoParams {}

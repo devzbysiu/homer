@@ -1,3 +1,6 @@
+import 'package:multiple_result/multiple_result.dart';
+
+import '../../../../core/error/failure.dart';
 import '../../domain/entities/tag_entity.dart';
 import '../../domain/repositories/tags_repository.dart';
 
@@ -18,5 +21,7 @@ final class InMemoryTagsRepo implements TagsRepository {
   ];
 
   @override
-  List<TagEntity> listAll() => List.of(_allTags);
+  Future<Result<List<TagEntity>, Failure>> listAll() {
+    return Future.value(Success(List.of(_allTags)));
+  }
 }

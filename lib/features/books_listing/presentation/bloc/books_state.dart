@@ -12,9 +12,7 @@ final class Empty extends BooksState {
 }
 
 final class BooksLoaded extends BooksState {
-  const BooksLoaded(this.books) : super(books: books);
-
-  final List<BookEntity> books;
+  const BooksLoaded(List<BookEntity> books) : super(books: books);
 }
 
 final class FailedToLoadBooks extends BooksState {

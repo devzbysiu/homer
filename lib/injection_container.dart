@@ -7,6 +7,7 @@ import 'package:homer/features/books_listing/domain/usecases/update_book_state.d
 import 'package:homer/features/books_listing/presentation/bloc/books_bloc.dart';
 import 'package:homer/features/tags_manager/data/repositories/in_memory_tags_repo.dart';
 import 'package:homer/features/tags_manager/domain/repositories/tags_repository.dart';
+import 'package:homer/features/tags_manager/domain/usecases/list_tags.dart';
 
 import 'features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
 import 'features/add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
@@ -27,15 +28,18 @@ void init() {
     ),
   );
 
-  sl.registerFactory(() => TagsBloc(tagsRepo: sl()));
+  sl.registerFactory(() => TagsBloc(listTags: sl()));
   sl.registerFactory(() => SuggestedBookBloc(eventBus: sl()));
   sl.registerFactory(() => SearchForBooksBloc(booksRepo: sl()));
   sl.registerFactory(() => BookTagsBloc());
 
   // Use cases
+  // books
   sl.registerLazySingleton(() => ListBooks(sl()));
   sl.registerLazySingleton(() => AddBook(sl()));
   sl.registerLazySingleton(() => UpdateBookState(sl()));
+  // tags
+  sl.registerLazySingleton(() => ListTags(sl()));
 
   // Repositories
   sl.registerLazySingleton<BooksRepository>(() => InMemoryBooksRepo());

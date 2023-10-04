@@ -10,6 +10,7 @@ import 'package:homer/features/books_listing/domain/usecases/update_book_state.d
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
+import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/book_entity.dart';
 
 part 'books_event.dart';
@@ -23,21 +24,21 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     required this.updateBookState,
     required this.eventBus,
   }) : super(const Empty()) {
-    on<BooksListLoaded>(_onBooksListLoaded);
+    on<BooksListDisplayed>(_onBooksListDisplayed);
     on<BookAdded>(_onBookAdded);
     on<BookSwipedRight>(_onBookSwipedRight);
     on<BookSwipedLeft>(_onBookSwipedLeft);
-    add(BooksListLoaded());
+    add(BooksListDisplayed());
   }
 
-  Future<void> _onBooksListLoaded(
-    BooksListLoaded event,
+  Future<void> _onBooksListDisplayed(
+    BooksListDisplayed event,
     Emitter<BooksState> emit,
   ) async {
     final res = await listBooks(NoParams());
     res.when(
-          (success) => emit(BooksLoaded(success)),
-          (error) => emit(const FailedToLoadBooks()),
+      (success) => emit(BooksLoaded(success)),
+      (error) => emit(const FailedToLoadBooks()),
     );
   }
 

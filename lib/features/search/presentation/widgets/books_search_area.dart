@@ -2,9 +2,9 @@ import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
-import '../../../add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
 import '../../../../core/utils/extensions.dart';
-import '../../../../main.dart';
+import '../../../../injection_container.dart';
+import '../../../add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
 import '../../../bottom_drawer/presentation/widgets/bottom_sheet_content.dart';
 import '../bloc/search_for_books_bloc.dart';
 import 'search_suggestions.dart';
@@ -60,7 +60,7 @@ final class BookSearchArea extends StatelessWidget {
   }
 
   void _closeSuggestionsWhenBookPicked() {
-    getIt<EventBus>().on<BookPicked>().listen((_) {
+    sl<EventBus>().on<BookPicked>().listen((_) {
       _controller.close();
     });
   }

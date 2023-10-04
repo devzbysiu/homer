@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homer/features/books_listing/domain/usecases/add_book.dart';
+import 'package:homer/features/books_listing/domain/usecases/list_books.dart';
+import 'package:homer/features/books_listing/domain/usecases/update_book_state.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 import '../../domain/entities/book_entity.dart';
-import '../../domain/repositories/books_repository.dart';
 
 part 'books_event.dart';
 
@@ -16,26 +18,50 @@ part 'books_state.dart';
 
 final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   BooksBloc({
-    required this.booksRepo,
+    required this.addBook,
+    required this.listBooks,
+    required this.updateBookState,
     required this.eventBus,
-  }) : super(BooksState(booksRepo.listAll())) {
+  }) : super(const Empty()) {
+    on<BooksListLoaded>(_onBooksListLoaded);
     on<BookAdded>(_onBookAdded);
     on<BookSwipedRight>(_onBookSwipedRight);
     on<BookSwipedLeft>(_onBookSwipedLeft);
+    add(BooksListLoaded());
+  }
+
+  Future<void> _onBooksListLoaded(
+    BooksListLoaded event,
+    Emitter<BooksState> emit,
+  ) async {
+    final res = await listBooks(NoParams());
+    res.when(
+          (success) => emit(BooksLoaded(success)),
+          (error) => emit(const FailedToLoadBooks()),
+    );
   }
 
   Future<void> _onBookAdded(BookAdded event, Emitter<BooksState> emit) async {
-    booksRepo.add(event.book);
+    await addBook(AddParams(book: event.book));
     eventBus.fire(BookSaved());
-    emit(BooksState(booksRepo.listAll()));
+    final res = await listBooks(NoParams());
+    res.when(
+      (success) => emit(BooksLoaded(success)),
+      (error) => emit(const FailedToLoadBooks()),
+    );
   }
 
   Future<void> _onBookSwipedRight(
     BookSwipedRight event,
     Emitter<BooksState> emit,
   ) async {
-    booksRepo.swap(event.book, event.book.moveRight());
-    emit(BooksState(booksRepo.listAll()));
+    final book = event.book;
+    await updateBookState(UpdateParams(book: book, withCopy: book.moveRight()));
+    final res = await listBooks(NoParams());
+    res.when(
+      (success) => emit(BooksLoaded(success)),
+      (error) => emit(const FailedToLoadBooks()),
+    );
   }
 
   Future<void> _onBookSwipedLeft(
@@ -43,11 +69,19 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) async {
     final book = event.book;
-    booksRepo.swap(book, book.moveLeft());
-    emit(BooksState(booksRepo.listAll()));
+    await updateBookState(UpdateParams(book: book, withCopy: book.moveLeft()));
+    final res = await listBooks(NoParams());
+    res.when(
+      (success) => emit(BooksLoaded(success)),
+      (error) => emit(const FailedToLoadBooks()),
+    );
   }
 
-  final BooksRepository booksRepo;
+  final AddBook addBook;
+
+  final ListBooks listBooks;
+
+  final UpdateBookState updateBookState;
 
   final EventBus eventBus;
 }

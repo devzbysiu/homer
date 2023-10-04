@@ -21,4 +21,6 @@ final class BookSwipedLeft extends BooksEvent {
   final BookEntity book;
 }
 
+final class BooksListLoaded extends BooksEvent {}
+
 final class BookSaved {}

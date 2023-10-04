@@ -1,11 +1,14 @@
+import 'package:multiple_result/multiple_result.dart';
+
+import '../../../../core/error/failure.dart';
 import '../entities/book_entity.dart';
 
 abstract class BooksRepository {
-  List<BookEntity> listAll();
+  Future<Result<List<BookEntity>, Failure>> listAll();
 
-  void add(BookEntity book);
+  Future<Result<Unit, Failure>> add(BookEntity book);
 
-  void swap(BookEntity book, BookEntity withCopy);
+  Future<Result<Unit, Failure>> swap(BookEntity book, BookEntity withCopy);
 
-  List<BookEntity> search(String query);
+  Future<Result<List<BookEntity>, Failure>> search(String query);
 }

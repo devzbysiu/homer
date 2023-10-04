@@ -1,3 +1,6 @@
+import 'package:homer/core/error/failure.dart';
+import 'package:multiple_result/multiple_result.dart';
+
 import '../../domain/entities/book_entity.dart';
 import '../../domain/repositories/books_repository.dart';
 
@@ -24,17 +27,25 @@ final class InMemoryBooksRepo implements BooksRepository {
   ];
 
   @override
-  List<BookEntity> listAll() => List.of(_allBooks);
-
-  @override
-  void add(BookEntity book) => _allBooks.add(book);
-
-  @override
-  void swap(BookEntity book, BookEntity withCopy) {
-    _allBooks.remove(book);
-    _allBooks.add(withCopy);
+  Future<Result<Unit, Failure>> add(BookEntity book) {
+    _allBooks.add(book);
+    return Future.value(const Success(unit));
   }
 
   @override
-  List<BookEntity> search(String query) => List.of(_foundBooks);
+  Future<Result<List<BookEntity>, Failure>> listAll() {
+    return Future.value(Success(List.of(_allBooks)));
+  }
+
+  @override
+  Future<Result<List<BookEntity>, Failure>> search(String query) {
+    return Future.value(Success(List.of(_foundBooks)));
+  }
+
+  @override
+  Future<Result<Unit, Failure>> swap(BookEntity book, BookEntity withCopy) {
+      _allBooks.remove(book);
+      _allBooks.add(withCopy);
+      return Future.value(const Success(unit));
+  }
 }

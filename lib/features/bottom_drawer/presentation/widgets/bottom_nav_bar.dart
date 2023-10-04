@@ -3,9 +3,9 @@ import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../books_listing/presentation/bloc/books_bloc.dart';
 import '../../../../core/utils/extensions.dart';
-import '../../../../main.dart';
+import '../../../../injection_container.dart';
+import '../../../books_listing/presentation/bloc/books_bloc.dart';
 import '../../../search/presentation/widgets/books_search_area.dart';
 import '../../presentation/bloc/app_tab_bloc.dart';
 
@@ -63,7 +63,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
 
   void _closeSheetWhenBookSaved() {
     if (!listenerHooked) {
-      getIt<EventBus>().on<BookSaved>().listen((_) {
+      sl<EventBus>().on<BookSaved>().listen((_) {
         _sheetController.closeSheet();
       });
       listenerHooked = true;

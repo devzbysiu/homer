@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../book/domain/entity/book_entity.dart';
-import '../book/domain/entity/tag_entity.dart';
-import '../book/domain/use_case/change_active_tab/app_tab_bloc.dart';
-import '../book/domain/use_case/change_book_tags/book_tags_bloc.dart';
-import '../book/domain/use_case/display_suggested_book/suggested_book_bloc.dart';
-import '../book/domain/use_case/list_books/books_bloc.dart';
-import '../book/domain/use_case/list_tags/tags_bloc.dart';
-import '../book/domain/use_case/search_for_books/search_for_books_bloc.dart';
+import '../../features/books_listing/domain/entities/book_entity.dart';
+import '../../features/tags_manager/domain/entities/tag_entity.dart';
+import '../../features/bottom_drawer/presentation/bloc/app_tab_bloc.dart';
+import '../../features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
+import '../../features/add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
+import '../../features/books_listing/presentation/bloc/books_bloc.dart';
+import '../../features/tags_manager/presentation/bloc/tags_bloc.dart';
+import '../../features/search/presentation/bloc/search_for_books_bloc.dart';
 
 extension ContextColorExt on BuildContext {
   Color figureOutColor() {

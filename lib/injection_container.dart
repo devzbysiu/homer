@@ -1,6 +1,7 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
 
+import 'features/add_new_book/domain/usecases/close_search_bar.dart';
 import 'features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
 import 'features/add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
 import 'features/books_listing/data/repositories/in_memory_books_repo.dart';
@@ -25,12 +26,11 @@ void init() {
       addBook: sl(),
       listBooks: sl(),
       updateBookState: sl(),
-      eventBus: sl(),
     ),
   );
 
   sl.registerFactory(() => TagsBloc(listTags: sl()));
-  sl.registerFactory(() => SuggestedBookBloc(eventBus: sl()));
+  sl.registerFactory(() => SuggestedBookBloc(closeSearchBar: sl()));
   sl.registerFactory(() => SearchForBooksBloc(searchBooks: sl()));
   sl.registerFactory(() => BookTagsBloc());
 
@@ -43,9 +43,11 @@ void init() {
   sl.registerLazySingleton(() => ListTags(sl()));
   // search
   sl.registerLazySingleton(() => SearchBooks(sl()));
+  // bottom nav
+  sl.registerLazySingleton(() => CloseSearchBar(sl()));
 
   // Repositories
-  sl.registerLazySingleton<BooksRepository>(() => InMemoryBooksRepo());
+  sl.registerLazySingleton<BooksRepository>(() => InMemoryBooksRepo(sl()));
   sl.registerLazySingleton<TagsRepository>(() => InMemoryTagsRepo());
 
   // Data sources

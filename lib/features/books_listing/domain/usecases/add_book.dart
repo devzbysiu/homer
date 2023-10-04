@@ -1,3 +1,4 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:homer/core/error/failure.dart';
 import 'package:homer/core/usecase/usecase.dart';
 import 'package:homer/features/books_listing/domain/repositories/books_repository.dart';

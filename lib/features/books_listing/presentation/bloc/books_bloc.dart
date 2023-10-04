@@ -22,7 +22,6 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     required this.addBook,
     required this.listBooks,
     required this.updateBookState,
-    required this.eventBus,
   }) : super(const Empty()) {
     on<BooksListDisplayed>(_onBooksListDisplayed);
     on<BookAdded>(_onBookAdded);
@@ -44,7 +43,6 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
 
   Future<void> _onBookAdded(BookAdded event, Emitter<BooksState> emit) async {
     await addBook(AddParams(book: event.book));
-    eventBus.fire(BookSaved());
     final res = await listBooks(NoParams());
     res.when(
       (success) => emit(BooksLoaded(success)),
@@ -83,6 +81,4 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   final ListBooks listBooks;
 
   final UpdateBookState updateBookState;
-
-  final EventBus eventBus;
 }

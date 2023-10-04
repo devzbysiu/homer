@@ -1,7 +1,7 @@
 import '../../domain/entities/book_entity.dart';
 import '../../domain/repositories/books_repository.dart';
 
-final class InMemoryBooksRepo extends BooksRepository {
+final class InMemoryBooksRepo implements BooksRepository {
   final _allBooks = [
     BookEntity.fake(),
     BookEntity.fake(),

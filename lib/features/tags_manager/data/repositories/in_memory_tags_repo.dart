@@ -1,7 +1,7 @@
 import '../../domain/entities/tag_entity.dart';
 import '../../domain/repositories/tags_repository.dart';
 
-final class InMemoryTagsRepo extends TagsRepository {
+final class InMemoryTagsRepo implements TagsRepository {
   final _allTags = [
     const TagEntity(name: 'technical', color: TagColor.brown),
     const TagEntity(name: 'horror', color: TagColor.red),

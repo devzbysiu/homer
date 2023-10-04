@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:faker/faker.dart';
 
-import '../../../tags_manager/domain/entities/tag_entity.dart';
+import '../../../tags_manager/domain/entities/tag.dart';
 
 var faker = Faker();
 
@@ -17,8 +17,8 @@ const someIsbns = [
   '0679887008',
 ];
 
-final class BookEntity extends Equatable {
-  const BookEntity({
+final class Book extends Equatable {
+  const Book({
     required this.title,
     required this.subtitle,
     required this.author,
@@ -33,8 +33,8 @@ final class BookEntity extends Equatable {
     required this.tags,
   });
 
-  factory BookEntity.fake({bool withTags = true}) {
-    return BookEntity(
+  factory Book.fake({bool withTags = true}) {
+    return Book(
       title: faker.lorem
           .words(faker.randomGenerator.integer(8, min: 1))
           .join(' ')
@@ -51,7 +51,7 @@ final class BookEntity extends Equatable {
       rating: faker.randomGenerator.decimal(scale: 10),
       summary: faker.lorem.sentences(10).join(" "),
       tags: withTags
-          ? {const TagEntity(name: 'type:technical', color: TagColor.orange)}
+          ? {const Tag(name: 'type:technical', color: TagColor.orange)}
           : {},
     );
   }
@@ -78,9 +78,9 @@ final class BookEntity extends Equatable {
 
   final String? summary;
 
-  final Set<TagEntity> tags;
+  final Set<Tag> tags;
 
-  BookEntity copyWith({
+  Book copyWith({
     String? title,
     String? subtitle,
     String? author,
@@ -92,9 +92,9 @@ final class BookEntity extends Equatable {
     int? endDate,
     double? rating,
     String? summary,
-    Set<TagEntity>? tags,
+    Set<Tag>? tags,
   }) {
-    return BookEntity(
+    return Book(
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
       author: author ?? this.author,
@@ -110,11 +110,11 @@ final class BookEntity extends Equatable {
     );
   }
 
-  BookEntity moveRight() {
+  Book moveRight() {
     return copyWith(state: state.moveRight());
   }
 
-  BookEntity moveLeft() {
+  Book moveLeft() {
     return copyWith(state: state.moveLeft());
   }
 

@@ -6,7 +6,7 @@ import 'package:homer/core/usecase/usecase.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
-import '../../../../books_listing/domain/entities/book_entity.dart';
+import '../../../../books_listing/domain/entities/book.dart';
 import '../../../domain/usecases/close_search_bar.dart';
 
 part 'suggested_book_event.dart';

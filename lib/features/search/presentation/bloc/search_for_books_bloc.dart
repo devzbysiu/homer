@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
-import '../../../books_listing/domain/entities/book_entity.dart';
+import '../../../books_listing/domain/entities/book.dart';
 import '../../domain/usecases/search_books.dart';
 
 part 'search_for_books_event.dart';

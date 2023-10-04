@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 import '../../../add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
 import '../../../../core/utils/extensions.dart';
-import '../../../books_listing/domain/entities/book_entity.dart';
+import '../../../books_listing/domain/entities/book.dart';
 
 final class SearchSuggestion extends StatelessWidget {
   const SearchSuggestion({super.key, required this.book});
 
-  final BookEntity book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ final class SearchSuggestion extends StatelessWidget {
 class ListTileThumbnail extends StatelessWidget {
   const ListTileThumbnail({super.key, required this.book});
 
-  final BookEntity book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {

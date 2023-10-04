@@ -11,7 +11,7 @@ import 'package:homer/features/books_listing/domain/usecases/update_book_state.d
 import 'package:meta/meta.dart';
 
 import '../../../../core/usecase/usecase.dart';
-import '../../domain/entities/book_entity.dart';
+import '../../domain/entities/book.dart';
 
 part 'books_event.dart';
 

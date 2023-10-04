@@ -4,7 +4,7 @@ part of 'tags_bloc.dart';
 abstract class TagsState {
   const TagsState({required this.tags});
 
-  final List<TagEntity> tags;
+  final List<Tag> tags;
 }
 
 final class Empty extends TagsState {
@@ -12,7 +12,7 @@ final class Empty extends TagsState {
 }
 
 final class TagsLoaded extends TagsState {
-  const TagsLoaded(List<TagEntity> tags) : super(tags: tags);
+  const TagsLoaded(List<Tag> tags) : super(tags: tags);
 }
 
 final class FailedToLoadTags extends TagsState {

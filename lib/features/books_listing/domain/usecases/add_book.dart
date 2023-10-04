@@ -5,7 +5,7 @@ import 'package:homer/features/books_listing/domain/repositories/books_repositor
 import 'package:multiple_result/multiple_result.dart';
 import 'package:multiple_result/src/result.dart';
 
-import '../entities/book_entity.dart';
+import '../entities/book.dart';
 
 final class AddBook extends UseCase<Unit, AddParams> {
   AddBook(this.booksRepo);
@@ -21,5 +21,5 @@ final class AddBook extends UseCase<Unit, AddParams> {
 final class AddParams {
   AddParams({required this.book});
 
-  final BookEntity book;
+  final Book book;
 }

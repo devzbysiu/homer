@@ -4,7 +4,7 @@ part of 'books_bloc.dart';
 abstract class BooksState {
   const BooksState({required this.books});
 
-  final List<BookEntity> books;
+  final List<Book> books;
 }
 
 final class Empty extends BooksState {
@@ -12,7 +12,7 @@ final class Empty extends BooksState {
 }
 
 final class BooksLoaded extends BooksState {
-  const BooksLoaded(List<BookEntity> books) : super(books: books);
+  const BooksLoaded(List<Book> books) : super(books: books);
 }
 
 final class FailedToLoadBooks extends BooksState {

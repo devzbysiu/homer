@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../bloc/add_tags/book_tags_bloc.dart';
 import '../../../../core/utils/color_mapper.dart';
 import '../../../../core/utils/extensions.dart';
-import '../../../tags_manager/domain/entities/tag_entity.dart';
+import '../../../tags_manager/domain/entities/tag.dart';
 
 class Tags extends StatefulWidget {
   const Tags({super.key});
@@ -33,19 +33,19 @@ class _TagsState extends State<Tags> {
     );
   }
 
-  List<Color> _tagColors(List<TagEntity> tags) {
+  List<Color> _tagColors(List<Tag> tags) {
     return tags.map((tag) => toFlutterColor(tag.color)).toList();
   }
 
-  List<Color> _blackColors(List<TagEntity> tags) {
+  List<Color> _blackColors(List<Tag> tags) {
     return tags.map((_) => Colors.black).toList();
   }
 
-  List<Color> _whiteColors(List<TagEntity> tags) {
+  List<Color> _whiteColors(List<Tag> tags) {
     return tags.map((_) => Colors.white).toList();
   }
 
-  void _tagSelected(BuildContext context, int idx, List<TagEntity> tags) {
+  void _tagSelected(BuildContext context, int idx, List<Tag> tags) {
     if (_selectedTags.contains(idx)) {
       context.emitBookTagsEvt(TagDeselected(tag: tags[idx]));
       _selectedTags.remove(idx);

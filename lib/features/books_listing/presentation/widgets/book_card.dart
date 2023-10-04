@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:image_card/image_card.dart';
 
 import '../../../../core/utils/color_mapper.dart';
-import '../../../tags_manager/domain/entities/tag_entity.dart';
-import '../../domain/entities/book_entity.dart';
+import '../../../tags_manager/domain/entities/tag.dart';
+import '../../domain/entities/book.dart';
 import 'swipeable_card.dart';
 
 final class BookCard extends StatelessWidget {
   const BookCard({super.key, required this.book});
 
-  final BookEntity book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ final class _BookAuthor extends StatelessWidget {
 final class _BookCardFooter extends StatelessWidget {
   const _BookCardFooter({required this.book});
 
-  final BookEntity book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +121,7 @@ final class _BookCardFooter extends StatelessWidget {
 final class _Tag extends StatelessWidget {
   const _Tag({required this.tag});
 
-  final TagEntity tag;
+  final Tag tag;
 
   @override
   Widget build(BuildContext context) {

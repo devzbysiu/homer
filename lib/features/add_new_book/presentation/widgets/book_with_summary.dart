@@ -1,13 +1,13 @@
 import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/material.dart';
 
-import '../../../books_listing/domain/entities/book_entity.dart';
+import '../../../books_listing/domain/entities/book.dart';
 import '../../../books_listing/presentation/widgets/book_card.dart';
 
 class BookWithSummary extends StatelessWidget {
   const BookWithSummary({super.key, required this.pickedBook});
 
-  final BookEntity pickedBook;
+  final Book pickedBook;
 
   @override
   Widget build(BuildContext context) {

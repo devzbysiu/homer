@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../features/tags_manager/domain/entities/tag_entity.dart';
+import '../../features/tags_manager/domain/entities/tag.dart';
 
 Color toFlutterColor(TagColor color) {
   switch (color) {

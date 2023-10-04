@@ -3,13 +3,13 @@ import 'package:homer/core/usecase/usecase.dart';
 import 'package:homer/features/books_listing/domain/repositories/books_repository.dart';
 import 'package:multiple_result/src/result.dart';
 
-import '../entities/book_entity.dart';
+import '../entities/book.dart';
 
-final class ListBooks extends UseCase<List<BookEntity>, NoParams> {
+final class ListBooks extends UseCase<List<Book>, NoParams> {
   ListBooks(this.booksRepo);
 
   @override
-  Future<Result<List<BookEntity>, Failure>> call(NoParams params) async {
+  Future<Result<List<Book>, Failure>> call(NoParams params) async {
     return await booksRepo.listAll();
   }
 

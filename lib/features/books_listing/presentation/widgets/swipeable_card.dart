@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
 import '../../../../core/utils/extensions.dart';
-import '../../domain/entities/book_entity.dart';
+import '../../domain/entities/book.dart';
 import '../bloc/books_bloc.dart';
 
 final class SwipeableCard extends StatelessWidget {
@@ -11,7 +11,7 @@ final class SwipeableCard extends StatelessWidget {
 
   final Widget child;
 
-  final BookEntity book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {

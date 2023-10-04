@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
-import '../../../../tags_manager/domain/entities/tag_entity.dart';
+import '../../../../tags_manager/domain/entities/tag.dart';
 
 part 'book_tags_event.dart';
 
@@ -42,5 +42,5 @@ final class BookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     emit(BookTagsState(selectedTags: _selectedTags));
   }
 
-  final Set<TagEntity> _selectedTags = {};
+  final Set<Tag> _selectedTags = {};
 }

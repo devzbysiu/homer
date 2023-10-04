@@ -2,14 +2,14 @@ import 'package:multiple_result/src/result.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../../../books_listing/domain/entities/book_entity.dart';
+import '../../../books_listing/domain/entities/book.dart';
 import '../../../books_listing/domain/repositories/books_repository.dart';
 
-final class SearchBooks extends UseCase<List<BookEntity>, SearchParams> {
+final class SearchBooks extends UseCase<List<Book>, SearchParams> {
   SearchBooks(this.booksRepo);
 
   @override
-  Future<Result<List<BookEntity>, Failure>> call(SearchParams params) async {
+  Future<Result<List<Book>, Failure>> call(SearchParams params) async {
     return await booksRepo.search(params.query);
   }
 

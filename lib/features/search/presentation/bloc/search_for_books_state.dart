@@ -4,7 +4,7 @@ part of 'search_for_books_bloc.dart';
 abstract class SearchForBooksState {
   const SearchForBooksState({required this.foundBooks});
 
-  final List<BookEntity> foundBooks;
+  final List<Book> foundBooks;
 }
 
 final class Empty extends SearchForBooksState {

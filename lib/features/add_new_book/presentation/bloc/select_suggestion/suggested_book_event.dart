@@ -6,7 +6,7 @@ abstract class SuggestedBookEvent {}
 final class SuggestedBookPicked extends SuggestedBookEvent {
   SuggestedBookPicked(this.pickedBook);
 
-  final BookEntity pickedBook;
+  final Book pickedBook;
 }
 
 final class ClearPickedBook extends SuggestedBookEvent {}

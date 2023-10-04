@@ -4,12 +4,12 @@ import '../bloc/add_tags/book_tags_bloc.dart';
 import '../bloc/select_suggestion/suggested_book_bloc.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
 import '../../../../core/utils/extensions.dart';
-import '../../../books_listing/domain/entities/book_entity.dart';
+import '../../../books_listing/domain/entities/book.dart';
 
 class SaveButtons extends StatelessWidget {
   const SaveButtons({super.key, required this.pickedBook});
 
-  final BookEntity pickedBook;
+  final Book pickedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class SaveButtons extends StatelessWidget {
 
   void _addBook(
     BuildContext context,
-    BookEntity pickedBook,
+    Book pickedBook,
     BookState bookState,
   ) {
     final selectedTags = context.selectedTags();

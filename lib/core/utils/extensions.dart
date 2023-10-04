@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../features/books_listing/domain/entities/book_entity.dart';
-import '../../features/tags_manager/domain/entities/tag_entity.dart';
+import '../../features/books_listing/domain/entities/book.dart';
+import '../../features/tags_manager/domain/entities/tag.dart';
 import '../../features/bottom_drawer/presentation/bloc/app_tab_bloc.dart';
 import '../../features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
 import '../../features/add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
@@ -28,11 +28,11 @@ extension BlocExt on BuildContext {
     return select((AppTabBloc bloc) => bloc.state.currentTab);
   }
 
-  List<BookEntity> booksOfCurrentTab() {
+  List<Book> booksOfCurrentTab() {
     return select(_books).where((b) => _belongsToCurrentTab(b)).toList();
   }
 
-  bool _belongsToCurrentTab(BookEntity book) {
+  bool _belongsToCurrentTab(Book book) {
     return book.state.name == currentTab().name;
   }
 
@@ -40,7 +40,7 @@ extension BlocExt on BuildContext {
     read<BooksBloc>().add(event);
   }
 
-  BookEntity? pickedSuggestedBook() {
+  Book? pickedSuggestedBook() {
     return select((SuggestedBookBloc bloc) => bloc.state.pickedBook);
   }
 
@@ -48,7 +48,7 @@ extension BlocExt on BuildContext {
     read<SuggestedBookBloc>().add(event);
   }
 
-  List<BookEntity> foundBooks() {
+  List<Book> foundBooks() {
     return select((SearchForBooksBloc bloc) => bloc.state.foundBooks);
   }
 
@@ -56,7 +56,7 @@ extension BlocExt on BuildContext {
     read<SearchForBooksBloc>().add(event);
   }
 
-  List<TagEntity> allTags() {
+  List<Tag> allTags() {
     return select((TagsBloc bloc) => bloc.state.tags);
   }
 
@@ -64,11 +64,11 @@ extension BlocExt on BuildContext {
     read<BookTagsBloc>().add(event);
   }
 
-  Set<TagEntity> selectedTags() {
+  Set<Tag> selectedTags() {
     return read<BookTagsBloc>().state.selectedTags;
   }
 }
 
-List<BookEntity> _books(BooksBloc bloc) {
+List<Book> _books(BooksBloc bloc) {
   return bloc.state.books;
 }

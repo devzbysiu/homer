@@ -4,7 +4,7 @@ part of 'suggested_book_bloc.dart';
 abstract class SuggestedBookState {
   const SuggestedBookState({this.pickedBook});
 
-  final BookEntity? pickedBook;
+  final Book? pickedBook;
 }
 
 final class BookPickedState extends SuggestedBookState {

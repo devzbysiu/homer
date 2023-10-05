@@ -8,7 +8,7 @@ abstract class BooksRepository {
 
   Future<Result<Unit, Failure>> add(Book book);
 
-  Future<Result<Unit, Failure>> swap(Book book, Book withCopy);
+  Future<Result<Unit, Failure>> update(Book modified);
 
   Future<Result<List<Book>, Failure>> search(String query);
 }

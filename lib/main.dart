@@ -12,14 +12,13 @@ import 'features/search/presentation/bloc/search_for_books_bloc.dart';
 import 'features/tags_manager/presentation/bloc/tags_bloc.dart';
 import 'injection_container.dart';
 
-void main() {
-  init();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initDi();
   runApp(MultiBlocProvider(
     providers: [
-      BlocProvider(create: (_) => AppTabBloc()),
-      BlocProvider(
-        create: (_) => sl<BooksBloc>(),
-      ),
+      BlocProvider(create: (_) => sl<AppTabBloc>()),
+      BlocProvider(create: (_) => sl<BooksBloc>()),
       BlocProvider(create: (_) => sl<TagsBloc>()),
       BlocProvider(create: (_) => sl<SuggestedBookBloc>()),
       BlocProvider(create: (_) => sl<SearchForBooksBloc>()),

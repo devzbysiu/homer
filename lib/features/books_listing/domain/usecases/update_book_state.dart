@@ -10,16 +10,14 @@ final class UpdateBookState extends UseCase<Unit, UpdateParams> {
 
   @override
   Future<Result<Unit, Failure>> call(UpdateParams params) async {
-    return await booksRepo.swap(params.book, params.withCopy);
+    return await booksRepo.update(params.modified);
   }
 
   final BooksRepository booksRepo;
 }
 
 final class UpdateParams {
-  UpdateParams({required this.book, required this.withCopy});
+  UpdateParams({required this.modified});
 
-  final Book book;
-
-  final Book withCopy;
+  final Book modified;
 }

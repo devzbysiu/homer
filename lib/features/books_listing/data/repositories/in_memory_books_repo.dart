@@ -1,18 +1,15 @@
-import 'package:event_bus/event_bus.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/book.dart';
 import '../../domain/repositories/books_repository.dart';
-import '../../presentation/bloc/books_bloc.dart';
 
 final class InMemoryBooksRepo implements BooksRepository {
-  InMemoryBooksRepo(this.eventBus);
+  InMemoryBooksRepo();
 
   @override
   Future<Result<Unit, Failure>> add(Book book) {
     _allBooks.add(book);
-    eventBus.fire(BookSaved());
     return Future.value(const Success(unit));
   }
 
@@ -27,10 +24,10 @@ final class InMemoryBooksRepo implements BooksRepository {
   }
 
   @override
-  Future<Result<Unit, Failure>> swap(Book book, Book withCopy) {
-    _allBooks.remove(book);
-    _allBooks.add(withCopy);
-    return Future.value(const Success(unit));
+  Future<Result<Unit, Failure>> update(Book modified) {
+    _allBooks.removeWhere((book) => book.isbn == modified.isbn);
+    _allBooks.add(modified);
+    throw UnimplementedError();
   }
 
   final _allBooks = [
@@ -53,6 +50,4 @@ final class InMemoryBooksRepo implements BooksRepository {
     Book.fake(withTags: false),
     Book.fake(withTags: false),
   ];
-
-  final EventBus eventBus;
 }

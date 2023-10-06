@@ -19,62 +19,28 @@ final class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final booksToDelete = context.booksToDelete();
-    final selectedToDelete = booksToDelete.contains(book);
+    final isOnDeleteList = booksToDelete.contains(book);
     return GestureDetector(
-      onLongPress: () => _pickForDeletion(context),
-      onTap: () => _appendToDeletion(selectedToDelete, context),
+      onLongPress: () => _switchToDeleteMode(context),
+      onTap: () => _toggleDeletion(isOnDeleteList, context),
       child: booksToDelete.isNotEmpty
-          ? SwipeableCard(
+          ? _DeletableCard(
               book: book,
-              child: Blur(
-                colorOpacity: selectedToDelete ? 0.8 : 0.5,
-                blur: 1.0,
-                overlay: Center(
-                  child: selectedToDelete ? const Icon(
-                    Icons.done,
-                    color: Colors.white,
-                    size: 35,
-                  ) : null,
-                ),
-                blurColor: Colors.red,
-                child: TransparentImageCard(
-                  imageProvider: _imageProvider() as ImageProvider<Object>,
-                  tags: _tags(),
-                  title: _BookTitle(title: book.title),
-                  description: _BookAuthor(authorName: book.author),
-                  footer: _BookCardFooter(book: book),
-                ),
-              ),
+              isOnDeleteList: isOnDeleteList,
             )
           : SwipeableCard(
               book: book,
-              child: TransparentImageCard(
-                imageProvider: _imageProvider() as ImageProvider<Object>,
-                tags: _tags(),
-                title: _BookTitle(title: book.title),
-                description: _BookAuthor(authorName: book.author),
-                footer: _BookCardFooter(book: book),
-              ),
+              child: _ImageCard(book: book),
             ),
     );
   }
 
-  List<Widget> _tags() {
-    return book.tags.map((tag) => _Tag(tag: tag)).toList();
-  }
-
-  Object _imageProvider() {
-    return book.thumbnailAddress == null
-        ? const AssetImage('assets/book-cover-fallback.webp')
-        : CachedNetworkImageProvider(book.thumbnailAddress!);
-  }
-
-  void _pickForDeletion(BuildContext context) {
+  void _switchToDeleteMode(BuildContext context) {
     context.emitBooksEvt(AppendToDeleteList(book));
     Vibration.vibrate(duration: 100);
   }
 
-  void _appendToDeletion(bool selectedToDelete, BuildContext context) {
+  void _toggleDeletion(bool selectedToDelete, BuildContext context) {
     if (selectedToDelete) {
       context.emitBooksEvt(RemoveFromDeleteList(book));
       return;
@@ -188,5 +154,65 @@ final class _Tag extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+final class _DeletableCard extends StatelessWidget {
+  const _DeletableCard({
+    required this.book,
+    required this.isOnDeleteList,
+  });
+
+  final Book book;
+
+  final bool isOnDeleteList;
+
+  @override
+  Widget build(BuildContext context) {
+    return SwipeableCard(
+      book: book,
+      child: Blur(
+        colorOpacity: isOnDeleteList ? 0.8 : 0.3,
+        blur: 0.8,
+        overlay: Center(
+          child: isOnDeleteList
+              ? const Icon(
+                  Icons.done,
+                  color: Colors.white,
+                  size: 35,
+                )
+              : null,
+        ),
+        blurColor: Colors.red,
+        child: _ImageCard(book: book),
+      ),
+    );
+  }
+}
+
+class _ImageCard extends StatelessWidget {
+  const _ImageCard({required this.book});
+
+  final Book book;
+
+  @override
+  Widget build(BuildContext context) {
+    return TransparentImageCard(
+      imageProvider: _imageProvider() as ImageProvider<Object>,
+      tags: _tags(),
+      title: _BookTitle(title: book.title),
+      description: _BookAuthor(authorName: book.author),
+      footer: _BookCardFooter(book: book),
+    );
+  }
+
+  Object _imageProvider() {
+    return book.thumbnailAddress == null
+        ? const AssetImage('assets/book-cover-fallback.webp')
+        : CachedNetworkImageProvider(book.thumbnailAddress!);
+  }
+
+  List<Widget> _tags() {
+    return book.tags.map((tag) => _Tag(tag: tag)).toList();
   }
 }

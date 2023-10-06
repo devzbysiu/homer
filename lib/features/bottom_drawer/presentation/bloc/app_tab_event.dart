@@ -6,8 +6,8 @@ abstract class AppTabEvent extends Equatable {}
 final class TabChanged extends AppTabEvent {
   TabChanged(this.selectedTab);
 
+  final AppTab selectedTab;
+
   @override
   List<Object?> get props => [selectedTab];
-
-  final AppTab selectedTab;
 }

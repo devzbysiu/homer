@@ -8,12 +8,12 @@ import '../../../books_listing/domain/repositories/books_repository.dart';
 final class SearchBooks extends UseCase<List<Book>, SearchParams> {
   SearchBooks(this.booksRepo);
 
+  final BooksRepository booksRepo;
+
   @override
   Future<Result<List<Book>, Failure>> call(SearchParams params) async {
     return await booksRepo.search(params.query);
   }
-
-  final BooksRepository booksRepo;
 }
 
 final class SearchParams {

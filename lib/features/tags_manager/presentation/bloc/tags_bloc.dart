@@ -20,6 +20,8 @@ final class TagsBloc extends Bloc<TagsEvent, TagsState> {
     add(TagsDisplayed());
   }
 
+  final ListTags listTags;
+
   Future<void> _onTagsDisplayed(
     TagsDisplayed event,
     Emitter<TagsState> emit,
@@ -30,6 +32,4 @@ final class TagsBloc extends Bloc<TagsEvent, TagsState> {
       (error) => const FailedToLoadTags(),
     );
   }
-
-  final ListTags listTags;
 }

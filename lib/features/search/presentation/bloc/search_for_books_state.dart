@@ -1,14 +1,13 @@
 part of 'search_for_books_bloc.dart';
 
 @immutable
-abstract class SearchForBooksState extends Equatable{
+abstract class SearchForBooksState extends Equatable {
   const SearchForBooksState({required this.foundBooks});
 
+  final List<Book> foundBooks;
 
   @override
   List<Object> get props => [foundBooks];
-
-  final List<Book> foundBooks;
 }
 
 final class Empty extends SearchForBooksState {

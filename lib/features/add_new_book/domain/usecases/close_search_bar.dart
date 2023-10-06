@@ -8,11 +8,11 @@ import '../../presentation/bloc/select_suggestion/suggested_book_bloc.dart';
 final class CloseSearchBar extends UseCase<Unit, NoParams> {
   CloseSearchBar(this.eventBus);
 
+  final EventBus eventBus;
+
   @override
   Future<Result<Unit, Failure>> call(NoParams params) {
     eventBus.fire(BookPicked());
     return Future.value(const Success(unit));
   }
-
-  final EventBus eventBus;
 }

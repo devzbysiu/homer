@@ -6,10 +6,10 @@ abstract class SuggestedBookEvent extends Equatable {}
 final class SuggestedBookPicked extends SuggestedBookEvent {
   SuggestedBookPicked(this.pickedBook);
 
+  final Book pickedBook;
+
   @override
   List<Object?> get props => [pickedBook];
-
-  final Book pickedBook;
 }
 
 final class NoBookPicked extends SuggestedBookEvent {

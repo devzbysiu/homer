@@ -8,10 +8,10 @@ import '../repositories/tags_repository.dart';
 final class ListTags extends UseCase<List<Tag>, NoParams> {
   ListTags(this.tagsRepo);
 
+  final TagsRepository tagsRepo;
+
   @override
   Future<Result<List<Tag>, Failure>> call(NoParams params) async {
     return await tagsRepo.listAll();
   }
-
-  final TagsRepository tagsRepo;
 }

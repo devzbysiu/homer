@@ -19,6 +19,8 @@ final class BookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     on<ClearSelectedTags>(_onClearTags);
   }
 
+  final Set<Tag> _selectedTags = {};
+
   Future<void> _onTagSelected(
     TagSelected event,
     Emitter<BookTagsState> emit,
@@ -42,6 +44,4 @@ final class BookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     _selectedTags.clear();
     emit(const Empty());
   }
-
-  final Set<Tag> _selectedTags = {};
 }

@@ -6,28 +6,28 @@ abstract class BooksEvent extends Equatable {}
 final class BookAdded extends BooksEvent {
   BookAdded(this.book);
 
+  final Book book;
+
   @override
   List<Object?> get props => [book];
-
-  final Book book;
 }
 
 final class BookSwipedRight extends BooksEvent {
   BookSwipedRight(this.book);
 
+  final Book book;
+
   @override
   List<Object?> get props => [book];
-
-  final Book book;
 }
 
 final class BookSwipedLeft extends BooksEvent {
   BookSwipedLeft(this.book);
 
+  final Book book;
+
   @override
   List<Object?> get props => [book];
-
-  final Book book;
 }
 
 final class BooksListDisplayed extends BooksEvent {

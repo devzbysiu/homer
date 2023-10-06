@@ -4,10 +4,10 @@ part of 'tags_bloc.dart';
 abstract class TagsState extends Equatable {
   const TagsState({required this.tags});
 
+  final List<Tag> tags;
+
   @override
   List<Object> get props => [tags];
-
-  final List<Tag> tags;
 }
 
 final class Empty extends TagsState {

@@ -2,8 +2,8 @@ import 'package:banner_listtile/banner_listtile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
 import '../../../../core/utils/extensions.dart';
+import '../../../add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
 import '../../../books_listing/domain/entities/book.dart';
 
 final class SearchSuggestion extends StatelessWidget {

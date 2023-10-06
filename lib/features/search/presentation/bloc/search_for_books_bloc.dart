@@ -19,6 +19,8 @@ final class SearchForBooksBloc
     on<SearchInitiated>(_onSearchInitiated);
   }
 
+  final SearchBooks searchBooks;
+
   Future<void> _onSearchInitiated(
     SearchInitiated event,
     Emitter<SearchForBooksState> emit,
@@ -32,6 +34,4 @@ final class SearchForBooksBloc
       (error) => emit(const FailedToSearchBooks()),
     );
   }
-
-  final SearchBooks searchBooks;
 }

@@ -7,6 +7,27 @@ import '../../domain/repositories/books_repository.dart';
 final class InMemoryBooksRepo implements BooksRepository {
   InMemoryBooksRepo();
 
+  final _foundBooks = [
+    Book.fake(withTags: false),
+    Book.fake(withTags: false),
+    Book.fake(withTags: false),
+    Book.fake(withTags: false),
+    Book.fake(withTags: false),
+  ];
+
+  final _allBooks = [
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+  ];
+
   @override
   Future<Result<Unit, Failure>> add(Book book) {
     _allBooks.add(book);
@@ -29,25 +50,4 @@ final class InMemoryBooksRepo implements BooksRepository {
     _allBooks.add(modified);
     throw UnimplementedError();
   }
-
-  final _allBooks = [
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-  ];
-
-  final _foundBooks = [
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-  ];
 }

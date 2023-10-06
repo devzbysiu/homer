@@ -6,10 +6,10 @@ abstract class BookTagsEvent extends Equatable {}
 final class TagSelected extends BookTagsEvent {
   TagSelected({required this.tag});
 
+  final Tag tag;
+
   @override
   List<Object?> get props => [tag];
-
-  final Tag tag;
 }
 
 final class TagDeselected extends BookTagsEvent {

@@ -30,6 +30,12 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     add(BooksListDisplayed());
   }
 
+  final AddBook addBook;
+
+  final ListBooks listBooks;
+
+  final UpdateBookState updateBookState;
+
   Future<void> _onBooksListDisplayed(
     BooksListDisplayed event,
     Emitter<BooksState> emit,
@@ -41,7 +47,10 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     );
   }
 
-  Future<void> _onBookAdded(BookAdded event, Emitter<BooksState> emit) async {
+  Future<void> _onBookAdded(
+    BookAdded event,
+    Emitter<BooksState> emit,
+  ) async {
     await addBook(AddParams(book: event.book));
     final res = await listBooks(NoParams());
     res.when(
@@ -73,10 +82,4 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       (error) => emit(const FailedToLoadBooks()),
     );
   }
-
-  final AddBook addBook;
-
-  final ListBooks listBooks;
-
-  final UpdateBookState updateBookState;
 }

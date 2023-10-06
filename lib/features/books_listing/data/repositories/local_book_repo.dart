@@ -11,6 +11,18 @@ import '../mappers/book_mapper.dart';
 final class LocalBooksRepo implements BooksRepository {
   LocalBooksRepo({required this.dataSource, required this.bookMapper});
 
+  final LocalDataSource dataSource;
+
+  final BookMapper bookMapper;
+
+  final _foundBooks = [
+    Book.fake(withTags: false),
+    Book.fake(withTags: false),
+    Book.fake(withTags: false),
+    Book.fake(withTags: false),
+    Book.fake(withTags: false),
+  ];
+
   @override
   Future<Result<List<Book>, Failure>> listAll() async {
     final bookModels = await dataSource.getBooks();
@@ -36,16 +48,4 @@ final class LocalBooksRepo implements BooksRepository {
   Future<Result<List<Book>, Failure>> search(String query) {
     return Future.value(Success(List.of(_foundBooks)));
   }
-
-  final LocalDataSource dataSource;
-
-  final BookMapper bookMapper;
-
-  final _foundBooks = [
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-  ];
 }

@@ -8,12 +8,12 @@ import '../repositories/books_repository.dart';
 final class UpdateBookState extends UseCase<Unit, UpdateParams> {
   UpdateBookState(this.booksRepo);
 
+  final BooksRepository booksRepo;
+
   @override
   Future<Result<Unit, Failure>> call(UpdateParams params) async {
     return await booksRepo.update(params.modified);
   }
-
-  final BooksRepository booksRepo;
 }
 
 final class UpdateParams {

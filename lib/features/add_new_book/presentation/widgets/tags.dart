@@ -1,10 +1,10 @@
 import 'package:chip_list/chip_list.dart';
 import 'package:flutter/material.dart';
 
-import '../bloc/add_tags/book_tags_bloc.dart';
 import '../../../../core/utils/color_mapper.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
+import '../bloc/add_tags/book_tags_bloc.dart';
 
 class Tags extends StatefulWidget {
   const Tags({super.key});

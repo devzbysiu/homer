@@ -15,6 +15,8 @@ abstract class LocalDataSource {
 final class IsarLocalDataSource extends LocalDataSource {
   IsarLocalDataSource._(this._isar);
 
+  late final Isar _isar;
+
   static Future<IsarLocalDataSource> create() async {
     final docsDir = await getApplicationDocumentsDirectory();
     final isar = await Isar.open([BookDTOSchema], directory: docsDir.path);
@@ -43,6 +45,4 @@ final class IsarLocalDataSource extends LocalDataSource {
     });
     return Future.value(unit);
   }
-
-  late final Isar _isar;
 }

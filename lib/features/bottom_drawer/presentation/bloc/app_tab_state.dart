@@ -6,6 +6,8 @@ final class AppTabState extends Equatable {
     this.currentTab = AppTab.readLater,
   });
 
+  final AppTab currentTab;
+
   const AppTabState.readLater() : this._(currentTab: AppTab.readLater);
 
   const AppTabState.reading() : this._(currentTab: AppTab.reading);
@@ -14,8 +16,6 @@ final class AppTabState extends Equatable {
 
   @override
   List<Object?> get props => [currentTab];
-
-  final AppTab currentTab;
 }
 
 enum AppTab {
@@ -23,5 +23,3 @@ enum AppTab {
   reading,
   read,
 }
-
-

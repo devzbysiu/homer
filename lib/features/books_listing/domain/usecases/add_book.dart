@@ -10,15 +10,15 @@ import '../repositories/books_repository.dart';
 final class AddBook extends UseCase<Unit, AddParams> {
   AddBook(this.booksRepo, this.eventBus);
 
+  final BooksRepository booksRepo;
+
+  final EventBus eventBus;
+
   @override
   Future<Result<Unit, Failure>> call(AddParams params) async {
     eventBus.fire(BookSaved());
     return await booksRepo.add(params.book);
   }
-
-  final BooksRepository booksRepo;
-
-  final EventBus eventBus;
 }
 
 final class AddParams {

@@ -29,7 +29,8 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     on<BookAdded>(_onBookAdded);
     on<BookSwipedRight>(_onBookSwipedRight);
     on<BookSwipedLeft>(_onBookSwipedLeft);
-    on<ToggleDeletionMode>(_onToggleDeletionMode);
+    on<AppendToDeleteList>(_onAppendToDeleteList);
+    on<RemoveFromDeleteList>(_onRemoveFromDeleteList);
     on<DeleteBooks>(_onDeleteBooks);
     on<ClearDeletionList>(_onClearDeletionList);
     add(BooksListDisplayed());
@@ -85,8 +86,8 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     return Future.value();
   }
 
-  Future<void> _onToggleDeletionMode(
-    ToggleDeletionMode event,
+  Future<void> _onAppendToDeleteList(
+    AppendToDeleteList event,
     Emitter<BooksState> emit,
   ) async {
     if (state.deleteList.contains(event.book)) {
@@ -96,6 +97,17 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     emit(DeletionList(
       books: state.books,
       deleteList: List.of(state.deleteList)..add(event.book),
+    ));
+    return Future.value();
+  }
+
+  Future<void> _onRemoveFromDeleteList(
+    RemoveFromDeleteList event,
+    Emitter<BooksState> emit,
+  ) async {
+    emit(DeletionList(
+      books: state.books,
+      deleteList: List.of(state.deleteList)..remove(event.book),
     ));
     return Future.value();
   }

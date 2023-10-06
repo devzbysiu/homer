@@ -1,3 +1,4 @@
+import 'package:blur/blur.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_card/image_card.dart';
@@ -17,18 +18,44 @@ final class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final booksToDelete = context.booksToDelete();
+    final selectedToDelete = booksToDelete.contains(book);
     return GestureDetector(
       onLongPress: () => _pickForDeletion(context),
-      child: SwipeableCard(
-        book: book,
-        child: TransparentImageCard(
-          imageProvider: _imageProvider() as ImageProvider<Object>,
-          tags: _tags(),
-          title: _BookTitle(title: book.title),
-          description: _BookAuthor(authorName: book.author),
-          footer: _BookCardFooter(book: book),
-        ),
-      ),
+      onTap: () => _appendToDeletion(selectedToDelete, context),
+      child: booksToDelete.isNotEmpty
+          ? SwipeableCard(
+              book: book,
+              child: Blur(
+                colorOpacity: selectedToDelete ? 0.8 : 0.5,
+                blur: 1.0,
+                overlay: Center(
+                  child: selectedToDelete ? const Icon(
+                    Icons.done,
+                    color: Colors.white,
+                    size: 35,
+                  ) : null,
+                ),
+                blurColor: Colors.red,
+                child: TransparentImageCard(
+                  imageProvider: _imageProvider() as ImageProvider<Object>,
+                  tags: _tags(),
+                  title: _BookTitle(title: book.title),
+                  description: _BookAuthor(authorName: book.author),
+                  footer: _BookCardFooter(book: book),
+                ),
+              ),
+            )
+          : SwipeableCard(
+              book: book,
+              child: TransparentImageCard(
+                imageProvider: _imageProvider() as ImageProvider<Object>,
+                tags: _tags(),
+                title: _BookTitle(title: book.title),
+                description: _BookAuthor(authorName: book.author),
+                footer: _BookCardFooter(book: book),
+              ),
+            ),
     );
   }
 
@@ -43,8 +70,16 @@ final class BookCard extends StatelessWidget {
   }
 
   void _pickForDeletion(BuildContext context) {
-    context.emitBooksEvt(ToggleDeletionMode(book));
+    context.emitBooksEvt(AppendToDeleteList(book));
     Vibration.vibrate(duration: 100);
+  }
+
+  void _appendToDeletion(bool selectedToDelete, BuildContext context) {
+    if (selectedToDelete) {
+      context.emitBooksEvt(RemoveFromDeleteList(book));
+      return;
+    }
+    context.emitBooksEvt(AppendToDeleteList(book));
   }
 }
 

@@ -35,8 +35,17 @@ final class BooksListDisplayed extends BooksEvent {
   List<Object?> get props => [];
 }
 
-final class ToggleDeletionMode extends BooksEvent {
-  ToggleDeletionMode(this.book);
+final class AppendToDeleteList extends BooksEvent {
+  AppendToDeleteList(this.book);
+
+  final Book book;
+
+  @override
+  List<Object> get props => [book];
+}
+
+final class RemoveFromDeleteList extends BooksEvent {
+  RemoveFromDeleteList(this.book);
 
   final Book book;
 

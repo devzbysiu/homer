@@ -22,7 +22,7 @@ final class BookCard extends StatelessWidget {
     final isOnDeleteList = booksToDelete.contains(book);
     return GestureDetector(
       onLongPress: () => _switchToDeleteMode(context),
-      onTap: () => _toggleDeletion(isOnDeleteList, context),
+      onTap: () => _toggleDeletion(booksToDelete, context),
       child: booksToDelete.isNotEmpty
           ? _DeletableCard(
               book: book,
@@ -40,7 +40,11 @@ final class BookCard extends StatelessWidget {
     Vibration.vibrate(duration: 100);
   }
 
-  void _toggleDeletion(bool selectedToDelete, BuildContext context) {
+  void _toggleDeletion(List<Book> booksToDelete, BuildContext context) {
+    if (booksToDelete.isEmpty) {
+      return;
+    }
+    final selectedToDelete = booksToDelete.contains(book);
     if (selectedToDelete) {
       context.emitBooksEvt(RemoveFromDeleteList(book));
       return;

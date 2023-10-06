@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_card/image_card.dart';
+import 'package:vibration/vibration.dart';
 
 import '../../../../core/utils/color_mapper.dart';
 import '../../../../core/utils/extensions.dart';
-import '../../../delete_books/presentation/bloc/delete_books_bloc.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../domain/entities/book.dart';
+import '../bloc/books_bloc.dart';
 import 'swipeable_card.dart';
 
 final class BookCard extends StatelessWidget {
@@ -42,7 +43,8 @@ final class BookCard extends StatelessWidget {
   }
 
   void _pickForDeletion(BuildContext context) {
-    context.emitDeleteBooksEvt(PickedForDeletion(book));
+    context.emitBooksEvt(ToggleDeletionMode(book));
+    Vibration.vibrate(duration: 100);
   }
 }
 

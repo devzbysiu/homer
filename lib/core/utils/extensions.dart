@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/books_listing/domain/entities/book.dart';
-import '../../features/delete_books/presentation/bloc/delete_books_bloc.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';
 import '../../features/bottom_drawer/presentation/bloc/app_tab_bloc.dart';
 import '../../features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
@@ -73,12 +72,8 @@ extension BlocExt on BuildContext {
     read<AppTabBloc>().add(event);
   }
 
-  void emitDeleteBooksEvt(DeleteBooksEvent event) {
-    read<DeleteBooksBloc>().add(event);
-  }
-
   List<Book> booksToDelete() {
-    return select((DeleteBooksBloc bloc) => bloc.state.books);
+    return select((BooksBloc bloc) => bloc.state.deleteList);
   }
 }
 

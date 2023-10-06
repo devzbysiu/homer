@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/features/delete_books/presentation/bloc/delete_books_bloc.dart';
 
 import 'core/utils/extensions.dart';
 import 'features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
@@ -24,7 +23,6 @@ void main() async {
       BlocProvider(create: (_) => sl<SuggestedBookBloc>()),
       BlocProvider(create: (_) => sl<SearchForBooksBloc>()),
       BlocProvider(create: (_) => sl<BookTagsBloc>()),
-      BlocProvider(create: (_) => sl<DeleteBooksBloc>()),
     ],
     child: const Homer(),
   ));

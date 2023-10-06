@@ -6,7 +6,6 @@ import '../../../../core/utils/extensions.dart';
 import '../../../../injection_container.dart';
 import '../../../books_listing/domain/entities/book.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
-import '../../../delete_books/presentation/bloc/delete_books_bloc.dart';
 import '../../../search/presentation/widgets/books_search_area.dart';
 import '../../presentation/bloc/app_tab_bloc.dart';
 
@@ -108,7 +107,6 @@ final class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   void _deleteBooks(BuildContext context, List<Book> booksToDelete) async {
-    context.emitDeleteBooksEvt(DeleteBooks(booksToDelete));
-    context.emitBooksEvt(BooksListDisplayed());
+    context.emitBooksEvt(DeleteBooks(booksToDelete));
   }
 }

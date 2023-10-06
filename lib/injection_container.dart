@@ -4,14 +4,13 @@ import 'package:homer/features/books_listing/data/datasources/local_data_source.
 import 'package:homer/features/books_listing/data/mappers/book_mapper.dart';
 import 'package:homer/features/books_listing/data/repositories/local_book_repo.dart';
 import 'package:homer/features/bottom_drawer/presentation/bloc/app_tab_bloc.dart';
-import 'package:homer/features/delete_books/domain/usecases/delete_picked_books.dart';
-import 'package:homer/features/delete_books/presentation/bloc/delete_books_bloc.dart';
 
 import 'features/add_new_book/domain/usecases/close_search_bar.dart';
 import 'features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
 import 'features/add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
 import 'features/books_listing/domain/repositories/books_repository.dart';
 import 'features/books_listing/domain/usecases/add_book.dart';
+import 'features/books_listing/domain/usecases/delete_picked_books.dart';
 import 'features/books_listing/domain/usecases/list_books.dart';
 import 'features/books_listing/domain/usecases/update_book_state.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
@@ -31,6 +30,7 @@ Future<void> initDi() async {
       addBook: sl(),
       listBooks: sl(),
       updateBookState: sl(),
+      deleteBooks: sl(),
     ),
   );
   sl.registerFactory(() => AppTabBloc());
@@ -38,7 +38,6 @@ Future<void> initDi() async {
   sl.registerFactory(() => SuggestedBookBloc(closeSearchBar: sl()));
   sl.registerFactory(() => SearchForBooksBloc(searchBooks: sl()));
   sl.registerFactory(() => BookTagsBloc());
-  sl.registerFactory(() => DeleteBooksBloc(deleteBooks: sl()));
 
   // Use cases
   // books

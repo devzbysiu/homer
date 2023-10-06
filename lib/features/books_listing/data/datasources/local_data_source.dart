@@ -10,6 +10,8 @@ abstract class LocalDataSource {
   Future<Unit> addBook(BookDTO book);
 
   Future<Unit> update(BookDTO book);
+
+  Future<Unit> delete(List<BookDTO> bookDTOs);
 }
 
 final class IsarLocalDataSource extends LocalDataSource {
@@ -42,6 +44,18 @@ final class IsarLocalDataSource extends LocalDataSource {
     await _isar.writeTxn(() async {
       await _isar.bookDTOs.filter().isbnEqualTo(book.isbn).deleteAll();
       await _isar.bookDTOs.put(book);
+    });
+    return Future.value(unit);
+  }
+
+  @override
+  Future<Unit> delete(List<BookDTO> bookDTOs) async {
+    await _isar.writeTxn(() async {
+      final bookISBNs = bookDTOs.map((bookDTO) => bookDTO.isbn).toList();
+      await _isar.bookDTOs
+          .filter()
+          .anyOf(bookISBNs, (q, isbn) => q.isbnEqualTo(isbn))
+          .deleteAll();
     });
     return Future.value(unit);
   }

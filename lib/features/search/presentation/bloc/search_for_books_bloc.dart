@@ -33,5 +33,6 @@ final class SearchForBooksBloc
       (success) => emit(FoundBooks(foundBooks: success)),
       (error) => emit(const FailedToSearchBooks()),
     );
+    return Future.value();
   }
 }

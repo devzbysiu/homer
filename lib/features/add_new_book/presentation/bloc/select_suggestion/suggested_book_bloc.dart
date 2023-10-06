@@ -29,6 +29,7 @@ final class SuggestedBookBloc
   ) async {
     emit(BookPickedState(pickedBook: event.pickedBook));
     closeSearchBar(NoParams());
+    return Future.value();
   }
 
   Future<void> _onClearPickedBook(
@@ -36,5 +37,6 @@ final class SuggestedBookBloc
     Emitter<SuggestedBookState> emit,
   ) async {
     emit(NoPickedBook());
+    return Future.value();
   }
 }

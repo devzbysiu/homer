@@ -10,5 +10,7 @@ abstract class BooksRepository {
 
   Future<Result<Unit, Failure>> update(Book modified);
 
+  Future<Result<Unit, Failure>> delete(List<Book> books);
+
   Future<Result<List<Book>, Failure>> search(String query);
 }

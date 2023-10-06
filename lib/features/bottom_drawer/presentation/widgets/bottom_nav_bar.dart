@@ -1,11 +1,12 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/extensions.dart';
 import '../../../../injection_container.dart';
+import '../../../books_listing/domain/entities/book.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
+import '../../../delete_books/presentation/bloc/delete_books_bloc.dart';
 import '../../../search/presentation/widgets/books_search_area.dart';
 import '../../presentation/bloc/app_tab_bloc.dart';
 
@@ -26,6 +27,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
     _closeSheetWhenBookSaved();
     return BottomBarWithSheet(
       controller: _sheetController,
+      mainActionButtonBuilder: _mainActionButton,
       bottomBarTheme: _bottomBarTheme(context),
       onSelectItem: (idx) => _handleIndexChanged(idx, context),
       sheetChild: BookSearchArea(),
@@ -58,7 +60,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   void _handleIndexChanged(int i, BuildContext context) {
-    context.read<AppTabBloc>().add(TabChanged(AppTab.values[i]));
+    context.emitAppTabEvt(TabChanged(AppTab.values[i]));
   }
 
   void _closeSheetWhenBookSaved() {
@@ -68,5 +70,45 @@ final class _BottomNavBarState extends State<BottomNavBar> {
       });
       listenerHooked = true;
     }
+  }
+
+  Widget _mainActionButton(BuildContext context) {
+    final booksToDelete = context.booksToDelete();
+    return booksToDelete.isEmpty
+        ? ElevatedButton(
+            onPressed: _toggleSheet,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black,
+              shape: const CircleBorder(),
+              padding: const EdgeInsets.all(15),
+            ),
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+          )
+        : ElevatedButton(
+            onPressed: () => _deleteBooks(context, booksToDelete),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              shape: const CircleBorder(),
+              padding: const EdgeInsets.all(15),
+            ),
+            child: const Icon(
+              Icons.delete_forever,
+              color: Colors.white,
+            ),
+          );
+  }
+
+  void _toggleSheet() {
+    _sheetController.isOpened
+        ? _sheetController.closeSheet()
+        : _sheetController.openSheet();
+  }
+
+  void _deleteBooks(BuildContext context, List<Book> booksToDelete) async {
+    context.emitDeleteBooksEvt(DeleteBooks(booksToDelete));
+    context.emitBooksEvt(BooksListDisplayed());
   }
 }

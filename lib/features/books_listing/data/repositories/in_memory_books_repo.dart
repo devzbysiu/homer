@@ -40,14 +40,20 @@ final class InMemoryBooksRepo implements BooksRepository {
   }
 
   @override
-  Future<Result<List<Book>, Failure>> search(String query) {
-    return Future.value(Success(List.of(_foundBooks)));
-  }
-
-  @override
   Future<Result<Unit, Failure>> update(Book modified) {
     _allBooks.removeWhere((book) => book.isbn == modified.isbn);
     _allBooks.add(modified);
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Result<Unit, Failure>> delete(List<Book> books) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Result<List<Book>, Failure>> search(String query) {
+    return Future.value(Success(List.of(_foundBooks)));
   }
 }

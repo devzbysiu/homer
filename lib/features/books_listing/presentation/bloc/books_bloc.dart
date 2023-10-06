@@ -57,6 +57,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       (success) => emit(BooksLoaded(books: success)),
       (error) => emit(const FailedToLoadBooks()),
     );
+    return Future.value();
   }
 
   Future<void> _onBookSwipedRight(
@@ -69,6 +70,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       (success) => emit(BooksLoaded(books: success)),
       (error) => emit(const FailedToLoadBooks()),
     );
+    return Future.value();
   }
 
   Future<void> _onBookSwipedLeft(
@@ -81,5 +83,6 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       (success) => emit(BooksLoaded(books: success)),
       (error) => emit(const FailedToLoadBooks()),
     );
+    return Future.value();
   }
 }

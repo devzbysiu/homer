@@ -31,5 +31,6 @@ final class TagsBloc extends Bloc<TagsEvent, TagsState> {
       (success) => emit(TagsLoaded(success)),
       (error) => const FailedToLoadTags(),
     );
+    return Future.value();
   }
 }

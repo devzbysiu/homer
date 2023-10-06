@@ -30,5 +30,6 @@ final class AppTabBloc extends Bloc<AppTabEvent, AppTabState> {
         emit(const AppTabState.read());
         break;
     }
+    return Future.value();
   }
 }

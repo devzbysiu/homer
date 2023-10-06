@@ -4,6 +4,8 @@ import 'package:homer/features/books_listing/data/datasources/local_data_source.
 import 'package:homer/features/books_listing/data/mappers/book_mapper.dart';
 import 'package:homer/features/books_listing/data/repositories/local_book_repo.dart';
 import 'package:homer/features/bottom_drawer/presentation/bloc/app_tab_bloc.dart';
+import 'package:homer/features/delete_books/domain/usecases/delete_picked_books.dart';
+import 'package:homer/features/delete_books/presentation/bloc/delete_books_bloc.dart';
 
 import 'features/add_new_book/domain/usecases/close_search_bar.dart';
 import 'features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
@@ -31,18 +33,19 @@ Future<void> initDi() async {
       updateBookState: sl(),
     ),
   );
-
   sl.registerFactory(() => AppTabBloc());
   sl.registerFactory(() => TagsBloc(listTags: sl()));
   sl.registerFactory(() => SuggestedBookBloc(closeSearchBar: sl()));
   sl.registerFactory(() => SearchForBooksBloc(searchBooks: sl()));
   sl.registerFactory(() => BookTagsBloc());
+  sl.registerFactory(() => DeleteBooksBloc(deleteBooks: sl()));
 
   // Use cases
   // books
   sl.registerLazySingleton(() => ListBooks(sl()));
   sl.registerLazySingleton(() => AddBook(sl(), sl()));
   sl.registerLazySingleton(() => UpdateBookState(sl()));
+  sl.registerLazySingleton(() => DeletePickedBooks(sl()));
   // tags
   sl.registerLazySingleton(() => ListTags(sl()));
   // search

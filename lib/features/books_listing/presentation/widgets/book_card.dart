@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:image_card/image_card.dart';
 
 import '../../../../core/utils/color_mapper.dart';
+import '../../../../core/utils/extensions.dart';
+import '../../../delete_books/presentation/bloc/delete_books_bloc.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../domain/entities/book.dart';
 import 'swipeable_card.dart';
@@ -14,14 +16,17 @@ final class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SwipeableCard(
-      book: book,
-      child: TransparentImageCard(
-        imageProvider: _imageProvider() as ImageProvider<Object>,
-        tags: _tags(),
-        title: _BookTitle(title: book.title),
-        description: _BookAuthor(authorName: book.author),
-        footer: _BookCardFooter(book: book),
+    return GestureDetector(
+      onLongPress: () => _pickForDeletion(context),
+      child: SwipeableCard(
+        book: book,
+        child: TransparentImageCard(
+          imageProvider: _imageProvider() as ImageProvider<Object>,
+          tags: _tags(),
+          title: _BookTitle(title: book.title),
+          description: _BookAuthor(authorName: book.author),
+          footer: _BookCardFooter(book: book),
+        ),
       ),
     );
   }
@@ -34,6 +39,10 @@ final class BookCard extends StatelessWidget {
     return book.thumbnailAddress == null
         ? const AssetImage('assets/book-cover-fallback.webp')
         : CachedNetworkImageProvider(book.thumbnailAddress!);
+  }
+
+  void _pickForDeletion(BuildContext context) {
+    context.emitDeleteBooksEvt(PickedForDeletion(book));
   }
 }
 

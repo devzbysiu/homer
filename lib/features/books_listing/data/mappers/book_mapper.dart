@@ -110,4 +110,8 @@ final class BookMapper {
         return TagColorDTO.red;
     }
   }
+
+  List<BookDTO> toBookDTOs(List<Book> books) {
+    return books.map((book) => toBookDTO(book)).toList();
+  }
 }

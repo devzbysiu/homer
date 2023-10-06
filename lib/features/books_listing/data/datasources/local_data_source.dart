@@ -14,7 +14,7 @@ abstract class LocalDataSource {
   Future<Unit> delete(List<BookDTO> bookDTOs);
 }
 
-final class IsarLocalDataSource extends LocalDataSource {
+final class IsarLocalDataSource implements LocalDataSource {
   IsarLocalDataSource._(this._isar);
 
   late final Isar _isar;

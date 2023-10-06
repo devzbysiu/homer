@@ -47,6 +47,10 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     BooksListDisplayed event,
     Emitter<BooksState> emit,
   ) async {
+    await _emitSavedBooks(emit);
+  }
+
+  Future<void> _emitSavedBooks(Emitter<BooksState> emit) async {
     final res = await listBooks(NoParams());
     res.when(
       (success) => emit(BooksLoaded(books: success, deleteList: const [])),
@@ -59,11 +63,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) async {
     await addBook(AddParams(book: event.book));
-    final res = await listBooks(NoParams());
-    res.when(
-      (success) => emit(BooksLoaded(books: success, deleteList: const [])),
-      (error) => emit(const FailedToLoadBooks()),
-    );
+    await _emitSavedBooks(emit);
     return Future.value();
   }
 
@@ -72,11 +72,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) async {
     await updateBookState(UpdateParams(modified: event.book.moveRight()));
-    final res = await listBooks(NoParams());
-    res.when(
-      (success) => emit(BooksLoaded(books: success, deleteList: const [])),
-      (error) => emit(const FailedToLoadBooks()),
-    );
+    await _emitSavedBooks(emit);
     return Future.value();
   }
 
@@ -85,11 +81,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) async {
     await updateBookState(UpdateParams(modified: event.book.moveLeft()));
-    final res = await listBooks(NoParams());
-    res.when(
-      (success) => emit(BooksLoaded(books: success, deleteList: const [])),
-      (error) => emit(const FailedToLoadBooks()),
-    );
+    await _emitSavedBooks(emit);
     return Future.value();
   }
 
@@ -98,7 +90,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) async {
     if (state.deleteList.contains(event.book)) {
-      emit(DeletionList(books: state.books, deleteList: const []));
+      _emitCleanDeletionList(emit);
       return Future.value();
     }
     emit(DeletionList(
@@ -106,6 +98,10 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       deleteList: List.of(state.deleteList)..add(event.book),
     ));
     return Future.value();
+  }
+
+  void _emitCleanDeletionList(Emitter<BooksState> emit) {
+    emit(DeletionList(books: state.books, deleteList: const []));
   }
 
   Future<void> _onDeleteBooks(
@@ -125,7 +121,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     ClearDeletionList event,
     Emitter<BooksState> emit,
   ) async {
-    emit(DeletionList(books: state.books, deleteList: const []));
+    _emitCleanDeletionList(emit);
     return Future.value();
   }
 }

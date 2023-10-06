@@ -23,8 +23,6 @@ class _TagsState extends State<Tags> {
       supportsMultiSelect: true,
       listOfChipNames: tags.map((tag) => tag.name).toList(),
       extraOnToggle: (idx) => _tagSelected(context, idx, tags),
-      // NOTE: it can't be `const` because selecting a chip won't work
-      // ignore: prefer_const_literals_to_create_immutables
       listOfChipIndicesCurrentlySeclected: _selectedTags.toList(),
       inactiveBorderColorList: _tagColors(tags),
       inactiveTextColorList: _blackColors(tags),

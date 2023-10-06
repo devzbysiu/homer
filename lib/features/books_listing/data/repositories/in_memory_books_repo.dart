@@ -43,13 +43,15 @@ final class InMemoryBooksRepo implements BooksRepository {
   Future<Result<Unit, Failure>> update(Book modified) {
     _allBooks.removeWhere((book) => book.isbn == modified.isbn);
     _allBooks.add(modified);
-    throw UnimplementedError();
+    return Future.value(const Success(unit));
   }
 
   @override
   Future<Result<Unit, Failure>> delete(List<Book> books) {
-    // TODO: implement delete
-    throw UnimplementedError();
+    for (var toRemove in books) {
+      _allBooks.removeWhere((book) => book.isbn == toRemove.isbn);
+    }
+    return Future.value(const Success(unit));
   }
 
   @override

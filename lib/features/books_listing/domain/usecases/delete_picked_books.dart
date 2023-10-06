@@ -15,9 +15,7 @@ final class DeletePickedBooks implements UseCase<Unit, DeleteParams> {
     await booksRepo.delete(params.books);
     return Future.value(const Success(unit));
   }
-
 }
-
 
 final class DeleteParams {
   DeleteParams({required this.books});

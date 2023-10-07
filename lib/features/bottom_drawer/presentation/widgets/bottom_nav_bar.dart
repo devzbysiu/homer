@@ -89,7 +89,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
           )
         : Animate(
             onPlay: (controller) => controller.repeat(),
-            effects: const [ShakeEffect(hz: 2.0)],
+            effects: const [ShakeEffect(hz: 2.5)],
             child: ElevatedButton(
               onPressed: () => _deleteBooks(context, booksToDelete),
               style: ElevatedButton.styleFrom(

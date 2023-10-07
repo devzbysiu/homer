@@ -36,10 +36,8 @@ final class SwipeableCard extends StatelessWidget {
 
   void _onSwiped(BuildContext context, SwipeDirection direction) {
     if (_swipingToRight(direction) && _canSwipeRight()) {
-      _showSnackbarOnRightSwipe(context);
       context.emitBooksEvt(BookSwipedRight(book));
     } else if (_swipingToLeft(direction) && _canSwipeLeft()) {
-      _showSnackbarOnLeftSwipe(context);
       context.emitBooksEvt(BookSwipedLeft(book));
     }
   }

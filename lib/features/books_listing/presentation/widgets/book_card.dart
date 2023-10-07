@@ -1,6 +1,7 @@
 import 'package:blur/blur.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:image_card/image_card.dart';
 import 'package:vibration/vibration.dart';
 
@@ -173,22 +174,26 @@ final class _DeletableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SwipeableCard(
-      book: book,
-      child: Blur(
-        colorOpacity: isOnDeleteList ? 0.8 : 0.3,
-        blur: 0.8,
-        overlay: Center(
-          child: isOnDeleteList
-              ? const Icon(
-                  Icons.done,
-                  color: Colors.white,
-                  size: 35,
-                )
-              : null,
+    return Animate(
+      onPlay: (controller) => controller.repeat(),
+      effects: const [ShakeEffect(rotation: 0.01, hz: 2.5)],
+      child: SwipeableCard(
+        book: book,
+        child: Blur(
+          colorOpacity: isOnDeleteList ? 0.8 : 0.0,
+          blur: 0.0,
+          overlay: Center(
+            child: isOnDeleteList
+                ? const Icon(
+                    Icons.done,
+                    color: Colors.white,
+                    size: 35,
+                  )
+                : null,
+          ),
+          blurColor: Colors.red,
+          child: _ImageCard(book: book),
         ),
-        blurColor: Colors.red,
-        child: _ImageCard(book: book),
       ),
     );
   }

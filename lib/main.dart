@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homer/features/books_listing/domain/repositories/books_repository.dart';
 
 import 'core/utils/extensions.dart';
 import 'features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
 import 'features/add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
+import 'features/books_listing/domain/entities/book.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
 import 'features/books_listing/presentation/widgets/books_list.dart';
 import 'features/bottom_drawer/presentation/bloc/app_tab_bloc.dart';
@@ -19,6 +21,7 @@ void main() async {
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
   await initDi();
+  await initDbWithFakes();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (_) => sl<AppTabBloc>()),
@@ -30,6 +33,31 @@ void main() async {
     ],
     child: const Homer(),
   ));
+}
+
+Future<void> initDbWithFakes() async {
+  final booksRepo = sl<BooksRepository>();
+  await booksRepo.deleteAll();
+  for (var book in [
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+    Book.fake(),
+  ]) {
+    await booksRepo.add(book);
+  }
 }
 
 class Homer extends StatelessWidget {

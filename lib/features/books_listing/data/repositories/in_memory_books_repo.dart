@@ -55,6 +55,12 @@ final class InMemoryBooksRepo implements BooksRepository {
   }
 
   @override
+  Future<Result<Unit, Failure>> deleteAll() {
+    _allBooks.clear();
+    return Future.value(const Success(unit));
+  }
+
+  @override
   Future<Result<List<Book>, Failure>> search(String query) {
     return Future.value(Success(List.of(_foundBooks)));
   }

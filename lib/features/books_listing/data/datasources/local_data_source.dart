@@ -12,6 +12,8 @@ abstract class LocalDataSource {
   Future<Unit> update(BookDTO book);
 
   Future<Unit> delete(List<BookDTO> bookDTOs);
+
+  Future<Unit> deleteAll();
 }
 
 final class IsarLocalDataSource implements LocalDataSource {
@@ -56,6 +58,14 @@ final class IsarLocalDataSource implements LocalDataSource {
           .filter()
           .anyOf(bookISBNs, (q, isbn) => q.isbnEqualTo(isbn))
           .deleteAll();
+    });
+    return Future.value(unit);
+  }
+
+  @override
+  Future<Unit> deleteAll() async {
+    await _isar.writeTxn(() async {
+      await _isar.bookDTOs.where().deleteAll();
     });
     return Future.value(unit);
   }

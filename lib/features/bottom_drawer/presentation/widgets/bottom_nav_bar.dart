@@ -1,6 +1,7 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/utils/extensions.dart';
 import '../../../../injection_container.dart';
@@ -86,16 +87,20 @@ final class _BottomNavBarState extends State<BottomNavBar> {
               color: Colors.white,
             ),
           )
-        : ElevatedButton(
-            onPressed: () => _deleteBooks(context, booksToDelete),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(15),
-            ),
-            child: const Icon(
-              Icons.delete_forever,
-              color: Colors.white,
+        : Animate(
+            onPlay: (controller) => controller.repeat(),
+            effects: const [ShakeEffect(hz: 2.0)],
+            child: ElevatedButton(
+              onPressed: () => _deleteBooks(context, booksToDelete),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(15),
+              ),
+              child: const Icon(
+                Icons.delete_forever,
+                color: Colors.white,
+              ),
             ),
           );
   }

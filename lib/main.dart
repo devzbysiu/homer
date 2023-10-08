@@ -38,25 +38,8 @@ void main() async {
 Future<void> initDbWithFakes() async {
   final booksRepo = sl<BooksRepository>();
   await booksRepo.deleteAll();
-  for (var book in [
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-  ]) {
-    await booksRepo.add(book);
+  for (var i = 0; i < 17; i++) {
+    await booksRepo.add(Book.fake());
   }
 }
 

@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:homer/features/books_listing/data/datasources/local_data_source.dart';
 import 'package:homer/features/books_listing/data/mappers/book_mapper.dart';
 import 'package:homer/features/books_listing/data/repositories/local_book_repo.dart';
-import 'package:homer/features/bottom_drawer/presentation/bloc/app_tab_bloc.dart';
+import 'package:homer/features/navigation/presentation/bloc/app_tab_bloc.dart';
 
 import 'features/add_new_book/domain/usecases/close_search_bar.dart';
 import 'features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';

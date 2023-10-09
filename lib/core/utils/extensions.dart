@@ -5,7 +5,7 @@ import '../../features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.da
 import '../../features/add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
 import '../../features/books_listing/domain/entities/book.dart';
 import '../../features/books_listing/presentation/bloc/books_bloc.dart';
-import '../../features/bottom_drawer/presentation/bloc/app_tab_bloc.dart';
+import '../../features/navigation/presentation/bloc/app_tab_bloc.dart';
 import '../../features/search/presentation/bloc/search_for_books_bloc.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';
 import '../../features/tags_manager/presentation/bloc/tags_bloc.dart';

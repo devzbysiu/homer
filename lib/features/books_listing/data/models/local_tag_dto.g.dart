@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tag_dto.dart';
+part of 'local_tag_dto.dart';
 
 // **************************************************************************
 // IsarEmbeddedGenerator
@@ -9,15 +9,15 @@ part of 'tag_dto.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-const TagDTOSchema = Schema(
-  name: r'TagDTO',
-  id: -3092279249323102550,
+const LocalTagDTOSchema = Schema(
+  name: r'LocalTagDTO',
+  id: 6293303979616302016,
   properties: {
     r'color': PropertySchema(
       id: 0,
       name: r'color',
       type: IsarType.byte,
-      enumMap: _TagDTOcolorEnumValueMap,
+      enumMap: _LocalTagDTOcolorEnumValueMap,
     ),
     r'name': PropertySchema(
       id: 1,
@@ -25,14 +25,14 @@ const TagDTOSchema = Schema(
       type: IsarType.string,
     )
   },
-  estimateSize: _tagDTOEstimateSize,
-  serialize: _tagDTOSerialize,
-  deserialize: _tagDTODeserialize,
-  deserializeProp: _tagDTODeserializeProp,
+  estimateSize: _localTagDTOEstimateSize,
+  serialize: _localTagDTOSerialize,
+  deserialize: _localTagDTODeserialize,
+  deserializeProp: _localTagDTODeserializeProp,
 );
 
-int _tagDTOEstimateSize(
-  TagDTO object,
+int _localTagDTOEstimateSize(
+  LocalTagDTO object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -41,8 +41,8 @@ int _tagDTOEstimateSize(
   return bytesCount;
 }
 
-void _tagDTOSerialize(
-  TagDTO object,
+void _localTagDTOSerialize(
+  LocalTagDTO object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -51,20 +51,21 @@ void _tagDTOSerialize(
   writer.writeString(offsets[1], object.name);
 }
 
-TagDTO _tagDTODeserialize(
+LocalTagDTO _localTagDTODeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = TagDTO();
-  object.color = _TagDTOcolorValueEnumMap[reader.readByteOrNull(offsets[0])] ??
-      TagColorDTO.red;
+  final object = LocalTagDTO();
+  object.color =
+      _LocalTagDTOcolorValueEnumMap[reader.readByteOrNull(offsets[0])] ??
+          LocalTagColorDTO.red;
   object.name = reader.readString(offsets[1]);
   return object;
 }
 
-P _tagDTODeserializeProp<P>(
+P _localTagDTODeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -72,8 +73,8 @@ P _tagDTODeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (_TagDTOcolorValueEnumMap[reader.readByteOrNull(offset)] ??
-          TagColorDTO.red) as P;
+      return (_LocalTagDTOcolorValueEnumMap[reader.readByteOrNull(offset)] ??
+          LocalTagColorDTO.red) as P;
     case 1:
       return (reader.readString(offset)) as P;
     default:
@@ -81,7 +82,7 @@ P _tagDTODeserializeProp<P>(
   }
 }
 
-const _TagDTOcolorEnumValueMap = {
+const _LocalTagDTOcolorEnumValueMap = {
   'red': 0,
   'green': 1,
   'blue': 2,
@@ -89,18 +90,19 @@ const _TagDTOcolorEnumValueMap = {
   'brown': 4,
   'orange': 5,
 };
-const _TagDTOcolorValueEnumMap = {
-  0: TagColorDTO.red,
-  1: TagColorDTO.green,
-  2: TagColorDTO.blue,
-  3: TagColorDTO.black,
-  4: TagColorDTO.brown,
-  5: TagColorDTO.orange,
+const _LocalTagDTOcolorValueEnumMap = {
+  0: LocalTagColorDTO.red,
+  1: LocalTagColorDTO.green,
+  2: LocalTagColorDTO.blue,
+  3: LocalTagColorDTO.black,
+  4: LocalTagColorDTO.brown,
+  5: LocalTagColorDTO.orange,
 };
 
-extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> colorEqualTo(
-      TagColorDTO value) {
+extension LocalTagDTOQueryFilter
+    on QueryBuilder<LocalTagDTO, LocalTagDTO, QFilterCondition> {
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> colorEqualTo(
+      LocalTagColorDTO value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'color',
@@ -109,8 +111,9 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> colorGreaterThan(
-    TagColorDTO value, {
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
+      colorGreaterThan(
+    LocalTagColorDTO value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -122,8 +125,8 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> colorLessThan(
-    TagColorDTO value, {
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> colorLessThan(
+    LocalTagColorDTO value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -135,9 +138,9 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> colorBetween(
-    TagColorDTO lower,
-    TagColorDTO upper, {
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> colorBetween(
+    LocalTagColorDTO lower,
+    LocalTagColorDTO upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -152,7 +155,7 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameEqualTo(
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -165,7 +168,7 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameGreaterThan(
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -180,7 +183,7 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameLessThan(
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -195,7 +198,7 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameBetween(
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -214,7 +217,7 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameStartsWith(
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -227,7 +230,7 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameEndsWith(
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -240,7 +243,8 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameContains(String value,
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameContains(
+      String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -251,7 +255,7 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameMatches(
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -263,7 +267,7 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameIsEmpty() {
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'name',
@@ -272,7 +276,8 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
     });
   }
 
-  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameIsNotEmpty() {
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
+      nameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'name',
@@ -282,4 +287,5 @@ extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
   }
 }
 
-extension TagDTOQueryObject on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {}
+extension LocalTagDTOQueryObject
+    on QueryBuilder<LocalTagDTO, LocalTagDTO, QFilterCondition> {}

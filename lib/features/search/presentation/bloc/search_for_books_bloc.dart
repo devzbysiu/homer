@@ -6,8 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
-import '../../../books_listing/domain/entities/book.dart';
-import '../../domain/usecases/search_books.dart';
+import '../../../../core/usecase/usecase.dart';
+import '../../domain/entities/remote_book.dart';
+import '../../domain/usecases/close_search_bar.dart';
+import '../../domain/usecases/search_for_books.dart';
 
 part 'search_for_books_event.dart';
 
@@ -15,11 +17,18 @@ part 'search_for_books_state.dart';
 
 final class SearchForBooksBloc
     extends Bloc<SearchForBooksEvent, SearchForBooksState> {
-  SearchForBooksBloc({required this.searchBooks}) : super(const Empty()) {
+  SearchForBooksBloc({
+    required this.searchForBooks,
+    required this.closeSearchBar,
+  }) : super(const Empty()) {
     on<SearchInitiated>(_onSearchInitiated);
+    on<SuggestedBookPicked>(_onSuggestedBookPicked);
+    on<NoBookPicked>(_onClearPickedBook);
   }
 
-  final SearchBooks searchBooks;
+  final SearchForBooks searchForBooks;
+
+  final CloseSearchBar closeSearchBar;
 
   Future<void> _onSearchInitiated(
     SearchInitiated event,
@@ -28,11 +37,28 @@ final class SearchForBooksBloc
     if (event.query.isEmpty) {
       return;
     }
-    final searchResult = await searchBooks(SearchParams(query: event.query));
+    final searchResult = await searchForBooks(SearchParams(query: event.query));
     searchResult.when(
       (success) => emit(FoundBooks(foundBooks: success)),
       (error) => emit(const FailedToSearchBooks()),
     );
+    return Future.value();
+  }
+
+  Future<void> _onSuggestedBookPicked(
+    SuggestedBookPicked event,
+    Emitter<SearchForBooksState> emit,
+  ) async {
+    emit(BookPickedState(pickedBook: event.pickedBook));
+    closeSearchBar(NoParams());
+    return Future.value();
+  }
+
+  Future<void> _onClearPickedBook(
+    NoBookPicked event,
+    Emitter<SearchForBooksState> emit,
+  ) async {
+    emit(const NoPickedBook());
     return Future.value();
   }
 }

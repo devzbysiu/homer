@@ -5,7 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/utils/extensions.dart';
 import '../../../../injection_container.dart';
-import '../../../books_listing/domain/entities/book.dart';
+import '../../../books_listing/domain/entities/local_book.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
 import '../../../search/presentation/widgets/books_search_area.dart';
 import '../../presentation/bloc/app_tab_bloc.dart';
@@ -111,7 +111,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
         : _sheetController.openSheet();
   }
 
-  void _deleteBooks(BuildContext context, List<Book> booksToDelete) async {
+  void _deleteBooks(BuildContext context, List<LocalBook> booksToDelete) async {
     context.emitBooksEvt(DeleteBooks(booksToDelete));
   }
 }

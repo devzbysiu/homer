@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
-import '../../features/add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
-import '../../features/books_listing/domain/entities/book.dart';
+import '../../features/books_listing/domain/entities/local_book.dart';
 import '../../features/books_listing/presentation/bloc/books_bloc.dart';
 import '../../features/navigation/presentation/bloc/app_tab_bloc.dart';
+import '../../features/search/domain/entities/remote_book.dart';
 import '../../features/search/presentation/bloc/search_for_books_bloc.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';
 import '../../features/tags_manager/presentation/bloc/tags_bloc.dart';
@@ -28,11 +28,11 @@ extension BlocExt on BuildContext {
     return select((AppTabBloc bloc) => bloc.state.currentTab);
   }
 
-  List<Book> booksOfCurrentTab() {
+  List<LocalBook> booksOfCurrentTab() {
     return select(_books).where((b) => _belongsToCurrentTab(b)).toList();
   }
 
-  bool _belongsToCurrentTab(Book book) {
+  bool _belongsToCurrentTab(LocalBook book) {
     return book.state.name == currentTab().name;
   }
 
@@ -40,15 +40,11 @@ extension BlocExt on BuildContext {
     read<BooksBloc>().add(event);
   }
 
-  Book? pickedSuggestedBook() {
-    return select((SuggestedBookBloc bloc) => bloc.state.pickedBook);
+  RemoteBook? pickedSuggestedBook() {
+    return select((SearchForBooksBloc bloc) => bloc.state.pickedBook);
   }
 
-  void emitSuggestedBookEvt(SuggestedBookEvent event) {
-    read<SuggestedBookBloc>().add(event);
-  }
-
-  List<Book> foundBooks() {
+  List<RemoteBook> foundBooks() {
     return select((SearchForBooksBloc bloc) => bloc.state.foundBooks);
   }
 
@@ -72,11 +68,11 @@ extension BlocExt on BuildContext {
     read<AppTabBloc>().add(event);
   }
 
-  List<Book> booksToDelete() {
+  List<LocalBook> booksToDelete() {
     return select((BooksBloc bloc) => bloc.state.deleteList);
   }
 }
 
-List<Book> _books(BooksBloc bloc) {
+List<LocalBook> _books(BooksBloc bloc) {
   return bloc.state.books;
 }

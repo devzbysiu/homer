@@ -1,14 +1,14 @@
 import '../../../tags_manager/domain/entities/tag.dart';
-import '../../domain/entities/book.dart';
-import '../models/book_dto.dart';
-import '../models/tag_dto.dart';
+import '../../domain/entities/local_book.dart';
+import '../models/local_book_dto.dart';
+import '../models/local_tag_dto.dart';
 
-final class BookMapper {
-  List<Book> toBooks(List<BookDTO> bookModels) {
+final class LocalBookMapper {
+  List<LocalBook> toBooks(List<LocalBookDTO> bookModels) {
     return bookModels.map(_toBook).toList();
   }
 
-  Book _toBook(BookDTO bookDTO) => Book(
+  LocalBook _toBook(LocalBookDTO bookDTO) => LocalBook(
         title: bookDTO.title,
         subtitle: bookDTO.subtitle,
         author: bookDTO.author,
@@ -16,14 +16,12 @@ final class BookMapper {
         pageCount: bookDTO.pageCount,
         isbn: bookDTO.isbn,
         thumbnailAddress: bookDTO.thumbnailAddress,
-        startDate: bookDTO.startDate,
-        endDate: bookDTO.endDate,
         rating: bookDTO.rating,
         summary: bookDTO.summary,
         tags: _toBookTags(bookDTO.tags),
       );
 
-  BookDTO toBookDTO(Book book) => BookDTO(
+  LocalBookDTO toBookDTO(LocalBook book) => LocalBookDTO(
         title: book.title,
         subtitle: book.subtitle,
         author: book.author,
@@ -31,25 +29,23 @@ final class BookMapper {
         pageCount: book.pageCount,
         isbn: book.isbn,
         thumbnailAddress: book.thumbnailAddress,
-        startDate: book.startDate,
-        endDate: book.endDate,
         rating: book.rating,
         summary: book.summary,
         tags: _toTagDTOs(book.tags),
       );
 
-  BookState _toBookState(BookStateDTO state) {
+  BookState _toBookState(LocalBookStateDTO state) {
     switch (state) {
-      case BookStateDTO.readLater:
+      case LocalBookStateDTO.readLater:
         return BookState.readLater;
-      case BookStateDTO.reading:
+      case LocalBookStateDTO.reading:
         return BookState.reading;
-      case BookStateDTO.read:
+      case LocalBookStateDTO.read:
         return BookState.read;
     }
   }
 
-  Set<Tag> _toBookTags(List<TagDTO> tags) {
+  Set<Tag> _toBookTags(List<LocalTagDTO> tags) {
     return tags
         .map((tagModel) => Tag(
               name: tagModel.name,
@@ -58,60 +54,60 @@ final class BookMapper {
         .toSet();
   }
 
-  TagColor _toTagColor(TagColorDTO color) {
+  TagColor _toTagColor(LocalTagColorDTO color) {
     switch (color) {
-      case TagColorDTO.brown:
+      case LocalTagColorDTO.brown:
         return TagColor.brown;
-      case TagColorDTO.black:
+      case LocalTagColorDTO.black:
         return TagColor.black;
-      case TagColorDTO.green:
+      case LocalTagColorDTO.green:
         return TagColor.green;
-      case TagColorDTO.blue:
+      case LocalTagColorDTO.blue:
         return TagColor.blue;
-      case TagColorDTO.orange:
+      case LocalTagColorDTO.orange:
         return TagColor.orange;
-      case TagColorDTO.red:
+      case LocalTagColorDTO.red:
         return TagColor.red;
     }
   }
 
-  BookStateDTO _toBookStateDTO(BookState state) {
+  LocalBookStateDTO _toBookStateDTO(BookState state) {
     switch (state) {
       case BookState.readLater:
-        return BookStateDTO.readLater;
+        return LocalBookStateDTO.readLater;
       case BookState.reading:
-        return BookStateDTO.reading;
+        return LocalBookStateDTO.reading;
       case BookState.read:
-        return BookStateDTO.read;
+        return LocalBookStateDTO.read;
     }
   }
 
-  List<TagDTO> _toTagDTOs(Set<Tag> tags) {
+  List<LocalTagDTO> _toTagDTOs(Set<Tag> tags) {
     return tags
-        .map((tag) => TagDTO()
+        .map((tag) => LocalTagDTO()
           ..name = tag.name
           ..color = _toTagColorDTO(tag.color))
         .toList();
   }
 
-  TagColorDTO _toTagColorDTO(TagColor color) {
+  LocalTagColorDTO _toTagColorDTO(TagColor color) {
     switch (color) {
       case TagColor.brown:
-        return TagColorDTO.brown;
+        return LocalTagColorDTO.brown;
       case TagColor.black:
-        return TagColorDTO.black;
+        return LocalTagColorDTO.black;
       case TagColor.green:
-        return TagColorDTO.green;
+        return LocalTagColorDTO.green;
       case TagColor.blue:
-        return TagColorDTO.blue;
+        return LocalTagColorDTO.blue;
       case TagColor.orange:
-        return TagColorDTO.orange;
+        return LocalTagColorDTO.orange;
       case TagColor.red:
-        return TagColorDTO.red;
+        return LocalTagColorDTO.red;
     }
   }
 
-  List<BookDTO> toBookDTOs(List<Book> books) {
+  List<LocalBookDTO> toBookDTOs(List<LocalBook> books) {
     return books.map((book) => toBookDTO(book)).toList();
   }
 }

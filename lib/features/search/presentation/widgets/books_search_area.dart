@@ -4,7 +4,6 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
 
 import '../../../../core/utils/extensions.dart';
 import '../../../../injection_container.dart';
-import '../../../add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
 import '../../../navigation/presentation/widgets/bottom_sheet_content.dart';
 import '../bloc/search_for_books_bloc.dart';
 import 'search_suggestions.dart';

@@ -3,13 +3,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/extensions.dart';
-import '../../../add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
-import '../../../books_listing/domain/entities/book.dart';
+import '../../domain/entities/remote_book.dart';
+import '../bloc/search_for_books_bloc.dart';
 
 final class SearchSuggestion extends StatelessWidget {
   const SearchSuggestion({super.key, required this.book});
 
-  final Book book;
+  final RemoteBook book;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +20,11 @@ final class SearchSuggestion extends StatelessWidget {
         child: BannerListTile(
           bannerTextColor: Colors.black,
           bannerColor: Colors.amber,
-          bannerText: book.rating.toStringAsFixed(2),
+          bannerText: book.averageRating.toStringAsFixed(2),
           onTap: () => _onTap(context),
           backgroundColor: Colors.white,
           borderRadius: BorderRadius.circular(8),
-          imageContainer: ListTileThumbnail(book: book),
+          imageContainer: _ListTileThumbnail(book: book),
           title: Text(
             book.title,
             style: const TextStyle(
@@ -35,7 +35,7 @@ final class SearchSuggestion extends StatelessWidget {
             maxLines: 1,
           ),
           subtitle: Text(
-            'by ${book.author}',
+            'by ${book.authors.join(' ')}',
             style: const TextStyle(
               fontSize: 13,
               color: Colors.black,
@@ -47,25 +47,24 @@ final class SearchSuggestion extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) {
-    context.emitSuggestedBookEvt(SuggestedBookPicked(book));
+    context.emitSearchForBooksEvt(SuggestedBookPicked(book));
   }
 }
 
-class ListTileThumbnail extends StatelessWidget {
-  const ListTileThumbnail({super.key, required this.book});
+class _ListTileThumbnail extends StatelessWidget {
+  const _ListTileThumbnail({required this.book});
 
-  final Book book;
+  final RemoteBook book;
 
   @override
   Widget build(BuildContext context) {
-    return book.thumbnailAddress == null
-        ? const Image(image: AssetImage('assets/book-thumbnail-fallback.png'))
-        : FadeInImage(
-            image: CachedNetworkImageProvider(book.thumbnailAddress!),
-            placeholder: const AssetImage('assets/book-thumbnail-fallback.png'),
-            fit: BoxFit.cover,
-            imageErrorBuilder: _onError,
-          );
+    final bookThumbnail = book.imageLinks.values.first;
+    return FadeInImage(
+      image: CachedNetworkImageProvider(bookThumbnail.toString()),
+      placeholder: const AssetImage('assets/book-thumbnail-fallback.png'),
+      fit: BoxFit.cover,
+      imageErrorBuilder: _onError,
+    );
   }
 
   Widget _onError(BuildContext _, Object __, StackTrace? ___) {

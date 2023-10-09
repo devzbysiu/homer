@@ -2,59 +2,59 @@ import 'package:isar/isar.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../models/book_dto.dart';
+import '../models/local_book_dto.dart';
 
-abstract class LocalDataSource {
-  Future<List<BookDTO>> getBooks();
+abstract class LocalBooksDataSource {
+  Future<List<LocalBookDTO>> getBooks();
 
-  Future<Unit> addBook(BookDTO book);
+  Future<Unit> addBook(LocalBookDTO book);
 
-  Future<Unit> update(BookDTO book);
+  Future<Unit> update(LocalBookDTO book);
 
-  Future<Unit> delete(List<BookDTO> bookDTOs);
+  Future<Unit> delete(List<LocalBookDTO> bookDTOs);
 
   Future<Unit> deleteAll();
 }
 
-final class IsarLocalDataSource implements LocalDataSource {
+final class IsarLocalDataSource implements LocalBooksDataSource {
   IsarLocalDataSource._(this._isar);
 
   late final Isar _isar;
 
   static Future<IsarLocalDataSource> create() async {
     final docsDir = await getApplicationDocumentsDirectory();
-    final isar = await Isar.open([BookDTOSchema], directory: docsDir.path);
+    final isar = await Isar.open([LocalBookDTOSchema], directory: docsDir.path);
     return Future.value(IsarLocalDataSource._(isar));
   }
 
   @override
-  Future<List<BookDTO>> getBooks() async {
-    final bookModels = await _isar.bookDTOs.where().findAll();
+  Future<List<LocalBookDTO>> getBooks() async {
+    final bookModels = await _isar.localBookDTOs.where().findAll();
     return Future.value(bookModels);
   }
 
   @override
-  Future<Unit> addBook(BookDTO book) async {
+  Future<Unit> addBook(LocalBookDTO book) async {
     await _isar.writeTxn(() async {
-      await _isar.bookDTOs.put(book);
+      await _isar.localBookDTOs.put(book);
     });
     return Future.value(unit);
   }
 
   @override
-  Future<Unit> update(BookDTO book) async {
+  Future<Unit> update(LocalBookDTO book) async {
     await _isar.writeTxn(() async {
-      await _isar.bookDTOs.filter().isbnEqualTo(book.isbn).deleteAll();
-      await _isar.bookDTOs.put(book);
+      await _isar.localBookDTOs.filter().isbnEqualTo(book.isbn).deleteAll();
+      await _isar.localBookDTOs.put(book);
     });
     return Future.value(unit);
   }
 
   @override
-  Future<Unit> delete(List<BookDTO> bookDTOs) async {
+  Future<Unit> delete(List<LocalBookDTO> bookDTOs) async {
     await _isar.writeTxn(() async {
       final bookISBNs = bookDTOs.map((bookDTO) => bookDTO.isbn).toList();
-      await _isar.bookDTOs
+      await _isar.localBookDTOs
           .filter()
           .anyOf(bookISBNs, (q, isbn) => q.isbnEqualTo(isbn))
           .deleteAll();
@@ -65,7 +65,7 @@ final class IsarLocalDataSource implements LocalDataSource {
   @override
   Future<Unit> deleteAll() async {
     await _isar.writeTxn(() async {
-      await _isar.bookDTOs.where().deleteAll();
+      await _isar.localBookDTOs.where().deleteAll();
     });
     return Future.value(unit);
   }

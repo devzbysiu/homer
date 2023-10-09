@@ -17,8 +17,8 @@ const someIsbns = [
   '0679887008',
 ];
 
-final class Book extends Equatable {
-  const Book({
+final class LocalBook extends Equatable {
+  const LocalBook({
     required this.title,
     required this.subtitle,
     required this.author,
@@ -26,15 +26,13 @@ final class Book extends Equatable {
     required this.pageCount,
     required this.isbn,
     required this.thumbnailAddress,
-    required this.startDate,
-    required this.endDate,
     required this.rating,
     required this.summary,
     required this.tags,
   });
 
-  factory Book.fake({bool withTags = true}) {
-    return Book(
+  factory LocalBook.fake({bool withTags = true}) {
+    return LocalBook(
       title: faker.lorem
           .words(faker.randomGenerator.integer(8, min: 1))
           .join(' ')
@@ -46,8 +44,6 @@ final class Book extends Equatable {
       isbn: faker.guid.guid(),
       thumbnailAddress:
           'https://covers.openlibrary.org/b/isbn/${someIsbns[faker.randomGenerator.integer(someIsbns.length)]}-M.jpg',
-      startDate: faker.date.dateTime().microsecondsSinceEpoch,
-      endDate: faker.date.dateTime().microsecondsSinceEpoch,
       rating: faker.randomGenerator.decimal(scale: 10),
       summary: faker.lorem.sentences(10).join(" "),
       tags: withTags
@@ -70,17 +66,13 @@ final class Book extends Equatable {
 
   final String? thumbnailAddress;
 
-  final int startDate;
-
-  final int endDate;
-
   final double rating;
 
   final String? summary;
 
   final Set<Tag> tags;
 
-  Book copyWith({
+  LocalBook copyWith({
     String? title,
     String? subtitle,
     String? author,
@@ -94,7 +86,7 @@ final class Book extends Equatable {
     String? summary,
     Set<Tag>? tags,
   }) {
-    return Book(
+    return LocalBook(
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
       author: author ?? this.author,
@@ -102,19 +94,17 @@ final class Book extends Equatable {
       pageCount: pageCount ?? this.pageCount,
       isbn: isbn ?? this.isbn,
       thumbnailAddress: thumbnailAddress ?? this.thumbnailAddress,
-      startDate: startDate ?? this.startDate,
-      endDate: endDate ?? this.endDate,
       rating: rating ?? this.rating,
       summary: summary ?? this.summary,
       tags: tags ?? this.tags,
     );
   }
 
-  Book moveRight() {
+  LocalBook moveRight() {
     return copyWith(state: state.moveRight());
   }
 
-  Book moveLeft() {
+  LocalBook moveLeft() {
     return copyWith(state: state.moveLeft());
   }
 
@@ -127,8 +117,6 @@ final class Book extends Equatable {
         pageCount,
         isbn,
         thumbnailAddress,
-        startDate,
-        endDate,
         rating,
         summary,
         tags,

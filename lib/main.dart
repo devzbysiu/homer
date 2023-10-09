@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/features/books_listing/domain/repositories/books_repository.dart';
+import 'package:homer/features/books_listing/domain/repositories/local_books_repository.dart';
 
 import 'core/utils/extensions.dart';
 import 'features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
-import 'features/add_new_book/presentation/bloc/select_suggestion/suggested_book_bloc.dart';
-import 'features/books_listing/domain/entities/book.dart';
+import 'features/books_listing/domain/entities/local_book.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
 import 'features/books_listing/presentation/widgets/books_list.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
@@ -27,7 +26,6 @@ void main() async {
       BlocProvider(create: (_) => sl<AppTabBloc>()),
       BlocProvider(create: (_) => sl<BooksBloc>()),
       BlocProvider(create: (_) => sl<TagsBloc>()),
-      BlocProvider(create: (_) => sl<SuggestedBookBloc>()),
       BlocProvider(create: (_) => sl<SearchForBooksBloc>()),
       BlocProvider(create: (_) => sl<BookTagsBloc>()),
     ],
@@ -36,10 +34,10 @@ void main() async {
 }
 
 Future<void> initDbWithFakes() async {
-  final booksRepo = sl<BooksRepository>();
+  final booksRepo = sl<LocalBooksRepository>();
   await booksRepo.deleteAll();
   for (var i = 0; i < 17; i++) {
-    await booksRepo.add(Book.fake());
+    await booksRepo.add(LocalBook.fake());
   }
 }
 

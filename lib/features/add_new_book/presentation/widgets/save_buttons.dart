@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/extensions.dart';
-import '../../../books_listing/domain/entities/book.dart';
+import '../../../books_listing/domain/entities/local_book.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
+import '../../../search/domain/entities/remote_book.dart';
+import '../../../search/presentation/bloc/search_for_books_bloc.dart';
 import '../bloc/add_tags/book_tags_bloc.dart';
-import '../bloc/select_suggestion/suggested_book_bloc.dart';
 
 class SaveButtons extends StatelessWidget {
   const SaveButtons({super.key, required this.pickedBook});
 
-  final Book pickedBook;
+  final RemoteBook pickedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -49,15 +50,12 @@ class SaveButtons extends StatelessWidget {
 
   void _addBook(
     BuildContext context,
-    Book pickedBook,
+    RemoteBook pickedBook,
     BookState bookState,
   ) {
     final selectedTags = context.selectedTags();
-    context.emitBooksEvt(BookAdded(pickedBook.copyWith(
-      state: bookState,
-      tags: selectedTags,
-    )));
-    context.emitSuggestedBookEvt(NoBookPicked());
+    context.emitBooksEvt(BookAdded(pickedBook, bookState, selectedTags));
+    context.emitSearchForBooksEvt(NoBookPicked());
     context.emitBookTagsEvt(ClearSelectedTags());
   }
 }

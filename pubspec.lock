@@ -65,6 +65,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  books_finder:
+    dependency: "direct main"
+    description:
+      name: books_finder
+      sha256: df9532dfe2e378abe984965bf993a03348c21fed9e0d25d1a19554fcd818bf29
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.4.0"
   boolean_selector:
     dependency: transitive
     description:

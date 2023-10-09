@@ -8,14 +8,14 @@ import 'package:vibration/vibration.dart';
 import '../../../../core/utils/color_mapper.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
-import '../../domain/entities/book.dart';
+import '../../domain/entities/local_book.dart';
 import '../bloc/books_bloc.dart';
 import 'swipeable_card.dart';
 
 final class BookCard extends StatelessWidget {
   const BookCard({super.key, required this.book});
 
-  final Book book;
+  final LocalBook book;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ final class BookCard extends StatelessWidget {
     Vibration.vibrate(duration: 100);
   }
 
-  void _toggleDeletion(List<Book> booksToDelete, BuildContext context) {
+  void _toggleDeletion(List<LocalBook> booksToDelete, BuildContext context) {
     if (booksToDelete.isEmpty) {
       return;
     }
@@ -94,7 +94,7 @@ final class _BookAuthor extends StatelessWidget {
 final class _BookCardFooter extends StatelessWidget {
   const _BookCardFooter({required this.book});
 
-  final Book book;
+  final LocalBook book;
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +168,7 @@ final class _DeletableCard extends StatelessWidget {
     required this.isOnDeleteList,
   });
 
-  final Book book;
+  final LocalBook book;
 
   final bool isOnDeleteList;
 
@@ -202,7 +202,7 @@ final class _DeletableCard extends StatelessWidget {
 class _ImageCard extends StatelessWidget {
   const _ImageCard({required this.book});
 
-  final Book book;
+  final LocalBook book;
 
   @override
   Widget build(BuildContext context) {

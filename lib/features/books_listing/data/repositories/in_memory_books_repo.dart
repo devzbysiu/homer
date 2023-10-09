@@ -1,53 +1,45 @@
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
-import '../../domain/entities/book.dart';
-import '../../domain/repositories/books_repository.dart';
+import '../../domain/entities/local_book.dart';
+import '../../domain/repositories/local_books_repository.dart';
 
-final class InMemoryBooksRepo implements BooksRepository {
+final class InMemoryBooksRepo implements LocalBooksRepository {
   InMemoryBooksRepo();
 
-  final _foundBooks = [
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-    Book.fake(withTags: false),
-  ];
-
   final _allBooks = [
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
-    Book.fake(),
+    LocalBook.fake(),
+    LocalBook.fake(),
+    LocalBook.fake(),
+    LocalBook.fake(),
+    LocalBook.fake(),
+    LocalBook.fake(),
+    LocalBook.fake(),
+    LocalBook.fake(),
+    LocalBook.fake(),
+    LocalBook.fake(),
   ];
 
   @override
-  Future<Result<Unit, Failure>> add(Book book) {
+  Future<Result<Unit, Failure>> add(LocalBook book) {
     _allBooks.add(book);
     return Future.value(const Success(unit));
   }
 
   @override
-  Future<Result<List<Book>, Failure>> listAll() {
+  Future<Result<List<LocalBook>, Failure>> listAll() {
     return Future.value(Success(List.of(_allBooks)));
   }
 
   @override
-  Future<Result<Unit, Failure>> update(Book modified) {
+  Future<Result<Unit, Failure>> update(LocalBook modified) {
     _allBooks.removeWhere((book) => book.isbn == modified.isbn);
     _allBooks.add(modified);
     return Future.value(const Success(unit));
   }
 
   @override
-  Future<Result<Unit, Failure>> delete(List<Book> books) {
+  Future<Result<Unit, Failure>> delete(List<LocalBook> books) {
     for (var toRemove in books) {
       _allBooks.removeWhere((book) => book.isbn == toRemove.isbn);
     }
@@ -58,10 +50,5 @@ final class InMemoryBooksRepo implements BooksRepository {
   Future<Result<Unit, Failure>> deleteAll() {
     _allBooks.clear();
     return Future.value(const Success(unit));
-  }
-
-  @override
-  Future<Result<List<Book>, Failure>> search(String query) {
-    return Future.value(Success(List.of(_foundBooks)));
   }
 }

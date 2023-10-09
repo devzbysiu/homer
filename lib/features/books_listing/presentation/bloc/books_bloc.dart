@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homer/features/search/domain/entities/remote_book.dart';
 
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 import '../../../../core/usecase/usecase.dart';
-import '../../domain/entities/book.dart';
+import '../../../tags_manager/domain/entities/tag.dart';
+import '../../domain/entities/local_book.dart';
 import '../../domain/usecases/add_book.dart';
 import '../../domain/usecases/delete_picked_books.dart';
 import '../../domain/usecases/list_books.dart';
@@ -63,7 +65,11 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     BookAdded event,
     Emitter<BooksState> emit,
   ) async {
-    await addBook(AddParams(book: event.book));
+    await addBook(AddParams(
+      remoteBook: event.book,
+      bookState: event.bookState,
+      selectedTags: event.selectedTags,
+    ));
     await _emitSavedBooks(emit);
     return Future.value();
   }

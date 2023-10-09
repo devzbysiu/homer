@@ -7,9 +7,9 @@ abstract class BooksState {
     required this.deleteList,
   });
 
-  final List<Book> books;
+  final List<LocalBook> books;
 
-  final List<Book> deleteList;
+  final List<LocalBook> deleteList;
 }
 
 final class Empty extends BooksState {

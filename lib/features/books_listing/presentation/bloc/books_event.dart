@@ -4,9 +4,13 @@ part of 'books_bloc.dart';
 abstract class BooksEvent extends Equatable {}
 
 final class BookAdded extends BooksEvent {
-  BookAdded(this.book);
+  BookAdded(this.book, this.bookState, this.selectedTags);
 
-  final Book book;
+  final RemoteBook book;
+
+  final BookState bookState;
+
+  final Set<Tag> selectedTags;
 
   @override
   List<Object?> get props => [book];
@@ -15,7 +19,7 @@ final class BookAdded extends BooksEvent {
 final class BookSwipedRight extends BooksEvent {
   BookSwipedRight(this.book);
 
-  final Book book;
+  final LocalBook book;
 
   @override
   List<Object?> get props => [book];
@@ -24,7 +28,7 @@ final class BookSwipedRight extends BooksEvent {
 final class BookSwipedLeft extends BooksEvent {
   BookSwipedLeft(this.book);
 
-  final Book book;
+  final LocalBook book;
 
   @override
   List<Object?> get props => [book];
@@ -38,7 +42,7 @@ final class BooksListDisplayed extends BooksEvent {
 final class AppendToDeleteList extends BooksEvent {
   AppendToDeleteList(this.book);
 
-  final Book book;
+  final LocalBook book;
 
   @override
   List<Object> get props => [book];
@@ -47,7 +51,7 @@ final class AppendToDeleteList extends BooksEvent {
 final class RemoveFromDeleteList extends BooksEvent {
   RemoveFromDeleteList(this.book);
 
-  final Book book;
+  final LocalBook book;
 
   @override
   List<Object> get props => [book];
@@ -56,7 +60,7 @@ final class RemoveFromDeleteList extends BooksEvent {
 final class DeleteBooks extends BooksEvent {
   DeleteBooks(this.books);
 
-  final List<Book> books;
+  final List<LocalBook> books;
 
   @override
   List<Object?> get props => [books];

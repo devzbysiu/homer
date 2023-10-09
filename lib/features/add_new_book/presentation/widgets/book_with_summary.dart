@@ -13,13 +13,16 @@ class BookWithSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropCapText(
       pickedBook.description ?? '',
-      indentation: const Offset(0, 8),
-      maxLines: 25,
+      maxLines: 23,
       overflow: TextOverflow.ellipsis,
       dropCap: DropCap(
         width: 200,
-        height: 300,
+        height: 280,
         child: RemoteBookCard(book: pickedBook),
+      ),
+      dropCapPadding: const EdgeInsets.only(
+        bottom: 5,
+        right: 10,
       ),
     );
   }

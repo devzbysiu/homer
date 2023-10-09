@@ -1,10 +1,17 @@
 import 'package:blur/blur.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:image_card/image_card.dart';
 import 'package:vibration/vibration.dart';
 
+import '../../../../core/utils/color_mapper.dart';
 import '../../../../core/utils/extensions.dart';
-import '../../../../core/widgets/image_card.dart';
+import '../../../../core/utils/fallback_img.dart';
+import '../../../../core/widgets/book_authors.dart';
+import '../../../../core/widgets/book_title.dart';
+import '../../../../core/widgets/card_footer.dart';
+import '../../../tags_manager/domain/entities/tag.dart';
 import '../../domain/entities/local_book.dart';
 import '../bloc/books_bloc.dart';
 import 'swipeable_card.dart';
@@ -28,7 +35,7 @@ final class BookCard extends StatelessWidget {
             )
           : SwipeableCard(
               book: book,
-              child: _imageCard(book),
+              child: _ImageCard(book: book),
             ),
     );
   }
@@ -49,17 +56,6 @@ final class BookCard extends StatelessWidget {
     }
     context.emitBooksEvt(AppendToDeleteList(book));
   }
-}
-
-Widget _imageCard(LocalBook book) {
-  return ImageCard(
-    title: book.title,
-    authors: book.authors,
-    rating: book.rating,
-    pageCount: book.pageCount,
-    tags: book.tags,
-    thumbnailAddress: book.thumbnailAddress,
-  );
 }
 
 final class _DeletableCard extends StatelessWidget {
@@ -92,7 +88,64 @@ final class _DeletableCard extends StatelessWidget {
                 : null,
           ),
           blurColor: Colors.red,
-          child: _imageCard(book),
+          child: _ImageCard(book: book),
+        ),
+      ),
+    );
+  }
+}
+
+final class _ImageCard extends StatelessWidget {
+  const _ImageCard({required this.book});
+
+  final LocalBook book;
+
+  @override
+  Widget build(BuildContext context) {
+    return TransparentImageCard(
+      imageProvider: _imageProvider() as ImageProvider<Object>,
+      tags: _tags(),
+      title: BookTitle(title: book.title),
+      description: BookAuthors(authorNames: book.authors),
+      footer: BookCardFooter(
+        rating: book.rating,
+        pageCount: book.pageCount,
+      ),
+    );
+  }
+
+  Object _imageProvider() {
+    return book.thumbnailAddress == null
+        ? coverFallbackAssetImage()
+        : CachedNetworkImageProvider(book.thumbnailAddress!);
+  }
+
+  List<Widget> _tags() {
+    return book.tags.map((tag) => _Tag(tag: tag)).toList();
+  }
+}
+
+final class _Tag extends StatelessWidget {
+  const _Tag({required this.tag});
+
+  final Tag tag;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          color: toFlutterColor(tag.color),
+        ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8,
+          vertical: 2,
+        ),
+        child: Text(
+          tag.name,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );

@@ -7,7 +7,7 @@ final class RemoteBook extends Equatable {
     required this.authors,
     required this.pageCount,
     required this.isbn,
-    required this.imageLinks,
+    required this.thumbnail,
     required this.averageRating,
     required this.description,
   });
@@ -22,11 +22,11 @@ final class RemoteBook extends Equatable {
 
   final String isbn;
 
-  final Map<String, Uri> imageLinks;
+  final Uri? thumbnail;
 
   final double averageRating;
 
-  final String? description;
+  final String description;
 
   @override
   List<Object?> get props => [
@@ -35,7 +35,7 @@ final class RemoteBook extends Equatable {
         authors,
         pageCount,
         isbn,
-        imageLinks,
+        thumbnail,
         averageRating,
         description,
       ];

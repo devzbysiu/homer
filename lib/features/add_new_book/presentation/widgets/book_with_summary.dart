@@ -12,7 +12,7 @@ class BookWithSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropCapText(
-      pickedBook.description ?? '',
+      pickedBook.description,
       maxLines: 23,
       overflow: TextOverflow.ellipsis,
       dropCap: DropCap(

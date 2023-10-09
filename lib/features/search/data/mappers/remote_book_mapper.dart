@@ -15,9 +15,9 @@ final class RemoteBookMapper {
       authors: remoteBookDTO.authors,
       pageCount: remoteBookDTO.pageCount,
       isbn: remoteBookDTO.industryIdentifiers.firstOrNull?.toString() ?? '',
-      imageLinks: remoteBookDTO.imageLinks,
+      thumbnail: remoteBookDTO.imageLinks.values.firstOrNull,
       averageRating: remoteBookDTO.averageRating,
-      description: remoteBookDTO.description,
+      description: _descriptionOrDefault(remoteBookDTO),
     );
   }
 
@@ -29,14 +29,15 @@ final class RemoteBookMapper {
       state: state,
       pageCount: remoteBook.pageCount,
       isbn: remoteBook.isbn,
-      thumbnailAddress: _extractThumbnail(remoteBook),
+      thumbnailAddress: remoteBook.thumbnail?.toString(),
       rating: remoteBook.averageRating,
       summary: remoteBook.description,
       tags: tags,
     );
   }
 
-  String? _extractThumbnail(RemoteBook book) {
-    return book.imageLinks.values.firstOrNull?.toString();
+  String _descriptionOrDefault(RemoteBookDTO remoteBookDTO) {
+    final description = remoteBookDTO.description ?? '';
+    return description.isEmpty ? 'No description.' : description;
   }
 }

@@ -61,11 +61,11 @@ class _ListTileThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return book.imageLinks.isEmpty
+    return book.thumbnail == null
         ? fallbackThumbnail()
         : FadeInImage(
             image: CachedNetworkImageProvider(
-              book.imageLinks.values.first.toString(),
+              book.thumbnail.toString(),
             ),
             placeholder: thumbnailFallbackAssetImage(),
             fit: BoxFit.cover,

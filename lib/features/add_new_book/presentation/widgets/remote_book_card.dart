@@ -30,8 +30,8 @@ final class RemoteBookCard extends StatelessWidget {
   }
 
   Object _imageProvider() {
-    return book.imageLinks.isEmpty
+    return book.thumbnail == null
         ? coverFallbackAssetImage()
-        : CachedNetworkImageProvider(book.imageLinks.values.first.toString());
+        : CachedNetworkImageProvider(book.thumbnail.toString());
   }
 }

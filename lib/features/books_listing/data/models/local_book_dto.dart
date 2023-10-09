@@ -9,7 +9,7 @@ final class LocalBookDTO {
   LocalBookDTO({
     required this.title,
     required this.subtitle,
-    required this.author,
+    required this.authors,
     required this.state,
     required this.pageCount,
     required this.isbn,
@@ -25,7 +25,7 @@ final class LocalBookDTO {
 
   final String subtitle;
 
-  final String author;
+  final List<String> authors;
 
   @enumerated
   final LocalBookStateDTO state;

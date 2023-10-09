@@ -1,9 +1,9 @@
 import 'package:event_bus/event_bus.dart';
-import 'package:homer/features/search/data/mappers/remote_book_mapper.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
+import '../../../search/data/mappers/remote_book_mapper.dart';
 import '../../../search/domain/entities/remote_book.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../presentation/bloc/books_bloc.dart';

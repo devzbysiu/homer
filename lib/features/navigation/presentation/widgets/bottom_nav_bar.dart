@@ -75,40 +75,62 @@ final class _BottomNavBarState extends State<BottomNavBar> {
   Widget _mainActionButton(BuildContext context) {
     final booksToDelete = context.booksToDelete();
     return booksToDelete.isEmpty
-        ? ElevatedButton(
-            onPressed: _toggleSheet,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black,
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(15),
-            ),
-            child: const Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-          )
-        : Animate(
-            onPlay: (controller) => controller.repeat(),
-            effects: const [ShakeEffect(hz: 2.5)],
-            child: ElevatedButton(
-              onPressed: () => _deleteBooks(context, booksToDelete),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(15),
-              ),
-              child: const Icon(
-                Icons.delete_forever,
-                color: Colors.white,
-              ),
-            ),
-          );
+        ? _AddButton(sheetController: _sheetController)
+        : _DeleteButton(booksToDelete: booksToDelete);
+  }
+}
+
+final class _AddButton extends StatelessWidget {
+  const _AddButton({required this.sheetController});
+
+  final BottomBarWithSheetController sheetController;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: _toggleSheet,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.black,
+        shape: const CircleBorder(),
+        padding: const EdgeInsets.all(15),
+      ),
+      child: const Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
+    );
   }
 
   void _toggleSheet() {
-    _sheetController.isOpened
-        ? _sheetController.closeSheet()
-        : _sheetController.openSheet();
+    sheetController.isOpened
+        ? sheetController.closeSheet()
+        : sheetController.openSheet();
+  }
+}
+
+final class _DeleteButton extends StatelessWidget {
+  const _DeleteButton({required this.booksToDelete});
+
+  final List<LocalBook> booksToDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    return Animate(
+      onPlay: (controller) => controller.repeat(),
+      effects: const [ShakeEffect(hz: 2.5)],
+      child: ElevatedButton(
+        onPressed: () => _deleteBooks(context, booksToDelete),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.red,
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(15),
+        ),
+        child: const Icon(
+          Icons.delete_forever,
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 
   void _deleteBooks(BuildContext context, List<LocalBook> booksToDelete) async {

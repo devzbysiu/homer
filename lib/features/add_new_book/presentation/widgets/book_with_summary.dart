@@ -2,7 +2,7 @@ import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../search/domain/entities/remote_book.dart';
-import '../../../search/presentation/widgets/remote_book_card.dart';
+import 'remote_book_card.dart';
 
 class BookWithSummary extends StatelessWidget {
   const BookWithSummary({super.key, required this.pickedBook});

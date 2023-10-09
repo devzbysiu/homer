@@ -5,7 +5,7 @@ import '../../../books_listing/domain/entities/local_book.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
 import '../../../search/domain/entities/remote_book.dart';
 import '../../../search/presentation/bloc/search_for_books_bloc.dart';
-import '../bloc/add_tags/book_tags_bloc.dart';
+import '../bloc/book_tags_bloc.dart';
 
 class SaveButtons extends StatelessWidget {
   const SaveButtons({super.key, required this.pickedBook});

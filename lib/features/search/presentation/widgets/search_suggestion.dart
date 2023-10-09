@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/extensions.dart';
+import '../../../../core/utils/fallback_img.dart';
 import '../../domain/entities/remote_book.dart';
 import '../bloc/search_for_books_bloc.dart';
 
@@ -35,7 +36,9 @@ final class SearchSuggestion extends StatelessWidget {
             maxLines: 1,
           ),
           subtitle: Text(
-            'by ${book.authors.join(' ')}',
+            'by ${book.authors.join(', ')}',
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               fontSize: 13,
               color: Colors.black,
@@ -58,16 +61,15 @@ class _ListTileThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bookThumbnail = book.imageLinks.values.first;
-    return FadeInImage(
-      image: CachedNetworkImageProvider(bookThumbnail.toString()),
-      placeholder: const AssetImage('assets/book-thumbnail-fallback.png'),
-      fit: BoxFit.cover,
-      imageErrorBuilder: _onError,
-    );
-  }
-
-  Widget _onError(BuildContext _, Object __, StackTrace? ___) {
-    return const Image(image: AssetImage('assets/book-thumbnail-fallback.png'));
+    return book.imageLinks.isEmpty
+        ? fallbackThumbnail()
+        : FadeInImage(
+            image: CachedNetworkImageProvider(
+              book.imageLinks.values.first.toString(),
+            ),
+            placeholder: thumbnailFallbackAssetImage(),
+            fit: BoxFit.cover,
+            imageErrorBuilder: (_, __, ___) => fallbackThumbnail(),
+          );
   }
 }

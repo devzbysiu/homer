@@ -1,7 +1,4 @@
-import 'package:books_finder/books_finder.dart';
 import 'package:equatable/equatable.dart';
-import 'package:homer/features/books_listing/domain/entities/local_book.dart';
-import 'package:homer/features/tags_manager/domain/entities/tag.dart';
 
 final class RemoteBook extends Equatable {
   const RemoteBook({
@@ -9,7 +6,7 @@ final class RemoteBook extends Equatable {
     required this.subtitle,
     required this.authors,
     required this.pageCount,
-    required this.industryIdentifiers,
+    required this.isbn,
     required this.imageLinks,
     required this.averageRating,
     required this.description,
@@ -23,7 +20,7 @@ final class RemoteBook extends Equatable {
 
   final int pageCount;
 
-  final List<IndustryIdentifier> industryIdentifiers;
+  final String isbn;
 
   final Map<String, Uri> imageLinks;
 
@@ -37,7 +34,7 @@ final class RemoteBook extends Equatable {
         subtitle,
         authors,
         pageCount,
-        industryIdentifiers,
+        isbn,
         imageLinks,
         averageRating,
         description,

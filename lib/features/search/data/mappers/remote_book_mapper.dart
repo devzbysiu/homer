@@ -14,7 +14,7 @@ final class RemoteBookMapper {
       subtitle: remoteBookDTO.subtitle,
       authors: remoteBookDTO.authors,
       pageCount: remoteBookDTO.pageCount,
-      industryIdentifiers: remoteBookDTO.industryIdentifiers,
+      isbn: remoteBookDTO.industryIdentifiers.firstOrNull?.toString() ?? '',
       imageLinks: remoteBookDTO.imageLinks,
       averageRating: remoteBookDTO.averageRating,
       description: remoteBookDTO.description,
@@ -25,14 +25,18 @@ final class RemoteBookMapper {
     return LocalBook(
       title: remoteBook.title,
       subtitle: remoteBook.subtitle,
-      author: remoteBook.authors[0], // TODO: Take care of this
+      authors: remoteBook.authors,
       state: state,
       pageCount: remoteBook.pageCount,
-      isbn: remoteBook.industryIdentifiers[0].toString(), // TODO: take care of this
-      thumbnailAddress: remoteBook.imageLinks.values.first.toString(), // TODO: take care of this
+      isbn: remoteBook.isbn,
+      thumbnailAddress: _extractThumbnail(remoteBook),
       rating: remoteBook.averageRating,
       summary: remoteBook.description,
       tags: tags,
     );
+  }
+
+  String? _extractThumbnail(RemoteBook book) {
+    return book.imageLinks.values.firstOrNull?.toString();
   }
 }

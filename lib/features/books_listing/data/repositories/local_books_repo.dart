@@ -18,27 +18,27 @@ final class LocalBooksRepo implements LocalBooksRepository {
   @override
   Future<Result<List<LocalBook>, Failure>> listAll() async {
     final bookDTOs = await dataSource.getBooks();
-    final books = bookMapper.toBooks(bookDTOs);
+    final books = bookMapper.toLocalBooks(bookDTOs);
     return Future.value(Success(books));
   }
 
   @override
   Future<Result<Unit, Failure>> add(LocalBook book) async {
-    final bookDTO = bookMapper.toBookDTO(book);
+    final bookDTO = bookMapper.toLocalBookDTO(book);
     await dataSource.addBook(bookDTO);
     return Future.value(const Success(unit));
   }
 
   @override
   Future<Result<Unit, Failure>> update(LocalBook modified) async {
-    final bookDTO = bookMapper.toBookDTO(modified);
+    final bookDTO = bookMapper.toLocalBookDTO(modified);
     await dataSource.update(bookDTO);
     return Future.value(const Success(unit));
   }
 
   @override
   Future<Result<Unit, Failure>> delete(List<LocalBook> books) async {
-    final bookDTOs = bookMapper.toBookDTOs(books);
+    final bookDTOs = bookMapper.toLocalBookDTOs(books);
     await dataSource.delete(bookDTOs);
     return Future.value(const Success(unit));
   }

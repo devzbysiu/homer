@@ -4,14 +4,14 @@ import '../models/local_book_dto.dart';
 import '../models/local_tag_dto.dart';
 
 final class LocalBookMapper {
-  List<LocalBook> toBooks(List<LocalBookDTO> bookModels) {
-    return bookModels.map(_toBook).toList();
+  List<LocalBook> toLocalBooks(List<LocalBookDTO> bookModels) {
+    return bookModels.map(_toLocalBook).toList();
   }
 
-  LocalBook _toBook(LocalBookDTO bookDTO) => LocalBook(
+  LocalBook _toLocalBook(LocalBookDTO bookDTO) => LocalBook(
         title: bookDTO.title,
         subtitle: bookDTO.subtitle,
-        author: bookDTO.author,
+        authors: bookDTO.authors,
         state: _toBookState(bookDTO.state),
         pageCount: bookDTO.pageCount,
         isbn: bookDTO.isbn,
@@ -21,10 +21,10 @@ final class LocalBookMapper {
         tags: _toBookTags(bookDTO.tags),
       );
 
-  LocalBookDTO toBookDTO(LocalBook book) => LocalBookDTO(
+  LocalBookDTO toLocalBookDTO(LocalBook book) => LocalBookDTO(
         title: book.title,
         subtitle: book.subtitle,
-        author: book.author,
+        authors: book.authors,
         state: _toBookStateDTO(book.state),
         pageCount: book.pageCount,
         isbn: book.isbn,
@@ -107,7 +107,7 @@ final class LocalBookMapper {
     }
   }
 
-  List<LocalBookDTO> toBookDTOs(List<LocalBook> books) {
-    return books.map((book) => toBookDTO(book)).toList();
+  List<LocalBookDTO> toLocalBookDTOs(List<LocalBook> books) {
+    return books.map((book) => toLocalBookDTO(book)).toList();
   }
 }

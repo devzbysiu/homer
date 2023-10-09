@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
+import '../../features/add_new_book/presentation/bloc/book_tags_bloc.dart';
 import '../../features/books_listing/domain/entities/local_book.dart';
 import '../../features/books_listing/presentation/bloc/books_bloc.dart';
 import '../../features/navigation/presentation/bloc/app_tab_bloc.dart';

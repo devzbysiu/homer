@@ -17,10 +17,10 @@ const LocalBookDTOSchema = CollectionSchema(
   name: r'LocalBookDTO',
   id: -5786836633154724078,
   properties: {
-    r'author': PropertySchema(
+    r'authors': PropertySchema(
       id: 0,
-      name: r'author',
-      type: IsarType.string,
+      name: r'authors',
+      type: IsarType.stringList,
     ),
     r'isbn': PropertySchema(
       id: 1,
@@ -90,7 +90,13 @@ int _localBookDTOEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.author.length * 3;
+  bytesCount += 3 + object.authors.length * 3;
+  {
+    for (var i = 0; i < object.authors.length; i++) {
+      final value = object.authors[i];
+      bytesCount += value.length * 3;
+    }
+  }
   bytesCount += 3 + object.isbn.length * 3;
   bytesCount += 3 + object.subtitle.length * 3;
   {
@@ -123,7 +129,7 @@ void _localBookDTOSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.author);
+  writer.writeStringList(offsets[0], object.authors);
   writer.writeString(offsets[1], object.isbn);
   writer.writeLong(offsets[2], object.pageCount);
   writer.writeDouble(offsets[3], object.rating);
@@ -147,7 +153,7 @@ LocalBookDTO _localBookDTODeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = LocalBookDTO(
-    author: reader.readString(offsets[0]),
+    authors: reader.readStringList(offsets[0]) ?? [],
     isbn: reader.readString(offsets[1]),
     pageCount: reader.readLong(offsets[2]),
     rating: reader.readDouble(offsets[3]),
@@ -177,7 +183,7 @@ P _localBookDTODeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringList(offset) ?? []) as P;
     case 1:
       return (reader.readString(offset)) as P;
     case 2:
@@ -313,13 +319,14 @@ extension LocalBookDTOQueryWhere
 
 extension LocalBookDTOQueryFilter
     on QueryBuilder<LocalBookDTO, LocalBookDTO, QFilterCondition> {
-  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition> authorEqualTo(
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      authorsElementEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'author',
+        property: r'authors',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -327,7 +334,7 @@ extension LocalBookDTOQueryFilter
   }
 
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
-      authorGreaterThan(
+      authorsElementGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -335,7 +342,7 @@ extension LocalBookDTOQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'author',
+        property: r'authors',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -343,7 +350,7 @@ extension LocalBookDTOQueryFilter
   }
 
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
-      authorLessThan(
+      authorsElementLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -351,14 +358,15 @@ extension LocalBookDTOQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'author',
+        property: r'authors',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition> authorBetween(
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      authorsElementBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -367,7 +375,7 @@ extension LocalBookDTOQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'author',
+        property: r'authors',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -378,13 +386,13 @@ extension LocalBookDTOQueryFilter
   }
 
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
-      authorStartsWith(
+      authorsElementStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'author',
+        property: r'authors',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -392,13 +400,13 @@ extension LocalBookDTOQueryFilter
   }
 
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
-      authorEndsWith(
+      authorsElementEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'author',
+        property: r'authors',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -406,22 +414,21 @@ extension LocalBookDTOQueryFilter
   }
 
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
-      authorContains(String value, {bool caseSensitive = true}) {
+      authorsElementContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'author',
+        property: r'authors',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition> authorMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      authorsElementMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'author',
+        property: r'authors',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -429,22 +436,111 @@ extension LocalBookDTOQueryFilter
   }
 
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
-      authorIsEmpty() {
+      authorsElementIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'author',
+        property: r'authors',
         value: '',
       ));
     });
   }
 
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
-      authorIsNotEmpty() {
+      authorsElementIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'author',
+        property: r'authors',
         value: '',
       ));
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      authorsLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'authors',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      authorsIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'authors',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      authorsIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'authors',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      authorsLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'authors',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      authorsLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'authors',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      authorsLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'authors',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
     });
   }
 
@@ -1492,18 +1588,6 @@ extension LocalBookDTOQueryLinks
 
 extension LocalBookDTOQuerySortBy
     on QueryBuilder<LocalBookDTO, LocalBookDTO, QSortBy> {
-  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy> sortByAuthor() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'author', Sort.asc);
-    });
-  }
-
-  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy> sortByAuthorDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'author', Sort.desc);
-    });
-  }
-
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy> sortByIsbn() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isbn', Sort.asc);
@@ -1605,18 +1689,6 @@ extension LocalBookDTOQuerySortBy
 
 extension LocalBookDTOQuerySortThenBy
     on QueryBuilder<LocalBookDTO, LocalBookDTO, QSortThenBy> {
-  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy> thenByAuthor() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'author', Sort.asc);
-    });
-  }
-
-  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy> thenByAuthorDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'author', Sort.desc);
-    });
-  }
-
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -1730,10 +1802,9 @@ extension LocalBookDTOQuerySortThenBy
 
 extension LocalBookDTOQueryWhereDistinct
     on QueryBuilder<LocalBookDTO, LocalBookDTO, QDistinct> {
-  QueryBuilder<LocalBookDTO, LocalBookDTO, QDistinct> distinctByAuthor(
-      {bool caseSensitive = true}) {
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QDistinct> distinctByAuthors() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'author', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'authors');
     });
   }
 
@@ -1800,9 +1871,9 @@ extension LocalBookDTOQueryProperty
     });
   }
 
-  QueryBuilder<LocalBookDTO, String, QQueryOperations> authorProperty() {
+  QueryBuilder<LocalBookDTO, List<String>, QQueryOperations> authorsProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'author');
+      return query.addPropertyName(r'authors');
     });
   }
 

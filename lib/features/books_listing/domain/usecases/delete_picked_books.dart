@@ -1,9 +1,9 @@
-import 'package:homer/core/error/failures.dart';
-import 'package:homer/core/usecase/usecase.dart';
-import 'package:homer/features/books_listing/domain/repositories/local_books_repository.dart';
 import 'package:multiple_result/multiple_result.dart';
 
+import '../../../../core/error/failures.dart';
+import '../../../../core/usecase/usecase.dart';
 import '../../../books_listing/domain/entities/local_book.dart';
+import '../repositories/local_books_repository.dart';
 
 final class DeletePickedBooks implements UseCase<Unit, DeleteParams> {
   DeletePickedBooks(this.booksRepo);

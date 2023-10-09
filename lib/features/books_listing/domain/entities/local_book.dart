@@ -21,7 +21,7 @@ final class LocalBook extends Equatable {
   const LocalBook({
     required this.title,
     required this.subtitle,
-    required this.author,
+    required this.authors,
     required this.state,
     required this.pageCount,
     required this.isbn,
@@ -38,7 +38,7 @@ final class LocalBook extends Equatable {
           .join(' ')
           .capitalize(),
       subtitle: faker.lorem.sentence(),
-      author: '${faker.person.firstName()} ${faker.person.lastName()}',
+      authors: ['${faker.person.firstName()} ${faker.person.lastName()}'],
       state: BookState.readLater,
       pageCount: faker.randomGenerator.integer(1000),
       isbn: faker.guid.guid(),
@@ -56,7 +56,7 @@ final class LocalBook extends Equatable {
 
   final String subtitle;
 
-  final String author;
+  final List<String> authors;
 
   final BookState state;
 
@@ -75,7 +75,7 @@ final class LocalBook extends Equatable {
   LocalBook copyWith({
     String? title,
     String? subtitle,
-    String? author,
+    List<String>? authors,
     BookState? state,
     int? pageCount,
     String? isbn,
@@ -89,7 +89,7 @@ final class LocalBook extends Equatable {
     return LocalBook(
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
-      author: author ?? this.author,
+      authors: authors ?? this.authors,
       state: state ?? this.state,
       pageCount: pageCount ?? this.pageCount,
       isbn: isbn ?? this.isbn,
@@ -112,7 +112,7 @@ final class LocalBook extends Equatable {
   List<Object?> get props => [
         title,
         subtitle,
-        author,
+        authors,
         state,
         pageCount,
         isbn,

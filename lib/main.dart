@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:homer/features/books_listing/domain/repositories/local_books_repository.dart';
 
 import 'core/utils/extensions.dart';
-import 'features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
+import 'features/add_new_book/presentation/bloc/book_tags_bloc.dart';
 import 'features/books_listing/domain/entities/local_book.dart';
+import 'features/books_listing/domain/repositories/local_books_repository.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
 import 'features/books_listing/presentation/widgets/books_list.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
@@ -36,7 +36,7 @@ void main() async {
 Future<void> initDbWithFakes() async {
   final booksRepo = sl<LocalBooksRepository>();
   await booksRepo.deleteAll();
-  for (var i = 0; i < 17; i++) {
+  for (var i = 0; i < 16; i++) {
     await booksRepo.add(LocalBook.fake());
   }
 }

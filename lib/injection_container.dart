@@ -1,7 +1,7 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
 
-import 'features/add_new_book/presentation/bloc/add_tags/book_tags_bloc.dart';
+import 'features/add_new_book/presentation/bloc/book_tags_bloc.dart';
 import 'features/books_listing/data/datasources/local_books_data_source.dart';
 import 'features/books_listing/data/mappers/local_book_mapper.dart';
 import 'features/books_listing/data/repositories/local_books_repo.dart';

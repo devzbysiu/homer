@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../search/domain/entities/remote_book.dart';
 import 'remote_book_card.dart';
 
-class BookWithSummary extends StatelessWidget {
+final class BookWithSummary extends StatelessWidget {
   const BookWithSummary({super.key, required this.pickedBook});
 
   final RemoteBook pickedBook;

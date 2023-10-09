@@ -153,7 +153,7 @@ extension StateChangeExt on BookState {
   }
 }
 
-class BookTag {
+final class BookTag {
   BookTag({required this.name});
 
   final String name;

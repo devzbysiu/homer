@@ -6,14 +6,14 @@ import '../../../../core/utils/extensions.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../bloc/book_tags_bloc.dart';
 
-class Tags extends StatefulWidget {
+final class Tags extends StatefulWidget {
   const Tags({super.key});
 
   @override
   State<Tags> createState() => _TagsState();
 }
 
-class _TagsState extends State<Tags> {
+final class _TagsState extends State<Tags> {
   final Set<int> _selectedTags = {};
 
   @override

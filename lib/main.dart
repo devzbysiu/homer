@@ -41,7 +41,7 @@ Future<void> initDbWithFakes() async {
   }
 }
 
-class Homer extends StatelessWidget {
+final class Homer extends StatelessWidget {
   const Homer({super.key});
 
   @override

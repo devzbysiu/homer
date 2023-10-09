@@ -24,6 +24,6 @@ final class FailedToLoadBooks extends BooksState {
   const FailedToLoadBooks() : super(books: const [], deleteList: const []);
 }
 
-class DeletionList extends BooksState {
+final class DeletionList extends BooksState {
   const DeletionList({required super.deleteList, required super.books});
 }

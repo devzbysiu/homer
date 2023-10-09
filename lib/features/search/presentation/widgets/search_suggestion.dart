@@ -54,7 +54,7 @@ final class SearchSuggestion extends StatelessWidget {
   }
 }
 
-class _ListTileThumbnail extends StatelessWidget {
+final class _ListTileThumbnail extends StatelessWidget {
   const _ListTileThumbnail({required this.book});
 
   final RemoteBook book;

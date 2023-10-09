@@ -7,7 +7,7 @@ import '../../../search/domain/entities/remote_book.dart';
 import '../../../search/presentation/bloc/search_for_books_bloc.dart';
 import '../bloc/book_tags_bloc.dart';
 
-class SaveButtons extends StatelessWidget {
+final class SaveButtons extends StatelessWidget {
   const SaveButtons({super.key, required this.pickedBook});
 
   final RemoteBook pickedBook;

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 final class RemoteBook extends Equatable {
@@ -22,7 +23,7 @@ final class RemoteBook extends Equatable {
 
   final String isbn;
 
-  final Uri? thumbnail;
+  final Option<Uri> thumbnail;
 
   final double averageRating;
 

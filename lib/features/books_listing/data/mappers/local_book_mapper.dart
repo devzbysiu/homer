@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../domain/entities/local_book.dart';
 import '../models/local_book_dto.dart';
@@ -15,7 +17,7 @@ final class LocalBookMapper {
         state: _toBookState(bookDTO.state),
         pageCount: bookDTO.pageCount,
         isbn: bookDTO.isbn,
-        thumbnailAddress: bookDTO.thumbnailAddress,
+        thumbnailAddress: optionOf(bookDTO.thumbnailAddress),
         rating: bookDTO.rating,
         summary: bookDTO.summary,
         tags: _toBookTags(bookDTO.tags),
@@ -28,7 +30,7 @@ final class LocalBookMapper {
         state: _toBookStateDTO(book.state),
         pageCount: book.pageCount,
         isbn: book.isbn,
-        thumbnailAddress: book.thumbnailAddress,
+        thumbnailAddress: book.thumbnailAddress.toNullable(),
         rating: book.rating,
         summary: book.summary,
         tags: _toTagDTOs(book.tags),

@@ -115,9 +115,10 @@ final class _ImageCard extends StatelessWidget {
   }
 
   Object _imageProvider() {
-    return book.thumbnailAddress == null
-        ? coverFallbackAssetImage()
-        : CachedNetworkImageProvider(book.thumbnailAddress!);
+    return book.thumbnailAddress.fold(
+      () => coverFallbackAssetImage(),
+      (thumbnailAddress) => CachedNetworkImageProvider(thumbnailAddress),
+    );
   }
 
   List<Widget> _tags() {

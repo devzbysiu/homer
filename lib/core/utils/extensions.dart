@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,7 +41,7 @@ extension BlocExt on BuildContext {
     read<BooksBloc>().add(event);
   }
 
-  RemoteBook? pickedSuggestedBook() {
+  Option<RemoteBook> pickedSuggestedBook() {
     return select((SearchForBooksBloc bloc) => bloc.state.pickedBook);
   }
 

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:faker/faker.dart';
 
@@ -42,8 +43,8 @@ final class LocalBook extends Equatable {
       state: BookState.readLater,
       pageCount: faker.randomGenerator.integer(1000),
       isbn: faker.guid.guid(),
-      thumbnailAddress:
-          'https://covers.openlibrary.org/b/isbn/${someIsbns[faker.randomGenerator.integer(someIsbns.length)]}-M.jpg',
+      thumbnailAddress: some(
+          'https://covers.openlibrary.org/b/isbn/${someIsbns[faker.randomGenerator.integer(someIsbns.length)]}-M.jpg'),
       rating: faker.randomGenerator.decimal(scale: 10),
       summary: faker.lorem.sentences(10).join(" "),
       tags: withTags
@@ -64,7 +65,7 @@ final class LocalBook extends Equatable {
 
   final String isbn;
 
-  final String? thumbnailAddress;
+  final Option<String> thumbnailAddress;
 
   final double rating;
 
@@ -79,7 +80,7 @@ final class LocalBook extends Equatable {
     BookState? state,
     int? pageCount,
     String? isbn,
-    String? thumbnailAddress,
+    Option<String>? thumbnailAddress,
     int? startDate,
     int? endDate,
     double? rating,

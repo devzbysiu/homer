@@ -11,28 +11,29 @@ final class BottomSheetContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pickedBook = context.pickedSuggestedBook();
-    return pickedBook == null
-        ? Container()
-        : Padding(
-            padding: const EdgeInsets.only(top: 80.0),
-            child: Stack(
-              children: [
-                BookWithSummary(pickedBook: pickedBook),
-                Positioned(
-                  width: MediaQuery.of(context).size.width,
-                  bottom: 60,
-                  child: const Padding(
-                    padding: EdgeInsets.only(right: 18.0),
-                    child: Tags(),
-                  ),
-                ),
-                Positioned(
-                  width: MediaQuery.of(context).size.width,
-                  bottom: 10,
-                  child: SaveButtons(pickedBook: pickedBook),
-                )
-              ],
+    return pickedBook.fold(
+      () => Container(),
+      (book) => Padding(
+        padding: const EdgeInsets.only(top: 80.0),
+        child: Stack(
+          children: [
+            BookWithSummary(pickedBook: book),
+            Positioned(
+              width: MediaQuery.of(context).size.width,
+              bottom: 60,
+              child: const Padding(
+                padding: EdgeInsets.only(right: 18.0),
+                child: Tags(),
+              ),
             ),
-          );
+            Positioned(
+              width: MediaQuery.of(context).size.width,
+              bottom: 10,
+              child: SaveButtons(pickedBook: book),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

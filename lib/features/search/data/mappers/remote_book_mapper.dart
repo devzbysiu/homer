@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+
 import '../../../books_listing/domain/entities/local_book.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../domain/entities/remote_book.dart';
@@ -15,7 +17,7 @@ final class RemoteBookMapper {
       authors: remoteBookDTO.authors,
       pageCount: remoteBookDTO.pageCount,
       isbn: remoteBookDTO.industryIdentifiers.firstOrNull?.toString() ?? '',
-      thumbnail: remoteBookDTO.imageLinks.values.firstOrNull,
+      thumbnail: optionOf(remoteBookDTO.imageLinks.values.firstOrNull),
       averageRating: remoteBookDTO.averageRating,
       description: _descriptionOrDefault(remoteBookDTO),
     );
@@ -29,7 +31,7 @@ final class RemoteBookMapper {
       state: state,
       pageCount: remoteBook.pageCount,
       isbn: remoteBook.isbn,
-      thumbnailAddress: remoteBook.thumbnail?.toString(),
+      thumbnailAddress: remoteBook.thumbnail.map((uri) => uri.toString()),
       rating: remoteBook.averageRating,
       summary: remoteBook.description,
       tags: tags,

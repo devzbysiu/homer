@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +21,7 @@ final class SearchForBooksBloc
   SearchForBooksBloc({
     required this.searchForBooks,
     required this.closeSearchBar,
-  }) : super(const Empty()) {
+  }) : super(Empty()) {
     on<SearchInitiated>(_onSearchInitiated);
     on<SuggestedBookPicked>(_onSuggestedBookPicked);
     on<NoBookPicked>(_onClearPickedBook);
@@ -40,7 +41,7 @@ final class SearchForBooksBloc
     final searchResult = await searchForBooks(SearchParams(query: event.query));
     searchResult.when(
       (success) => emit(FoundBooks(foundBooks: success)),
-      (error) => emit(const FailedToSearchBooks()),
+      (error) => emit(FailedToSearchBooks()),
     );
     return Future.value();
   }
@@ -58,7 +59,7 @@ final class SearchForBooksBloc
     NoBookPicked event,
     Emitter<SearchForBooksState> emit,
   ) async {
-    emit(const NoPickedBook());
+    emit(NoPickedBook());
     return Future.value();
   }
 }

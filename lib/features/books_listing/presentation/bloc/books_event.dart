@@ -8,7 +8,7 @@ final class BookAdded extends BooksEvent {
 
   final RemoteBook book;
 
-  final BookState bookState;
+  final LocalBookState bookState;
 
   final Set<Tag> selectedTags;
 

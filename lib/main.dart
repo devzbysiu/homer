@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'core/utils/extensions.dart';
 import 'features/add_new_book/presentation/bloc/book_tags_bloc.dart';
+import 'features/backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
 import 'features/books_listing/domain/entities/local_book.dart';
 import 'features/books_listing/domain/repositories/local_books_repository.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
@@ -20,7 +24,8 @@ void main() async {
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
   await initDi();
-  await initDbWithFakes();
+  // await _initDbWithFakes(); // TODO: Remove this and line below
+  await _prepareForBackup();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (_) => sl<AppTabBloc>()),
@@ -28,17 +33,29 @@ void main() async {
       BlocProvider(create: (_) => sl<TagsBloc>()),
       BlocProvider(create: (_) => sl<SearchForBooksBloc>()),
       BlocProvider(create: (_) => sl<BookTagsBloc>()),
+      BlocProvider(create: (_) => sl<BackupAndRestoreBloc>()),
     ],
     child: const Homer(),
   ));
 }
 
-Future<void> initDbWithFakes() async {
+Future<void> _initDbWithFakes() async {
   final booksRepo = sl<LocalBooksRepository>();
   await booksRepo.deleteAll();
   for (var i = 0; i < 16; i++) {
     await booksRepo.add(LocalBook.fake());
   }
+  return Future.value();
+}
+
+Future<void> _prepareForBackup() async {
+  final booksRepo = sl<LocalBooksRepository>();
+  await booksRepo.deleteAll();
+  var content = await rootBundle.load('assets/backup.json');
+  final directory = await getApplicationDocumentsDirectory();
+  var file = File('${directory.path}/backup.json');
+  file.writeAsBytesSync(content.buffer.asUint8List());
+  return Future.value();
 }
 
 final class Homer extends StatelessWidget {

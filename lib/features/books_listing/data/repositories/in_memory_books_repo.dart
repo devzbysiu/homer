@@ -27,6 +27,12 @@ final class InMemoryBooksRepo implements LocalBooksRepository {
   }
 
   @override
+  Future<Result<Unit, Failure>> addAll(List<LocalBook> books) {
+    _allBooks.addAll(books);
+    return Future.value(const Success(unit));
+  }
+
+  @override
   Future<Result<List<LocalBook>, Failure>> listAll() {
     return Future.value(Success(List.of(_allBooks)));
   }

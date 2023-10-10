@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homer/features/backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
 
 import '../../features/add_new_book/presentation/bloc/book_tags_bloc.dart';
 import '../../features/books_listing/domain/entities/local_book.dart';
@@ -71,6 +72,10 @@ extension BlocExt on BuildContext {
 
   List<LocalBook> booksToDelete() {
     return select((BooksBloc bloc) => bloc.state.deleteList);
+  }
+
+  void emitRestoreEvt(BackupAndRestoreEvent event) {
+    read<BackupAndRestoreBloc>().add(event);
   }
 }
 

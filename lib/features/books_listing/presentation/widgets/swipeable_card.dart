@@ -52,22 +52,22 @@ final class SwipeableCard extends StatelessWidget {
   }
 
   bool _canSwipeRight() {
-    return book.state != BookState.read;
+    return book.state != LocalBookState.read;
   }
 
   bool _canSwipeLeft() {
-    return book.state != BookState.readLater;
+    return book.state != LocalBookState.readLater;
   }
 
   void _showSnackbarOnRightSwipe(BuildContext context) {
     switch (book.state) {
-      case BookState.readLater:
+      case LocalBookState.readLater:
         _showSnackbar(context, 'Book moved to Reading!', Colors.blue);
         return;
-      case BookState.reading:
+      case LocalBookState.reading:
         _showSnackbar(context, 'Book moved to Read!', Colors.amber);
         return;
-      case BookState.read:
+      case LocalBookState.read:
         return;
     }
   }
@@ -92,12 +92,12 @@ final class SwipeableCard extends StatelessWidget {
 
   void _showSnackbarOnLeftSwipe(BuildContext context) {
     switch (book.state) {
-      case BookState.readLater:
+      case LocalBookState.readLater:
         return;
-      case BookState.reading:
+      case LocalBookState.reading:
         _showSnackbar(context, 'Book moved to Read Later!', Colors.green);
         return;
-      case BookState.read:
+      case LocalBookState.read:
         _showSnackbar(context, 'Book moved to Reading!', Colors.blue);
         return;
     }
@@ -127,7 +127,7 @@ final class _AnimatedBackground extends StatelessWidget {
 
   final SwipeDirection direction;
 
-  final BookState currentState;
+  final LocalBookState currentState;
 
   @override
   Widget build(BuildContext context) {
@@ -148,11 +148,11 @@ final class _AnimatedBackground extends StatelessWidget {
 
   Widget _animateRightSwipe() {
     switch (currentState) {
-      case BookState.readLater:
+      case LocalBookState.readLater:
         return _animateToReadingRight();
-      case BookState.reading:
+      case LocalBookState.reading:
         return _animateToRead();
-      case BookState.read:
+      case LocalBookState.read:
         return Container();
     }
   }
@@ -201,11 +201,11 @@ final class _AnimatedBackground extends StatelessWidget {
 
   Widget _animateLeftSwipe() {
     switch (currentState) {
-      case BookState.readLater:
+      case LocalBookState.readLater:
         return Container();
-      case BookState.reading:
+      case LocalBookState.reading:
         return _animateToForLater();
-      case BookState.read:
+      case LocalBookState.read:
         return _animateToReadingLeft();
     }
   }

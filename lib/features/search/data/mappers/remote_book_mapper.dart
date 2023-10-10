@@ -23,7 +23,8 @@ final class RemoteBookMapper {
     );
   }
 
-  LocalBook toBook(RemoteBook remoteBook, BookState state, Set<Tag> tags) {
+  LocalBook toLocalBook(
+      RemoteBook remoteBook, LocalBookState state, Set<Tag> tags) {
     return LocalBook(
       title: remoteBook.title,
       subtitle: remoteBook.subtitle,

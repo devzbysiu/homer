@@ -22,7 +22,7 @@ final class AddBook extends UseCase<Unit, AddParams> {
   @override
   Future<Result<Unit, Failure>> call(AddParams params) async {
     eventBus.fire(BookSaved());
-    final book = bookMapper.toBook(
+    final book = bookMapper.toLocalBook(
       params.remoteBook,
       params.bookState,
       params.selectedTags,
@@ -40,7 +40,7 @@ final class AddParams {
 
   final RemoteBook remoteBook;
 
-  final BookState bookState;
+  final LocalBookState bookState;
 
   final Set<Tag> selectedTags;
 }

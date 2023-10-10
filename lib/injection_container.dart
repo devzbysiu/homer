@@ -1,7 +1,14 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:homer/features/backup_and_restore/domain/usecases/add_all_books.dart';
 
 import 'features/add_new_book/presentation/bloc/book_tags_bloc.dart';
+import 'features/backup_and_restore/data/datasources/backup_data_source.dart';
+import 'features/backup_and_restore/data/mappers/restored_book_mapper.dart';
+import 'features/backup_and_restore/data/repositories/local_backup_repo.dart';
+import 'features/backup_and_restore/domain/repositories/backup_repository.dart';
+import 'features/backup_and_restore/domain/usecases/restore_from_local.dart';
+import 'features/backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
 import 'features/books_listing/data/datasources/local_books_data_source.dart';
 import 'features/books_listing/data/mappers/local_book_mapper.dart';
 import 'features/books_listing/data/repositories/local_books_repo.dart';
@@ -45,6 +52,12 @@ Future<void> initDi() async {
     ),
   );
   sl.registerFactory(() => BookTagsBloc());
+  sl.registerFactory(
+    () => BackupAndRestoreBloc(
+      loadFromLocalBackup: sl(),
+      addAllBooks: sl(),
+    ),
+  );
 
   // Use cases
   // books
@@ -57,7 +70,9 @@ Future<void> initDi() async {
   // search
   sl.registerLazySingleton(() => SearchForBooks(sl()));
   sl.registerLazySingleton(() => CloseSearchBar(sl()));
-  // bottom nav
+  // backup and restore
+  sl.registerFactory(() => LoadFromLocalBackup(sl(), sl(), sl()));
+  sl.registerFactory(() => AddAllBooks(sl(), sl()));
 
   // Repositories
   sl.registerLazySingleton<LocalBooksRepository>(
@@ -73,15 +88,23 @@ Future<void> initDi() async {
       booksMapper: sl(),
     ),
   );
+  sl.registerLazySingleton<BackupRepository>(
+    () => LocalBackupRepo(
+      localBackupDataSource: sl(),
+      bookMapper: sl(),
+    ),
+  );
 
   // Data sources
   final isarDataSource = await IsarLocalDataSource.create();
   sl.registerLazySingleton<LocalBooksDataSource>(() => isarDataSource);
   sl.registerLazySingleton<RemoteBooksDataSource>(() => GoogleBooks());
+  sl.registerLazySingleton<LocalBackupDataSource>(() => FileBackupDataSource());
 
   // Mappers
   sl.registerLazySingleton(() => LocalBookMapper());
   sl.registerLazySingleton(() => RemoteBookMapper());
+  sl.registerLazySingleton(() => RestoredBookMapper());
 
   // Core
 

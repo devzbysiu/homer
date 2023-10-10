@@ -2,6 +2,8 @@ import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:homer/features/backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../../core/utils/extensions.dart';
 import '../../../../injection_container.dart';
@@ -89,6 +91,7 @@ final class _AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: _toggleSheet,
+      onLongPress: () => _triggerBackupRestore(context), // TODO: remove this
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.black,
         shape: const CircleBorder(),
@@ -105,6 +108,16 @@ final class _AddButton extends StatelessWidget {
     sheetController.isOpened
         ? sheetController.closeSheet()
         : sheetController.openSheet();
+  }
+
+  // TODO: get rid of this
+  Future<void> _triggerBackupRestore(BuildContext context) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final backupPath = '${directory.path}/backup.json';
+    context.emitRestoreEvt(RestoreTriggered(backupPath));
+    await Future.delayed(const Duration(seconds: 1));
+    context.emitBooksEvt(BooksListDisplayed());
+    return Future.value();
   }
 }
 

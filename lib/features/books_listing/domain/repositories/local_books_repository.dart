@@ -8,6 +8,8 @@ abstract class LocalBooksRepository {
 
   Future<Result<Unit, Failure>> add(LocalBook book);
 
+  Future<Result<Unit, Failure>> addAll(List<LocalBook> books);
+
   Future<Result<Unit, Failure>> update(LocalBook modified);
 
   Future<Result<Unit, Failure>> delete(List<LocalBook> books);

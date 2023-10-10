@@ -21,7 +21,7 @@ final class SaveButtons extends StatelessWidget {
           onPressed: () => _addBook(
             context,
             pickedBook,
-            BookState.readLater,
+            LocalBookState.readLater,
           ),
           color: Colors.green,
           icon: const Icon(Icons.bookmark),
@@ -30,7 +30,7 @@ final class SaveButtons extends StatelessWidget {
           onPressed: () => _addBook(
             context,
             pickedBook,
-            BookState.reading,
+            LocalBookState.reading,
           ),
           color: Colors.blue,
           icon: const Icon(Icons.book),
@@ -39,7 +39,7 @@ final class SaveButtons extends StatelessWidget {
           onPressed: () => _addBook(
             context,
             pickedBook,
-            BookState.read,
+            LocalBookState.read,
           ),
           color: Colors.amber,
           icon: const Icon(Icons.done),
@@ -51,7 +51,7 @@ final class SaveButtons extends StatelessWidget {
   void _addBook(
     BuildContext context,
     RemoteBook pickedBook,
-    BookState bookState,
+    LocalBookState bookState,
   ) {
     final selectedTags = context.selectedTags();
     context.emitBooksEvt(BookAdded(pickedBook, bookState, selectedTags));

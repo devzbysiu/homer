@@ -40,7 +40,7 @@ final class LocalBook extends Equatable {
           .capitalize(),
       subtitle: faker.lorem.sentence(),
       authors: ['${faker.person.firstName()} ${faker.person.lastName()}'],
-      state: BookState.readLater,
+      state: LocalBookState.readLater,
       pageCount: faker.randomGenerator.integer(1000),
       isbn: faker.guid.guid(),
       thumbnailAddress: some(
@@ -59,7 +59,7 @@ final class LocalBook extends Equatable {
 
   final List<String> authors;
 
-  final BookState state;
+  final LocalBookState state;
 
   final int pageCount;
 
@@ -77,7 +77,7 @@ final class LocalBook extends Equatable {
     String? title,
     String? subtitle,
     List<String>? authors,
-    BookState? state,
+    LocalBookState? state,
     int? pageCount,
     String? isbn,
     Option<String>? thumbnailAddress,
@@ -124,40 +124,34 @@ final class LocalBook extends Equatable {
       ];
 }
 
-enum BookState {
+enum LocalBookState {
   readLater,
   reading,
   read,
 }
 
-extension StateChangeExt on BookState {
-  BookState moveRight() {
+extension StateChangeExt on LocalBookState {
+  LocalBookState moveRight() {
     switch (this) {
-      case BookState.readLater:
-        return BookState.reading;
-      case BookState.reading:
-        return BookState.read;
-      case BookState.read:
+      case LocalBookState.readLater:
+        return LocalBookState.reading;
+      case LocalBookState.reading:
+        return LocalBookState.read;
+      case LocalBookState.read:
         return this;
     }
   }
 
-  BookState moveLeft() {
+  LocalBookState moveLeft() {
     switch (this) {
-      case BookState.readLater:
+      case LocalBookState.readLater:
         return this;
-      case BookState.reading:
-        return BookState.readLater;
-      case BookState.read:
-        return BookState.reading;
+      case LocalBookState.reading:
+        return LocalBookState.readLater;
+      case LocalBookState.read:
+        return LocalBookState.reading;
     }
   }
-}
-
-final class BookTag {
-  BookTag({required this.name});
-
-  final String name;
 }
 
 extension _StringExt on String {

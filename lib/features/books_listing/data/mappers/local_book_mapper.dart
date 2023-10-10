@@ -36,14 +36,14 @@ final class LocalBookMapper {
         tags: _toTagDTOs(book.tags),
       );
 
-  BookState _toBookState(LocalBookStateDTO state) {
+  LocalBookState _toBookState(LocalBookStateDTO state) {
     switch (state) {
       case LocalBookStateDTO.readLater:
-        return BookState.readLater;
+        return LocalBookState.readLater;
       case LocalBookStateDTO.reading:
-        return BookState.reading;
+        return LocalBookState.reading;
       case LocalBookStateDTO.read:
-        return BookState.read;
+        return LocalBookState.read;
     }
   }
 
@@ -73,13 +73,13 @@ final class LocalBookMapper {
     }
   }
 
-  LocalBookStateDTO _toBookStateDTO(BookState state) {
+  LocalBookStateDTO _toBookStateDTO(LocalBookState state) {
     switch (state) {
-      case BookState.readLater:
+      case LocalBookState.readLater:
         return LocalBookStateDTO.readLater;
-      case BookState.reading:
+      case LocalBookState.reading:
         return LocalBookStateDTO.reading;
-      case BookState.read:
+      case LocalBookState.read:
         return LocalBookStateDTO.read;
     }
   }

@@ -7,7 +7,9 @@ import '../models/local_book_dto.dart';
 abstract class LocalBooksDataSource {
   Future<List<LocalBookDTO>> getBooks();
 
-  Future<Unit> addBook(LocalBookDTO book);
+  Future<Unit> add(LocalBookDTO book);
+
+  Future<Unit> addAll(List<LocalBookDTO> books);
 
   Future<Unit> update(LocalBookDTO book);
 
@@ -34,9 +36,17 @@ final class IsarLocalDataSource implements LocalBooksDataSource {
   }
 
   @override
-  Future<Unit> addBook(LocalBookDTO book) async {
+  Future<Unit> add(LocalBookDTO book) async {
     await _isar.writeTxn(() async {
       await _isar.localBookDTOs.put(book);
+    });
+    return Future.value(unit);
+  }
+
+  @override
+  Future<Unit> addAll(List<LocalBookDTO> books) async {
+    await _isar.writeTxn(() async {
+      await _isar.localBookDTOs.putAll(books);
     });
     return Future.value(unit);
   }

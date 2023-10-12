@@ -1,16 +1,14 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
-import 'package:homer/features/backup_and_restore/domain/usecases/add_all_books.dart';
 
 import 'features/add_new_book/presentation/bloc/book_tags_bloc.dart';
 import 'features/backup_and_restore/data/datasources/backup_data_source.dart';
-import 'features/backup_and_restore/data/mappers/restored_book_mapper.dart';
 import 'features/backup_and_restore/data/repositories/local_backup_repo.dart';
 import 'features/backup_and_restore/domain/repositories/backup_repository.dart';
+import 'features/backup_and_restore/domain/usecases/add_all_books.dart';
 import 'features/backup_and_restore/domain/usecases/restore_from_local.dart';
 import 'features/backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
 import 'features/books_listing/data/datasources/local_books_data_source.dart';
-import 'features/books_listing/data/mappers/local_book_mapper.dart';
 import 'features/books_listing/data/repositories/local_books_repo.dart';
 import 'features/books_listing/domain/repositories/local_books_repository.dart';
 import 'features/books_listing/domain/usecases/add_book.dart';
@@ -20,7 +18,6 @@ import 'features/books_listing/domain/usecases/update_book_state.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
 import 'features/search/data/datasources/remote_books_data_source.dart';
-import 'features/search/data/mappers/remote_book_mapper.dart';
 import 'features/search/data/repositories/remote_books_repo.dart';
 import 'features/search/domain/repositories/remote_books_repository.dart';
 import 'features/search/domain/usecases/close_search_bar.dart';
@@ -62,7 +59,7 @@ Future<void> initDi() async {
   // Use cases
   // books
   sl.registerLazySingleton(() => ListBooks(sl()));
-  sl.registerLazySingleton(() => AddBook(sl(), sl(), sl()));
+  sl.registerLazySingleton(() => AddBook(sl(), sl()));
   sl.registerLazySingleton(() => UpdateBookState(sl()));
   sl.registerLazySingleton(() => DeletePickedBooks(sl()));
   // tags
@@ -71,28 +68,19 @@ Future<void> initDi() async {
   sl.registerLazySingleton(() => SearchForBooks(sl()));
   sl.registerLazySingleton(() => CloseSearchBar(sl()));
   // backup and restore
-  sl.registerFactory(() => LoadFromLocalBackup(sl(), sl(), sl()));
-  sl.registerFactory(() => AddAllBooks(sl(), sl()));
+  sl.registerFactory(() => LoadFromLocalBackup(sl()));
+  sl.registerFactory(() => AddAllBooks(sl()));
 
   // Repositories
   sl.registerLazySingleton<LocalBooksRepository>(
-    () => LocalBooksRepo(
-      dataSource: sl(),
-      bookMapper: sl(),
-    ),
+    () => LocalBooksRepo(dataSource: sl()),
   );
   sl.registerLazySingleton<TagsRepository>(() => InMemoryTagsRepo());
   sl.registerLazySingleton<RemoteBooksRepository>(
-    () => RemoteBooksRepo(
-      dataSource: sl(),
-      booksMapper: sl(),
-    ),
+    () => RemoteBooksRepo(dataSource: sl()),
   );
   sl.registerLazySingleton<BackupRepository>(
-    () => LocalBackupRepo(
-      localBackupDataSource: sl(),
-      bookMapper: sl(),
-    ),
+    () => LocalBackupRepo(localBackupDataSource: sl()),
   );
 
   // Data sources
@@ -100,11 +88,6 @@ Future<void> initDi() async {
   sl.registerLazySingleton<LocalBooksDataSource>(() => isarDataSource);
   sl.registerLazySingleton<RemoteBooksDataSource>(() => GoogleBooks());
   sl.registerLazySingleton<LocalBackupDataSource>(() => FileBackupDataSource());
-
-  // Mappers
-  sl.registerLazySingleton(() => LocalBookMapper());
-  sl.registerLazySingleton(() => RemoteBookMapper());
-  sl.registerLazySingleton(() => RestoredBookMapper());
 
   // Core
 

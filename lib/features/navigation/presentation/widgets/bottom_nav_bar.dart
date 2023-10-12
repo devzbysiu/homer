@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:homer/features/backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/utils/extensions.dart';
 import '../../../../injection_container.dart';
@@ -112,11 +113,16 @@ final class _AddButton extends StatelessWidget {
 
   // TODO: get rid of this
   Future<void> _triggerBackupRestore(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('books-restored') ?? false) {
+      return Future.value();
+    }
     final directory = await getApplicationDocumentsDirectory();
     final backupPath = '${directory.path}/backup.json';
     context.emitRestoreEvt(RestoreTriggered(backupPath));
     await Future.delayed(const Duration(seconds: 1));
     context.emitBooksEvt(BooksListDisplayed());
+    prefs.setBool('books-restored', true);
     return Future.value();
   }
 }

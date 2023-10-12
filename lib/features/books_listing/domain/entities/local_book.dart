@@ -30,6 +30,7 @@ final class LocalBook extends Equatable {
     required this.rating,
     required this.summary,
     required this.tags,
+    required this.dateModified,
   });
 
   factory LocalBook.fake({bool withTags = true}) {
@@ -50,6 +51,7 @@ final class LocalBook extends Equatable {
       tags: withTags
           ? {const Tag(name: 'type:technical', color: TagColor.orange)}
           : {},
+      dateModified: DateTime.now(),
     );
   }
 
@@ -73,6 +75,8 @@ final class LocalBook extends Equatable {
 
   final Set<Tag> tags;
 
+  final DateTime dateModified;
+
   LocalBook copyWith({
     String? title,
     String? subtitle,
@@ -86,6 +90,7 @@ final class LocalBook extends Equatable {
     double? rating,
     String? summary,
     Set<Tag>? tags,
+    DateTime? dateModified,
   }) {
     return LocalBook(
       title: title ?? this.title,
@@ -98,6 +103,7 @@ final class LocalBook extends Equatable {
       rating: rating ?? this.rating,
       summary: summary ?? this.summary,
       tags: tags ?? this.tags,
+      dateModified: dateModified ?? this.dateModified,
     );
   }
 

@@ -14,6 +14,7 @@ final class RestoredBookDTO extends Equatable {
       rating: (json['rating'] as num).toDouble(),
       summary: json['summary'] ?? '',
       labels: _toLabelDTOs(json['labels']),
+      endDate: json['endDate'] as int,
     );
   }
 
@@ -28,6 +29,7 @@ final class RestoredBookDTO extends Equatable {
     required this.rating,
     required this.summary,
     required this.labels,
+    required this.endDate,
   });
 
   final String title;
@@ -49,6 +51,8 @@ final class RestoredBookDTO extends Equatable {
   final String summary;
 
   final Set<LabelDTO> labels;
+
+  final int endDate;
 
   @override
   List<Object?> get props => [

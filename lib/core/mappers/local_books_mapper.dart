@@ -20,7 +20,12 @@ LocalBook _toLocalBook(LocalBookDTO bookDTO) => LocalBook(
       rating: bookDTO.rating,
       summary: bookDTO.summary,
       tags: _toBookTags(bookDTO.tags),
+      dateModified: _toDateTime(bookDTO.dateModified),
     );
+
+DateTime _toDateTime(int dateModified) {
+  return DateTime.fromMicrosecondsSinceEpoch(dateModified);
+}
 
 LocalBookDTO toLocalBookDTO(LocalBook book) => LocalBookDTO(
       title: book.title,
@@ -33,6 +38,7 @@ LocalBookDTO toLocalBookDTO(LocalBook book) => LocalBookDTO(
       rating: book.rating,
       summary: book.summary,
       tags: _toTagDTOs(book.tags),
+      dateModified: book.dateModified.microsecondsSinceEpoch,
     );
 
 LocalBookState _toBookState(LocalBookStateDTO state) {

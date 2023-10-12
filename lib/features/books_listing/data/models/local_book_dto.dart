@@ -17,6 +17,7 @@ final class LocalBookDTO {
     required this.rating,
     required this.summary,
     required this.tags,
+    required this.dateModified,
   });
 
   Id id = Isar.autoIncrement;
@@ -41,6 +42,8 @@ final class LocalBookDTO {
   final String? summary;
 
   final List<LocalTagDTO> tags;
+
+  final int dateModified;
 }
 
 enum LocalBookStateDTO {

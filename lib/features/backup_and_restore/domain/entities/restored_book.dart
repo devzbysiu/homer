@@ -13,6 +13,7 @@ final class RestoredBook extends Equatable {
     required this.rating,
     required this.summary,
     required this.tags,
+    required this.dateModified,
   });
 
   final String title;
@@ -34,6 +35,8 @@ final class RestoredBook extends Equatable {
   final String? summary;
 
   final Set<RestoredTag> tags;
+
+  final DateTime dateModified;
 
   @override
   List<Object?> get props => [

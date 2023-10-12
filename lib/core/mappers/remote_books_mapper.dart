@@ -23,20 +23,23 @@ RemoteBook _toRemoteBook(RemoteBookDTO remoteBookDTO) {
 }
 
 LocalBook toLocalBook(
-    RemoteBook remoteBook, LocalBookState state, Set<Tag> tags) {
-  return LocalBook(
-    title: remoteBook.title,
-    subtitle: remoteBook.subtitle,
-    authors: remoteBook.authors,
-    state: state,
-    pageCount: remoteBook.pageCount,
-    isbn: remoteBook.isbn,
-    thumbnailAddress: remoteBook.thumbnail.map((uri) => uri.toString()),
-    rating: remoteBook.averageRating,
-    summary: remoteBook.description,
-    tags: tags,
-  );
-}
+  RemoteBook remoteBook,
+  LocalBookState state,
+  Set<Tag> tags,
+) =>
+    LocalBook(
+      title: remoteBook.title,
+      subtitle: remoteBook.subtitle,
+      authors: remoteBook.authors,
+      state: state,
+      pageCount: remoteBook.pageCount,
+      isbn: remoteBook.isbn,
+      thumbnailAddress: remoteBook.thumbnail.map((uri) => uri.toString()),
+      rating: remoteBook.averageRating,
+      summary: remoteBook.description,
+      tags: tags,
+      dateModified: DateTime.now(),
+    );
 
 String _descriptionOrDefault(RemoteBookDTO remoteBookDTO) {
   final description = remoteBookDTO.description ?? '';

@@ -20,26 +20,32 @@ RestoredBook _toRestoredBook(RestoredBookDTO restoredBookDTO) => RestoredBook(
       rating: restoredBookDTO.rating,
       summary: restoredBookDTO.summary,
       tags: _toRestoredBookTags(restoredBookDTO.labels),
+      dateModified: _toDateTime(restoredBookDTO.endDate),
     );
+
+DateTime _toDateTime(int endDate) {
+  return endDate == 0
+      ? DateTime.now()
+      : DateTime.fromMicrosecondsSinceEpoch(endDate);
+}
 
 List<LocalBook> toLocalBooks(List<RestoredBook> restoredBooks) {
   return restoredBooks.map(_toLocalBook).toList();
 }
 
-LocalBook _toLocalBook(RestoredBook restoredBook) {
-  return LocalBook(
-    title: restoredBook.title,
-    subtitle: restoredBook.subtitle,
-    authors: restoredBook.authors,
-    state: _toLocalBookState(restoredBook.state),
-    pageCount: restoredBook.pageCount,
-    isbn: restoredBook.isbn,
-    thumbnailAddress: restoredBook.thumbnailAddress,
-    rating: restoredBook.rating,
-    summary: restoredBook.summary,
-    tags: _toLocalBookTags(restoredBook.tags),
-  );
-}
+LocalBook _toLocalBook(RestoredBook restoredBook) => LocalBook(
+      title: restoredBook.title,
+      subtitle: restoredBook.subtitle,
+      authors: restoredBook.authors,
+      state: _toLocalBookState(restoredBook.state),
+      pageCount: restoredBook.pageCount,
+      isbn: restoredBook.isbn,
+      thumbnailAddress: restoredBook.thumbnailAddress,
+      rating: restoredBook.rating,
+      summary: restoredBook.summary,
+      tags: _toLocalBookTags(restoredBook.tags),
+      dateModified: restoredBook.dateModified,
+    );
 
 LocalBookState _toLocalBookState(RestoredBookState state) {
   switch (state) {

@@ -22,50 +22,55 @@ const LocalBookDTOSchema = CollectionSchema(
       name: r'authors',
       type: IsarType.stringList,
     ),
-    r'isbn': PropertySchema(
+    r'dateModified': PropertySchema(
       id: 1,
+      name: r'dateModified',
+      type: IsarType.long,
+    ),
+    r'isbn': PropertySchema(
+      id: 2,
       name: r'isbn',
       type: IsarType.string,
     ),
     r'pageCount': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'pageCount',
       type: IsarType.long,
     ),
     r'rating': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'rating',
       type: IsarType.double,
     ),
     r'state': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'state',
       type: IsarType.byte,
       enumMap: _LocalBookDTOstateEnumValueMap,
     ),
     r'subtitle': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'subtitle',
       type: IsarType.string,
     ),
     r'summary': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'summary',
       type: IsarType.string,
     ),
     r'tags': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'tags',
       type: IsarType.objectList,
       target: r'LocalTagDTO',
     ),
     r'thumbnailAddress': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'thumbnailAddress',
       type: IsarType.string,
     ),
     r'title': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'title',
       type: IsarType.string,
     )
@@ -130,20 +135,21 @@ void _localBookDTOSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeStringList(offsets[0], object.authors);
-  writer.writeString(offsets[1], object.isbn);
-  writer.writeLong(offsets[2], object.pageCount);
-  writer.writeDouble(offsets[3], object.rating);
-  writer.writeByte(offsets[4], object.state.index);
-  writer.writeString(offsets[5], object.subtitle);
-  writer.writeString(offsets[6], object.summary);
+  writer.writeLong(offsets[1], object.dateModified);
+  writer.writeString(offsets[2], object.isbn);
+  writer.writeLong(offsets[3], object.pageCount);
+  writer.writeDouble(offsets[4], object.rating);
+  writer.writeByte(offsets[5], object.state.index);
+  writer.writeString(offsets[6], object.subtitle);
+  writer.writeString(offsets[7], object.summary);
   writer.writeObjectList<LocalTagDTO>(
-    offsets[7],
+    offsets[8],
     allOffsets,
     LocalTagDTOSchema.serialize,
     object.tags,
   );
-  writer.writeString(offsets[8], object.thumbnailAddress);
-  writer.writeString(offsets[9], object.title);
+  writer.writeString(offsets[9], object.thumbnailAddress);
+  writer.writeString(offsets[10], object.title);
 }
 
 LocalBookDTO _localBookDTODeserialize(
@@ -154,22 +160,23 @@ LocalBookDTO _localBookDTODeserialize(
 ) {
   final object = LocalBookDTO(
     authors: reader.readStringList(offsets[0]) ?? [],
-    isbn: reader.readString(offsets[1]),
-    pageCount: reader.readLong(offsets[2]),
-    rating: reader.readDouble(offsets[3]),
-    state: _LocalBookDTOstateValueEnumMap[reader.readByteOrNull(offsets[4])] ??
+    dateModified: reader.readLong(offsets[1]),
+    isbn: reader.readString(offsets[2]),
+    pageCount: reader.readLong(offsets[3]),
+    rating: reader.readDouble(offsets[4]),
+    state: _LocalBookDTOstateValueEnumMap[reader.readByteOrNull(offsets[5])] ??
         LocalBookStateDTO.readLater,
-    subtitle: reader.readString(offsets[5]),
-    summary: reader.readStringOrNull(offsets[6]),
+    subtitle: reader.readString(offsets[6]),
+    summary: reader.readStringOrNull(offsets[7]),
     tags: reader.readObjectList<LocalTagDTO>(
-          offsets[7],
+          offsets[8],
           LocalTagDTOSchema.deserialize,
           allOffsets,
           LocalTagDTO(),
         ) ??
         [],
-    thumbnailAddress: reader.readStringOrNull(offsets[8]),
-    title: reader.readString(offsets[9]),
+    thumbnailAddress: reader.readStringOrNull(offsets[9]),
+    title: reader.readString(offsets[10]),
   );
   object.id = id;
   return object;
@@ -185,19 +192,21 @@ P _localBookDTODeserializeProp<P>(
     case 0:
       return (reader.readStringList(offset) ?? []) as P;
     case 1:
-      return (reader.readString(offset)) as P;
-    case 2:
       return (reader.readLong(offset)) as P;
+    case 2:
+      return (reader.readString(offset)) as P;
     case 3:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 4:
+      return (reader.readDouble(offset)) as P;
+    case 5:
       return (_LocalBookDTOstateValueEnumMap[reader.readByteOrNull(offset)] ??
           LocalBookStateDTO.readLater) as P;
-    case 5:
-      return (reader.readString(offset)) as P;
     case 6:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 7:
+      return (reader.readStringOrNull(offset)) as P;
+    case 8:
       return (reader.readObjectList<LocalTagDTO>(
             offset,
             LocalTagDTOSchema.deserialize,
@@ -205,9 +214,9 @@ P _localBookDTODeserializeProp<P>(
             LocalTagDTO(),
           ) ??
           []) as P;
-    case 8:
-      return (reader.readStringOrNull(offset)) as P;
     case 9:
+      return (reader.readStringOrNull(offset)) as P;
+    case 10:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -541,6 +550,62 @@ extension LocalBookDTOQueryFilter
         upper,
         includeUpper,
       );
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      dateModifiedEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dateModified',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      dateModifiedGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'dateModified',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      dateModifiedLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'dateModified',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
+      dateModifiedBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'dateModified',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
     });
   }
 
@@ -1588,6 +1653,19 @@ extension LocalBookDTOQueryLinks
 
 extension LocalBookDTOQuerySortBy
     on QueryBuilder<LocalBookDTO, LocalBookDTO, QSortBy> {
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy> sortByDateModified() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dateModified', Sort.asc);
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy>
+      sortByDateModifiedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dateModified', Sort.desc);
+    });
+  }
+
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy> sortByIsbn() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isbn', Sort.asc);
@@ -1689,6 +1767,19 @@ extension LocalBookDTOQuerySortBy
 
 extension LocalBookDTOQuerySortThenBy
     on QueryBuilder<LocalBookDTO, LocalBookDTO, QSortThenBy> {
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy> thenByDateModified() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dateModified', Sort.asc);
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy>
+      thenByDateModifiedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dateModified', Sort.desc);
+    });
+  }
+
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -1808,6 +1899,12 @@ extension LocalBookDTOQueryWhereDistinct
     });
   }
 
+  QueryBuilder<LocalBookDTO, LocalBookDTO, QDistinct> distinctByDateModified() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'dateModified');
+    });
+  }
+
   QueryBuilder<LocalBookDTO, LocalBookDTO, QDistinct> distinctByIsbn(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1874,6 +1971,12 @@ extension LocalBookDTOQueryProperty
   QueryBuilder<LocalBookDTO, List<String>, QQueryOperations> authorsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'authors');
+    });
+  }
+
+  QueryBuilder<LocalBookDTO, int, QQueryOperations> dateModifiedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'dateModified');
     });
   }
 

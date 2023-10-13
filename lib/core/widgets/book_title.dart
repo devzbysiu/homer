@@ -8,14 +8,11 @@ final class BookTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-        ),
+        maxLines: 1,
+        style: const TextStyle(color: Colors.white),
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

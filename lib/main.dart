@@ -1,12 +1,12 @@
 import 'dart:io';
 
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/utils/extensions.dart';
 import 'features/add_new_book/presentation/bloc/book_tags_bloc.dart';
 import 'features/backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
 import 'features/books_listing/domain/entities/local_book.dart';
@@ -71,10 +71,38 @@ final class Homer extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Homer',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+      theme: FlexThemeData.light(
+        scheme: FlexScheme.amber,
+        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+        blendLevel: 7,
+        subThemesData: const FlexSubThemesData(
+          blendOnLevel: 10,
+          blendOnColors: false,
+          useTextTheme: true,
+          useM2StyleDividerInM3: true,
+          alignedDropdown: true,
+          useInputDecoratorThemeInDialogs: true,
+        ),
+        visualDensity: FlexColorScheme.comfortablePlatformDensity,
+        useMaterial3: true,
+        swapLegacyOnMaterial3: true,
       ),
+      darkTheme: FlexThemeData.dark(
+        scheme: FlexScheme.amber,
+        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+        blendLevel: 13,
+        subThemesData: const FlexSubThemesData(
+          blendOnLevel: 20,
+          useTextTheme: true,
+          useM2StyleDividerInM3: true,
+          alignedDropdown: true,
+          useInputDecoratorThemeInDialogs: true,
+        ),
+        visualDensity: FlexColorScheme.comfortablePlatformDensity,
+        useMaterial3: true,
+        swapLegacyOnMaterial3: true,
+      ),
+      themeMode: ThemeMode.dark,
       home: const Home(),
     );
   }
@@ -85,13 +113,10 @@ final class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       extendBody: true,
-      body: Container(
-        color: context.figureOutColor(),
-        child: const BooksList(),
-      ),
-      bottomNavigationBar: const BottomNavBar(),
+      body: BooksList(),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

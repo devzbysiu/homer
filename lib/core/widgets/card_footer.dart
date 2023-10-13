@@ -15,9 +15,9 @@ final class BookCardFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Icon(
+        Icon(
           Icons.star,
-          color: Colors.amber,
+          color: Theme.of(context).colorScheme.primary,
         ),
         const SizedBox(
           width: 4,
@@ -25,16 +25,12 @@ final class BookCardFooter extends StatelessWidget {
         Expanded(
           child: Text(
             rating.toStringAsFixed(2),
-            style: const TextStyle(
-              color: Colors.white,
-            ),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         Text(
           pageCount.toString(),
-          style: const TextStyle(
-            color: Colors.white,
-          ),
+          style: const TextStyle(color: Colors.white),
         ),
         const Padding(
           padding: EdgeInsets.only(

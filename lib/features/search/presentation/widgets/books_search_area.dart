@@ -19,7 +19,7 @@ final class BookSearchArea extends StatelessWidget {
     return FloatingSearchBar(
       controller: _controller,
       body: const BottomSheetContent(),
-      backdropColor: Colors.white,
+      backdropColor: Theme.of(context).colorScheme.background,
       hint: 'Search...',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
       transitionDuration: const Duration(milliseconds: 400),
@@ -59,6 +59,7 @@ final class BookSearchArea extends StatelessWidget {
   }
 
   void _closeSuggestionsWhenBookPicked() {
+    // TODO: Fix it - remove the bus, use the state
     sl<EventBus>().on<BookPicked>().listen((_) {
       _controller.close();
     });

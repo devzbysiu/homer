@@ -11,7 +11,7 @@ final class SearchSuggestions extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: Material(
-        color: Colors.white,
+        color: Theme.of(context).listTileTheme.tileColor,
         elevation: 4.0,
         child: Column(
           mainAxisSize: MainAxisSize.min,

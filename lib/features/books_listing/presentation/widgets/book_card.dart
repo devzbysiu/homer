@@ -80,14 +80,14 @@ final class _DeletableCard extends StatelessWidget {
           blur: 0.0,
           overlay: Center(
             child: isOnDeleteList
-                ? const Icon(
+                ? Icon(
                     Icons.done,
-                    color: Colors.white,
+                    color: Theme.of(context).iconTheme.color,
                     size: 35,
                   )
                 : null,
           ),
-          blurColor: Colors.red,
+          blurColor: Theme.of(context).colorScheme.error,
           child: _ImageCard(book: book),
         ),
       ),
@@ -105,6 +105,7 @@ final class _ImageCard extends StatelessWidget {
     return TransparentImageCard(
       imageProvider: _imageProvider() as ImageProvider<Object>,
       tags: _tags(),
+      endColor: Colors.black,
       title: BookTitle(title: book.title),
       description: BookAuthors(authorNames: book.authors),
       footer: BookCardFooter(

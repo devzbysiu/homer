@@ -24,8 +24,9 @@ final class _TagsState extends State<Tags> {
       listOfChipNames: tags.map((tag) => tag.name).toList(),
       extraOnToggle: (idx) => _tagSelected(context, idx, tags),
       listOfChipIndicesCurrentlySeclected: _selectedTags.toList(),
+      inactiveBgColorList: _inactiveColors(context, tags),
       inactiveBorderColorList: _tagColors(tags),
-      inactiveTextColorList: _blackColors(tags),
+      inactiveTextColorList: _inactiveText(context, tags),
       activeBgColorList: _tagColors(tags),
       activeTextColorList: _whiteColors(tags),
     );
@@ -35,8 +36,8 @@ final class _TagsState extends State<Tags> {
     return tags.map((tag) => toFlutterColor(tag.color)).toList();
   }
 
-  List<Color> _blackColors(List<Tag> tags) {
-    return tags.map((_) => Colors.black).toList();
+  List<Color> _inactiveText(BuildContext context, List<Tag> tags) {
+    return tags.map((_) => Theme.of(context).colorScheme.onBackground).toList();
   }
 
   List<Color> _whiteColors(List<Tag> tags) {
@@ -52,5 +53,9 @@ final class _TagsState extends State<Tags> {
       _selectedTags.add(idx);
     }
     setState(() {});
+  }
+
+  List<Color> _inactiveColors(BuildContext context, List<Tag> tags) {
+    return tags.map((_) => Theme.of(context).colorScheme.background).toList();
   }
 }

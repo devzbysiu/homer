@@ -35,6 +35,7 @@ dependencies:
   books_finder: ^4.4.0
   dartz: ^0.10.1
   shared_preferences: ^2.2.2
+  flex_color_scheme: ^7.3.1
 
 dev_dependencies:
   flutter_test:

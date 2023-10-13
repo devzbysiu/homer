@@ -16,11 +16,12 @@ final class RemoteBookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TransparentImageCard(
-      contentMarginTop: 168,
+      contentMarginTop: 183,
       height: 280,
       imageProvider: _imageProvider() as ImageProvider<Object>,
       tags: const [],
       title: BookTitle(title: book.title),
+      endColor: Colors.black,
       description: BookAuthors(authorNames: book.authors),
       footer: BookCardFooter(
         rating: book.averageRating,

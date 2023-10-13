@@ -19,19 +19,16 @@ final class SearchSuggestion extends StatelessWidget {
       child: Material(
         elevation: 3,
         child: BannerListTile(
-          bannerTextColor: Colors.black,
-          bannerColor: Colors.amber,
+          bannerTextColor: Theme.of(context).colorScheme.background,
+          bannerColor: Theme.of(context).primaryColor,
           bannerText: book.averageRating.toStringAsFixed(2),
           onTap: () => _onTap(context),
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).listTileTheme.tileColor,
           borderRadius: BorderRadius.circular(8),
           imageContainer: _ListTileThumbnail(book: book),
           title: Text(
             book.title,
-            style: const TextStyle(
-              fontSize: 17,
-              color: Colors.black,
-            ),
+            style: Theme.of(context).textTheme.titleMedium,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
           ),
@@ -39,10 +36,7 @@ final class SearchSuggestion extends StatelessWidget {
             'by ${book.authors.join(', ')}',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 13,
-              color: Colors.black,
-            ),
+            style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
       ),

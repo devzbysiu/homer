@@ -16,7 +16,7 @@ final class SwipeableCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SwipeableTile.swipeToTriggerCard(
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       shadow: BoxShadow(
         color: Colors.black.withOpacity(0.35),
         blurRadius: 4,
@@ -62,23 +62,23 @@ final class SwipeableCard extends StatelessWidget {
   void _showSnackbarOnRightSwipe(BuildContext context) {
     switch (book.state) {
       case LocalBookState.readLater:
-        _showSnackbar(context, 'Book moved to Reading!', Colors.blue);
+        _showSnackbar(context, 'Book moved to Reading!');
         return;
       case LocalBookState.reading:
-        _showSnackbar(context, 'Book moved to Read!', Colors.amber);
+        _showSnackbar(context, 'Book moved to Read!');
         return;
       case LocalBookState.read:
         return;
     }
   }
 
-  void _showSnackbar(BuildContext context, String msg, Color color) {
+  void _showSnackbar(BuildContext context, String msg) {
     final snackBar = SnackBar(
       elevation: 0,
       behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
       content: AwesomeSnackbarContent(
-        color: color,
+        color: Theme.of(context).snackBarTheme.actionTextColor,
         title: 'Yay!',
         message: msg,
         contentType: ContentType.success,
@@ -95,10 +95,10 @@ final class SwipeableCard extends StatelessWidget {
       case LocalBookState.readLater:
         return;
       case LocalBookState.reading:
-        _showSnackbar(context, 'Book moved to Read Later!', Colors.green);
+        _showSnackbar(context, 'Book moved to Read Later!');
         return;
       case LocalBookState.read:
-        _showSnackbar(context, 'Book moved to Reading!', Colors.blue);
+        _showSnackbar(context, 'Book moved to Reading!');
         return;
     }
   }
@@ -135,9 +135,9 @@ final class _AnimatedBackground extends StatelessWidget {
       animation: progress,
       builder: (_, __) {
         if (_swipingToRight()) {
-          return _animateRightSwipe();
+          return _animateRightSwipe(context);
         }
-        return _animateLeftSwipe();
+        return _animateLeftSwipe(context);
       },
     );
   }
@@ -146,24 +146,23 @@ final class _AnimatedBackground extends StatelessWidget {
     return direction == SwipeDirection.startToEnd;
   }
 
-  Widget _animateRightSwipe() {
+  Widget _animateRightSwipe(BuildContext context) {
     switch (currentState) {
       case LocalBookState.readLater:
-        return _animateToReadingRight();
+        return _animateToReadingRight(context);
       case LocalBookState.reading:
-        return _animateToRead();
+        return _animateToRead(context);
       case LocalBookState.read:
         return Container();
     }
   }
 
-  Widget _animateToReadingRight() {
+  Widget _animateToReadingRight(BuildContext context) {
     return _animateTo(
       Icons.book,
       progress,
       MainAxisAlignment.start,
       const EdgeInsets.only(left: 30),
-      Colors.blue,
     );
   }
 
@@ -172,11 +171,10 @@ final class _AnimatedBackground extends StatelessWidget {
     AnimationController progress,
     MainAxisAlignment alignment,
     EdgeInsets padding,
-    Color color,
   ) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
-      color: progress.value > 0.3 ? color : Colors.white,
+      color: Colors.transparent,
       child: Row(
         mainAxisAlignment: alignment,
         children: [
@@ -189,44 +187,41 @@ final class _AnimatedBackground extends StatelessWidget {
     );
   }
 
-  Widget _animateToRead() {
+  Widget _animateToRead(BuildContext context) {
     return _animateTo(
       Icons.done,
       progress,
       MainAxisAlignment.start,
       const EdgeInsets.only(left: 30),
-      Colors.amber,
     );
   }
 
-  Widget _animateLeftSwipe() {
+  Widget _animateLeftSwipe(BuildContext context) {
     switch (currentState) {
       case LocalBookState.readLater:
         return Container();
       case LocalBookState.reading:
-        return _animateToForLater();
+        return _animateToForLater(context);
       case LocalBookState.read:
-        return _animateToReadingLeft();
+        return _animateToReadingLeft(context);
     }
   }
 
-  Widget _animateToForLater() {
+  Widget _animateToForLater(BuildContext context) {
     return _animateTo(
       Icons.bookmark,
       progress,
       MainAxisAlignment.end,
       const EdgeInsets.only(right: 30),
-      Colors.green,
     );
   }
 
-  Widget _animateToReadingLeft() {
+  Widget _animateToReadingLeft(BuildContext context) {
     return _animateTo(
       Icons.book,
       progress,
       MainAxisAlignment.end,
       const EdgeInsets.only(right: 30),
-      Colors.blue,
     );
   }
 }

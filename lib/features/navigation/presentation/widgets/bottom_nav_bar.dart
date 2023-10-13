@@ -46,19 +46,21 @@ final class _BottomNavBarState extends State<BottomNavBar> {
     return BottomBarTheme(
       heightOpened: 600,
       mainButtonPosition: MainButtonPosition.right,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(topRight: Radius.circular(45)),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).shadowColor,
+            spreadRadius: 1,
+            blurRadius: 4,
+            offset: const Offset(0, 3),
+          ),
+        ],
+        color: Theme.of(context).bottomSheetTheme.backgroundColor,
+        borderRadius: const BorderRadius.only(topRight: Radius.circular(45)),
       ),
-      itemIconColor: Colors.grey,
-      itemTextStyle: const TextStyle(
-        color: Colors.grey,
-        fontSize: 15.0,
-      ),
-      selectedItemTextStyle: TextStyle(
-        color: context.figureOutColor(),
-        fontSize: 15.0,
-      ),
+      itemIconColor: Theme.of(context).unselectedWidgetColor,
+      itemTextStyle: Theme.of(context).textTheme.bodyMedium,
+      selectedItemTextStyle: Theme.of(context).textTheme.bodyMedium,
     );
   }
 
@@ -93,14 +95,20 @@ final class _AddButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: _toggleSheet,
       onLongPress: () => _triggerBackupRestore(context), // TODO: remove this
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.black,
-        shape: const CircleBorder(),
-        padding: const EdgeInsets.all(15),
-      ),
-      child: const Icon(
+      style: Theme.of(context).filledButtonTheme.style?.copyWith(
+            backgroundColor: MaterialStateProperty.resolveWith(
+              (states) => Theme.of(context).primaryColor,
+            ),
+            shape: MaterialStateProperty.resolveWith(
+              (states) => const CircleBorder(),
+            ),
+            padding: MaterialStateProperty.resolveWith(
+              (states) => const EdgeInsets.all(15),
+            ),
+          ),
+      child: Icon(
         Icons.add,
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.background,
       ),
     );
   }
@@ -139,14 +147,20 @@ final class _DeleteButton extends StatelessWidget {
       effects: const [ShakeEffect(hz: 2.5)],
       child: ElevatedButton(
         onPressed: () => _deleteBooks(context, booksToDelete),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.red,
-          shape: const CircleBorder(),
-          padding: const EdgeInsets.all(15),
-        ),
-        child: const Icon(
+        style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
+              backgroundColor: MaterialStateProperty.resolveWith(
+                (states) => Theme.of(context).colorScheme.error,
+              ),
+              shape: MaterialStateProperty.resolveWith(
+                (states) => const CircleBorder(),
+              ),
+              padding: MaterialStateProperty.resolveWith(
+                (states) => const EdgeInsets.all(15),
+              ),
+            ),
+        child: Icon(
           Icons.delete_forever,
-          color: Colors.white,
+          color: Theme.of(context).iconTheme.color,
         ),
       ),
     );

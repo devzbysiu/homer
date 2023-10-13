@@ -16,14 +16,26 @@ final class BooksList extends StatelessWidget {
     }
     return GestureDetector(
       onTap: () => _disableDeleteMode(context),
-      child: AlignedGridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 2,
-        crossAxisSpacing: 2,
-        itemCount: books.length,
-        itemBuilder: (context, index) {
-          return BookCard(book: books[index]);
-        },
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Theme.of(context).colorScheme.primary,
+              Theme.of(context).colorScheme.background,
+            ],
+          ),
+        ),
+        child: AlignedGridView.count(
+          crossAxisCount: 2,
+          mainAxisSpacing: 2,
+          crossAxisSpacing: 2,
+          itemCount: books.length,
+          itemBuilder: (context, index) {
+            return BookCard(book: books[index]);
+          },
+        ),
       ),
     );
   }

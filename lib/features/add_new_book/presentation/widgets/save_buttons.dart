@@ -23,7 +23,7 @@ final class SaveButtons extends StatelessWidget {
             pickedBook,
             LocalBookState.readLater,
           ),
-          color: Colors.green,
+          color: Theme.of(context).colorScheme.secondary,
           icon: const Icon(Icons.bookmark),
         ),
         IconButton(
@@ -32,7 +32,7 @@ final class SaveButtons extends StatelessWidget {
             pickedBook,
             LocalBookState.reading,
           ),
-          color: Colors.blue,
+          color: Theme.of(context).colorScheme.secondary,
           icon: const Icon(Icons.book),
         ),
         IconButton(
@@ -41,7 +41,7 @@ final class SaveButtons extends StatelessWidget {
             pickedBook,
             LocalBookState.read,
           ),
-          color: Colors.amber,
+          color: Theme.of(context).colorScheme.secondary,
           icon: const Icon(Icons.done),
         ),
       ],

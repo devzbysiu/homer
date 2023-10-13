@@ -102,6 +102,24 @@ Set<RestoredTag> _toRestoredBookTags(Set<LabelDTO> labels) {
 }
 
 RestoredTag _toRestoredTag(LabelDTO label) {
-  // TODO: Change color mapping;
-  return RestoredTag(title: label.title, color: RestoredTagColor.red);
+  return RestoredTag(
+    title: label.title,
+    color: _toRestoredTagColor(label.color),
+  );
+}
+
+// TODO: Remove stuff related to dante backup
+RestoredTagColor _toRestoredTagColor(String color) {
+  switch (color) {
+    case '#ff4caf50':
+      return RestoredTagColor.green;
+    case '#ff03a9f4':
+      return RestoredTagColor.blue;
+    case '#ffff9800':
+      return RestoredTagColor.orange;
+    case '#ff9f6459':
+      return RestoredTagColor.brown;
+    default:
+      throw Exception('Invalid color: $color');
+  }
 }

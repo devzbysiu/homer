@@ -114,9 +114,9 @@ final class _AddButton extends StatelessWidget {
   // TODO: get rid of this
   Future<void> _triggerBackupRestore(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool('books-restored') ?? false) {
-      return Future.value();
-    }
+    // if (prefs.getBool('books-restored') ?? false) {
+    //   return Future.value();
+    // }
     final directory = await getApplicationDocumentsDirectory();
     final backupPath = '${directory.path}/backup.json';
     context.emitRestoreEvt(RestoreTriggered(backupPath));

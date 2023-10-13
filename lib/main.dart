@@ -51,9 +51,9 @@ Future<void> _initDbWithFakes() async {
 
 Future<void> _prepareForBackup() async {
   final prefs = await SharedPreferences.getInstance();
-  if (prefs.getBool('books-restored') ?? false) {
-    return Future.value();
-  }
+  // if (prefs.getBool('books-restored') ?? false) {
+  //   return Future.value();
+  // }
   final booksRepo = sl<LocalBooksRepository>();
   await booksRepo.deleteAll();
   var content = await rootBundle.load('assets/backup.json');

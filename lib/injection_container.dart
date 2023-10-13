@@ -2,7 +2,7 @@ import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
 
 import 'features/add_new_book/presentation/bloc/book_tags_bloc.dart';
-import 'features/backup_and_restore/data/datasources/backup_data_source.dart';
+import 'features/backup_and_restore/data/datasources/dante_backup_data_source.dart';
 import 'features/backup_and_restore/data/repositories/dante_backup_repo.dart';
 import 'features/backup_and_restore/domain/repositories/backup_repository.dart';
 import 'features/backup_and_restore/domain/usecases/add_all_books.dart';
@@ -80,7 +80,7 @@ Future<void> initDi() async {
     () => RemoteBooksRepo(dataSource: sl()),
   );
   sl.registerLazySingleton<BackupRepository>(
-    () => DanteBackupRepo(localBackupDataSource: sl()),
+    () => LocalBackupRepo(localBackupDataSource: sl()),
   );
 
   // Data sources

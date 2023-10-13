@@ -1,8 +1,9 @@
+// TODO: This should be removed after successful move form dante
 import 'package:equatable/equatable.dart';
 
-final class RestoredBookDTO extends Equatable {
-  factory RestoredBookDTO.fromJson(Map<String, dynamic> json) {
-    return RestoredBookDTO._(
+final class DanteBackupDTO extends Equatable {
+  factory DanteBackupDTO.fromJson(Map<String, dynamic> json) {
+    return DanteBackupDTO._(
       title: json['title'],
       subTitle: json['subTitle'],
       author: json['author'],
@@ -18,7 +19,7 @@ final class RestoredBookDTO extends Equatable {
     );
   }
 
-  const RestoredBookDTO._({
+  const DanteBackupDTO._({
     required this.title,
     required this.subTitle,
     required this.author,

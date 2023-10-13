@@ -7,7 +7,8 @@ abstract class LocalBackupDataSource {
   Future<List<RestoredBookDTO>> loadAll(String path);
 }
 
-final class FileBackupDataSource implements LocalBackupDataSource {
+// TODO: This should be removed after successful move from dante
+final class DanteBackupDataSource implements LocalBackupDataSource {
   @override
   Future<List<RestoredBookDTO>> loadAll(String path) async {
     final backupFile = File(path);

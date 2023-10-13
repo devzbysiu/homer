@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 
 import 'features/add_new_book/presentation/bloc/book_tags_bloc.dart';
 import 'features/backup_and_restore/data/datasources/backup_data_source.dart';
-import 'features/backup_and_restore/data/repositories/local_backup_repo.dart';
+import 'features/backup_and_restore/data/repositories/dante_backup_repo.dart';
 import 'features/backup_and_restore/domain/repositories/backup_repository.dart';
 import 'features/backup_and_restore/domain/usecases/add_all_books.dart';
 import 'features/backup_and_restore/domain/usecases/restore_from_local.dart';
@@ -80,14 +80,16 @@ Future<void> initDi() async {
     () => RemoteBooksRepo(dataSource: sl()),
   );
   sl.registerLazySingleton<BackupRepository>(
-    () => LocalBackupRepo(localBackupDataSource: sl()),
+    () => DanteBackupRepo(localBackupDataSource: sl()),
   );
 
   // Data sources
   final isarDataSource = await IsarLocalDataSource.create();
   sl.registerLazySingleton<LocalBooksDataSource>(() => isarDataSource);
   sl.registerLazySingleton<RemoteBooksDataSource>(() => GoogleBooks());
-  sl.registerLazySingleton<LocalBackupDataSource>(() => FileBackupDataSource());
+  sl.registerLazySingleton<LocalBackupDataSource>(
+    () => DanteBackupDataSource(),
+  );
 
   // Core
 

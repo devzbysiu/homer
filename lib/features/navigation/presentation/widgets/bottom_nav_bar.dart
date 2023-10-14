@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/utils/common.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../../injection_container.dart';
 import '../../../backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
@@ -96,15 +97,9 @@ final class _AddButton extends StatelessWidget {
       onPressed: _toggleSheet,
       onLongPress: () => _triggerBackupRestore(context), // TODO: remove this
       style: Theme.of(context).filledButtonTheme.style?.copyWith(
-            backgroundColor: MaterialStateProperty.resolveWith(
-              (states) => Theme.of(context).primaryColor,
-            ),
-            shape: MaterialStateProperty.resolveWith(
-              (states) => const CircleBorder(),
-            ),
-            padding: MaterialStateProperty.resolveWith(
-              (states) => const EdgeInsets.all(15),
-            ),
+            backgroundColor: msp(Theme.of(context).primaryColor),
+            shape: msp(const CircleBorder()),
+            padding: msp(const EdgeInsets.all(15)),
           ),
       child: Icon(
         Icons.add,
@@ -148,15 +143,9 @@ final class _DeleteButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => _deleteBooks(context, booksToDelete),
         style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-              backgroundColor: MaterialStateProperty.resolveWith(
-                (states) => Theme.of(context).colorScheme.error,
-              ),
-              shape: MaterialStateProperty.resolveWith(
-                (states) => const CircleBorder(),
-              ),
-              padding: MaterialStateProperty.resolveWith(
-                (states) => const EdgeInsets.all(15),
-              ),
+              backgroundColor: msp(Theme.of(context).colorScheme.error),
+              shape: msp(const CircleBorder()),
+              padding: msp(const EdgeInsets.all(15)),
             ),
         child: Icon(
           Icons.delete_forever,

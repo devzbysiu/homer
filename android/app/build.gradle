@@ -61,6 +61,21 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        construction {
+            dimension "default"
+            resValue "string", "homer", "debug version"
+            applicationIdSuffix ".debug"
+        }
+        usable {
+            dimension "default"
+            resValue "string", "homer", "release version"
+            applicationIdSuffix ".release"
+        }
+    }
 }
 
 flutter {

@@ -49,4 +49,5 @@ flutter:
   assets:
     - assets/book-thumbnail-fallback.png
     - assets/book-cover-fallback.webp
+    # TODO: Remove backup.json
     - assets/backup.json

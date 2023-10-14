@@ -68,41 +68,14 @@ final class Homer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const scheme = FlexScheme.amber;
+    const themeMode = ThemeMode.dark;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Homer',
-      theme: FlexThemeData.light(
-        scheme: FlexScheme.amber,
-        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-        blendLevel: 7,
-        subThemesData: const FlexSubThemesData(
-          blendOnLevel: 10,
-          blendOnColors: false,
-          useTextTheme: true,
-          useM2StyleDividerInM3: true,
-          alignedDropdown: true,
-          useInputDecoratorThemeInDialogs: true,
-        ),
-        visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        useMaterial3: true,
-        swapLegacyOnMaterial3: true,
-      ),
-      darkTheme: FlexThemeData.dark(
-        scheme: FlexScheme.amber,
-        surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-        blendLevel: 13,
-        subThemesData: const FlexSubThemesData(
-          blendOnLevel: 20,
-          useTextTheme: true,
-          useM2StyleDividerInM3: true,
-          alignedDropdown: true,
-          useInputDecoratorThemeInDialogs: true,
-        ),
-        visualDensity: FlexColorScheme.comfortablePlatformDensity,
-        useMaterial3: true,
-        swapLegacyOnMaterial3: true,
-      ),
-      themeMode: ThemeMode.dark,
+      theme: FlexThemeData.light(scheme: scheme),
+      darkTheme: FlexThemeData.dark(scheme: scheme),
+      themeMode: themeMode,
       home: const Home(),
     );
   }

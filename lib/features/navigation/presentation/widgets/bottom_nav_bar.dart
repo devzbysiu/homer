@@ -56,7 +56,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
             offset: const Offset(0, 3),
           ),
         ],
-        color: Theme.of(context).bottomSheetTheme.backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: const BorderRadius.only(topRight: Radius.circular(45)),
       ),
       itemIconColor: Theme.of(context).unselectedWidgetColor,
@@ -96,11 +96,10 @@ final class _AddButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: _toggleSheet,
       onLongPress: () => _triggerBackupRestore(context), // TODO: remove this
-      style: Theme.of(context).filledButtonTheme.style?.copyWith(
-            backgroundColor: msp(Theme.of(context).primaryColor),
-            shape: msp(const CircleBorder()),
-            padding: msp(const EdgeInsets.all(15)),
-          ),
+      style: ButtonStyle(
+        shape: msp(const CircleBorder()),
+        padding: msp(const EdgeInsets.all(10)),
+      ),
       child: Icon(
         Icons.add,
         color: Theme.of(context).colorScheme.background,

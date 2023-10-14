@@ -78,7 +78,8 @@ final class SwipeableCard extends StatelessWidget {
       behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
       content: AwesomeSnackbarContent(
-        color: Theme.of(context).snackBarTheme.actionTextColor,
+        color: Theme.of(context).colorScheme.primaryContainer,
+        messageFontSize: 18,
         title: 'Yay!',
         message: msg,
         contentType: ContentType.success,

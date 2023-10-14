@@ -11,7 +11,9 @@ final class BookTitle extends StatelessWidget {
       child: Text(
         title,
         maxLines: 1,
-        style: const TextStyle(color: Colors.white),
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: Colors.white,
+            ),
         overflow: TextOverflow.ellipsis,
       ),
     );

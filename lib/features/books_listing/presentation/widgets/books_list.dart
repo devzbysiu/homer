@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../../../core/utils/extensions.dart';
@@ -22,7 +23,7 @@ final class BooksList extends StatelessWidget {
         crossAxisSpacing: 2,
         itemCount: books.length,
         itemBuilder: (context, index) {
-          return BookCard(book: books[index]);
+          return BookCard(book: books[index]).animate().flip();
         },
       ),
     );

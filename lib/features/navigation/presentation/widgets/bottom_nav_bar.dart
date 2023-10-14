@@ -36,9 +36,18 @@ final class _BottomNavBarState extends State<BottomNavBar> {
       onSelectItem: (idx) => _handleIndexChanged(idx, context),
       sheetChild: BookSearchArea(),
       items: const [
-        BottomBarWithSheetItem(label: 'For Later', icon: Icons.bookmark),
-        BottomBarWithSheetItem(label: 'Reading', icon: Icons.book),
-        BottomBarWithSheetItem(label: 'Read', icon: Icons.done),
+        BottomBarWithSheetItem(
+          label: 'For Later',
+          icon: Icons.bookmark_outline,
+        ),
+        BottomBarWithSheetItem(
+          label: 'Reading',
+          icon: Icons.book_outlined,
+        ),
+        BottomBarWithSheetItem(
+          label: 'Read',
+          icon: Icons.done_outline,
+        ),
       ],
     );
   }

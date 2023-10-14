@@ -86,10 +86,22 @@ final class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       extendBody: true,
-      body: BooksList(),
-      bottomNavigationBar: BottomNavBar(),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Theme.of(context).colorScheme.primaryContainer,
+              Theme.of(context).colorScheme.primaryContainer.lighten(15),
+            ],
+          ),
+        ),
+        child: const BooksList(),
+      ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

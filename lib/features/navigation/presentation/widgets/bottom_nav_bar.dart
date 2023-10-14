@@ -141,14 +141,14 @@ final class _DeleteButton extends StatelessWidget {
       effects: const [ShakeEffect(hz: 2.5)],
       child: ElevatedButton(
         onPressed: () => _deleteBooks(context, booksToDelete),
-        style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-              backgroundColor: msp(Theme.of(context).colorScheme.error),
-              shape: msp(const CircleBorder()),
-              padding: msp(const EdgeInsets.all(15)),
-            ),
+        style: ButtonStyle(
+          backgroundColor: msp(Theme.of(context).colorScheme.error),
+          shape: msp(const CircleBorder()),
+          padding: msp(const EdgeInsets.all(10)),
+        ),
         child: Icon(
           Icons.delete_forever,
-          color: Theme.of(context).iconTheme.color,
+          color: Theme.of(context).colorScheme.background,
         ),
       ),
     );

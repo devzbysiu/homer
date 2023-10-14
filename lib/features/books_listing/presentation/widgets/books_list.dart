@@ -1,4 +1,3 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -17,27 +16,14 @@ final class BooksList extends StatelessWidget {
     }
     return GestureDetector(
       onTap: () => _disableDeleteMode(context),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Theme.of(context).colorScheme.primaryContainer,
-              Theme.of(context).colorScheme.primaryContainer.lighten(15),
-            ],
-          ),
-          // color: Theme.of(context).colorScheme.primaryContainer,
-        ),
-        child: AlignedGridView.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 2,
-          crossAxisSpacing: 2,
-          itemCount: books.length,
-          itemBuilder: (context, index) {
-            return BookCard(book: books[index]);
-          },
-        ),
+      child: AlignedGridView.count(
+        crossAxisCount: 2,
+        mainAxisSpacing: 2,
+        crossAxisSpacing: 2,
+        itemCount: books.length,
+        itemBuilder: (context, index) {
+          return BookCard(book: books[index]);
+        },
       ),
     );
   }

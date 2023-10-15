@@ -46,13 +46,6 @@ final class BookSearchArea extends StatelessWidget {
 
   List<Widget> _actions() {
     return [
-      FloatingSearchBarAction(
-        showIfOpened: false,
-        child: CircularButton(
-          icon: const Icon(Icons.book),
-          onPressed: () {},
-        ),
-      ),
       FloatingSearchBarAction.searchToClear(
         showIfClosed: false,
       ),

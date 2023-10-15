@@ -26,4 +26,4 @@ final class NoBookPicked extends SearchForBooksEvent {
   List<Object?> get props => [];
 }
 
-final class BookPicked {}
+final class CloseSuggestions {}

@@ -27,7 +27,7 @@ final class BookSearchArea extends StatelessWidget {
       backdropColor: Theme.of(context).colorScheme.background,
       hint: 'Search...',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-      transitionDuration: const Duration(milliseconds: 400),
+      transitionDuration: const Duration(milliseconds: 600),
       transitionCurve: Curves.easeInOut,
       physics: const BouncingScrollPhysics(),
       axisAlignment: 0.0,
@@ -65,7 +65,7 @@ final class BookSearchArea extends StatelessWidget {
 
   void _closeSuggestionsWhenBookPicked() {
     // TODO: Fix it - remove the bus, use the state
-    sl<EventBus>().on<BookPicked>().listen((_) {
+    sl<EventBus>().on<CloseSuggestions>().listen((_) {
       _controller.close();
     });
   }

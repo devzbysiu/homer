@@ -8,14 +8,19 @@ final class SearchSuggestions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-      child: Material(
-        color: Theme.of(context).listTileTheme.tileColor,
-        elevation: 4.0,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: _searchSuggestions(context),
+    return SizedBox(
+      height: 450 - MediaQuery.of(context).viewInsets.bottom,
+      child: SingleChildScrollView(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Material(
+            color: Theme.of(context).listTileTheme.tileColor,
+            elevation: 4.0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: _searchSuggestions(context),
+            ),
+          ),
         ),
       ),
     );

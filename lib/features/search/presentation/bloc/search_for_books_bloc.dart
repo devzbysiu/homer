@@ -34,6 +34,8 @@ final class SearchForBooksBloc
     Emitter<SearchForBooksState> emit,
   ) async {
     if (event.query.isEmpty) {
+      closeSearchBar(NoParams());
+      emit(Empty());
       return;
     }
     emit(SearchInProgress());

@@ -12,7 +12,7 @@ final class CloseSearchBar extends UseCase<Unit, NoParams> {
 
   @override
   Future<Result<Unit, Failure>> call(NoParams params) {
-    eventBus.fire(BookPicked());
+    eventBus.fire(CloseSuggestions());
     return Future.value(const Success(unit));
   }
 }

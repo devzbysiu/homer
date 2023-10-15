@@ -4,6 +4,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -88,18 +89,31 @@ final class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Theme.of(context).colorScheme.primaryContainer,
-              Theme.of(context).colorScheme.primaryContainer.lighten(15),
-            ],
-          ),
+      body: FloatingSearchBar(
+        leadingActions: [FloatingSearchBarAction.hamburgerToBack()],
+        backgroundColor: Theme.of(context).colorScheme.background,
+        hint: 'Filter...',
+        body: IndexedStack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Theme.of(context).colorScheme.primaryContainer,
+                    Theme.of(context).colorScheme.primaryContainer.lighten(15),
+                  ],
+                ),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.only(top: 60),
+                child: BooksList(),
+              ),
+            )
+          ],
         ),
-        child: const BooksList(),
+        builder: (_, __) => const Placeholder(),
       ),
       bottomNavigationBar: const BottomNavBar(),
     );

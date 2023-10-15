@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 import '../../../../core/utils/extensions.dart';
 import '../bloc/books_bloc.dart';
@@ -17,14 +18,16 @@ final class BooksList extends StatelessWidget {
     }
     return GestureDetector(
       onTap: () => _disableDeleteMode(context),
-      child: AlignedGridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 2,
-        crossAxisSpacing: 2,
-        itemCount: books.length,
-        itemBuilder: (context, index) {
-          return BookCard(book: books[index]).animate().flip();
-        },
+      child: FloatingSearchBarScrollNotifier(
+        child: AlignedGridView.count(
+          crossAxisCount: 2,
+          mainAxisSpacing: 2,
+          crossAxisSpacing: 2,
+          itemCount: books.length,
+          itemBuilder: (context, index) {
+            return BookCard(book: books[index]).animate().flip();
+          },
+        ),
       ),
     );
   }

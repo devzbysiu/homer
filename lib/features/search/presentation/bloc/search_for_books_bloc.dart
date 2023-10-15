@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
@@ -13,7 +12,6 @@ import '../../domain/usecases/close_search_bar.dart';
 import '../../domain/usecases/search_for_books.dart';
 
 part 'search_for_books_event.dart';
-
 part 'search_for_books_state.dart';
 
 final class SearchForBooksBloc
@@ -38,6 +36,7 @@ final class SearchForBooksBloc
     if (event.query.isEmpty) {
       return;
     }
+    emit(SearchInProgress());
     final searchResult = await searchForBooks(SearchParams(query: event.query));
     searchResult.when(
       (success) => emit(FoundBooks(foundBooks: success)),

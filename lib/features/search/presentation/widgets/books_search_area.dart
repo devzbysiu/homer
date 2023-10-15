@@ -1,4 +1,5 @@
 import 'package:event_bus/event_bus.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
@@ -16,9 +17,12 @@ final class BookSearchArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _closeSuggestionsWhenBookPicked();
+    final searchStarted = context.searchInProgress();
     return FloatingSearchBar(
+      progress: searchStarted,
       controller: _controller,
       body: const BottomSheetContent(),
+      backgroundColor: Theme.of(context).colorScheme.background.lighten(10),
       backdropColor: Theme.of(context).colorScheme.background,
       hint: 'Search...',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),

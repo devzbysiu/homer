@@ -77,6 +77,10 @@ extension BlocExt on BuildContext {
   void emitRestoreEvt(BackupAndRestoreEvent event) {
     read<BackupAndRestoreBloc>().add(event);
   }
+
+  bool searchInProgress() {
+    return select((SearchForBooksBloc bloc) => bloc.state.searchInProgress);
+  }
 }
 
 List<LocalBook> _books(BooksBloc bloc) {

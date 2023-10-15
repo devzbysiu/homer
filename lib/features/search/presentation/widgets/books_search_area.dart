@@ -19,6 +19,7 @@ final class BookSearchArea extends StatelessWidget {
     _closeSuggestionsWhenBookPicked();
     final searchStarted = context.searchInProgress();
     return FloatingSearchBar(
+      accentColor: Theme.of(context).primaryColor,
       progress: searchStarted,
       controller: _controller,
       body: const BottomSheetContent(),

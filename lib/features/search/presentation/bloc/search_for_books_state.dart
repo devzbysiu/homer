@@ -30,6 +30,14 @@ final class FoundBooks extends SearchForBooksState {
   FoundBooks({required super.foundBooks}) : super(searchInProgress: false);
 }
 
+final class ClearFoundBooks extends SearchForBooksState {
+  ClearFoundBooks({required super.pickedBook})
+      : super(
+          foundBooks: List.empty(),
+          searchInProgress: false,
+        );
+}
+
 final class FailedToSearchBooks extends SearchForBooksState {
   FailedToSearchBooks() : super(foundBooks: [], searchInProgress: false);
 }

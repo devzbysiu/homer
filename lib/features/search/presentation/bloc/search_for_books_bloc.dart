@@ -34,7 +34,7 @@ final class SearchForBooksBloc
     Emitter<SearchForBooksState> emit,
   ) async {
     if (event.query.isEmpty) {
-      emit(Empty());
+      emit(ClearFoundBooks(pickedBook: state.pickedBook.toNullable()));
       return;
     }
     emit(SearchInProgress());

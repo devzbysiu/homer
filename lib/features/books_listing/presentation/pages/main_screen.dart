@@ -5,7 +5,7 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
 
 import '../widgets/books_list.dart';
 
-class MainScreen extends StatelessWidget {
+final class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override

@@ -10,7 +10,7 @@ import '../../domain/usecases/restore_from_local.dart';
 part 'backup_and_restore_event.dart';
 part 'backup_and_restore_state.dart';
 
-class BackupAndRestoreBloc
+final class BackupAndRestoreBloc
     extends Bloc<BackupAndRestoreEvent, BackupAndRestoreState> {
   BackupAndRestoreBloc({
     required this.loadFromLocalBackup,

@@ -14,6 +14,7 @@ import 'features/books_listing/domain/repositories/local_books_repository.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
 import 'features/search/presentation/bloc/search_for_books_bloc.dart';
+import 'features/settings/presentation/bloc/settings_bloc.dart';
 import 'features/tags_manager/presentation/bloc/tags_bloc.dart';
 import 'injection_container.dart';
 
@@ -33,6 +34,7 @@ void main() async {
       BlocProvider(create: (_) => sl<SearchForBooksBloc>()),
       BlocProvider(create: (_) => sl<BookTagsBloc>()),
       BlocProvider(create: (_) => sl<BackupAndRestoreBloc>()),
+      BlocProvider(create: (_) => sl<SettingsBloc>()),
     ],
     child: const Homer(),
   ));

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homer/features/settings/presentation/bloc/settings_bloc.dart';
 
 import '../../features/add_new_book/presentation/bloc/book_tags_bloc.dart';
 import '../../features/backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
@@ -80,6 +81,14 @@ extension BlocExt on BuildContext {
 
   bool searchInProgress() {
     return select((SearchForBooksBloc bloc) => bloc.state.searchInProgress);
+  }
+
+  bool isThemeDark() {
+    return select((SettingsBloc bloc) => bloc.state.isThemeDark);
+  }
+
+  void toggleTheme() {
+    read<SettingsBloc>().add(ThemeToggled());
   }
 }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-final class MenuScreen extends StatelessWidget {
-  const MenuScreen({super.key});
+class MenuItems extends StatelessWidget {
+  const MenuItems({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +23,7 @@ final class MenuScreen extends StatelessWidget {
           text: 'Settings',
           onPressed: () {},
         ),
+        const SizedBox(height: 20),
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:homer/features/settings/presentation/bloc/settings_bloc.dart';
 
 import 'features/add_new_book/presentation/bloc/book_tags_bloc.dart';
 import 'features/backup_and_restore/data/datasources/dante_backup_data_source.dart';
@@ -55,6 +56,7 @@ Future<void> initDi() async {
       addAllBooks: sl(),
     ),
   );
+  sl.registerFactory(() => SettingsBloc());
 
   // Use cases
   // books

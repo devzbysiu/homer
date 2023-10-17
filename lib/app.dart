@@ -1,5 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:homer/core/utils/extensions.dart';
 
 import 'features/books_listing/presentation/pages/home.dart';
 
@@ -9,7 +10,7 @@ final class Homer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const scheme = FlexScheme.amber;
-    const themeMode = ThemeMode.dark;
+    final themeMode = context.isThemeDark() ? ThemeMode.dark : ThemeMode.light;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Homer',

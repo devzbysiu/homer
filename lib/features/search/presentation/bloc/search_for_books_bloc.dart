@@ -37,10 +37,15 @@ final class SearchForBooksBloc
       emit(ClearFoundBooks(pickedBook: state.pickedBook.toNullable()));
       return;
     }
-    emit(SearchInProgress());
+    emit(SearchInProgress(pickedBook: state.pickedBook.toNullable()));
     final searchResult = await searchForBooks(SearchParams(query: event.query));
     searchResult.when(
-      (success) => emit(FoundBooks(foundBooks: success)),
+      (success) => emit(
+        FoundBooks(
+          pickedBook: state.pickedBook.toNullable(),
+          foundBooks: success,
+        ),
+      ),
       (error) => emit(FailedToSearchBooks()),
     );
     return Future.value();

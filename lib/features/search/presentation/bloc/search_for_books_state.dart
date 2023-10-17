@@ -23,11 +23,18 @@ final class Empty extends SearchForBooksState {
 }
 
 final class SearchInProgress extends SearchForBooksState {
-  SearchInProgress() : super(foundBooks: [], searchInProgress: true);
+  SearchInProgress({required super.pickedBook})
+      : super(
+          foundBooks: [],
+          searchInProgress: true,
+        );
 }
 
 final class FoundBooks extends SearchForBooksState {
-  FoundBooks({required super.foundBooks}) : super(searchInProgress: false);
+  FoundBooks({
+    required super.pickedBook,
+    required super.foundBooks,
+  }) : super(searchInProgress: false);
 }
 
 final class ClearFoundBooks extends SearchForBooksState {

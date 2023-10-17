@@ -24,7 +24,7 @@ final class BookSearchArea extends StatelessWidget {
       controller: _controller,
       body: const BottomSheetContent(),
       backgroundColor: Theme.of(context).colorScheme.background.lighten(10),
-      backdropColor: Theme.of(context).colorScheme.background,
+      backdropColor: Colors.transparent,
       hint: 'Search...',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
       transitionDuration: const Duration(milliseconds: 600),

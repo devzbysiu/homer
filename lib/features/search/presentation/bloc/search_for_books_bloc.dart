@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
@@ -12,6 +13,7 @@ import '../../domain/usecases/close_search_bar.dart';
 import '../../domain/usecases/search_for_books.dart';
 
 part 'search_for_books_event.dart';
+
 part 'search_for_books_state.dart';
 
 final class SearchForBooksBloc
@@ -34,18 +36,13 @@ final class SearchForBooksBloc
     Emitter<SearchForBooksState> emit,
   ) async {
     if (event.query.isEmpty) {
-      emit(ClearFoundBooks(pickedBook: state.pickedBook.toNullable()));
+      emit(ClearFoundBooks(pickedBook: state.pickedBook));
       return;
     }
-    emit(SearchInProgress(pickedBook: state.pickedBook.toNullable()));
+    emit(SearchInProgress(pickedBook: state.pickedBook));
     final searchResult = await searchForBooks(SearchParams(query: event.query));
     searchResult.when(
-      (success) => emit(
-        FoundBooks(
-          pickedBook: state.pickedBook.toNullable(),
-          foundBooks: success,
-        ),
-      ),
+      (ok) => emit(FoundBooks(pickedBook: state.pickedBook, foundBooks: ok)),
       (error) => emit(FailedToSearchBooks()),
     );
     return Future.value();
@@ -55,7 +52,7 @@ final class SearchForBooksBloc
     SuggestedBookPicked event,
     Emitter<SearchForBooksState> emit,
   ) async {
-    emit(BookPickedState(pickedBook: event.pickedBook));
+    emit(BookPickedState(pickedBook: optionOf(event.pickedBook)));
     closeSearchBar(NoParams());
     return Future.value();
   }

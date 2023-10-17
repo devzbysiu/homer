@@ -2,11 +2,11 @@ part of 'search_for_books_bloc.dart';
 
 @immutable
 abstract class SearchForBooksState extends Equatable {
-  SearchForBooksState({
+  const SearchForBooksState({
     required this.foundBooks,
-    RemoteBook? pickedBook,
+    this.pickedBook = const None(),
     required this.searchInProgress,
-  }) : pickedBook = optionOf(pickedBook);
+  });
 
   final List<RemoteBook> foundBooks;
 
@@ -31,7 +31,7 @@ final class SearchInProgress extends SearchForBooksState {
 }
 
 final class FoundBooks extends SearchForBooksState {
-  FoundBooks({
+  const FoundBooks({
     required super.pickedBook,
     required super.foundBooks,
   }) : super(searchInProgress: false);
@@ -50,7 +50,7 @@ final class FailedToSearchBooks extends SearchForBooksState {
 }
 
 final class BookPickedState extends SearchForBooksState {
-  BookPickedState({super.pickedBook})
+  const BookPickedState({super.pickedBook})
       : super(
           foundBooks: const [],
           searchInProgress: false,

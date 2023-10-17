@@ -9,7 +9,7 @@ final class SearchSuggestions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 450 - MediaQuery.of(context).viewInsets.bottom,
+      height: 470 - MediaQuery.of(context).viewInsets.bottom,
       child: SingleChildScrollView(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),

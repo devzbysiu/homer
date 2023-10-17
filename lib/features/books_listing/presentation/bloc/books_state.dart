@@ -5,11 +5,14 @@ abstract class BooksState {
   const BooksState({
     required this.books,
     required this.deleteList,
+    this.drawerToggled = false,
   });
 
   final List<LocalBook> books;
 
   final List<LocalBook> deleteList;
+
+  final bool drawerToggled;
 }
 
 final class Empty extends BooksState {
@@ -26,4 +29,9 @@ final class FailedToLoadBooks extends BooksState {
 
 final class DeletionList extends BooksState {
   const DeletionList({required super.deleteList, required super.books});
+}
+
+final class DrawerToggledState extends BooksState {
+  const DrawerToggledState({required super.books, required super.deleteList})
+      : super(drawerToggled: true);
 }

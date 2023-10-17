@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
@@ -17,7 +16,6 @@ import '../../domain/usecases/list_books.dart';
 import '../../domain/usecases/update_book_state.dart';
 
 part 'books_event.dart';
-
 part 'books_state.dart';
 
 final class BooksBloc extends Bloc<BooksEvent, BooksState> {
@@ -35,6 +33,9 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     on<RemoveFromDeleteList>(_onRemoveFromDeleteList);
     on<DeleteBooks>(_onDeleteBooks);
     on<ClearDeletionList>(_onClearDeletionList);
+
+    on<DrawerToggled>(_onDrawerToggled);
+
     add(BooksListDisplayed());
   }
 
@@ -141,5 +142,12 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   ) async {
     _emitCleanDeletionList(emit);
     return Future.value();
+  }
+
+  Future<void> _onDrawerToggled(
+    DrawerToggled event,
+    Emitter<BooksState> emit,
+  ) async {
+    emit(DrawerToggledState(books: state.books, deleteList: state.deleteList));
   }
 }

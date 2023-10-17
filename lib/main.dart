@@ -1,21 +1,18 @@
 import 'dart:io';
 
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'app.dart';
 import 'features/add_new_book/presentation/bloc/book_tags_bloc.dart';
 import 'features/backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
 import 'features/books_listing/domain/entities/local_book.dart';
 import 'features/books_listing/domain/repositories/local_books_repository.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
-import 'features/books_listing/presentation/widgets/books_list.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
-import 'features/navigation/presentation/widgets/bottom_nav_bar.dart';
 import 'features/search/presentation/bloc/search_for_books_bloc.dart';
 import 'features/tags_manager/presentation/bloc/tags_bloc.dart';
 import 'injection_container.dart';
@@ -62,60 +59,4 @@ Future<void> _prepareForBackup() async {
   var file = File('${directory.path}/backup.json');
   file.writeAsBytesSync(content.buffer.asUint8List());
   return Future.value();
-}
-
-final class Homer extends StatelessWidget {
-  const Homer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    const scheme = FlexScheme.amber;
-    const themeMode = ThemeMode.dark;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Homer',
-      theme: FlexThemeData.light(scheme: scheme),
-      darkTheme: FlexThemeData.dark(scheme: scheme),
-      themeMode: themeMode,
-      home: const Home(),
-    );
-  }
-}
-
-final class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      body: FloatingSearchBar(
-        leadingActions: [FloatingSearchBarAction.hamburgerToBack()],
-        backgroundColor: Theme.of(context).colorScheme.background,
-        hint: 'Filter...',
-        body: IndexedStack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Theme.of(context).colorScheme.primaryContainer,
-                    Theme.of(context).colorScheme.primaryContainer.lighten(15),
-                  ],
-                ),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.only(top: 60),
-                child: BooksList(),
-              ),
-            )
-          ],
-        ),
-        builder: (_, __) => const Placeholder(),
-      ),
-      bottomNavigationBar: const BottomNavBar(),
-    );
-  }
 }

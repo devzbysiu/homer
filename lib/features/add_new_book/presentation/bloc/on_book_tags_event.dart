@@ -1,10 +1,10 @@
-part of 'book_tags_bloc.dart';
+part of 'on_book_tags_bloc.dart';
 
 @immutable
 abstract class BookTagsEvent extends Equatable {}
 
 final class TagSelected extends BookTagsEvent {
-  TagSelected({required this.tag});
+  TagSelected(this.tag);
 
   final Tag tag;
 
@@ -13,7 +13,7 @@ final class TagSelected extends BookTagsEvent {
 }
 
 final class TagDeselected extends BookTagsEvent {
-  TagDeselected({required this.tag});
+  TagDeselected(this.tag);
 
   final Tag tag;
 

@@ -2,9 +2,8 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
-import '../../../../core/utils/extensions.dart';
+import '../../../../core/utils/extensions/books_context_ext.dart';
 import '../../domain/entities/local_book.dart';
-import '../bloc/books_bloc.dart';
 
 final class SwipeableCard extends StatelessWidget {
   const SwipeableCard({super.key, required this.child, required this.book});
@@ -36,10 +35,10 @@ final class SwipeableCard extends StatelessWidget {
   void _onSwiped(BuildContext context, SwipeDirection direction) {
     if (_swipingToRight(direction) && _canSwipeRight()) {
       _showSnackbarOnRightSwipe(context);
-      context.emitBooksEvt(BookSwipedRight(book));
+      context.bookSwipedRight(book);
     } else if (_swipingToLeft(direction) && _canSwipeLeft()) {
       _showSnackbarOnLeftSwipe(context);
-      context.emitBooksEvt(BookSwipedLeft(book));
+      context.bookSwipedLeft(book);
     }
   }
 

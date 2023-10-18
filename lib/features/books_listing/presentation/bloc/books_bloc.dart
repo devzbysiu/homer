@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
@@ -16,6 +17,7 @@ import '../../domain/usecases/list_books.dart';
 import '../../domain/usecases/update_book_state.dart';
 
 part 'books_event.dart';
+
 part 'books_state.dart';
 
 final class BooksBloc extends Bloc<BooksEvent, BooksState> {
@@ -25,7 +27,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     required this.updateBookState,
     required this.deleteBooks,
   }) : super(const Empty()) {
-    on<BooksListDisplayed>(_onBooksListDisplayed);
+    on<RefreshBooksList>(_onBooksListDisplayed);
     on<BookAdded>(_onBookAdded);
     on<BookSwipedRight>(_onBookSwipedRight);
     on<BookSwipedLeft>(_onBookSwipedLeft);
@@ -33,7 +35,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     on<RemoveFromDeleteList>(_onRemoveFromDeleteList);
     on<DeleteBooks>(_onDeleteBooks);
     on<ClearDeletionList>(_onClearDeletionList);
-    add(BooksListDisplayed());
+    add(RefreshBooksList());
   }
 
   final AddBook addBook;
@@ -45,7 +47,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   final DeletePickedBooks deleteBooks;
 
   Future<void> _onBooksListDisplayed(
-    BooksListDisplayed event,
+    RefreshBooksList event,
     Emitter<BooksState> emit,
   ) async {
     await _emitSavedBooks(emit);

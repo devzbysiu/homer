@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/utils/common.dart';
-import '../../../../core/utils/extensions.dart';
+import '../../../../core/utils/extensions/app_tab_context_ext.dart';
+import '../../../../core/utils/extensions/books_context_ext.dart';
 import '../../../../injection_container.dart';
 import '../../../books_listing/domain/entities/local_book.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
@@ -72,7 +73,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   void _handleIndexChanged(int i, BuildContext context) {
-    context.emitAppTabEvt(TabChanged(AppTab.values[i]));
+    context.changeTab(AppTab.values[i]);
   }
 
   void _closeSheetWhenBookSaved() {
@@ -122,6 +123,7 @@ final class _AddButton extends StatelessWidget {
 final class _DeleteButton extends StatelessWidget {
   const _DeleteButton({required this.booksToDelete});
 
+  // TODO: Do I need this?
   final List<LocalBook> booksToDelete;
 
   @override
@@ -130,7 +132,7 @@ final class _DeleteButton extends StatelessWidget {
       onPlay: (controller) => controller.repeat(),
       effects: const [ShakeEffect(hz: 2.5)],
       child: ElevatedButton(
-        onPressed: () => _deleteBooks(context, booksToDelete),
+        onPressed: () => context.deleteBooks(booksToDelete),
         style: ButtonStyle(
           backgroundColor: msp(Theme.of(context).colorScheme.error),
           shape: msp(const CircleBorder()),
@@ -142,9 +144,5 @@ final class _DeleteButton extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _deleteBooks(BuildContext context, List<LocalBook> booksToDelete) async {
-    context.emitBooksEvt(DeleteBooks(booksToDelete));
   }
 }

@@ -34,7 +34,7 @@ final class BookSwipedLeft extends BooksEvent {
   List<Object?> get props => [book];
 }
 
-final class BooksListDisplayed extends BooksEvent {
+final class RefreshBooksList extends BooksEvent {
   @override
   List<Object?> get props => [];
 }

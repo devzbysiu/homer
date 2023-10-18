@@ -1,4 +1,4 @@
-part of 'search_for_books_bloc.dart';
+part of 'book_search_bloc.dart';
 
 @immutable
 abstract class SearchForBooksState extends Equatable {

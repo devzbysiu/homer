@@ -3,8 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
-import '../../../../core/utils/extensions.dart';
-import '../bloc/books_bloc.dart';
+import '../../../../core/utils/extensions/books_context_ext.dart';
 import 'book_card.dart';
 
 final class BooksList extends StatelessWidget {
@@ -33,6 +32,6 @@ final class BooksList extends StatelessWidget {
   }
 
   void _disableDeleteMode(BuildContext context) {
-    context.emitBooksEvt(ClearDeletionList());
+    context.clearDeletionList();
   }
 }

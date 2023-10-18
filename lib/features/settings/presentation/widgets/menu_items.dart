@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:homer/features/books_listing/presentation/bloc/books_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
-import '../../../../core/utils/extensions.dart';
-import '../../../backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
+import '../../../../core/utils/extensions/backup_and_restore_context_ext.dart';
+import '../../../../core/utils/extensions/books_context_ext.dart';
 
 class MenuItems extends StatelessWidget {
   const MenuItems({super.key});
@@ -43,9 +42,7 @@ final class _BackupRestoreButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isRestoreInProgress = context.isRestoreInProgress();
-    if (!isRestoreInProgress) {
-      context.emitBooksEvt(BooksListDisplayed());
-    }
+    if (!isRestoreInProgress) context.refreshBooksList();
     return Row(
       children: [
         _SettingButton(
@@ -65,7 +62,7 @@ final class _BackupRestoreButton extends StatelessWidget {
   Future<void> _triggerBackupRestore(BuildContext context) async {
     final directory = await getApplicationDocumentsDirectory();
     final backupPath = '${directory.path}/backup.json';
-    if (context.mounted) context.emitRestoreEvt(RestoreTriggered(backupPath));
+    if (context.mounted) context.restoreBackup(backupPath);
     return Future.value();
   }
 }

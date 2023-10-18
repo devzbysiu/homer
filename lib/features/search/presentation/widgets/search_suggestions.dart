@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/extensions.dart';
+import '../../../../core/utils/extensions/book_search_context_ext.dart';
 import 'search_suggestion.dart';
 
 final class SearchSuggestions extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/extensions.dart';
+import '../../../../core/utils/extensions/book_search_context_ext.dart';
 import '../../../add_new_book/presentation/widgets/book_with_summary.dart';
 import '../../../add_new_book/presentation/widgets/save_buttons.dart';
 import '../../../add_new_book/presentation/widgets/tags.dart';
@@ -10,7 +10,7 @@ final class BottomSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pickedBook = context.pickedSuggestedBook();
+    final pickedBook = context.pickedBook();
     return pickedBook.fold(
       () => Container(),
       (book) => Padding(

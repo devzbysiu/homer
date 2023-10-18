@@ -1,4 +1,4 @@
-part of 'search_for_books_bloc.dart';
+part of 'book_search_bloc.dart';
 
 @immutable
 abstract class SearchForBooksEvent extends Equatable {}
@@ -21,7 +21,7 @@ final class SuggestedBookPicked extends SearchForBooksEvent {
   List<Object?> get props => [pickedBook];
 }
 
-final class NoBookPicked extends SearchForBooksEvent {
+final class ClearPickedBook extends SearchForBooksEvent {
   @override
   List<Object?> get props => [];
 }

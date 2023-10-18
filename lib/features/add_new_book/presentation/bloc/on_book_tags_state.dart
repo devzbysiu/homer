@@ -1,4 +1,4 @@
-part of 'book_tags_bloc.dart';
+part of 'on_book_tags_bloc.dart';
 
 abstract class BookTagsState extends Equatable {
   const BookTagsState({required this.selectedTags});

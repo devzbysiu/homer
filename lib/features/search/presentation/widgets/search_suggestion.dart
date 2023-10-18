@@ -2,10 +2,9 @@ import 'package:banner_listtile/banner_listtile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/extensions.dart';
+import '../../../../core/utils/extensions/book_search_context_ext.dart';
 import '../../../../core/utils/fallback_img.dart';
 import '../../domain/entities/remote_book.dart';
-import '../bloc/search_for_books_bloc.dart';
 
 final class SearchSuggestion extends StatelessWidget {
   const SearchSuggestion({super.key, required this.book});
@@ -22,7 +21,7 @@ final class SearchSuggestion extends StatelessWidget {
           bannerTextColor: Theme.of(context).colorScheme.background,
           bannerColor: Theme.of(context).primaryColor,
           bannerText: book.averageRating.toStringAsFixed(2),
-          onTap: () => _onTap(context),
+          onTap: () => context.pickSuggestedBook(book),
           backgroundColor: Theme.of(context).listTileTheme.tileColor,
           borderRadius: BorderRadius.circular(8),
           imageContainer: _ListTileThumbnail(book: book),
@@ -41,10 +40,6 @@ final class SearchSuggestion extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _onTap(BuildContext context) {
-    context.emitSearchForBooksEvt(SuggestedBookPicked(book));
   }
 }
 

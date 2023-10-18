@@ -2,18 +2,16 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 import '../../../tags_manager/domain/entities/tag.dart';
 
-part 'book_tags_event.dart';
+part 'on_book_tags_event.dart';
+part 'on_book_tags_state.dart';
 
-part 'book_tags_state.dart';
-
-final class BookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
-  BookTagsBloc() : super(const Empty()) {
+final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
+  OnBookTagsBloc() : super(const Empty()) {
     on<TagSelected>(_onTagSelected);
     on<TagDeselected>(_onTagDeselected);
     on<ClearSelectedTags>(_onClearTags);

@@ -6,14 +6,13 @@ import 'package:image_card/image_card.dart';
 import 'package:vibration/vibration.dart';
 
 import '../../../../core/utils/color_mapper.dart';
-import '../../../../core/utils/extensions.dart';
+import '../../../../core/utils/extensions/books_context_ext.dart';
 import '../../../../core/utils/fallback_img.dart';
 import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../domain/entities/local_book.dart';
-import '../bloc/books_bloc.dart';
 import 'swipeable_card.dart';
 
 final class BookCard extends StatelessWidget {
@@ -41,7 +40,7 @@ final class BookCard extends StatelessWidget {
   }
 
   void _switchToDeleteMode(BuildContext context) {
-    context.emitBooksEvt(AppendToDeleteList(book));
+    context.appendToDeleteList(book);
     Vibration.vibrate(duration: 100);
   }
 
@@ -51,10 +50,10 @@ final class BookCard extends StatelessWidget {
     }
     final selectedToDelete = booksToDelete.contains(book);
     if (selectedToDelete) {
-      context.emitBooksEvt(RemoveFromDeleteList(book));
+      context.removeFromDeleteList(book);
       return;
     }
-    context.emitBooksEvt(AppendToDeleteList(book));
+    context.appendToDeleteList(book);
   }
 }
 

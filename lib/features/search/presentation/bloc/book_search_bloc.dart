@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
@@ -12,19 +11,18 @@ import '../../domain/entities/remote_book.dart';
 import '../../domain/usecases/close_search_bar.dart';
 import '../../domain/usecases/search_for_books.dart';
 
-part 'search_for_books_event.dart';
+part 'book_search_event.dart';
+part 'book_search_state.dart';
 
-part 'search_for_books_state.dart';
-
-final class SearchForBooksBloc
+final class BookSearchBloc
     extends Bloc<SearchForBooksEvent, SearchForBooksState> {
-  SearchForBooksBloc({
+  BookSearchBloc({
     required this.searchForBooks,
     required this.closeSearchBar,
   }) : super(Empty()) {
     on<SearchInitiated>(_onSearchInitiated);
     on<SuggestedBookPicked>(_onSuggestedBookPicked);
-    on<NoBookPicked>(_onClearPickedBook);
+    on<ClearPickedBook>(_onClearPickedBook);
   }
 
   final SearchForBooks searchForBooks;
@@ -58,7 +56,7 @@ final class SearchForBooksBloc
   }
 
   Future<void> _onClearPickedBook(
-    NoBookPicked event,
+    ClearPickedBook event,
     Emitter<SearchForBooksState> emit,
   ) async {
     emit(NoPickedBook());

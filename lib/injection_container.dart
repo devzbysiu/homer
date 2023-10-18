@@ -1,5 +1,6 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:homer/features/backup_and_restore/domain/usecases/purge_repo.dart';
 import 'package:homer/features/settings/presentation/bloc/settings_bloc.dart';
 
 import 'features/add_new_book/presentation/bloc/book_tags_bloc.dart';
@@ -54,6 +55,7 @@ Future<void> initDi() async {
     () => BackupAndRestoreBloc(
       loadFromLocalBackup: sl(),
       addAllBooks: sl(),
+      purgeRepo: sl(),
     ),
   );
   sl.registerFactory(() => SettingsBloc());
@@ -72,6 +74,7 @@ Future<void> initDi() async {
   // backup and restore
   sl.registerFactory(() => LoadFromLocalBackup(sl()));
   sl.registerFactory(() => AddAllBooks(sl()));
+  sl.registerFactory(() => PurgeRepo(sl()));
 
   // Repositories
   sl.registerLazySingleton<LocalBooksRepository>(

@@ -71,9 +71,4 @@ final class ClearDeletionList extends BooksEvent {
   List<Object?> get props => const [];
 }
 
-final class DrawerToggled extends BooksEvent {
-  @override
-  List<Object?> get props => const [];
-}
-
 final class BookSaved {}

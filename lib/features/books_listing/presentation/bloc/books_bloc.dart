@@ -33,9 +33,6 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     on<RemoveFromDeleteList>(_onRemoveFromDeleteList);
     on<DeleteBooks>(_onDeleteBooks);
     on<ClearDeletionList>(_onClearDeletionList);
-
-    on<DrawerToggled>(_onDrawerToggled);
-
     add(BooksListDisplayed());
   }
 
@@ -142,12 +139,5 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   ) async {
     _emitCleanDeletionList(emit);
     return Future.value();
-  }
-
-  Future<void> _onDrawerToggled(
-    DrawerToggled event,
-    Emitter<BooksState> emit,
-  ) async {
-    emit(DrawerToggledState(books: state.books, deleteList: state.deleteList));
   }
 }

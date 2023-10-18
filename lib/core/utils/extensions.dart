@@ -90,6 +90,12 @@ extension BlocExt on BuildContext {
   void toggleTheme() {
     read<SettingsBloc>().add(ThemeToggled());
   }
+
+  bool isRestoreInProgress() {
+    return select(
+      (BackupAndRestoreBloc bloc) => bloc.state.isRestoreInProgress,
+    );
+  }
 }
 
 List<LocalBook> _books(BooksBloc bloc) {

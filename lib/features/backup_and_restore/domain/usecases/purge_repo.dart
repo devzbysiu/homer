@@ -1,0 +1,16 @@
+import 'package:multiple_result/multiple_result.dart';
+
+import '../../../../core/error/failures.dart';
+import '../../../../core/usecase/usecase.dart';
+import '../../../books_listing/domain/repositories/local_books_repository.dart';
+
+final class PurgeRepo extends UseCase<Unit, NoParams> {
+  PurgeRepo(this.booksRepo);
+
+  final LocalBooksRepository booksRepo;
+
+  @override
+  Future<Result<Unit, Failure>> call(NoParams params) async {
+    return booksRepo.deleteAll();
+  }
+}

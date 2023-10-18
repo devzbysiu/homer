@@ -2,13 +2,10 @@ import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/utils/common.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../../injection_container.dart';
-import '../../../backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
 import '../../../books_listing/domain/entities/local_book.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
 import '../../../search/presentation/widgets/books_search_area.dart';
@@ -104,7 +101,6 @@ final class _AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: _toggleSheet,
-      onLongPress: () => _triggerBackupRestore(context), // TODO: remove this
       style: ButtonStyle(
         shape: msp(const CircleBorder()),
         padding: msp(const EdgeInsets.all(10)),
@@ -120,21 +116,6 @@ final class _AddButton extends StatelessWidget {
     sheetController.isOpened
         ? sheetController.closeSheet()
         : sheetController.openSheet();
-  }
-
-  // TODO: get rid of this
-  Future<void> _triggerBackupRestore(BuildContext context) async {
-    final prefs = await SharedPreferences.getInstance();
-    // if (prefs.getBool('books-restored') ?? false) {
-    //   return Future.value();
-    // }
-    final directory = await getApplicationDocumentsDirectory();
-    final backupPath = '${directory.path}/backup.json';
-    context.emitRestoreEvt(RestoreTriggered(backupPath));
-    await Future.delayed(const Duration(seconds: 1));
-    context.emitBooksEvt(BooksListDisplayed());
-    prefs.setBool('books-restored', true);
-    return Future.value();
   }
 }
 

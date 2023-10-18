@@ -2,12 +2,11 @@ import 'package:blur/blur.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:homer/core/utils/extensions/book_tags_context_ext.dart';
-import 'package:image_card/image_card.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 import 'package:vibration/vibration.dart';
 
 import '../../../../core/utils/color_mapper.dart';
+import '../../../../core/utils/extensions/book_tags_context_ext.dart';
 import '../../../../core/utils/extensions/books_context_ext.dart';
 import '../../../../core/utils/fallback_img.dart';
 import '../../../../core/widgets/book_authors.dart';
@@ -16,6 +15,7 @@ import '../../../../core/widgets/card_footer.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../domain/entities/local_book.dart';
 import 'swipeable_card.dart';
+import 'transparent_image_card.dart';
 
 final class BookCard extends StatelessWidget {
   const BookCard({super.key, required this.book});
@@ -104,6 +104,7 @@ final class _ImageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TransparentImageCard(
+      height: 250,
       imageProvider: _imageProvider() as ImageProvider<Object>,
       tags: [_AddTagTile(book: book), ..._tags()],
       endColor: Colors.black,
@@ -204,7 +205,7 @@ final class _AddTagTile extends StatelessWidget {
   }
 }
 
-extension GlobalPaintBounds on BuildContext {
+extension _GlobalPaintBounds on BuildContext {
   Rect? get globalPaintBounds {
     final renderObject = findRenderObject();
     final translation = renderObject?.getTransformTo(null).getTranslation();

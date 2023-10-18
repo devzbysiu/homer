@@ -56,5 +56,11 @@ TagColor _toTagColor(RestoredTagColor color) {
       return TagColor.orange;
     case RestoredTagColor.red:
       return TagColor.red;
+    case RestoredTagColor.yellow:
+      return TagColor.yellow;
+    case RestoredTagColor.grey:
+      return TagColor.grey;
+    case RestoredTagColor.purple:
+      return TagColor.purple;
   }
 }

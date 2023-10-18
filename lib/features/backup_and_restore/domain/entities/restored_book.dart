@@ -67,4 +67,14 @@ final class RestoredTag {
   final RestoredTagColor color;
 }
 
-enum RestoredTagColor { red, green, blue, black, brown, orange }
+enum RestoredTagColor {
+  red,
+  green,
+  blue,
+  black,
+  brown,
+  orange,
+  yellow,
+  grey,
+  purple,
+}

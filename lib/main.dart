@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
 import 'features/add_new_book/presentation/bloc/on_book_tags_bloc.dart';
@@ -50,10 +49,6 @@ Future<void> _initDbWithFakes() async {
 }
 
 Future<void> _prepareForBackup() async {
-  final prefs = await SharedPreferences.getInstance();
-  // if (prefs.getBool('books-restored') ?? false) {
-  //   return Future.value();
-  // }
   final booksRepo = sl<LocalBooksRepository>();
   await booksRepo.deleteAll();
   var content = await rootBundle.load('assets/backup.json');

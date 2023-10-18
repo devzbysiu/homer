@@ -33,7 +33,6 @@ dependencies:
   flutter_animate: ^4.2.0+1
   books_finder: ^4.4.0
   dartz: ^0.10.1
-  shared_preferences: ^2.2.2
   flex_color_scheme: ^7.3.1
   flutter_zoom_drawer: ^3.1.1
   day_night_switcher: ^0.2.0+1

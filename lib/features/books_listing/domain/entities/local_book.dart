@@ -47,7 +47,7 @@ final class LocalBook extends Equatable {
       thumbnailAddress: some(
           'https://covers.openlibrary.org/b/isbn/${someIsbns[faker.randomGenerator.integer(someIsbns.length)]}-M.jpg'),
       rating: faker.randomGenerator.decimal(scale: 10),
-      summary: faker.lorem.sentences(10).join(" "),
+      summary: faker.lorem.sentences(10).join(' '),
       tags: withTags
           ? {const Tag(name: 'type:technical', color: TagColor.orange)}
           : {},
@@ -163,6 +163,6 @@ extension StateChangeExt on LocalBookState {
 
 extension _StringExt on String {
   String capitalize() {
-    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+    return '${this[0].toUpperCase()}${substring(1).toLowerCase()}';
   }
 }

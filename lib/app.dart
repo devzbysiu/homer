@@ -25,7 +25,7 @@ final class Homer extends StatelessWidget {
         backgroundColor: Colors.white,
         splashScreenBody: Center(
           child: Lottie.asset(
-            "assets/splash-screen.json",
+            'assets/splash-screen.json',
             repeat: false,
           ),
         ),

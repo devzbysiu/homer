@@ -89,6 +89,9 @@ const _LocalTagDTOcolorEnumValueMap = {
   'black': 3,
   'brown': 4,
   'orange': 5,
+  'yellow': 6,
+  'grey': 7,
+  'purple': 8,
 };
 const _LocalTagDTOcolorValueEnumMap = {
   0: LocalTagColorDTO.red,
@@ -97,6 +100,9 @@ const _LocalTagDTOcolorValueEnumMap = {
   3: LocalTagColorDTO.black,
   4: LocalTagColorDTO.brown,
   5: LocalTagColorDTO.orange,
+  6: LocalTagColorDTO.yellow,
+  7: LocalTagColorDTO.grey,
+  8: LocalTagColorDTO.purple,
 };
 
 extension LocalTagDTOQueryFilter

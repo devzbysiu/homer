@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
@@ -17,14 +16,13 @@ import '../../domain/usecases/list_books.dart';
 import '../../domain/usecases/update_book_state.dart';
 
 part 'books_event.dart';
-
 part 'books_state.dart';
 
 final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   BooksBloc({
     required this.addBook,
     required this.listBooks,
-    required this.updateBookState,
+    required this.updateBook,
     required this.deleteBooks,
   }) : super(const Empty()) {
     on<RefreshBooksList>(_onBooksListDisplayed);
@@ -35,6 +33,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     on<RemoveFromDeleteList>(_onRemoveFromDeleteList);
     on<DeleteBooks>(_onDeleteBooks);
     on<ClearDeletionList>(_onClearDeletionList);
+    on<TagToggled>(_onTagToggled);
     add(RefreshBooksList());
   }
 
@@ -42,7 +41,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
 
   final ListBooks listBooks;
 
-  final UpdateBookState updateBookState;
+  final UpdateBook updateBook;
 
   final DeletePickedBooks deleteBooks;
 
@@ -78,7 +77,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     BookSwipedRight event,
     Emitter<BooksState> emit,
   ) async {
-    await updateBookState(UpdateParams(modified: event.book.moveRight()));
+    await updateBook(UpdateParams(modified: event.book.moveRight()));
     await _emitSavedBooks(emit);
     return Future.value();
   }
@@ -87,7 +86,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     BookSwipedLeft event,
     Emitter<BooksState> emit,
   ) async {
-    await updateBookState(UpdateParams(modified: event.book.moveLeft()));
+    await updateBook(UpdateParams(modified: event.book.moveLeft()));
     await _emitSavedBooks(emit);
     return Future.value();
   }
@@ -140,6 +139,25 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) async {
     _emitCleanDeletionList(emit);
+    return Future.value();
+  }
+
+  Future<void> _onTagToggled(
+    TagToggled event,
+    Emitter<BooksState> emit,
+  ) async {
+    final book = event.book;
+    final tags = Set.of(book.tags);
+    final toggledTag = event.tag;
+    if (!tags.remove(toggledTag)) {
+      // Tag was not removed so it wasn't in the set,
+      // which means we need to add it (because it's
+      // a toggle action)
+      tags.add(toggledTag);
+    }
+    final modifiedBook = book.copyWith(tags: tags);
+    await updateBook(UpdateParams(modified: modifiedBook));
+    await _emitSavedBooks(emit);
     return Future.value();
   }
 }

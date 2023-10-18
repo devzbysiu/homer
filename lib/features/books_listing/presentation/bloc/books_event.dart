@@ -1,7 +1,10 @@
 part of 'books_bloc.dart';
 
 @immutable
-abstract class BooksEvent extends Equatable {}
+abstract class BooksEvent extends Equatable {
+  @override
+  List<Object> get props => [];
+}
 
 final class BookAdded extends BooksEvent {
   BookAdded(this.book, this.bookState, this.selectedTags);
@@ -13,7 +16,7 @@ final class BookAdded extends BooksEvent {
   final Set<Tag> selectedTags;
 
   @override
-  List<Object?> get props => [book];
+  List<Object> get props => [book];
 }
 
 final class BookSwipedRight extends BooksEvent {
@@ -22,7 +25,7 @@ final class BookSwipedRight extends BooksEvent {
   final LocalBook book;
 
   @override
-  List<Object?> get props => [book];
+  List<Object> get props => [book];
 }
 
 final class BookSwipedLeft extends BooksEvent {
@@ -31,13 +34,10 @@ final class BookSwipedLeft extends BooksEvent {
   final LocalBook book;
 
   @override
-  List<Object?> get props => [book];
+  List<Object> get props => [book];
 }
 
-final class RefreshBooksList extends BooksEvent {
-  @override
-  List<Object?> get props => [];
-}
+final class RefreshBooksList extends BooksEvent {}
 
 final class AppendToDeleteList extends BooksEvent {
   AppendToDeleteList(this.book);
@@ -63,12 +63,17 @@ final class DeleteBooks extends BooksEvent {
   final List<LocalBook> books;
 
   @override
-  List<Object?> get props => [books];
+  List<Object> get props => [books];
 }
 
-final class ClearDeletionList extends BooksEvent {
-  @override
-  List<Object?> get props => const [];
+final class ClearDeletionList extends BooksEvent {}
+
+final class TagToggled extends BooksEvent {
+  TagToggled(this.book, this.tag);
+
+  final LocalBook book;
+
+  final Tag tag;
 }
 
 final class BookSaved {}

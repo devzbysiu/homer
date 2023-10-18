@@ -2,7 +2,9 @@ import 'package:blur/blur.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:homer/core/utils/extensions/book_tags_context_ext.dart';
 import 'package:image_card/image_card.dart';
+import 'package:pull_down_button/pull_down_button.dart';
 import 'package:vibration/vibration.dart';
 
 import '../../../../core/utils/color_mapper.dart';
@@ -103,7 +105,7 @@ final class _ImageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return TransparentImageCard(
       imageProvider: _imageProvider() as ImageProvider<Object>,
-      tags: _tags(),
+      tags: [_AddTagTile(book: book), ..._tags()],
       endColor: Colors.black,
       title: BookTitle(title: book.title),
       description: BookAuthors(authorNames: book.authors),
@@ -150,5 +152,67 @@ final class _Tag extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+final class _AddTagTile extends StatelessWidget {
+  const _AddTagTile({required this.book});
+
+  final LocalBook book;
+
+  @override
+  Widget build(BuildContext context) {
+    final tags = context.allTags();
+    return InkWell(
+      onTap: () async {
+        await showPullDownMenu(
+          context: context,
+          items: _listTags(tags, context),
+          position: context.globalPaintBounds!,
+        );
+      },
+      child: Container(
+        width: 60,
+        height: 20,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          color: Colors.black.withAlpha(50),
+        ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8,
+          vertical: 2,
+        ),
+        child: const Icon(
+          Icons.tag,
+          color: Colors.white,
+          size: 15,
+        ),
+      ),
+    );
+  }
+
+  List<PullDownMenuEntry> _listTags(List<Tag> tags, BuildContext context) {
+    return tags.map((tag) {
+      return PullDownMenuItem.selectable(
+        selected: book.tags.contains(tag),
+        onTap: () => context.toggleTag(book, tag),
+        title: tag.name,
+        icon: Icons.circle,
+        iconColor: toFlutterColor(tag.color),
+      );
+    }).toList();
+  }
+}
+
+extension GlobalPaintBounds on BuildContext {
+  Rect? get globalPaintBounds {
+    final renderObject = findRenderObject();
+    final translation = renderObject?.getTransformTo(null).getTranslation();
+    if (translation != null && renderObject?.paintBounds != null) {
+      final offset = Offset(translation.x, translation.y);
+      return renderObject!.paintBounds.shift(offset);
+    } else {
+      return null;
+    }
   }
 }

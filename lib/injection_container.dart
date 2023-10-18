@@ -38,7 +38,7 @@ Future<void> initDi() async {
     () => BooksBloc(
       addBook: sl(),
       listBooks: sl(),
-      updateBookState: sl(),
+      updateBook: sl(),
       deleteBooks: sl(),
     ),
   );
@@ -64,7 +64,7 @@ Future<void> initDi() async {
   // books
   sl.registerLazySingleton(() => ListBooks(sl()));
   sl.registerLazySingleton(() => AddBook(sl(), sl()));
-  sl.registerLazySingleton(() => UpdateBookState(sl()));
+  sl.registerLazySingleton(() => UpdateBook(sl()));
   sl.registerLazySingleton(() => DeletePickedBooks(sl()));
   // tags
   sl.registerLazySingleton(() => ListTags(sl()));

@@ -52,7 +52,7 @@ final class _BackupRestoreButton extends StatelessWidget {
         if (isRestoreInProgress)
           JumpingDotsProgressIndicator(
             fontSize: 30,
-            color: Theme.of(context).textTheme.bodyMedium!.color!,
+            color: Theme.of(context).textTheme.headlineMedium!.color!,
           ),
       ],
     );

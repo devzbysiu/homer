@@ -127,6 +127,7 @@ final class LocalBook extends Equatable {
         rating,
         summary,
         tags,
+        dateModified,
       ];
 }
 

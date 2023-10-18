@@ -20,6 +20,10 @@ extension BooksContextExt on BuildContext {
     _emitBooksEvt(BookAdded(book, state, tags));
   }
 
+  void toggleTag(LocalBook book, Tag tag) {
+    _emitBooksEvt(TagToggled(book, tag));
+  }
+
   void appendToDeleteList(LocalBook book) {
     _emitBooksEvt(AppendToDeleteList(book));
   }

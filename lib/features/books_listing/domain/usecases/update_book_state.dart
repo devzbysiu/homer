@@ -5,8 +5,8 @@ import '../../../../core/usecase/usecase.dart';
 import '../entities/local_book.dart';
 import '../repositories/local_books_repository.dart';
 
-final class UpdateBookState extends UseCase<Unit, UpdateParams> {
-  UpdateBookState(this.booksRepo);
+final class UpdateBook extends UseCase<Unit, UpdateParams> {
+  UpdateBook(this.booksRepo);
 
   final LocalBooksRepository booksRepo;
 

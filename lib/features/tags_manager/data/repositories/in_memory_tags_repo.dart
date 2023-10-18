@@ -10,8 +10,10 @@ final class InMemoryTagsRepo implements TagsRepository {
     const Tag(name: 'horror', color: TagColor.red),
     const Tag(name: 'non-fiction', color: TagColor.green),
     const Tag(name: 'geopolitics', color: TagColor.orange),
-    const Tag(name: 'mystery', color: TagColor.black),
+    const Tag(name: 'mystery', color: TagColor.purple),
     const Tag(name: 'apocalyptic', color: TagColor.blue),
+    const Tag(name: 'survival', color: TagColor.yellow),
+    const Tag(name: 'biography', color: TagColor.grey),
   ];
 
   @override

@@ -10,4 +10,14 @@ final class LocalTagDTO {
   late final LocalTagColorDTO color;
 }
 
-enum LocalTagColorDTO { red, green, blue, black, brown, orange }
+enum LocalTagColorDTO {
+  red,
+  green,
+  blue,
+  black,
+  brown,
+  orange,
+  yellow,
+  grey,
+  purple,
+}

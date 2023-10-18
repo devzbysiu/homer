@@ -16,5 +16,11 @@ Color toFlutterColor(TagColor color) {
       return Colors.orange;
     case TagColor.red:
       return Colors.red;
+    case TagColor.yellow:
+      return Colors.yellow;
+    case TagColor.grey:
+      return Colors.grey;
+    case TagColor.purple:
+      return Colors.purple;
   }
 }

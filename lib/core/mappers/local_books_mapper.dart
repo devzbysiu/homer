@@ -75,6 +75,12 @@ TagColor _toTagColor(LocalTagColorDTO color) {
       return TagColor.orange;
     case LocalTagColorDTO.red:
       return TagColor.red;
+    case LocalTagColorDTO.yellow:
+      return TagColor.yellow;
+    case LocalTagColorDTO.grey:
+      return TagColor.grey;
+    case LocalTagColorDTO.purple:
+      return TagColor.purple;
   }
 }
 
@@ -111,6 +117,12 @@ LocalTagColorDTO _toTagColorDTO(TagColor color) {
       return LocalTagColorDTO.orange;
     case TagColor.red:
       return LocalTagColorDTO.red;
+    case TagColor.yellow:
+      return LocalTagColorDTO.yellow;
+    case TagColor.grey:
+      return LocalTagColorDTO.grey;
+    case TagColor.purple:
+      return LocalTagColorDTO.purple;
   }
 }
 

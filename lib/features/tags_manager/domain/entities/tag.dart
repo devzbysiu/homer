@@ -11,4 +11,14 @@ final class Tag extends Equatable {
   List<Object> get props => [name, color];
 }
 
-enum TagColor { red, green, blue, black, brown, orange }
+enum TagColor {
+  red,
+  green,
+  blue,
+  black,
+  brown,
+  orange,
+  yellow,
+  grey,
+  purple,
+}

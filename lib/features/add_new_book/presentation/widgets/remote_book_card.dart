@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:image_card/image_card.dart';
 
 import '../../../../core/utils/fallback_img.dart';
 import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
+import '../../../books_listing/presentation/widgets/transparent_image_card.dart';
 import '../../../search/domain/entities/remote_book.dart';
 
 final class RemoteBookCard extends StatelessWidget {

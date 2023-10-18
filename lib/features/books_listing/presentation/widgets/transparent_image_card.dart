@@ -106,10 +106,6 @@ class TransparentImageCard extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: content,
-              ),
             ),
           ),
         ),

@@ -14,12 +14,9 @@ class MenuItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _SettingButton(
-          text: 'Backup',
-          onPressed: () {},
-        ),
+        const _BackupButton(),
         const SizedBox(height: 20),
-        const _BackupRestoreButton(),
+        const _RestoreButton(),
         const SizedBox(height: 20),
         _SettingButton(
           text: 'Stats',
@@ -36,8 +33,8 @@ class MenuItems extends StatelessWidget {
   }
 }
 
-final class _BackupRestoreButton extends StatelessWidget {
-  const _BackupRestoreButton();
+final class _RestoreButton extends StatelessWidget {
+  const _RestoreButton();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +44,7 @@ final class _BackupRestoreButton extends StatelessWidget {
       children: [
         _SettingButton(
           text: 'Restore',
-          onPressed: () async => await _triggerBackupRestore(context),
+          onPressed: () async => await _triggerRestore(context),
         ),
         if (isRestoreInProgress)
           JumpingDotsProgressIndicator(
@@ -59,7 +56,7 @@ final class _BackupRestoreButton extends StatelessWidget {
   }
 
   // TODO: Update to match reality
-  Future<void> _triggerBackupRestore(BuildContext context) async {
+  Future<void> _triggerRestore(BuildContext context) async {
     final directory = await getApplicationDocumentsDirectory();
     final backupPath = '${directory.path}/backup.json';
     if (context.mounted) context.restoreBackup(backupPath);
@@ -84,5 +81,35 @@ final class _SettingButton extends StatelessWidget {
         style: Theme.of(context).textTheme.headlineMedium,
       ),
     );
+  }
+}
+
+final class _BackupButton extends StatelessWidget {
+  const _BackupButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isBackupInProgress = context.isBackupInProgress();
+    if (!isBackupInProgress) context.refreshBooksList();
+    return Row(
+      children: [
+        _SettingButton(
+          text: 'Backup',
+          onPressed: () async => await _triggerBackup(context),
+        ),
+        if (isBackupInProgress)
+          JumpingDotsProgressIndicator(
+            fontSize: 30,
+            color: Theme.of(context).textTheme.headlineMedium!.color!,
+          ),
+      ],
+    );
+  }
+
+  Future<void> _triggerBackup(BuildContext context) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final backupPath = '${directory.path}/homer-backup.json';
+    if (context.mounted) context.createBackup(backupPath);
+    return Future.value();
   }
 }

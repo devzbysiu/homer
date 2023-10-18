@@ -8,6 +8,7 @@ import 'features/backup_and_restore/domain/repositories/backup_repository.dart';
 import 'features/backup_and_restore/domain/usecases/add_all_books.dart';
 import 'features/backup_and_restore/domain/usecases/purge_repo.dart';
 import 'features/backup_and_restore/domain/usecases/restore_from_local.dart';
+import 'features/backup_and_restore/domain/usecases/save_to_local.dart';
 import 'features/backup_and_restore/presentation/bloc/backup_bloc.dart';
 import 'features/books_listing/data/datasources/local_books_data_source.dart';
 import 'features/books_listing/data/repositories/local_books_repo.dart';
@@ -56,6 +57,7 @@ Future<void> initDi() async {
       loadFromLocalBackup: sl(),
       addAllBooks: sl(),
       purgeRepo: sl(),
+      saveToLocalBackup: sl(),
     ),
   );
   sl.registerFactory(() => SettingsBloc());
@@ -75,6 +77,7 @@ Future<void> initDi() async {
   sl.registerFactory(() => LoadFromLocalBackup(sl()));
   sl.registerFactory(() => AddAllBooks(sl()));
   sl.registerFactory(() => PurgeRepo(sl()));
+  sl.registerFactory(() => SaveToLocalBackup(sl(), sl()));
 
   // Repositories
   sl.registerLazySingleton<LocalBooksRepository>(

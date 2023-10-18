@@ -4,11 +4,14 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 
+import '../../../books_listing/data/models/local_book_dto.dart';
 import '../../domain/entities/restored_book.dart';
 import '../models/dante_backup_dto.dart';
 
 abstract class LocalBackupDataSource {
   Future<List<DanteBackupDTO>> loadAll(String path);
+
+  Future<Unit> saveAll(String path, List<LocalBookDTO> books);
 }
 
 final class DanteBackupDataSource implements LocalBackupDataSource {
@@ -21,6 +24,12 @@ final class DanteBackupDataSource implements LocalBackupDataSource {
     final restoredBookDTOs =
         jsonBooks.map((jsonBook) => DanteBackupDTO.fromJson(jsonBook)).toList();
     return Future.value(restoredBookDTOs);
+  }
+
+  @override
+  Future<Unit> saveAll(String path, List<LocalBookDTO> books) {
+    print('saving backup......');
+    return Future.value(unit);
   }
 }
 

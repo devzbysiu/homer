@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
 import 'features/add_new_book/presentation/bloc/on_book_tags_bloc.dart';
-import 'features/backup_and_restore/presentation/bloc/backup_and_restore_bloc.dart';
+import 'features/backup_and_restore/presentation/bloc/backup_bloc.dart';
 import 'features/books_listing/domain/entities/local_book.dart';
 import 'features/books_listing/domain/repositories/local_books_repository.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
@@ -33,7 +33,7 @@ void main() async {
       BlocProvider(create: (_) => sl<TagsBloc>()),
       BlocProvider(create: (_) => sl<BookSearchBloc>()),
       BlocProvider(create: (_) => sl<OnBookTagsBloc>()),
-      BlocProvider(create: (_) => sl<BackupAndRestoreBloc>()),
+      BlocProvider(create: (_) => sl<BackupBloc>()),
       BlocProvider(create: (_) => sl<SettingsBloc>()),
     ],
     child: const Homer(),

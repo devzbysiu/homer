@@ -9,12 +9,11 @@ import '../../domain/usecases/add_all_books.dart';
 import '../../domain/usecases/purge_repo.dart';
 import '../../domain/usecases/restore_from_local.dart';
 
-part 'backup_and_restore_event.dart';
-part 'backup_and_restore_state.dart';
+part 'backup_event.dart';
+part 'backup_state.dart';
 
-final class BackupAndRestoreBloc
-    extends Bloc<BackupAndRestoreEvent, BackupAndRestoreState> {
-  BackupAndRestoreBloc({
+final class BackupBloc extends Bloc<BackupEvent, BackupState> {
+  BackupBloc({
     required this.loadFromLocalBackup,
     required this.addAllBooks,
     required this.purgeRepo,
@@ -30,7 +29,7 @@ final class BackupAndRestoreBloc
 
   Future<void> _onRestoreTriggered(
     RestoreTriggered event,
-    Emitter<BackupAndRestoreState> emit,
+    Emitter<BackupState> emit,
   ) async {
     emit(const RestoreInProgress());
     final restoreResult = await loadFromLocalBackup(
@@ -49,7 +48,7 @@ final class BackupAndRestoreBloc
 
   Future<void> _addToBooksRepo(
     List<RestoredBook> restoredBooks,
-    Emitter<BackupAndRestoreState> emit,
+    Emitter<BackupState> emit,
   ) async {
     // just to show progress indicator
     await Future.delayed(const Duration(seconds: 3));

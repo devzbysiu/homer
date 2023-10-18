@@ -38,6 +38,8 @@ dependencies:
   day_night_switcher: ^0.2.0+1
   progress_indicators: ^1.0.0
   pull_down_button: ^0.9.3
+  another_flutter_splash_screen: ^1.2.0
+  lottie: ^2.6.0
 
 dev_dependencies:
   flutter_test:
@@ -53,3 +55,4 @@ flutter:
     - assets/book-cover-fallback.webp
     # TODO: Remove backup.json
     - assets/backup.json
+    - assets/splash-screen.json

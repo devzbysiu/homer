@@ -49,8 +49,6 @@ Future<void> _initDbWithFakes() async {
 }
 
 Future<void> _prepareForBackup() async {
-  final booksRepo = sl<LocalBooksRepository>();
-  await booksRepo.deleteAll();
   var content = await rootBundle.load('assets/backup.json');
   final directory = await getApplicationDocumentsDirectory();
   var file = File('${directory.path}/backup.json');

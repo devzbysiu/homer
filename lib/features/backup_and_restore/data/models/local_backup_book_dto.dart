@@ -1,6 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'local_backup_book_dto.g.dart';
+
+@JsonSerializable()
 final class LocalBackupBookDTO extends Equatable {
   const LocalBackupBookDTO({
     required this.title,
@@ -28,6 +32,7 @@ final class LocalBackupBookDTO extends Equatable {
 
   final String isbn;
 
+  @JsonKey(fromJson: _toThumbnailAddress, toJson: _thumbnailAddressToJson)
   final Option<String> thumbnailAddress;
 
   final double rating;
@@ -39,34 +44,10 @@ final class LocalBackupBookDTO extends Equatable {
   final DateTime dateModified;
 
   factory LocalBackupBookDTO.fromJson(Map<String, dynamic> json) {
-    return LocalBackupBookDTO(
-      title: json['title'],
-      subtitle: json['subtitle'],
-      authors: _toAuthors(json['authors']),
-      state: _toLocalBackupBookStateDTO(json['state']),
-      pageCount: json['pageCount'],
-      isbn: json['isbn'],
-      thumbnailAddress: _toThumbnailAddress(json['thumbnailAddress']),
-      rating: json['rating'],
-      summary: json['summary'],
-      tags: _toLocalBackupTagDTOs(json['tags']),
-      dateModified: DateTime.fromMicrosecondsSinceEpoch(json['dateModified']),
-    );
+    return _$LocalBackupBookDTOFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => {
-        'title': title,
-        'subtitle': subtitle,
-        'authors': authors,
-        'state': state.name.toString(),
-        'pageCount': pageCount,
-        'isbn': isbn,
-        'thumbnailAddress': thumbnailAddress.getOrElse(() => ''),
-        'rating': rating,
-        'summary': summary,
-        'tags': tags.map((tag) => tag.toJson()).toList(),
-        'dateModified': dateModified.microsecondsSinceEpoch,
-      };
+  Map<String, dynamic> toJson() => _$LocalBackupBookDTOToJson(this);
 
   @override
   List<Object?> get props => [
@@ -84,63 +65,17 @@ final class LocalBackupBookDTO extends Equatable {
       ];
 }
 
-List<String> _toAuthors(List<dynamic> json) {
-  return json.map((value) => value as String).toList();
-}
-
-LocalBackupBookStateDTO _toLocalBackupBookStateDTO(String stateStr) {
-  switch (stateStr) {
-    case 'readLater':
-      return LocalBackupBookStateDTO.readLater;
-    case 'reading':
-      return LocalBackupBookStateDTO.reading;
-    case 'read':
-      return LocalBackupBookStateDTO.read;
-    default:
-      throw Exception('Invalid state: $stateStr');
-  }
-}
-
 Option<String> _toThumbnailAddress(String thumbnail) {
   return thumbnail == '' ? none() : some(thumbnail);
 }
 
-Set<LocalBackupTagDTO> _toLocalBackupTagDTOs(List<dynamic> json) {
-  return json.map((jsonTag) {
-    return LocalBackupTagDTO(
-      name: jsonTag['name'],
-      color: _toLocalBackupTagColorDTO(jsonTag['color']),
-    );
-  }).toSet();
-}
-
-LocalBackupTagColorDTO _toLocalBackupTagColorDTO(String color) {
-  switch (color) {
-    case 'red':
-      return LocalBackupTagColorDTO.red;
-    case 'green':
-      return LocalBackupTagColorDTO.green;
-    case 'blue':
-      return LocalBackupTagColorDTO.blue;
-    case 'black':
-      return LocalBackupTagColorDTO.black;
-    case 'brown':
-      return LocalBackupTagColorDTO.brown;
-    case 'orange':
-      return LocalBackupTagColorDTO.orange;
-    case 'yellow':
-      return LocalBackupTagColorDTO.yellow;
-    case 'grey':
-      return LocalBackupTagColorDTO.grey;
-    case 'purple':
-      return LocalBackupTagColorDTO.purple;
-    default:
-      throw Exception('Invalid tag color: "$color"');
-  }
+String _thumbnailAddressToJson(Option<String> thumbnail) {
+  return thumbnail.getOrElse(() => '');
 }
 
 enum LocalBackupBookStateDTO { readLater, reading, read }
 
+@JsonSerializable()
 final class LocalBackupTagDTO {
   LocalBackupTagDTO({required this.name, required this.color});
 
@@ -148,10 +83,11 @@ final class LocalBackupTagDTO {
 
   final LocalBackupTagColorDTO color;
 
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'color': color.name.toString(),
-      };
+  factory LocalBackupTagDTO.fromJson(Map<String, dynamic> json) {
+    return _$LocalBackupTagDTOFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() => _$LocalBackupTagDTOToJson(this);
 }
 
 enum LocalBackupTagColorDTO {

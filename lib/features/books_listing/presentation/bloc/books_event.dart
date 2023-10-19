@@ -82,4 +82,12 @@ final class BooksFiltered extends BooksEvent {
   final String query;
 }
 
+final class ShowSummary extends BooksEvent {
+  ShowSummary(this.book);
+
+  final LocalBook book;
+}
+
+final class SummaryModeDisabled extends BooksEvent {}
+
 final class BookSaved {}

@@ -5,14 +5,17 @@ abstract class BooksState extends Equatable {
   const BooksState({
     required this.books,
     required this.deleteList,
+    this.bookInSummaryMode = const None(),
   });
 
   final List<LocalBook> books;
 
   final List<LocalBook> deleteList;
 
+  final Option<LocalBook> bookInSummaryMode;
+
   @override
-  List<Object> get props => [books, deleteList];
+  List<Object> get props => [books, deleteList, bookInSummaryMode];
 }
 
 final class Empty extends BooksState {
@@ -29,4 +32,12 @@ final class FailedToLoadBooks extends BooksState {
 
 final class DeletionList extends BooksState {
   const DeletionList({required super.deleteList, required super.books});
+}
+
+final class BookInSummaryMode extends BooksState {
+  const BookInSummaryMode({
+    required super.deleteList,
+    required super.books,
+    required super.bookInSummaryMode,
+  });
 }

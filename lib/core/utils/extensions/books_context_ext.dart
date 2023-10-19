@@ -60,6 +60,23 @@ extension BooksContextExt on BuildContext {
     _emitBooksEvt(BooksFiltered(query));
   }
 
+  bool isInSummaryMode(LocalBook book) {
+    return select((BooksBloc bloc) {
+      return bloc.state.bookInSummaryMode.fold(
+        () => false,
+        (bookInSummaryMode) => bookInSummaryMode == book,
+      );
+    });
+  }
+
+  void disableSummaryMode() {
+    _emitBooksEvt(SummaryModeDisabled());
+  }
+
+  void showSummary(LocalBook book) {
+    _emitBooksEvt(ShowSummary(book));
+  }
+
   void _emitBooksEvt(BooksEvent event) {
     read<BooksBloc>().add(event);
   }

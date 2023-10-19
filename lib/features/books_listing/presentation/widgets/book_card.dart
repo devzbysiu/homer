@@ -26,19 +26,34 @@ final class BookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final booksToDelete = context.booksToDelete();
     final isOnDeleteList = booksToDelete.contains(book);
+    final isInSummaryMode = context.isInSummaryMode(book);
     return GestureDetector(
       onLongPress: () => _switchToDeleteMode(context),
-      onTap: () => _toggleDeletion(booksToDelete, context),
-      child: booksToDelete.isNotEmpty
-          ? _DeletableCard(
-              book: book,
-              isOnDeleteList: isOnDeleteList,
-            )
-          : SwipeableCard(
-              book: book,
-              child: _ImageCard(book: book),
-            ),
+      onDoubleTap: () => context.showSummary(book),
+      onTap: () => _toggleModes(booksToDelete, context),
+      child: _bookCard(booksToDelete, isOnDeleteList, isInSummaryMode),
     );
+  }
+
+  Widget _bookCard(
+    List<LocalBook> booksToDelete,
+    bool isOnDeleteList,
+    bool isInSummaryMode,
+  ) {
+    if (booksToDelete.isNotEmpty) {
+      return _DeletableCard(
+        book: book,
+        isOnDeleteList: isOnDeleteList,
+      );
+    } else if (booksToDelete.isEmpty && !isInSummaryMode) {
+      return SwipeableCard(
+        book: book,
+        child: _ImageCard(book: book),
+      );
+    } else if (isInSummaryMode) {
+      return _SummaryCard(book: book);
+    }
+    throw Exception('Should not happen');
   }
 
   void _switchToDeleteMode(BuildContext context) {
@@ -46,7 +61,8 @@ final class BookCard extends StatelessWidget {
     Vibration.vibrate(duration: 100);
   }
 
-  void _toggleDeletion(List<LocalBook> booksToDelete, BuildContext context) {
+  void _toggleModes(List<LocalBook> booksToDelete, BuildContext context) {
+    context.disableSummaryMode();
     if (booksToDelete.isEmpty) {
       return;
     }
@@ -89,6 +105,41 @@ final class _DeletableCard extends StatelessWidget {
                 : null,
           ),
           blurColor: Theme.of(context).colorScheme.error,
+          child: _ImageCard(book: book),
+        ),
+      ),
+    );
+  }
+}
+
+final class _SummaryCard extends StatelessWidget {
+  const _SummaryCard({required this.book});
+
+  final LocalBook book;
+
+  @override
+  Widget build(BuildContext context) {
+    return Animate(
+      effects: const [
+        FlipEffect(
+          direction: Axis.horizontal,
+        ),
+      ],
+      child: SwipeableCard(
+        book: book,
+        child: Blur(
+          colorOpacity: 1.0,
+          blur: 0.0,
+          overlay: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SingleChildScrollView(
+              child: Text(
+                book.summary ?? 'No summary.',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+          ),
+          blurColor: Theme.of(context).colorScheme.background,
           child: _ImageCard(book: book),
         ),
       ),

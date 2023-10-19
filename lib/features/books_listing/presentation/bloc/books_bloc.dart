@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +38,8 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     on<ClearDeletionList>(_onClearDeletionList);
     on<TagToggled>(_onTagToggled);
     on<BooksFiltered>(_onFilterBooks);
+    on<ShowSummary>(_onShowSummary);
+    on<SummaryModeDisabled>(_onSummaryModeDisabled);
     add(RefreshBooksList());
   }
 
@@ -182,5 +185,27 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       (success) => emit(BooksLoaded(books: success, deleteList: const [])),
       (error) => emit(const FailedToLoadBooks()),
     );
+  }
+
+  Future<void> _onShowSummary(
+    ShowSummary event,
+    Emitter<BooksState> emit,
+  ) async {
+    emit(BookInSummaryMode(
+      deleteList: state.deleteList,
+      books: state.books,
+      bookInSummaryMode: some(event.book),
+    ));
+  }
+
+  Future<void> _onSummaryModeDisabled(
+    SummaryModeDisabled event,
+    Emitter<BooksState> emit,
+  ) async {
+    emit(BookInSummaryMode(
+      deleteList: state.deleteList,
+      books: state.books,
+      bookInSummaryMode: none(),
+    ));
   }
 }

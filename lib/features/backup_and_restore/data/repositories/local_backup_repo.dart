@@ -1,7 +1,6 @@
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
-import '../../../../core/mappers/local_books_mapper.dart';
 import '../../../books_listing/domain/entities/local_book.dart';
 import '../../domain/entities/restored_book.dart';
 import '../../domain/repositories/backup_repository.dart';
@@ -14,8 +13,8 @@ final class LocalBackupRepo implements BackupRepository {
 
   @override
   Future<Result<List<RestoredBook>, Failure>> loadAll(String path) async {
-    final restoredBookDTOs = await localBackupDataSource.loadAll(path);
-    final restoredBooks = toRestoredBooks(restoredBookDTOs);
+    final localBackupBookDTO = await localBackupDataSource.loadAll(path);
+    final restoredBooks = toRestoredBooks(localBackupBookDTO);
     return Future.value(Success(restoredBooks));
   }
 
@@ -24,8 +23,8 @@ final class LocalBackupRepo implements BackupRepository {
     String path,
     List<LocalBook> books,
   ) async {
-    final localBookDTOs = toLocalBookDTOs(books);
-    await localBackupDataSource.saveAll(path, localBookDTOs);
+    final localBackupBookDTOs = toLocalBackupBookDTOs(books);
+    await localBackupDataSource.saveAll(path, localBackupBookDTOs);
     return Future.value(const Success(unit));
   }
 }

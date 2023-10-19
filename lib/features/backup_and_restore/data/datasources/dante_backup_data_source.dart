@@ -3,20 +3,24 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:homer/features/backup_and_restore/data/models/local_backup_book_dto.dart';
+import 'package:homer/features/tags_manager/domain/entities/tag.dart';
 
-import '../../../books_listing/data/models/local_book_dto.dart';
+import '../../../books_listing/domain/entities/local_book.dart';
 import '../../domain/entities/restored_book.dart';
 import '../models/dante_backup_dto.dart';
 
 abstract class LocalBackupDataSource {
-  Future<List<DanteBackupDTO>> loadAll(String path);
+  Future<List<DanteBackupDTO>> loadDanteAll(String path);
 
-  Future<Unit> saveAll(String path, List<LocalBookDTO> books);
+  Future<List<LocalBackupBookDTO>> loadAll(String path);
+
+  Future<Unit> saveAll(String path, List<LocalBackupBookDTO> books);
 }
 
 final class DanteBackupDataSource implements LocalBackupDataSource {
   @override
-  Future<List<DanteBackupDTO>> loadAll(String path) async {
+  Future<List<DanteBackupDTO>> loadDanteAll(String path) async {
     final backupFile = File(path);
     final backupContent = await backupFile.readAsString();
     final json = jsonDecode(backupContent);
@@ -27,14 +31,29 @@ final class DanteBackupDataSource implements LocalBackupDataSource {
   }
 
   @override
-  Future<Unit> saveAll(String path, List<LocalBookDTO> books) {
-    print('saving backup......');
+  Future<List<LocalBackupBookDTO>> loadAll(String path) async {
+    final backupFile = File(path);
+    final backupContent = await backupFile.readAsString();
+    final jsonBooks = jsonDecode(backupContent) as List;
+    final restoredBookDTOs = jsonBooks
+        .map((jsonBook) => LocalBackupBookDTO.fromJson(jsonBook))
+        .toList();
+    return Future.value(restoredBookDTOs);
+  }
+
+  @override
+  Future<Unit> saveAll(String path, List<LocalBackupBookDTO> books) async {
+    final jsonBooks = books.map((book) => book.toJson()).toList();
+    final backupContent = jsonEncode(jsonBooks);
+    final backupFile = File(path);
+    await backupFile.writeAsString(backupContent);
     return Future.value(unit);
   }
 }
 
-List<RestoredBook> toRestoredBooks(List<DanteBackupDTO> danteBackupDTOs) {
-  final restoredBooks = danteBackupDTOs.map(_toRestoredBook).toList();
+List<RestoredBook> fromDanteToRestoredBooks(
+    List<DanteBackupDTO> danteBackupDTOs) {
+  final restoredBooks = danteBackupDTOs.map(_fromDanteToRestoredBook).toList();
   for (var book in restoredBooks) {
     book.tags.removeWhere((tag) => tag.title.contains('size:'));
     if (book.tags.where((tag) => tag.title == 'type:technical').isNotEmpty) {
@@ -50,21 +69,22 @@ List<RestoredBook> toRestoredBooks(List<DanteBackupDTO> danteBackupDTOs) {
   return restoredBooks;
 }
 
-RestoredBook _toRestoredBook(DanteBackupDTO danteBackupDTO) => RestoredBook(
+RestoredBook _fromDanteToRestoredBook(DanteBackupDTO danteBackupDTO) =>
+    RestoredBook(
       title: danteBackupDTO.title,
       subtitle: danteBackupDTO.subTitle,
       authors: [danteBackupDTO.author],
-      state: _toRestoredBookState(danteBackupDTO.state),
+      state: _fromDanteToRestoredBookState(danteBackupDTO.state),
       pageCount: danteBackupDTO.pageCount,
       isbn: danteBackupDTO.isbn,
       thumbnailAddress: optionOf(danteBackupDTO.thumbnailAddress),
       rating: danteBackupDTO.rating,
       summary: danteBackupDTO.summary,
-      tags: _toRestoredBookTags(danteBackupDTO.labels),
+      tags: _fromDanteToRestoredBookTags(danteBackupDTO.labels),
       dateModified: _toDateTime(danteBackupDTO.endDate),
     );
 
-RestoredBookState _toRestoredBookState(RestoredBookStateDTO state) {
+RestoredBookState _fromDanteToRestoredBookState(RestoredBookStateDTO state) {
   switch (state) {
     case RestoredBookStateDTO.forLater:
       return RestoredBookState.readLater;
@@ -75,18 +95,18 @@ RestoredBookState _toRestoredBookState(RestoredBookStateDTO state) {
   }
 }
 
-Set<RestoredTag> _toRestoredBookTags(Set<LabelDTO> labels) {
+Set<RestoredTag> _fromDanteToRestoredBookTags(Set<LabelDTO> labels) {
   return labels.map(_toRestoredTag).toSet();
 }
 
 RestoredTag _toRestoredTag(LabelDTO label) {
   return RestoredTag(
     title: label.title,
-    color: _toRestoredTagColor(label.color),
+    color: _fromDanteToRestoredTagColor(label.color),
   );
 }
 
-RestoredTagColor _toRestoredTagColor(String color) {
+RestoredTagColor _fromDanteToRestoredTagColor(String color) {
   switch (color) {
     case '#ff4caf50':
       return RestoredTagColor.green;
@@ -105,4 +125,128 @@ DateTime _toDateTime(int endDate) {
   return endDate == 0
       ? DateTime.now()
       : DateTime.fromMicrosecondsSinceEpoch(endDate);
+}
+
+List<LocalBackupBookDTO> toLocalBackupBookDTOs(List<LocalBook> books) {
+  return books.map(_toLocalBackupBookDTO).toList();
+}
+
+LocalBackupBookDTO _toLocalBackupBookDTO(LocalBook book) {
+  return LocalBackupBookDTO(
+    title: book.title,
+    subtitle: book.subtitle,
+    authors: book.authors,
+    state: _toLocalBackupBookStateDTO(book.state),
+    pageCount: book.pageCount,
+    isbn: book.isbn,
+    thumbnailAddress: book.thumbnailAddress,
+    rating: book.rating,
+    summary: book.summary,
+    tags: _toLocalBackupTagDTOs(book.tags),
+    dateModified: book.dateModified,
+  );
+}
+
+LocalBackupBookStateDTO _toLocalBackupBookStateDTO(LocalBookState state) {
+  switch (state) {
+    case LocalBookState.readLater:
+      return LocalBackupBookStateDTO.readLater;
+    case LocalBookState.reading:
+      return LocalBackupBookStateDTO.reading;
+    case LocalBookState.read:
+      return LocalBackupBookStateDTO.read;
+  }
+}
+
+Set<LocalBackupTagDTO> _toLocalBackupTagDTOs(Set<Tag> tags) {
+  return tags.map((tag) {
+    return LocalBackupTagDTO(
+      name: tag.name,
+      color: _toLocalBackupTagColorDTO(tag.color),
+    );
+  }).toSet();
+}
+
+LocalBackupTagColorDTO _toLocalBackupTagColorDTO(TagColor color) {
+  switch (color) {
+    case TagColor.brown:
+      return LocalBackupTagColorDTO.brown;
+    case TagColor.black:
+      return LocalBackupTagColorDTO.black;
+    case TagColor.green:
+      return LocalBackupTagColorDTO.green;
+    case TagColor.blue:
+      return LocalBackupTagColorDTO.blue;
+    case TagColor.orange:
+      return LocalBackupTagColorDTO.orange;
+    case TagColor.red:
+      return LocalBackupTagColorDTO.red;
+    case TagColor.yellow:
+      return LocalBackupTagColorDTO.yellow;
+    case TagColor.grey:
+      return LocalBackupTagColorDTO.grey;
+    case TagColor.purple:
+      return LocalBackupTagColorDTO.purple;
+  }
+}
+
+List<RestoredBook> toRestoredBooks(List<LocalBackupBookDTO> books) {
+  return books.map(_toRestoredBook).toList();
+}
+
+RestoredBook _toRestoredBook(LocalBackupBookDTO book) => RestoredBook(
+      title: book.title,
+      subtitle: book.subtitle,
+      authors: book.authors,
+      state: _toRestoredBookState(book.state),
+      pageCount: book.pageCount,
+      isbn: book.isbn,
+      thumbnailAddress: book.thumbnailAddress,
+      rating: book.rating,
+      summary: book.summary,
+      tags: _toRestoredBookTags(book.tags),
+      dateModified: book.dateModified,
+    );
+
+RestoredBookState _toRestoredBookState(LocalBackupBookStateDTO state) {
+  switch (state) {
+    case LocalBackupBookStateDTO.readLater:
+      return RestoredBookState.readLater;
+    case LocalBackupBookStateDTO.reading:
+      return RestoredBookState.reading;
+    case LocalBackupBookStateDTO.read:
+      return RestoredBookState.read;
+  }
+}
+
+Set<RestoredTag> _toRestoredBookTags(Set<LocalBackupTagDTO> tags) {
+  return tags.map((tag) {
+    return RestoredTag(
+      title: tag.name,
+      color: _tRestoredTagColor(tag.color),
+    );
+  }).toSet();
+}
+
+RestoredTagColor _tRestoredTagColor(LocalBackupTagColorDTO color) {
+  switch (color) {
+    case LocalBackupTagColorDTO.brown:
+      return RestoredTagColor.brown;
+    case LocalBackupTagColorDTO.black:
+      return RestoredTagColor.black;
+    case LocalBackupTagColorDTO.green:
+      return RestoredTagColor.green;
+    case LocalBackupTagColorDTO.blue:
+      return RestoredTagColor.blue;
+    case LocalBackupTagColorDTO.orange:
+      return RestoredTagColor.orange;
+    case LocalBackupTagColorDTO.red:
+      return RestoredTagColor.red;
+    case LocalBackupTagColorDTO.yellow:
+      return RestoredTagColor.yellow;
+    case LocalBackupTagColorDTO.grey:
+      return RestoredTagColor.grey;
+    case LocalBackupTagColorDTO.purple:
+      return RestoredTagColor.purple;
+  }
 }

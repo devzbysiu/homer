@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 
 import 'features/add_new_book/presentation/bloc/on_book_tags_bloc.dart';
 import 'features/backup_and_restore/data/datasources/dante_backup_data_source.dart';
-import 'features/backup_and_restore/data/repositories/dante_backup_repo.dart';
+import 'features/backup_and_restore/data/repositories/local_backup_repo.dart';
 import 'features/backup_and_restore/domain/repositories/backup_repository.dart';
 import 'features/backup_and_restore/domain/usecases/add_all_books.dart';
 import 'features/backup_and_restore/domain/usecases/purge_repo.dart';

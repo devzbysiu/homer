@@ -56,6 +56,10 @@ extension BooksContextExt on BuildContext {
     return select((BooksBloc bloc) => bloc.state.deleteList);
   }
 
+  void filterBooks(String query) {
+    _emitBooksEvt(BooksFiltered(query));
+  }
+
   void _emitBooksEvt(BooksEvent event) {
     read<BooksBloc>().add(event);
   }

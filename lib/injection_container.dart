@@ -1,5 +1,6 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:homer/features/books_listing/domain/usecases/filter_books.dart';
 
 import 'features/add_new_book/presentation/bloc/on_book_tags_bloc.dart';
 import 'features/backup_and_restore/data/datasources/dante_backup_data_source.dart';
@@ -41,6 +42,7 @@ Future<void> initDi() async {
       listBooks: sl(),
       updateBook: sl(),
       deleteBooks: sl(),
+      filterBooks: sl(),
     ),
   );
   sl.registerFactory(() => AppTabBloc());
@@ -68,6 +70,7 @@ Future<void> initDi() async {
   sl.registerLazySingleton(() => AddBook(sl(), sl()));
   sl.registerLazySingleton(() => UpdateBook(sl()));
   sl.registerLazySingleton(() => DeletePickedBooks(sl()));
+  sl.registerLazySingleton(() => FilterBooks(sl()));
   // tags
   sl.registerLazySingleton(() => ListTags(sl()));
   // search

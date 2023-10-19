@@ -12,6 +12,7 @@ import '../../../tags_manager/domain/entities/tag.dart';
 import '../../domain/entities/local_book.dart';
 import '../../domain/usecases/add_book.dart';
 import '../../domain/usecases/delete_picked_books.dart';
+import '../../domain/usecases/filter_books.dart';
 import '../../domain/usecases/list_books.dart';
 import '../../domain/usecases/update_book_state.dart';
 
@@ -24,6 +25,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     required this.listBooks,
     required this.updateBook,
     required this.deleteBooks,
+    required this.filterBooks,
   }) : super(const Empty()) {
     on<RefreshBooksList>(_onBooksListDisplayed);
     on<BookAdded>(_onBookAdded);
@@ -34,6 +36,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     on<DeleteBooks>(_onDeleteBooks);
     on<ClearDeletionList>(_onClearDeletionList);
     on<TagToggled>(_onTagToggled);
+    on<BooksFiltered>(_onFilterBooks);
     add(RefreshBooksList());
   }
 
@@ -44,6 +47,8 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   final UpdateBook updateBook;
 
   final DeletePickedBooks deleteBooks;
+
+  final FilterBooks filterBooks;
 
   Future<void> _onBooksListDisplayed(
     RefreshBooksList event,
@@ -159,5 +164,23 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     await updateBook(UpdateParams(modified: modifiedBook));
     await _emitSavedBooks(emit);
     return Future.value();
+  }
+
+  Future<void> _onFilterBooks(
+    BooksFiltered event,
+    Emitter<BooksState> emit,
+  ) async {
+    await _emitFilteredBooks(emit, event.query);
+  }
+
+  Future<void> _emitFilteredBooks(
+    Emitter<BooksState> emit,
+    String query,
+  ) async {
+    final res = await filterBooks(FilterParams(query: query));
+    res.when(
+      (success) => emit(BooksLoaded(books: success, deleteList: const [])),
+      (error) => emit(const FailedToLoadBooks()),
+    );
   }
 }

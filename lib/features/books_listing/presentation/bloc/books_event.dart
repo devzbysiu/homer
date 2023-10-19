@@ -76,4 +76,10 @@ final class TagToggled extends BooksEvent {
   final Tag tag;
 }
 
+final class BooksFiltered extends BooksEvent {
+  BooksFiltered(this.query);
+
+  final String query;
+}
+
 final class BookSaved {}

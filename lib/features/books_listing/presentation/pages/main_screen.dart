@@ -1,6 +1,7 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:homer/core/utils/extensions/books_context_ext.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 import '../widgets/books_list.dart';
@@ -11,13 +12,14 @@ final class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingSearchBar(
+      onQueryChanged: (query) => context.filterBooks(query),
       leadingActions: [
         IconButton(
           onPressed: () => ZoomDrawer.of(context)!.open(),
           icon: const Icon(Icons.menu),
         ),
       ],
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Colors.transparent,
       hint: 'Filter...',
       body: IndexedStack(
         children: [
@@ -39,7 +41,7 @@ final class MainScreen extends StatelessWidget {
           )
         ],
       ),
-      builder: (_, __) => const Placeholder(),
+      builder: (_, __) => Container(),
     );
   }
 }

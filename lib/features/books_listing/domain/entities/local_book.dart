@@ -1,22 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:faker/faker.dart';
 
 import '../../../tags_manager/domain/entities/tag.dart';
-
-var faker = Faker();
-
-const someIsbns = [
-  '0062878948',
-  '0747532745',
-  '0545010225',
-  '0061703877',
-  '1740474619',
-  '0761156976',
-  '0142421332',
-  '0415263042',
-  '0679887008',
-];
 
 final class LocalBook extends Equatable {
   const LocalBook({
@@ -32,28 +17,6 @@ final class LocalBook extends Equatable {
     required this.tags,
     required this.dateModified,
   });
-
-  factory LocalBook.fake({bool withTags = true}) {
-    return LocalBook(
-      title: faker.lorem
-          .words(faker.randomGenerator.integer(8, min: 1))
-          .join(' ')
-          .capitalize(),
-      subtitle: faker.lorem.sentence(),
-      authors: ['${faker.person.firstName()} ${faker.person.lastName()}'],
-      state: LocalBookState.readLater,
-      pageCount: faker.randomGenerator.integer(1000),
-      isbn: faker.guid.guid(),
-      thumbnailAddress: some(
-          'https://covers.openlibrary.org/b/isbn/${someIsbns[faker.randomGenerator.integer(someIsbns.length)]}-M.jpg'),
-      rating: faker.randomGenerator.decimal(scale: 10),
-      summary: faker.lorem.sentences(10).join(' '),
-      tags: withTags
-          ? {const Tag(name: 'type:technical', color: TagColor.orange)}
-          : {},
-      dateModified: DateTime.now(),
-    );
-  }
 
   final String title;
 
@@ -158,11 +121,5 @@ extension StateChangeExt on LocalBookState {
       case LocalBookState.read:
         return LocalBookState.reading;
     }
-  }
-}
-
-extension _StringExt on String {
-  String capitalize() {
-    return '${this[0].toUpperCase()}${substring(1).toLowerCase()}';
   }
 }

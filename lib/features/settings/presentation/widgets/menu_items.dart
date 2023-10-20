@@ -85,7 +85,7 @@ final class _SettingButton extends StatelessWidget {
 }
 
 final class _BackupButton extends StatelessWidget {
-  const _BackupButton({super.key});
+  const _BackupButton();
 
   @override
   Widget build(BuildContext context) {

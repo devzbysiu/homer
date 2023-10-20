@@ -8,8 +8,6 @@ import 'package:path_provider/path_provider.dart';
 import 'app.dart';
 import 'features/add_new_book/presentation/bloc/on_book_tags_bloc.dart';
 import 'features/backup_and_restore/presentation/bloc/backup_bloc.dart';
-import 'features/books_listing/domain/entities/local_book.dart';
-import 'features/books_listing/domain/repositories/local_books_repository.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
 import 'features/search/presentation/bloc/book_search_bloc.dart';
@@ -23,7 +21,6 @@ void main() async {
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
   await initDi();
-  // await _initDbWithFakes(); // TODO: Remove this and line below
   await _prepareForBackup();
   runApp(MultiBlocProvider(
     providers: [
@@ -37,15 +34,6 @@ void main() async {
     ],
     child: const Homer(),
   ));
-}
-
-Future<void> _initDbWithFakes() async {
-  final booksRepo = sl<LocalBooksRepository>();
-  await booksRepo.deleteAll();
-  for (var i = 0; i < 16; i++) {
-    await booksRepo.add(LocalBook.fake());
-  }
-  return Future.value();
 }
 
 Future<void> _prepareForBackup() async {

@@ -19,7 +19,7 @@ final class MainScreen extends StatelessWidget {
           icon: const Icon(Icons.menu),
         ),
       ],
-      backgroundColor: Colors.transparent,
+      backgroundColor: Theme.of(context).colorScheme.background,
       hint: 'Filter...',
       body: IndexedStack(
         children: [

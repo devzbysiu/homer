@@ -12,6 +12,7 @@ final class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingSearchBar(
+      transitionDuration: const Duration(milliseconds: 0),
       clearQueryOnClose: false,
       onQueryChanged: (query) => context.filterBooks(query),
       leadingActions: [

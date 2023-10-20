@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../features/backup_and_restore/domain/entities/restored_book.dart';
-import '../../features/books_listing/domain/entities/local_book.dart';
+import '../../features/book/domain/entities/local_book.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';
 
 List<LocalBook> toLocalBooks(List<RestoredBook> restoredBooks) {

@@ -1,5 +1,6 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:homer/features/book/presentation/bloc/book_summary_bloc.dart';
 import 'package:homer/features/books_listing/domain/usecases/filter_books.dart';
 
 import 'features/add_new_book/presentation/bloc/on_book_tags_bloc.dart';
@@ -17,7 +18,7 @@ import 'features/books_listing/domain/repositories/local_books_repository.dart';
 import 'features/books_listing/domain/usecases/add_book.dart';
 import 'features/books_listing/domain/usecases/delete_picked_books.dart';
 import 'features/books_listing/domain/usecases/list_books.dart';
-import 'features/books_listing/domain/usecases/update_book_state.dart';
+import 'features/books_listing/domain/usecases/update_book.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
 import 'features/search/data/datasources/remote_books_data_source.dart';
@@ -36,6 +37,7 @@ final sl = GetIt.instance;
 
 Future<void> initDi() async {
   // Features
+  sl.registerFactory(() => BookSummaryBloc());
   sl.registerFactory(
     () => BooksBloc(
       addBook: sl(),

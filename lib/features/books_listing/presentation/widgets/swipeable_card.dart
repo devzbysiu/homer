@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
 import '../../../../core/utils/extensions/books_context_ext.dart';
-import '../../domain/entities/local_book.dart';
+import '../../../book/domain/entities/local_book.dart';
 
 final class SwipeableCard extends StatelessWidget {
   const SwipeableCard({super.key, required this.child, required this.book});

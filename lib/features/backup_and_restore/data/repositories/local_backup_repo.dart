@@ -1,7 +1,7 @@
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
-import '../../../books_listing/domain/entities/local_book.dart';
+import '../../../book/domain/entities/local_book.dart';
 import '../../domain/entities/restored_book.dart';
 import '../../domain/repositories/backup_repository.dart';
 import '../datasources/dante_backup_data_source.dart';

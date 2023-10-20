@@ -7,7 +7,7 @@ import '../../../../core/utils/common.dart';
 import '../../../../core/utils/extensions/app_tab_context_ext.dart';
 import '../../../../core/utils/extensions/books_context_ext.dart';
 import '../../../../injection_container.dart';
-import '../../../books_listing/domain/entities/local_book.dart';
+import '../../../book/domain/entities/local_book.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
 import '../../../search/presentation/widgets/books_search_area.dart';
 import '../../presentation/bloc/app_tab_bloc.dart';

@@ -4,10 +4,10 @@ import 'package:multiple_result/multiple_result.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/mappers/remote_books_mapper.dart';
 import '../../../../core/usecase/usecase.dart';
+import '../../../book/domain/entities/local_book.dart';
 import '../../../search/domain/entities/remote_book.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../presentation/bloc/books_bloc.dart';
-import '../entities/local_book.dart';
 import '../repositories/local_books_repository.dart';
 
 final class AddBook extends UseCase<Unit, AddParams> {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../features/books_listing/domain/entities/local_book.dart';
+import '../../../features/book/domain/entities/local_book.dart';
 import '../../../features/books_listing/presentation/bloc/books_bloc.dart';
 import '../../../features/search/domain/entities/remote_book.dart';
 import '../../../features/tags_manager/domain/entities/tag.dart';
@@ -18,10 +18,6 @@ extension BooksContextExt on BuildContext {
 
   void addBook(RemoteBook book, LocalBookState state, Set<Tag> tags) {
     _emitBooksEvt(BookAdded(book, state, tags));
-  }
-
-  void toggleTag(LocalBook book, Tag tag) {
-    _emitBooksEvt(TagToggled(book, tag));
   }
 
   void appendToDeleteList(LocalBook book) {
@@ -56,25 +52,12 @@ extension BooksContextExt on BuildContext {
     return select((BooksBloc bloc) => bloc.state.deleteList);
   }
 
+  void toggleTag(LocalBook book, Tag tag) {
+    _emitBooksEvt(TagToggled(book, tag));
+  }
+
   void filterBooks(String query) {
     _emitBooksEvt(BooksFiltered(query));
-  }
-
-  bool isInSummaryMode(LocalBook book) {
-    return select((BooksBloc bloc) {
-      return bloc.state.bookInSummaryMode.fold(
-        () => false,
-        (bookInSummaryMode) => bookInSummaryMode == book,
-      );
-    });
-  }
-
-  void disableSummaryMode() {
-    _emitBooksEvt(SummaryModeDisabled());
-  }
-
-  void showSummary(LocalBook book) {
-    _emitBooksEvt(ShowSummary(book));
   }
 
   void _emitBooksEvt(BooksEvent event) {

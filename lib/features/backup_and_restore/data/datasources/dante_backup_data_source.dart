@@ -6,7 +6,7 @@ import 'package:dartz/dartz.dart';
 import 'package:homer/features/backup_and_restore/data/models/local_backup_book_dto.dart';
 import 'package:homer/features/tags_manager/domain/entities/tag.dart';
 
-import '../../../books_listing/domain/entities/local_book.dart';
+import '../../../book/domain/entities/local_book.dart';
 import '../../domain/entities/restored_book.dart';
 import '../models/dante_backup_dto.dart';
 

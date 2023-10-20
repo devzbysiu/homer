@@ -53,6 +53,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
   BottomBarTheme _bottomBarTheme(BuildContext context) {
     return BottomBarTheme(
       heightOpened: 600,
+      heightClosed: 60,
       mainButtonPosition: MainButtonPosition.right,
       decoration: BoxDecoration(
         boxShadow: [

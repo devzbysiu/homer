@@ -112,6 +112,8 @@ final class _DeletableCard extends StatelessWidget {
   }
 }
 
+const noSummaryText = 'No summary.';
+
 final class _SummaryCard extends StatelessWidget {
   const _SummaryCard({required this.book});
 
@@ -134,7 +136,10 @@ final class _SummaryCard extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: SingleChildScrollView(
               child: Text(
-                book.summary ?? 'No summary.',
+                book.summary.fold(
+                  () => noSummaryText,
+                  (summary) => summary.isEmpty ? noSummaryText : summary,
+                ),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),

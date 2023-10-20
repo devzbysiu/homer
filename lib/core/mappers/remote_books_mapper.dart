@@ -36,7 +36,9 @@ LocalBook toLocalBook(
       isbn: remoteBook.isbn,
       thumbnailAddress: remoteBook.thumbnail.map((uri) => uri.toString()),
       rating: remoteBook.averageRating,
-      summary: remoteBook.description,
+      summary: remoteBook.description.isEmpty
+          ? none()
+          : some(remoteBook.description),
       tags: tags,
       dateModified: DateTime.now(),
     );

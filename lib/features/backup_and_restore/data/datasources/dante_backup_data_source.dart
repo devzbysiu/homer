@@ -141,7 +141,7 @@ LocalBackupBookDTO _toLocalBackupBookDTO(LocalBook book) {
     isbn: book.isbn,
     thumbnailAddress: book.thumbnailAddress,
     rating: book.rating,
-    summary: book.summary,
+    summary: book.summary.toNullable(),
     tags: _toLocalBackupTagDTOs(book.tags),
     dateModified: book.dateModified,
   );

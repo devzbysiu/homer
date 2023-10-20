@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+
 import '../../features/backup_and_restore/domain/entities/restored_book.dart';
 import '../../features/books_listing/domain/entities/local_book.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';
@@ -15,7 +17,7 @@ LocalBook _toLocalBook(RestoredBook restoredBook) => LocalBook(
       isbn: restoredBook.isbn,
       thumbnailAddress: restoredBook.thumbnailAddress,
       rating: restoredBook.rating,
-      summary: restoredBook.summary,
+      summary: optionOf(restoredBook.summary),
       tags: _toLocalBookTags(restoredBook.tags),
       dateModified: restoredBook.dateModified,
     );

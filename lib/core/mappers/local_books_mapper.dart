@@ -18,7 +18,7 @@ LocalBook _toLocalBook(LocalBookDTO bookDTO) => LocalBook(
       isbn: bookDTO.isbn,
       thumbnailAddress: optionOf(bookDTO.thumbnailAddress),
       rating: bookDTO.rating,
-      summary: bookDTO.summary,
+      summary: optionOf(bookDTO.summary),
       tags: _toBookTags(bookDTO.tags),
       dateModified: _toDateTime(bookDTO.dateModified),
     );
@@ -36,7 +36,7 @@ LocalBookDTO toLocalBookDTO(LocalBook book) => LocalBookDTO(
       isbn: book.isbn,
       thumbnailAddress: book.thumbnailAddress.toNullable(),
       rating: book.rating,
-      summary: book.summary,
+      summary: book.summary.toNullable(),
       tags: _toTagDTOs(book.tags),
       dateModified: book.dateModified.microsecondsSinceEpoch,
     );

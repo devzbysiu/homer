@@ -55,7 +55,6 @@ final class _RestoreButton extends StatelessWidget {
     );
   }
 
-  // TODO: Update to match reality
   Future<void> _triggerRestore(BuildContext context) async {
     final directory = await getApplicationDocumentsDirectory();
     final backupPath = '${directory.path}/homer-backup.json';

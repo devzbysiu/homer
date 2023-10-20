@@ -71,7 +71,6 @@ final class DanteBackupDTO extends Equatable {
 }
 
 Set<LabelDTO> _toLabelDTOs(List<dynamic> json) {
-  // TODO: remove 'size: XYZ' labels
   return json.map((labelJson) => LabelDTO.fromJson(labelJson)).toSet();
 }
 

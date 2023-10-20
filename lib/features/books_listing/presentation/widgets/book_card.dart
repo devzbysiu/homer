@@ -1,12 +1,12 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:homer/core/utils/extensions/book_context_ext.dart';
-import 'package:homer/core/utils/extensions/books_context_ext.dart';
-import 'package:homer/features/book/presentation/widgets/summary_card.dart';
 import 'package:vibration/vibration.dart';
 
-import '../../../book/domain/entities/local_book.dart';
+import '../../../../core/utils/extensions/book_context_ext.dart';
+import '../../../../core/utils/extensions/delete_books_context_ext.dart';
+import '../../../book_summary/domain/entities/local_book.dart';
+import '../../../book_summary/presentation/widgets/summary_card.dart';
 import 'book_cover.dart';
 import 'swipeable_card.dart';
 
@@ -42,8 +42,8 @@ final class BookCard extends StatelessWidget {
     if (booksToDelete.isEmpty) {
       return;
     }
-    final selectedToDelete = booksToDelete.contains(book);
-    if (selectedToDelete) {
+    final isSelectedToDelete = booksToDelete.contains(book);
+    if (isSelectedToDelete) {
       context.removeFromDeleteList(book);
       return;
     }

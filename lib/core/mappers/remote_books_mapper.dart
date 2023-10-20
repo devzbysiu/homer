@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../features/book/domain/entities/local_book.dart';
+import '../../features/book_summary/domain/entities/local_book.dart';
 import '../../features/search/data/models/remote_book_dto.dart';
 import '../../features/search/domain/entities/remote_book.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';

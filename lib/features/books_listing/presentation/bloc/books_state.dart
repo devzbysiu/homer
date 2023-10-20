@@ -2,31 +2,22 @@ part of 'books_bloc.dart';
 
 @immutable
 abstract class BooksState extends Equatable {
-  const BooksState({
-    required this.books,
-    required this.deleteList,
-  });
+  const BooksState({required this.books});
 
   final List<LocalBook> books;
 
-  final List<LocalBook> deleteList;
-
   @override
-  List<Object> get props => [books, deleteList];
+  List<Object> get props => [books];
 }
 
 final class Empty extends BooksState {
-  const Empty() : super(books: const [], deleteList: const []);
+  const Empty() : super(books: const []);
 }
 
 final class BooksLoaded extends BooksState {
-  const BooksLoaded({required super.books, required super.deleteList});
+  const BooksLoaded({required super.books});
 }
 
 final class FailedToLoadBooks extends BooksState {
-  const FailedToLoadBooks() : super(books: const [], deleteList: const []);
-}
-
-final class DeletionList extends BooksState {
-  const DeletionList({required super.deleteList, required super.books});
+  const FailedToLoadBooks() : super(books: const []);
 }

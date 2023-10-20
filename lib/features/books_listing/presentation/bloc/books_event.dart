@@ -39,35 +39,6 @@ final class BookSwipedLeft extends BooksEvent {
 
 final class RefreshBooksList extends BooksEvent {}
 
-final class AppendToDeleteList extends BooksEvent {
-  AppendToDeleteList(this.book);
-
-  final LocalBook book;
-
-  @override
-  List<Object> get props => [book];
-}
-
-final class RemoveFromDeleteList extends BooksEvent {
-  RemoveFromDeleteList(this.book);
-
-  final LocalBook book;
-
-  @override
-  List<Object> get props => [book];
-}
-
-final class DeleteBooks extends BooksEvent {
-  DeleteBooks(this.books);
-
-  final List<LocalBook> books;
-
-  @override
-  List<Object> get props => [books];
-}
-
-final class ClearDeletionList extends BooksEvent {}
-
 final class TagToggled extends BooksEvent {
   TagToggled(this.book, this.tag);
 

@@ -1,8 +1,8 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:homer/features/books_listing/presentation/widgets/book_cover.dart';
 
+import '../../../books_listing/presentation/widgets/book_cover.dart';
 import '../../../books_listing/presentation/widgets/swipeable_card.dart';
 import '../../domain/entities/local_book.dart';
 

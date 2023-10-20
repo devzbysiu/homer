@@ -1,7 +1,6 @@
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
-import 'package:homer/features/book/presentation/bloc/book_summary_bloc.dart';
-import 'package:homer/features/books_listing/domain/usecases/filter_books.dart';
+import 'package:homer/features/delete_book/presentation/bloc/delete_books_bloc.dart';
 
 import 'features/add_new_book/presentation/bloc/on_book_tags_bloc.dart';
 import 'features/backup_and_restore/data/datasources/dante_backup_data_source.dart';
@@ -12,11 +11,13 @@ import 'features/backup_and_restore/domain/usecases/purge_repo.dart';
 import 'features/backup_and_restore/domain/usecases/restore_from_local.dart';
 import 'features/backup_and_restore/domain/usecases/save_to_local.dart';
 import 'features/backup_and_restore/presentation/bloc/backup_bloc.dart';
+import 'features/book_summary/presentation/bloc/book_summary_bloc.dart';
 import 'features/books_listing/data/datasources/local_books_data_source.dart';
 import 'features/books_listing/data/repositories/local_books_repo.dart';
 import 'features/books_listing/domain/repositories/local_books_repository.dart';
 import 'features/books_listing/domain/usecases/add_book.dart';
 import 'features/books_listing/domain/usecases/delete_picked_books.dart';
+import 'features/books_listing/domain/usecases/filter_books.dart';
 import 'features/books_listing/domain/usecases/list_books.dart';
 import 'features/books_listing/domain/usecases/update_book.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
@@ -37,17 +38,17 @@ final sl = GetIt.instance;
 
 Future<void> initDi() async {
   // Features
+  sl.registerFactory(() => AppTabBloc());
   sl.registerFactory(() => BookSummaryBloc());
   sl.registerFactory(
     () => BooksBloc(
       addBook: sl(),
       listBooks: sl(),
       updateBook: sl(),
-      deleteBooks: sl(),
       filterBooks: sl(),
     ),
   );
-  sl.registerFactory(() => AppTabBloc());
+  sl.registerFactory(() => DeleteBooksBloc(deleteBooks: sl()));
   sl.registerFactory(() => TagsBloc(listTags: sl()));
   sl.registerFactory(
     () => BookSearchBloc(

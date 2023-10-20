@@ -9,7 +9,7 @@ import '../../../../core/utils/fallback_img.dart';
 import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
-import '../../../book/domain/entities/local_book.dart';
+import '../../../book_summary/domain/entities/local_book.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import 'transparent_image_card.dart';
 

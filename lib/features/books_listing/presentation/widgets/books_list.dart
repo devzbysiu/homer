@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 import '../../../../core/utils/extensions/books_context_ext.dart';
+import '../../../../core/utils/extensions/delete_books_context_ext.dart';
+import '../../../delete_book/presentation/bloc/delete_books_bloc.dart';
 import 'book_card.dart';
 
 final class BooksList extends StatelessWidget {
@@ -15,23 +18,24 @@ final class BooksList extends StatelessWidget {
     if (books.isEmpty) {
       return Container();
     }
-    return GestureDetector(
-      onTap: () => _disableDeleteMode(context),
-      child: FloatingSearchBarScrollNotifier(
-        child: AlignedGridView.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 2,
-          crossAxisSpacing: 2,
-          itemCount: books.length,
-          itemBuilder: (context, index) {
-            return BookCard(book: books[index]).animate().flip();
-          },
+    return BlocListener<DeleteBooksBloc, DeleteBooksState>(
+      listener: (context, state) {
+        if (state is BooksRemoved) context.refreshBooksList();
+      },
+      child: GestureDetector(
+        onTap: () => context.clearDeletionList(),
+        child: FloatingSearchBarScrollNotifier(
+          child: AlignedGridView.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: 2,
+            crossAxisSpacing: 2,
+            itemCount: books.length,
+            itemBuilder: (context, index) {
+              return BookCard(book: books[index]).animate().flip();
+            },
+          ),
         ),
       ),
     );
-  }
-
-  void _disableDeleteMode(BuildContext context) {
-    context.clearDeletionList();
   }
 }

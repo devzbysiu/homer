@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../features/book/domain/entities/local_book.dart';
+import '../../../features/book_summary/domain/entities/local_book.dart';
 import '../../../features/books_listing/presentation/bloc/books_bloc.dart';
 import '../../../features/search/domain/entities/remote_book.dart';
 import '../../../features/tags_manager/domain/entities/tag.dart';
@@ -20,18 +20,6 @@ extension BooksContextExt on BuildContext {
     _emitBooksEvt(BookAdded(book, state, tags));
   }
 
-  void appendToDeleteList(LocalBook book) {
-    _emitBooksEvt(AppendToDeleteList(book));
-  }
-
-  void removeFromDeleteList(LocalBook book) {
-    _emitBooksEvt(RemoveFromDeleteList(book));
-  }
-
-  void clearDeletionList() {
-    _emitBooksEvt(ClearDeletionList());
-  }
-
   void bookSwipedRight(LocalBook book) {
     _emitBooksEvt(BookSwipedRight(book));
   }
@@ -40,16 +28,8 @@ extension BooksContextExt on BuildContext {
     _emitBooksEvt(BookSwipedLeft(book));
   }
 
-  void deleteBooks(List<LocalBook> books) {
-    _emitBooksEvt(DeleteBooks(books));
-  }
-
   void refreshBooksList() {
     _emitBooksEvt(RefreshBooksList());
-  }
-
-  List<LocalBook> booksToDelete() {
-    return select((BooksBloc bloc) => bloc.state.deleteList);
   }
 
   void toggleTag(LocalBook book, Tag tag) {

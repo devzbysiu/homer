@@ -1,7 +1,7 @@
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
-import '../../../book/domain/entities/local_book.dart';
+import '../../../book_summary/domain/entities/local_book.dart';
 
 abstract class LocalBooksRepository {
   Future<Result<List<LocalBook>, Failure>> listAll();

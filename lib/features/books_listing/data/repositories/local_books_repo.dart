@@ -4,7 +4,7 @@ import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/mappers/local_books_mapper.dart';
-import '../../../book/domain/entities/local_book.dart';
+import '../../../book_summary/domain/entities/local_book.dart';
 import '../../domain/repositories/local_books_repository.dart';
 import '../datasources/local_books_data_source.dart';
 

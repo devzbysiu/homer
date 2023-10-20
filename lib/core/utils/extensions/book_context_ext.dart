@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../features/book/domain/entities/local_book.dart';
-import '../../../features/book/presentation/bloc/book_summary_bloc.dart';
+import '../../../features/book_summary/domain/entities/local_book.dart';
+import '../../../features/book_summary/presentation/bloc/book_summary_bloc.dart';
 
 extension BookContextExt on BuildContext {
   bool isInSummaryMode(LocalBook book) {

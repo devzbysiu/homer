@@ -1,9 +1,9 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:homer/core/utils/extensions/books_context_ext.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
+import '../../../../core/utils/extensions/books_context_ext.dart';
 import '../widgets/books_list.dart';
 
 final class MainScreen extends StatelessWidget {

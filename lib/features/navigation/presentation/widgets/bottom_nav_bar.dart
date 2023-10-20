@@ -29,6 +29,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
     _closeSheetWhenBookSaved();
     return BottomBarWithSheet(
       controller: _sheetController,
+      duration: const Duration(milliseconds: 200),
       mainActionButtonBuilder: _mainActionButton,
       bottomBarTheme: _bottomBarTheme(context),
       onSelectItem: (idx) => _handleIndexChanged(idx, context),

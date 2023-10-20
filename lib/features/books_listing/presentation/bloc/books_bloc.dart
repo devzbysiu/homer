@@ -25,12 +25,12 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     required this.updateBook,
     required this.filterBooks,
   }) : super(const Empty()) {
-    on<RefreshBooksList>(_onBooksListDisplayed);
+    on<RefreshBooksList>(_onRefreshBooksList);
     on<BookAdded>(_onBookAdded);
     on<BookSwipedRight>(_onBookSwipedRight);
     on<BookSwipedLeft>(_onBookSwipedLeft);
     on<TagToggled>(_onTagToggled);
-    on<BooksFiltered>(_onFilterBooks);
+    on<BooksFiltered>(_onBooksFiltered);
     add(RefreshBooksList());
   }
 
@@ -42,7 +42,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
 
   final FilterBooks filterBooks;
 
-  Future<void> _onBooksListDisplayed(
+  Future<void> _onRefreshBooksList(
     RefreshBooksList event,
     Emitter<BooksState> emit,
   ) async {
@@ -107,18 +107,11 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     return Future.value();
   }
 
-  Future<void> _onFilterBooks(
+  Future<void> _onBooksFiltered(
     BooksFiltered event,
     Emitter<BooksState> emit,
   ) async {
-    await _emitFilteredBooks(emit, event.query);
-  }
-
-  Future<void> _emitFilteredBooks(
-    Emitter<BooksState> emit,
-    String query,
-  ) async {
-    final res = await filterBooks(FilterParams(query: query));
+    final res = await filterBooks(FilterParams(query: event.query));
     res.when(
       (success) => emit(BooksLoaded(books: success)),
       (error) => emit(const FailedToLoadBooks()),

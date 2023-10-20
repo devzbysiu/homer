@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
@@ -30,9 +29,7 @@ final class BooksList extends StatelessWidget {
             mainAxisSpacing: 2,
             crossAxisSpacing: 2,
             itemCount: books.length,
-            itemBuilder: (context, index) {
-              return BookCard(book: books[index]).animate().flip();
-            },
+            itemBuilder: (context, index) => BookCard(book: books[index]),
           ),
         ),
       ),

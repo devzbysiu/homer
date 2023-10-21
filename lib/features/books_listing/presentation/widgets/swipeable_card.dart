@@ -16,11 +16,7 @@ final class SwipeableCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SwipeableTile.swipeToTriggerCard(
       color: Theme.of(context).cardColor,
-      shadow: BoxShadow(
-        color: Colors.black.withOpacity(0.35),
-        blurRadius: 4,
-        offset: const Offset(2, 2),
-      ),
+      shadow: const BoxShadow(),
       horizontalPadding: 10,
       verticalPadding: 10,
       borderRadius: 8,

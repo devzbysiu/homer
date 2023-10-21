@@ -26,8 +26,7 @@ final class BooksList extends StatelessWidget {
         child: FloatingSearchBarScrollNotifier(
           child: AlignedGridView.count(
             crossAxisCount: 2,
-            mainAxisSpacing: 2,
-            crossAxisSpacing: 2,
+            cacheExtent: 0,
             itemCount: books.length,
             itemBuilder: (context, index) => BookCard(book: books[index]),
           ),

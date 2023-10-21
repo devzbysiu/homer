@@ -109,18 +109,15 @@ class TransparentImageCard extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          child: Container(
-            width: width,
-            height: height,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadius),
-              color: Colors.transparent,
-            ),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: content,
-            ),
+        Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: content,
           ),
         ),
       ],

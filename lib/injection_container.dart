@@ -94,7 +94,7 @@ Future<void> initDi() async {
     () => RemoteBooksRepo(dataSource: sl()),
   );
   sl.registerLazySingleton<BackupRepository>(
-    () => LocalBackupRepo(localBackupDataSource: sl()),
+    () => LocalBackupRepo(dataSource: sl()),
   );
 
   // Data sources

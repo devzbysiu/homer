@@ -7,13 +7,13 @@ import '../../domain/repositories/backup_repository.dart';
 import '../datasources/dante_backup_data_source.dart';
 
 final class LocalBackupRepo implements BackupRepository {
-  LocalBackupRepo({required this.localBackupDataSource});
+  LocalBackupRepo({required this.dataSource});
 
-  final LocalBackupDataSource localBackupDataSource;
+  final LocalBackupDataSource dataSource;
 
   @override
   Future<Result<List<RestoredBook>, Failure>> loadAll(String path) async {
-    final localBackupBookDTO = await localBackupDataSource.loadDanteAll(path);
+    final localBackupBookDTO = await dataSource.loadDanteAll(path);
     final restoredBooks = fromDanteToRestoredBooks(localBackupBookDTO);
     return Future.value(Success(restoredBooks));
   }
@@ -24,7 +24,7 @@ final class LocalBackupRepo implements BackupRepository {
     List<LocalBook> books,
   ) async {
     final localBackupBookDTOs = toLocalBackupBookDTOs(books);
-    await localBackupDataSource.saveAll(path, localBackupBookDTOs);
+    await dataSource.saveAll(path, localBackupBookDTOs);
     return Future.value(const Success(unit));
   }
 }

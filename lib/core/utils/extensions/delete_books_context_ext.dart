@@ -17,8 +17,8 @@ extension BooksContextExt on BuildContext {
     _emitDeleteBooksEvt(ClearDeletionList());
   }
 
-  void deleteBooks(List<LocalBook> books) {
-    _emitDeleteBooksEvt(DeleteBooks(books));
+  void deletePickedBooks() {
+    _emitDeleteBooksEvt(DeletePickedBooks());
   }
 
   List<LocalBook> booksToDelete() {

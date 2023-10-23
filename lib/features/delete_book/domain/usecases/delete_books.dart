@@ -3,10 +3,10 @@ import 'package:multiple_result/multiple_result.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../book_summary/domain/entities/local_book.dart';
-import '../repositories/local_books_repository.dart';
+import '../../../books_listing/domain/repositories/local_books_repository.dart';
 
-final class DeletePickedBooks implements UseCase<Unit, DeleteParams> {
-  DeletePickedBooks(this.booksRepo);
+final class DeleteBooks implements UseCase<Unit, DeleteParams> {
+  DeleteBooks(this.booksRepo);
 
   final LocalBooksRepository booksRepo;
 

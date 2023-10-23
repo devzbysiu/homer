@@ -54,9 +54,7 @@ final class _BooksListState extends State<BooksList> {
 
   BlocListener _jumpToTopOnTabChange() {
     return BlocListener<AppTabBloc, AppTabState>(
-      listener: (_, state) {
-        if (state is AppTabState) _scrollController.jumpTo(0);
-      },
+      listener: (_, state) => _scrollController.jumpTo(0),
     );
   }
 

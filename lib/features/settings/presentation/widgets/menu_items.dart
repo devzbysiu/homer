@@ -57,7 +57,7 @@ final class _RestoreButton extends StatelessWidget {
 
   Future<void> _triggerRestore(BuildContext context) async {
     final directory = await getApplicationDocumentsDirectory();
-    final backupPath = '${directory.path}/backup.json';
+    final backupPath = '${directory.path}/homer-backup.json';
     if (context.mounted) context.restoreBackup(backupPath);
     return Future.value();
   }

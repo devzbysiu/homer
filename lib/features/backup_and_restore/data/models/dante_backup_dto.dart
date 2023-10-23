@@ -11,7 +11,6 @@ final class DanteBackupDTO extends Equatable {
       pageCount: json['pageCount'],
       isbn: json['isbn'],
       thumbnailAddress: json['thumbnailAddress'] ?? '',
-      // TODO: take care of rating so it matches your current model
       rating: (json['rating'] as num).toDouble(),
       summary: json['summary'] ?? '',
       labels: _toLabelDTOs(json['labels']),

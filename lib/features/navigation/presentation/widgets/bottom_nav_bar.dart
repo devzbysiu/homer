@@ -7,7 +7,6 @@ import '../../../../core/utils/common.dart';
 import '../../../../core/utils/extensions/app_tab_context_ext.dart';
 import '../../../../core/utils/extensions/delete_books_context_ext.dart';
 import '../../../../injection_container.dart';
-import '../../../book_summary/domain/entities/local_book.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
 import '../../../search/presentation/widgets/books_search_area.dart';
 import '../../presentation/bloc/app_tab_bloc.dart';
@@ -91,7 +90,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
     final booksToDelete = context.booksToDelete();
     return booksToDelete.isEmpty
         ? _AddButton(sheetController: _sheetController)
-        : _DeleteButton(booksToDelete: booksToDelete);
+        : const _DeleteButton();
   }
 }
 
@@ -123,10 +122,7 @@ final class _AddButton extends StatelessWidget {
 }
 
 final class _DeleteButton extends StatelessWidget {
-  const _DeleteButton({required this.booksToDelete});
-
-  // TODO: Do I need this?
-  final List<LocalBook> booksToDelete;
+  const _DeleteButton();
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +130,7 @@ final class _DeleteButton extends StatelessWidget {
       onPlay: (controller) => controller.repeat(),
       effects: const [ShakeEffect(hz: 2.5)],
       child: ElevatedButton(
-        onPressed: () => context.deleteBooks(booksToDelete),
+        onPressed: () => context.deletePickedBooks(),
         style: ButtonStyle(
           backgroundColor: msp(Theme.of(context).colorScheme.error),
           shape: msp(const CircleBorder()),

@@ -24,13 +24,11 @@ final class RemoveFromDeleteList extends DeleteBooksEvent {
   List<Object> get props => [book];
 }
 
-final class DeleteBooks extends DeleteBooksEvent {
-  DeleteBooks(this.books);
-
-  final List<LocalBook> books;
+final class DeletePickedBooks extends DeleteBooksEvent {
+  DeletePickedBooks();
 
   @override
-  List<Object> get props => [books];
+  List<Object> get props => [];
 }
 
 final class ClearDeletionList extends DeleteBooksEvent {}

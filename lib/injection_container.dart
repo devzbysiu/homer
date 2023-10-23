@@ -16,11 +16,11 @@ import 'features/books_listing/data/datasources/local_books_data_source.dart';
 import 'features/books_listing/data/repositories/local_books_repo.dart';
 import 'features/books_listing/domain/repositories/local_books_repository.dart';
 import 'features/books_listing/domain/usecases/add_book.dart';
-import 'features/books_listing/domain/usecases/delete_picked_books.dart';
 import 'features/books_listing/domain/usecases/filter_books.dart';
 import 'features/books_listing/domain/usecases/list_books.dart';
 import 'features/books_listing/domain/usecases/update_book.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
+import 'features/delete_book/domain/usecases/delete_books.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
 import 'features/search/data/datasources/remote_books_data_source.dart';
 import 'features/search/data/repositories/remote_books_repo.dart';
@@ -72,7 +72,7 @@ Future<void> initDi() async {
   sl.registerLazySingleton(() => ListBooks(sl()));
   sl.registerLazySingleton(() => AddBook(sl(), sl()));
   sl.registerLazySingleton(() => UpdateBook(sl()));
-  sl.registerLazySingleton(() => DeletePickedBooks(sl()));
+  sl.registerLazySingleton(() => DeleteBooks(sl()));
   sl.registerLazySingleton(() => FilterBooks(sl()));
   // tags
   sl.registerLazySingleton(() => ListTags(sl()));

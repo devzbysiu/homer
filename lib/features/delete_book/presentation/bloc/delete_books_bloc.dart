@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../book_summary/domain/entities/local_book.dart';
-import '../../../books_listing/domain/usecases/delete_picked_books.dart';
+import '../../domain/usecases/delete_books.dart';
 
 part 'delete_books_event.dart';
 part 'delete_books_state.dart';
@@ -16,11 +16,11 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
   DeleteBooksBloc({required this.deleteBooks}) : super(const Empty()) {
     on<AppendToDeleteList>(_onAppendToDeleteList);
     on<RemoveFromDeleteList>(_onRemoveFromDeleteList);
-    on<DeleteBooks>(_onDeleteBooks);
+    on<DeletePickedBooks>(_onDeleteBooks);
     on<ClearDeletionList>(_onClearDeletionList);
   }
 
-  final DeletePickedBooks deleteBooks;
+  final DeleteBooks deleteBooks;
 
   Future<void> _onAppendToDeleteList(
     AppendToDeleteList event,
@@ -47,10 +47,10 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
   }
 
   Future<void> _onDeleteBooks(
-    DeleteBooks event,
+    DeletePickedBooks event,
     Emitter<DeleteBooksState> emit,
   ) async {
-    await deleteBooks(DeleteParams(books: event.books));
+    await deleteBooks(DeleteParams(books: List.of(state.deletionList)));
     emit(const BooksRemoved());
     return Future.value();
   }

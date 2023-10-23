@@ -61,6 +61,7 @@ flutter:
   assets:
     - assets/book-thumbnail-fallback.png
     - assets/book-cover-fallback.webp
-    # TODO: Remove backup.json
-    - assets/backup.json
+    # TODO: Remove dante-backup.json
+    - assets/dante-backup.json
+    - assets/homer-backup.json
     - assets/splash-screen.json

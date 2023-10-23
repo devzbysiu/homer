@@ -33,8 +33,7 @@ final class RestoredBook extends Equatable {
 
   final double rating;
 
-  // TODO: Option here?
-  final String? summary;
+  final Option<String> summary;
 
   final Set<RestoredTag> tags;
 

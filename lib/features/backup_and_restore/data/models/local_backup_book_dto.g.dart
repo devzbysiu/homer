@@ -17,7 +17,7 @@ LocalBackupBookDTO _$LocalBackupBookDTOFromJson(Map<String, dynamic> json) =>
       isbn: json['isbn'] as String,
       thumbnailAddress: _toThumbnailAddress(json['thumbnailAddress'] as String),
       rating: (json['rating'] as num).toDouble(),
-      summary: json['summary'] as String?,
+      summary: _toSummary(json['summary'] as String),
       tags: (json['tags'] as List<dynamic>)
           .map((e) => LocalBackupTagDTO.fromJson(e as Map<String, dynamic>))
           .toSet(),
@@ -35,7 +35,7 @@ Map<String, dynamic> _$LocalBackupBookDTOToJson(LocalBackupBookDTO instance) =>
       'isbn': instance.isbn,
       'thumbnailAddress': _thumbnailAddressToJson(instance.thumbnailAddress),
       'rating': instance.rating,
-      'summary': instance.summary,
+      'summary': _summaryToJson(instance.summary),
       'tags': instance.tags.toList(),
       'startDate': _dateToJson(instance.startDate),
       'endDate': _dateToJson(instance.endDate),

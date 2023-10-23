@@ -39,8 +39,8 @@ final class LocalBackupBookDTO extends Equatable {
 
   final double rating;
 
-  // TODO: Option here?
-  final String? summary;
+  @JsonKey(fromJson: _toSummary, toJson: _summaryToJson)
+  final Option<String> summary;
 
   final Set<LocalBackupTagDTO> tags;
 
@@ -89,6 +89,14 @@ Option<DateTime> _toDate(int millisSinceEpoch) {
 
 int _dateToJson(Option<DateTime> date) {
   return date.millisSinceEpoch();
+}
+
+Option<String> _toSummary(String summary) {
+  return summary.isEmpty ? none() : some(summary);
+}
+
+String _summaryToJson(Option<String> summary) {
+  return summary.getOrElse(() => '');
 }
 
 enum LocalBackupBookStateDTO { readLater, reading, read }

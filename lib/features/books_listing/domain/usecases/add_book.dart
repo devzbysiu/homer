@@ -1,4 +1,3 @@
-import 'package:event_bus/event_bus.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
@@ -7,19 +6,15 @@ import '../../../../core/usecase/usecase.dart';
 import '../../../book_summary/domain/entities/local_book.dart';
 import '../../../search/domain/entities/remote_book.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
-import '../../presentation/bloc/books_bloc.dart';
 import '../repositories/local_books_repository.dart';
 
 final class AddBook extends UseCase<Unit, AddParams> {
-  AddBook(this.booksRepo, this.eventBus);
+  AddBook(this.booksRepo);
 
   final LocalBooksRepository booksRepo;
 
-  final EventBus eventBus;
-
   @override
   Future<Result<Unit, Failure>> call(AddParams params) async {
-    eventBus.fire(BookSaved());
     final book = toLocalBook(
       params.remoteBook,
       params.bookState,

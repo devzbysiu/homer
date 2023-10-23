@@ -1,4 +1,3 @@
-import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:homer/features/delete_book/presentation/bloc/delete_books_bloc.dart';
 
@@ -25,7 +24,6 @@ import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
 import 'features/search/data/datasources/remote_books_data_source.dart';
 import 'features/search/data/repositories/remote_books_repo.dart';
 import 'features/search/domain/repositories/remote_books_repository.dart';
-import 'features/search/domain/usecases/close_search_bar.dart';
 import 'features/search/domain/usecases/search_for_books.dart';
 import 'features/search/presentation/bloc/book_search_bloc.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
@@ -50,12 +48,7 @@ Future<void> initDi() async {
   );
   sl.registerFactory(() => DeleteBooksBloc(deleteBooks: sl()));
   sl.registerFactory(() => TagsBloc(listTags: sl()));
-  sl.registerFactory(
-    () => BookSearchBloc(
-      searchForBooks: sl(),
-      closeSearchBar: sl(),
-    ),
-  );
+  sl.registerFactory(() => BookSearchBloc(searchForBooks: sl()));
   sl.registerFactory(() => OnBookTagsBloc());
   sl.registerFactory(
     () => BackupBloc(
@@ -70,7 +63,7 @@ Future<void> initDi() async {
   // Use cases
   // books
   sl.registerLazySingleton(() => ListBooks(sl()));
-  sl.registerLazySingleton(() => AddBook(sl(), sl()));
+  sl.registerLazySingleton(() => AddBook(sl()));
   sl.registerLazySingleton(() => UpdateBook(sl()));
   sl.registerLazySingleton(() => DeleteBooks(sl()));
   sl.registerLazySingleton(() => FilterBooks(sl()));
@@ -78,7 +71,6 @@ Future<void> initDi() async {
   sl.registerLazySingleton(() => ListTags(sl()));
   // search
   sl.registerLazySingleton(() => SearchForBooks(sl()));
-  sl.registerLazySingleton(() => CloseSearchBar(sl()));
   // backup and restore
   sl.registerFactory(() => LoadFromLocalBackup(sl()));
   sl.registerFactory(() => AddAllBooks(sl()));
@@ -104,7 +96,4 @@ Future<void> initDi() async {
   sl.registerLazySingleton<LocalBackupDataSource>(() => BackupDataSource());
 
   // Core
-
-  // External
-  sl.registerSingleton(EventBus());
 }

@@ -30,7 +30,7 @@ extension BookSearchContextExt on BuildContext {
     return select((BookSearchBloc bloc) => bloc.state.foundBooks);
   }
 
-  void _emitSearchForBooksEvt(SearchForBooksEvent event) {
+  void _emitSearchForBooksEvt(BookSearchEvent event) {
     read<BookSearchBloc>().add(event);
   }
 }

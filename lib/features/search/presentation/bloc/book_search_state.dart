@@ -1,8 +1,8 @@
 part of 'book_search_bloc.dart';
 
 @immutable
-abstract class SearchForBooksState extends Equatable {
-  const SearchForBooksState({
+abstract class BookSearchState extends Equatable {
+  const BookSearchState({
     required this.foundBooks,
     this.pickedBook = const None(),
     required this.searchInProgress,
@@ -18,11 +18,11 @@ abstract class SearchForBooksState extends Equatable {
   List<Object?> get props => [foundBooks, pickedBook, searchInProgress];
 }
 
-final class Empty extends SearchForBooksState {
+final class Empty extends BookSearchState {
   Empty() : super(foundBooks: [], searchInProgress: false);
 }
 
-final class SearchInProgress extends SearchForBooksState {
+final class SearchInProgress extends BookSearchState {
   SearchInProgress({required super.pickedBook})
       : super(
           foundBooks: [],
@@ -30,14 +30,14 @@ final class SearchInProgress extends SearchForBooksState {
         );
 }
 
-final class FoundBooks extends SearchForBooksState {
+final class FoundBooks extends BookSearchState {
   const FoundBooks({
     required super.pickedBook,
     required super.foundBooks,
   }) : super(searchInProgress: false);
 }
 
-final class ClearFoundBooks extends SearchForBooksState {
+final class ClearFoundBooks extends BookSearchState {
   ClearFoundBooks({required super.pickedBook})
       : super(
           foundBooks: List.empty(),
@@ -45,19 +45,19 @@ final class ClearFoundBooks extends SearchForBooksState {
         );
 }
 
-final class FailedToSearchBooks extends SearchForBooksState {
+final class FailedToSearchBooks extends BookSearchState {
   FailedToSearchBooks() : super(foundBooks: [], searchInProgress: false);
 }
 
-final class BookPickedState extends SearchForBooksState {
-  const BookPickedState({super.pickedBook})
+final class BookPicked extends BookSearchState {
+  const BookPicked({super.pickedBook})
       : super(
           foundBooks: const [],
           searchInProgress: false,
         );
 }
 
-final class NoPickedBook extends SearchForBooksState {
+final class NoPickedBook extends BookSearchState {
   NoPickedBook()
       : super(
           foundBooks: [],

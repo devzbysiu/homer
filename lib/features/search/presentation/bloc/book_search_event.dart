@@ -1,9 +1,9 @@
 part of 'book_search_bloc.dart';
 
 @immutable
-abstract class SearchForBooksEvent extends Equatable {}
+abstract class BookSearchEvent extends Equatable {}
 
-final class SearchInitiated extends SearchForBooksEvent {
+final class SearchInitiated extends BookSearchEvent {
   SearchInitiated(this.query);
 
   final String query;
@@ -12,7 +12,7 @@ final class SearchInitiated extends SearchForBooksEvent {
   List<Object?> get props => [query];
 }
 
-final class SuggestedBookPicked extends SearchForBooksEvent {
+final class SuggestedBookPicked extends BookSearchEvent {
   SuggestedBookPicked(this.pickedBook);
 
   final RemoteBook pickedBook;
@@ -21,9 +21,7 @@ final class SuggestedBookPicked extends SearchForBooksEvent {
   List<Object?> get props => [pickedBook];
 }
 
-final class ClearPickedBook extends SearchForBooksEvent {
+final class ClearPickedBook extends BookSearchEvent {
   @override
   List<Object?> get props => [];
 }
-
-final class CloseSuggestions {}

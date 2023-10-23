@@ -47,6 +47,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) async {
     await _emitSavedBooks(emit);
+    return Future.value();
   }
 
   Future<void> _emitSavedBooks(Emitter<BooksState> emit) async {
@@ -55,6 +56,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       (success) => emit(BooksLoaded(books: success)),
       (error) => emit(const FailedToLoadBooks()),
     );
+    return Future.value();
   }
 
   Future<void> _onBookAdded(
@@ -116,5 +118,6 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       (success) => emit(BooksLoaded(books: success)),
       (error) => emit(const FailedToLoadBooks()),
     );
+    return Future.value();
   }
 }

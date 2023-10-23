@@ -41,7 +41,7 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
       RestoreParams(path: event.path),
     );
     final List<RestoredBook> restoredBooks = restoreResult.when(
-      (success) => success,
+      (books) => books,
       (error) {
         emit(FailedToRestoreBooks());
         return List.empty();

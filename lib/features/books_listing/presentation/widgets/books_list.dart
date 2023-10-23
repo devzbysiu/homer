@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:homer/features/navigation/presentation/bloc/app_tab_bloc.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 import '../../../../core/utils/extensions/books_context_ext.dart';
 import '../../../../core/utils/extensions/delete_books_context_ext.dart';
 import '../../../delete_book/presentation/bloc/delete_books_bloc.dart';
+import '../../../navigation/presentation/bloc/app_tab_bloc.dart';
 import 'book_card.dart';
 
 final class BooksList extends StatefulWidget {
@@ -26,12 +26,8 @@ final class _BooksListState extends State<BooksList> {
 
     return MultiBlocListener(
       listeners: [
-        BlocListener<DeleteBooksBloc, DeleteBooksState>(
-          listener: _refreshWhenBooksRemoved,
-        ),
-        BlocListener<AppTabBloc, AppTabState>(
-          listener: _jumpToTopOnTabChange,
-        )
+        _refreshWhenBooksRemoved(),
+        _jumpToTopOnTabChange(),
       ],
       child: GestureDetector(
         onTap: () => context.clearDeletionList(),
@@ -48,12 +44,20 @@ final class _BooksListState extends State<BooksList> {
     );
   }
 
-  void _refreshWhenBooksRemoved(context, state) {
-    if (state is BooksRemoved) context.refreshBooksList();
+  BlocListener _refreshWhenBooksRemoved() {
+    return BlocListener<DeleteBooksBloc, DeleteBooksState>(
+      listener: (_, state) {
+        if (state is BooksRemoved) context.refreshBooksList();
+      },
+    );
   }
 
-  void _jumpToTopOnTabChange(BuildContext _, AppTabState state) {
-    if (state is AppTabState) _scrollController.jumpTo(0);
+  BlocListener _jumpToTopOnTabChange() {
+    return BlocListener<AppTabBloc, AppTabState>(
+      listener: (_, state) {
+        if (state is AppTabState) _scrollController.jumpTo(0);
+      },
+    );
   }
 
   @override

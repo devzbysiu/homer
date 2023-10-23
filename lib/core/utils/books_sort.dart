@@ -1,0 +1,32 @@
+import '../../features/book_summary/domain/entities/local_book.dart';
+import 'extensions/date_option_ext.dart';
+
+List<LocalBook> sortByStateAndDate(List<LocalBook> books) {
+  final List<LocalBook> filteredAndSorted = books
+      .where((book) => book.state == LocalBookState.readLater)
+      .toList()
+      .reversed
+      .toList();
+
+  final List<LocalBook> readingBooks =
+      books.where((book) => book.state == LocalBookState.reading).toList();
+
+  final List<LocalBook> readBooks =
+      books.where((book) => book.state == LocalBookState.read).toList();
+
+  readingBooks.sort((a, b) {
+    final startDateB = b.startDate.millisSinceEpoch();
+    final startDateA = a.startDate.millisSinceEpoch();
+    return startDateB.compareTo(startDateA);
+  });
+
+  readBooks.sort((a, b) {
+    final endDateB = b.endDate.millisSinceEpoch();
+    final endDateA = a.endDate.millisSinceEpoch();
+    return endDateB.compareTo(endDateA);
+  });
+
+  filteredAndSorted.addAll(readingBooks);
+  filteredAndSorted.addAll(readBooks);
+  return filteredAndSorted;
+}

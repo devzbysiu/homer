@@ -15,7 +15,8 @@ final class LocalBook extends Equatable {
     required this.rating,
     required this.summary,
     required this.tags,
-    required this.dateModified,
+    required this.startDate,
+    required this.endDate,
   });
 
   final String title;
@@ -38,7 +39,9 @@ final class LocalBook extends Equatable {
 
   final Set<Tag> tags;
 
-  final DateTime dateModified;
+  final Option<DateTime> startDate;
+
+  final Option<DateTime> endDate;
 
   LocalBook copyWith({
     String? title,
@@ -48,12 +51,11 @@ final class LocalBook extends Equatable {
     int? pageCount,
     String? isbn,
     Option<String>? thumbnailAddress,
-    int? startDate,
-    int? endDate,
     double? rating,
     Option<String>? summary,
     Set<Tag>? tags,
-    DateTime? dateModified,
+    Option<DateTime>? startDate,
+    Option<DateTime>? endDate,
   }) {
     return LocalBook(
       title: title ?? this.title,
@@ -66,12 +68,21 @@ final class LocalBook extends Equatable {
       rating: rating ?? this.rating,
       summary: summary ?? this.summary,
       tags: tags ?? this.tags,
-      dateModified: dateModified ?? this.dateModified,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
     );
   }
 
   LocalBook moveRight() {
-    return copyWith(state: state.moveRight());
+    final newState = state.moveRight();
+    switch (newState) {
+      case LocalBookState.reading:
+        return copyWith(state: newState, startDate: some(DateTime.now()));
+      case LocalBookState.read:
+        return copyWith(state: newState, endDate: some(DateTime.now()));
+      default:
+        throw Exception('Should not happen');
+    }
   }
 
   LocalBook moveLeft() {
@@ -90,7 +101,8 @@ final class LocalBook extends Equatable {
         rating,
         summary,
         tags,
-        dateModified,
+        startDate,
+        endDate,
       ];
 }
 

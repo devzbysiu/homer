@@ -15,6 +15,7 @@ final class DanteBackupDTO extends Equatable {
       rating: (json['rating'] as num).toDouble(),
       summary: json['summary'] ?? '',
       labels: _toLabelDTOs(json['labels']),
+      startDate: json['startDate'] as int,
       endDate: json['endDate'] as int,
     );
   }
@@ -30,6 +31,7 @@ final class DanteBackupDTO extends Equatable {
     required this.rating,
     required this.summary,
     required this.labels,
+    required this.startDate,
     required this.endDate,
   });
 
@@ -54,6 +56,8 @@ final class DanteBackupDTO extends Equatable {
   final Set<LabelDTO> labels;
 
   final int endDate;
+
+  final int startDate;
 
   @override
   List<Object?> get props => [

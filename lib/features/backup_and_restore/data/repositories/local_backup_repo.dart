@@ -13,8 +13,8 @@ final class LocalBackupRepo implements BackupRepository {
 
   @override
   Future<Result<List<RestoredBook>, Failure>> loadAll(String path) async {
-    final localBackupBookDTO = await localBackupDataSource.loadAll(path);
-    final restoredBooks = toRestoredBooks(localBackupBookDTO);
+    final localBackupBookDTO = await localBackupDataSource.loadDanteAll(path);
+    final restoredBooks = fromDanteToRestoredBooks(localBackupBookDTO);
     return Future.value(Success(restoredBooks));
   }
 

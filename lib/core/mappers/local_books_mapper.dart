@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:homer/core/utils/extensions/date_option_ext.dart';
 
 import '../../features/book_summary/domain/entities/local_book.dart';
 import '../../features/books_listing/data/models/local_book_dto.dart';
@@ -20,11 +21,14 @@ LocalBook _toLocalBook(LocalBookDTO bookDTO) => LocalBook(
       rating: bookDTO.rating,
       summary: optionOf(bookDTO.summary),
       tags: _toBookTags(bookDTO.tags),
-      dateModified: _toDateTime(bookDTO.dateModified),
+      startDate: _toDateTime(bookDTO.startDate),
+      endDate: _toDateTime(bookDTO.endDate),
     );
 
-DateTime _toDateTime(int dateModified) {
-  return DateTime.fromMicrosecondsSinceEpoch(dateModified);
+Option<DateTime> _toDateTime(int? millisSinceEpoch) {
+  return millisSinceEpoch == null || millisSinceEpoch == 0
+      ? none()
+      : some(DateTime.fromMillisecondsSinceEpoch(millisSinceEpoch));
 }
 
 LocalBookDTO toLocalBookDTO(LocalBook book) => LocalBookDTO(
@@ -38,7 +42,8 @@ LocalBookDTO toLocalBookDTO(LocalBook book) => LocalBookDTO(
       rating: book.rating,
       summary: book.summary.toNullable(),
       tags: _toTagDTOs(book.tags),
-      dateModified: book.dateModified.microsecondsSinceEpoch,
+      startDate: book.startDate.nullableMillisSinceEpoch(),
+      endDate: book.endDate.nullableMillisSinceEpoch(),
     );
 
 LocalBookState _toBookState(LocalBookStateDTO state) {

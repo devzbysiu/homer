@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:homer/core/utils/extensions/date_option_ext.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'local_backup_book_dto.g.dart';
@@ -17,7 +18,8 @@ final class LocalBackupBookDTO extends Equatable {
     required this.rating,
     required this.summary,
     required this.tags,
-    required this.dateModified,
+    required this.startDate,
+    required this.endDate,
   });
 
   final String title;
@@ -37,11 +39,16 @@ final class LocalBackupBookDTO extends Equatable {
 
   final double rating;
 
+  // TODO: Option here?
   final String? summary;
 
   final Set<LocalBackupTagDTO> tags;
 
-  final DateTime dateModified;
+  @JsonKey(fromJson: _toDate, toJson: _dateToJson)
+  final Option<DateTime> startDate;
+
+  @JsonKey(fromJson: _toDate, toJson: _dateToJson)
+  final Option<DateTime> endDate;
 
   factory LocalBackupBookDTO.fromJson(Map<String, dynamic> json) {
     return _$LocalBackupBookDTOFromJson(json);
@@ -61,7 +68,8 @@ final class LocalBackupBookDTO extends Equatable {
         rating,
         summary,
         tags,
-        dateModified,
+        startDate,
+        endDate,
       ];
 }
 
@@ -71,6 +79,16 @@ Option<String> _toThumbnailAddress(String thumbnail) {
 
 String _thumbnailAddressToJson(Option<String> thumbnail) {
   return thumbnail.getOrElse(() => '');
+}
+
+Option<DateTime> _toDate(int millisSinceEpoch) {
+  return millisSinceEpoch == 0
+      ? none()
+      : some(DateTime.fromMillisecondsSinceEpoch(millisSinceEpoch));
+}
+
+int _dateToJson(Option<DateTime> date) {
+  return date.millisSinceEpoch();
 }
 
 enum LocalBackupBookStateDTO { readLater, reading, read }

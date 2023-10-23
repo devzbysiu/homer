@@ -21,7 +21,8 @@ LocalBackupBookDTO _$LocalBackupBookDTOFromJson(Map<String, dynamic> json) =>
       tags: (json['tags'] as List<dynamic>)
           .map((e) => LocalBackupTagDTO.fromJson(e as Map<String, dynamic>))
           .toSet(),
-      dateModified: DateTime.parse(json['dateModified'] as String),
+      startDate: _toDate(json['startDate'] as int),
+      endDate: _toDate(json['endDate'] as int),
     );
 
 Map<String, dynamic> _$LocalBackupBookDTOToJson(LocalBackupBookDTO instance) =>
@@ -36,7 +37,8 @@ Map<String, dynamic> _$LocalBackupBookDTOToJson(LocalBackupBookDTO instance) =>
       'rating': instance.rating,
       'summary': instance.summary,
       'tags': instance.tags.toList(),
-      'dateModified': instance.dateModified.toIso8601String(),
+      'startDate': _dateToJson(instance.startDate),
+      'endDate': _dateToJson(instance.endDate),
     };
 
 const _$LocalBackupBookStateDTOEnumMap = {

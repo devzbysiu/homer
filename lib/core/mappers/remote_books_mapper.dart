@@ -40,7 +40,8 @@ LocalBook toLocalBook(
           ? none()
           : some(remoteBook.description),
       tags: tags,
-      dateModified: DateTime.now(),
+      startDate: none(),
+      endDate: none(),
     );
 
 String _descriptionOrDefault(RemoteBookDTO remoteBookDTO) {

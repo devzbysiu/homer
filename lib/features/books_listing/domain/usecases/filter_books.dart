@@ -1,3 +1,4 @@
+import 'package:homer/core/utils/books_sort.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
@@ -20,11 +21,10 @@ final class FilterBooks extends UseCase<List<LocalBook>, FilterParams> {
   }
 
   List<LocalBook> _filter(List<LocalBook> books, String query) {
-    final filtered = books
+    final matchingBooks = books
         .where((book) => book.title.toLowerCase().contains(query.toLowerCase()))
         .toList();
-    filtered.sort((a, b) => b.dateModified.compareTo(a.dateModified));
-    return filtered;
+    return sortByStateAndDate(matchingBooks);
   }
 }
 

@@ -19,7 +19,8 @@ LocalBook _toLocalBook(RestoredBook restoredBook) => LocalBook(
       rating: restoredBook.rating,
       summary: optionOf(restoredBook.summary),
       tags: _toLocalBookTags(restoredBook.tags),
-      dateModified: restoredBook.dateModified,
+      startDate: restoredBook.startDate,
+      endDate: restoredBook.endDate,
     );
 
 LocalBookState _toLocalBookState(RestoredBookState state) {

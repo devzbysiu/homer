@@ -101,9 +101,7 @@ Future<void> initDi() async {
   final isarDataSource = await IsarLocalDataSource.create();
   sl.registerLazySingleton<LocalBooksDataSource>(() => isarDataSource);
   sl.registerLazySingleton<RemoteBooksDataSource>(() => GoogleBooks());
-  sl.registerLazySingleton<LocalBackupDataSource>(
-    () => DanteBackupDataSource(),
-  );
+  sl.registerLazySingleton<LocalBackupDataSource>(() => BackupDataSource());
 
   // Core
 

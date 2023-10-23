@@ -1,3 +1,4 @@
+import 'package:homer/core/utils/books_sort.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
@@ -14,13 +15,8 @@ final class ListBooks extends UseCase<List<LocalBook>, NoParams> {
   Future<Result<List<LocalBook>, Failure>> call(NoParams params) async {
     final listResult = await booksRepo.listAll();
     return listResult.when(
-      (books) => Success(_sort(books)),
+      (books) => Success(sortByStateAndDate(books)),
       (error) => Error(error),
     );
-  }
-
-  List<LocalBook> _sort(List<LocalBook> books) {
-    books.sort((a, b) => b.dateModified.compareTo(a.dateModified));
-    return books;
   }
 }

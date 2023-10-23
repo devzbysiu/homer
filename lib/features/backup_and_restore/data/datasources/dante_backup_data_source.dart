@@ -18,7 +18,7 @@ abstract class LocalBackupDataSource {
   Future<Unit> saveAll(String path, List<LocalBackupBookDTO> books);
 }
 
-final class DanteBackupDataSource implements LocalBackupDataSource {
+final class BackupDataSource implements LocalBackupDataSource {
   @override
   Future<List<DanteBackupDTO>> loadDanteAll(String path) async {
     final backupFile = File(path);
@@ -81,7 +81,8 @@ RestoredBook _fromDanteToRestoredBook(DanteBackupDTO danteBackupDTO) =>
       rating: danteBackupDTO.rating,
       summary: danteBackupDTO.summary,
       tags: _fromDanteToRestoredBookTags(danteBackupDTO.labels),
-      dateModified: _toDateTime(danteBackupDTO.endDate),
+      startDate: _toDateTime(danteBackupDTO.startDate),
+      endDate: _toDateTime(danteBackupDTO.endDate),
     );
 
 RestoredBookState _fromDanteToRestoredBookState(RestoredBookStateDTO state) {
@@ -121,10 +122,10 @@ RestoredTagColor _fromDanteToRestoredTagColor(String color) {
   }
 }
 
-DateTime _toDateTime(int endDate) {
-  return endDate == 0
-      ? DateTime.now()
-      : DateTime.fromMicrosecondsSinceEpoch(endDate);
+Option<DateTime> _toDateTime(int millisSinceEpoch) {
+  return millisSinceEpoch == 0
+      ? none()
+      : some(DateTime.fromMillisecondsSinceEpoch(millisSinceEpoch));
 }
 
 List<LocalBackupBookDTO> toLocalBackupBookDTOs(List<LocalBook> books) {
@@ -143,7 +144,8 @@ LocalBackupBookDTO _toLocalBackupBookDTO(LocalBook book) {
     rating: book.rating,
     summary: book.summary.toNullable(),
     tags: _toLocalBackupTagDTOs(book.tags),
-    dateModified: book.dateModified,
+    startDate: book.startDate,
+    endDate: book.endDate,
   );
 }
 
@@ -205,7 +207,8 @@ RestoredBook _toRestoredBook(LocalBackupBookDTO book) => RestoredBook(
       rating: book.rating,
       summary: book.summary,
       tags: _toRestoredBookTags(book.tags),
-      dateModified: book.dateModified,
+      startDate: book.startDate,
+      endDate: book.endDate,
     );
 
 RestoredBookState _toRestoredBookState(LocalBackupBookStateDTO state) {

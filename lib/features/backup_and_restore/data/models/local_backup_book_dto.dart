@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:homer/core/utils/extensions/date_option_ext.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../../core/utils/extensions/date_option_ext.dart';
 
 part 'local_backup_book_dto.g.dart';
 

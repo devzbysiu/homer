@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:homer/features/delete_book/presentation/bloc/delete_books_bloc.dart';
 
 import 'features/add_new_book/presentation/bloc/on_book_tags_bloc.dart';
 import 'features/backup_and_restore/data/datasources/dante_backup_data_source.dart';
@@ -20,6 +19,7 @@ import 'features/books_listing/domain/usecases/list_books.dart';
 import 'features/books_listing/domain/usecases/update_book.dart';
 import 'features/books_listing/presentation/bloc/books_bloc.dart';
 import 'features/delete_book/domain/usecases/delete_books.dart';
+import 'features/delete_book/presentation/bloc/delete_books_bloc.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
 import 'features/search/data/datasources/remote_books_data_source.dart';
 import 'features/search/data/repositories/remote_books_repo.dart';

@@ -54,7 +54,6 @@ final class IsarLocalDataSource implements LocalBooksDataSource {
   @override
   Future<Unit> update(LocalBookDTO book) async {
     await _isar.writeTxn(() async {
-      await _isar.localBookDTOs.filter().isbnEqualTo(book.isbn).deleteAll();
       await _isar.localBookDTOs.put(book);
     });
     return Future.value(unit);
@@ -63,10 +62,10 @@ final class IsarLocalDataSource implements LocalBooksDataSource {
   @override
   Future<Unit> delete(List<LocalBookDTO> bookDTOs) async {
     await _isar.writeTxn(() async {
-      final bookISBNs = bookDTOs.map((bookDTO) => bookDTO.isbn).toList();
+      final bookIDs = bookDTOs.map((bookDTO) => bookDTO.id).toList();
       await _isar.localBookDTOs
           .filter()
-          .anyOf(bookISBNs, (q, isbn) => q.isbnEqualTo(isbn))
+          .anyOf(bookIDs, (q, id) => q.idEqualTo(id))
           .deleteAll();
     });
     return Future.value(unit);

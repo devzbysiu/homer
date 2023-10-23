@@ -7,6 +7,7 @@ part 'local_book_dto.g.dart';
 @collection
 final class LocalBookDTO {
   LocalBookDTO({
+    this.id = Isar.autoIncrement,
     required this.title,
     required this.subtitle,
     required this.authors,
@@ -21,7 +22,7 @@ final class LocalBookDTO {
     required this.endDate,
   });
 
-  Id id = Isar.autoIncrement;
+  Id id;
 
   final String title;
 

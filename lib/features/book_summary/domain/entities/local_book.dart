@@ -5,6 +5,7 @@ import '../../../tags_manager/domain/entities/tag.dart';
 
 final class LocalBook extends Equatable {
   const LocalBook({
+    this.id,
     required this.title,
     required this.subtitle,
     required this.authors,
@@ -18,6 +19,8 @@ final class LocalBook extends Equatable {
     required this.startDate,
     required this.endDate,
   });
+
+  final int? id;
 
   final String title;
 
@@ -44,6 +47,7 @@ final class LocalBook extends Equatable {
   final Option<DateTime> endDate;
 
   LocalBook copyWith({
+    int? id,
     String? title,
     String? subtitle,
     List<String>? authors,
@@ -58,6 +62,7 @@ final class LocalBook extends Equatable {
     Option<DateTime>? endDate,
   }) {
     return LocalBook(
+      id: id ?? this.id,
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
       authors: authors ?? this.authors,

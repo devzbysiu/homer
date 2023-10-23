@@ -11,6 +11,7 @@ List<LocalBook> toLocalBooks(List<LocalBookDTO> bookModels) {
 }
 
 LocalBook _toLocalBook(LocalBookDTO bookDTO) => LocalBook(
+      id: bookDTO.id,
       title: bookDTO.title,
       subtitle: bookDTO.subtitle,
       authors: bookDTO.authors,
@@ -31,20 +32,39 @@ Option<DateTime> _toDateTime(int? millisSinceEpoch) {
       : some(DateTime.fromMillisecondsSinceEpoch(millisSinceEpoch));
 }
 
-LocalBookDTO toLocalBookDTO(LocalBook book) => LocalBookDTO(
-      title: book.title,
-      subtitle: book.subtitle,
-      authors: book.authors,
-      state: _toBookStateDTO(book.state),
-      pageCount: book.pageCount,
-      isbn: book.isbn,
-      thumbnailAddress: book.thumbnailAddress.toNullable(),
-      rating: book.rating,
-      summary: book.summary.toNullable(),
-      tags: _toTagDTOs(book.tags),
-      startDate: book.startDate.nullableMillisSinceEpoch(),
-      endDate: book.endDate.nullableMillisSinceEpoch(),
-    );
+LocalBookDTO toLocalBookDTO(LocalBook book) {
+  // TODO: Clean up this
+  return book.id != null
+      ? LocalBookDTO(
+          id: book.id!,
+          title: book.title,
+          subtitle: book.subtitle,
+          authors: book.authors,
+          state: _toBookStateDTO(book.state),
+          pageCount: book.pageCount,
+          isbn: book.isbn,
+          thumbnailAddress: book.thumbnailAddress.toNullable(),
+          rating: book.rating,
+          summary: book.summary.toNullable(),
+          tags: _toTagDTOs(book.tags),
+          startDate: book.startDate.nullableMillisSinceEpoch(),
+          endDate: book.endDate.nullableMillisSinceEpoch(),
+        )
+      : LocalBookDTO(
+          title: book.title,
+          subtitle: book.subtitle,
+          authors: book.authors,
+          state: _toBookStateDTO(book.state),
+          pageCount: book.pageCount,
+          isbn: book.isbn,
+          thumbnailAddress: book.thumbnailAddress.toNullable(),
+          rating: book.rating,
+          summary: book.summary.toNullable(),
+          tags: _toTagDTOs(book.tags),
+          startDate: book.startDate.nullableMillisSinceEpoch(),
+          endDate: book.endDate.nullableMillisSinceEpoch(),
+        );
+}
 
 LocalBookState _toBookState(LocalBookStateDTO state) {
   switch (state) {

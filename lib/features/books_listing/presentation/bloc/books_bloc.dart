@@ -53,7 +53,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   Future<void> _emitSavedBooks(Emitter<BooksState> emit) async {
     final res = await listBooks(NoParams());
     res.when(
-      (success) => emit(BooksLoaded(books: success)),
+      (books) => emit(BooksLoaded(books: books)),
       (error) => emit(const FailedToLoadBooks()),
     );
     return Future.value();

@@ -12,14 +12,6 @@ extension BackupContextExt on BuildContext {
     _emitRestoreEvt(BackupTriggered(backupPath));
   }
 
-  bool isRestoreInProgress() {
-    return select((BackupBloc bloc) => bloc.state.isRestoreInProgress);
-  }
-
-  bool isBackupInProgress() {
-    return select((BackupBloc bloc) => bloc.state.isBackupInProgress);
-  }
-
   void _emitRestoreEvt(BackupEvent event) {
     read<BackupBloc>().add(event);
   }

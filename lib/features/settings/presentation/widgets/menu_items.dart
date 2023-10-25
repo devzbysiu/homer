@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 import '../../../../core/utils/extensions/backup_and_restore_context_ext.dart';
 import '../../../../core/utils/extensions/books_context_ext.dart';
+import '../../../backup_and_restore/presentation/bloc/backup_bloc.dart';
 
 class MenuItems extends StatelessWidget {
   const MenuItems({super.key});
@@ -15,22 +17,24 @@ class MenuItems extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const _BackupButton(),
-        const SizedBox(height: 20),
+        spaceBetween(),
         const _RestoreButton(),
-        const SizedBox(height: 20),
+        spaceBetween(),
         _SettingButton(
           text: 'Stats',
           onPressed: () {},
         ),
-        const SizedBox(height: 20),
+        spaceBetween(),
         _SettingButton(
           text: 'Settings',
           onPressed: () {},
         ),
-        const SizedBox(height: 20),
+        spaceBetween(),
       ],
     );
   }
+
+  SizedBox spaceBetween() => const SizedBox(height: 20);
 }
 
 final class _RestoreButton extends StatelessWidget {
@@ -38,19 +42,24 @@ final class _RestoreButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isRestoreInProgress = context.isRestoreInProgress();
-    if (!isRestoreInProgress) context.refreshBooksList();
     return Row(
       children: [
         _SettingButton(
           text: 'Restore',
           onPressed: () async => await _triggerRestore(context),
         ),
-        if (isRestoreInProgress)
-          JumpingDotsProgressIndicator(
-            fontSize: 30,
-            color: Theme.of(context).textTheme.headlineMedium!.color!,
-          ),
+        BlocBuilder<BackupBloc, BackupState>(
+          builder: (context, state) {
+            if (!state.isRestoreInProgress) {
+              context.refreshBooksList();
+              return const SizedBox.shrink();
+            }
+            return JumpingDotsProgressIndicator(
+              fontSize: 30,
+              color: Theme.of(context).textTheme.headlineMedium!.color!,
+            );
+          },
+        ),
       ],
     );
   }
@@ -88,20 +97,24 @@ final class _BackupButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Should backupInProgress be Option<bool>?
-    final isBackupInProgress = context.isBackupInProgress();
-    if (!isBackupInProgress) context.refreshBooksList();
     return Row(
       children: [
         _SettingButton(
           text: 'Backup',
           onPressed: () async => await _triggerBackup(context),
         ),
-        if (isBackupInProgress)
-          JumpingDotsProgressIndicator(
-            fontSize: 30,
-            color: Theme.of(context).textTheme.headlineMedium!.color!,
-          ),
+        BlocBuilder<BackupBloc, BackupState>(
+          builder: (context, state) {
+            if (!state.isBackupInProgress) {
+              context.refreshBooksList();
+              return const SizedBox.shrink();
+            }
+            return JumpingDotsProgressIndicator(
+              fontSize: 30,
+              color: Theme.of(context).textTheme.headlineMedium!.color!,
+            );
+          },
+        ),
       ],
     );
   }

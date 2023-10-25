@@ -16,13 +16,15 @@ final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
   BookSummaryBloc() : super(Empty()) {
     on<ShowSummary>(_onShowSummary);
     on<SummaryModeDisabled>(_onSummaryModeDisabled);
+    on<SummaryModeToggled>(_onSummaryModeToggled);
   }
 
   Future<void> _onShowSummary(
     ShowSummary event,
     Emitter<BookSummaryState> emit,
   ) async {
-    emit(EnableSummaryMode(book: some(event.book)));
+    emit(EnableSummaryMode(bookInSummaryMode: some(event.book)));
+    return Future.value();
   }
 
   Future<void> _onSummaryModeDisabled(
@@ -30,5 +32,17 @@ final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
     Emitter<BookSummaryState> emit,
   ) async {
     emit(DisableSummaryMode());
+    return Future.value();
+  }
+
+  Future<void> _onSummaryModeToggled(
+    SummaryModeToggled event,
+    Emitter<BookSummaryState> emit,
+  ) async {
+    state.bookInSummaryMode.fold(
+      () => emit(EnableSummaryMode(bookInSummaryMode: some(event.book))),
+      (book) => emit(DisableSummaryMode()),
+    );
+    return Future.value();
   }
 }

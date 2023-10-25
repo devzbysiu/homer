@@ -5,17 +5,8 @@ import '../../../features/book_summary/domain/entities/local_book.dart';
 import '../../../features/books_listing/presentation/bloc/books_bloc.dart';
 import '../../../features/search/domain/entities/remote_book.dart';
 import '../../../features/tags_manager/domain/entities/tag.dart';
-import 'app_tab_context_ext.dart';
 
 extension BooksContextExt on BuildContext {
-  List<LocalBook> booksOfCurrentTab() {
-    return select(_books).where((b) => _belongsToCurrentTab(b)).toList();
-  }
-
-  bool _belongsToCurrentTab(LocalBook book) {
-    return book.state.name == currentTab().name;
-  }
-
   void addBook(RemoteBook book, LocalBookState state, Set<Tag> tags) {
     _emitBooksEvt(BookAdded(book, state, tags));
   }
@@ -43,8 +34,4 @@ extension BooksContextExt on BuildContext {
   void _emitBooksEvt(BooksEvent event) {
     read<BooksBloc>().add(event);
   }
-}
-
-List<LocalBook> _books(BooksBloc bloc) {
-  return bloc.state.books;
 }

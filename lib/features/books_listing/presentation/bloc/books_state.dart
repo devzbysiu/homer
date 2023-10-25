@@ -2,7 +2,7 @@ part of 'books_bloc.dart';
 
 @immutable
 abstract class BooksState extends Equatable {
-  const BooksState({required this.books});
+  const BooksState({this.books = const []});
 
   final List<LocalBook> books;
 
@@ -10,14 +10,10 @@ abstract class BooksState extends Equatable {
   List<Object> get props => [books];
 }
 
-final class Empty extends BooksState {
-  const Empty() : super(books: const []);
-}
+final class Empty extends BooksState {}
 
 final class BooksLoaded extends BooksState {
   const BooksLoaded({required super.books});
 }
 
-final class FailedToLoadBooks extends BooksState {
-  const FailedToLoadBooks() : super(books: const []);
-}
+final class FailedToLoadBooks extends BooksState {}

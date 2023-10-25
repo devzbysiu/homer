@@ -1,12 +1,15 @@
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vibration/vibration.dart';
 
-import '../../../../core/utils/extensions/book_context_ext.dart';
+import '../../../../core/utils/extensions/book_summary_context_ext.dart';
 import '../../../../core/utils/extensions/delete_books_context_ext.dart';
 import '../../../book_summary/domain/entities/local_book.dart';
+import '../../../book_summary/presentation/bloc/book_summary_bloc.dart';
 import '../../../book_summary/presentation/widgets/summary_card.dart';
+import '../../../delete_book/presentation/bloc/delete_books_bloc.dart';
 import 'book_cover.dart';
 import 'swipeable_card.dart';
 
@@ -18,13 +21,11 @@ final class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final booksToDelete = context.booksToDelete();
-    final isOnDeleteList = booksToDelete.contains(book);
-    final isInSummaryMode = context.isInSummaryMode(book);
     return GestureDetector(
       onLongPress: () => _switchToDeleteMode(context),
-      onDoubleTap: () => _toggleSummaryMode(isInSummaryMode, context),
+      onDoubleTap: () => context.toggleSummaryMode(book),
       onTap: () => _toggleModes(booksToDelete, context),
-      child: _bookCard(booksToDelete, isOnDeleteList, isInSummaryMode),
+      child: _bookCard(booksToDelete),
     );
   }
 
@@ -33,54 +34,37 @@ final class BookCard extends StatelessWidget {
     Vibration.vibrate(duration: 100);
   }
 
-  void _toggleSummaryMode(bool isInSummaryMode, BuildContext context) {
-    isInSummaryMode ? context.disableSummaryMode() : context.showSummary(book);
-  }
-
   void _toggleModes(List<LocalBook> booksToDelete, BuildContext context) {
     context.disableSummaryMode();
-    if (booksToDelete.isEmpty) {
-      return;
-    }
-    final isSelectedToDelete = booksToDelete.contains(book);
-    if (isSelectedToDelete) {
+    if (booksToDelete.isEmpty) return; // not in delete mode
+    if (booksToDelete.contains(book)) {
       context.removeFromDeleteList(book);
       return;
     }
     context.appendToDeleteList(book);
   }
 
-  Widget _bookCard(
-    List<LocalBook> booksToDelete,
-    bool isOnDeleteList,
-    bool isInSummaryMode,
-  ) {
-    if (booksToDelete.isNotEmpty) {
-      return _DeletableCard(
-        book: book,
-        isOnDeleteList: isOnDeleteList,
-      );
-    } else if (booksToDelete.isEmpty && !isInSummaryMode) {
-      return SwipeableCard(
-        book: book,
-        child: BookCover(book: book),
-      );
-    } else if (isInSummaryMode) {
-      return SummaryCard(book: book);
-    }
-    throw Exception('Should not happen');
+  Widget _bookCard(List<LocalBook> booksToDelete) {
+    if (booksToDelete.isNotEmpty) return _DeletableCard(book: book);
+    return BlocBuilder<BookSummaryBloc, BookSummaryState>(
+      builder: (context, state) {
+        final isInSummaryMode = state.bookInSummaryMode
+            .map((b) => book == b)
+            .getOrElse(() => false);
+        if (isInSummaryMode) return SummaryCard(book: book);
+        return SwipeableCard(
+          book: book,
+          child: BookCover(book: book),
+        );
+      },
+    );
   }
 }
 
 final class _DeletableCard extends StatelessWidget {
-  const _DeletableCard({
-    required this.book,
-    required this.isOnDeleteList,
-  });
+  const _DeletableCard({required this.book});
 
   final LocalBook book;
-
-  final bool isOnDeleteList;
 
   @override
   Widget build(BuildContext context) {
@@ -89,20 +73,25 @@ final class _DeletableCard extends StatelessWidget {
       effects: const [ShakeEffect(rotation: 0.01, hz: 2.5)],
       child: SwipeableCard(
         book: book,
-        child: Blur(
-          colorOpacity: isOnDeleteList ? 0.8 : 0.0,
-          blur: 0.0,
-          overlay: Center(
-            child: isOnDeleteList
-                ? Icon(
-                    Icons.done,
-                    color: Theme.of(context).iconTheme.color,
-                    size: 35,
-                  )
-                : null,
-          ),
-          blurColor: Theme.of(context).colorScheme.error,
-          child: BookCover(book: book),
+        child: BlocBuilder<DeleteBooksBloc, DeleteBooksState>(
+          builder: (context, state) {
+            final isOnDeleteList = state.deletionList.contains(book);
+            return Blur(
+              colorOpacity: isOnDeleteList ? 0.8 : 0.0,
+              blur: 0.0,
+              overlay: Center(
+                child: isOnDeleteList
+                    ? Icon(
+                        Icons.done,
+                        color: Theme.of(context).iconTheme.color,
+                        size: 35,
+                      )
+                    : null,
+              ),
+              blurColor: Theme.of(context).colorScheme.error,
+              child: BookCover(book: book),
+            );
+          },
         ),
       ),
     );

@@ -24,7 +24,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     required this.listBooks,
     required this.updateBook,
     required this.filterBooks,
-  }) : super(const Empty()) {
+  }) : super(Empty()) {
     on<RefreshBooksList>(_onRefreshBooksList);
     on<BookAdded>(_onBookAdded);
     on<BookSwipedRight>(_onBookSwipedRight);
@@ -54,7 +54,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     final res = await listBooks(NoParams());
     res.when(
       (books) => emit(BooksLoaded(books: books)),
-      (error) => emit(const FailedToLoadBooks()),
+      (error) => emit(FailedToLoadBooks()),
     );
     return Future.value();
   }
@@ -116,7 +116,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     final res = await filterBooks(FilterParams(query: event.query));
     res.when(
       (success) => emit(BooksLoaded(books: success)),
-      (error) => emit(const FailedToLoadBooks()),
+      (error) => emit(FailedToLoadBooks()),
     );
     return Future.value();
   }

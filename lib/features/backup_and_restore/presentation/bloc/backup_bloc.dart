@@ -60,7 +60,7 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     await purgeRepo(NoParams());
     final addAllResult = await addAllBooks(AddAllParams(books: restoredBooks));
     addAllResult.when(
-      (success) => emit(const RestoreFinished()),
+      (success) => emit(RestoreFinished()),
       (error) => emit(FailedToRestoreBooks()),
     );
     return Future.value();
@@ -74,7 +74,7 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     // just to show progress indicator
     await Future.delayed(const Duration(seconds: 3));
     await saveToLocalBackup(BackupParams(path: event.path));
-    emit(const BackupFinished());
+    emit(BackupFinished());
     return Future.value();
   }
 }

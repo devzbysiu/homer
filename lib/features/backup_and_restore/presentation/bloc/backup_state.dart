@@ -18,9 +18,7 @@ final class BackupAndRestoreInitial extends BackupState {}
 
 final class FailedToRestoreBooks extends BackupState {}
 
-final class RestoreFinished extends BackupState {
-  const RestoreFinished() : super(isRestoreInProgress: false);
-}
+final class RestoreFinished extends BackupState {}
 
 final class RestoreInProgress extends BackupState {
   const RestoreInProgress() : super(isRestoreInProgress: true);
@@ -30,6 +28,4 @@ final class BackupInProgress extends BackupState {
   const BackupInProgress() : super(isBackupInProgress: true);
 }
 
-final class BackupFinished extends BackupState {
-  const BackupFinished() : super(isBackupInProgress: false);
-}
+final class BackupFinished extends BackupState {}

@@ -20,30 +20,30 @@ class _BookSearchAreaState extends State<BookSearchArea> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BookSearchBloc, BookSearchState>(
-      listener: (context, state) {
+    return BlocBuilder<BookSearchBloc, BookSearchState>(
+      builder: (context, state) {
         if (state is BookPicked) _controller.close();
+        return FloatingSearchBar(
+          accentColor: Theme.of(context).primaryColor,
+          progress: state.isSearchInProgress,
+          controller: _controller,
+          body: const BottomSheetContent(),
+          backgroundColor: Theme.of(context).colorScheme.background.lighten(10),
+          backdropColor: Colors.transparent,
+          hint: 'Search...',
+          scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+          transitionDuration: const Duration(milliseconds: 600),
+          transitionCurve: Curves.easeInOut,
+          physics: const BouncingScrollPhysics(),
+          axisAlignment: 0.0,
+          openAxisAlignment: 0.0,
+          debounceDelay: const Duration(milliseconds: 500),
+          onQueryChanged: (query) => context.initiateSearch(query),
+          transition: CircularFloatingSearchBarTransition(),
+          actions: _actions(),
+          builder: _suggestionsBuilder,
+        );
       },
-      child: FloatingSearchBar(
-        accentColor: Theme.of(context).primaryColor,
-        progress: context.isSearchInProgress(),
-        controller: _controller,
-        body: const BottomSheetContent(),
-        backgroundColor: Theme.of(context).colorScheme.background.lighten(10),
-        backdropColor: Colors.transparent,
-        hint: 'Search...',
-        scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-        transitionDuration: const Duration(milliseconds: 600),
-        transitionCurve: Curves.easeInOut,
-        physics: const BouncingScrollPhysics(),
-        axisAlignment: 0.0,
-        openAxisAlignment: 0.0,
-        debounceDelay: const Duration(milliseconds: 500),
-        onQueryChanged: (query) => context.initiateSearch(query),
-        transition: CircularFloatingSearchBarTransition(),
-        actions: _actions(),
-        builder: _suggestionsBuilder,
-      ),
     );
   }
 

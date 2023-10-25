@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/extensions/book_search_context_ext.dart';
+import '../bloc/book_search_bloc.dart';
 import 'search_suggestion.dart';
 
 final class SearchSuggestions extends StatelessWidget {
@@ -16,9 +17,13 @@ final class SearchSuggestions extends StatelessWidget {
           child: Material(
             color: Theme.of(context).listTileTheme.tileColor,
             elevation: 4.0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: _searchSuggestions(context),
+            child: BlocBuilder<BookSearchBloc, BookSearchState>(
+              builder: (context, state) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: _searchSuggestions(state),
+                );
+              },
             ),
           ),
         ),
@@ -26,8 +31,8 @@ final class SearchSuggestions extends StatelessWidget {
     );
   }
 
-  List<Widget> _searchSuggestions(BuildContext context) {
-    return context.foundBooks().map((book) {
+  List<Widget> _searchSuggestions(BookSearchState state) {
+    return state.foundBooks.map((book) {
       return SearchSuggestion(book: book);
     }).toList();
   }

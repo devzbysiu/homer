@@ -16,13 +16,10 @@ final class BottomSheetContent extends StatelessWidget {
         switch (state.runtimeType) {
           case FetchingSharedBookDetails:
             return const SearchProgressIndicator();
-          case BookPicked:
-          case BookShared:
-            return const SavableBookWithSummary();
           case FailedToLookUpSharedBook:
             return const SearchError();
           default:
-            return Container();
+            return const SavableBookWithSummary();
         }
       },
     );

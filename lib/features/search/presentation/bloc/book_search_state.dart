@@ -3,86 +3,55 @@ part of 'book_search_bloc.dart';
 @immutable
 abstract class BookSearchState extends Equatable {
   const BookSearchState({
-    required this.foundBooks,
+    this.foundBooks = const [],
     this.pickedBook = const None(),
-    required this.searchInProgress,
+    this.isSearchInProgress = false,
   });
 
   final List<RemoteBook> foundBooks;
 
   final Option<RemoteBook> pickedBook;
 
-  final bool searchInProgress;
+  final bool isSearchInProgress;
 
   @override
-  List<Object?> get props => [foundBooks, pickedBook, searchInProgress];
+  List<Object?> get props => [foundBooks, pickedBook, isSearchInProgress];
 }
 
-final class Empty extends BookSearchState {
-  Empty() : super(foundBooks: [], searchInProgress: false);
-}
+final class Empty extends BookSearchState {}
 
 final class SearchInProgress extends BookSearchState {
-  SearchInProgress({required super.pickedBook})
-      : super(
-          foundBooks: [],
-          searchInProgress: true,
-        );
+  const SearchInProgress({required super.pickedBook})
+      : super(isSearchInProgress: true);
 }
 
 final class FoundBooks extends BookSearchState {
   const FoundBooks({
     required super.pickedBook,
     required super.foundBooks,
-  }) : super(searchInProgress: false);
+  });
 }
 
 final class ClearFoundBooks extends BookSearchState {
-  ClearFoundBooks({required super.pickedBook})
-      : super(
-          foundBooks: List.empty(),
-          searchInProgress: false,
-        );
+  const ClearFoundBooks({required super.pickedBook});
 }
 
-final class FailedToSearchBooks extends BookSearchState {
-  FailedToSearchBooks() : super(foundBooks: [], searchInProgress: false);
-}
+final class FailedToSearchBooks extends BookSearchState {}
 
 final class BookPicked extends BookSearchState {
-  const BookPicked({super.pickedBook})
-      : super(
-          foundBooks: const [],
-          searchInProgress: false,
-        );
+  const BookPicked({super.pickedBook});
 }
 
-final class NoPickedBook extends BookSearchState {
-  NoPickedBook()
-      : super(
-          foundBooks: [],
-          searchInProgress: false,
-        );
-}
+final class NoPickedBook extends BookSearchState {}
 
 final class BookShared extends BookSearchState {
-  const BookShared({super.pickedBook})
-      : super(
-          foundBooks: const [],
-          searchInProgress: false,
-        );
+  const BookShared({super.pickedBook});
 }
 
-final class FetchingSharedBookDetails extends BookSearchState {
-  FetchingSharedBookDetails() : super(foundBooks: [], searchInProgress: false);
-}
+final class FetchingSharedBookDetails extends BookSearchState {}
 
 final class FailedToLookUpSharedBook extends BookSearchState {
-  FailedToLookUpSharedBook({required this.cause})
-      : super(
-          foundBooks: [],
-          searchInProgress: false,
-        );
+  const FailedToLookUpSharedBook({required this.cause});
 
   final String cause;
 }

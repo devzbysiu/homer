@@ -10,7 +10,7 @@ final class SearchError extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BookSearchBloc, BookSearchState>(
         builder: (context, state) {
-      if (state is! FailedToLookUpSharedBook) return Container();
+      if (state is! FailedToLookUpSharedBook) return const Placeholder();
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

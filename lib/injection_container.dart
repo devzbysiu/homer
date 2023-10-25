@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:share_handler/share_handler.dart';
 
 import 'features/add_new_book/presentation/bloc/on_book_tags_bloc.dart';
 import 'features/backup_and_restore/data/datasources/dante_backup_data_source.dart';
@@ -51,6 +52,7 @@ Future<void> initDi() async {
   sl.registerFactory(() => DeleteBooksBloc(deleteBooks: sl()));
   sl.registerFactory(() => TagsBloc(listTags: sl()));
   sl.registerFactory(() => BookSearchBloc(
+        shareHandler: sl(),
         searchForBooks: sl(),
         fetchSharedBook: sl(),
       ));
@@ -106,4 +108,9 @@ Future<void> initDi() async {
   sl.registerLazySingleton<LocalBackupDataSource>(() => BackupDataSource());
 
   // Core
+
+  // External
+  sl.registerLazySingleton<ShareHandlerPlatform>(
+    () => ShareHandlerPlatform.instance,
+  );
 }

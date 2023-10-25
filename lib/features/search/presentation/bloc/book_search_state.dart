@@ -78,5 +78,11 @@ final class FetchingSharedBookDetails extends BookSearchState {
 }
 
 final class FailedToLookUpSharedBook extends BookSearchState {
-  FailedToLookUpSharedBook() : super(foundBooks: [], searchInProgress: false);
+  FailedToLookUpSharedBook({required this.cause})
+      : super(
+          foundBooks: [],
+          searchInProgress: false,
+        );
+
+  final String cause;
 }

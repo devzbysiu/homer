@@ -1,4 +1,5 @@
 import 'package:books_finder/books_finder.dart';
+import 'package:homer/core/error/exceptions.dart';
 
 import '../models/remote_book_dto.dart';
 
@@ -32,8 +33,8 @@ final class ExternalBooks implements RemoteBooksDataSource {
   Future<RemoteBookDTO> getFromIsbn(String isbn) async {
     // TODO: Create concrete exceptions
     final List<Book> books = await queryBooks(isbn, queryType: QueryType.isbn);
-    if (books.isEmpty) throw Exception('No books found by isbn: $isbn');
-    if (books.length > 1) throw Exception('Too much found by isbn: $isbn');
+    if (books.isEmpty) throw NoBookWithIsbnFoundException(isbn);
+    if (books.length > 1) throw TooManyBooksFoundException(isbn);
     return _toDTO(books.first);
   }
 }

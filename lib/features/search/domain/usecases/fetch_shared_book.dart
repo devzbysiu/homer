@@ -12,11 +12,7 @@ final class FetchSharedBook extends UseCase<RemoteBook, SharedBookParams> {
 
   @override
   Future<Result<RemoteBook, Failure>> call(SharedBookParams params) async {
-    try {
-      return await booksRepo.fromUrl(params.url);
-    } on Exception {
-      return Future.value(Error(FetchSharedBookFailure()));
-    }
+    return await booksRepo.fromUrl(params.url);
   }
 }
 

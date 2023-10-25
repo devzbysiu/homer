@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
+import 'package:share_handler/share_handler.dart';
 
 import '../../domain/entities/remote_book.dart';
 import '../../domain/usecases/fetch_shared_book.dart';
@@ -15,15 +16,31 @@ part 'book_search_state.dart';
 
 final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
   BookSearchBloc({
+    required this.shareHandler,
     required this.searchForBooks,
     required this.fetchSharedBook,
   }) : super(Empty()) {
+    // This happens when user shares URL, but the app is not running.
+    // TODO: Make sure it's working
+    shareHandler.getInitialSharedMedia().then((media) {
+      if (media?.content == null) return;
+      add(BookSharedFromOutside(media!.content!));
+    });
+
+    // This happens when the app is already running.
+    shareHandler.sharedMediaStream.listen((media) {
+      if (media.content == null) return;
+      add(BookSharedFromOutside(media.content!));
+    });
+
     on<SearchInitiated>(_onSearchInitiated);
     on<SuggestedBookPicked>(_onSuggestedBookPicked);
     on<ClearPickedBook>(_onClearPickedBook);
     // TODO: Should this be here or should it have it's own bloc?
     on<BookSharedFromOutside>(_onBookSharedFromOutside);
   }
+
+  final ShareHandlerPlatform shareHandler;
 
   final SearchForBooks searchForBooks;
 
@@ -70,7 +87,7 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
     final sharedBook = await fetchSharedBook(SharedBookParams(url: event.url));
     sharedBook.when(
       (book) => emit(BookShared(pickedBook: optionOf(book))),
-      (error) => emit(FailedToLookUpSharedBook()),
+      (error) => emit(FailedToLookUpSharedBook(cause: error.userMessage())),
     );
     return Future.value();
   }

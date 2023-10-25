@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
+import 'package:homer/core/error/exceptions.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
@@ -28,12 +31,23 @@ final class RemoteBooksRepo implements RemoteBooksRepository {
 
   @override
   Future<Result<RemoteBook, Failure>> fromUrl(String url) async {
-    final bookInfoDTO = await booksInfoDataSource.getFromUrl(url);
-    final bookIsbn = _getIsbn(bookInfoDTO);
-    if (bookIsbn.isNone()) return Future.value(Error(FetchSharedBookFailure()));
-    var bookDTO = await booksDataSource.getFromIsbn(bookIsbn.toNullable()!);
-    final remoteBook = toRemoteBook(bookDTO);
-    return Future.value(Success(remoteBook));
+    try {
+      final bookInfoDTO = await booksInfoDataSource.getFromUrl(url);
+      final bookIsbn = _getIsbn(bookInfoDTO);
+      if (bookIsbn.isNone()) return Future.value(Error(NoIsbnFailure(url)));
+
+      final bookDTO = await booksDataSource.getFromIsbn(bookIsbn.toNullable()!);
+      final remoteBook = toRemoteBook(bookDTO);
+      return Future.value(Success(remoteBook));
+    } on FormatException {
+      return Future.value(Error(InvalidUrlSharedFailure(url)));
+    } on NoBookWithIsbnFoundException catch (e) {
+      return Future.value(Error(NoBookWithIsbnFailure(e.isbn)));
+    } on TooManyBooksFoundException catch (e) {
+      return Future.value(Error(TooManyBooksFoundFailure(e.isbn)));
+    } on TimeoutException {
+      return Future.value(const Error(TimeoutOnApiResponseFailure()));
+    }
   }
 
   Option<String> _getIsbn(RemoteBookInfoDTO bookInfoDTO) {

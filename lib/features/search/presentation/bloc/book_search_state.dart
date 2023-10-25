@@ -64,3 +64,19 @@ final class NoPickedBook extends BookSearchState {
           searchInProgress: false,
         );
 }
+
+final class BookShared extends BookSearchState {
+  const BookShared({super.pickedBook})
+      : super(
+          foundBooks: const [],
+          searchInProgress: false,
+        );
+}
+
+final class FetchingSharedBookDetails extends BookSearchState {
+  FetchingSharedBookDetails() : super(foundBooks: [], searchInProgress: false);
+}
+
+final class FailedToLookUpSharedBook extends BookSearchState {
+  FailedToLookUpSharedBook() : super(foundBooks: [], searchInProgress: false);
+}

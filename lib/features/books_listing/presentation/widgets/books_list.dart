@@ -44,7 +44,7 @@ final class _BooksListState extends State<BooksList> {
     );
   }
 
-  BlocListener _refreshWhenBooksRemoved() {
+  BlocListener<DeleteBooksBloc, DeleteBooksState> _refreshWhenBooksRemoved() {
     return BlocListener<DeleteBooksBloc, DeleteBooksState>(
       listener: (_, state) {
         if (state is BooksRemoved) context.refreshBooksList();
@@ -52,7 +52,7 @@ final class _BooksListState extends State<BooksList> {
     );
   }
 
-  BlocListener _jumpToTopOnTabChange() {
+  BlocListener<AppTabBloc, AppTabState> _jumpToTopOnTabChange() {
     return BlocListener<AppTabBloc, AppTabState>(
       listener: (_, state) => _scrollController.jumpTo(0),
     );

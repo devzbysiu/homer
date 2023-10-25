@@ -6,10 +6,10 @@ import '../../features/search/domain/entities/remote_book.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';
 
 List<RemoteBook> toRemoteBooks(List<RemoteBookDTO> books) {
-  return books.map(_toRemoteBook).toList();
+  return books.map(toRemoteBook).toList();
 }
 
-RemoteBook _toRemoteBook(RemoteBookDTO remoteBookDTO) {
+RemoteBook toRemoteBook(RemoteBookDTO remoteBookDTO) {
   return RemoteBook(
     title: remoteBookDTO.title,
     subtitle: remoteBookDTO.subtitle,

@@ -21,6 +21,7 @@ final class RemoteBookDTO extends Equatable {
 
   final int pageCount;
 
+  // TODO: Should I use this external type here?
   final List<IndustryIdentifier> industryIdentifiers;
 
   final Map<String, Uri> imageLinks;

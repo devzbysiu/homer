@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_handler/share_handler.dart';
 
 import 'app.dart';
 import 'features/add_new_book/presentation/bloc/on_book_tags_bloc.dart';
@@ -24,6 +25,15 @@ void main() async {
   );
   await initDi();
   await _prepareForBackup();
+
+  final shareHandler = ShareHandlerPlatform.instance;
+  final url = await shareHandler.getInitialSharedMedia();
+  final bookSearchBloc = sl<BookSearchBloc>();
+  shareHandler.sharedMediaStream.listen((media) {
+    if (media.content == null) return;
+    bookSearchBloc.add(BookSharedFromOutside(media.content!));
+  });
+
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (_) => sl<AppTabBloc>()),
@@ -31,7 +41,7 @@ void main() async {
       BlocProvider(create: (_) => sl<BooksBloc>()),
       BlocProvider(create: (_) => sl<DeleteBooksBloc>()),
       BlocProvider(create: (_) => sl<TagsBloc>()),
-      BlocProvider(create: (_) => sl<BookSearchBloc>()),
+      BlocProvider(create: (_) => bookSearchBloc),
       BlocProvider(create: (_) => sl<OnBookTagsBloc>()),
       BlocProvider(create: (_) => sl<BackupBloc>()),
       BlocProvider(create: (_) => sl<SettingsBloc>()),

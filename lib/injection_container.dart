@@ -21,9 +21,11 @@ import 'features/books_listing/presentation/bloc/books_bloc.dart';
 import 'features/delete_book/domain/usecases/delete_books.dart';
 import 'features/delete_book/presentation/bloc/delete_books_bloc.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
+import 'features/search/data/datasources/remote_book_info_data_source.dart';
 import 'features/search/data/datasources/remote_books_data_source.dart';
 import 'features/search/data/repositories/remote_books_repo.dart';
 import 'features/search/domain/repositories/remote_books_repository.dart';
+import 'features/search/domain/usecases/fetch_shared_book.dart';
 import 'features/search/domain/usecases/search_for_books.dart';
 import 'features/search/presentation/bloc/book_search_bloc.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
@@ -48,7 +50,10 @@ Future<void> initDi() async {
   );
   sl.registerFactory(() => DeleteBooksBloc(deleteBooks: sl()));
   sl.registerFactory(() => TagsBloc(listTags: sl()));
-  sl.registerFactory(() => BookSearchBloc(searchForBooks: sl()));
+  sl.registerFactory(() => BookSearchBloc(
+        searchForBooks: sl(),
+        fetchSharedBook: sl(),
+      ));
   sl.registerFactory(() => OnBookTagsBloc());
   sl.registerFactory(
     () => BackupBloc(
@@ -71,6 +76,7 @@ Future<void> initDi() async {
   sl.registerLazySingleton(() => ListTags(sl()));
   // search
   sl.registerLazySingleton(() => SearchForBooks(sl()));
+  sl.registerLazySingleton(() => FetchSharedBook(sl()));
   // backup and restore
   sl.registerFactory(() => LoadFromLocalBackup(sl()));
   sl.registerFactory(() => AddAllBooks(sl()));
@@ -83,7 +89,10 @@ Future<void> initDi() async {
   );
   sl.registerLazySingleton<TagsRepository>(() => InMemoryTagsRepo());
   sl.registerLazySingleton<RemoteBooksRepository>(
-    () => RemoteBooksRepo(dataSource: sl()),
+    () => RemoteBooksRepo(
+      booksDataSource: sl(),
+      booksInfoDataSource: sl(),
+    ),
   );
   sl.registerLazySingleton<BackupRepository>(
     () => LocalBackupRepo(dataSource: sl()),
@@ -92,7 +101,8 @@ Future<void> initDi() async {
   // Data sources
   final isarDataSource = await IsarLocalDataSource.create();
   sl.registerLazySingleton<LocalBooksDataSource>(() => isarDataSource);
-  sl.registerLazySingleton<RemoteBooksDataSource>(() => GoogleBooks());
+  sl.registerLazySingleton<RemoteBooksDataSource>(() => ExternalBooks());
+  sl.registerLazySingleton<RemoteBookInfoDataSource>(() => ScraperDataSource());
   sl.registerLazySingleton<LocalBackupDataSource>(() => BackupDataSource());
 
   // Core

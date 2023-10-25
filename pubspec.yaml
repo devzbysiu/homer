@@ -39,6 +39,8 @@ dependencies:
   another_flutter_splash_screen: ^1.2.0
   lottie: ^2.6.0
   json_annotation: ^4.8.1
+  share_handler: ^0.0.19
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

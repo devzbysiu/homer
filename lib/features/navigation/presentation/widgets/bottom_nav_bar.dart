@@ -7,6 +7,7 @@ import '../../../../core/utils/common.dart';
 import '../../../../core/utils/extensions/app_tab_context_ext.dart';
 import '../../../../core/utils/extensions/delete_books_context_ext.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
+import '../../../search/presentation/bloc/book_search_bloc.dart';
 import '../../../search/presentation/widgets/books_search_area.dart';
 import '../../presentation/bloc/app_tab_bloc.dart';
 
@@ -22,10 +23,11 @@ final class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BooksBloc, BooksState>(
-      listener: (context, state) {
-        if (state is BooksLoaded) _sheetController.closeSheet();
-      },
+    return MultiBlocListener(
+      listeners: [
+        _closeSheetWhenBooksLoaded(),
+        _openSheetWhenBookShared(),
+      ],
       child: BottomBarWithSheet(
         controller: _sheetController,
         duration: const Duration(milliseconds: 200),
@@ -48,6 +50,22 @@ final class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ],
       ),
+    );
+  }
+
+  BlocListener<BooksBloc, BooksState> _closeSheetWhenBooksLoaded() {
+    return BlocListener<BooksBloc, BooksState>(
+      listener: (context, state) {
+        if (state is BooksLoaded) _sheetController.closeSheet();
+      },
+    );
+  }
+
+  BlocListener<BookSearchBloc, BookSearchState> _openSheetWhenBookShared() {
+    return BlocListener<BookSearchBloc, BookSearchState>(
+      listener: (context, state) {
+        if (state is FetchingSharedBookDetails) _sheetController.openSheet();
+      },
     );
   }
 

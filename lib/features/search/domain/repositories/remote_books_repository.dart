@@ -5,4 +5,6 @@ import '../entities/remote_book.dart';
 
 abstract class RemoteBooksRepository {
   Future<Result<List<RemoteBook>, Failure>> search(String query);
+
+  Future<Result<RemoteBook, Failure>> fromUrl(String url);
 }

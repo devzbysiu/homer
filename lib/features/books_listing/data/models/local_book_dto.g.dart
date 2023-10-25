@@ -167,6 +167,7 @@ LocalBookDTO _localBookDTODeserialize(
   final object = LocalBookDTO(
     authors: reader.readStringList(offsets[0]) ?? [],
     endDate: reader.readLongOrNull(offsets[1]),
+    id: id,
     isbn: reader.readString(offsets[2]),
     pageCount: reader.readLong(offsets[3]),
     rating: reader.readDouble(offsets[4]),
@@ -185,7 +186,6 @@ LocalBookDTO _localBookDTODeserialize(
     thumbnailAddress: reader.readStringOrNull(offsets[10]),
     title: reader.readString(offsets[11]),
   );
-  object.id = id;
   return object;
 }
 

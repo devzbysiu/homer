@@ -88,6 +88,7 @@ final class _BackupButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Should backupInProgress be Option<bool>?
     final isBackupInProgress = context.isBackupInProgress();
     if (!isBackupInProgress) context.refreshBooksList();
     return Row(

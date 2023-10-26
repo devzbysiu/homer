@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -5,6 +7,7 @@ import 'package:progress_indicators/progress_indicators.dart';
 
 import '../../../backup_and_restore/presentation/bloc/backup_bloc.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
+import '../bloc/settings_bloc.dart';
 
 class MenuItems extends StatelessWidget {
   const MenuItems({super.key});
@@ -98,9 +101,17 @@ final class _BackupButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        _SettingButton(
-          text: 'Backup',
-          onPressed: () async => await _triggerBackup(context),
+        BlocSelector<SettingsBloc, SettingsState, Directory>(
+          selector: (state) => state.backupDirectory,
+          builder: (context, backupDirectory) {
+            return _SettingButton(
+              text: 'Backup',
+              onPressed: () async => await _triggerBackup(
+                backupDirectory,
+                context,
+              ),
+            );
+          },
         ),
         BlocBuilder<BackupBloc, BackupState>(
           builder: (context, state) {
@@ -118,8 +129,7 @@ final class _BackupButton extends StatelessWidget {
     );
   }
 
-  Future<void> _triggerBackup(BuildContext context) async {
-    final directory = await getApplicationDocumentsDirectory();
+  Future<void> _triggerBackup(Directory directory, BuildContext context) async {
     final backupPath = '${directory.path}/homer-backup.json';
     if (context.mounted) context.createBackup(backupPath);
     return Future.value();

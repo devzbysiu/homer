@@ -6,15 +6,37 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
 import '../bloc/listing/books_bloc.dart';
 import '../widgets/books_list.dart';
 
-final class MainScreen extends StatelessWidget {
+final class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  final _searchController = FloatingSearchBarController();
+
+  bool isSearchInProgress = false;
 
   @override
   Widget build(BuildContext context) {
     return FloatingSearchBar(
+      controller: _searchController,
       transitionDuration: const Duration(milliseconds: 0),
       clearQueryOnClose: false,
-      onQueryChanged: (query) => context.filterBooks(query),
+      onQueryChanged: (query) => _onQueryChanged(query),
+      actions: [
+        if (isSearchInProgress)
+          IconButton(
+            onPressed: () => _clearQuery(),
+            icon: const Icon(Icons.close),
+          ),
+        if (!isSearchInProgress)
+          const Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: Icon(Icons.search),
+          ),
+      ],
       leadingActions: [
         IconButton(
           onPressed: () => ZoomDrawer.of(context)!.open(),
@@ -45,5 +67,23 @@ final class MainScreen extends StatelessWidget {
       ),
       builder: (_, __) => Container(),
     );
+  }
+
+  void _clearQuery() {
+    _searchController.clear();
+    setState(() {});
+  }
+
+  void _onQueryChanged(String query) {
+    setState(() {
+      isSearchInProgress = query.isNotEmpty;
+    });
+    context.filterBooks(query);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
   }
 }

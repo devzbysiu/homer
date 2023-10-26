@@ -2,7 +2,7 @@ import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../../../books_listing/domain/repositories/local_books_repository.dart';
+import '../../../manage_books/domain/repositories/local_books_repository.dart';
 
 final class PurgeRepo extends UseCase<Unit, NoParams> {
   PurgeRepo(this.booksRepo);

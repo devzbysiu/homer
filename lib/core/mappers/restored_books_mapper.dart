@@ -1,5 +1,5 @@
 import '../../features/backup_and_restore/domain/entities/restored_book.dart';
-import '../../features/book_summary/domain/entities/local_book.dart';
+import '../../features/manage_books/domain/entities/local_book.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';
 
 List<LocalBook> toLocalBooks(List<RestoredBook> restoredBooks) {

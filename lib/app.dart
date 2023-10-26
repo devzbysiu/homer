@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 
-import 'features/books_listing/presentation/pages/home.dart';
+import 'features/manage_books/presentation/pages/home.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
 
 final class Homer extends StatelessWidget {

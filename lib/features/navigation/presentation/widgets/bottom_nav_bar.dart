@@ -4,11 +4,11 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/common.dart';
-import '../../../book_summary/domain/entities/local_book.dart';
-import '../../../books_listing/presentation/bloc/books_bloc.dart';
-import '../../../delete_book/presentation/bloc/delete_books_bloc.dart';
-import '../../../search/presentation/bloc/book_search_bloc.dart';
-import '../../../search/presentation/widgets/books_search_area.dart';
+import '../../../find_new_book/presentation/bloc/search/book_search_bloc.dart';
+import '../../../find_new_book/presentation/widgets/books_search_area.dart';
+import '../../../manage_books/domain/entities/local_book.dart';
+import '../../../manage_books/presentation/bloc/delete/delete_books_bloc.dart';
+import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
 import '../../presentation/bloc/app_tab_bloc.dart';
 
 final class BottomNavBar extends StatefulWidget {

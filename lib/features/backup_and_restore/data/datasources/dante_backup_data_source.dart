@@ -6,7 +6,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
-import '../../../book_summary/domain/entities/local_book.dart';
+import '../../../manage_books/domain/entities/local_book.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../domain/entities/restored_book.dart';
 import '../models/dante_backup_dto.dart';

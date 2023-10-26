@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 
-import '../../features/book_summary/domain/entities/local_book.dart';
-import '../../features/books_listing/data/models/local_book_dto.dart';
-import '../../features/books_listing/data/models/local_tag_dto.dart';
+import '../../features/manage_books/data/models/local_book_dto.dart';
+import '../../features/manage_books/data/models/local_tag_dto.dart';
+import '../../features/manage_books/domain/entities/local_book.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';
 import '../utils/extensions/date_option_ext.dart';
 

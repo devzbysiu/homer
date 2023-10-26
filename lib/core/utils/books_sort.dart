@@ -1,4 +1,4 @@
-import '../../features/book_summary/domain/entities/local_book.dart';
+import '../../features/manage_books/domain/entities/local_book.dart';
 import 'extensions/date_option_ext.dart';
 
 List<LocalBook> sortByStateAndDate(List<LocalBook> books) {

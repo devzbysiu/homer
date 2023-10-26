@@ -8,7 +8,7 @@ final class InMemoryTagsRepo implements TagsRepository {
   final _allTags = [
     const Tag(name: 'technical', color: TagColor.brown),
     const Tag(name: 'horror', color: TagColor.red),
-    const Tag(name: 'non-fiction', color: TagColor.green),
+    const Tag(name: 'nonfiction', color: TagColor.green),
     const Tag(name: 'fiction', color: TagColor.black),
     const Tag(name: 'geopolitics', color: TagColor.orange),
     const Tag(name: 'mystery', color: TagColor.purple),

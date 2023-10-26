@@ -4,8 +4,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vibration/vibration.dart';
 
-import '../../../../core/utils/extensions/book_summary_context_ext.dart';
-import '../../../../core/utils/extensions/delete_books_context_ext.dart';
 import '../../../book_summary/domain/entities/local_book.dart';
 import '../../../book_summary/presentation/bloc/book_summary_bloc.dart';
 import '../../../book_summary/presentation/widgets/summary_card.dart';
@@ -20,12 +18,16 @@ final class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final booksToDelete = context.booksToDelete();
-    return GestureDetector(
-      onLongPress: () => _switchToDeleteMode(context),
-      onDoubleTap: () => context.toggleSummaryMode(book),
-      onTap: () => _toggleModes(booksToDelete, context),
-      child: _bookCard(booksToDelete),
+    return BlocBuilder<DeleteBooksBloc, DeleteBooksState>(
+      builder: (context, state) {
+        final booksToDelete = state.deletionList;
+        return GestureDetector(
+          onLongPress: () => _switchToDeleteMode(context),
+          onDoubleTap: () => context.toggleSummaryMode(book),
+          onTap: () => _toggleModes(booksToDelete, context),
+          child: _bookCard(booksToDelete),
+        );
+      },
     );
   }
 

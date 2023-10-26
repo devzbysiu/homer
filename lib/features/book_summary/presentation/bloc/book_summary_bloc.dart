@@ -4,8 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// ignore: depend_on_referenced_packages
-import 'package:meta/meta.dart';
 
 import '../../domain/entities/local_book.dart';
 
@@ -44,5 +42,23 @@ final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
       (book) => emit(DisableSummaryMode()),
     );
     return Future.value();
+  }
+}
+
+extension BookSummaryContextExt on BuildContext {
+  void toggleSummaryMode(LocalBook book) {
+    _emitBookEvt(SummaryModeToggled(book));
+  }
+
+  void disableSummaryMode() {
+    _emitBookEvt(SummaryModeDisabled());
+  }
+
+  void showSummary(LocalBook book) {
+    _emitBookEvt(ShowSummary(book));
+  }
+
+  void _emitBookEvt(BookSummaryEvent event) {
+    read<BookSummaryBloc>().add(event);
   }
 }

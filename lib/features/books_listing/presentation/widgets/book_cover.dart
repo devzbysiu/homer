@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 import '../../../../core/utils/color_mapper.dart';
-import '../../../../core/utils/extensions/book_tags_context_ext.dart';
-import '../../../../core/utils/extensions/books_context_ext.dart';
 import '../../../../core/utils/fallback_img.dart';
 import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../book_summary/domain/entities/local_book.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
+import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
+import '../bloc/books_bloc.dart';
 import 'transparent_image_card.dart';
 
 final class BookCover extends StatelessWidget {

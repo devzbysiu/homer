@@ -2,9 +2,9 @@ import 'package:banner_listtile/banner_listtile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/extensions/book_search_context_ext.dart';
 import '../../../../core/utils/fallback_img.dart';
 import '../../domain/entities/remote_book.dart';
+import '../bloc/book_search_bloc.dart';
 
 final class SearchSuggestion extends StatelessWidget {
   const SearchSuggestion({super.key, required this.book});

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
-import '../../../../core/utils/extensions/book_search_context_ext.dart';
 import '../../../navigation/presentation/widgets/bottom_sheet_content.dart';
 import '../bloc/book_search_bloc.dart';
 import 'search_suggestions.dart';

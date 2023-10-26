@@ -1,10 +1,11 @@
 import 'package:chip_list/chip_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/color_mapper.dart';
-import '../../../../core/utils/extensions/book_tags_context_ext.dart';
-import '../../../../core/utils/extensions/on_book_tags_context_ext.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
+import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
+import '../bloc/on_book_tags_bloc.dart';
 
 final class Tags extends StatefulWidget {
   const Tags({super.key});
@@ -18,17 +19,21 @@ final class _TagsState extends State<Tags> {
 
   @override
   Widget build(BuildContext context) {
-    final tags = context.allTags();
-    return ChipList(
-      supportsMultiSelect: true,
-      listOfChipNames: tags.map((tag) => tag.name).toList(),
-      extraOnToggle: (idx) => _tagSelected(context, idx, tags),
-      listOfChipIndicesCurrentlySeclected: _selectedTagIndices.toList(),
-      inactiveBgColorList: _inactiveColors(context, tags),
-      inactiveBorderColorList: _tagColors(tags),
-      inactiveTextColorList: _inactiveText(context, tags),
-      activeBgColorList: _tagColors(tags),
-      activeTextColorList: _whiteColors(tags),
+    return BlocBuilder<TagsBloc, TagsState>(
+      builder: (context, state) {
+        final tags = state.tags;
+        return ChipList(
+          supportsMultiSelect: true,
+          listOfChipNames: tags.map((tag) => tag.name).toList(),
+          extraOnToggle: (idx) => _tagSelected(context, idx, tags),
+          listOfChipIndicesCurrentlySeclected: _selectedTagIndices.toList(),
+          inactiveBgColorList: _inactiveColors(context, tags),
+          inactiveBorderColorList: _tagColors(tags),
+          inactiveTextColorList: _inactiveText(context, tags),
+          activeBgColorList: _tagColors(tags),
+          activeTextColorList: _whiteColors(tags),
+        );
+      },
     );
   }
 

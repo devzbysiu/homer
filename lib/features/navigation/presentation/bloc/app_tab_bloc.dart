@@ -1,13 +1,10 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// ignore: depend_on_referenced_packages
-import 'package:meta/meta.dart';
-
 part 'app_tab_event.dart';
-
 part 'app_tab_state.dart';
 
 final class AppTabBloc extends Bloc<AppTabEvent, AppTabState> {
@@ -31,5 +28,19 @@ final class AppTabBloc extends Bloc<AppTabEvent, AppTabState> {
         break;
     }
     return Future.value();
+  }
+}
+
+extension AppTabContextExt on BuildContext {
+  AppTab currentTab() {
+    return select((AppTabBloc bloc) => bloc.state.currentTab);
+  }
+
+  void changeTab(AppTab newTab) {
+    _emitAppTabEvt(TabChanged(newTab));
+  }
+
+  void _emitAppTabEvt(AppTabEvent event) {
+    read<AppTabBloc>().add(event);
   }
 }

@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// ignore: depend_on_referenced_packages
-import 'package:meta/meta.dart';
 
 import '../../../book_summary/domain/entities/local_book.dart';
 import '../../domain/usecases/delete_books.dart';
@@ -61,5 +59,27 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
   ) async {
     emit(const CleanDeletionList());
     return Future.value();
+  }
+}
+
+extension BooksContextExt on BuildContext {
+  void appendToDeleteList(LocalBook book) {
+    _emitDeleteBooksEvt(AppendToDeleteList(book));
+  }
+
+  void removeFromDeleteList(LocalBook book) {
+    _emitDeleteBooksEvt(RemoveFromDeleteList(book));
+  }
+
+  void clearDeletionList() {
+    _emitDeleteBooksEvt(ClearDeletionList());
+  }
+
+  void deletePickedBooks() {
+    _emitDeleteBooksEvt(DeletePickedBooks());
+  }
+
+  void _emitDeleteBooksEvt(DeleteBooksEvent event) {
+    read<DeleteBooksBloc>().add(event);
   }
 }

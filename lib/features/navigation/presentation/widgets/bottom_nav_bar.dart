@@ -4,9 +4,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/common.dart';
-import '../../../../core/utils/extensions/app_tab_context_ext.dart';
-import '../../../../core/utils/extensions/delete_books_context_ext.dart';
 import '../../../books_listing/presentation/bloc/books_bloc.dart';
+import '../../../delete_book/presentation/bloc/delete_books_bloc.dart';
 import '../../../search/presentation/bloc/book_search_bloc.dart';
 import '../../../search/presentation/widgets/books_search_area.dart';
 import '../../presentation/bloc/app_tab_bloc.dart';
@@ -97,10 +96,13 @@ final class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   Widget _mainActionButton(BuildContext context) {
-    final booksToDelete = context.booksToDelete();
-    return booksToDelete.isEmpty
-        ? _AddButton(sheetController: _sheetController)
-        : const _DeleteButton();
+    return BlocBuilder<DeleteBooksBloc, DeleteBooksState>(
+        builder: (context, state) {
+      final booksToDelete = state.deletionList;
+      return booksToDelete.isEmpty
+          ? _AddButton(sheetController: _sheetController)
+          : const _DeleteButton();
+    });
   }
 }
 

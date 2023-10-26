@@ -2,8 +2,8 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 
-import '../../../../core/utils/extensions/books_context_ext.dart';
 import '../../../book_summary/domain/entities/local_book.dart';
+import '../bloc/books_bloc.dart';
 
 final class SwipeableCard extends StatelessWidget {
   const SwipeableCard({super.key, required this.child, required this.book});

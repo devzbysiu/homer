@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/extensions/book_search_context_ext.dart';
-import '../../../../core/utils/extensions/books_context_ext.dart';
-import '../../../../core/utils/extensions/on_book_tags_context_ext.dart';
 import '../../../book_summary/domain/entities/local_book.dart';
+import '../../../books_listing/presentation/bloc/books_bloc.dart';
 import '../../../search/domain/entities/remote_book.dart';
+import '../../../search/presentation/bloc/book_search_bloc.dart';
+import '../bloc/on_book_tags_bloc.dart';
 
 final class SaveButtons extends StatelessWidget {
   const SaveButtons({super.key, required this.pickedBook});

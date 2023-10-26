@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// ignore: depend_on_referenced_packages
-import 'package:meta/meta.dart';
 
 import '../../../../core/usecase/usecase.dart';
 import '../../../book_summary/domain/entities/local_book.dart';
@@ -119,5 +117,35 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       (error) => emit(FailedToLoadBooks()),
     );
     return Future.value();
+  }
+}
+
+extension BooksContextExt on BuildContext {
+  void addBook(RemoteBook book, LocalBookState state, Set<Tag> tags) {
+    _emitBooksEvt(BookAdded(book, state, tags));
+  }
+
+  void bookSwipedRight(LocalBook book) {
+    _emitBooksEvt(BookSwipedRight(book));
+  }
+
+  void bookSwipedLeft(LocalBook book) {
+    _emitBooksEvt(BookSwipedLeft(book));
+  }
+
+  void refreshBooksList() {
+    _emitBooksEvt(RefreshBooksList());
+  }
+
+  void toggleTag(LocalBook book, Tag tag) {
+    _emitBooksEvt(TagToggled(book, tag));
+  }
+
+  void filterBooks(String query) {
+    _emitBooksEvt(BooksFiltered(query));
+  }
+
+  void _emitBooksEvt(BooksEvent event) {
+    read<BooksBloc>().add(event);
   }
 }

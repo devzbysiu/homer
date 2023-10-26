@@ -50,9 +50,10 @@ final class _RestoreButton extends StatelessWidget {
           text: 'Restore',
           onPressed: () async => await _triggerRestore(context),
         ),
-        BlocBuilder<BackupBloc, BackupState>(
-          builder: (context, state) {
-            if (!state.isRestoreInProgress) {
+        BlocSelector<BackupBloc, BackupState, bool>(
+          selector: (state) => state.isRestoreInProgress,
+          builder: (context, isRestoreInProgress) {
+            if (!isRestoreInProgress) {
               context.refreshBooksList();
               return const SizedBox.shrink();
             }
@@ -113,9 +114,10 @@ final class _BackupButton extends StatelessWidget {
             );
           },
         ),
-        BlocBuilder<BackupBloc, BackupState>(
-          builder: (context, state) {
-            if (!state.isBackupInProgress) {
+        BlocSelector<BackupBloc, BackupState, bool>(
+          selector: (state) => state.isBackupInProgress,
+          builder: (context, isBackupInProgress) {
+            if (!isBackupInProgress) {
               context.refreshBooksList();
               return const SizedBox.shrink();
             }

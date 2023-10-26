@@ -18,9 +18,9 @@ final class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DeleteBooksBloc, DeleteBooksState>(
-      builder: (context, state) {
-        final booksToDelete = state.deletionList;
+    return BlocSelector<DeleteBooksBloc, DeleteBooksState, List<LocalBook>>(
+      selector: (state) => state.deletionList,
+      builder: (context, booksToDelete) {
         return GestureDetector(
           onLongPress: () => _switchToDeleteMode(context),
           onDoubleTap: () => context.toggleSummaryMode(book),
@@ -48,11 +48,11 @@ final class BookCard extends StatelessWidget {
 
   Widget _bookCard(List<LocalBook> booksToDelete) {
     if (booksToDelete.isNotEmpty) return _DeletableCard(book: book);
-    return BlocBuilder<BookSummaryBloc, BookSummaryState>(
-      builder: (context, state) {
-        final isInSummaryMode = state.bookInSummaryMode
-            .map((b) => book == b)
-            .getOrElse(() => false);
+    return BlocSelector<BookSummaryBloc, BookSummaryState, bool>(
+      selector: (state) => state.bookInSummaryMode
+          .map((bookInSummaryMode) => book == bookInSummaryMode)
+          .getOrElse(() => false),
+      builder: (context, isInSummaryMode) {
         if (isInSummaryMode) return SummaryCard(book: book);
         return SwipeableCard(
           book: book,
@@ -75,9 +75,9 @@ final class _DeletableCard extends StatelessWidget {
       effects: const [ShakeEffect(rotation: 0.01, hz: 2.5)],
       child: SwipeableCard(
         book: book,
-        child: BlocBuilder<DeleteBooksBloc, DeleteBooksState>(
-          builder: (context, state) {
-            final isOnDeleteList = state.deletionList.contains(book);
+        child: BlocSelector<DeleteBooksBloc, DeleteBooksState, bool>(
+          selector: (state) => state.deletionList.contains(book),
+          builder: (context, isOnDeleteList) {
             return Blur(
               colorOpacity: isOnDeleteList ? 0.8 : 0.0,
               blur: 0.0,

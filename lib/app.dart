@@ -13,9 +13,10 @@ final class Homer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const scheme = FlexScheme.amber;
-    return BlocBuilder<SettingsBloc, SettingsState>(
-      builder: (context, state) {
-        final themeMode = state.isThemeDark ? ThemeMode.dark : ThemeMode.light;
+    return BlocSelector<SettingsBloc, SettingsState, bool>(
+      selector: (state) => state.isThemeDark,
+      builder: (context, isThemeDark) {
+        final themeMode = isThemeDark ? ThemeMode.dark : ThemeMode.light;
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Homer',

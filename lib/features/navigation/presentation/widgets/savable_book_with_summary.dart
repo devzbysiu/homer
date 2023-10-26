@@ -1,9 +1,11 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../add_new_book/presentation/widgets/book_with_summary.dart';
 import '../../../add_new_book/presentation/widgets/save_buttons.dart';
 import '../../../add_new_book/presentation/widgets/tags.dart';
+import '../../../search/domain/entities/remote_book.dart';
 import '../../../search/presentation/bloc/book_search_bloc.dart';
 
 final class SavableBookWithSummary extends StatelessWidget {
@@ -11,9 +13,10 @@ final class SavableBookWithSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BookSearchBloc, BookSearchState>(
-      builder: (context, state) {
-        return state.pickedBook.fold(
+    return BlocSelector<BookSearchBloc, BookSearchState, Option<RemoteBook>>(
+      selector: (state) => state.pickedBook,
+      builder: (context, pickedBook) {
+        return pickedBook.fold(
           () => Container(),
           (book) => Padding(
             padding: const EdgeInsets.only(top: 80.0),

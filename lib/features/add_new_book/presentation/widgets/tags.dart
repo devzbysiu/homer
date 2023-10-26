@@ -19,9 +19,9 @@ final class _TagsState extends State<Tags> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TagsBloc, TagsState>(
-      builder: (context, state) {
-        final tags = state.tags;
+    return BlocSelector<TagsBloc, TagsState, List<Tag>>(
+      selector: (state) => state.tags,
+      builder: (context, tags) {
         return ChipList(
           supportsMultiSelect: true,
           listOfChipNames: tags.map((tag) => tag.name).toList(),

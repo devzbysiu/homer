@@ -9,10 +9,11 @@ class ThemeSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsBloc, SettingsState>(
-      builder: (context, state) {
+    return BlocSelector<SettingsBloc, SettingsState, bool>(
+      selector: (state) => state.isThemeDark,
+      builder: (context, isThemeDark) {
         return DayNightSwitcher(
-          isDarkModeEnabled: state.isThemeDark,
+          isDarkModeEnabled: isThemeDark,
           onStateChanged: (_) => context.toggleTheme(),
         );
       },

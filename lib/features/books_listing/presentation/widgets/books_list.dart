@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
+import '../../../book_summary/domain/entities/local_book.dart';
 import '../../../delete_book/presentation/bloc/delete_books_bloc.dart';
 import '../../../navigation/presentation/bloc/app_tab_bloc.dart';
 import '../bloc/books_bloc.dart';
@@ -28,9 +29,10 @@ final class _BooksListState extends State<BooksList> {
       child: GestureDetector(
         onTap: () => context.clearDeletionList(),
         child: FloatingSearchBarScrollNotifier(
-          child: BlocBuilder<BooksBloc, BooksState>(
-            builder: (context, state) {
-              final books = state.books
+          child: BlocSelector<BooksBloc, BooksState, List<LocalBook>>(
+            selector: (state) => state.books,
+            builder: (context, allBooks) {
+              final books = allBooks
                   .where((b) => b.state.name == context.currentTab().name)
                   .toList();
               if (books.isEmpty) return Container();

@@ -1,8 +1,8 @@
 import 'package:chip_list/chip_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 
-import '../../../../core/utils/color_mapper.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
 import '../bloc/on_book_tags_bloc.dart';
@@ -38,7 +38,7 @@ final class _TagsState extends State<Tags> {
   }
 
   List<Color> _tagColors(List<Tag> tags) {
-    return tags.map((tag) => toFlutterColor(tag.color)).toList();
+    return tags.map((tag) => HexColor(tag.hexColor)).toList();
   }
 
   List<Color> _inactiveText(BuildContext context, List<Tag> tags) {

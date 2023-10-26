@@ -50,23 +50,11 @@ const _$LocalBackupBookStateDTOEnumMap = {
 LocalBackupTagDTO _$LocalBackupTagDTOFromJson(Map<String, dynamic> json) =>
     LocalBackupTagDTO(
       name: json['name'] as String,
-      color: $enumDecode(_$LocalBackupTagColorDTOEnumMap, json['color']),
+      hexColor: json['hexColor'] as String,
     );
 
 Map<String, dynamic> _$LocalBackupTagDTOToJson(LocalBackupTagDTO instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'color': _$LocalBackupTagColorDTOEnumMap[instance.color]!,
+      'hexColor': instance.hexColor,
     };
-
-const _$LocalBackupTagColorDTOEnumMap = {
-  LocalBackupTagColorDTO.red: 'red',
-  LocalBackupTagColorDTO.green: 'green',
-  LocalBackupTagColorDTO.blue: 'blue',
-  LocalBackupTagColorDTO.black: 'black',
-  LocalBackupTagColorDTO.brown: 'brown',
-  LocalBackupTagColorDTO.orange: 'orange',
-  LocalBackupTagColorDTO.yellow: 'yellow',
-  LocalBackupTagColorDTO.grey: 'grey',
-  LocalBackupTagColorDTO.purple: 'purple',
-};

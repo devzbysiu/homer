@@ -104,27 +104,15 @@ enum LocalBackupBookStateDTO { readLater, reading, read }
 
 @JsonSerializable()
 final class LocalBackupTagDTO {
-  LocalBackupTagDTO({required this.name, required this.color});
+  LocalBackupTagDTO({required this.name, required this.hexColor});
 
   final String name;
 
-  final LocalBackupTagColorDTO color;
+  final String hexColor;
 
   factory LocalBackupTagDTO.fromJson(Map<String, dynamic> json) {
     return _$LocalBackupTagDTOFromJson(json);
   }
 
   Map<String, dynamic> toJson() => _$LocalBackupTagDTOToJson(this);
-}
-
-enum LocalBackupTagColorDTO {
-  red,
-  green,
-  blue,
-  black,
-  brown,
-  orange,
-  yellow,
-  grey,
-  purple,
 }

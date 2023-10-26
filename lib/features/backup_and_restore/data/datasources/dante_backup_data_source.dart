@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter/material.dart';
 
 import '../../../book_summary/domain/entities/local_book.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
@@ -61,7 +63,7 @@ List<RestoredBook> fromDanteToRestoredBooks(
       book.tags.add(
         RestoredTag(
           title: 'technical',
-          color: RestoredTagColor.brown,
+          hexColor: Colors.brown.hex, // TODO: Can I use flutter's Color here?
         ),
       );
     }
@@ -103,23 +105,8 @@ Set<RestoredTag> _fromDanteToRestoredBookTags(Set<LabelDTO> labels) {
 RestoredTag _toRestoredTag(LabelDTO label) {
   return RestoredTag(
     title: label.title,
-    color: _fromDanteToRestoredTagColor(label.color),
+    hexColor: label.color,
   );
-}
-
-RestoredTagColor _fromDanteToRestoredTagColor(String color) {
-  switch (color) {
-    case '#ff4caf50':
-      return RestoredTagColor.green;
-    case '#ff03a9f4':
-      return RestoredTagColor.blue;
-    case '#ffff9800':
-      return RestoredTagColor.orange;
-    case '#ff9f6459':
-      return RestoredTagColor.brown;
-    default:
-      throw Exception('Invalid color: $color');
-  }
 }
 
 Option<DateTime> _toDateTime(int millisSinceEpoch) {
@@ -164,32 +151,9 @@ Set<LocalBackupTagDTO> _toLocalBackupTagDTOs(Set<Tag> tags) {
   return tags.map((tag) {
     return LocalBackupTagDTO(
       name: tag.name,
-      color: _toLocalBackupTagColorDTO(tag.color),
+      hexColor: tag.hexColor,
     );
   }).toSet();
-}
-
-LocalBackupTagColorDTO _toLocalBackupTagColorDTO(TagColor color) {
-  switch (color) {
-    case TagColor.brown:
-      return LocalBackupTagColorDTO.brown;
-    case TagColor.black:
-      return LocalBackupTagColorDTO.black;
-    case TagColor.green:
-      return LocalBackupTagColorDTO.green;
-    case TagColor.blue:
-      return LocalBackupTagColorDTO.blue;
-    case TagColor.orange:
-      return LocalBackupTagColorDTO.orange;
-    case TagColor.red:
-      return LocalBackupTagColorDTO.red;
-    case TagColor.yellow:
-      return LocalBackupTagColorDTO.yellow;
-    case TagColor.grey:
-      return LocalBackupTagColorDTO.grey;
-    case TagColor.purple:
-      return LocalBackupTagColorDTO.purple;
-  }
 }
 
 List<RestoredBook> toRestoredBooks(List<LocalBackupBookDTO> books) {
@@ -226,30 +190,7 @@ Set<RestoredTag> _toRestoredBookTags(Set<LocalBackupTagDTO> tags) {
   return tags.map((tag) {
     return RestoredTag(
       title: tag.name,
-      color: _tRestoredTagColor(tag.color),
+      hexColor: tag.hexColor,
     );
   }).toSet();
-}
-
-RestoredTagColor _tRestoredTagColor(LocalBackupTagColorDTO color) {
-  switch (color) {
-    case LocalBackupTagColorDTO.brown:
-      return RestoredTagColor.brown;
-    case LocalBackupTagColorDTO.black:
-      return RestoredTagColor.black;
-    case LocalBackupTagColorDTO.green:
-      return RestoredTagColor.green;
-    case LocalBackupTagColorDTO.blue:
-      return RestoredTagColor.blue;
-    case LocalBackupTagColorDTO.orange:
-      return RestoredTagColor.orange;
-    case LocalBackupTagColorDTO.red:
-      return RestoredTagColor.red;
-    case LocalBackupTagColorDTO.yellow:
-      return RestoredTagColor.yellow;
-    case LocalBackupTagColorDTO.grey:
-      return RestoredTagColor.grey;
-    case LocalBackupTagColorDTO.purple:
-      return RestoredTagColor.purple;
-  }
 }

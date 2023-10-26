@@ -40,6 +40,7 @@ dependencies:
   json_annotation: ^4.8.1
   share_handler: ^0.0.19
   http: ^1.1.0
+  hexcolor: ^3.0.1
 
 dev_dependencies:
   flutter_test:

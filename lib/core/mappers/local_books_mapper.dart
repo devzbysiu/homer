@@ -78,35 +78,12 @@ LocalBookState _toBookState(LocalBookStateDTO state) {
 }
 
 Set<Tag> _toBookTags(List<LocalTagDTO> tags) {
-  return tags
-      .map((tagModel) => Tag(
-            name: tagModel.name,
-            color: _toTagColor(tagModel.color),
-          ))
-      .toSet();
-}
-
-TagColor _toTagColor(LocalTagColorDTO color) {
-  switch (color) {
-    case LocalTagColorDTO.brown:
-      return TagColor.brown;
-    case LocalTagColorDTO.black:
-      return TagColor.black;
-    case LocalTagColorDTO.green:
-      return TagColor.green;
-    case LocalTagColorDTO.blue:
-      return TagColor.blue;
-    case LocalTagColorDTO.orange:
-      return TagColor.orange;
-    case LocalTagColorDTO.red:
-      return TagColor.red;
-    case LocalTagColorDTO.yellow:
-      return TagColor.yellow;
-    case LocalTagColorDTO.grey:
-      return TagColor.grey;
-    case LocalTagColorDTO.purple:
-      return TagColor.purple;
-  }
+  return tags.map((tagModel) {
+    return Tag(
+      name: tagModel.name,
+      hexColor: tagModel.hexColor,
+    );
+  }).toSet();
 }
 
 LocalBookStateDTO _toBookStateDTO(LocalBookState state) {
@@ -121,34 +98,11 @@ LocalBookStateDTO _toBookStateDTO(LocalBookState state) {
 }
 
 List<LocalTagDTO> _toTagDTOs(Set<Tag> tags) {
-  return tags
-      .map((tag) => LocalTagDTO()
-        ..name = tag.name
-        ..color = _toTagColorDTO(tag.color))
-      .toList();
-}
-
-LocalTagColorDTO _toTagColorDTO(TagColor color) {
-  switch (color) {
-    case TagColor.brown:
-      return LocalTagColorDTO.brown;
-    case TagColor.black:
-      return LocalTagColorDTO.black;
-    case TagColor.green:
-      return LocalTagColorDTO.green;
-    case TagColor.blue:
-      return LocalTagColorDTO.blue;
-    case TagColor.orange:
-      return LocalTagColorDTO.orange;
-    case TagColor.red:
-      return LocalTagColorDTO.red;
-    case TagColor.yellow:
-      return LocalTagColorDTO.yellow;
-    case TagColor.grey:
-      return LocalTagColorDTO.grey;
-    case TagColor.purple:
-      return LocalTagColorDTO.purple;
-  }
+  return tags.map((tag) {
+    return LocalTagDTO()
+      ..name = tag.name
+      ..hexColor = tag.hexColor;
+  }).toList();
 }
 
 List<LocalBookDTO> toLocalBookDTOs(List<LocalBook> books) {

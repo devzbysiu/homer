@@ -6,18 +6,5 @@ part 'local_tag_dto.g.dart';
 final class LocalTagDTO {
   late final String name;
 
-  @enumerated
-  late final LocalTagColorDTO color;
-}
-
-enum LocalTagColorDTO {
-  red,
-  green,
-  blue,
-  black,
-  brown,
-  orange,
-  yellow,
-  grey,
-  purple,
+  late final String hexColor;
 }

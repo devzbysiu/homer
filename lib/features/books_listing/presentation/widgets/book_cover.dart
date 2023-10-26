@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
-import '../../../../core/utils/color_mapper.dart';
 import '../../../../core/utils/fallback_img.dart';
 import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
@@ -58,7 +58,7 @@ final class _Tag extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
-          color: toFlutterColor(tag.color),
+          color: HexColor(tag.hexColor),
         ),
         padding: const EdgeInsets.symmetric(
           horizontal: 8,
@@ -119,7 +119,7 @@ final class _AddTagTile extends StatelessWidget {
         onTap: () => context.toggleTag(book, tag),
         title: tag.name,
         icon: Icons.circle,
-        iconColor: toFlutterColor(tag.color),
+        iconColor: HexColor(tag.hexColor),
       );
     }).toList();
   }

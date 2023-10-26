@@ -13,11 +13,10 @@ const LocalTagDTOSchema = Schema(
   name: r'LocalTagDTO',
   id: 6293303979616302016,
   properties: {
-    r'color': PropertySchema(
+    r'hexColor': PropertySchema(
       id: 0,
-      name: r'color',
-      type: IsarType.byte,
-      enumMap: _LocalTagDTOcolorEnumValueMap,
+      name: r'hexColor',
+      type: IsarType.string,
     ),
     r'name': PropertySchema(
       id: 1,
@@ -37,6 +36,7 @@ int _localTagDTOEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  bytesCount += 3 + object.hexColor.length * 3;
   bytesCount += 3 + object.name.length * 3;
   return bytesCount;
 }
@@ -47,7 +47,7 @@ void _localTagDTOSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeByte(offsets[0], object.color.index);
+  writer.writeString(offsets[0], object.hexColor);
   writer.writeString(offsets[1], object.name);
 }
 
@@ -58,9 +58,7 @@ LocalTagDTO _localTagDTODeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = LocalTagDTO();
-  object.color =
-      _LocalTagDTOcolorValueEnumMap[reader.readByteOrNull(offsets[0])] ??
-          LocalTagColorDTO.red;
+  object.hexColor = reader.readString(offsets[0]);
   object.name = reader.readString(offsets[1]);
   return object;
 }
@@ -73,8 +71,7 @@ P _localTagDTODeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (_LocalTagDTOcolorValueEnumMap[reader.readByteOrNull(offset)] ??
-          LocalTagColorDTO.red) as P;
+      return (reader.readString(offset)) as P;
     case 1:
       return (reader.readString(offset)) as P;
     default:
@@ -82,81 +79,139 @@ P _localTagDTODeserializeProp<P>(
   }
 }
 
-const _LocalTagDTOcolorEnumValueMap = {
-  'red': 0,
-  'green': 1,
-  'blue': 2,
-  'black': 3,
-  'brown': 4,
-  'orange': 5,
-  'yellow': 6,
-  'grey': 7,
-  'purple': 8,
-};
-const _LocalTagDTOcolorValueEnumMap = {
-  0: LocalTagColorDTO.red,
-  1: LocalTagColorDTO.green,
-  2: LocalTagColorDTO.blue,
-  3: LocalTagColorDTO.black,
-  4: LocalTagColorDTO.brown,
-  5: LocalTagColorDTO.orange,
-  6: LocalTagColorDTO.yellow,
-  7: LocalTagColorDTO.grey,
-  8: LocalTagColorDTO.purple,
-};
-
 extension LocalTagDTOQueryFilter
     on QueryBuilder<LocalTagDTO, LocalTagDTO, QFilterCondition> {
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> colorEqualTo(
-      LocalTagColorDTO value) {
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> hexColorEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'color',
+        property: r'hexColor',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
-      colorGreaterThan(
-    LocalTagColorDTO value, {
+      hexColorGreaterThan(
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'color',
+        property: r'hexColor',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> colorLessThan(
-    LocalTagColorDTO value, {
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
+      hexColorLessThan(
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'color',
+        property: r'hexColor',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> colorBetween(
-    LocalTagColorDTO lower,
-    LocalTagColorDTO upper, {
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> hexColorBetween(
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'color',
+        property: r'hexColor',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
+      hexColorStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'hexColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
+      hexColorEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'hexColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
+      hexColorContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'hexColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> hexColorMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'hexColor',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
+      hexColorIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'hexColor',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
+      hexColorIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'hexColor',
+        value: '',
       ));
     });
   }

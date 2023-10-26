@@ -39,29 +39,6 @@ Set<Tag> _toLocalBookTags(Set<RestoredTag> tags) {
 Tag _toTag(RestoredTag restoredTag) {
   return Tag(
     name: restoredTag.title,
-    color: _toTagColor(restoredTag.color),
+    hexColor: restoredTag.hexColor,
   );
-}
-
-TagColor _toTagColor(RestoredTagColor color) {
-  switch (color) {
-    case RestoredTagColor.brown:
-      return TagColor.brown;
-    case RestoredTagColor.black:
-      return TagColor.black;
-    case RestoredTagColor.green:
-      return TagColor.green;
-    case RestoredTagColor.blue:
-      return TagColor.blue;
-    case RestoredTagColor.orange:
-      return TagColor.orange;
-    case RestoredTagColor.red:
-      return TagColor.red;
-    case RestoredTagColor.yellow:
-      return TagColor.yellow;
-    case RestoredTagColor.grey:
-      return TagColor.grey;
-    case RestoredTagColor.purple:
-      return TagColor.purple;
-  }
 }

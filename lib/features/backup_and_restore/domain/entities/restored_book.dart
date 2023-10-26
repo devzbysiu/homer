@@ -65,21 +65,9 @@ enum RestoredBookState {
 }
 
 final class RestoredTag {
-  RestoredTag({required this.title, required this.color});
+  RestoredTag({required this.title, required this.hexColor});
 
   final String title;
 
-  final RestoredTagColor color;
-}
-
-enum RestoredTagColor {
-  red,
-  green,
-  blue,
-  black,
-  brown,
-  orange,
-  yellow,
-  grey,
-  purple,
+  final String hexColor;
 }

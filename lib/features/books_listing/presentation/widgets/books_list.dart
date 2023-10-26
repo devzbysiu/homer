@@ -33,7 +33,7 @@ final class _BooksListState extends State<BooksList> {
               final books = state.books
                   .where((b) => b.state.name == context.currentTab().name)
                   .toList();
-              if (books.isEmpty) return const SizedBox.shrink();
+              if (books.isEmpty) return Container();
               return AlignedGridView.count(
                 controller: _scrollController,
                 crossAxisCount: 2,

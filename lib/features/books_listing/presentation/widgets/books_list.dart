@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 import '../../../book_summary/domain/entities/local_book.dart';
@@ -36,10 +35,12 @@ final class _BooksListState extends State<BooksList> {
                   .where((b) => b.state.name == context.currentTab().name)
                   .toList();
               if (books.isEmpty) return Container();
-              return AlignedGridView.count(
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 0.78,
+                  crossAxisCount: 2,
+                ),
                 controller: _scrollController,
-                crossAxisCount: 2,
-                cacheExtent: 0,
                 itemCount: books.length,
                 itemBuilder: (_, index) => BookCard(book: books[index]),
               );

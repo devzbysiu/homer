@@ -25,53 +25,13 @@ class _MainScreenState extends State<MainScreen> {
       transitionDuration: const Duration(milliseconds: 0),
       clearQueryOnClose: false,
       onQueryChanged: (query) => _onQueryChanged(query),
-      actions: [
-        if (isSearchInProgress)
-          IconButton(
-            onPressed: () => _clearQuery(),
-            icon: const Icon(Icons.close),
-          ),
-        if (!isSearchInProgress)
-          const Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: Icon(Icons.search),
-          ),
-      ],
-      leadingActions: [
-        IconButton(
-          onPressed: () => ZoomDrawer.of(context)!.open(),
-          icon: const Icon(Icons.menu),
-        ),
-      ],
+      actions: _clearOrSearchIcon(),
+      leadingActions: _openDrawerIcon(context),
       backgroundColor: Theme.of(context).colorScheme.background,
       hint: 'Filter...',
-      body: IndexedStack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Theme.of(context).colorScheme.primaryContainer,
-                  Theme.of(context).colorScheme.primaryContainer.lighten(15),
-                ],
-              ),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.only(top: 60),
-              child: BooksList(),
-            ),
-          )
-        ],
-      ),
+      body: _booksListing(context),
       builder: (_, __) => Container(),
     );
-  }
-
-  void _clearQuery() {
-    _searchController.clear();
-    setState(() {});
   }
 
   void _onQueryChanged(String query) {
@@ -79,6 +39,58 @@ class _MainScreenState extends State<MainScreen> {
       isSearchInProgress = query.isNotEmpty;
     });
     context.filterBooks(query);
+  }
+
+  List<Widget> _clearOrSearchIcon() {
+    return [
+      if (isSearchInProgress)
+        IconButton(
+          onPressed: () => _clearQuery(),
+          icon: const Icon(Icons.close),
+        ),
+      if (!isSearchInProgress)
+        const Padding(
+          padding: EdgeInsets.only(right: 8.0),
+          child: Icon(Icons.search),
+        ),
+    ];
+  }
+
+  void _clearQuery() {
+    _searchController.clear();
+    setState(() {});
+  }
+
+  List<Widget> _openDrawerIcon(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () => ZoomDrawer.of(context)!.open(),
+        icon: const Icon(Icons.menu),
+      ),
+    ];
+  }
+
+  IndexedStack _booksListing(BuildContext context) {
+    return IndexedStack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Theme.of(context).colorScheme.primaryContainer,
+                Theme.of(context).colorScheme.primaryContainer.lighten(15),
+              ],
+            ),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.only(top: 60),
+            child: BooksList(),
+          ),
+        )
+      ],
+    );
   }
 
   @override

@@ -22,7 +22,8 @@ final class ExternalBooks implements RemoteBooksDataSource {
       subtitle: book.info.subtitle,
       authors: book.info.authors,
       pageCount: book.info.pageCount,
-      industryIdentifiers: book.info.industryIdentifiers,
+      industryIdentifiers:
+          book.info.industryIdentifiers.map((isbn) => isbn.identifier).toList(),
       imageLinks: book.info.imageLinks,
       averageRating: book.info.averageRating,
       description: book.info.description,
@@ -31,7 +32,6 @@ final class ExternalBooks implements RemoteBooksDataSource {
 
   @override
   Future<RemoteBookDTO> getFromIsbn(String isbn) async {
-    // TODO: Create concrete exceptions
     final List<Book> books = await queryBooks(isbn, queryType: QueryType.isbn);
     if (books.isEmpty) throw NoBookWithIsbnFoundException(isbn);
     if (books.length > 1) throw TooManyBooksFoundException(isbn);

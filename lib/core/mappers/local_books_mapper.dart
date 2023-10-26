@@ -33,37 +33,21 @@ Option<DateTime> _toDateTime(int? millisSinceEpoch) {
 }
 
 LocalBookDTO toLocalBookDTO(LocalBook book) {
-  // TODO: Clean up this
-  return book.id != null
-      ? LocalBookDTO(
-          id: book.id!,
-          title: book.title,
-          subtitle: book.subtitle,
-          authors: book.authors,
-          state: _toBookStateDTO(book.state),
-          pageCount: book.pageCount,
-          isbn: book.isbn,
-          thumbnailAddress: book.thumbnailAddress.toNullable(),
-          rating: book.rating,
-          summary: book.summary.toNullable(),
-          tags: _toTagDTOs(book.tags),
-          startDate: book.startDate.nullableMillisSinceEpoch(),
-          endDate: book.endDate.nullableMillisSinceEpoch(),
-        )
-      : LocalBookDTO(
-          title: book.title,
-          subtitle: book.subtitle,
-          authors: book.authors,
-          state: _toBookStateDTO(book.state),
-          pageCount: book.pageCount,
-          isbn: book.isbn,
-          thumbnailAddress: book.thumbnailAddress.toNullable(),
-          rating: book.rating,
-          summary: book.summary.toNullable(),
-          tags: _toTagDTOs(book.tags),
-          startDate: book.startDate.nullableMillisSinceEpoch(),
-          endDate: book.endDate.nullableMillisSinceEpoch(),
-        );
+  final bookDTO = LocalBookDTO(
+    title: book.title,
+    subtitle: book.subtitle,
+    authors: book.authors,
+    state: _toBookStateDTO(book.state),
+    pageCount: book.pageCount,
+    isbn: book.isbn,
+    thumbnailAddress: book.thumbnailAddress.toNullable(),
+    rating: book.rating,
+    summary: book.summary.toNullable(),
+    tags: _toTagDTOs(book.tags),
+    startDate: book.startDate.nullableMillisSinceEpoch(),
+    endDate: book.endDate.nullableMillisSinceEpoch(),
+  );
+  return book.id != null ? (bookDTO..id = book.id!) : bookDTO;
 }
 
 LocalBookState _toBookState(LocalBookStateDTO state) {

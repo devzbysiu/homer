@@ -9,7 +9,6 @@ final class NoBookWithIsbnFoundException implements Exception {
   String toString() => 'Could not find book with isbn: $isbn';
 }
 
-// TODO: Can this really happen?
 final class TooManyBooksFoundException implements Exception {
   const TooManyBooksFoundException(this.isbn);
 

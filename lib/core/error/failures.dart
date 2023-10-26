@@ -2,14 +2,6 @@ abstract class Failure {
   String userMessage();
 }
 
-final class LocalDataSourceFailure implements Failure {
-  @override
-  String userMessage() {
-    // TODO: implement userMessage
-    throw UnimplementedError();
-  }
-}
-
 final class InvalidUrlSharedFailure implements Failure {
   const InvalidUrlSharedFailure(this.url);
 

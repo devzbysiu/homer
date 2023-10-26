@@ -1,4 +1,3 @@
-import 'package:books_finder/books_finder.dart';
 import 'package:equatable/equatable.dart';
 
 final class RemoteBookDTO extends Equatable {
@@ -21,8 +20,7 @@ final class RemoteBookDTO extends Equatable {
 
   final int pageCount;
 
-  // TODO: Should I use this external type here?
-  final List<IndustryIdentifier> industryIdentifiers;
+  final List<String> industryIdentifiers;
 
   final Map<String, Uri> imageLinks;
 

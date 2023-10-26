@@ -63,7 +63,7 @@ List<RestoredBook> fromDanteToRestoredBooks(
       book.tags.add(
         RestoredTag(
           title: 'technical',
-          hexColor: Colors.brown.hex, // TODO: Can I use flutter's Color here?
+          hexColor: Colors.brown.hex,
         ),
       );
     }

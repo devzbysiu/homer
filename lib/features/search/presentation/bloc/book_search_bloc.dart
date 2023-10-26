@@ -35,7 +35,6 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
     on<SearchInitiated>(_onSearchInitiated);
     on<SuggestedBookPicked>(_onSuggestedBookPicked);
     on<ClearPickedBook>(_onClearPickedBook);
-    // TODO: Should this be here or should it have it's own bloc?
     on<BookSharedFromOutside>(_onBookSharedFromOutside);
   }
 

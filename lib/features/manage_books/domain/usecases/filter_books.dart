@@ -14,10 +14,10 @@ final class FilterBooks extends UseCase<List<LocalBook>, FilterParams> {
   @override
   Future<Result<List<LocalBook>, Failure>> call(FilterParams params) async {
     final listResult = await booksRepo.listAll();
-    return listResult.when(
+    return Future.value(listResult.when(
       (books) => Success(_filter(books, params.query)),
       (error) => Error(error),
-    );
+    ));
   }
 
   List<LocalBook> _filter(List<LocalBook> books, String query) {

@@ -1,10 +1,12 @@
 part of 'settings_bloc.dart';
 
 abstract class SettingsEvent extends Equatable {
-  const SettingsEvent();
-}
-
-final class ThemeToggled extends SettingsEvent {
   @override
   List<Object> get props => [];
 }
+
+final class SettingsLoaded extends SettingsEvent {}
+
+final class ThemeToggled extends SettingsEvent {}
+
+final class SystemThemeToggled extends SettingsEvent {}

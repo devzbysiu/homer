@@ -17,3 +17,8 @@ final class TooManyBooksFoundException implements Exception {
   @override
   String toString() => 'There is more than one book with isbn: $isbn';
 }
+
+final class NoSettingsException implements Exception {
+  @override
+  String toString() => 'Settings not found';
+}

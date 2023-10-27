@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:share_handler/share_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/backup_and_restore/data/datasources/dante_backup_data_source.dart';
 import 'features/backup_and_restore/data/repositories/local_backup_repo.dart';
@@ -29,6 +30,11 @@ import 'features/manage_books/presentation/bloc/delete/delete_books_bloc.dart';
 import 'features/manage_books/presentation/bloc/listing/books_bloc.dart';
 import 'features/manage_books/presentation/bloc/summary/book_summary_bloc.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
+import 'features/settings/data/datasources/local_settings_data_source.dart';
+import 'features/settings/data/repositories/local_settings_repo.dart';
+import 'features/settings/domain/repositories/local_settings_repository.dart';
+import 'features/settings/domain/usecases/load_settings.dart';
+import 'features/settings/domain/usecases/save_settings.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
 import 'features/tags_manager/data/repositories/in_memory_tags_repo.dart';
 import 'features/tags_manager/domain/repositories/tags_repository.dart';
@@ -41,31 +47,38 @@ Future<void> initDi() async {
   // Features
   sl.registerFactory(() => AppTabBloc());
   sl.registerFactory(() => BookSummaryBloc());
-  sl.registerFactory(
-    () => BooksBloc(
+  sl.registerFactory(() {
+    return BooksBloc(
       addBook: sl(),
       listBooks: sl(),
       updateBook: sl(),
       filterBooks: sl(),
-    ),
-  );
+    );
+  });
   sl.registerFactory(() => DeleteBooksBloc(deleteBooks: sl()));
   sl.registerFactory(() => TagsBloc(listTags: sl()));
-  sl.registerFactory(() => BookSearchBloc(
-        shareHandler: sl(),
-        searchForBooks: sl(),
-        fetchSharedBook: sl(),
-      ));
+  sl.registerFactory(() {
+    return BookSearchBloc(
+      shareHandler: sl(),
+      searchForBooks: sl(),
+      fetchSharedBook: sl(),
+    );
+  });
   sl.registerFactory(() => OnBookTagsBloc());
-  sl.registerFactory(
-    () => BackupBloc(
+  sl.registerFactory(() {
+    return BackupBloc(
       loadFromLocalBackup: sl(),
       addAllBooks: sl(),
       purgeRepo: sl(),
       saveToLocalBackup: sl(),
-    ),
-  );
-  sl.registerFactory(() => SettingsBloc());
+    );
+  });
+  sl.registerFactory(() {
+    return SettingsBloc(
+      saveSettings: sl(),
+      loadSettings: sl(),
+    );
+  });
 
   // Use cases
   // books
@@ -84,21 +97,27 @@ Future<void> initDi() async {
   sl.registerFactory(() => AddAllBooks(sl()));
   sl.registerFactory(() => PurgeRepo(sl()));
   sl.registerFactory(() => SaveToLocalBackup(sl(), sl()));
+  // settings
+  sl.registerFactory(() => SaveSettings(settingsRepo: sl()));
+  sl.registerFactory(() => LoadSettings(settingsRepo: sl()));
 
   // Repositories
-  sl.registerLazySingleton<LocalBooksRepository>(
-    () => LocalBooksRepo(dataSource: sl()),
-  );
+  sl.registerLazySingleton<LocalBooksRepository>(() {
+    return LocalBooksRepo(dataSource: sl());
+  });
   sl.registerLazySingleton<TagsRepository>(() => InMemoryTagsRepo());
-  sl.registerLazySingleton<RemoteBooksRepository>(
-    () => RemoteBooksRepo(
+  sl.registerLazySingleton<RemoteBooksRepository>(() {
+    return RemoteBooksRepo(
       booksDataSource: sl(),
       booksInfoDataSource: sl(),
-    ),
-  );
-  sl.registerLazySingleton<BackupRepository>(
-    () => LocalBackupRepo(dataSource: sl()),
-  );
+    );
+  });
+  sl.registerLazySingleton<BackupRepository>(() {
+    return LocalBackupRepo(dataSource: sl());
+  });
+  sl.registerLazySingleton<LocalSettingsRepository>(() {
+    return LocalSettingsRepo(settingsDataSource: sl());
+  });
 
   // Data sources
   final isarDataSource = await IsarLocalDataSource.create();
@@ -107,10 +126,17 @@ Future<void> initDi() async {
   sl.registerLazySingleton<RemoteBookInfoDataSource>(() => ScraperDataSource());
   sl.registerLazySingleton<LocalBackupDataSource>(() => BackupDataSource());
 
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton<LocalSettingsDataSource>(() {
+    return SharedPreferencesSettingsDataSource(
+      sharedPreferences: sharedPreferences,
+    );
+  });
+
   // Core
 
   // External
-  sl.registerLazySingleton<ShareHandlerPlatform>(
-    () => ShareHandlerPlatform.instance,
-  );
+  sl.registerLazySingleton<ShareHandlerPlatform>(() {
+    return ShareHandlerPlatform.instance;
+  });
 }

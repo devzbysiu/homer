@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/widgets/menu_button.dart';
 import '../../../backup_and_restore/presentation/widgets/backup_button.dart';
 import '../../../backup_and_restore/presentation/widgets/restore_button.dart';
+import 'settings_button.dart';
 
 class MenuItems extends StatelessWidget {
   const MenuItems({super.key});
@@ -22,10 +23,7 @@ class MenuItems extends StatelessWidget {
           onPressed: () {},
         ),
         spaceBetween(),
-        MenuButton(
-          text: 'Settings',
-          onPressed: () {},
-        ),
+        const SettingsButton(),
         spaceBetween(),
       ],
     );

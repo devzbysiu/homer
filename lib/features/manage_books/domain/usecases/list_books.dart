@@ -14,9 +14,9 @@ final class ListBooks extends UseCase<List<LocalBook>, NoParams> {
   @override
   Future<Result<List<LocalBook>, Failure>> call(NoParams params) async {
     final listResult = await booksRepo.listAll();
-    return listResult.when(
+    return Future.value(listResult.when(
       (books) => Success(sortByStateAndDate(books)),
       (error) => Error(error),
-    );
+    ));
   }
 }

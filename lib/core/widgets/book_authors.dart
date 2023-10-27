@@ -11,9 +11,8 @@ final class BookAuthors extends StatelessWidget {
       authorNames.join(', '),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Colors.white,
-          ),
+      style:
+          Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
     );
   }
 }

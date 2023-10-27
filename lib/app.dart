@@ -1,11 +1,30 @@
-import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
+import 'package:go_router/go_router.dart';
 
 import 'features/manage_books/presentation/pages/home.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
+import 'features/settings/presentation/pages/settings_screen.dart';
+
+final GoRouter _router = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return const Home();
+      },
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'settings',
+          builder: (BuildContext context, GoRouterState state) {
+            return const SettingsScreen();
+          },
+        ),
+      ],
+    ),
+  ],
+);
 
 final class Homer extends StatelessWidget {
   const Homer({super.key});
@@ -13,27 +32,32 @@ final class Homer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const scheme = FlexScheme.amber;
-    return BlocSelector<SettingsBloc, SettingsState, bool>(
-      selector: (state) => state.isThemeDark,
-      builder: (context, isThemeDark) {
-        final themeMode = isThemeDark ? ThemeMode.dark : ThemeMode.light;
-        return MaterialApp(
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      builder: (context, state) {
+        final themeMode = state.isSystemThemeEnabled
+            ? ThemeMode.system
+            : state.isThemeDark
+                ? ThemeMode.dark
+                : ThemeMode.light;
+        return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           title: 'Homer',
           theme: FlexThemeData.light(scheme: scheme),
           darkTheme: FlexThemeData.dark(scheme: scheme),
           themeMode: themeMode,
-          home: FlutterSplashScreen(
-            duration: const Duration(milliseconds: 2000),
-            nextScreen: const Home(),
-            backgroundColor: Colors.white,
-            splashScreenBody: Center(
-              child: Lottie.asset(
-                'assets/splash-screen.json',
-                repeat: false,
-              ),
-            ),
-          ),
+          routerConfig: _router,
+          // TODO: Take care of splash screen
+          // home: FlutterSplashScreen(
+          //   duration: const Duration(milliseconds: 2000),
+          //   nextScreen: const Home(),
+          //   backgroundColor: Colors.white,
+          //   splashScreenBody: Center(
+          //     child: Lottie.asset(
+          //       'assets/splash-screen.json',
+          //       repeat: false,
+          //     ),
+          //   ),
+          // ),
         );
       },
     );

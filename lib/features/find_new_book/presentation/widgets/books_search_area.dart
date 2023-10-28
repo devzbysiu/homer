@@ -2,7 +2,6 @@ import 'package:banner_listtile/banner_listtile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chip_list/chip_list.dart';
 import 'package:dartz/dartz.dart' as dartz;
-import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +20,7 @@ import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
 import '../../domain/entities/remote_book.dart';
 import '../bloc/search/book_search_bloc.dart';
 import '../bloc/toggle_tags/on_book_tags_bloc.dart';
+import 'drop_cap_text.dart';
 
 final class BookSearchArea extends StatefulWidget {
   const BookSearchArea({super.key});
@@ -144,12 +144,11 @@ final class _BookWithSummary extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(left: 9, right: 9),
       child: DropCapText(
-        pickedBook.description,
-        maxLines: 23,
+        text: pickedBook.description,
         overflow: TextOverflow.ellipsis,
         dropCap: DropCap(
-          width: 200,
-          height: 280,
+          width: 150,
+          height: 220,
           child: _RemoteBookCard(book: pickedBook),
         ),
         dropCapPadding: const EdgeInsets.only(

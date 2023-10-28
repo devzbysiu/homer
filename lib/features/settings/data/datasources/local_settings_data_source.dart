@@ -29,7 +29,7 @@ final class SharedPreferencesSettingsDataSource
   Future<LocalSettingsDTO> load() {
     final settingsJson = sharedPreferences.getString('settings');
     if (settingsJson == null) throw NoSettingsException();
-    final settingsDTO = LocalSettingsDTO.fromJson(jsonDecode(settingsJson!));
+    final settingsDTO = LocalSettingsDTO.fromJson(jsonDecode(settingsJson));
     return Future.value(settingsDTO);
   }
 }

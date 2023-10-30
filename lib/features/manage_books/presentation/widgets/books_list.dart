@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:blur/blur.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dartz/dartz.dart' as dartz;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -231,6 +232,7 @@ final class _BookCover extends StatelessWidget {
       title: BookTitle(title: book.title),
       description: BookAuthors(authorNames: book.authors),
       footer: BookCardFooter(
+        shareText: dartz.some('${book.title} by ${book.authors.join(',')}'),
         rating: book.rating,
         pageCount: book.pageCount,
       ),

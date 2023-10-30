@@ -9,7 +9,9 @@ final class BookTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Text(
-        title,
+        // Adding `'\n'` to have at least two lines
+        // (but max lines is 2 so it's always 2 lines)
+        '$title\n',
         maxLines: 2,
         style: Theme.of(context)
             .textTheme

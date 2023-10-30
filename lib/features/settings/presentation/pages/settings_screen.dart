@@ -15,7 +15,7 @@ class SettingsScreen extends StatelessWidget {
       effects: const [FadeEffect()],
       child: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
-          final isSystemThemeEnabled = state.isSystemThemeEnabled;
+          final isSystemThemeEnabled = state.isSystemThemeOn;
           return SettingsList(
             darkBackgroundColor: Theme.of(context).colorScheme.background,
             lightBackgroundColor: Theme.of(context).colorScheme.background,

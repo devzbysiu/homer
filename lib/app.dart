@@ -34,9 +34,9 @@ final class Homer extends StatelessWidget {
     const scheme = FlexScheme.amber;
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
-        final themeMode = state.isSystemThemeEnabled
+        final themeMode = state.isSystemThemeOn
             ? ThemeMode.system
-            : state.isThemeDark
+            : state.isDarkThemeOn
                 ? ThemeMode.dark
                 : ThemeMode.light;
         return MaterialApp.router(

@@ -2,21 +2,21 @@ part of 'settings_bloc.dart';
 
 abstract class SettingsState extends Equatable {
   const SettingsState({
-    required this.isThemeDark,
-    required this.isSystemThemeEnabled,
+    required this.isDarkThemeOn,
+    required this.isSystemThemeOn,
     required this.backupsDirectory,
   });
 
-  final bool isThemeDark;
+  final bool isDarkThemeOn;
 
-  final bool isSystemThemeEnabled;
+  final bool isSystemThemeOn;
 
   final Directory backupsDirectory;
 
   @override
   List<Object> get props => [
-        isThemeDark,
-        isSystemThemeEnabled,
+        isDarkThemeOn,
+        isSystemThemeOn,
         backupsDirectory,
       ];
 }
@@ -24,16 +24,16 @@ abstract class SettingsState extends Equatable {
 final class SettingsInitial extends SettingsState {
   SettingsInitial()
       : super(
-          isThemeDark: true,
-          isSystemThemeEnabled: true,
+          isDarkThemeOn: true,
+          isSystemThemeOn: true,
           backupsDirectory: Directory('/storage/emulated/0/Documents'),
         );
 }
 
 final class Settings extends SettingsState {
   const Settings({
-    required super.isSystemThemeEnabled,
-    required super.isThemeDark,
+    required super.isDarkThemeOn,
+    required super.isSystemThemeOn,
     required super.backupsDirectory,
   });
 }

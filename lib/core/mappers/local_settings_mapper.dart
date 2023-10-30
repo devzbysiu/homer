@@ -4,21 +4,21 @@ import '../../features/settings/data/models/local_settings_dto.dart';
 import '../../features/settings/domain/entities/local_settings.dart';
 
 LocalSettings toLocalSettings(
-  bool isSystemTheme,
-  bool isDarkTheme,
+  bool isDarkThemeOn,
+  bool isSystemThemeOn,
   Directory backupsDirectory,
 ) {
   return LocalSettings(
-    isSystemThemeEnabled: isSystemTheme,
-    isThemeDark: isDarkTheme,
+    isDarkThemeOn: isDarkThemeOn,
+    isSystemThemeOn: isSystemThemeOn,
     backupsDirectory: backupsDirectory,
   );
 }
 
 LocalSettingsDTO toSettingsDTO(LocalSettings settings) {
   return LocalSettingsDTO(
-    isSystemTheme: settings.isSystemThemeEnabled,
-    isDarkTheme: settings.isThemeDark,
+    isDarkThemeOn: settings.isDarkThemeOn,
+    isSystemThemeOn: settings.isSystemThemeOn,
     backupsDirectory: settings.backupsDirectory,
   );
 }

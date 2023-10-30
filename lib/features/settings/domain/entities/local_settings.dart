@@ -2,22 +2,22 @@ import 'dart:io';
 
 final class LocalSettings {
   LocalSettings({
-    required this.isSystemThemeEnabled,
-    required this.isThemeDark,
+    required this.isSystemThemeOn,
+    required this.isDarkThemeOn,
     required this.backupsDirectory,
   });
 
   factory LocalSettings.makeDefault() {
     return LocalSettings(
-      isSystemThemeEnabled: true,
-      isThemeDark: true,
+      isSystemThemeOn: true,
+      isDarkThemeOn: true,
       backupsDirectory: Directory('/storage/emulated/0/Documents'),
     );
   }
 
-  final bool isSystemThemeEnabled;
+  final bool isSystemThemeOn;
 
-  final bool isThemeDark;
+  final bool isDarkThemeOn;
 
   final Directory backupsDirectory;
 }

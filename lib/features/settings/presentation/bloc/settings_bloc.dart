@@ -35,8 +35,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     final result = await loadSettings(NoParams());
     result.when(
       (settings) => emit(Settings(
-        isSystemThemeEnabled: settings.isSystemThemeEnabled,
-        isThemeDark: settings.isThemeDark,
+        isDarkThemeOn: settings.isDarkThemeOn,
+        isSystemThemeOn: settings.isSystemThemeOn,
         backupsDirectory: settings.backupsDirectory,
       )),
       (error) => emit(FailedToLoadSettings()),
@@ -48,15 +48,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     ThemeToggled event,
     Emitter<SettingsState> emit,
   ) {
-    // TODO: take care of this passing of non-changed params (backupsDirectory)
     final newState = Settings(
-      isSystemThemeEnabled: state.isSystemThemeEnabled,
-      isThemeDark: !state.isThemeDark,
+      isDarkThemeOn: !state.isDarkThemeOn,
+      isSystemThemeOn: state.isSystemThemeOn,
       backupsDirectory: state.backupsDirectory,
     );
     saveSettings(SaveSettingsParams(
-      isSystemTheme: newState.isSystemThemeEnabled,
-      isDarkTheme: newState.isThemeDark,
+      isDarkThemeOn: newState.isDarkThemeOn,
+      isSystemThemeOn: newState.isSystemThemeOn,
       backupsDirectory: newState.backupsDirectory,
     ));
     emit(newState);
@@ -68,13 +67,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) async {
     final newState = Settings(
-      isSystemThemeEnabled: !state.isSystemThemeEnabled,
-      isThemeDark: state.isThemeDark,
+      isDarkThemeOn: state.isDarkThemeOn,
+      isSystemThemeOn: !state.isSystemThemeOn,
       backupsDirectory: state.backupsDirectory,
     );
     saveSettings(SaveSettingsParams(
-      isSystemTheme: newState.isSystemThemeEnabled,
-      isDarkTheme: newState.isThemeDark,
+      isDarkThemeOn: newState.isDarkThemeOn,
+      isSystemThemeOn: newState.isSystemThemeOn,
       backupsDirectory: newState.backupsDirectory,
     ));
     emit(newState);
@@ -86,13 +85,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) async {
     emit(Settings(
-      isSystemThemeEnabled: state.isSystemThemeEnabled,
-      isThemeDark: state.isThemeDark,
+      isDarkThemeOn: state.isDarkThemeOn,
+      isSystemThemeOn: state.isSystemThemeOn,
       backupsDirectory: Directory(event.directory),
     ));
     saveSettings(SaveSettingsParams(
-      isSystemTheme: state.isSystemThemeEnabled,
-      isDarkTheme: state.isThemeDark,
+      isDarkThemeOn: state.isDarkThemeOn,
+      isSystemThemeOn: state.isSystemThemeOn,
       backupsDirectory: state.backupsDirectory,
     ));
   }

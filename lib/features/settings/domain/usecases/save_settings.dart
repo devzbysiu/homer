@@ -15,8 +15,8 @@ final class SaveSettings implements UseCase<Unit, SaveSettingsParams> {
   @override
   Future<Result<Unit, Failure>> call(SaveSettingsParams params) async {
     final settings = toLocalSettings(
-      params.isSystemTheme,
-      params.isDarkTheme,
+      params.isSystemThemeOn,
+      params.isDarkThemeOn,
       params.backupsDirectory,
     );
     return await settingsRepo.save(settings);
@@ -25,14 +25,14 @@ final class SaveSettings implements UseCase<Unit, SaveSettingsParams> {
 
 final class SaveSettingsParams {
   const SaveSettingsParams({
-    required this.isSystemTheme,
-    required this.isDarkTheme,
+    required this.isSystemThemeOn,
+    required this.isDarkThemeOn,
     required this.backupsDirectory,
   });
 
-  final bool isSystemTheme;
+  final bool isSystemThemeOn;
 
-  final bool isDarkTheme;
+  final bool isDarkThemeOn;
 
   final Directory backupsDirectory;
 }

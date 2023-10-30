@@ -7,14 +7,14 @@ part 'local_settings_dto.g.dart';
 @JsonSerializable()
 final class LocalSettingsDTO {
   const LocalSettingsDTO({
-    required this.isSystemTheme,
-    required this.isDarkTheme,
+    required this.isSystemThemeOn,
+    required this.isDarkThemeOn,
     required this.backupsDirectory,
   });
 
-  final bool isSystemTheme;
+  final bool isSystemThemeOn;
 
-  final bool isDarkTheme;
+  final bool isDarkThemeOn;
 
   @JsonKey(fromJson: _directoryFromJson, toJson: _directoryToJson)
   final Directory backupsDirectory;

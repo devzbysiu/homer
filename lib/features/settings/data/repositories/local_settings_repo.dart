@@ -26,10 +26,11 @@ final class LocalSettingsRepo implements LocalSettingsRepository {
       final settings = toLocalSettings(
         settingsDTO.isSystemTheme,
         settingsDTO.isDarkTheme,
+        settingsDTO.backupsDirectory,
       );
       return Future.value(Success(settings));
     } on NoSettingsException {
-      return Future.value(const Success(LocalSettings()));
+      return Future.value(Success(LocalSettings.makeDefault()));
     }
   }
 }

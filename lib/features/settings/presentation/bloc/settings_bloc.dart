@@ -28,6 +28,22 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   final LoadSettings loadSettings;
 
+  Future<void> _onSettingsLoaded(
+    SettingsLoaded event,
+    Emitter<SettingsState> emit,
+  ) async {
+    final result = await loadSettings(NoParams());
+    result.when(
+      (settings) => emit(Settings(
+        isSystemThemeEnabled: settings.isSystemThemeEnabled,
+        isThemeDark: settings.isThemeDark,
+        backupsDirectory: settings.backupsDirectory,
+      )),
+      (error) => emit(FailedToLoadSettings()),
+    );
+    return Future.value();
+  }
+
   Future<void> _onThemeToggled(
     ThemeToggled event,
     Emitter<SettingsState> emit,
@@ -36,11 +52,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     final newState = Settings(
       isSystemThemeEnabled: state.isSystemThemeEnabled,
       isThemeDark: !state.isThemeDark,
-      backupsPath: state.backupsPath,
+      backupsDirectory: state.backupsDirectory,
     );
     saveSettings(SaveSettingsParams(
       isSystemTheme: newState.isSystemThemeEnabled,
       isDarkTheme: newState.isThemeDark,
+      backupsDirectory: newState.backupsDirectory,
     ));
     emit(newState);
     return Future.value();
@@ -53,29 +70,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     final newState = Settings(
       isSystemThemeEnabled: !state.isSystemThemeEnabled,
       isThemeDark: state.isThemeDark,
-      backupsPath: state.backupsPath,
+      backupsDirectory: state.backupsDirectory,
     );
     saveSettings(SaveSettingsParams(
       isSystemTheme: newState.isSystemThemeEnabled,
       isDarkTheme: newState.isThemeDark,
+      backupsDirectory: newState.backupsDirectory,
     ));
     emit(newState);
-    return Future.value();
-  }
-
-  Future<void> _onSettingsLoaded(
-    SettingsLoaded event,
-    Emitter<SettingsState> emit,
-  ) async {
-    final result = await loadSettings(NoParams());
-    result.when(
-      (settings) => emit(Settings(
-        isSystemThemeEnabled: settings.isSystemThemeEnabled,
-        isThemeDark: settings.isThemeDark,
-        backupsPath: state.backupsPath,
-      )),
-      (error) => emit(FailedToLoadSettings()),
-    );
     return Future.value();
   }
 
@@ -86,7 +88,12 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     emit(Settings(
       isSystemThemeEnabled: state.isSystemThemeEnabled,
       isThemeDark: state.isThemeDark,
-      backupsPath: event.directory,
+      backupsDirectory: Directory(event.directory),
+    ));
+    saveSettings(SaveSettingsParams(
+      isSystemTheme: state.isSystemThemeEnabled,
+      isDarkTheme: state.isThemeDark,
+      backupsDirectory: state.backupsDirectory,
     ));
   }
 }

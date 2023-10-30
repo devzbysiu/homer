@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
@@ -12,7 +14,11 @@ final class SaveSettings implements UseCase<Unit, SaveSettingsParams> {
 
   @override
   Future<Result<Unit, Failure>> call(SaveSettingsParams params) async {
-    final settings = toLocalSettings(params.isSystemTheme, params.isDarkTheme);
+    final settings = toLocalSettings(
+      params.isSystemTheme,
+      params.isDarkTheme,
+      params.backupsDirectory,
+    );
     return await settingsRepo.save(settings);
   }
 }
@@ -21,9 +27,12 @@ final class SaveSettingsParams {
   const SaveSettingsParams({
     required this.isSystemTheme,
     required this.isDarkTheme,
+    required this.backupsDirectory,
   });
 
   final bool isSystemTheme;
 
   final bool isDarkTheme;
+
+  final Directory backupsDirectory;
 }

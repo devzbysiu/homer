@@ -10,3 +10,12 @@ final class SettingsLoaded extends SettingsEvent {}
 final class ThemeToggled extends SettingsEvent {}
 
 final class SystemThemeToggled extends SettingsEvent {}
+
+final class BackupsDirectorySelected extends SettingsEvent {
+  BackupsDirectorySelected(this.directory);
+
+  final String directory;
+
+  @override
+  List<Object> get props => [directory];
+}

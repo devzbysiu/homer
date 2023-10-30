@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,9 +13,9 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Animate(
       effects: const [FadeEffect()],
-      child: BlocSelector<SettingsBloc, SettingsState, bool>(
-        selector: (state) => state.isSystemThemeEnabled,
-        builder: (context, isSystemThemeEnabled) {
+      child: BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, state) {
+          final isSystemThemeEnabled = state.isSystemThemeEnabled;
           return SettingsList(
             darkBackgroundColor: Theme.of(context).colorScheme.background,
             lightBackgroundColor: Theme.of(context).colorScheme.background,
@@ -26,18 +27,17 @@ class SettingsScreen extends StatelessWidget {
                     .copyWith(color: Theme.of(context).colorScheme.primary),
                 title: 'Section',
                 tiles: [
-                  SettingsTile(
-                    title: 'Language',
-                    subtitle: 'English',
-                    leading: const Icon(Icons.language),
-                    onPressed: (BuildContext context) {},
-                  ),
                   SettingsTile.switchTile(
                     switchActiveColor: Theme.of(context).colorScheme.primary,
                     title: 'Use system theme',
                     leading: const Icon(Icons.brush),
                     switchValue: isSystemThemeEnabled,
                     onToggle: (_) => context.toggleSystemTheme(),
+                  ),
+                  SettingsTile(
+                    title: 'Backups directory',
+                    subtitle: state.backupsDirectory.path,
+                    onPressed: _pickBackupsPath,
                   ),
                 ],
               ),
@@ -46,5 +46,12 @@ class SettingsScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<void> _pickBackupsPath(BuildContext context) async {
+    final directoryPath = await FilePicker.platform.getDirectoryPath();
+    if (directoryPath == null) return Future.value();
+    if (context.mounted) context.backupsDirectorySelected(directoryPath);
+    return Future.value();
   }
 }

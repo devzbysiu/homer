@@ -20,6 +20,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingsLoaded>(_onSettingsLoaded);
     on<ThemeToggled>(_onThemeToggled);
     on<SystemThemeToggled>(_onSystemThemeToggled);
+    on<BackupsDirectorySelected>(_onBackupPathSelected);
     add(SettingsLoaded());
   }
 
@@ -31,9 +32,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     ThemeToggled event,
     Emitter<SettingsState> emit,
   ) {
+    // TODO: take care of this passing of non-changed params (backupsDirectory)
     final newState = Settings(
       isSystemThemeEnabled: state.isSystemThemeEnabled,
       isThemeDark: !state.isThemeDark,
+      backupsPath: state.backupsPath,
     );
     saveSettings(SaveSettingsParams(
       isSystemTheme: newState.isSystemThemeEnabled,
@@ -50,6 +53,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     final newState = Settings(
       isSystemThemeEnabled: !state.isSystemThemeEnabled,
       isThemeDark: state.isThemeDark,
+      backupsPath: state.backupsPath,
     );
     saveSettings(SaveSettingsParams(
       isSystemTheme: newState.isSystemThemeEnabled,
@@ -68,10 +72,22 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       (settings) => emit(Settings(
         isSystemThemeEnabled: settings.isSystemThemeEnabled,
         isThemeDark: settings.isThemeDark,
+        backupsPath: state.backupsPath,
       )),
       (error) => emit(FailedToLoadSettings()),
     );
     return Future.value();
+  }
+
+  Future<void> _onBackupPathSelected(
+    BackupsDirectorySelected event,
+    Emitter<SettingsState> emit,
+  ) async {
+    emit(Settings(
+      isSystemThemeEnabled: state.isSystemThemeEnabled,
+      isThemeDark: state.isThemeDark,
+      backupsPath: event.directory,
+    ));
   }
 }
 
@@ -82,6 +98,10 @@ extension SettingsContextExt on BuildContext {
 
   void toggleSystemTheme() {
     _emitSettingsEvt(SystemThemeToggled());
+  }
+
+  void backupsDirectorySelected(String path) {
+    _emitSettingsEvt(BackupsDirectorySelected(path));
   }
 
   void _emitSettingsEvt(SettingsEvent event) {

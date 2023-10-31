@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'book_size_limits.dart';
+
 final class LocalSettings {
   LocalSettings({
     required this.isSystemThemeOn,
@@ -13,7 +15,7 @@ final class LocalSettings {
       isSystemThemeOn: true,
       isDarkThemeOn: true,
       backupsDirectory: Directory('/storage/emulated/0/Documents'),
-      bookSizeLimits: [300, 500],
+      bookSizeLimits: BookSizeLimits(shortMax: 300, mediumMax: 500),
     );
   }
 
@@ -23,5 +25,5 @@ final class LocalSettings {
 
   final Directory backupsDirectory;
 
-  final List<double> bookSizeLimits;
+  final BookSizeLimits bookSizeLimits;
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../features/settings/domain/entities/book_size_limits.dart';
 import '../../features/settings/presentation/bloc/settings_bloc.dart';
 
 final class BookCardFooter extends StatelessWidget {
@@ -72,7 +73,7 @@ class _PagesIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<SettingsBloc, SettingsState, List<double>>(
+    return BlocSelector<SettingsBloc, SettingsState, BookSizeLimits>(
       selector: (state) => state.bookSizeLimits,
       builder: (context, bookSizeLimits) {
         final (sizeLabel, sizeColor) = _sizeProperties(bookSizeLimits);
@@ -81,10 +82,7 @@ class _PagesIcon extends StatelessWidget {
           decoration: BoxDecoration(
             color: sizeColor,
             borderRadius: BorderRadius.circular(5),
-            border: Border.all(
-              width: 1.5,
-              color: sizeColor,
-            ),
+            border: Border.all(color: sizeColor),
           ),
           child: Text(
             sizeLabel,
@@ -95,11 +93,10 @@ class _PagesIcon extends StatelessWidget {
     );
   }
 
-  (String, Color) _sizeProperties(List<double> bookSizeLimits) {
-    if (pageCount < bookSizeLimits.first) {
+  (String, Color) _sizeProperties(BookSizeLimits limits) {
+    if (limits.isShort(pageCount)) {
       return ('S', Colors.green);
-    } else if (bookSizeLimits.first <= pageCount &&
-        pageCount < bookSizeLimits[1]) {
+    } else if (limits.isMedium(pageCount)) {
       return ('M', Colors.blue);
     } else {
       return ('L', Colors.orange);

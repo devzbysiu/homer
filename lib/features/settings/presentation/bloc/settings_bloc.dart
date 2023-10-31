@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/usecase/usecase.dart';
+import '../../domain/entities/book_size_limits.dart';
 import '../../domain/usecases/load_settings.dart';
 import '../../domain/usecases/save_settings.dart';
 
@@ -138,11 +139,11 @@ extension SettingsContextExt on BuildContext {
     _emitSettingsEvt(BackupsDirectorySelected(path));
   }
 
-  void bookSizeLimitsChanged(List<double> limits) {
+  void bookSizeLimitsChanged(BookSizeLimits limits) {
     _emitSettingsEvt(BookSizeLimitsChanged(limits));
   }
 
-  List<double> bookSizeLimits() {
+  BookSizeLimits bookSizeLimits() {
     return read<SettingsBloc>().state.bookSizeLimits;
   }
 

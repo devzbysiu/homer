@@ -14,7 +14,7 @@ abstract class SettingsState extends Equatable {
 
   final Directory backupsDirectory;
 
-  final List<double> bookSizeLimits;
+  final BookSizeLimits bookSizeLimits;
 
   @override
   List<Object> get props => [
@@ -31,7 +31,7 @@ final class SettingsInitial extends SettingsState {
           isDarkThemeOn: true,
           isSystemThemeOn: true,
           backupsDirectory: Directory('/storage/emulated/0/Documents'),
-          bookSizeLimits: [300, 500],
+          bookSizeLimits: BookSizeLimits(shortMax: 300, mediumMax: 500),
         );
 }
 

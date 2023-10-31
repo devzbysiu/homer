@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import '../../features/settings/data/models/local_settings_dto.dart';
+import '../../features/settings/domain/entities/book_size_limits.dart';
 import '../../features/settings/domain/entities/local_settings.dart';
 
 LocalSettings toLocalSettings(
   bool isDarkThemeOn,
   bool isSystemThemeOn,
   Directory backupsDirectory,
-  List<double> bookSizeLimits,
+  BookSizeLimits bookSizeLimits,
 ) {
   return LocalSettings(
     isDarkThemeOn: isDarkThemeOn,

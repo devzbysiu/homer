@@ -23,5 +23,5 @@ final class BackupsDirectorySelected extends SettingsEvent {
 final class BookSizeLimitsChanged extends SettingsEvent {
   BookSizeLimitsChanged(this.limits);
 
-  final List<double> limits;
+  final BookSizeLimits limits;
 }

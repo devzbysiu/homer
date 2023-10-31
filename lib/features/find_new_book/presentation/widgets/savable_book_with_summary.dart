@@ -1,9 +1,73 @@
+part of 'bottom_drawer_content.dart';
+
+final class _SavableBookWithSummary extends StatelessWidget {
+  const _SavableBookWithSummary();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<BookSearchBloc, BookSearchState,
+        dartz.Option<RemoteBook>>(
+      selector: (state) => state.pickedBook,
+      builder: (context, pickedBook) {
+        return pickedBook.fold(
+          () => Container(),
+          (book) => Padding(
+            padding: const EdgeInsets.only(top: 80.0),
+            child: Stack(
+              children: [
+                _BookWithSummary(pickedBook: book),
+                Positioned(
+                  width: MediaQuery.of(context).size.width,
+                  bottom: 60,
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 18.0),
+                    child: _Tags(),
+                  ),
+                ),
+                Positioned(
+                  width: MediaQuery.of(context).size.width,
+                  bottom: 10,
+                  child: _SaveButtons(pickedBook: book),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+final class _BookWithSummary extends StatelessWidget {
+  const _BookWithSummary({required this.pickedBook});
+
+  final RemoteBook pickedBook;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(left: 9, right: 9),
+      child: _DropCapText(
+        text: pickedBook.description,
+        overflow: TextOverflow.ellipsis,
+        dropCap: _DropCap(
+          width: 150,
+          height: 220,
+          child: _RemoteBookCard(book: pickedBook),
+        ),
+        dropCapPadding: const EdgeInsets.only(
+          bottom: 5,
+          right: 15,
+        ),
+      ),
+    );
+  }
+}
+
 // This is copy of https://github.com/mtiziano/drop_cap_text/blob/2c1c7eee913e03650ff2c5f52d83fa24068f5ba2/lib/drop_cap_text.dart
 // Heavily modified (striped out of useless stuff).
-import 'package:flutter/material.dart';
-
-class DropCap extends StatelessWidget {
-  const DropCap({
+class _DropCap extends StatelessWidget {
+  const _DropCap({
     Key? key,
     required this.child,
     required this.width,
@@ -18,12 +82,16 @@ class DropCap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(width: width, height: height, child: child);
+    return SizedBox(
+      width: width,
+      height: height,
+      child: child,
+    );
   }
 }
 
-class DropCapText extends StatelessWidget {
-  const DropCapText({
+class _DropCapText extends StatelessWidget {
+  const _DropCapText({
     Key? key,
     required this.text,
     required this.dropCap,
@@ -35,7 +103,7 @@ class DropCapText extends StatelessWidget {
 
   final TextAlign textAlign = TextAlign.start;
 
-  final DropCap dropCap;
+  final _DropCap dropCap;
 
   final EdgeInsets dropCapPadding;
 
@@ -124,5 +192,35 @@ class DropCapText extends StatelessWidget {
         ),
       );
     });
+  }
+}
+
+final class _RemoteBookCard extends StatelessWidget {
+  const _RemoteBookCard({required this.book});
+
+  final RemoteBook book;
+
+  @override
+  Widget build(BuildContext context) {
+    return TransparentImageCard(
+      contentMarginTop: 183,
+      height: 280,
+      imageProvider: _imageProvider() as ImageProvider<Object>,
+      tags: const [],
+      title: BookTitle(title: book.title),
+      endColor: Colors.black,
+      description: BookAuthors(authorNames: book.authors),
+      footer: BookCardFooter(
+        rating: book.averageRating,
+        pageCount: book.pageCount,
+      ),
+    );
+  }
+
+  Object _imageProvider() {
+    return book.thumbnail.fold(
+      () => coverFallbackAssetImage(),
+      (thumbnail) => CachedNetworkImageProvider(thumbnail.toString()),
+    );
   }
 }

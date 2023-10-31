@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/common.dart';
 import '../../../find_new_book/presentation/bloc/search/book_search_bloc.dart';
-import '../../../find_new_book/presentation/widgets/books_search_area.dart';
+import '../../../find_new_book/presentation/widgets/bottom_drawer_content.dart';
 import '../../../manage_books/domain/entities/local_book.dart';
 import '../../../manage_books/presentation/bloc/delete/delete_books_bloc.dart';
 import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
@@ -34,7 +34,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
         mainActionButtonBuilder: _mainActionButton,
         bottomBarTheme: _bottomBarTheme(context),
         onSelectItem: (idx) => _handleIndexChanged(idx, context),
-        sheetChild: const BookSearchArea(),
+        sheetChild: const BottomDrawerContent(),
         items: const [
           BottomBarWithSheetItem(
             label: 'For Later',

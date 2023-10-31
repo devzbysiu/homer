@@ -6,24 +6,6 @@ abstract class DeleteBooksEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class AppendToDeleteList extends DeleteBooksEvent {
-  AppendToDeleteList(this.book);
-
-  final LocalBook book;
-
-  @override
-  List<Object> get props => [book];
-}
-
-final class RemoveFromDeleteList extends DeleteBooksEvent {
-  RemoveFromDeleteList(this.book);
-
-  final LocalBook book;
-
-  @override
-  List<Object> get props => [book];
-}
-
 final class DeletePickedBooks extends DeleteBooksEvent {
   DeletePickedBooks();
 
@@ -32,3 +14,9 @@ final class DeletePickedBooks extends DeleteBooksEvent {
 }
 
 final class ClearDeletionList extends DeleteBooksEvent {}
+
+final class ToggleBookOnDeleteList extends DeleteBooksEvent {
+  ToggleBookOnDeleteList(this.book);
+
+  final LocalBook book;
+}

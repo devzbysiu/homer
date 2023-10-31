@@ -23,51 +23,93 @@ final class BookCardFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Icon(
-          Icons.star,
-          color: Theme.of(context).colorScheme.primary,
+        _BookRating(rating: rating),
+        _ShareButton(shareText: shareText),
+        _BookSize(pageCount: pageCount)
+      ],
+    );
+  }
+}
+
+class _BookRating extends StatelessWidget {
+  const _BookRating({required this.rating});
+
+  final double rating;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(children: [
+      Icon(
+        Icons.star,
+        color: Theme.of(context).colorScheme.primary,
+      ),
+      const SizedBox(width: 4),
+      Padding(
+        padding: const EdgeInsets.only(top: 5.0),
+        child: Text(
+          rating.toStringAsFixed(2),
+          style: const TextStyle(color: Colors.white),
         ),
-        const SizedBox(
-          width: 4,
+      )
+    ]);
+  }
+}
+
+class _ShareButton extends StatelessWidget {
+  const _ShareButton({required this.shareText});
+
+  final Option<String> shareText;
+
+  @override
+  Widget build(BuildContext context) {
+    return shareText.fold(
+      () => const SizedBox.shrink(),
+      (text) => Padding(
+        padding: const EdgeInsets.only(right: 15),
+        child: GestureDetector(
+          child: const Icon(
+            Icons.share,
+            size: 20,
+            color: Colors.white,
+          ),
+          onTap: () => Share.share(text),
         ),
-        Expanded(
+      ),
+    );
+  }
+}
+
+class _BookSize extends StatelessWidget {
+  const _BookSize({required this.pageCount});
+
+  final int pageCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 5.0),
           child: Text(
-            rating.toStringAsFixed(2),
+            pageCount.toString(),
             style: const TextStyle(color: Colors.white),
           ),
-        ),
-        shareText.fold(
-          () => const SizedBox.shrink(),
-          (text) => Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: GestureDetector(
-              child: const Icon(
-                Icons.share,
-                size: 20,
-                color: Colors.white,
-              ),
-              onTap: () => Share.share(text),
-            ),
-          ),
-        ),
-        Text(
-          pageCount.toString(),
-          style: const TextStyle(color: Colors.white),
         ),
         const Padding(
           padding: EdgeInsets.only(
             left: 10,
           ),
         ),
-        _PagesIcon(pageCount: pageCount)
+        _BookSizeLabel(pageCount: pageCount),
       ],
     );
   }
 }
 
-class _PagesIcon extends StatelessWidget {
-  const _PagesIcon({required this.pageCount});
+class _BookSizeLabel extends StatelessWidget {
+  const _BookSizeLabel({required this.pageCount});
 
   final int pageCount;
 

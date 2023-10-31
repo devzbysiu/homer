@@ -18,6 +18,7 @@ final class SaveSettings implements UseCase<Unit, SaveSettingsParams> {
       params.isSystemThemeOn,
       params.isDarkThemeOn,
       params.backupsDirectory,
+      params.bookSizeLimits,
     );
     return await settingsRepo.save(settings);
   }
@@ -28,6 +29,7 @@ final class SaveSettingsParams {
     required this.isSystemThemeOn,
     required this.isDarkThemeOn,
     required this.backupsDirectory,
+    required this.bookSizeLimits,
   });
 
   final bool isSystemThemeOn;
@@ -35,4 +37,6 @@ final class SaveSettingsParams {
   final bool isDarkThemeOn;
 
   final Directory backupsDirectory;
+
+  final List<double> bookSizeLimits;
 }

@@ -10,11 +10,14 @@ final class LocalSettingsDTO {
     required this.isSystemThemeOn,
     required this.isDarkThemeOn,
     required this.backupsDirectory,
+    required this.bookSizeLimits,
   });
 
   final bool isSystemThemeOn;
 
   final bool isDarkThemeOn;
+
+  final List<double> bookSizeLimits;
 
   @JsonKey(fromJson: _directoryFromJson, toJson: _directoryToJson)
   final Directory backupsDirectory;

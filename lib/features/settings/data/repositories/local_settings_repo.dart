@@ -27,6 +27,7 @@ final class LocalSettingsRepo implements LocalSettingsRepository {
         settingsDTO.isSystemThemeOn,
         settingsDTO.isDarkThemeOn,
         settingsDTO.backupsDirectory,
+        settingsDTO.bookSizeLimits,
       );
       return Future.value(Success(settings));
     } on NoSettingsException {

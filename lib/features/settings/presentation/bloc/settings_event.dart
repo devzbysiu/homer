@@ -19,3 +19,9 @@ final class BackupsDirectorySelected extends SettingsEvent {
   @override
   List<Object> get props => [directory];
 }
+
+final class BookSizeLimitsChanged extends SettingsEvent {
+  BookSizeLimitsChanged(this.limits);
+
+  final List<double> limits;
+}

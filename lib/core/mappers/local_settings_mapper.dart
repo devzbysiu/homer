@@ -7,11 +7,13 @@ LocalSettings toLocalSettings(
   bool isDarkThemeOn,
   bool isSystemThemeOn,
   Directory backupsDirectory,
+  List<double> bookSizeLimits,
 ) {
   return LocalSettings(
     isDarkThemeOn: isDarkThemeOn,
     isSystemThemeOn: isSystemThemeOn,
     backupsDirectory: backupsDirectory,
+    bookSizeLimits: bookSizeLimits,
   );
 }
 
@@ -20,5 +22,6 @@ LocalSettingsDTO toSettingsDTO(LocalSettings settings) {
     isDarkThemeOn: settings.isDarkThemeOn,
     isSystemThemeOn: settings.isSystemThemeOn,
     backupsDirectory: settings.backupsDirectory,
+    bookSizeLimits: settings.bookSizeLimits,
   );
 }

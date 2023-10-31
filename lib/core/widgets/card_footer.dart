@@ -1,6 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../features/settings/presentation/bloc/settings_bloc.dart';
 
 final class BookCardFooter extends StatelessWidget {
   const BookCardFooter({
@@ -41,6 +44,7 @@ final class BookCardFooter extends StatelessWidget {
               child: const Icon(
                 Icons.share,
                 size: 20,
+                color: Colors.white,
               ),
               onTap: () => Share.share(text),
             ),
@@ -55,11 +59,50 @@ final class BookCardFooter extends StatelessWidget {
             left: 10,
           ),
         ),
-        const Icon(
-          Icons.menu_book_outlined,
-          color: Colors.white,
-        )
+        _PagesIcon(pageCount: pageCount)
       ],
     );
+  }
+}
+
+class _PagesIcon extends StatelessWidget {
+  const _PagesIcon({required this.pageCount});
+
+  final int pageCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<SettingsBloc, SettingsState, List<double>>(
+      selector: (state) => state.bookSizeLimits,
+      builder: (context, bookSizeLimits) {
+        final (sizeLabel, sizeColor) = _sizeProperties(bookSizeLimits);
+        return Container(
+          padding: const EdgeInsets.all(3),
+          decoration: BoxDecoration(
+            color: sizeColor,
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              width: 1.5,
+              color: sizeColor,
+            ),
+          ),
+          child: Text(
+            sizeLabel,
+            style: const TextStyle(color: Colors.white),
+          ),
+        );
+      },
+    );
+  }
+
+  (String, Color) _sizeProperties(List<double> bookSizeLimits) {
+    if (pageCount < bookSizeLimits.first) {
+      return ('S', Colors.green);
+    } else if (bookSizeLimits.first <= pageCount &&
+        pageCount < bookSizeLimits[1]) {
+      return ('M', Colors.blue);
+    } else {
+      return ('L', Colors.orange);
+    }
   }
 }

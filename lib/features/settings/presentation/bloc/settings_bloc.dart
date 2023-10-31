@@ -21,6 +21,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<ThemeToggled>(_onThemeToggled);
     on<SystemThemeToggled>(_onSystemThemeToggled);
     on<BackupsDirectorySelected>(_onBackupPathSelected);
+    on<BookSizeLimitsChanged>(_onBookSizeLimitsChanged);
     add(SettingsLoaded());
   }
 
@@ -38,6 +39,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         isDarkThemeOn: settings.isDarkThemeOn,
         isSystemThemeOn: settings.isSystemThemeOn,
         backupsDirectory: settings.backupsDirectory,
+        bookSizeLimits: settings.bookSizeLimits,
       )),
       (error) => emit(FailedToLoadSettings()),
     );
@@ -52,11 +54,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       isDarkThemeOn: !state.isDarkThemeOn,
       isSystemThemeOn: state.isSystemThemeOn,
       backupsDirectory: state.backupsDirectory,
+      bookSizeLimits: state.bookSizeLimits,
     );
     saveSettings(SaveSettingsParams(
       isDarkThemeOn: newState.isDarkThemeOn,
       isSystemThemeOn: newState.isSystemThemeOn,
       backupsDirectory: newState.backupsDirectory,
+      bookSizeLimits: newState.bookSizeLimits,
     ));
     emit(newState);
     return Future.value();
@@ -70,11 +74,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       isDarkThemeOn: state.isDarkThemeOn,
       isSystemThemeOn: !state.isSystemThemeOn,
       backupsDirectory: state.backupsDirectory,
+      bookSizeLimits: state.bookSizeLimits,
     );
     saveSettings(SaveSettingsParams(
       isDarkThemeOn: newState.isDarkThemeOn,
       isSystemThemeOn: newState.isSystemThemeOn,
       backupsDirectory: newState.backupsDirectory,
+      bookSizeLimits: newState.bookSizeLimits,
     ));
     emit(newState);
     return Future.value();
@@ -88,12 +94,34 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       isDarkThemeOn: state.isDarkThemeOn,
       isSystemThemeOn: state.isSystemThemeOn,
       backupsDirectory: Directory(event.directory),
+      bookSizeLimits: state.bookSizeLimits,
     ));
     saveSettings(SaveSettingsParams(
       isDarkThemeOn: state.isDarkThemeOn,
       isSystemThemeOn: state.isSystemThemeOn,
       backupsDirectory: state.backupsDirectory,
+      bookSizeLimits: state.bookSizeLimits,
     ));
+    return Future.value();
+  }
+
+  Future<void> _onBookSizeLimitsChanged(
+    BookSizeLimitsChanged event,
+    Emitter<SettingsState> emit,
+  ) async {
+    emit(Settings(
+      isDarkThemeOn: state.isDarkThemeOn,
+      isSystemThemeOn: state.isSystemThemeOn,
+      backupsDirectory: state.backupsDirectory,
+      bookSizeLimits: event.limits,
+    ));
+    saveSettings(SaveSettingsParams(
+      isDarkThemeOn: state.isDarkThemeOn,
+      isSystemThemeOn: state.isSystemThemeOn,
+      backupsDirectory: state.backupsDirectory,
+      bookSizeLimits: state.bookSizeLimits,
+    ));
+    return Future.value();
   }
 }
 
@@ -108,6 +136,14 @@ extension SettingsContextExt on BuildContext {
 
   void backupsDirectorySelected(String path) {
     _emitSettingsEvt(BackupsDirectorySelected(path));
+  }
+
+  void bookSizeLimitsChanged(List<double> limits) {
+    _emitSettingsEvt(BookSizeLimitsChanged(limits));
+  }
+
+  List<double> bookSizeLimits() {
+    return read<SettingsBloc>().state.bookSizeLimits;
   }
 
   void _emitSettingsEvt(SettingsEvent event) {

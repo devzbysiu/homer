@@ -8,14 +8,18 @@ part of 'local_settings_dto.dart';
 
 LocalSettingsDTO _$LocalSettingsDTOFromJson(Map<String, dynamic> json) =>
     LocalSettingsDTO(
-      isSystemThemeOn: json['isSystemTheme'] as bool,
-      isDarkThemeOn: json['isDarkTheme'] as bool,
+      isSystemThemeOn: json['isSystemThemeOn'] as bool,
+      isDarkThemeOn: json['isDarkThemeOn'] as bool,
       backupsDirectory: _directoryFromJson(json['backupsDirectory'] as String),
+      bookSizeLimits: (json['bookSizeLimits'] as List<dynamic>)
+          .map((e) => (e as num).toDouble())
+          .toList(),
     );
 
 Map<String, dynamic> _$LocalSettingsDTOToJson(LocalSettingsDTO instance) =>
     <String, dynamic>{
-      'isSystemTheme': instance.isSystemThemeOn,
-      'isDarkTheme': instance.isDarkThemeOn,
+      'isSystemThemeOn': instance.isSystemThemeOn,
+      'isDarkThemeOn': instance.isDarkThemeOn,
+      'bookSizeLimits': instance.bookSizeLimits,
       'backupsDirectory': _directoryToJson(instance.backupsDirectory),
     };

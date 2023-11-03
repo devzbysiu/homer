@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -51,9 +53,9 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Future<void> _pickBackupsPath(BuildContext context) async {
-    final directoryPath = await FilePicker.platform.getDirectoryPath();
-    if (directoryPath == null) return Future.value();
-    if (context.mounted) context.backupsDirectorySelected(directoryPath);
+    final directory = await FilePicker.platform.getDirectoryPath();
+    if (directory == null) return Future.value();
+    if (context.mounted) context.backupsDirectorySelected(Directory(directory));
     return Future.value();
   }
 }

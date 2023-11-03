@@ -14,7 +14,7 @@ final class SystemThemeToggled extends SettingsEvent {}
 final class BackupsDirectorySelected extends SettingsEvent {
   BackupsDirectorySelected(this.directory);
 
-  final String directory;
+  final Directory directory;
 
   @override
   List<Object> get props => [directory];

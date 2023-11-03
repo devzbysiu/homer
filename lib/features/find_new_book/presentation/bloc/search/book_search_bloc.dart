@@ -18,7 +18,7 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
     required this.shareHandler,
     required this.searchForBooks,
     required this.fetchSharedBook,
-  }) : super(Empty()) {
+  }) : super(Initial()) {
     // This happens when user shares URL, but the app is not running.
     // TODO: Make sure it's working
     shareHandler.getInitialSharedMedia().then((media) {
@@ -49,32 +49,30 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
     Emitter<BookSearchState> emit,
   ) async {
     if (event.query.isEmpty) {
-      emit(ClearFoundBooks(pickedBook: state.pickedBook));
-      return;
+      emit(state.copyWith(foundBooks: [], isSearchInProgress: false));
+      return Future.value();
     }
-    emit(SearchInProgress(pickedBook: state.pickedBook));
+    emit(state.copyWith(foundBooks: [], isSearchInProgress: true));
     final searchResult = await searchForBooks(SearchParams(query: event.query));
     searchResult.when(
-      (ok) => emit(FoundBooks(pickedBook: state.pickedBook, foundBooks: ok)),
+      (ok) => emit(state.copyWith(foundBooks: ok, isSearchInProgress: false)),
       (error) => emit(FailedToSearchBooks()),
     );
     return Future.value();
   }
 
-  Future<void> _onSuggestedBookPicked(
+  void _onSuggestedBookPicked(
     SuggestedBookPicked event,
     Emitter<BookSearchState> emit,
-  ) async {
+  ) {
     emit(BookPicked(pickedBook: optionOf(event.pickedBook)));
-    return Future.value();
   }
 
-  Future<void> _onClearPickedBook(
+  void _onClearPickedBook(
     ClearPickedBook event,
     Emitter<BookSearchState> emit,
-  ) async {
+  ) {
     emit(NoPickedBook());
-    return Future.value();
   }
 
   Future<void> _onBookSharedFromOutside(

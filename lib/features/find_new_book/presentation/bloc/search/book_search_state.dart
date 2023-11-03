@@ -1,7 +1,7 @@
 part of 'book_search_bloc.dart';
 
 @immutable
-abstract class BookSearchState extends Equatable {
+class BookSearchState extends Equatable {
   const BookSearchState({
     this.foundBooks = const [],
     this.pickedBook = const None(),
@@ -14,27 +14,25 @@ abstract class BookSearchState extends Equatable {
 
   final bool isSearchInProgress;
 
+  factory BookSearchState.initial() => const BookSearchState();
+
+  BookSearchState copyWith({
+    List<RemoteBook>? foundBooks,
+    Option<RemoteBook>? pickedBook,
+    bool? isSearchInProgress,
+  }) {
+    return BookSearchState(
+      foundBooks: foundBooks ?? this.foundBooks,
+      pickedBook: pickedBook ?? this.pickedBook,
+      isSearchInProgress: isSearchInProgress ?? this.isSearchInProgress,
+    );
+  }
+
   @override
   List<Object?> get props => [foundBooks, pickedBook, isSearchInProgress];
 }
 
-final class Empty extends BookSearchState {}
-
-final class SearchInProgress extends BookSearchState {
-  const SearchInProgress({required super.pickedBook})
-      : super(isSearchInProgress: true);
-}
-
-final class FoundBooks extends BookSearchState {
-  const FoundBooks({
-    required super.pickedBook,
-    required super.foundBooks,
-  });
-}
-
-final class ClearFoundBooks extends BookSearchState {
-  const ClearFoundBooks({required super.pickedBook});
-}
+final class Initial extends BookSearchState {}
 
 final class FailedToSearchBooks extends BookSearchState {}
 

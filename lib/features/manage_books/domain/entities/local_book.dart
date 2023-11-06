@@ -40,7 +40,7 @@ final class LocalBook extends Equatable {
 
   final Option<String> summary;
 
-  final Set<Tag> tags;
+  final List<Tag> tags;
 
   final Option<DateTime> startDate;
 
@@ -57,7 +57,7 @@ final class LocalBook extends Equatable {
     Option<String>? thumbnailAddress,
     double? rating,
     Option<String>? summary,
-    Set<Tag>? tags,
+    List<Tag>? tags,
     Option<DateTime>? startDate,
     Option<DateTime>? endDate,
   }) {

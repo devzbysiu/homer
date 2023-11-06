@@ -147,7 +147,7 @@ LocalBackupBookStateDTO _toLocalBackupBookStateDTO(LocalBookState state) {
   }
 }
 
-Set<LocalBackupTagDTO> _toLocalBackupTagDTOs(Set<Tag> tags) {
+Set<LocalBackupTagDTO> _toLocalBackupTagDTOs(List<Tag> tags) {
   return tags.map((tag) {
     return LocalBackupTagDTO(
       name: tag.name,

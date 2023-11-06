@@ -93,7 +93,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) async {
     final book = event.book;
-    final tags = Set.of(book.tags);
+    final tags = List.of(book.tags);
     final toggledTag = event.tag;
     if (!tags.remove(toggledTag)) {
       // Tag was not removed so it wasn't in the set,
@@ -121,7 +121,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
 }
 
 extension BooksContextExt on BuildContext {
-  void addBook(RemoteBook book, LocalBookState state, Set<Tag> tags) {
+  void addBook(RemoteBook book, LocalBookState state, List<Tag> tags) {
     _emitBooksEvt(BookAdded(book, state, tags));
   }
 

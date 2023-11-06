@@ -46,3 +46,6 @@ assets/dante-backup.json
 assets/homer-backup.json
 ./utils
 utils
+
+# Coverage
+coverage/

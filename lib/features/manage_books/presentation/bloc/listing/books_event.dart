@@ -13,7 +13,7 @@ final class BookAdded extends BooksEvent {
 
   final LocalBookState bookState;
 
-  final Set<Tag> selectedTags;
+  final List<Tag> selectedTags;
 
   @override
   List<Object> get props => [book];

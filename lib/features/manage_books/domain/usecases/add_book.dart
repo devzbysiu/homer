@@ -35,5 +35,5 @@ final class AddParams {
 
   final LocalBookState bookState;
 
-  final Set<Tag> selectedTags;
+  final List<Tag> selectedTags;
 }

@@ -20,7 +20,7 @@ final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     TagSelected event,
     Emitter<BookTagsState> emit,
   ) async {
-    final selectedTags = Set.of(state.selectedTags)..add(event.tag);
+    final selectedTags = List.of(state.selectedTags)..add(event.tag);
     emit(TagsSelected(selectedTags: selectedTags));
     return Future.value();
   }
@@ -29,7 +29,7 @@ final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     TagDeselected event,
     Emitter<BookTagsState> emit,
   ) async {
-    final selectedTags = Set.of(state.selectedTags)..remove(event.tag);
+    final selectedTags = List.of(state.selectedTags)..remove(event.tag);
     emit(TagsSelected(selectedTags: selectedTags));
     return Future.value();
   }
@@ -44,7 +44,7 @@ final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
 }
 
 extension OnBookTagsContextExt on BuildContext {
-  Set<Tag> selectedTags() {
+  List<Tag> selectedTags() {
     return read<OnBookTagsBloc>().state.selectedTags;
   }
 

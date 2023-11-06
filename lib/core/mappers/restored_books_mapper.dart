@@ -32,9 +32,7 @@ LocalBookState _toLocalBookState(RestoredBookState state) {
   }
 }
 
-Set<Tag> _toLocalBookTags(Set<RestoredTag> tags) {
-  return tags.map(_toTag).toSet();
-}
+List<Tag> _toLocalBookTags(Set<RestoredTag> tags) => tags.map(_toTag).toList();
 
 Tag _toTag(RestoredTag restoredTag) {
   return Tag(

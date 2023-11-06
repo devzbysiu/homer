@@ -6,6 +6,8 @@ import '../../features/manage_books/domain/entities/local_book.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';
 import '../utils/extensions/date_option_ext.dart';
 
+// ================ [ LocalBookDTO to LocalBook ] =====================
+
 List<LocalBook> toLocalBooks(List<LocalBookDTO> bookModels) {
   return bookModels.map(_toLocalBook).toList();
 }
@@ -26,10 +28,36 @@ LocalBook _toLocalBook(LocalBookDTO bookDTO) => LocalBook(
       endDate: _toDateTime(bookDTO.endDate),
     );
 
+LocalBookState _toBookState(LocalBookStateDTO state) {
+  switch (state) {
+    case LocalBookStateDTO.readLater:
+      return LocalBookState.readLater;
+    case LocalBookStateDTO.reading:
+      return LocalBookState.reading;
+    case LocalBookStateDTO.read:
+      return LocalBookState.read;
+  }
+}
+
+List<Tag> _toBookTags(List<LocalTagDTO> tags) {
+  return tags.map((tagModel) {
+    return Tag(
+      name: tagModel.name,
+      hexColor: tagModel.hexColor,
+    );
+  }).toList();
+}
+
 Option<DateTime> _toDateTime(int? millisSinceEpoch) {
   return millisSinceEpoch == null || millisSinceEpoch == 0
       ? none()
       : some(DateTime.fromMillisecondsSinceEpoch(millisSinceEpoch));
+}
+
+// ================ [ LocalBook to LocalBookDTO ] =====================
+
+List<LocalBookDTO> toLocalBookDTOs(List<LocalBook> books) {
+  return books.map((book) => toLocalBookDTO(book)).toList();
 }
 
 LocalBookDTO toLocalBookDTO(LocalBook book) {
@@ -50,26 +78,6 @@ LocalBookDTO toLocalBookDTO(LocalBook book) {
   return book.id != null ? (bookDTO..id = book.id!) : bookDTO;
 }
 
-LocalBookState _toBookState(LocalBookStateDTO state) {
-  switch (state) {
-    case LocalBookStateDTO.readLater:
-      return LocalBookState.readLater;
-    case LocalBookStateDTO.reading:
-      return LocalBookState.reading;
-    case LocalBookStateDTO.read:
-      return LocalBookState.read;
-  }
-}
-
-Set<Tag> _toBookTags(List<LocalTagDTO> tags) {
-  return tags.map((tagModel) {
-    return Tag(
-      name: tagModel.name,
-      hexColor: tagModel.hexColor,
-    );
-  }).toSet();
-}
-
 LocalBookStateDTO _toBookStateDTO(LocalBookState state) {
   switch (state) {
     case LocalBookState.readLater:
@@ -81,14 +89,10 @@ LocalBookStateDTO _toBookStateDTO(LocalBookState state) {
   }
 }
 
-List<LocalTagDTO> _toTagDTOs(Set<Tag> tags) {
+List<LocalTagDTO> _toTagDTOs(List<Tag> tags) {
   return tags.map((tag) {
     return LocalTagDTO()
       ..name = tag.name
       ..hexColor = tag.hexColor;
   }).toList();
-}
-
-List<LocalBookDTO> toLocalBookDTOs(List<LocalBook> books) {
-  return books.map((book) => toLocalBookDTO(book)).toList();
 }

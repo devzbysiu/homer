@@ -3,11 +3,11 @@ part of 'on_book_tags_bloc.dart';
 abstract class BookTagsState extends Equatable {
   const BookTagsState({required this.selectedTags});
 
-  final Set<Tag> selectedTags;
+  final List<Tag> selectedTags;
 }
 
 final class Empty extends BookTagsState {
-  const Empty() : super(selectedTags: const {});
+  const Empty() : super(selectedTags: const []);
 
   @override
   List<Object?> get props => [];

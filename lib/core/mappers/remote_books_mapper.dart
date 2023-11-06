@@ -25,7 +25,7 @@ RemoteBook toRemoteBook(RemoteBookDTO remoteBookDTO) {
 LocalBook toLocalBook(
   RemoteBook remoteBook,
   LocalBookState state,
-  Set<Tag> tags,
+  List<Tag> tags,
 ) =>
     LocalBook(
       title: remoteBook.title,

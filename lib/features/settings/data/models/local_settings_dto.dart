@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entities/book_size_limits.dart';
@@ -7,7 +8,7 @@ import '../../domain/entities/book_size_limits.dart';
 part 'local_settings_dto.g.dart';
 
 @JsonSerializable()
-final class LocalSettingsDTO {
+final class LocalSettingsDTO extends Equatable {
   const LocalSettingsDTO({
     required this.isSystemThemeOn,
     required this.isDarkThemeOn,
@@ -30,6 +31,14 @@ final class LocalSettingsDTO {
   factory LocalSettingsDTO.fromJson(Map<String, dynamic> json) {
     return _$LocalSettingsDTOFromJson(json);
   }
+
+  @override
+  List<Object> get props => [
+        isSystemThemeOn,
+        isDarkThemeOn,
+        bookSizeLimits,
+        backupsDirectory.path,
+      ];
 }
 
 Directory _directoryFromJson(String backupDirPath) => Directory(backupDirPath);

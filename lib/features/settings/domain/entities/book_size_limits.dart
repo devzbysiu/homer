@@ -1,4 +1,6 @@
-final class BookSizeLimits {
+import 'package:equatable/equatable.dart';
+
+final class BookSizeLimits extends Equatable {
   BookSizeLimits({required int shortMax, required int mediumMax}) {
     short = SizeLimit(shortMax);
     medium = SizeLimit(mediumMax);
@@ -36,10 +38,16 @@ final class BookSizeLimits {
   bool isMedium(int pageCount) {
     return short.maxPages < pageCount && pageCount <= medium.maxPages;
   }
+
+  @override
+  List<Object> get props => [short, medium];
 }
 
-final class SizeLimit {
-  SizeLimit(this.maxPages);
+final class SizeLimit extends Equatable {
+  const SizeLimit(this.maxPages);
 
   final int maxPages;
+
+  @override
+  List<Object> get props => [maxPages];
 }

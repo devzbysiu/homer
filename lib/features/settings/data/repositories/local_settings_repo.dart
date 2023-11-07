@@ -24,10 +24,10 @@ final class LocalSettingsRepo implements LocalSettingsRepository {
     try {
       final settingsDTO = await settingsDataSource.load();
       final settings = toLocalSettings(
-        settingsDTO.isSystemThemeOn,
-        settingsDTO.isDarkThemeOn,
-        settingsDTO.backupsDirectory,
-        settingsDTO.bookSizeLimits,
+        isSystemThemeOn: settingsDTO.isSystemThemeOn,
+        isDarkThemeOn: settingsDTO.isDarkThemeOn,
+        backupsDirectory: settingsDTO.backupsDirectory,
+        bookSizeLimits: settingsDTO.bookSizeLimits,
       );
       return Future.value(Success(settings));
     } on NoSettingsException {

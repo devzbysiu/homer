@@ -16,10 +16,10 @@ final class SaveSettings implements UseCase<Unit, SaveSettingsParams> {
   @override
   Future<Result<Unit, Failure>> call(SaveSettingsParams params) async {
     final settings = toLocalSettings(
-      params.isSystemThemeOn,
-      params.isDarkThemeOn,
-      params.backupsDirectory,
-      params.bookSizeLimits,
+      isDarkThemeOn: params.isDarkThemeOn,
+      isSystemThemeOn: params.isSystemThemeOn,
+      backupsDirectory: params.backupsDirectory,
+      bookSizeLimits: params.bookSizeLimits,
     );
     return await settingsRepo.save(settings);
   }

@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:equatable/equatable.dart';
+
 import 'book_size_limits.dart';
 
-final class LocalSettings {
-  LocalSettings({
+final class LocalSettings extends Equatable {
+  const LocalSettings({
     required this.isSystemThemeOn,
     required this.isDarkThemeOn,
     required this.backupsDirectory,
@@ -23,7 +25,15 @@ final class LocalSettings {
 
   final bool isDarkThemeOn;
 
+  final BookSizeLimits bookSizeLimits;
+
   final Directory backupsDirectory;
 
-  final BookSizeLimits bookSizeLimits;
+  @override
+  List<Object> get props => [
+        isSystemThemeOn,
+        isDarkThemeOn,
+        bookSizeLimits,
+        backupsDirectory.path,
+      ];
 }

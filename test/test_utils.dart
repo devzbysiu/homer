@@ -8,15 +8,15 @@ import 'package:homer/features/manage_books/domain/entities/local_book.dart';
 import 'package:homer/features/tags_manager/domain/entities/tag.dart';
 
 LocalBookDTO fakeLocalBookDTO() => LocalBookDTO(
-      title: faker.lorem.word(),
-      subtitle: faker.lorem.sentence(),
-      authors: [faker.person.name()],
+      title: _fakeTitle(),
+      subtitle: _fakeSubtitle(),
+      authors: [_fakeAuthor()],
       state: _fakeBookStateDTO(),
-      pageCount: faker.randomGenerator.integer(1024),
-      isbn: faker.guid.guid(),
-      thumbnailAddress: faker.internet.httpsUrl(),
-      rating: faker.randomGenerator.decimal(scale: 5),
-      summary: faker.lorem.sentences(7).join(' '),
+      pageCount: _fakePageCount(),
+      isbn: _fakeIsbn(),
+      thumbnailAddress: _fakeThumbnailAddress(),
+      rating: _fakeRating(),
+      summary: _fakeSummary(),
       tags: [
         LocalTagDTO()
           ..name = faker.lorem.word()
@@ -25,24 +25,44 @@ LocalBookDTO fakeLocalBookDTO() => LocalBookDTO(
           ..name = faker.lorem.word()
           ..hexColor = faker.color.color(),
       ],
-      startDate: faker.date.dateTime().millisecondsSinceEpoch,
-      endDate: faker.date.dateTime().millisecondsSinceEpoch,
+      startDate: _fakeDateMillis(),
+      endDate: _fakeDateMillis(),
     );
 
+String _fakeTitle() => faker.lorem.word();
+
+String _fakeSubtitle() => faker.lorem.sentence();
+
+String _fakeAuthor() => faker.person.name();
+
+int _fakePageCount() => faker.randomGenerator.integer(1024);
+
+String _fakeIsbn() => faker.guid.guid();
+
+String _fakeThumbnailAddress() => faker.internet.httpsUrl();
+
+double _fakeRating() => faker.randomGenerator.decimal(scale: 5);
+
+String _fakeSummary() => faker.lorem.sentences(7).join(' ');
+
+int _fakeDateMillis() => faker.date.dateTime().millisecondsSinceEpoch;
+
 LocalBook fakeLocalBook() => LocalBook(
-      title: faker.lorem.word(),
-      subtitle: faker.lorem.sentence(),
-      authors: [faker.person.name()],
+      title: _fakeTitle(),
+      subtitle: _fakeSubtitle(),
+      authors: [_fakeAuthor()],
       state: _fakeBookState(),
-      pageCount: faker.randomGenerator.integer(1024),
-      isbn: faker.guid.guid(),
-      thumbnailAddress: some(faker.internet.httpsUrl()),
-      rating: faker.randomGenerator.decimal(scale: 5),
-      summary: some(faker.lorem.sentences(7).join(' ')),
+      pageCount: _fakePageCount(),
+      isbn: _fakeIsbn(),
+      thumbnailAddress: some(_fakeThumbnailAddress()),
+      rating: _fakeRating(),
+      summary: some(_fakeSummary()),
       tags: [fakeTag(), fakeTag()],
-      startDate: some(faker.date.dateTime(minYear: 1990, maxYear: 2023)),
-      endDate: some(faker.date.dateTime(minYear: 1990, maxYear: 2023)),
+      startDate: some(_fakeDate()),
+      endDate: some(_fakeDate()),
     );
+
+DateTime _fakeDate() => faker.date.dateTime(minYear: 1990, maxYear: 2023);
 
 extension LocalBookDTOExt on LocalBookDTO {
   LocalBookDTO copyWith({
@@ -195,14 +215,14 @@ LocalBookState _stateFromStateDTO(LocalBookStateDTO state) {
 
 RemoteBookDTO fakeRemoteBookDTO() {
   return RemoteBookDTO(
-    title: faker.lorem.word(),
-    subtitle: faker.lorem.sentence(),
-    authors: [faker.person.name()],
-    pageCount: faker.randomGenerator.integer(1024),
-    industryIdentifiers: [faker.guid.guid()],
-    imageLinks: {'': Uri.parse(faker.internet.httpsUrl())},
-    description: faker.lorem.sentences(7).join(' '),
-    averageRating: faker.randomGenerator.decimal(scale: 5),
+    title: _fakeTitle(),
+    subtitle: _fakeSubtitle(),
+    authors: [_fakeAuthor()],
+    pageCount: _fakePageCount(),
+    industryIdentifiers: [_fakeIsbn()],
+    imageLinks: {'': Uri.parse(_fakeThumbnailAddress())},
+    description: _fakeSummary(),
+    averageRating: _fakeRating(),
   );
 }
 
@@ -261,14 +281,14 @@ extension RemoteBookDTOExt on RemoteBookDTO {
 
 RemoteBook fakeRemoteBook() {
   return RemoteBook(
-    title: faker.lorem.word(),
-    subtitle: faker.lorem.sentence(),
-    authors: [faker.person.name()],
-    pageCount: faker.randomGenerator.integer(1024),
-    isbn: faker.guid.guid(),
-    thumbnail: some(Uri.parse(faker.internet.httpsUrl())),
-    averageRating: faker.randomGenerator.decimal(scale: 5),
-    description: faker.lorem.sentences(7).join(' '),
+    title: _fakeTitle(),
+    subtitle: _fakeSubtitle(),
+    authors: [_fakeAuthor()],
+    pageCount: _fakePageCount(),
+    isbn: _fakeIsbn(),
+    thumbnail: some(Uri.parse(_fakeThumbnailAddress())),
+    averageRating: _fakeRating(),
+    description: _fakeSummary(),
   );
 }
 

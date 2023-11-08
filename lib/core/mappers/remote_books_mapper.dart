@@ -5,6 +5,8 @@ import '../../features/find_new_book/domain/entities/remote_book.dart';
 import '../../features/manage_books/domain/entities/local_book.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';
 
+// ================ [ RemoteBookDTO to RemoteBook ] =====================
+
 List<RemoteBook> toRemoteBooks(List<RemoteBookDTO> books) {
   return books.map(toRemoteBook).toList();
 }
@@ -15,12 +17,19 @@ RemoteBook toRemoteBook(RemoteBookDTO remoteBookDTO) {
     subtitle: remoteBookDTO.subtitle,
     authors: remoteBookDTO.authors,
     pageCount: remoteBookDTO.pageCount,
-    isbn: remoteBookDTO.industryIdentifiers.firstOrNull?.toString() ?? '',
+    isbn: remoteBookDTO.industryIdentifiers.firstOrNull ?? '',
     thumbnail: optionOf(remoteBookDTO.imageLinks.values.firstOrNull),
     averageRating: remoteBookDTO.averageRating,
     description: _descriptionOrDefault(remoteBookDTO),
   );
 }
+
+String _descriptionOrDefault(RemoteBookDTO remoteBookDTO) {
+  final description = remoteBookDTO.description ?? '';
+  return description.isEmpty ? 'No description.' : description;
+}
+
+// ================ [ RemoteBook to LocalBook ] =====================
 
 LocalBook toLocalBook(
   RemoteBook remoteBook,
@@ -43,8 +52,3 @@ LocalBook toLocalBook(
       startDate: none(),
       endDate: none(),
     );
-
-String _descriptionOrDefault(RemoteBookDTO remoteBookDTO) {
-  final description = remoteBookDTO.description ?? '';
-  return description.isEmpty ? 'No description.' : description;
-}

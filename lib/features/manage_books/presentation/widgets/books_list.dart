@@ -24,11 +24,13 @@ import '../bloc/delete/delete_books_bloc.dart';
 import '../bloc/listing/books_bloc.dart';
 import '../bloc/summary/book_summary_bloc.dart';
 
+part 'animated_regular_card.dart';
+part 'animated_summary_card.dart';
 part 'book_card.dart';
 part 'book_cover.dart';
 part 'deletable_card.dart';
-part 'summary_card.dart';
-part 'swipable_card.dart';
+part 'regular_card.dart';
+part 'swipeable_card.dart';
 
 final class BooksList extends StatefulWidget {
   const BooksList({super.key});

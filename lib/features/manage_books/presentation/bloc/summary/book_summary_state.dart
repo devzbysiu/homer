@@ -4,9 +4,12 @@ part of 'book_summary_bloc.dart';
 abstract class BookSummaryState extends Equatable {
   const BookSummaryState({
     this.bookInSummaryMode = const None(),
+    this.wasInSummaryMode = const None(),
   });
 
   final Option<LocalBook> bookInSummaryMode;
+
+  final Option<LocalBook> wasInSummaryMode;
 
   @override
   List<Object> get props => [bookInSummaryMode];
@@ -18,4 +21,8 @@ final class EnableSummaryMode extends BookSummaryState {
   const EnableSummaryMode({required super.bookInSummaryMode});
 }
 
-final class DisableSummaryMode extends BookSummaryState {}
+final class DisablingSummaryMode extends BookSummaryState {
+  const DisablingSummaryMode({required super.wasInSummaryMode});
+}
+
+final class DisabledSummaryMode extends BookSummaryState {}

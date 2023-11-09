@@ -12,15 +12,16 @@ part 'book_summary_state.dart';
 
 final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
   BookSummaryBloc() : super(Empty()) {
-    on<SummaryModeDisabled>(_onSummaryModeDisabled);
+    on<SummaryModeDisabling>(_onSummaryModeDisabling);
     on<SummaryModeToggled>(_onSummaryModeToggled);
+    on<SummaryModeDisabled>(_onSummaryModeDisabled);
   }
 
-  Future<void> _onSummaryModeDisabled(
-    SummaryModeDisabled event,
+  Future<void> _onSummaryModeDisabling(
+    SummaryModeDisabling event,
     Emitter<BookSummaryState> emit,
   ) async {
-    emit(DisableSummaryMode());
+    emit(DisablingSummaryMode(wasInSummaryMode: state.bookInSummaryMode));
     return Future.value();
   }
 
@@ -30,8 +31,18 @@ final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
   ) async {
     state.bookInSummaryMode.fold(
       () => emit(EnableSummaryMode(bookInSummaryMode: some(event.book))),
-      (book) => emit(DisableSummaryMode()),
+      (book) => emit(DisablingSummaryMode(
+        wasInSummaryMode: state.bookInSummaryMode,
+      )),
     );
+    return Future.value();
+  }
+
+  Future<void> _onSummaryModeDisabled(
+    SummaryModeDisabled event,
+    Emitter<BookSummaryState> emit,
+  ) {
+    emit(DisabledSummaryMode());
     return Future.value();
   }
 }
@@ -42,6 +53,10 @@ extension BookSummaryContextExt on BuildContext {
   }
 
   void disableSummaryMode() {
+    _emitBookEvt(SummaryModeDisabling());
+  }
+
+  void summaryModeDisabled() {
     _emitBookEvt(SummaryModeDisabled());
   }
 

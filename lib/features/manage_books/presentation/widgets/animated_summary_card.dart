@@ -2,15 +2,21 @@ part of 'books_list.dart';
 
 const _noSummaryText = 'No summary.';
 
-final class _SummaryCard extends StatelessWidget {
-  const _SummaryCard({required this.book});
+final class _AnimatedSummaryCard extends StatelessWidget {
+  const _AnimatedSummaryCard({required this.book});
 
   final LocalBook book;
 
   @override
   Widget build(BuildContext context) {
     return Animate(
-      effects: const [FlipEffect(direction: Axis.horizontal)],
+      effects: const [
+        FlipEffect(
+          direction: Axis.horizontal,
+          begin: 0.6,
+          end: 0,
+        ),
+      ],
       child: _SwipeableCard(
         book: book,
         child: Blur(

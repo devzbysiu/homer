@@ -33,17 +33,33 @@ final class _BookCard extends StatelessWidget {
 
   Widget _bookCard(List<LocalBook> booksToDelete) {
     if (booksToDelete.isNotEmpty) return _DeletableCard(book: book);
-    return BlocSelector<BookSummaryBloc, BookSummaryState, bool>(
-      selector: (state) => state.bookInSummaryMode
-          .map((bookInSummaryMode) => book == bookInSummaryMode)
-          .getOrElse(() => false),
-      builder: (context, isInSummaryMode) {
-        if (isInSummaryMode) return _SummaryCard(book: book);
-        return _SwipeableCard(
-          book: book,
-          child: _BookCover(book: book),
-        );
+    return BlocBuilder<BookSummaryBloc, BookSummaryState>(
+      builder: (context, state) {
+        switch (state.runtimeType) {
+          case EnableSummaryMode:
+            return _isInSummaryMode(state)
+                ? _AnimatedSummaryCard(book: book)
+                : _RegularCard(book: book);
+          case DisablingSummaryMode:
+            return _wasInSummaryMode(state)
+                ? _AnimatedRegularCard(book: book, context: context)
+                : _RegularCard(book: book);
+          default:
+            return _RegularCard(book: book);
+        }
       },
     );
+  }
+
+  bool _isInSummaryMode(BookSummaryState state) {
+    return state.bookInSummaryMode
+        .map((bookInSummaryMode) => book == bookInSummaryMode)
+        .getOrElse(() => false);
+  }
+
+  bool _wasInSummaryMode(BookSummaryState state) {
+    return state.wasInSummaryMode
+        .map((wasInSummaryMode) => book == wasInSummaryMode)
+        .getOrElse(() => false);
   }
 }

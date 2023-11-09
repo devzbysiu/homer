@@ -6,10 +6,12 @@ abstract class BookSummaryEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class SummaryModeDisabled extends BookSummaryEvent {}
+final class SummaryModeDisabling extends BookSummaryEvent {}
 
 final class SummaryModeToggled extends BookSummaryEvent {
   SummaryModeToggled(this.book);
 
   final LocalBook book;
 }
+
+final class SummaryModeDisabled extends BookSummaryEvent {}

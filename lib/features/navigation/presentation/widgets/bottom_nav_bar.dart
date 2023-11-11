@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/common.dart';
 import '../../../find_new_book/presentation/bloc/search/book_search_bloc.dart';
 import '../../../find_new_book/presentation/widgets/bottom_drawer_content.dart';
 import '../../../manage_books/domain/entities/local_book.dart';
@@ -117,8 +116,8 @@ final class _AddButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: _toggleSheet,
       style: ButtonStyle(
-        shape: msp(const CircleBorder()),
-        padding: msp(const EdgeInsets.all(10)),
+        shape: const CircleBorder().msp(),
+        padding: const EdgeInsets.all(10).msp(),
       ),
       child: Icon(
         Icons.add,
@@ -145,9 +144,9 @@ final class _DeleteButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => context.deletePickedBooks(),
         style: ButtonStyle(
-          backgroundColor: msp(Theme.of(context).colorScheme.error),
-          shape: msp(const CircleBorder()),
-          padding: msp(const EdgeInsets.all(10)),
+          backgroundColor: Theme.of(context).colorScheme.error.msp(),
+          shape: const CircleBorder().msp(),
+          padding: const EdgeInsets.all(10).msp(),
         ),
         child: Icon(
           Icons.delete_forever,
@@ -155,5 +154,11 @@ final class _DeleteButton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+extension _MspExt<T> on T {
+  MaterialStateProperty<T> msp() {
+    return MaterialStateProperty.all(this);
   }
 }

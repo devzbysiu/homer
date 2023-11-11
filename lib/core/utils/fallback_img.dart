@@ -8,10 +8,6 @@ AssetImage thumbnailFallbackAssetImage() {
   return const AssetImage('assets/book-thumbnail-fallback.png');
 }
 
-Widget fallbackCover() {
-  return Image(image: coverFallbackAssetImage());
-}
-
 AssetImage coverFallbackAssetImage() {
-  return const  AssetImage('assets/book-cover-fallback.webp');
+  return const AssetImage('assets/book-cover-fallback.webp');
 }

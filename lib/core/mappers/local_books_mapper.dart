@@ -4,7 +4,7 @@ import '../../features/manage_books/data/models/local_book_dto.dart';
 import '../../features/manage_books/data/models/local_tag_dto.dart';
 import '../../features/manage_books/domain/entities/local_book.dart';
 import '../../features/tags_manager/domain/entities/tag.dart';
-import '../utils/extensions/date_option_ext.dart';
+import '../utils/date_option_ext.dart';
 
 // ================ [ LocalBookDTO to LocalBook ] =====================
 
@@ -72,8 +72,8 @@ LocalBookDTO toLocalBookDTO(LocalBook book) {
     rating: book.rating,
     summary: book.summary.toNullable(),
     tags: _toTagDTOs(book.tags),
-    startDate: book.startDate.nullableMillisSinceEpoch(),
-    endDate: book.endDate.nullableMillisSinceEpoch(),
+    startDate: book.startDate.millisSinceEpoch(),
+    endDate: book.endDate.millisSinceEpoch(),
   );
   return book.id != null ? (bookDTO..id = book.id!) : bookDTO;
 }

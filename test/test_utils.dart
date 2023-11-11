@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:faker/faker.dart';
+import 'package:homer/features/backup_and_restore/domain/entities/restored_book.dart';
 import 'package:homer/features/find_new_book/data/models/remote_book_dto.dart';
 import 'package:homer/features/find_new_book/domain/entities/remote_book.dart';
 import 'package:homer/features/manage_books/data/models/local_book_dto.dart';
@@ -279,18 +280,16 @@ extension RemoteBookDTOExt on RemoteBookDTO {
   }
 }
 
-RemoteBook fakeRemoteBook() {
-  return RemoteBook(
-    title: _fakeTitle(),
-    subtitle: _fakeSubtitle(),
-    authors: [_fakeAuthor()],
-    pageCount: _fakePageCount(),
-    isbn: _fakeIsbn(),
-    thumbnail: some(Uri.parse(_fakeThumbnailAddress())),
-    averageRating: _fakeRating(),
-    description: _fakeSummary(),
-  );
-}
+RemoteBook fakeRemoteBook() => RemoteBook(
+      title: _fakeTitle(),
+      subtitle: _fakeSubtitle(),
+      authors: [_fakeAuthor()],
+      pageCount: _fakePageCount(),
+      isbn: _fakeIsbn(),
+      thumbnail: some(Uri.parse(_fakeThumbnailAddress())),
+      averageRating: _fakeRating(),
+      description: _fakeSummary(),
+    );
 
 LocalBookState fakeLocalBookState() {
   switch (faker.randomGenerator.integer(4, min: 1)) {
@@ -305,12 +304,10 @@ LocalBookState fakeLocalBookState() {
   }
 }
 
-Tag fakeTag() {
-  return Tag(
-    name: faker.lorem.word(),
-    hexColor: faker.color.color(),
-  );
-}
+Tag fakeTag() => Tag(
+      name: faker.lorem.word(),
+      hexColor: faker.color.color(),
+    );
 
 LocalBook localBookFrom(
   RemoteBook book,
@@ -353,6 +350,106 @@ extension RemoteBookExt on RemoteBook {
       thumbnail: thumbnail ?? this.thumbnail,
       averageRating: averageRating ?? this.averageRating,
       description: description ?? this.description,
+    );
+  }
+}
+
+RestoredBook fakeRestoredBook() => RestoredBook(
+      title: _fakeTitle(),
+      subtitle: _fakeSubtitle(),
+      authors: [_fakeAuthor()],
+      state: _fakeRestoredBookState(),
+      pageCount: _fakePageCount(),
+      isbn: _fakeIsbn(),
+      thumbnailAddress: some(_fakeThumbnailAddress()),
+      rating: _fakeRating(),
+      summary: some(_fakeSummary()),
+      tags: {
+        RestoredTag(
+          title: faker.lorem.word(),
+          hexColor: faker.color.color(),
+        ),
+        RestoredTag(
+          title: faker.lorem.word(),
+          hexColor: faker.color.color(),
+        ),
+      },
+      startDate: some(_fakeDate()),
+      endDate: some(_fakeDate()),
+    );
+
+RestoredBookState _fakeRestoredBookState() {
+  switch (faker.randomGenerator.integer(4, min: 1)) {
+    case 1:
+      return RestoredBookState.readLater;
+    case 2:
+      return RestoredBookState.readLater;
+    case 3:
+      return RestoredBookState.readLater;
+    default:
+      throw Exception('Should not happen');
+  }
+}
+
+LocalBook localBookFromRestored(RestoredBook book) => LocalBook(
+      title: book.title,
+      subtitle: book.subtitle,
+      authors: book.authors,
+      state: _stateFromRestoredState(book.state),
+      pageCount: book.pageCount,
+      isbn: book.isbn,
+      thumbnailAddress: book.thumbnailAddress,
+      rating: book.rating,
+      summary: book.summary,
+      tags: book.tags.map((tag) {
+        return Tag(
+          name: tag.title,
+          hexColor: tag.hexColor,
+        );
+      }).toList(),
+      startDate: book.startDate,
+      endDate: book.endDate,
+    );
+
+LocalBookState _stateFromRestoredState(RestoredBookState state) {
+  switch (state) {
+    case RestoredBookState.readLater:
+      return LocalBookState.readLater;
+    case RestoredBookState.reading:
+      return LocalBookState.reading;
+    case RestoredBookState.read:
+      return LocalBookState.read;
+  }
+}
+
+extension RestoredBookExt on RestoredBook {
+  RestoredBook copyWith({
+    String? title,
+    String? subtitle,
+    List<String>? authors,
+    RestoredBookState? state,
+    int? pageCount,
+    String? isbn,
+    Option<String>? thumbnailAddress,
+    double? rating,
+    Option<String>? summary,
+    Set<RestoredTag>? tags,
+    Option<DateTime>? startDate,
+    Option<DateTime>? endDate,
+  }) {
+    return RestoredBook(
+      title: title ?? this.title,
+      subtitle: subtitle ?? this.subtitle,
+      authors: authors ?? this.authors,
+      state: state ?? this.state,
+      pageCount: pageCount ?? this.pageCount,
+      isbn: isbn ?? this.isbn,
+      thumbnailAddress: thumbnailAddress ?? this.thumbnailAddress,
+      rating: rating ?? this.rating,
+      summary: summary ?? this.summary,
+      tags: tags ?? this.tags,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
     );
   }
 }

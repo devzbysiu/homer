@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:faker/faker.dart';
+import 'package:homer/features/backup_and_restore/data/models/local_backup_book_dto.dart';
 import 'package:homer/features/backup_and_restore/domain/entities/restored_book.dart';
 import 'package:homer/features/find_new_book/data/models/remote_book_dto.dart';
 import 'package:homer/features/find_new_book/domain/entities/remote_book.dart';
@@ -12,7 +13,7 @@ LocalBookDTO fakeLocalBookDTO() => LocalBookDTO(
       title: _fakeTitle(),
       subtitle: _fakeSubtitle(),
       authors: [_fakeAuthor()],
-      state: _fakeBookStateDTO(),
+      state: _fakeLocalBookStateDTO(),
       pageCount: _fakePageCount(),
       isbn: _fakeIsbn(),
       thumbnailAddress: _fakeThumbnailAddress(),
@@ -20,17 +21,17 @@ LocalBookDTO fakeLocalBookDTO() => LocalBookDTO(
       summary: _fakeSummary(),
       tags: [
         LocalTagDTO()
-          ..name = faker.lorem.word()
-          ..hexColor = faker.color.color(),
+          ..name = _fakeTagName()
+          ..hexColor = _fakeTagColor(),
         LocalTagDTO()
-          ..name = faker.lorem.word()
-          ..hexColor = faker.color.color(),
+          ..name = _fakeTagName()
+          ..hexColor = _fakeTagColor(),
       ],
       startDate: _fakeDateMillis(),
       endDate: _fakeDateMillis(),
     );
 
-String _fakeTitle() => faker.lorem.word();
+String _fakeTitle() => _fakeTagName();
 
 String _fakeSubtitle() => faker.lorem.sentence();
 
@@ -45,6 +46,10 @@ String _fakeThumbnailAddress() => faker.internet.httpsUrl();
 double _fakeRating() => faker.randomGenerator.decimal(scale: 5);
 
 String _fakeSummary() => faker.lorem.sentences(7).join(' ');
+
+String _fakeTagColor() => faker.color.color();
+
+String _fakeTagName() => faker.lorem.word();
 
 int _fakeDateMillis() => faker.date.dateTime().millisecondsSinceEpoch;
 
@@ -166,7 +171,7 @@ LocalBookDTO dtoFromLocalBook(LocalBook book) {
   );
 }
 
-LocalBookStateDTO _fakeBookStateDTO() {
+LocalBookStateDTO _fakeLocalBookStateDTO() {
   switch (faker.randomGenerator.integer(4, min: 1)) {
     case 1:
       return LocalBookStateDTO.readLater;
@@ -305,8 +310,8 @@ LocalBookState fakeLocalBookState() {
 }
 
 Tag fakeTag() => Tag(
-      name: faker.lorem.word(),
-      hexColor: faker.color.color(),
+      name: _fakeTagName(),
+      hexColor: _fakeTagColor(),
     );
 
 LocalBook localBookFrom(
@@ -366,12 +371,12 @@ RestoredBook fakeRestoredBook() => RestoredBook(
       summary: some(_fakeSummary()),
       tags: {
         RestoredTag(
-          title: faker.lorem.word(),
-          hexColor: faker.color.color(),
+          title: _fakeTagName(),
+          hexColor: _fakeTagColor(),
         ),
         RestoredTag(
-          title: faker.lorem.word(),
-          hexColor: faker.color.color(),
+          title: _fakeTagName(),
+          hexColor: _fakeTagColor(),
         ),
       },
       startDate: some(_fakeDate()),
@@ -451,5 +456,142 @@ extension RestoredBookExt on RestoredBook {
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
     );
+  }
+}
+
+Map<String, Object> fakeLocalBackupBookDTOJson() {
+  return {
+    'title': _fakeTitle(),
+    'subtitle': _fakeSubtitle(),
+    'authors': [_fakeAuthor()],
+    'state': _fakeLocalBackupBookStateDTOString(),
+    'pageCount': _fakePageCount(),
+    'isbn': _fakeIsbn(),
+    'thumbnailAddress': _fakeThumbnailAddress(),
+    'rating': _fakeRating(),
+    'summary': _fakeSummary(),
+    'tags': [
+      {
+        'name': _fakeTagName(),
+        'hexColor': _fakeTagColor(),
+      },
+    ],
+    'startDate': _fakeDateMillis(),
+    'endDate': _fakeDateMillis(),
+  };
+}
+
+String _fakeLocalBackupBookStateDTOString() {
+  switch (faker.randomGenerator.integer(4, min: 1)) {
+    case 1:
+      return 'readLater';
+    case 2:
+      return 'reading';
+    case 3:
+      return 'read';
+    default:
+      throw Exception('Should not happen');
+  }
+}
+
+LocalBackupBookDTO localBackupBookDTOFromJson(Map<String, dynamic> json) {
+  return LocalBackupBookDTO(
+    title: json['title'],
+    subtitle: json['subtitle'],
+    authors: json['authors'],
+    state: stateFromString(json['state']),
+    pageCount: json['pageCount'],
+    isbn: json['isbn'],
+    thumbnailAddress: some(json['thumbnailAddress']),
+    rating: json['rating'],
+    summary: some(json['summary']),
+    tags: tagsFromJson(json['tags']),
+    startDate: some(DateTime.fromMillisecondsSinceEpoch(json['startDate'])),
+    endDate: some(DateTime.fromMillisecondsSinceEpoch(json['endDate'])),
+  );
+}
+
+LocalBackupBookStateDTO stateFromString(String state) {
+  switch (state) {
+    case 'readLater':
+      return LocalBackupBookStateDTO.readLater;
+    case 'reading':
+      return LocalBackupBookStateDTO.reading;
+    case 'read':
+      return LocalBackupBookStateDTO.read;
+    default:
+      throw Exception('should not happen');
+  }
+}
+
+Set<LocalBackupTagDTO> tagsFromJson(List<Map<String, dynamic>> tags) {
+  return tags.map((tagJson) => tagFromJson(tagJson)).toSet();
+}
+
+LocalBackupTagDTO tagFromJson(Map<String, dynamic> tagJson) {
+  return LocalBackupTagDTO(
+    name: tagJson['name'],
+    hexColor: tagJson['hexColor'],
+  );
+}
+
+LocalBackupBookDTO fakeLocalBackupBookDTO() => LocalBackupBookDTO(
+      title: _fakeTitle(),
+      subtitle: _fakeSubtitle(),
+      authors: [_fakeAuthor()],
+      state: _fakeLocalBackupBookStateDTO(),
+      pageCount: _fakePageCount(),
+      isbn: _fakeIsbn(),
+      thumbnailAddress: some(_fakeThumbnailAddress()),
+      rating: _fakeRating(),
+      summary: some(_fakeSummary()),
+      tags: {
+        LocalBackupTagDTO(name: _fakeTagName(), hexColor: _fakeTagColor()),
+        LocalBackupTagDTO(name: _fakeTagName(), hexColor: _fakeTagColor()),
+      },
+      startDate: some(_fakeDate()),
+      endDate: some(_fakeDate()),
+    );
+
+LocalBackupBookStateDTO _fakeLocalBackupBookStateDTO() {
+  switch (faker.randomGenerator.integer(4, min: 1)) {
+    case 1:
+      return LocalBackupBookStateDTO.readLater;
+    case 2:
+      return LocalBackupBookStateDTO.readLater;
+    case 3:
+      return LocalBackupBookStateDTO.readLater;
+    default:
+      throw Exception('Should not happen');
+  }
+}
+
+Map<String, dynamic> localBackupBookDTOToJson(LocalBackupBookDTO book) {
+  return {
+    'title': book.title,
+    'subtitle': book.subtitle,
+    'authors': book.authors,
+    'state': _backupBookStateDTOToString(book.state),
+    'pageCount': book.pageCount,
+    'isbn': book.isbn,
+    'thumbnailAddress': book.thumbnailAddress.getOrElse(() => ''),
+    'rating': book.rating,
+    'summary': book.summary.getOrElse(() => ''),
+    'tags': book.tags,
+    'startDate':
+        book.startDate.fold(() => 0, (date) => date.millisecondsSinceEpoch),
+    'endDate':
+        book.endDate.fold(() => 0, (date) => date.millisecondsSinceEpoch),
+  };
+}
+
+String _backupBookStateDTOToString(LocalBackupBookStateDTO state) {
+  switch (state) {
+    case LocalBackupBookStateDTO.readLater:
+      return 'readLater';
+    case LocalBackupBookStateDTO.reading:
+      return 'reading';
+    case LocalBackupBookStateDTO.read:
+      return 'read';
   }
 }

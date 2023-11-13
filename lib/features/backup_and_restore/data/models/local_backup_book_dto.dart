@@ -103,8 +103,8 @@ String _summaryToJson(Option<String> summary) {
 enum LocalBackupBookStateDTO { readLater, reading, read }
 
 @JsonSerializable()
-final class LocalBackupTagDTO {
-  LocalBackupTagDTO({required this.name, required this.hexColor});
+final class LocalBackupTagDTO extends Equatable {
+  const LocalBackupTagDTO({required this.name, required this.hexColor});
 
   final String name;
 
@@ -115,4 +115,7 @@ final class LocalBackupTagDTO {
   }
 
   Map<String, dynamic> toJson() => _$LocalBackupTagDTOToJson(this);
+
+  @override
+  List<Object> get props => [name, hexColor];
 }

@@ -5,7 +5,7 @@ import 'local_tag_dto.dart';
 
 part 'local_book_dto.g.dart';
 
-@collection
+@Collection(inheritance: false)
 final class LocalBookDTO extends Equatable {
   LocalBookDTO({
     this.id = Isar.autoIncrement,
@@ -50,6 +50,7 @@ final class LocalBookDTO extends Equatable {
 
   final int? endDate;
 
+  @ignore
   @override
   List<Object?> get props => [
         title,

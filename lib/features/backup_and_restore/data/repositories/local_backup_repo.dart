@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
+import '../../../../core/mappers/restored_books_mapper.dart';
 import '../../../manage_books/domain/entities/local_book.dart';
 import '../../domain/entities/restored_book.dart';
 import '../../domain/repositories/backup_repository.dart';
@@ -13,9 +16,13 @@ final class LocalBackupRepo implements BackupRepository {
 
   @override
   Future<Result<List<RestoredBook>, Failure>> loadAll(String path) async {
-    final localBackupBookDTO = await dataSource.loadAll(path);
-    final restoredBooks = toRestoredBooks(localBackupBookDTO);
-    return Future.value(Success(restoredBooks));
+    try {
+      final localBackupBookDTO = await dataSource.loadAll(path);
+      final restoredBooks = toRestoredBooks(localBackupBookDTO);
+      return Future.value(Success(restoredBooks));
+    } on FileSystemException {
+      return Future.value(Error(MissingBackupFileFailure(path)));
+    }
   }
 
   @override

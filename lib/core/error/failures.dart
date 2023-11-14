@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 abstract class Failure {
   String userMessage();
 }
@@ -49,4 +51,16 @@ final class TimeoutOnApiResponseFailure implements Failure {
 
   @override
   String userMessage() => 'Waiting too long for the response';
+}
+
+final class MissingBackupFileFailure extends Equatable implements Failure {
+  const MissingBackupFileFailure(this.path);
+
+  final String path;
+
+  @override
+  String userMessage() => 'Failed to load backup from path "$path"';
+
+  @override
+  List<Object> get props => [path];
 }

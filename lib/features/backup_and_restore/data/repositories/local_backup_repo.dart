@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
+import '../../../../core/mappers/local_books_mapper.dart';
 import '../../../../core/mappers/restored_books_mapper.dart';
 import '../../../manage_books/domain/entities/local_book.dart';
 import '../../domain/entities/restored_book.dart';
@@ -30,8 +31,12 @@ final class LocalBackupRepo implements BackupRepository {
     String path,
     List<LocalBook> books,
   ) async {
-    final localBackupBookDTOs = toLocalBackupBookDTOs(books);
-    await dataSource.saveAll(path, localBackupBookDTOs);
-    return Future.value(const Success(unit));
+    try {
+      final localBackupBookDTOs = toLocalBackupBookDTOs(books);
+      await dataSource.saveAll(path, localBackupBookDTOs);
+      return Future.value(const Success(unit));
+    } on FileSystemException {
+      return Future.value(Error(MissingBackupFileFailure(path)));
+    }
   }
 }

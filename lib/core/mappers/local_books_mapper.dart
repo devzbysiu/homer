@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 
+import '../../features/backup_and_restore/data/models/local_backup_book_dto.dart';
 import '../../features/manage_books/data/models/local_book_dto.dart';
 import '../../features/manage_books/data/models/local_tag_dto.dart';
 import '../../features/manage_books/domain/entities/local_book.dart';
@@ -95,4 +96,48 @@ List<LocalTagDTO> _toTagDTOs(List<Tag> tags) {
       ..name = tag.name
       ..hexColor = tag.hexColor;
   }).toList();
+}
+
+// ================ [ LocalBook to LocalBackupBookDTO ] =====================
+
+// TODO: Cover this with tests
+List<LocalBackupBookDTO> toLocalBackupBookDTOs(List<LocalBook> books) {
+  return books.map(_toLocalBackupBookDTO).toList();
+}
+
+LocalBackupBookDTO _toLocalBackupBookDTO(LocalBook book) {
+  return LocalBackupBookDTO(
+    title: book.title,
+    subtitle: book.subtitle,
+    authors: book.authors,
+    state: _toLocalBackupBookStateDTO(book.state),
+    pageCount: book.pageCount,
+    isbn: book.isbn,
+    thumbnailAddress: book.thumbnailAddress,
+    rating: book.rating,
+    summary: book.summary,
+    tags: _toLocalBackupTagDTOs(book.tags),
+    startDate: book.startDate,
+    endDate: book.endDate,
+  );
+}
+
+LocalBackupBookStateDTO _toLocalBackupBookStateDTO(LocalBookState state) {
+  switch (state) {
+    case LocalBookState.readLater:
+      return LocalBackupBookStateDTO.readLater;
+    case LocalBookState.reading:
+      return LocalBackupBookStateDTO.reading;
+    case LocalBookState.read:
+      return LocalBackupBookStateDTO.read;
+  }
+}
+
+Set<LocalBackupTagDTO> _toLocalBackupTagDTOs(List<Tag> tags) {
+  return tags.map((tag) {
+    return LocalBackupTagDTO(
+      name: tag.name,
+      hexColor: tag.hexColor,
+    );
+  }).toSet();
 }

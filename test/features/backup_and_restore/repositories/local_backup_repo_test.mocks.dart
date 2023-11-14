@@ -6,12 +6,10 @@
 import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:homer/features/backup_and_restore/data/datasources/dante_backup_data_source.dart'
+import 'package:homer/features/backup_and_restore/data/datasources/local_backup_data_source.dart'
     as _i3;
-import 'package:homer/features/backup_and_restore/data/models/dante_backup_dto.dart'
-    as _i5;
 import 'package:homer/features/backup_and_restore/data/models/local_backup_book_dto.dart'
-    as _i6;
+    as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -45,31 +43,20 @@ class MockLocalBackupDataSource extends _i1.Mock
   }
 
   @override
-  _i4.Future<List<_i5.DanteBackupDTO>> loadDanteAll(String? path) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #loadDanteAll,
-          [path],
-        ),
-        returnValue:
-            _i4.Future<List<_i5.DanteBackupDTO>>.value(<_i5.DanteBackupDTO>[]),
-      ) as _i4.Future<List<_i5.DanteBackupDTO>>);
-
-  @override
-  _i4.Future<List<_i6.LocalBackupBookDTO>> loadAll(String? path) =>
+  _i4.Future<List<_i5.LocalBackupBookDTO>> loadAll(String? path) =>
       (super.noSuchMethod(
         Invocation.method(
           #loadAll,
           [path],
         ),
-        returnValue: _i4.Future<List<_i6.LocalBackupBookDTO>>.value(
-            <_i6.LocalBackupBookDTO>[]),
-      ) as _i4.Future<List<_i6.LocalBackupBookDTO>>);
+        returnValue: _i4.Future<List<_i5.LocalBackupBookDTO>>.value(
+            <_i5.LocalBackupBookDTO>[]),
+      ) as _i4.Future<List<_i5.LocalBackupBookDTO>>);
 
   @override
   _i4.Future<_i2.Unit> saveAll(
     String? path,
-    List<_i6.LocalBackupBookDTO>? books,
+    List<_i5.LocalBackupBookDTO>? books,
   ) =>
       (super.noSuchMethod(
         Invocation.method(

@@ -2,16 +2,16 @@ import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../entities/remote_book.dart';
+import '../../../manage_books/domain/entities/local_book.dart';
 import '../repositories/remote_books_repository.dart';
 
-final class FetchSharedBook extends UseCase<RemoteBook, SharedBookParams> {
+final class FetchSharedBook extends UseCase<LocalBook, SharedBookParams> {
   FetchSharedBook(this.booksRepo);
 
   final RemoteBooksRepository booksRepo;
 
   @override
-  Future<Result<RemoteBook, Failure>> call(SharedBookParams params) async {
+  Future<Result<LocalBook, Failure>> call(SharedBookParams params) async {
     return await booksRepo.fromUrl(params.url);
   }
 }

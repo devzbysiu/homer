@@ -67,7 +67,7 @@ const LocalBookDTOSchema = CollectionSchema(
       id: 9,
       name: r'tags',
       type: IsarType.objectList,
-      target: r'LocalTagDTO',
+      target: r'Tag',
     ),
     r'thumbnailAddress': PropertySchema(
       id: 10,
@@ -87,7 +87,7 @@ const LocalBookDTOSchema = CollectionSchema(
   idName: r'id',
   indexes: {},
   links: {},
-  embeddedSchemas: {r'LocalTagDTO': LocalTagDTOSchema},
+  embeddedSchemas: {r'Tag': TagSchema},
   getId: _localBookDTOGetId,
   getLinks: _localBookDTOGetLinks,
   attach: _localBookDTOAttach,
@@ -117,10 +117,10 @@ int _localBookDTOEstimateSize(
   }
   bytesCount += 3 + object.tags.length * 3;
   {
-    final offsets = allOffsets[LocalTagDTO]!;
+    final offsets = allOffsets[Tag]!;
     for (var i = 0; i < object.tags.length; i++) {
       final value = object.tags[i];
-      bytesCount += LocalTagDTOSchema.estimateSize(value, offsets, allOffsets);
+      bytesCount += TagSchema.estimateSize(value, offsets, allOffsets);
     }
   }
   {
@@ -148,10 +148,10 @@ void _localBookDTOSerialize(
   writer.writeByte(offsets[6], object.state.index);
   writer.writeString(offsets[7], object.subtitle);
   writer.writeString(offsets[8], object.summary);
-  writer.writeObjectList<LocalTagDTO>(
+  writer.writeObjectList<Tag>(
     offsets[9],
     allOffsets,
-    LocalTagDTOSchema.serialize,
+    TagSchema.serialize,
     object.tags,
   );
   writer.writeString(offsets[10], object.thumbnailAddress);
@@ -173,14 +173,14 @@ LocalBookDTO _localBookDTODeserialize(
     rating: reader.readDouble(offsets[4]),
     startDate: reader.readLongOrNull(offsets[5]),
     state: _LocalBookDTOstateValueEnumMap[reader.readByteOrNull(offsets[6])] ??
-        LocalBookStateDTO.readLater,
+        BookState.readLater,
     subtitle: reader.readString(offsets[7]),
     summary: reader.readStringOrNull(offsets[8]),
-    tags: reader.readObjectList<LocalTagDTO>(
+    tags: reader.readObjectList<Tag>(
           offsets[9],
-          LocalTagDTOSchema.deserialize,
+          TagSchema.deserialize,
           allOffsets,
-          LocalTagDTO(),
+          Tag(),
         ) ??
         [],
     thumbnailAddress: reader.readStringOrNull(offsets[10]),
@@ -210,17 +210,17 @@ P _localBookDTODeserializeProp<P>(
       return (reader.readLongOrNull(offset)) as P;
     case 6:
       return (_LocalBookDTOstateValueEnumMap[reader.readByteOrNull(offset)] ??
-          LocalBookStateDTO.readLater) as P;
+          BookState.readLater) as P;
     case 7:
       return (reader.readString(offset)) as P;
     case 8:
       return (reader.readStringOrNull(offset)) as P;
     case 9:
-      return (reader.readObjectList<LocalTagDTO>(
+      return (reader.readObjectList<Tag>(
             offset,
-            LocalTagDTOSchema.deserialize,
+            TagSchema.deserialize,
             allOffsets,
-            LocalTagDTO(),
+            Tag(),
           ) ??
           []) as P;
     case 10:
@@ -238,9 +238,9 @@ const _LocalBookDTOstateEnumValueMap = {
   'read': 2,
 };
 const _LocalBookDTOstateValueEnumMap = {
-  0: LocalBookStateDTO.readLater,
-  1: LocalBookStateDTO.reading,
-  2: LocalBookStateDTO.read,
+  0: BookState.readLater,
+  1: BookState.reading,
+  2: BookState.read,
 };
 
 Id _localBookDTOGetId(LocalBookDTO object) {
@@ -1018,7 +1018,7 @@ extension LocalBookDTOQueryFilter
   }
 
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition> stateEqualTo(
-      LocalBookStateDTO value) {
+      BookState value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'state',
@@ -1029,7 +1029,7 @@ extension LocalBookDTOQueryFilter
 
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition>
       stateGreaterThan(
-    LocalBookStateDTO value, {
+    BookState value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1042,7 +1042,7 @@ extension LocalBookDTOQueryFilter
   }
 
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition> stateLessThan(
-    LocalBookStateDTO value, {
+    BookState value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1055,8 +1055,8 @@ extension LocalBookDTOQueryFilter
   }
 
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition> stateBetween(
-    LocalBookStateDTO lower,
-    LocalBookStateDTO upper, {
+    BookState lower,
+    BookState upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1742,7 +1742,7 @@ extension LocalBookDTOQueryFilter
 extension LocalBookDTOQueryObject
     on QueryBuilder<LocalBookDTO, LocalBookDTO, QFilterCondition> {
   QueryBuilder<LocalBookDTO, LocalBookDTO, QAfterFilterCondition> tagsElement(
-      FilterQuery<LocalTagDTO> q) {
+      FilterQuery<Tag> q) {
     return QueryBuilder.apply(this, (query) {
       return query.object(q, r'tags');
     });
@@ -2133,8 +2133,7 @@ extension LocalBookDTOQueryProperty
     });
   }
 
-  QueryBuilder<LocalBookDTO, LocalBookStateDTO, QQueryOperations>
-      stateProperty() {
+  QueryBuilder<LocalBookDTO, BookState, QQueryOperations> stateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'state');
     });
@@ -2152,8 +2151,7 @@ extension LocalBookDTOQueryProperty
     });
   }
 
-  QueryBuilder<LocalBookDTO, List<LocalTagDTO>, QQueryOperations>
-      tagsProperty() {
+  QueryBuilder<LocalBookDTO, List<Tag>, QQueryOperations> tagsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'tags');
     });

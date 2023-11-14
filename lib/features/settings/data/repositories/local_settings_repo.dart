@@ -2,10 +2,11 @@ import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../../../core/mappers/local_settings_mapper.dart';
 import '../../domain/entities/local_settings.dart';
 import '../../domain/repositories/local_settings_repository.dart';
 import '../datasources/local_settings_data_source.dart';
+import '../mappers/to_local_settings.dart';
+import '../mappers/to_settings_dto.dart';
 
 final class LocalSettingsRepo implements LocalSettingsRepository {
   const LocalSettingsRepo({required this.settingsDataSource});

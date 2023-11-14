@@ -3,7 +3,7 @@ part of 'bottom_drawer_content.dart';
 final class _SaveButtons extends StatelessWidget {
   const _SaveButtons({required this.pickedBook});
 
-  final RemoteBook pickedBook;
+  final LocalBook pickedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ final class _SaveButtons extends StatelessWidget {
 class _SaveToReadButton extends StatelessWidget {
   const _SaveToReadButton({required this.pickedBook});
 
-  final RemoteBook pickedBook;
+  final LocalBook pickedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class _SaveToReadButton extends StatelessWidget {
       onPressed: () => _addBook(
         context,
         pickedBook,
-        LocalBookState.read,
+        BookState.read,
       ),
       color: Theme.of(context).colorScheme.secondary,
       icon: const Icon(Icons.done),
@@ -40,7 +40,7 @@ class _SaveToReadButton extends StatelessWidget {
 class _SaveToReadingButton extends StatelessWidget {
   const _SaveToReadingButton({required this.pickedBook});
 
-  final RemoteBook pickedBook;
+  final LocalBook pickedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _SaveToReadingButton extends StatelessWidget {
       onPressed: () => _addBook(
         context,
         pickedBook,
-        LocalBookState.reading,
+        BookState.reading,
       ),
       color: Theme.of(context).colorScheme.secondary,
       icon: const Icon(Icons.book),
@@ -59,7 +59,7 @@ class _SaveToReadingButton extends StatelessWidget {
 class _SaveForLaterButton extends StatelessWidget {
   const _SaveForLaterButton({required this.pickedBook});
 
-  final RemoteBook pickedBook;
+  final LocalBook pickedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class _SaveForLaterButton extends StatelessWidget {
       onPressed: () => _addBook(
         context,
         pickedBook,
-        LocalBookState.readLater,
+        BookState.readLater,
       ),
       color: Theme.of(context).colorScheme.secondary,
       icon: const Icon(Icons.bookmark),
@@ -77,8 +77,8 @@ class _SaveForLaterButton extends StatelessWidget {
 
 void _addBook(
   BuildContext context,
-  RemoteBook pickedBook,
-  LocalBookState bookState,
+  LocalBook pickedBook,
+  BookState bookState,
 ) {
   final selectedTags = context.selectedTags();
   context.addBook(pickedBook, bookState, selectedTags);

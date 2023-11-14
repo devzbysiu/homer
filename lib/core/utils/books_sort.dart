@@ -3,16 +3,16 @@ import 'date_option_ext.dart';
 
 List<LocalBook> sortByStateAndDate(List<LocalBook> books) {
   final List<LocalBook> filteredAndSorted = books
-      .where((book) => book.state == LocalBookState.readLater)
+      .where((book) => book.state == BookState.readLater)
       .toList()
       .reversed
       .toList();
 
   final List<LocalBook> readingBooks =
-      books.where((book) => book.state == LocalBookState.reading).toList();
+      books.where((book) => book.state == BookState.reading).toList();
 
   final List<LocalBook> readBooks =
-      books.where((book) => book.state == LocalBookState.read).toList();
+      books.where((book) => book.state == BookState.read).toList();
 
   readingBooks.sort((a, b) {
     final startDateB = b.startDate.millisSinceEpoch();

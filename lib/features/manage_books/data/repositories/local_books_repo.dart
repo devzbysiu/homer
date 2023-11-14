@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
-import '../../../../core/mappers/local_books_mapper.dart';
 import '../../domain/entities/local_book.dart';
 import '../../domain/repositories/local_books_repository.dart';
 import '../datasources/local_books_data_source.dart';
+import '../mappers/to_local_book_dtos.dart';
+import '../mappers/to_local_books.dart';
 
 final class LocalBooksRepo implements LocalBooksRepository {
   LocalBooksRepo({required this.dataSource});

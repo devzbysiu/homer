@@ -17,7 +17,6 @@ import '../../../manage_books/domain/entities/local_book.dart';
 import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
-import '../../domain/entities/remote_book.dart';
 import '../bloc/search/book_search_bloc.dart';
 import '../bloc/toggle_tags/on_book_tags_bloc.dart';
 

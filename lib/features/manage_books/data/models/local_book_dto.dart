@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:isar/isar.dart';
 
-import 'local_tag_dto.dart';
+import '../../../tags_manager/domain/entities/tag.dart';
+import '../../domain/entities/local_book.dart';
 
 part 'local_book_dto.g.dart';
 
@@ -32,7 +33,7 @@ final class LocalBookDTO extends Equatable {
   final List<String> authors;
 
   @enumerated
-  final LocalBookStateDTO state;
+  final BookState state;
 
   final int pageCount;
 
@@ -44,7 +45,7 @@ final class LocalBookDTO extends Equatable {
 
   final String? summary;
 
-  final List<LocalTagDTO> tags;
+  final List<Tag> tags;
 
   final int? startDate;
 
@@ -66,10 +67,4 @@ final class LocalBookDTO extends Equatable {
         startDate,
         endDate,
       ];
-}
-
-enum LocalBookStateDTO {
-  readLater,
-  reading,
-  read,
 }

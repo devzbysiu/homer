@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
-import '../../../../core/mappers/local_settings_mapper.dart';
 import '../../../../core/usecase/usecase.dart';
+import '../../data/mappers/to_local_settings.dart';
 import '../entities/book_size_limits.dart';
 import '../repositories/local_settings_repository.dart';
 

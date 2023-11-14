@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/usecase/usecase.dart';
-import '../../domain/entities/restored_book.dart';
+import '../../../manage_books/domain/entities/local_book.dart';
 import '../../domain/usecases/add_all_books.dart';
 import '../../domain/usecases/purge_repo.dart';
 import '../../domain/usecases/restore_from_local.dart';
@@ -41,7 +41,7 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     final restoreResult = await loadFromLocalBackup(
       RestoreParams(path: event.path),
     );
-    final List<RestoredBook> restoredBooks = restoreResult.when(
+    final List<LocalBook> restoredBooks = restoreResult.when(
       (books) => books,
       (error) {
         emit(FailedToRestoreBooks());
@@ -53,7 +53,7 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
   }
 
   Future<void> _addToBooksRepo(
-    List<RestoredBook> restoredBooks,
+    List<LocalBook> restoredBooks,
     Emitter<BackupState> emit,
   ) async {
     // just to show progress indicator

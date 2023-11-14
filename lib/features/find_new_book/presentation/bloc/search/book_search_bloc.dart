@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_handler/share_handler.dart';
 
-import '../../../domain/entities/remote_book.dart';
+import '../../../../manage_books/domain/entities/local_book.dart';
 import '../../../domain/usecases/fetch_shared_book.dart';
 import '../../../domain/usecases/search_for_books.dart';
 
@@ -98,7 +98,7 @@ extension BookSearchContextExt on BuildContext {
     _emitSearchForBooksEvt(SearchInitiated(query));
   }
 
-  void pickSuggestedBook(RemoteBook book) {
+  void pickSuggestedBook(LocalBook book) {
     _emitSearchForBooksEvt(SuggestedBookPicked(book));
   }
 

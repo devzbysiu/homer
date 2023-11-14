@@ -26,7 +26,7 @@ class _SuggestionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<BookSearchBloc, BookSearchState, List<RemoteBook>>(
+    return BlocSelector<BookSearchBloc, BookSearchState, List<LocalBook>>(
       selector: (state) => state.foundBooks,
       builder: (context, foundBooks) {
         return Column(
@@ -37,7 +37,7 @@ class _SuggestionsList extends StatelessWidget {
     );
   }
 
-  List<Widget> _searchSuggestions(List<RemoteBook> foundBooks) {
+  List<Widget> _searchSuggestions(List<LocalBook> foundBooks) {
     return foundBooks.map((book) {
       return _SearchSuggestion(book: book);
     }).toList();
@@ -47,7 +47,7 @@ class _SuggestionsList extends StatelessWidget {
 final class _SearchSuggestion extends StatelessWidget {
   const _SearchSuggestion({required this.book});
 
-  final RemoteBook book;
+  final LocalBook book;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ final class _SearchSuggestion extends StatelessWidget {
         child: BannerListTile(
           bannerTextColor: Theme.of(context).colorScheme.background,
           bannerColor: Theme.of(context).primaryColor,
-          bannerText: book.averageRating.toStringAsFixed(2),
+          bannerText: book.rating.toStringAsFixed(2),
           onTap: () => context.pickSuggestedBook(book),
           backgroundColor: Theme.of(context).listTileTheme.tileColor,
           borderRadius: BorderRadius.circular(8),
@@ -84,11 +84,11 @@ final class _SearchSuggestion extends StatelessWidget {
 final class _ListTileThumbnail extends StatelessWidget {
   const _ListTileThumbnail({required this.book});
 
-  final RemoteBook book;
+  final LocalBook book;
 
   @override
   Widget build(BuildContext context) {
-    return book.thumbnail.fold(
+    return book.thumbnailAddress.fold(
       () => fallbackThumbnail(),
       (thumbnail) => FadeInImage(
         image: CachedNetworkImageProvider(

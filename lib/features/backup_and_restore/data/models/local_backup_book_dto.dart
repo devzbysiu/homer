@@ -3,6 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../core/utils/date_option_ext.dart';
+import '../../../manage_books/domain/entities/local_book.dart';
+import '../../../tags_manager/domain/entities/tag.dart';
 
 part 'local_backup_book_dto.g.dart';
 
@@ -29,7 +31,7 @@ final class LocalBackupBookDTO extends Equatable {
 
   final List<String> authors;
 
-  final LocalBackupBookStateDTO state;
+  final BookState state;
 
   final int pageCount;
 
@@ -43,7 +45,7 @@ final class LocalBackupBookDTO extends Equatable {
   @JsonKey(fromJson: _toSummary, toJson: _summaryToJson)
   final Option<String> summary;
 
-  final Set<LocalBackupTagDTO> tags;
+  final List<Tag> tags;
 
   @JsonKey(fromJson: _toDate, toJson: _dateToJson)
   final Option<DateTime> startDate;
@@ -98,24 +100,4 @@ Option<String> _toSummary(String summary) {
 
 String _summaryToJson(Option<String> summary) {
   return summary.getOrElse(() => '');
-}
-
-enum LocalBackupBookStateDTO { readLater, reading, read }
-
-@JsonSerializable()
-final class LocalBackupTagDTO extends Equatable {
-  const LocalBackupTagDTO({required this.name, required this.hexColor});
-
-  final String name;
-
-  final String hexColor;
-
-  factory LocalBackupTagDTO.fromJson(Map<String, dynamic> json) {
-    return _$LocalBackupTagDTOFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() => _$LocalBackupTagDTOToJson(this);
-
-  @override
-  List<Object> get props => [name, hexColor];
 }

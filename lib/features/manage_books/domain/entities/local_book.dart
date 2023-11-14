@@ -28,7 +28,7 @@ final class LocalBook extends Equatable {
 
   final List<String> authors;
 
-  final LocalBookState state;
+  final BookState state;
 
   final int pageCount;
 
@@ -51,7 +51,7 @@ final class LocalBook extends Equatable {
     String? title,
     String? subtitle,
     List<String>? authors,
-    LocalBookState? state,
+    BookState? state,
     int? pageCount,
     String? isbn,
     Option<String>? thumbnailAddress,
@@ -81,9 +81,9 @@ final class LocalBook extends Equatable {
   LocalBook moveRight() {
     final newState = state.moveRight();
     switch (newState) {
-      case LocalBookState.reading:
+      case BookState.reading:
         return copyWith(state: newState, startDate: some(DateTime.now()));
-      case LocalBookState.read:
+      case BookState.read:
         return copyWith(state: newState, endDate: some(DateTime.now()));
       default:
         throw Exception('Should not happen');
@@ -111,32 +111,32 @@ final class LocalBook extends Equatable {
       ];
 }
 
-enum LocalBookState {
+enum BookState {
   readLater,
   reading,
   read,
 }
 
-extension StateChangeExt on LocalBookState {
-  LocalBookState moveRight() {
+extension StateChangeExt on BookState {
+  BookState moveRight() {
     switch (this) {
-      case LocalBookState.readLater:
-        return LocalBookState.reading;
-      case LocalBookState.reading:
-        return LocalBookState.read;
-      case LocalBookState.read:
+      case BookState.readLater:
+        return BookState.reading;
+      case BookState.reading:
+        return BookState.read;
+      case BookState.read:
         return this;
     }
   }
 
-  LocalBookState moveLeft() {
+  BookState moveLeft() {
     switch (this) {
-      case LocalBookState.readLater:
+      case BookState.readLater:
         return this;
-      case LocalBookState.reading:
-        return LocalBookState.readLater;
-      case LocalBookState.read:
-        return LocalBookState.reading;
+      case BookState.reading:
+        return BookState.readLater;
+      case BookState.read:
+        return BookState.reading;
     }
   }
 }

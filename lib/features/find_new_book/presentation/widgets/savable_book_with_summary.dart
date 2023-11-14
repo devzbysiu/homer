@@ -6,7 +6,7 @@ final class _SavableBookWithSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<BookSearchBloc, BookSearchState,
-        dartz.Option<RemoteBook>>(
+        dartz.Option<LocalBook>>(
       selector: (state) => state.pickedBook,
       builder: (context, pickedBook) {
         return pickedBook.fold(
@@ -41,14 +41,15 @@ final class _SavableBookWithSummary extends StatelessWidget {
 final class _BookWithSummary extends StatelessWidget {
   const _BookWithSummary({required this.pickedBook});
 
-  final RemoteBook pickedBook;
+  final LocalBook pickedBook;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 9, right: 9),
       child: _DropCapText(
-        text: pickedBook.description,
+        // NOTE: mapper takes care of mapping null summary to default 'No description'
+        text: pickedBook.summary.toNullable()!,
         overflow: TextOverflow.ellipsis,
         dropCap: _DropCap(
           width: 150,
@@ -198,7 +199,7 @@ class _DropCapText extends StatelessWidget {
 final class _RemoteBookCard extends StatelessWidget {
   const _RemoteBookCard({required this.book});
 
-  final RemoteBook book;
+  final LocalBook book;
 
   @override
   Widget build(BuildContext context) {
@@ -211,14 +212,14 @@ final class _RemoteBookCard extends StatelessWidget {
       endColor: Colors.black,
       description: BookAuthors(authorNames: book.authors),
       footer: BookCardFooter(
-        rating: book.averageRating,
+        rating: book.rating,
         pageCount: book.pageCount,
       ),
     );
   }
 
   Object _imageProvider() {
-    return book.thumbnail.fold(
+    return book.thumbnailAddress.fold(
       () => coverFallbackAssetImage(),
       (thumbnail) => CachedNetworkImageProvider(thumbnail.toString()),
     );

@@ -9,9 +9,9 @@ abstract class BooksEvent extends Equatable {
 final class BookAdded extends BooksEvent {
   BookAdded(this.book, this.bookState, this.selectedTags);
 
-  final RemoteBook book;
+  final LocalBook book;
 
-  final LocalBookState bookState;
+  final BookState bookState;
 
   final List<Tag> selectedTags;
 

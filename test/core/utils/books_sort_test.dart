@@ -20,9 +20,9 @@ void main() {
 
     test('should reverse-sort "readLater" books', () {
       // given
-      final book1 = fakeLocalBook().copyWith(state: LocalBookState.readLater);
-      final book2 = fakeLocalBook().copyWith(state: LocalBookState.readLater);
-      final book3 = fakeLocalBook().copyWith(state: LocalBookState.readLater);
+      final book1 = fakeLocalBook().copyWith(state: BookState.readLater);
+      final book2 = fakeLocalBook().copyWith(state: BookState.readLater);
+      final book3 = fakeLocalBook().copyWith(state: BookState.readLater);
       final books = [book1, book2, book3];
 
       // when
@@ -35,15 +35,15 @@ void main() {
     test('should sort "reading" books by startDate', () {
       // given
       final book1 = fakeLocalBook().copyWith(
-        state: LocalBookState.reading,
+        state: BookState.reading,
         startDate: some(DateTime(2023, 11, 1)),
       );
       final book2 = fakeLocalBook().copyWith(
-        state: LocalBookState.reading,
+        state: BookState.reading,
         startDate: some(DateTime(2023, 11, 2)),
       );
       final book3 = fakeLocalBook().copyWith(
-        state: LocalBookState.reading,
+        state: BookState.reading,
         // started reading it at the end, so it should be at the top of the list
         startDate: some(DateTime(2023, 11, 3)),
       );
@@ -59,15 +59,15 @@ void main() {
     test('should sort "read" books by endDate', () {
       // given
       final book1 = fakeLocalBook().copyWith(
-        state: LocalBookState.read,
+        state: BookState.read,
         endDate: some(DateTime(2023, 11, 1)),
       );
       final book2 = fakeLocalBook().copyWith(
-        state: LocalBookState.read,
+        state: BookState.read,
         endDate: some(DateTime(2023, 11, 2)),
       );
       final book3 = fakeLocalBook().copyWith(
-        state: LocalBookState.read,
+        state: BookState.read,
         // finished reading it at the end, so it should be at the top of the list
         endDate: some(DateTime(2023, 11, 3)),
       );
@@ -85,39 +85,39 @@ void main() {
         'start date, then "read" sorted by end date', () {
       // given
       final readLaterBook1 = fakeLocalBook().copyWith(
-        state: LocalBookState.readLater,
+        state: BookState.readLater,
       );
       final readLaterBook2 = fakeLocalBook().copyWith(
-        state: LocalBookState.readLater,
+        state: BookState.readLater,
       );
       final readLaterBook3 = fakeLocalBook().copyWith(
-        state: LocalBookState.readLater,
+        state: BookState.readLater,
       );
 
       final readingBook1 = fakeLocalBook().copyWith(
-        state: LocalBookState.reading,
+        state: BookState.reading,
         startDate: some(DateTime(2023, 11, 1)),
       );
       final readingBook2 = fakeLocalBook().copyWith(
-        state: LocalBookState.reading,
+        state: BookState.reading,
         startDate: some(DateTime(2023, 11, 2)),
       );
       final readingBook3 = fakeLocalBook().copyWith(
-        state: LocalBookState.reading,
+        state: BookState.reading,
         // started reading it at the end, so it should be at the top of the list
         startDate: some(DateTime(2023, 11, 3)),
       );
 
       final readBook1 = fakeLocalBook().copyWith(
-        state: LocalBookState.read,
+        state: BookState.read,
         endDate: some(DateTime(2023, 11, 1)),
       );
       final readBook2 = fakeLocalBook().copyWith(
-        state: LocalBookState.read,
+        state: BookState.read,
         endDate: some(DateTime(2023, 11, 2)),
       );
       final readBook3 = fakeLocalBook().copyWith(
-        state: LocalBookState.read,
+        state: BookState.read,
         // finished reading it at the end, so it should be at the top of the list
         endDate: some(DateTime(2023, 11, 3)),
       );

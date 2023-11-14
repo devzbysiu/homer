@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/usecase/usecase.dart';
-import '../../../../find_new_book/domain/entities/remote_book.dart';
 import '../../../../tags_manager/domain/entities/tag.dart';
 import '../../../domain/entities/local_book.dart';
 import '../../../domain/usecases/add_book.dart';
@@ -62,7 +61,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) async {
     await addBook(AddParams(
-      remoteBook: event.book,
+      localBook: event.book,
       bookState: event.bookState,
       selectedTags: event.selectedTags,
     ));
@@ -121,7 +120,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
 }
 
 extension BooksContextExt on BuildContext {
-  void addBook(RemoteBook book, LocalBookState state, List<Tag> tags) {
+  void addBook(LocalBook book, BookState state, List<Tag> tags) {
     _emitBooksEvt(BookAdded(book, state, tags));
   }
 

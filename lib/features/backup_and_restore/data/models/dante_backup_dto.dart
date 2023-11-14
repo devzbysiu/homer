@@ -80,6 +80,7 @@ Set<LabelDTO> _toLabelDTOs(List<dynamic> json) {
 RestoredBookStateDTO _toRestoredBookStateDTO(String stateStr) {
   switch (stateStr) {
     case 'READ_LATER':
+      // TODO: Make forLater vs readLater consistent
       return RestoredBookStateDTO.forLater;
     case 'READING':
       return RestoredBookStateDTO.reading;

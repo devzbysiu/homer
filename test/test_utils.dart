@@ -595,3 +595,38 @@ String _backupBookStateDTOToString(LocalBackupBookStateDTO state) {
       return 'read';
   }
 }
+
+RestoredBook restoredBookFromDTO(LocalBackupBookDTO book) {
+  return RestoredBook(
+    title: book.title,
+    subtitle: book.subtitle,
+    authors: book.authors,
+    state: _restoredStateFromDTO(book.state),
+    pageCount: book.pageCount,
+    isbn: book.isbn,
+    thumbnailAddress: book.thumbnailAddress,
+    rating: book.rating,
+    summary: book.summary,
+    tags: _restoredTagsFromDTO(book.tags),
+    startDate: book.startDate,
+    endDate: book.endDate,
+  );
+}
+
+RestoredBookState _restoredStateFromDTO(LocalBackupBookStateDTO state) {
+  switch (state) {
+    case LocalBackupBookStateDTO.readLater:
+      return RestoredBookState.readLater;
+    case LocalBackupBookStateDTO.reading:
+      return RestoredBookState.reading;
+    case LocalBackupBookStateDTO.read:
+      return RestoredBookState.read;
+  }
+}
+
+Set<RestoredTag> _restoredTagsFromDTO(Set<LocalBackupTagDTO> tags) {
+  // TODO: Make tag.name vs tag.title consistent
+  return tags
+      .map((tag) => RestoredTag(title: tag.name, hexColor: tag.hexColor))
+      .toSet();
+}

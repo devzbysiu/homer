@@ -5,7 +5,6 @@ import '../../features/tags_manager/domain/entities/tag.dart';
 
 // ================ [ LocalBackupBookDTO to RestoredBook ] =====================
 
-// TODO: Cover this with tests
 List<RestoredBook> toRestoredBooks(List<LocalBackupBookDTO> books) {
   return books.map(_toRestoredBook).toList();
 }

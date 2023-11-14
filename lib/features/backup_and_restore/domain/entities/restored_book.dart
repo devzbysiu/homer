@@ -42,7 +42,7 @@ final class RestoredBook extends Equatable {
   final Option<DateTime> endDate;
 
   @override
-  List<Object?> get props => [
+  List<Object> get props => [
         title,
         subtitle,
         authors,
@@ -64,10 +64,13 @@ enum RestoredBookState {
   read,
 }
 
-final class RestoredTag {
-  RestoredTag({required this.title, required this.hexColor});
+final class RestoredTag extends Equatable {
+  const RestoredTag({required this.title, required this.hexColor});
 
   final String title;
 
   final String hexColor;
+
+  @override
+  List<Object> get props => [title, hexColor];
 }

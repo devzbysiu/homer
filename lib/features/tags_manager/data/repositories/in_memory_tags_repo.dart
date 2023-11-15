@@ -2,8 +2,8 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:multiple_result/multiple_result.dart';
 
+import '../../../../core/entities/tag.dart';
 import '../../../../core/error/failures.dart';
-import '../../domain/entities/tag.dart';
 import '../../domain/repositories/tags_repository.dart';
 
 final class InMemoryTagsRepo implements TagsRepository {

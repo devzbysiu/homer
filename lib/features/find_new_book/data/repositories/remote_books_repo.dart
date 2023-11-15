@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:multiple_result/multiple_result.dart';
 
+import '../../../../core/entities/book.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../../manage_books/domain/entities/book.dart';
 import '../../domain/repositories/remote_books_repository.dart';
 import '../datasources/remote_book_info_data_source.dart';
 import '../datasources/remote_books_data_source.dart';

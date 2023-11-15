@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:multiple_result/multiple_result.dart';
 
+import '../../../../core/entities/book.dart';
 import '../../../../core/error/failures.dart';
-import '../../domain/entities/book.dart';
 import '../../domain/repositories/books_repository.dart';
 import '../datasources/books_data_source.dart';
 import '../mappers/to_book_dtos.dart';

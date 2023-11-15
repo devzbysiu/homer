@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../manage_books/domain/entities/book.dart';
+import '../../../../core/entities/book.dart';
 import '../models/remote_book_dto.dart';
 
 List<Book> toBooks(List<RemoteBookDTO> books) {

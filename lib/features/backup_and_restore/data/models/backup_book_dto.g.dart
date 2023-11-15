@@ -19,7 +19,7 @@ BackupBookDTO _$BackupBookDTOFromJson(Map<String, dynamic> json) =>
       rating: (json['rating'] as num).toDouble(),
       summary: _toSummary(json['summary'] as String),
       tags: (json['tags'] as List<dynamic>)
-          .map((e) => Tag.fromJson(e as Map<String, dynamic>))
+          .map((e) => BackupTagDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
       startDate: _toDate(json['startDate'] as int),
       endDate: _toDate(json['endDate'] as int),
@@ -46,3 +46,14 @@ const _$BookStateEnumMap = {
   BookState.reading: 'reading',
   BookState.read: 'read',
 };
+
+BackupTagDTO _$BackupTagDTOFromJson(Map<String, dynamic> json) => BackupTagDTO(
+      name: json['name'] as String,
+      hexColor: json['hexColor'] as String,
+    );
+
+Map<String, dynamic> _$BackupTagDTOToJson(BackupTagDTO instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'hexColor': instance.hexColor,
+    };

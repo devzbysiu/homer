@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/entities/book.dart';
+import '../../../../../core/entities/book.dart';
 
 part 'book_summary_event.dart';
 part 'book_summary_state.dart';

@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../tags_manager/domain/entities/tag.dart';
+import '../../../../../core/entities/tag.dart';
 
 part 'on_book_tags_event.dart';
 part 'on_book_tags_state.dart';

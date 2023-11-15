@@ -1,4 +1,5 @@
-import '../../../manage_books/domain/entities/book.dart';
+import '../../../../core/entities/book.dart';
+import '../../../../core/entities/tag.dart';
 import '../models/backup_book_dto.dart';
 
 List<Book> toBooks(List<BackupBookDTO> books) {
@@ -16,8 +17,16 @@ Book _toBook(BackupBookDTO book) {
     thumbnailAddress: book.thumbnailAddress,
     rating: book.rating,
     summary: book.summary,
-    tags: book.tags,
+    tags: _toTags(book.tags),
     startDate: book.startDate,
     endDate: book.endDate,
   );
+}
+
+List<Tag> _toTags(List<BackupTagDTO> tags) {
+  return tags.map(_toTag).toList();
+}
+
+Tag _toTag(BackupTagDTO tag) {
+  return Tag(name: tag.name, hexColor: tag.hexColor);
 }

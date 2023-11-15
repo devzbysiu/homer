@@ -4,8 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/entities/book.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../../../manage_books/domain/entities/book.dart';
 import '../../domain/usecases/add_all_books.dart';
 import '../../domain/usecases/load_backup.dart';
 import '../../domain/usecases/make_backup.dart';

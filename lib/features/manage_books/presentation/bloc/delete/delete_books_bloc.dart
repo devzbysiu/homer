@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/entities/book.dart';
+import '../../../../../core/entities/book.dart';
 import '../../../domain/usecases/delete_books.dart';
 
 part 'delete_books_event.dart';

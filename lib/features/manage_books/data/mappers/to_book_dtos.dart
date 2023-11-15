@@ -1,6 +1,6 @@
+import '../../../../core/entities/book.dart';
+import '../../../../core/entities/tag.dart';
 import '../../../../core/utils/date_option_ext.dart';
-import '../../../tags_manager/domain/entities/tag.dart';
-import '../../domain/entities/book.dart';
 import '../models/book_dto.dart';
 import '../models/tag_dto.dart';
 

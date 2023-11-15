@@ -1,4 +1,4 @@
-import '../../features/manage_books/domain/entities/book.dart';
+import '../entities/book.dart';
 import 'date_option_ext.dart';
 
 List<Book> sortByStateAndDate(List<Book> books) {

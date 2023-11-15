@@ -1,10 +1,10 @@
 import 'package:multiple_result/multiple_result.dart';
 
+import '../../../../core/entities/book.dart';
+import '../../../../core/entities/tag.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../../../tags_manager/domain/entities/tag.dart';
 import '../../data/mappers/to_books.dart';
-import '../entities/book.dart';
 import '../repositories/books_repository.dart';
 
 final class AddBook extends UseCase<Unit, AddParams> {

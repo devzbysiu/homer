@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/entities/book.dart';
 import '../../../find_new_book/presentation/bloc/search/book_search_bloc.dart';
 import '../../../find_new_book/presentation/widgets/bottom_drawer_content.dart';
-import '../../../manage_books/domain/entities/book.dart';
 import '../../../manage_books/presentation/bloc/delete/delete_books_bloc.dart';
 import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
 import '../../presentation/bloc/app_tab_bloc.dart';

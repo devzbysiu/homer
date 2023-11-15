@@ -4,16 +4,15 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/entities/book.dart';
+import '../../../../../core/entities/tag.dart';
 import '../../../../../core/usecase/usecase.dart';
-import '../../../../tags_manager/domain/entities/tag.dart';
-import '../../../domain/entities/book.dart';
 import '../../../domain/usecases/add_book.dart';
 import '../../../domain/usecases/filter_books.dart';
 import '../../../domain/usecases/list_books.dart';
 import '../../../domain/usecases/update_book.dart';
 
 part 'books_event.dart';
-
 part 'books_state.dart';
 
 final class BooksBloc extends Bloc<BooksEvent, BooksState> {

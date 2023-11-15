@@ -11,15 +11,15 @@ import 'package:pull_down_button/pull_down_button.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 import 'package:vibration/vibration.dart';
 
+import '../../../../core/entities/book.dart';
+import '../../../../core/entities/tag.dart';
 import '../../../../core/utils/fallback_img.dart';
 import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
 import '../../../navigation/presentation/bloc/app_tab_bloc.dart';
-import '../../../tags_manager/domain/entities/tag.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
-import '../../domain/entities/book.dart';
 import '../bloc/delete/delete_books_bloc.dart';
 import '../bloc/listing/books_bloc.dart';
 import '../bloc/summary/book_summary_bloc.dart';

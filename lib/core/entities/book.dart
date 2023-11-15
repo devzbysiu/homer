@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../tags_manager/domain/entities/tag.dart';
+import 'tag.dart';
 
 final class Book extends Equatable {
   const Book({

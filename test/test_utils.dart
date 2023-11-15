@@ -1,8 +1,25 @@
 import 'package:dartz/dartz.dart';
 import 'package:faker/faker.dart';
+import 'package:homer/core/entities/book.dart';
+import 'package:homer/core/entities/tag.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
-import 'package:homer/features/manage_books/domain/entities/book.dart';
-import 'package:homer/features/tags_manager/domain/entities/tag.dart';
+
+Book fakeBook() {
+  return Book(
+    title: _fakeTitle(),
+    subtitle: _fakeSubtitle(),
+    authors: [_fakeAuthor()],
+    state: _fakeBookState(),
+    pageCount: _fakePageCount(),
+    isbn: _fakeIsbn(),
+    thumbnailAddress: some(_fakeThumbnailAddress()),
+    rating: _fakeRating(),
+    summary: some(_fakeSummary()),
+    tags: [fakeTag(), fakeTag()],
+    startDate: some(_fakeDate()),
+    endDate: some(_fakeDate()),
+  );
+}
 
 String _fakeTitle() => _fakeTagName();
 
@@ -28,26 +45,7 @@ int _fakeDateMillis() => faker.date.dateTime().millisecondsSinceEpoch;
 
 DateTime _fakeDate() => faker.date.dateTime(minYear: 1990, maxYear: 2023);
 
-Book fakeBook() {
-  return Book(
-    title: _fakeTitle(),
-    subtitle: _fakeSubtitle(),
-    authors: [_fakeAuthor()],
-    state: _fakeBookState(),
-    pageCount: _fakePageCount(),
-    isbn: _fakeIsbn(),
-    thumbnailAddress: some(_fakeThumbnailAddress()),
-    rating: _fakeRating(),
-    summary: some(_fakeSummary()),
-    tags: [fakeTag(), fakeTag()],
-    startDate: some(_fakeDate()),
-    endDate: some(_fakeDate()),
-  );
-}
-
-Tag fakeTag() {
-  return Tag(name: _fakeTagName(), hexColor: _fakeTagColor());
-}
+Tag fakeTag() => Tag(name: _fakeTagName(), hexColor: _fakeTagColor());
 
 Map<String, Object> fakeBackupBookDTOJson() {
   return {
@@ -95,7 +93,7 @@ BackupBookDTO backupBookDTOFromJson(Map<String, dynamic> json) {
     thumbnailAddress: some(json['thumbnailAddress']),
     rating: json['rating'],
     summary: some(json['summary']),
-    tags: tagsFromJson(json['tags']),
+    tags: tagDTOsFromJson(json['tags']),
     startDate: some(DateTime.fromMillisecondsSinceEpoch(json['startDate'])),
     endDate: some(DateTime.fromMillisecondsSinceEpoch(json['endDate'])),
   );
@@ -114,13 +112,12 @@ BookState stateFromString(String state) {
   }
 }
 
-// TODO: DTO should have it's own TagDTO
-List<Tag> tagsFromJson(List<Map<String, dynamic>> tags) {
-  return tags.map((tagJson) => tagFromJson(tagJson)).toList();
+List<BackupTagDTO> tagDTOsFromJson(List<Map<String, dynamic>> tags) {
+  return tags.map(tagFromJson).toList();
 }
 
-Tag tagFromJson(Map<String, dynamic> tagJson) {
-  return Tag(name: tagJson['name'], hexColor: tagJson['hexColor']);
+BackupTagDTO tagFromJson(Map<String, dynamic> tagJson) {
+  return BackupTagDTO(name: tagJson['name'], hexColor: tagJson['hexColor']);
 }
 
 BackupBookDTO fakeBackupBookDTO() {
@@ -135,8 +132,8 @@ BackupBookDTO fakeBackupBookDTO() {
     rating: _fakeRating(),
     summary: some(_fakeSummary()),
     tags: [
-      Tag(name: _fakeTagName(), hexColor: _fakeTagColor()),
-      Tag(name: _fakeTagName(), hexColor: _fakeTagColor()),
+      BackupTagDTO(name: _fakeTagName(), hexColor: _fakeTagColor()),
+      BackupTagDTO(name: _fakeTagName(), hexColor: _fakeTagColor()),
     ],
     startDate: some(_fakeDate()),
     endDate: some(_fakeDate()),

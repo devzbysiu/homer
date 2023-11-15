@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:multiple_result/multiple_result.dart';
 
+import '../../../../core/entities/book.dart';
 import '../../../../core/error/failures.dart';
-import '../../../manage_books/domain/entities/book.dart';
 import '../../domain/repositories/backup_repository.dart';
 import '../datasources/backup_data_source.dart';
 import '../mappers/to_backup_book_dtos.dart';

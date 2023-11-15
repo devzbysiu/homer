@@ -3,6 +3,7 @@ import 'package:faker/faker.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/entities/tag.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
+import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
 
 Book fakeBook() {
   return Book(

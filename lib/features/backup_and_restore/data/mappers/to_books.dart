@@ -1,6 +1,7 @@
 import '../../../../core/entities/book.dart';
 import '../../../../core/entities/tag.dart';
 import '../models/backup_book_dto.dart';
+import '../models/backup_tag_dto.dart';
 
 List<Book> toBooks(List<BackupBookDTO> books) {
   return books.map(_toBook).toList();

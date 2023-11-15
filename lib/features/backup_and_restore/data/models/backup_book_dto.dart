@@ -4,6 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../core/entities/book.dart';
 import '../../../../core/utils/date_option_ext.dart';
+import 'backup_tag_dto.dart';
 
 part 'backup_book_dto.g.dart';
 
@@ -99,22 +100,4 @@ Option<String> _toSummary(String summary) {
 
 String _summaryToJson(Option<String> summary) {
   return summary.getOrElse(() => '');
-}
-
-@JsonSerializable()
-final class BackupTagDTO extends Equatable {
-  const BackupTagDTO({required this.name, required this.hexColor});
-
-  final String name;
-
-  final String hexColor;
-
-  factory BackupTagDTO.fromJson(Map<String, dynamic> json) {
-    return _$BackupTagDTOFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() => _$BackupTagDTOToJson(this);
-
-  @override
-  List<Object> get props => [name, hexColor];
 }

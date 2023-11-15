@@ -46,14 +46,3 @@ const _$BookStateEnumMap = {
   BookState.reading: 'reading',
   BookState.read: 'read',
 };
-
-BackupTagDTO _$BackupTagDTOFromJson(Map<String, dynamic> json) => BackupTagDTO(
-      name: json['name'] as String,
-      hexColor: json['hexColor'] as String,
-    );
-
-Map<String, dynamic> _$BackupTagDTOToJson(BackupTagDTO instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'hexColor': instance.hexColor,
-    };

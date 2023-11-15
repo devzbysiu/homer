@@ -1,4 +1,4 @@
-import 'package:homer/features/backup_and_restore/data/models/local_backup_book_dto.dart';
+import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils.dart';
@@ -7,26 +7,26 @@ void main() {
   group('fromJson', () {
     test('should construct DTO from json', () {
       // given
-      final json = fakeLocalBackupBookDTOJson();
+      final json = fakeBackupBookDTOJson();
 
       // when
-      final result = LocalBackupBookDTO.fromJson(json);
+      final result = BackupBookDTO.fromJson(json);
 
       // then
-      expect(result, localBackupBookDTOFromJson(json));
+      expect(result, backupBookDTOFromJson(json));
     });
   });
 
   group('toJson', () {
     test('should produce valid json from DTO', () {
       // given
-      final dto = fakeLocalBackupBookDTO();
+      final dto = fakeBackupBookDTO();
 
       // when
       final json = dto.toJson();
 
       // then
-      expect(json, localBackupBookDTOToJson(dto));
+      expect(json, backupBookDTOToJson(dto));
     });
   });
 }

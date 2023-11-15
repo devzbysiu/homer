@@ -1,17 +1,17 @@
-import '../../features/manage_books/domain/entities/local_book.dart';
+import '../../features/manage_books/domain/entities/book.dart';
 import 'date_option_ext.dart';
 
-List<LocalBook> sortByStateAndDate(List<LocalBook> books) {
-  final List<LocalBook> filteredAndSorted = books
+List<Book> sortByStateAndDate(List<Book> books) {
+  final List<Book> filteredAndSorted = books
       .where((book) => book.state == BookState.readLater)
       .toList()
       .reversed
       .toList();
 
-  final List<LocalBook> readingBooks =
+  final List<Book> readingBooks =
       books.where((book) => book.state == BookState.reading).toList();
 
-  final List<LocalBook> readBooks =
+  final List<Book> readBooks =
       books.where((book) => book.state == BookState.read).toList();
 
   readingBooks.sort((a, b) {

@@ -5,11 +5,11 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entities/book_size_limits.dart';
 
-part 'local_settings_dto.g.dart';
+part 'settings_dto.g.dart';
 
 @JsonSerializable()
-final class LocalSettingsDTO extends Equatable {
-  const LocalSettingsDTO({
+final class SettingsDTO extends Equatable {
+  const SettingsDTO({
     required this.isSystemThemeOn,
     required this.isDarkThemeOn,
     required this.backupsDirectory,
@@ -26,10 +26,10 @@ final class LocalSettingsDTO extends Equatable {
   @JsonKey(fromJson: _directoryFromJson, toJson: _directoryToJson)
   final Directory backupsDirectory;
 
-  Map<String, dynamic> toJson() => _$LocalSettingsDTOToJson(this);
+  Map<String, dynamic> toJson() => _$SettingsDTOToJson(this);
 
-  factory LocalSettingsDTO.fromJson(Map<String, dynamic> json) {
-    return _$LocalSettingsDTOFromJson(json);
+  factory SettingsDTO.fromJson(Map<String, dynamic> json) {
+    return _$SettingsDTOFromJson(json);
   }
 
   @override

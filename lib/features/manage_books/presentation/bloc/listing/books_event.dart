@@ -9,7 +9,7 @@ abstract class BooksEvent extends Equatable {
 final class BookAdded extends BooksEvent {
   BookAdded(this.book, this.bookState, this.selectedTags);
 
-  final LocalBook book;
+  final Book book;
 
   final BookState bookState;
 
@@ -22,7 +22,7 @@ final class BookAdded extends BooksEvent {
 final class BookSwipedRight extends BooksEvent {
   BookSwipedRight(this.book);
 
-  final LocalBook book;
+  final Book book;
 
   @override
   List<Object> get props => [book];
@@ -31,7 +31,7 @@ final class BookSwipedRight extends BooksEvent {
 final class BookSwipedLeft extends BooksEvent {
   BookSwipedLeft(this.book);
 
-  final LocalBook book;
+  final Book book;
 
   @override
   List<Object> get props => [book];
@@ -42,7 +42,7 @@ final class RefreshBooksList extends BooksEvent {}
 final class TagToggled extends BooksEvent {
   TagToggled(this.book, this.tag);
 
-  final LocalBook book;
+  final Book book;
 
   final Tag tag;
 }

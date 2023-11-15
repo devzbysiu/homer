@@ -5,13 +5,12 @@ import 'package:json_annotation/json_annotation.dart';
 part 'tag.g.dart';
 
 @JsonSerializable()
-@Embedded(inheritance: false)
 final class Tag extends Equatable {
-  Tag();
+  const Tag({required this.name, required this.hexColor});
 
-  late final String name;
+  final String name;
 
-  late final String hexColor;
+  final String hexColor;
 
   factory Tag.fromJson(Map<String, dynamic> json) {
     return _$TagFromJson(json);

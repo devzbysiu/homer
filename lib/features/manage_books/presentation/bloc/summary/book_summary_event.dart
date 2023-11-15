@@ -11,7 +11,7 @@ final class SummaryModeDisabling extends BookSummaryEvent {}
 final class SummaryModeToggled extends BookSummaryEvent {
   SummaryModeToggled(this.book);
 
-  final LocalBook book;
+  final Book book;
 }
 
 final class SummaryModeDisabled extends BookSummaryEvent {}

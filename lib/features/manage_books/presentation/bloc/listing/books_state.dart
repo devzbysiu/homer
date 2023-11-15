@@ -4,7 +4,7 @@ part of 'books_bloc.dart';
 abstract class BooksState extends Equatable {
   const BooksState({this.books = const []});
 
-  final List<LocalBook> books;
+  final List<Book> books;
 
   @override
   List<Object> get props => [books];

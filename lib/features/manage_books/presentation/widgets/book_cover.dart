@@ -3,7 +3,7 @@ part of 'books_list.dart';
 final class _BookCover extends StatelessWidget {
   const _BookCover({required this.book});
 
-  final LocalBook book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ final class _Tag extends StatelessWidget {
 final class _AddTagTile extends StatelessWidget {
   const _AddTagTile({required this.book});
 
-  final LocalBook book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {

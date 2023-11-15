@@ -3,16 +3,16 @@ import 'package:multiple_result/multiple_result.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../../core/utils/books_sort.dart';
-import '../entities/local_book.dart';
-import '../repositories/local_books_repository.dart';
+import '../entities/book.dart';
+import '../repositories/books_repository.dart';
 
-final class FilterBooks extends UseCase<List<LocalBook>, FilterParams> {
+final class FilterBooks extends UseCase<List<Book>, FilterParams> {
   FilterBooks(this.booksRepo);
 
-  final LocalBooksRepository booksRepo;
+  final BooksRepository booksRepo;
 
   @override
-  Future<Result<List<LocalBook>, Failure>> call(FilterParams params) async {
+  Future<Result<List<Book>, Failure>> call(FilterParams params) async {
     final listResult = await booksRepo.listAll();
     return Future.value(listResult.when(
       (books) => Success(_filter(books, params.query)),
@@ -20,7 +20,7 @@ final class FilterBooks extends UseCase<List<LocalBook>, FilterParams> {
     ));
   }
 
-  List<LocalBook> _filter(List<LocalBook> books, String query) {
+  List<Book> _filter(List<Book> books, String query) {
     final matchingBooks = books
         .where((book) => book.title.toLowerCase().contains(query.toLowerCase()))
         .toList();

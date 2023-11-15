@@ -3,7 +3,7 @@ part of 'bottom_drawer_content.dart';
 final class _SaveButtons extends StatelessWidget {
   const _SaveButtons({required this.pickedBook});
 
-  final LocalBook pickedBook;
+  final Book pickedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ final class _SaveButtons extends StatelessWidget {
 class _SaveToReadButton extends StatelessWidget {
   const _SaveToReadButton({required this.pickedBook});
 
-  final LocalBook pickedBook;
+  final Book pickedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class _SaveToReadButton extends StatelessWidget {
 class _SaveToReadingButton extends StatelessWidget {
   const _SaveToReadingButton({required this.pickedBook});
 
-  final LocalBook pickedBook;
+  final Book pickedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class _SaveToReadingButton extends StatelessWidget {
 class _SaveForLaterButton extends StatelessWidget {
   const _SaveForLaterButton({required this.pickedBook});
 
-  final LocalBook pickedBook;
+  final Book pickedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class _SaveForLaterButton extends StatelessWidget {
 
 void _addBook(
   BuildContext context,
-  LocalBook pickedBook,
+  Book pickedBook,
   BookState bookState,
 ) {
   final selectedTags = context.selectedTags();

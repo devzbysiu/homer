@@ -3,11 +3,11 @@ part of 'books_list.dart';
 final class _BookCard extends StatelessWidget {
   const _BookCard({required this.book});
 
-  final LocalBook book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<DeleteBooksBloc, DeleteBooksState, List<LocalBook>>(
+    return BlocSelector<DeleteBooksBloc, DeleteBooksState, List<Book>>(
       selector: (state) => state.deletionList,
       builder: (context, booksToDelete) {
         return GestureDetector(
@@ -25,13 +25,13 @@ final class _BookCard extends StatelessWidget {
     Vibration.vibrate(duration: 100);
   }
 
-  void _toggleModes(List<LocalBook> booksToDelete, BuildContext context) {
+  void _toggleModes(List<Book> booksToDelete, BuildContext context) {
     context.disableSummaryMode(); // always disable summary mode on toggle
     if (booksToDelete.isEmpty) return; // not in delete mode
     context.toggleBookOnDeleteList(book);
   }
 
-  Widget _bookCard(List<LocalBook> booksToDelete) {
+  Widget _bookCard(List<Book> booksToDelete) {
     if (booksToDelete.isNotEmpty) return _DeletableCard(book: book);
     return BlocBuilder<BookSummaryBloc, BookSummaryState>(
       builder: (context, state) {

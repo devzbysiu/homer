@@ -15,7 +15,7 @@ final class SearchInitiated extends BookSearchEvent {
 final class SuggestedBookPicked extends BookSearchEvent {
   SuggestedBookPicked(this.pickedBook);
 
-  final LocalBook pickedBook;
+  final Book pickedBook;
 
   @override
   List<Object?> get props => [pickedBook];

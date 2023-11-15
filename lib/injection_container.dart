@@ -2,13 +2,13 @@ import 'package:get_it/get_it.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'features/backup_and_restore/data/datasources/local_backup_data_source.dart';
-import 'features/backup_and_restore/data/repositories/local_backup_repo.dart';
+import 'features/backup_and_restore/data/datasources/backup_data_source.dart';
+import 'features/backup_and_restore/data/repositories/backup_repo.dart';
 import 'features/backup_and_restore/domain/repositories/backup_repository.dart';
 import 'features/backup_and_restore/domain/usecases/add_all_books.dart';
+import 'features/backup_and_restore/domain/usecases/load_backup.dart';
+import 'features/backup_and_restore/domain/usecases/make_backup.dart';
 import 'features/backup_and_restore/domain/usecases/purge_repo.dart';
-import 'features/backup_and_restore/domain/usecases/restore_from_local.dart';
-import 'features/backup_and_restore/domain/usecases/save_to_local.dart';
 import 'features/backup_and_restore/presentation/bloc/backup_bloc.dart';
 import 'features/find_new_book/data/datasources/remote_book_info_data_source.dart';
 import 'features/find_new_book/data/datasources/remote_books_data_source.dart';
@@ -18,9 +18,9 @@ import 'features/find_new_book/domain/usecases/fetch_shared_book.dart';
 import 'features/find_new_book/domain/usecases/search_for_books.dart';
 import 'features/find_new_book/presentation/bloc/search/book_search_bloc.dart';
 import 'features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_bloc.dart';
-import 'features/manage_books/data/datasources/local_books_data_source.dart';
-import 'features/manage_books/data/repositories/local_books_repo.dart';
-import 'features/manage_books/domain/repositories/local_books_repository.dart';
+import 'features/manage_books/data/datasources/books_data_source.dart';
+import 'features/manage_books/data/repositories/books_repo.dart';
+import 'features/manage_books/domain/repositories/books_repository.dart';
 import 'features/manage_books/domain/usecases/add_book.dart';
 import 'features/manage_books/domain/usecases/delete_books.dart';
 import 'features/manage_books/domain/usecases/filter_books.dart';
@@ -30,9 +30,9 @@ import 'features/manage_books/presentation/bloc/delete/delete_books_bloc.dart';
 import 'features/manage_books/presentation/bloc/listing/books_bloc.dart';
 import 'features/manage_books/presentation/bloc/summary/book_summary_bloc.dart';
 import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
-import 'features/settings/data/datasources/local_settings_data_source.dart';
-import 'features/settings/data/repositories/local_settings_repo.dart';
-import 'features/settings/domain/repositories/local_settings_repository.dart';
+import 'features/settings/data/datasources/settings_data_source.dart';
+import 'features/settings/data/repositories/settings_repo.dart';
+import 'features/settings/domain/repositories/settings_repository.dart';
 import 'features/settings/domain/usecases/load_settings.dart';
 import 'features/settings/domain/usecases/save_settings.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
@@ -67,10 +67,10 @@ Future<void> initDi() async {
   sl.registerFactory(() => OnBookTagsBloc());
   sl.registerFactory(() {
     return BackupBloc(
-      loadFromLocalBackup: sl(),
+      loadBackup: sl(),
       addAllBooks: sl(),
       purgeRepo: sl(),
-      saveToLocalBackup: sl(),
+      makeBackup: sl(),
     );
   });
   sl.registerFactory(() {
@@ -93,17 +93,17 @@ Future<void> initDi() async {
   sl.registerLazySingleton(() => SearchForBooks(sl()));
   sl.registerLazySingleton(() => FetchSharedBook(sl()));
   // backup and restore
-  sl.registerFactory(() => LoadFromLocalBackup(sl()));
+  sl.registerFactory(() => LoadBackup(sl()));
   sl.registerFactory(() => AddAllBooks(sl()));
   sl.registerFactory(() => PurgeRepo(sl()));
-  sl.registerFactory(() => SaveToLocalBackup(sl(), sl()));
+  sl.registerFactory(() => MakeBackup(sl(), sl()));
   // settings
   sl.registerFactory(() => SaveSettings(settingsRepo: sl()));
   sl.registerFactory(() => LoadSettings(settingsRepo: sl()));
 
   // Repositories
-  sl.registerLazySingleton<LocalBooksRepository>(() {
-    return LocalBooksRepo(dataSource: sl());
+  sl.registerLazySingleton<BooksRepository>(() {
+    return BooksRepo(dataSource: sl());
   });
   sl.registerLazySingleton<TagsRepository>(() => InMemoryTagsRepo());
   sl.registerLazySingleton<RemoteBooksRepository>(() {
@@ -113,22 +113,22 @@ Future<void> initDi() async {
     );
   });
   sl.registerLazySingleton<BackupRepository>(() {
-    return LocalBackupRepo(dataSource: sl());
+    return BackupRepo(dataSource: sl());
   });
-  sl.registerLazySingleton<LocalSettingsRepository>(() {
-    return LocalSettingsRepo(settingsDataSource: sl());
+  sl.registerLazySingleton<SettingsRepository>(() {
+    return SettingsRepo(settingsDataSource: sl());
   });
 
   // Data sources
-  final isarDataSource = await IsarLocalDataSource.create();
-  sl.registerLazySingleton<LocalBooksDataSource>(() => isarDataSource);
+  final isarDataSource = await IsarDataSource.create();
+  sl.registerLazySingleton<BooksDataSource>(() => isarDataSource);
   sl.registerLazySingleton<RemoteBooksDataSource>(() => ExternalBooks());
   sl.registerLazySingleton<RemoteBookInfoDataSource>(() => ScraperDataSource());
-  sl.registerLazySingleton<LocalBackupDataSource>(() => BackupDataSource());
+  sl.registerLazySingleton<BackupDataSource>(() => JsonFileBackupDataSource());
 
   final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton<LocalSettingsDataSource>(() {
-    return SharedPreferencesSettingsDataSource(
+  sl.registerLazySingleton<SettingsDataSource>(() {
+    return SharedPrefsSettingsDataSource(
       sharedPreferences: sharedPreferences,
     );
   });

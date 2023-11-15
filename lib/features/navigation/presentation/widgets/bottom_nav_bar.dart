@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../find_new_book/presentation/bloc/search/book_search_bloc.dart';
 import '../../../find_new_book/presentation/widgets/bottom_drawer_content.dart';
-import '../../../manage_books/domain/entities/local_book.dart';
+import '../../../manage_books/domain/entities/book.dart';
 import '../../../manage_books/presentation/bloc/delete/delete_books_bloc.dart';
 import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
 import '../../presentation/bloc/app_tab_bloc.dart';
@@ -96,7 +96,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   Widget _mainActionButton(BuildContext context) {
-    return BlocSelector<DeleteBooksBloc, DeleteBooksState, List<LocalBook>>(
+    return BlocSelector<DeleteBooksBloc, DeleteBooksState, List<Book>>(
         selector: (state) => state.deletionList,
         builder: (context, booksToDelete) {
           return booksToDelete.isEmpty

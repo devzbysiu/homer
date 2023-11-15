@@ -26,7 +26,7 @@ class _SuggestionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<BookSearchBloc, BookSearchState, List<LocalBook>>(
+    return BlocSelector<BookSearchBloc, BookSearchState, List<Book>>(
       selector: (state) => state.foundBooks,
       builder: (context, foundBooks) {
         return Column(
@@ -37,7 +37,7 @@ class _SuggestionsList extends StatelessWidget {
     );
   }
 
-  List<Widget> _searchSuggestions(List<LocalBook> foundBooks) {
+  List<Widget> _searchSuggestions(List<Book> foundBooks) {
     return foundBooks.map((book) {
       return _SearchSuggestion(book: book);
     }).toList();
@@ -47,7 +47,7 @@ class _SuggestionsList extends StatelessWidget {
 final class _SearchSuggestion extends StatelessWidget {
   const _SearchSuggestion({required this.book});
 
-  final LocalBook book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ final class _SearchSuggestion extends StatelessWidget {
 final class _ListTileThumbnail extends StatelessWidget {
   const _ListTileThumbnail({required this.book});
 
-  final LocalBook book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {

@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../manage_books/domain/entities/local_book.dart';
+import '../../../manage_books/domain/entities/book.dart';
 import '../models/remote_book_dto.dart';
 
-List<LocalBook> toLocalBooks(List<RemoteBookDTO> books) {
-  return books.map(toLocalBook).toList();
+List<Book> toBooks(List<RemoteBookDTO> books) {
+  return books.map(toBook).toList();
 }
 
-LocalBook toLocalBook(RemoteBookDTO remoteBookDTO) {
-  return LocalBook(
+Book toBook(RemoteBookDTO remoteBookDTO) {
+  return Book(
     title: remoteBookDTO.title,
     subtitle: remoteBookDTO.subtitle,
     authors: remoteBookDTO.authors,

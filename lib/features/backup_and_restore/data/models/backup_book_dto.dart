@@ -3,14 +3,14 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../core/utils/date_option_ext.dart';
-import '../../../manage_books/domain/entities/local_book.dart';
+import '../../../manage_books/domain/entities/book.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 
-part 'local_backup_book_dto.g.dart';
+part 'backup_book_dto.g.dart';
 
 @JsonSerializable()
-final class LocalBackupBookDTO extends Equatable {
-  const LocalBackupBookDTO({
+final class BackupBookDTO extends Equatable {
+  const BackupBookDTO({
     required this.title,
     required this.subtitle,
     required this.authors,
@@ -53,11 +53,11 @@ final class LocalBackupBookDTO extends Equatable {
   @JsonKey(fromJson: _toDate, toJson: _dateToJson)
   final Option<DateTime> endDate;
 
-  factory LocalBackupBookDTO.fromJson(Map<String, dynamic> json) {
-    return _$LocalBackupBookDTOFromJson(json);
+  factory BackupBookDTO.fromJson(Map<String, dynamic> json) {
+    return _$BackupBookDTOFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$LocalBackupBookDTOToJson(this);
+  Map<String, dynamic> toJson() => _$BackupBookDTOToJson(this);
 
   @override
   List<Object?> get props => [

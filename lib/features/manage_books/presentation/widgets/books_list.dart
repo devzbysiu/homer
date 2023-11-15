@@ -19,7 +19,7 @@ import '../../../../core/widgets/transparent_image_card.dart';
 import '../../../navigation/presentation/bloc/app_tab_bloc.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
-import '../../domain/entities/local_book.dart';
+import '../../domain/entities/book.dart';
 import '../bloc/delete/delete_books_bloc.dart';
 import '../bloc/listing/books_bloc.dart';
 import '../bloc/summary/book_summary_bloc.dart';
@@ -52,7 +52,7 @@ final class _BooksListState extends State<BooksList> {
       child: GestureDetector(
         onTap: () => context.clearDeletionList(),
         child: FloatingSearchBarScrollNotifier(
-          child: BlocSelector<BooksBloc, BooksState, List<LocalBook>>(
+          child: BlocSelector<BooksBloc, BooksState, List<Book>>(
             selector: (state) => state.books,
             builder: (context, allBooks) {
               final books = allBooks

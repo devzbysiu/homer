@@ -5,11 +5,11 @@ import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../../manage_books/domain/entities/local_book.dart';
+import '../../../manage_books/domain/entities/book.dart';
 import '../../domain/repositories/remote_books_repository.dart';
 import '../datasources/remote_book_info_data_source.dart';
 import '../datasources/remote_books_data_source.dart';
-import '../mappers/to_local_books.dart';
+import '../mappers/to_books.dart';
 import '../models/remote_book_info_dto.dart';
 
 final class RemoteBooksRepo implements RemoteBooksRepository {
@@ -23,21 +23,21 @@ final class RemoteBooksRepo implements RemoteBooksRepository {
   final RemoteBookInfoDataSource booksInfoDataSource;
 
   @override
-  Future<Result<List<LocalBook>, Failure>> search(String query) async {
+  Future<Result<List<Book>, Failure>> search(String query) async {
     final bookDTOs = await booksDataSource.getFromQuery(query);
-    final localBooks = toLocalBooks(bookDTOs);
-    return Future.value(Success(localBooks));
+    final books = toBooks(bookDTOs);
+    return Future.value(Success(books));
   }
 
   @override
-  Future<Result<LocalBook, Failure>> fromUrl(String url) async {
+  Future<Result<Book, Failure>> fromUrl(String url) async {
     try {
       final bookInfoDTO = await booksInfoDataSource.getFromUrl(url);
       final bookIsbn = _getIsbn(bookInfoDTO);
       if (bookIsbn.isNone()) return Future.value(Error(NoIsbnFailure(url)));
 
       final bookDTO = await booksDataSource.getFromIsbn(bookIsbn.toNullable()!);
-      final remoteBook = toLocalBook(bookDTO);
+      final remoteBook = toBook(bookDTO);
       return Future.value(Success(remoteBook));
     } on FormatException {
       return Future.value(Error(InvalidUrlSharedFailure(url)));

@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 
 import '../../../tags_manager/domain/entities/tag.dart';
 
-final class LocalBook extends Equatable {
-  const LocalBook({
+final class Book extends Equatable {
+  const Book({
     this.id,
     required this.title,
     required this.subtitle,
@@ -46,7 +46,7 @@ final class LocalBook extends Equatable {
 
   final Option<DateTime> endDate;
 
-  LocalBook copyWith({
+  Book copyWith({
     int? id,
     String? title,
     String? subtitle,
@@ -61,7 +61,7 @@ final class LocalBook extends Equatable {
     Option<DateTime>? startDate,
     Option<DateTime>? endDate,
   }) {
-    return LocalBook(
+    return Book(
       id: id ?? this.id,
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
@@ -78,7 +78,7 @@ final class LocalBook extends Equatable {
     );
   }
 
-  LocalBook moveRight() {
+  Book moveRight() {
     final newState = state.moveRight();
     switch (newState) {
       case BookState.reading:
@@ -90,7 +90,7 @@ final class LocalBook extends Equatable {
     }
   }
 
-  LocalBook moveLeft() {
+  Book moveLeft() {
     return copyWith(state: state.moveLeft());
   }
 

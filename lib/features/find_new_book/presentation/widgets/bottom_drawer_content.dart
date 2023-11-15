@@ -13,7 +13,7 @@ import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
-import '../../../manage_books/domain/entities/local_book.dart';
+import '../../../manage_books/domain/entities/book.dart';
 import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';

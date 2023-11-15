@@ -4,7 +4,7 @@ part of 'delete_books_bloc.dart';
 abstract class DeleteBooksState extends Equatable {
   const DeleteBooksState({this.deletionList = const []});
 
-  final List<LocalBook> deletionList;
+  final List<Book> deletionList;
 
   @override
   List<Object> get props => [deletionList];

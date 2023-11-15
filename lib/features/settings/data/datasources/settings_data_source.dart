@@ -4,32 +4,31 @@ import 'package:multiple_result/multiple_result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/error/exceptions.dart';
-import '../models/local_settings_dto.dart';
+import '../models/settings_dto.dart';
 
-abstract class LocalSettingsDataSource {
-  Future<Unit> save(LocalSettingsDTO settingsDTO);
+abstract class SettingsDataSource {
+  Future<Unit> save(SettingsDTO settingsDTO);
 
-  Future<LocalSettingsDTO> load();
+  Future<SettingsDTO> load();
 }
 
-final class SharedPreferencesSettingsDataSource
-    implements LocalSettingsDataSource {
-  const SharedPreferencesSettingsDataSource({required this.sharedPreferences});
+final class SharedPrefsSettingsDataSource implements SettingsDataSource {
+  const SharedPrefsSettingsDataSource({required this.sharedPreferences});
 
   final SharedPreferences sharedPreferences;
 
   @override
-  Future<Unit> save(LocalSettingsDTO settingsDTO) async {
+  Future<Unit> save(SettingsDTO settingsDTO) async {
     final jsonSettings = jsonEncode(settingsDTO.toJson());
     sharedPreferences.setString('settings', jsonSettings);
     return Future.value(unit);
   }
 
   @override
-  Future<LocalSettingsDTO> load() {
+  Future<SettingsDTO> load() {
     final settingsJson = sharedPreferences.getString('settings');
     if (settingsJson == null) throw NoSettingsException();
-    final settingsDTO = LocalSettingsDTO.fromJson(jsonDecode(settingsJson));
+    final settingsDTO = SettingsDTO.fromJson(jsonDecode(settingsJson));
     return Future.value(settingsDTO);
   }
 }

@@ -3,7 +3,7 @@ part of 'books_list.dart';
 final class _DeletableCard extends StatelessWidget {
   const _DeletableCard({required this.book});
 
-  final LocalBook book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {

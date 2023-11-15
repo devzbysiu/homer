@@ -5,7 +5,7 @@ const _noSummaryText = 'No summary.';
 final class _AnimatedSummaryCard extends StatelessWidget {
   const _AnimatedSummaryCard({required this.book});
 
-  final LocalBook book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {

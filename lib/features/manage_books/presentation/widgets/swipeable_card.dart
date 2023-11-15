@@ -5,7 +5,7 @@ final class _SwipeableCard extends StatelessWidget {
 
   final Widget child;
 
-  final LocalBook book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {

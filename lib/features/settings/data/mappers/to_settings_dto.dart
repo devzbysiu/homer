@@ -1,8 +1,8 @@
-import '../../domain/entities/local_settings.dart';
-import '../models/local_settings_dto.dart';
+import '../../domain/entities/settings.dart';
+import '../models/settings_dto.dart';
 
-LocalSettingsDTO toSettingsDTO(LocalSettings settings) {
-  return LocalSettingsDTO(
+SettingsDTO toSettingsDTO(Settings settings) {
+  return SettingsDTO(
     isDarkThemeOn: settings.isDarkThemeOn,
     isSystemThemeOn: settings.isSystemThemeOn,
     backupsDirectory: settings.backupsDirectory,

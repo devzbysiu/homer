@@ -4,16 +4,16 @@ import 'package:equatable/equatable.dart';
 
 import 'book_size_limits.dart';
 
-final class LocalSettings extends Equatable {
-  const LocalSettings({
+final class Settings extends Equatable {
+  const Settings({
     required this.isSystemThemeOn,
     required this.isDarkThemeOn,
     required this.backupsDirectory,
     required this.bookSizeLimits,
   });
 
-  factory LocalSettings.makeDefault() {
-    return LocalSettings(
+  factory Settings.makeDefault() {
+    return Settings(
       isSystemThemeOn: true,
       isDarkThemeOn: true,
       backupsDirectory: Directory('/storage/emulated/0/Documents'),

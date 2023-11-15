@@ -3,7 +3,7 @@ part of 'books_list.dart';
 class _AnimatedRegularCard extends StatelessWidget {
   const _AnimatedRegularCard({required this.book, required this.context});
 
-  final LocalBook book;
+  final Book book;
 
   final BuildContext context;
 

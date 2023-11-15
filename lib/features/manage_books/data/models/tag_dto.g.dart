@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'local_tag_dto.dart';
+part of 'tag_dto.dart';
 
 // **************************************************************************
 // IsarEmbeddedGenerator
@@ -9,9 +9,9 @@ part of 'local_tag_dto.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-const LocalTagDTOSchema = Schema(
-  name: r'LocalTagDTO',
-  id: 6293303979616302016,
+const TagDTOSchema = Schema(
+  name: r'TagDTO',
+  id: -3092279249323102550,
   properties: {
     r'hexColor': PropertySchema(
       id: 0,
@@ -24,14 +24,14 @@ const LocalTagDTOSchema = Schema(
       type: IsarType.string,
     )
   },
-  estimateSize: _localTagDTOEstimateSize,
-  serialize: _localTagDTOSerialize,
-  deserialize: _localTagDTODeserialize,
-  deserializeProp: _localTagDTODeserializeProp,
+  estimateSize: _tagDTOEstimateSize,
+  serialize: _tagDTOSerialize,
+  deserialize: _tagDTODeserialize,
+  deserializeProp: _tagDTODeserializeProp,
 );
 
-int _localTagDTOEstimateSize(
-  LocalTagDTO object,
+int _tagDTOEstimateSize(
+  TagDTO object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -41,8 +41,8 @@ int _localTagDTOEstimateSize(
   return bytesCount;
 }
 
-void _localTagDTOSerialize(
-  LocalTagDTO object,
+void _tagDTOSerialize(
+  TagDTO object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -51,19 +51,19 @@ void _localTagDTOSerialize(
   writer.writeString(offsets[1], object.name);
 }
 
-LocalTagDTO _localTagDTODeserialize(
+TagDTO _tagDTODeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = LocalTagDTO();
+  final object = TagDTO();
   object.hexColor = reader.readString(offsets[0]);
   object.name = reader.readString(offsets[1]);
   return object;
 }
 
-P _localTagDTODeserializeProp<P>(
+P _tagDTODeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -79,9 +79,8 @@ P _localTagDTODeserializeProp<P>(
   }
 }
 
-extension LocalTagDTOQueryFilter
-    on QueryBuilder<LocalTagDTO, LocalTagDTO, QFilterCondition> {
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> hexColorEqualTo(
+extension TagDTOQueryFilter on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> hexColorEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -94,8 +93,7 @@ extension LocalTagDTOQueryFilter
     });
   }
 
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
-      hexColorGreaterThan(
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> hexColorGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -110,8 +108,7 @@ extension LocalTagDTOQueryFilter
     });
   }
 
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
-      hexColorLessThan(
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> hexColorLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -126,7 +123,7 @@ extension LocalTagDTOQueryFilter
     });
   }
 
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> hexColorBetween(
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> hexColorBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -145,8 +142,7 @@ extension LocalTagDTOQueryFilter
     });
   }
 
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
-      hexColorStartsWith(
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> hexColorStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -159,8 +155,7 @@ extension LocalTagDTOQueryFilter
     });
   }
 
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
-      hexColorEndsWith(
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> hexColorEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -173,142 +168,54 @@ extension LocalTagDTOQueryFilter
     });
   }
 
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
-      hexColorContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'hexColor',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> hexColorMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'hexColor',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
-      hexColorIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'hexColor',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
-      hexColorIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'hexColor',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'name',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'name',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'name',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'name',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'name',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'name',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameContains(
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> hexColorContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
+        property: r'hexColor',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> hexColorMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'hexColor',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> hexColorIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'hexColor',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> hexColorIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'hexColor',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
         property: r'name',
         value: value,
         caseSensitive: caseSensitive,
@@ -316,7 +223,93 @@ extension LocalTagDTOQueryFilter
     });
   }
 
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameMatches(
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'name',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'name',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'name',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'name',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'name',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameContains(String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'name',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -328,7 +321,7 @@ extension LocalTagDTOQueryFilter
     });
   }
 
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition> nameIsEmpty() {
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'name',
@@ -337,8 +330,7 @@ extension LocalTagDTOQueryFilter
     });
   }
 
-  QueryBuilder<LocalTagDTO, LocalTagDTO, QAfterFilterCondition>
-      nameIsNotEmpty() {
+  QueryBuilder<TagDTO, TagDTO, QAfterFilterCondition> nameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'name',
@@ -348,5 +340,4 @@ extension LocalTagDTOQueryFilter
   }
 }
 
-extension LocalTagDTOQueryObject
-    on QueryBuilder<LocalTagDTO, LocalTagDTO, QFilterCondition> {}
+extension TagDTOQueryObject on QueryBuilder<TagDTO, TagDTO, QFilterCondition> {}

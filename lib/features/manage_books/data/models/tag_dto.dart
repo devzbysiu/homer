@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:isar/isar.dart';
 
-part 'local_tag_dto.g.dart';
+part 'tag_dto.g.dart';
 
 @Embedded(inheritance: false)
-final class LocalTagDTO extends Equatable {
+final class TagDTO extends Equatable {
   late final String name;
 
   late final String hexColor;

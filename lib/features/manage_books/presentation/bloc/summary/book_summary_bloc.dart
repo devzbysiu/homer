@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/entities/local_book.dart';
+import '../../../domain/entities/book.dart';
 
 part 'book_summary_event.dart';
 part 'book_summary_state.dart';
@@ -48,7 +48,7 @@ final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
 }
 
 extension BookSummaryContextExt on BuildContext {
-  void toggleSummaryMode(LocalBook book) {
+  void toggleSummaryMode(Book book) {
     _emitBookEvt(SummaryModeToggled(book));
   }
 

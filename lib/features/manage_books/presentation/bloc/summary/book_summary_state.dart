@@ -7,9 +7,9 @@ abstract class BookSummaryState extends Equatable {
     this.wasInSummaryMode = const None(),
   });
 
-  final Option<LocalBook> bookInSummaryMode;
+  final Option<Book> bookInSummaryMode;
 
-  final Option<LocalBook> wasInSummaryMode;
+  final Option<Book> wasInSummaryMode;
 
   @override
   List<Object> get props => [bookInSummaryMode];

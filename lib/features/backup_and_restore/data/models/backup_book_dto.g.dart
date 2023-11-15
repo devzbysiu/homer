@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'local_backup_book_dto.dart';
+part of 'backup_book_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LocalBackupBookDTO _$LocalBackupBookDTOFromJson(Map<String, dynamic> json) =>
-    LocalBackupBookDTO(
+BackupBookDTO _$BackupBookDTOFromJson(Map<String, dynamic> json) =>
+    BackupBookDTO(
       title: json['title'] as String,
       subtitle: json['subtitle'] as String,
       authors:
@@ -25,7 +25,7 @@ LocalBackupBookDTO _$LocalBackupBookDTOFromJson(Map<String, dynamic> json) =>
       endDate: _toDate(json['endDate'] as int),
     );
 
-Map<String, dynamic> _$LocalBackupBookDTOToJson(LocalBackupBookDTO instance) =>
+Map<String, dynamic> _$BackupBookDTOToJson(BackupBookDTO instance) =>
     <String, dynamic>{
       'title': instance.title,
       'subtitle': instance.subtitle,

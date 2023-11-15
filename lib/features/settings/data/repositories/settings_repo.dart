@@ -2,29 +2,29 @@ import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../domain/entities/local_settings.dart';
-import '../../domain/repositories/local_settings_repository.dart';
-import '../datasources/local_settings_data_source.dart';
-import '../mappers/to_local_settings.dart';
+import '../../domain/entities/settings.dart';
+import '../../domain/repositories/settings_repository.dart';
+import '../datasources/settings_data_source.dart';
+import '../mappers/to_settings.dart';
 import '../mappers/to_settings_dto.dart';
 
-final class LocalSettingsRepo implements LocalSettingsRepository {
-  const LocalSettingsRepo({required this.settingsDataSource});
+final class SettingsRepo implements SettingsRepository {
+  const SettingsRepo({required this.settingsDataSource});
 
-  final LocalSettingsDataSource settingsDataSource;
+  final SettingsDataSource settingsDataSource;
 
   @override
-  Future<Result<Unit, Failure>> save(LocalSettings settings) async {
+  Future<Result<Unit, Failure>> save(Settings settings) async {
     final settingsDTO = toSettingsDTO(settings);
     await settingsDataSource.save(settingsDTO);
     return Future.value(const Success(unit));
   }
 
   @override
-  Future<Result<LocalSettings, Failure>> load() async {
+  Future<Result<Settings, Failure>> load() async {
     try {
       final settingsDTO = await settingsDataSource.load();
-      final settings = toLocalSettings(
+      final settings = toSettings(
         isSystemThemeOn: settingsDTO.isSystemThemeOn,
         isDarkThemeOn: settingsDTO.isDarkThemeOn,
         backupsDirectory: settingsDTO.backupsDirectory,
@@ -32,7 +32,7 @@ final class LocalSettingsRepo implements LocalSettingsRepository {
       );
       return Future.value(Success(settings));
     } on NoSettingsException {
-      return Future.value(Success(LocalSettings.makeDefault()));
+      return Future.value(Success(Settings.makeDefault()));
     }
   }
 }

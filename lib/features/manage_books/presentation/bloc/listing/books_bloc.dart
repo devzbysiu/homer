@@ -6,13 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/usecase/usecase.dart';
 import '../../../../tags_manager/domain/entities/tag.dart';
-import '../../../domain/entities/local_book.dart';
+import '../../../domain/entities/book.dart';
 import '../../../domain/usecases/add_book.dart';
 import '../../../domain/usecases/filter_books.dart';
 import '../../../domain/usecases/list_books.dart';
 import '../../../domain/usecases/update_book.dart';
 
 part 'books_event.dart';
+
 part 'books_state.dart';
 
 final class BooksBloc extends Bloc<BooksEvent, BooksState> {
@@ -61,7 +62,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) async {
     await addBook(AddParams(
-      localBook: event.book,
+      book: event.book,
       bookState: event.bookState,
       selectedTags: event.selectedTags,
     ));
@@ -120,15 +121,15 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
 }
 
 extension BooksContextExt on BuildContext {
-  void addBook(LocalBook book, BookState state, List<Tag> tags) {
+  void addBook(Book book, BookState state, List<Tag> tags) {
     _emitBooksEvt(BookAdded(book, state, tags));
   }
 
-  void bookSwipedRight(LocalBook book) {
+  void bookSwipedRight(Book book) {
     _emitBooksEvt(BookSwipedRight(book));
   }
 
-  void bookSwipedLeft(LocalBook book) {
+  void bookSwipedLeft(Book book) {
     _emitBooksEvt(BookSwipedLeft(book));
   }
 
@@ -136,7 +137,7 @@ extension BooksContextExt on BuildContext {
     _emitBooksEvt(RefreshBooksList());
   }
 
-  void toggleTag(LocalBook book, Tag tag) {
+  void toggleTag(Book book, Tag tag) {
     _emitBooksEvt(TagToggled(book, tag));
   }
 

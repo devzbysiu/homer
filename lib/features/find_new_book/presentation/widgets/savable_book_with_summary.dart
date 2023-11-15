@@ -5,8 +5,7 @@ final class _SavableBookWithSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<BookSearchBloc, BookSearchState,
-        dartz.Option<LocalBook>>(
+    return BlocSelector<BookSearchBloc, BookSearchState, dartz.Option<Book>>(
       selector: (state) => state.pickedBook,
       builder: (context, pickedBook) {
         return pickedBook.fold(
@@ -41,7 +40,7 @@ final class _SavableBookWithSummary extends StatelessWidget {
 final class _BookWithSummary extends StatelessWidget {
   const _BookWithSummary({required this.pickedBook});
 
-  final LocalBook pickedBook;
+  final Book pickedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +198,7 @@ class _DropCapText extends StatelessWidget {
 final class _RemoteBookCard extends StatelessWidget {
   const _RemoteBookCard({required this.book});
 
-  final LocalBook book;
+  final Book book;
 
   @override
   Widget build(BuildContext context) {

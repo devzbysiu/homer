@@ -1,5 +1,3 @@
-final class LocalDatasourceException implements Exception {}
-
 final class NoBookWithIsbnFoundException implements Exception {
   const NoBookWithIsbnFoundException(this.isbn);
 

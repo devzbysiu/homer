@@ -2,15 +2,15 @@ import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../../../manage_books/domain/repositories/local_books_repository.dart';
+import '../../../manage_books/domain/repositories/books_repository.dart';
 import '../repositories/backup_repository.dart';
 
-final class SaveToLocalBackup extends UseCase<Unit, BackupParams> {
-  SaveToLocalBackup(this.backupRepo, this.booksRepo);
+final class MakeBackup extends UseCase<Unit, BackupParams> {
+  MakeBackup(this.backupRepo, this.booksRepo);
 
   final BackupRepository backupRepo;
 
-  final LocalBooksRepository booksRepo;
+  final BooksRepository booksRepo;
 
   @override
   Future<Result<Unit, Failure>> call(BackupParams params) async {

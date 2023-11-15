@@ -3,19 +3,19 @@ import 'package:multiple_result/multiple_result.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../tags_manager/domain/entities/tag.dart';
-import '../../data/mappers/to_local_books.dart';
-import '../entities/local_book.dart';
-import '../repositories/local_books_repository.dart';
+import '../../data/mappers/to_books.dart';
+import '../entities/book.dart';
+import '../repositories/books_repository.dart';
 
 final class AddBook extends UseCase<Unit, AddParams> {
   AddBook(this.booksRepo);
 
-  final LocalBooksRepository booksRepo;
+  final BooksRepository booksRepo;
 
   @override
   Future<Result<Unit, Failure>> call(AddParams params) async {
-    final book = toLocalBook(
-      params.localBook,
+    final book = toBook(
+      params.book,
       params.bookState,
       params.selectedTags,
     );
@@ -25,12 +25,12 @@ final class AddBook extends UseCase<Unit, AddParams> {
 
 final class AddParams {
   AddParams({
-    required this.localBook,
+    required this.book,
     required this.bookState,
     required this.selectedTags,
   });
 
-  final LocalBook localBook;
+  final Book book;
 
   final BookState bookState;
 

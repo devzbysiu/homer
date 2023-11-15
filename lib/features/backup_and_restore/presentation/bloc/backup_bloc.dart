@@ -5,19 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/usecase/usecase.dart';
-import '../../../manage_books/domain/entities/local_book.dart';
+import '../../../manage_books/domain/entities/book.dart';
 import '../../domain/usecases/add_all_books.dart';
+import '../../domain/usecases/load_backup.dart';
+import '../../domain/usecases/make_backup.dart';
 import '../../domain/usecases/purge_repo.dart';
-import '../../domain/usecases/restore_from_local.dart';
-import '../../domain/usecases/save_to_local.dart';
 
 part 'backup_event.dart';
 part 'backup_state.dart';
 
 final class BackupBloc extends Bloc<BackupEvent, BackupState> {
   BackupBloc({
-    required this.loadFromLocalBackup,
-    required this.saveToLocalBackup,
+    required this.loadBackup,
+    required this.makeBackup,
     required this.addAllBooks,
     required this.purgeRepo,
   }) : super(BackupAndRestoreInitial()) {
@@ -25,9 +25,9 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     on<BackupTriggered>(_onBackupTriggered);
   }
 
-  final LoadFromLocalBackup loadFromLocalBackup;
+  final LoadBackup loadBackup;
 
-  final SaveToLocalBackup saveToLocalBackup;
+  final MakeBackup makeBackup;
 
   final AddAllBooks addAllBooks;
 
@@ -38,10 +38,10 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     Emitter<BackupState> emit,
   ) async {
     emit(const RestoreInProgress());
-    final restoreResult = await loadFromLocalBackup(
+    final restoreResult = await loadBackup(
       RestoreParams(path: event.path),
     );
-    final List<LocalBook> restoredBooks = restoreResult.when(
+    final List<Book> restoredBooks = restoreResult.when(
       (books) => books,
       (error) {
         emit(FailedToRestoreBooks());
@@ -53,7 +53,7 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
   }
 
   Future<void> _addToBooksRepo(
-    List<LocalBook> restoredBooks,
+    List<Book> restoredBooks,
     Emitter<BackupState> emit,
   ) async {
     // just to show progress indicator
@@ -74,7 +74,7 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     emit(const BackupInProgress());
     // just to show progress indicator
     await Future.delayed(const Duration(seconds: 3));
-    await saveToLocalBackup(BackupParams(path: event.path));
+    await makeBackup(BackupParams(path: event.path));
     emit(BackupFinished());
     return Future.value();
   }

@@ -1,12 +1,12 @@
-import '../../../manage_books/domain/entities/local_book.dart';
-import '../models/local_backup_book_dto.dart';
+import '../../../manage_books/domain/entities/book.dart';
+import '../models/backup_book_dto.dart';
 
-List<LocalBook> toLocalBooks(List<LocalBackupBookDTO> books) {
-  return books.map(_toLocalBook).toList();
+List<Book> toBooks(List<BackupBookDTO> books) {
+  return books.map(_toBook).toList();
 }
 
-LocalBook _toLocalBook(LocalBackupBookDTO book) {
-  return LocalBook(
+Book _toBook(BackupBookDTO book) {
+  return Book(
     title: book.title,
     subtitle: book.subtitle,
     authors: book.authors,

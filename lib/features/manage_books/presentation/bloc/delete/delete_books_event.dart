@@ -18,5 +18,5 @@ final class ClearDeletionList extends DeleteBooksEvent {}
 final class ToggleBookOnDeleteList extends DeleteBooksEvent {
   ToggleBookOnDeleteList(this.book);
 
-  final LocalBook book;
+  final Book book;
 }

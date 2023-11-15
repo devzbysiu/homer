@@ -8,17 +8,17 @@ class BookSearchState extends Equatable {
     this.isSearchInProgress = false,
   });
 
-  final List<LocalBook> foundBooks;
+  final List<Book> foundBooks;
 
-  final Option<LocalBook> pickedBook;
+  final Option<Book> pickedBook;
 
   final bool isSearchInProgress;
 
   factory BookSearchState.initial() => const BookSearchState();
 
   BookSearchState copyWith({
-    List<LocalBook>? foundBooks,
-    Option<LocalBook>? pickedBook,
+    List<Book>? foundBooks,
+    Option<Book>? pickedBook,
     bool? isSearchInProgress,
   }) {
     return BookSearchState(

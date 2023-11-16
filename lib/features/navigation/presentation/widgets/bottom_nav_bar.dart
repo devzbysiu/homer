@@ -118,6 +118,7 @@ final class _AddButton extends StatelessWidget {
       style: ButtonStyle(
         shape: const CircleBorder().msp(),
         padding: const EdgeInsets.all(10).msp(),
+        backgroundColor: Theme.of(context).primaryColor.msp(),
       ),
       child: Icon(
         Icons.add,

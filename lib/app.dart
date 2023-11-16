@@ -42,8 +42,8 @@ final class Homer extends StatelessWidget {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           title: 'Homer',
-          theme: FlexThemeData.light(scheme: scheme),
-          darkTheme: FlexThemeData.dark(scheme: scheme),
+          theme: FlexThemeData.light(scheme: scheme, useMaterial3: true),
+          darkTheme: FlexThemeData.dark(scheme: scheme, useMaterial3: true),
           themeMode: themeMode,
           routerConfig: _router,
           // TODO: Take care of splash screen

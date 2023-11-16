@@ -120,7 +120,9 @@ class _BookSizeLabel extends StatelessWidget {
       builder: (context, bookSizeLimits) {
         final (sizeLabel, sizeColor) = _sizeProperties(bookSizeLimits);
         return Container(
+          alignment: Alignment.center,
           padding: const EdgeInsets.all(3),
+          width: 20,
           decoration: BoxDecoration(
             color: sizeColor,
             borderRadius: BorderRadius.circular(5),

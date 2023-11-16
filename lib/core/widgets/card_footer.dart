@@ -47,7 +47,7 @@ class _BookRating extends StatelessWidget {
       ),
       const SizedBox(width: 4),
       Padding(
-        padding: const EdgeInsets.only(top: 5.0),
+        padding: const EdgeInsets.only(top: 4.0),
         child: Text(
           rating.toStringAsFixed(2),
           style: const TextStyle(color: Colors.white),
@@ -91,7 +91,7 @@ class _BookSize extends StatelessWidget {
     return Wrap(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 5.0),
+          padding: const EdgeInsets.only(top: 6.0),
           child: Text(
             pageCount.toString(),
             style: const TextStyle(color: Colors.white),
@@ -102,7 +102,10 @@ class _BookSize extends StatelessWidget {
             left: 10,
           ),
         ),
-        _BookSizeLabel(pageCount: pageCount),
+        Padding(
+          padding: const EdgeInsets.only(top: 3.0),
+          child: _BookSizeLabel(pageCount: pageCount),
+        ),
       ],
     );
   }
@@ -121,8 +124,9 @@ class _BookSizeLabel extends StatelessWidget {
         final (sizeLabel, sizeColor) = _sizeProperties(bookSizeLimits);
         return Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.all(3),
-          width: 20,
+          // padding: const EdgeInsets.all(3),
+          width: 25,
+          height: 25,
           decoration: BoxDecoration(
             color: sizeColor,
             borderRadius: BorderRadius.circular(5),

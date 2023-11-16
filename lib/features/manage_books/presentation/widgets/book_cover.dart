@@ -78,18 +78,14 @@ final class _AddTagTile extends StatelessWidget {
         );
       },
       child: Container(
-        width: 60,
-        height: 20,
+        width: 25,
+        height: 25,
         decoration: BoxDecoration(
           border: Border.all(
             color: Theme.of(context).primaryColor,
           ),
           borderRadius: BorderRadius.circular(6),
           color: Colors.black,
-        ),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 2,
         ),
         child: const Icon(
           Icons.tag,

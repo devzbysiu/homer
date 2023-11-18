@@ -14,22 +14,68 @@ void main() {
   group('call', () {
     test('should use repo to add all books', () async {
       // given
-      final mockRepo = MockBooksRepository();
-      provideDummy<Result<Unit, Failure>>(
-          const Error(MissingBackupFileFailure('')));
+      MockBooksRepository mockRepo = makeMockRepo();
       final books = [fakeBook()];
-      when(mockRepo.addAll(books))
-          .thenAnswer((_) => Future.value(const Success(unit)));
+      when(mockRepo.addAll(books)).thenAnswer(withSuccess);
       final addAllBooks = AddAllBooks(mockRepo);
+      verifyZeroInteractions(mockRepo);
 
       // when
-      addAllBooks(AddAllParams(books: books));
+      final _ = await addAllBooks(AddAllParams(books: books));
 
       // then
       verify(mockRepo.addAll(books));
       verifyNoMoreInteractions(mockRepo);
     });
 
-    test('should return list of restored books on success', () async {});
+    test('should propagate success result from repo', () async {
+      // given
+      MockBooksRepository mockRepo = makeMockRepo();
+      final notImportant = [fakeBook()];
+      when(mockRepo.addAll(any)).thenAnswer(withSuccess);
+      final addAllBooks = AddAllBooks(mockRepo);
+
+      // when
+      final result = await addAllBooks(AddAllParams(books: notImportant));
+
+      // then
+      expect(result.isSuccess(), true);
+    });
   });
+
+  test('should propagate error result from repo', () async {
+    // given
+    final mockRepo = makeMockRepo();
+    final notImportant = [fakeBook()];
+    final error = TestFailure();
+    when(mockRepo.addAll(any)).thenAnswer((_) => withError(error));
+    final addAllBooks = AddAllBooks(mockRepo);
+
+    // when
+    final result = await addAllBooks(AddAllParams(books: notImportant));
+
+    // then
+    expect(result.isError(), true);
+    expect(result, Error(error));
+  });
+}
+
+Future<Result<Unit, Failure>> withSuccess(_) =>
+    Future.value(const Success(unit));
+
+Future<Result<Unit, Failure>> withError(error) {
+  return Future.value(Error(error));
+}
+
+MockBooksRepository makeMockRepo() {
+  final mockRepo = MockBooksRepository();
+  // NOTE: Mockito requires to add return value for both cases in Result<T, E>
+  //   (i.e. T - Success case, E - error case), even when you don't expect both
+  provideDummy<Result<Unit, Failure>>(const Success(unit));
+  return mockRepo;
+}
+
+final class TestFailure implements Failure {
+  @override
+  String userMessage() => 'This is test failure';
 }

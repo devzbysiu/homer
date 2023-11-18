@@ -12,8 +12,7 @@ final class AddAllBooks extends UseCase<Unit, AddAllParams> {
 
   @override
   Future<Result<Unit, Failure>> call(AddAllParams params) async {
-    await booksRepo.addAll(params.books);
-    return Future.value(const Success(unit));
+    return booksRepo.addAll(params.books);
   }
 }
 

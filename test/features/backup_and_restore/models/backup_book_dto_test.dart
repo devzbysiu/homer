@@ -5,7 +5,7 @@ import '../../../test_utils.dart';
 
 void main() {
   group('fromJson', () {
-    test('should construct DTO from json', () {
+    test('should construct book DTO from json', () {
       // given
       final json = fakeBackupBookDTOJson();
 
@@ -18,7 +18,7 @@ void main() {
   });
 
   group('toJson', () {
-    test('should produce valid json from DTO', () {
+    test('should produce valid json from book DTO', () {
       // given
       final dto = fakeBackupBookDTO();
 

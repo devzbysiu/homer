@@ -183,3 +183,25 @@ String _bookStateToString(BookState state) {
       return 'read';
   }
 }
+
+Map<String, dynamic> fakeBackupTagDTOJson() {
+  return {
+    'name': faker.lorem.word(),
+    'hexColor': faker.color.color(),
+  };
+}
+
+BackupTagDTO backupTagDTOFromJson(Map<String, dynamic> json) {
+  return BackupTagDTO(name: json['name'], hexColor: json['hexColor']);
+}
+
+BackupTagDTO fakeBackupTagDTO() {
+  return BackupTagDTO(name: faker.lorem.word(), hexColor: faker.color.color());
+}
+
+Map<String, dynamic> backupTagDTOToJson(BackupTagDTO tag) {
+  return {
+    'name': tag.name,
+    'hexColor': tag.hexColor,
+  };
+}

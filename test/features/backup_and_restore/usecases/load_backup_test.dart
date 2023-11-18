@@ -12,17 +12,17 @@ import 'load_backup_test.mocks.dart';
 
 @GenerateMocks([BackupRepository])
 void main() {
-  group('loadAll', () {
+  group('loadBackup', () {
     test('should use backup repo to load all books', () async {
       // given
       MockBackupRepository mockRepo = makeMockRepo();
       final path = fakePath();
       when(mockRepo.loadAll(path)).thenAnswer((_) => withSuccess([]));
-      final loadAdd = LoadBackup(mockRepo);
+      final loadBackup = LoadBackup(mockRepo);
       verifyZeroInteractions(mockRepo);
 
       // when
-      final _ = await loadAdd(RestoreParams(path: path));
+      final _ = await loadBackup(RestoreParams(path: path));
 
       // then
       verify(mockRepo.loadAll(path));
@@ -35,11 +35,11 @@ void main() {
       final notImportant = fakePath();
       final books = [fakeBook()];
       when(mockRepo.loadAll(any)).thenAnswer((_) => withSuccess(books));
-      final loadAdd = LoadBackup(mockRepo);
+      final loadBackup = LoadBackup(mockRepo);
       verifyZeroInteractions(mockRepo);
 
       // when
-      final result = await loadAdd(RestoreParams(path: notImportant));
+      final result = await loadBackup(RestoreParams(path: notImportant));
 
       // then
       expect(result.isSuccess(), true);
@@ -52,11 +52,11 @@ void main() {
       final notImportant = fakePath();
       final error = TestingFailure();
       when(mockRepo.loadAll(any)).thenAnswer((_) => withError(error));
-      final loadAdd = LoadBackup(mockRepo);
+      final loadBackup = LoadBackup(mockRepo);
       verifyZeroInteractions(mockRepo);
 
       // when
-      final result = await loadAdd(RestoreParams(path: notImportant));
+      final result = await loadBackup(RestoreParams(path: notImportant));
 
       // then
       expect(result.isError(), true);
@@ -75,6 +75,8 @@ Future<Result<List<Book>, Failure>> withError(Failure failure) {
 
 MockBackupRepository makeMockRepo() {
   final mockRepo = MockBackupRepository();
+  // NOTE: Mockito requires to add return value for both cases in Result<T, E>
+  //   (i.e. T - Success case, E - error case), even when you don't expect both
   provideDummy<Result<List<Book>, Failure>>(const Success([]));
   return mockRepo;
 }

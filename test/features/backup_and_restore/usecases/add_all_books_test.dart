@@ -11,10 +11,10 @@ import 'add_all_books_test.mocks.dart';
 
 @GenerateMocks([BooksRepository])
 void main() {
-  group('call', () {
-    test('should use repo to add all books', () async {
+  group('addAllBooks', () {
+    test('should use books repo to add all books', () async {
       // given
-      MockBooksRepository mockRepo = makeMockRepo();
+      final mockRepo = makeMockRepo();
       final books = [fakeBook()];
       when(mockRepo.addAll(books)).thenAnswer(withSuccess);
       final addAllBooks = AddAllBooks(mockRepo);
@@ -28,9 +28,9 @@ void main() {
       verifyNoMoreInteractions(mockRepo);
     });
 
-    test('should propagate success result from repo', () async {
+    test('should propagate success result from books repo', () async {
       // given
-      MockBooksRepository mockRepo = makeMockRepo();
+      final mockRepo = makeMockRepo();
       final notImportant = [fakeBook()];
       when(mockRepo.addAll(any)).thenAnswer(withSuccess);
       final addAllBooks = AddAllBooks(mockRepo);
@@ -41,27 +41,28 @@ void main() {
       // then
       expect(result.isSuccess(), true);
     });
-  });
 
-  test('should propagate error result from repo', () async {
-    // given
-    final mockRepo = makeMockRepo();
-    final notImportant = [fakeBook()];
-    final error = TestFailure();
-    when(mockRepo.addAll(any)).thenAnswer((_) => withError(error));
-    final addAllBooks = AddAllBooks(mockRepo);
+    test('should propagate error result from books repo', () async {
+      // given
+      final mockRepo = makeMockRepo();
+      final notImportant = [fakeBook()];
+      final error = TestingFailure();
+      when(mockRepo.addAll(any)).thenAnswer((_) => withError(error));
+      final addAllBooks = AddAllBooks(mockRepo);
 
-    // when
-    final result = await addAllBooks(AddAllParams(books: notImportant));
+      // when
+      final result = await addAllBooks(AddAllParams(books: notImportant));
 
-    // then
-    expect(result.isError(), true);
-    expect(result, Error(error));
+      // then
+      expect(result.isError(), true);
+      expect(result, Error(error));
+    });
   });
 }
 
-Future<Result<Unit, Failure>> withSuccess(_) =>
-    Future.value(const Success(unit));
+Future<Result<Unit, Failure>> withSuccess(_) {
+  return Future.value(const Success(unit));
+}
 
 Future<Result<Unit, Failure>> withError(error) {
   return Future.value(Error(error));
@@ -73,9 +74,4 @@ MockBooksRepository makeMockRepo() {
   //   (i.e. T - Success case, E - error case), even when you don't expect both
   provideDummy<Result<Unit, Failure>>(const Success(unit));
   return mockRepo;
-}
-
-final class TestFailure implements Failure {
-  @override
-  String userMessage() => 'This is test failure';
 }

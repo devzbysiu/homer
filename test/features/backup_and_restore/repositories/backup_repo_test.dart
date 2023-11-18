@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:faker/faker.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/backup_and_restore/data/datasources/backup_data_source.dart';
@@ -18,7 +17,7 @@ void main() {
     test('should return missing file failure when backup file does not exist',
         () async {
       // given
-      final notExistingPath = _fakePath();
+      final notExistingPath = fakePath();
       final failingDataSource = MockBackupDataSource();
       when(failingDataSource.loadAll(notExistingPath))
           .thenThrow(const FileSystemException());
@@ -34,7 +33,7 @@ void main() {
 
     test('should return list of restored books on success', () async {
       // given
-      final notImportantPath = _fakePath();
+      final notImportantPath = fakePath();
       final failingDataSource = MockBackupDataSource();
       final booksList = [fakeBackupBookDTO()];
       when(failingDataSource.loadAll(any))
@@ -54,7 +53,7 @@ void main() {
     test('should return missing file failure when backup file does not exist',
         () async {
       // given
-      final notExistingPath = _fakePath();
+      final notExistingPath = fakePath();
       final List<Book> notImportant = List.empty();
       final failingDataSource = MockBackupDataSource();
       when(failingDataSource.saveAll(notExistingPath, any))
@@ -70,5 +69,3 @@ void main() {
     });
   });
 }
-
-String _fakePath() => '/${faker.lorem.words(3).join('/')}';

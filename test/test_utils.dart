@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:faker/faker.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/entities/tag.dart';
+import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
 
@@ -204,4 +205,11 @@ Map<String, dynamic> backupTagDTOToJson(BackupTagDTO tag) {
     'name': tag.name,
     'hexColor': tag.hexColor,
   };
+}
+
+String fakePath() => '/${faker.lorem.words(3).join('/')}';
+
+final class TestingFailure implements Failure {
+  @override
+  String userMessage() => 'This is test failure';
 }

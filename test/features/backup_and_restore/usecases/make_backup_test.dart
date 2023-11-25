@@ -9,8 +9,7 @@ import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils.dart';
-import 'add_all_books_test.mocks.dart';
-import 'load_backup_test.mocks.dart';
+import 'make_backup_test.mocks.dart';
 
 @GenerateMocks([BackupRepository, BooksRepository])
 void main() {

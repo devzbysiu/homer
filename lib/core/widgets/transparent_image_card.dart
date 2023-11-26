@@ -1,9 +1,9 @@
-/// This is copy from https://github.com/zeref278/image_card/blob/3c85102539087d5bf9530ec5196f34cd512da105/lib/src/transparent_image_card.dart
+// This is copy from https://github.com/zeref278/image_card/blob/3c85102539087d5bf9530ec5196f34cd512da105/lib/src/transparent_image_card.dart
 import 'package:flutter/material.dart';
 
 class TransparentImageCard extends StatelessWidget {
   const TransparentImageCard({
-    Key? key,
+    super.key,
     this.width,
     this.height,
     this.contentMarginTop,
@@ -18,7 +18,7 @@ class TransparentImageCard extends StatelessWidget {
     this.tagRunSpacing,
     this.startColor,
     this.footer,
-  }) : super(key: key);
+  });
 
   /// card width
   final double? width;
@@ -125,7 +125,6 @@ class TransparentImageCard extends StatelessWidget {
 
 class _ImageCardContent extends StatelessWidget {
   const _ImageCardContent({
-    Key? key,
     this.contentPadding,
     this.tags,
     this.title,
@@ -133,7 +132,7 @@ class _ImageCardContent extends StatelessWidget {
     this.footer,
     this.tagSpacing,
     this.tagRunSpacing,
-  }) : super(key: key);
+  });
 
   final EdgeInsetsGeometry? contentPadding;
   final List<Widget>? tags;

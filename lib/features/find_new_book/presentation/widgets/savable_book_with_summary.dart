@@ -68,11 +68,10 @@ final class _BookWithSummary extends StatelessWidget {
 // Heavily modified (striped out of useless stuff).
 class _DropCap extends StatelessWidget {
   const _DropCap({
-    Key? key,
     required this.child,
     required this.width,
     required this.height,
-  }) : super(key: key);
+  });
 
   final Widget child;
 
@@ -92,12 +91,11 @@ class _DropCap extends StatelessWidget {
 
 class _DropCapText extends StatelessWidget {
   const _DropCapText({
-    Key? key,
     required this.text,
     required this.dropCap,
     this.dropCapPadding = EdgeInsets.zero,
     this.overflow = TextOverflow.clip,
-  }) : super(key: key);
+  });
 
   final String text;
 

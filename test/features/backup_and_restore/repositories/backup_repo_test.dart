@@ -6,6 +6,7 @@ import 'package:homer/features/backup_and_restore/data/datasources/backup_data_s
 import 'package:homer/features/backup_and_restore/data/repositories/backup_repo.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils.dart';
@@ -55,7 +56,7 @@ void main() {
       // given
       final notExistingPath = fakePath();
       final List<Book> notImportant = List.empty();
-      final failingDataSource = MockBackupDataSource();
+      final failingDataSource = makeMockBackupDataSource();
       when(failingDataSource.saveAll(notExistingPath, any))
           .thenThrow(const FileSystemException());
       final repo = BackupRepo(dataSource: failingDataSource);
@@ -67,5 +68,25 @@ void main() {
       expect(result.isError(), true);
       expect(result.tryGetError(), MissingBackupFileFailure(notExistingPath));
     });
+
+    test('should return success when all books saved', () async {
+      // given
+      final workingDataSource = makeMockBackupDataSource();
+      when(workingDataSource.saveAll(any, any))
+          .thenAnswer((_) => Future.value(unit));
+      final repo = BackupRepo(dataSource: workingDataSource);
+
+      // when
+      final result = await repo.saveAll(fakePath(), []);
+
+      // then
+      expect(result.isSuccess(), true);
+    });
   });
+}
+
+MockBackupDataSource makeMockBackupDataSource() {
+  final mockDataSource = MockBackupDataSource();
+  provideDummy<Unit>(unit);
+  return mockDataSource;
 }

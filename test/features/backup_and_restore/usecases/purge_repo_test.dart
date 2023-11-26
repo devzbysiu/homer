@@ -66,8 +66,6 @@ void main() {
 
 MockBooksRepository makeMockBooksRepo() {
   final mockRepo = MockBooksRepository();
-  // NOTE: Mockito requires to add return value for both cases in Result<T, E>
-  //   (i.e. T - Success case, E - error case), even when you don't expect both
   provideDummy<Result<Unit, Failure>>(const Success(unit));
   return mockRepo;
 }

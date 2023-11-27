@@ -38,9 +38,7 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     Emitter<BackupState> emit,
   ) async {
     emit(const RestoreInProgress());
-    final restoreResult = await loadBackup(
-      RestoreParams(path: event.path),
-    );
+    final restoreResult = await loadBackup(RestoreParams(path: event.path));
     final List<Book> restoredBooks = restoreResult.when(
       (books) => books,
       (error) {

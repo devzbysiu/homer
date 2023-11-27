@@ -16,7 +16,7 @@ void main() {
     test('should use books repo to remove all books', () async {
       // given
       final booksRepo = makeMockBooksRepo();
-      final purgeRepo = PurgeRepo(booksRepo);
+      final purgeRepo = PurgeRepoImpl(booksRepo);
       when(booksRepo.deleteAll())
           .thenAnswer((_) => Future.value(const Success(unit)));
 
@@ -31,7 +31,7 @@ void main() {
     test('should return success when books repo succeeds', () async {
       // given
       final booksRepo = makeMockBooksRepo();
-      final purgeRepo = PurgeRepo(booksRepo);
+      final purgeRepo = PurgeRepoImpl(booksRepo);
       when(booksRepo.deleteAll())
           .thenAnswer((_) => Future.value(const Success(unit)));
 
@@ -47,7 +47,7 @@ void main() {
     test('should return error when books repo fails', () async {
       // given
       final booksRepo = makeMockBooksRepo();
-      final purgeRepo = PurgeRepo(booksRepo);
+      final purgeRepo = PurgeRepoImpl(booksRepo);
       final failure = TestingFailure();
       when(booksRepo.deleteAll())
           .thenAnswer((_) => Future.value(Error(failure)));

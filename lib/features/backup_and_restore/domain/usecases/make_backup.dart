@@ -5,8 +5,10 @@ import '../../../../core/usecase/usecase.dart';
 import '../../../manage_books/domain/repositories/books_repository.dart';
 import '../repositories/backup_repository.dart';
 
-final class MakeBackup extends UseCase<Unit, BackupParams> {
-  MakeBackup(this.backupRepo, this.booksRepo);
+typedef MakeBackup = UseCase<Unit, BackupParams>;
+
+final class MakeBackupImpl implements MakeBackup {
+  MakeBackupImpl(this.backupRepo, this.booksRepo);
 
   final BackupRepository backupRepo;
 

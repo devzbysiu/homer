@@ -22,7 +22,7 @@ void main() {
       final backupRepo = makeMockBackupRepo();
       when(backupRepo.saveAll(any, any))
           .thenAnswer((_) => Future.value(const Success(unit)));
-      final makeBackup = MakeBackup(backupRepo, booksRepo);
+      final makeBackup = MakeBackupImpl(backupRepo, booksRepo);
 
       // when
       final _ = await makeBackup(BackupParams(path: fakePath()));
@@ -41,7 +41,7 @@ void main() {
       final backupRepo = makeMockBackupRepo();
       when(backupRepo.saveAll(any, any))
           .thenAnswer((_) => Future.value(const Success(unit)));
-      final makeBackup = MakeBackup(backupRepo, booksRepo);
+      final makeBackup = MakeBackupImpl(backupRepo, booksRepo);
 
       final backupPath = fakePath();
 
@@ -61,7 +61,7 @@ void main() {
 
       final backupRepo = makeMockBackupRepo();
 
-      final makeBackup = MakeBackup(backupRepo, booksRepo);
+      final makeBackup = MakeBackupImpl(backupRepo, booksRepo);
 
       // when
       final result = await makeBackup(BackupParams(path: fakePath()));
@@ -86,7 +86,7 @@ void main() {
       when(backupRepo.saveAll(backupPath, books))
           .thenAnswer((_) => Future.value(Error(failure)));
 
-      final makeBackup = MakeBackup(backupRepo, booksRepo);
+      final makeBackup = MakeBackupImpl(backupRepo, booksRepo);
 
       // when
       final result = await makeBackup(BackupParams(path: backupPath));

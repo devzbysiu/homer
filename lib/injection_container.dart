@@ -93,10 +93,10 @@ Future<void> initDi() async {
   sl.registerLazySingleton(() => SearchForBooks(sl()));
   sl.registerLazySingleton(() => FetchSharedBook(sl()));
   // backup and restore
-  sl.registerFactory(() => LoadBackup(sl()));
-  sl.registerFactory(() => AddAllBooks(sl()));
-  sl.registerFactory(() => PurgeRepo(sl()));
-  sl.registerFactory(() => MakeBackup(sl(), sl()));
+  sl.registerFactory<LoadBackup>(() => LoadBackupImpl(sl()));
+  sl.registerFactory<AddAllBooks>(() => AddAllBooksImpl(sl()));
+  sl.registerFactory<PurgeRepo>(() => PurgeRepoImpl(sl()));
+  sl.registerFactory<MakeBackup>(() => MakeBackupImpl(sl(), sl()));
   // settings
   sl.registerFactory(() => SaveSettings(settingsRepo: sl()));
   sl.registerFactory(() => LoadSettings(settingsRepo: sl()));

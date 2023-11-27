@@ -4,8 +4,10 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../manage_books/domain/repositories/books_repository.dart';
 
-final class PurgeRepo extends UseCase<Unit, NoParams> {
-  PurgeRepo(this.booksRepo);
+typedef PurgeRepo = UseCase<Unit, NoParams>;
+
+final class PurgeRepoImpl implements PurgeRepo {
+  PurgeRepoImpl(this.booksRepo);
 
   final BooksRepository booksRepo;
 

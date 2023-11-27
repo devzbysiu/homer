@@ -39,13 +39,11 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
   ) async {
     emit(const RestoreInProgress());
     final restoreResult = await loadBackup(RestoreParams(path: event.path));
-    final List<Book> restoredBooks = restoreResult.when(
-      (books) => books,
-      (error) {
-        emit(FailedToRestoreBooks());
-        return List.empty();
-      },
-    );
+    if (restoreResult.isError()) {
+      emit(FailedToRestoreBooks());
+      return Future.value();
+    }
+    final List<Book> restoredBooks = restoreResult.tryGetSuccess()!;
     await _addToBooksRepo(restoredBooks, emit);
     return Future.value();
   }
@@ -54,9 +52,11 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     List<Book> restoredBooks,
     Emitter<BackupState> emit,
   ) async {
-    // just to show progress indicator
-    await Future.delayed(const Duration(seconds: 3));
-    await purgeRepo(NoParams());
+    final purgeResult = await purgeRepo(NoParams());
+    if (purgeResult.isError()) {
+      emit(FailedToRestoreBooks());
+      return Future.value();
+    }
     final addAllResult = await addAllBooks(AddAllParams(books: restoredBooks));
     addAllResult.when(
       (success) => emit(RestoreFinished()),

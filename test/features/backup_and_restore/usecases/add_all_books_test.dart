@@ -17,7 +17,7 @@ void main() {
       final mockRepo = makeMockRepo();
       final books = [fakeBook()];
       when(mockRepo.addAll(books)).thenAnswer(withSuccess);
-      final addAllBooks = AddAllBooks(mockRepo);
+      final addAllBooks = AddAllBooksImpl(mockRepo);
       verifyZeroInteractions(mockRepo);
 
       // when
@@ -33,7 +33,7 @@ void main() {
       final mockRepo = makeMockRepo();
       final notImportant = [fakeBook()];
       when(mockRepo.addAll(any)).thenAnswer(withSuccess);
-      final addAllBooks = AddAllBooks(mockRepo);
+      final addAllBooks = AddAllBooksImpl(mockRepo);
 
       // when
       final result = await addAllBooks(AddAllParams(books: notImportant));
@@ -48,7 +48,7 @@ void main() {
       final notImportant = [fakeBook()];
       final error = TestingFailure();
       when(mockRepo.addAll(any)).thenAnswer((_) => withError(error));
-      final addAllBooks = AddAllBooks(mockRepo);
+      final addAllBooks = AddAllBooksImpl(mockRepo);
 
       // when
       final result = await addAllBooks(AddAllParams(books: notImportant));

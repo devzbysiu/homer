@@ -18,7 +18,7 @@ void main() {
       MockBackupRepository mockRepo = makeMockRepo();
       final path = fakePath();
       when(mockRepo.loadAll(path)).thenAnswer((_) => withSuccess([]));
-      final loadBackup = LoadBackup(mockRepo);
+      final loadBackup = LoadBackupImpl(mockRepo);
       verifyZeroInteractions(mockRepo);
 
       // when
@@ -35,7 +35,7 @@ void main() {
       final notImportant = fakePath();
       final books = [fakeBook()];
       when(mockRepo.loadAll(any)).thenAnswer((_) => withSuccess(books));
-      final loadBackup = LoadBackup(mockRepo);
+      final loadBackup = LoadBackupImpl(mockRepo);
       verifyZeroInteractions(mockRepo);
 
       // when
@@ -52,7 +52,7 @@ void main() {
       final notImportant = fakePath();
       final error = TestingFailure();
       when(mockRepo.loadAll(any)).thenAnswer((_) => withError(error));
-      final loadBackup = LoadBackup(mockRepo);
+      final loadBackup = LoadBackupImpl(mockRepo);
       verifyZeroInteractions(mockRepo);
 
       // when

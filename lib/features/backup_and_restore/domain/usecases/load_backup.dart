@@ -5,8 +5,10 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../repositories/backup_repository.dart';
 
-final class LoadBackup extends UseCase<List<Book>, RestoreParams> {
-  LoadBackup(this.backupRepo);
+typedef LoadBackup = UseCase<List<Book>, RestoreParams>;
+
+final class LoadBackupImpl implements LoadBackup {
+  LoadBackupImpl(this.backupRepo);
 
   final BackupRepository backupRepo;
 

@@ -59,6 +59,7 @@ dev_dependencies:
   test: ^1.24.3
   faker: ^2.1.0
   mockito: ^5.4.2
+  bloc_test: ^9.1.5
 
 flutter_launcher_icons:
   android: "launcher_icon"

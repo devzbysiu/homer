@@ -213,3 +213,53 @@ final class TestingFailure implements Failure {
   @override
   String userMessage() => 'This is test failure';
 }
+
+BackupBookDTO backupDTOFromBook(Book book) {
+  return BackupBookDTO(
+    title: book.title,
+    subtitle: book.subtitle,
+    authors: book.authors,
+    state: book.state,
+    pageCount: book.pageCount,
+    isbn: book.isbn,
+    thumbnailAddress: book.thumbnailAddress,
+    rating: book.rating,
+    summary: book.summary,
+    tags: _toBackupTagDTOs(book.tags),
+    startDate: book.startDate,
+    endDate: book.endDate,
+  );
+}
+
+List<BackupTagDTO> _toBackupTagDTOs(List<Tag> tags) {
+  return tags.map(_toBackupTagDTO).toList();
+}
+
+BackupTagDTO _toBackupTagDTO(Tag tag) {
+  return BackupTagDTO(name: tag.name, hexColor: tag.hexColor);
+}
+
+Book bookFromBackupDTO(BackupBookDTO book) {
+  return Book(
+    title: book.title,
+    subtitle: book.subtitle,
+    authors: book.authors,
+    state: book.state,
+    pageCount: book.pageCount,
+    isbn: book.isbn,
+    thumbnailAddress: book.thumbnailAddress,
+    rating: book.rating,
+    summary: book.summary,
+    tags: _toTags(book.tags),
+    startDate: book.startDate,
+    endDate: book.endDate,
+  );
+}
+
+List<Tag> _toTags(List<BackupTagDTO> tags) {
+  return tags.map(_toTag).toList();
+}
+
+Tag _toTag(BackupTagDTO tag) {
+  return Tag(name: tag.name, hexColor: tag.hexColor);
+}

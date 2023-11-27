@@ -20,7 +20,7 @@ void main() {
 
     blocTest<BackupBloc, BackupState>(
       'should emit RestoreInProgress and RestoredFinished on success',
-      build: () => BackupBlocMock().get(),
+      build: () => BackupBlocMock().allWorking(),
       act: (bloc) => bloc.add(RestoreTriggered(backupPath)),
       expect: () => [const RestoreInProgress(), RestoreFinished()],
     );
@@ -74,10 +74,18 @@ final class BackupBlocMock {
   }
 
   BackupBloc get() {
+    return _createMock();
+  }
+
+  BackupBloc _createMock() {
     return BackupBloc(
       loadBackup: _loadBackup,
       makeBackup: _makeBackup,
       replaceAllBooks: _replaceAllBooks,
     );
+  }
+
+  BackupBloc allWorking() {
+    return _createMock();
   }
 }

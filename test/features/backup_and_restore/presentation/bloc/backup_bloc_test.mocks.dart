@@ -7,15 +7,12 @@ import 'dart:async' as _i3;
 
 import 'package:homer/core/entities/book.dart' as _i5;
 import 'package:homer/core/error/failures.dart' as _i6;
-import 'package:homer/core/usecase/usecase.dart' as _i11;
-import 'package:homer/features/backup_and_restore/domain/usecases/add_all_books.dart'
-    as _i9;
 import 'package:homer/features/backup_and_restore/domain/usecases/load_backup.dart'
     as _i2;
 import 'package:homer/features/backup_and_restore/domain/usecases/make_backup.dart'
     as _i8;
-import 'package:homer/features/backup_and_restore/domain/usecases/purge_repo.dart'
-    as _i10;
+import 'package:homer/features/backup_and_restore/domain/usecases/replace_all_books.dart'
+    as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:multiple_result/multiple_result.dart' as _i4;
@@ -87,43 +84,17 @@ class MockMakeBackup extends _i1.Mock implements _i8.MakeBackup {
       ) as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);
 }
 
-/// A class which mocks [AddAllBooks].
+/// A class which mocks [ReplaceAllBooks].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAddAllBooks extends _i1.Mock implements _i9.AddAllBooks {
-  MockAddAllBooks() {
+class MockReplaceAllBooks extends _i1.Mock implements _i9.ReplaceAllBooks {
+  MockReplaceAllBooks() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> call(
-          _i9.AddAllParams? params) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #call,
-          [params],
-        ),
-        returnValue: _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>.value(
-            _i7.dummyValue<_i4.Result<_i4.Unit, _i6.Failure>>(
-          this,
-          Invocation.method(
-            #call,
-            [params],
-          ),
-        )),
-      ) as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);
-}
-
-/// A class which mocks [PurgeRepo].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockPurgeRepo extends _i1.Mock implements _i10.PurgeRepo {
-  MockPurgeRepo() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> call(_i11.NoParams? params) =>
+          _i9.ReplaceAllParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,

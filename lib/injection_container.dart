@@ -5,10 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'features/backup_and_restore/data/datasources/backup_data_source.dart';
 import 'features/backup_and_restore/data/repositories/backup_repo.dart';
 import 'features/backup_and_restore/domain/repositories/backup_repository.dart';
-import 'features/backup_and_restore/domain/usecases/add_all_books.dart';
 import 'features/backup_and_restore/domain/usecases/load_backup.dart';
 import 'features/backup_and_restore/domain/usecases/make_backup.dart';
-import 'features/backup_and_restore/domain/usecases/purge_repo.dart';
+import 'features/backup_and_restore/domain/usecases/replace_all_books.dart';
 import 'features/backup_and_restore/presentation/bloc/backup_bloc.dart';
 import 'features/find_new_book/data/datasources/remote_book_info_data_source.dart';
 import 'features/find_new_book/data/datasources/remote_books_data_source.dart';
@@ -68,8 +67,7 @@ Future<void> initDi() async {
   sl.registerFactory(() {
     return BackupBloc(
       loadBackup: sl(),
-      addAllBooks: sl(),
-      purgeRepo: sl(),
+      replaceAllBooks: sl(),
       makeBackup: sl(),
     );
   });
@@ -94,8 +92,7 @@ Future<void> initDi() async {
   sl.registerLazySingleton(() => FetchSharedBook(sl()));
   // backup and restore
   sl.registerFactory<LoadBackup>(() => LoadBackupImpl(sl()));
-  sl.registerFactory<AddAllBooks>(() => AddAllBooksImpl(sl()));
-  sl.registerFactory<PurgeRepo>(() => PurgeRepoImpl(sl()));
+  sl.registerFactory<ReplaceAllBooks>(() => ReplaceAllBooksImpl(sl()));
   sl.registerFactory<MakeBackup>(() => MakeBackupImpl(sl(), sl()));
   // settings
   sl.registerFactory(() => SaveSettings(settingsRepo: sl()));

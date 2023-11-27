@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/entities/book.dart';
-import '../../../../core/usecase/usecase.dart';
-import '../../domain/usecases/add_all_books.dart';
 import '../../domain/usecases/load_backup.dart';
 import '../../domain/usecases/make_backup.dart';
-import '../../domain/usecases/purge_repo.dart';
+import '../../domain/usecases/replace_all_books.dart';
 
 part 'backup_event.dart';
 part 'backup_state.dart';
@@ -18,8 +16,7 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
   BackupBloc({
     required this.loadBackup,
     required this.makeBackup,
-    required this.addAllBooks,
-    required this.purgeRepo,
+    required this.replaceAllBooks,
   }) : super(BackupAndRestoreInitial()) {
     on<RestoreTriggered>(_onRestoreTriggered);
     on<BackupTriggered>(_onBackupTriggered);
@@ -29,9 +26,7 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
 
   final MakeBackup makeBackup;
 
-  final AddAllBooks addAllBooks;
-
-  final PurgeRepo purgeRepo;
+  final ReplaceAllBooks replaceAllBooks;
 
   Future<void> _onRestoreTriggered(
     RestoreTriggered event,
@@ -52,13 +47,10 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     List<Book> restoredBooks,
     Emitter<BackupState> emit,
   ) async {
-    final purgeResult = await purgeRepo(NoParams());
-    if (purgeResult.isError()) {
-      emit(FailedToRestoreBooks());
-      return Future.value();
-    }
-    final addAllResult = await addAllBooks(AddAllParams(books: restoredBooks));
-    addAllResult.when(
+    final replaceAllResult = await replaceAllBooks(
+      ReplaceAllParams(books: restoredBooks),
+    );
+    replaceAllResult.when(
       (success) => emit(RestoreFinished()),
       (error) => emit(FailedToRestoreBooks()),
     );

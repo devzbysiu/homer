@@ -29,9 +29,9 @@ final class BooksRepo implements BooksRepository {
   }
 
   @override
-  Future<Result<Unit, Failure>> addAll(List<Book> books) async {
+  Future<Result<Unit, Failure>> replaceAll(List<Book> books) async {
     final bookDTOs = toBookDTOs(books);
-    await dataSource.addAll(bookDTOs);
+    await dataSource.replaceAll(bookDTOs);
     return Future.value(const Success(unit));
   }
 
@@ -46,12 +46,6 @@ final class BooksRepo implements BooksRepository {
   Future<Result<Unit, Failure>> delete(List<Book> books) async {
     final bookDTOs = toBookDTOs(books);
     await dataSource.delete(bookDTOs);
-    return Future.value(const Success(unit));
-  }
-
-  @override
-  Future<Result<Unit, Failure>> deleteAll() async {
-    await dataSource.deleteAll();
     return Future.value(const Success(unit));
   }
 }

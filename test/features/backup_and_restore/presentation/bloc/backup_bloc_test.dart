@@ -2,10 +2,9 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
-import 'package:homer/features/backup_and_restore/domain/usecases/add_all_books.dart';
 import 'package:homer/features/backup_and_restore/domain/usecases/load_backup.dart';
 import 'package:homer/features/backup_and_restore/domain/usecases/make_backup.dart';
-import 'package:homer/features/backup_and_restore/domain/usecases/purge_repo.dart';
+import 'package:homer/features/backup_and_restore/domain/usecases/replace_all_books.dart';
 import 'package:homer/features/backup_and_restore/presentation/bloc/backup_bloc.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -14,7 +13,7 @@ import 'package:multiple_result/multiple_result.dart';
 import '../../../../test_utils.dart';
 import 'backup_bloc_test.mocks.dart';
 
-@GenerateMocks([LoadBackup, MakeBackup, AddAllBooks, PurgeRepo])
+@GenerateMocks([LoadBackup, MakeBackup, ReplaceAllBooks])
 void main() {
   group('_onRestoreTriggered', () {
     final backupPath = fakePath();
@@ -34,16 +33,9 @@ void main() {
     );
 
     blocTest<BackupBloc, BackupState>(
-      'should emit RestoreInProgress and FailedToRestoreBooks on PurgeRepo failure',
-      build: () => BackupBlocMock().onPurgeRepo(Error(TestingFailure())).get(),
-      act: (bloc) => bloc.add(RestoreTriggered(backupPath)),
-      expect: () => [const RestoreInProgress(), FailedToRestoreBooks()],
-    );
-
-    blocTest<BackupBloc, BackupState>(
-      'should emit RestoreInProgress and FailedToRestoreBooks on AddAllBooks failure',
+      'should emit RestoreInProgress and FailedToRestoreBooks on ReplaceAllBooks failure',
       build: () =>
-          BackupBlocMock().onAddAllBooks(Error(TestingFailure())).get(),
+          BackupBlocMock().onReplaceAllBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(RestoreTriggered(backupPath)),
       expect: () => [const RestoreInProgress(), FailedToRestoreBooks()],
     );
@@ -57,14 +49,11 @@ final class BackupBlocMock {
 
     _loadBackup = MockLoadBackup();
     _makeBackup = MockMakeBackup();
-    _addAllBooks = MockAddAllBooks();
-    _purgeRepo = MockPurgeRepo();
+    _replaceAllBooks = MockReplaceAllBooks();
 
     when(_loadBackup.call(any))
         .thenAnswer((_) => Future.value(const Success([])));
-    when(_purgeRepo.call(any))
-        .thenAnswer((_) => Future.value(const Success(unit)));
-    when(_addAllBooks.call(any))
+    when(_replaceAllBooks.call(any))
         .thenAnswer((_) => Future.value(const Success(unit)));
   }
 
@@ -72,22 +61,15 @@ final class BackupBlocMock {
 
   late final MockMakeBackup _makeBackup;
 
-  late final MockAddAllBooks _addAllBooks;
-
-  late final MockPurgeRepo _purgeRepo;
+  late final MockReplaceAllBooks _replaceAllBooks;
 
   BackupBlocMock onLoadBackup(Result<List<Book>, Failure> ret) {
     when(_loadBackup.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }
 
-  BackupBlocMock onPurgeRepo(Result<Unit, Failure> ret) {
-    when(_purgeRepo.call(any)).thenAnswer((_) => Future.value(ret));
-    return this;
-  }
-
-  BackupBlocMock onAddAllBooks(Result<Unit, Failure> ret) {
-    when(_addAllBooks.call(any)).thenAnswer((_) => Future.value(ret));
+  BackupBlocMock onReplaceAllBooks(Result<Unit, Failure> ret) {
+    when(_replaceAllBooks.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }
 
@@ -95,8 +77,7 @@ final class BackupBlocMock {
     return BackupBloc(
       loadBackup: _loadBackup,
       makeBackup: _makeBackup,
-      addAllBooks: _addAllBooks,
-      purgeRepo: _purgeRepo,
+      replaceAllBooks: _replaceAllBooks,
     );
   }
 }

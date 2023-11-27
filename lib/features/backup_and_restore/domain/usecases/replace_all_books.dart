@@ -5,21 +5,21 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../manage_books/domain/repositories/books_repository.dart';
 
-typedef AddAllBooks = UseCase<Unit, AddAllParams>;
+typedef ReplaceAllBooks = UseCase<Unit, ReplaceAllParams>;
 
-final class AddAllBooksImpl implements AddAllBooks {
-  AddAllBooksImpl(this.booksRepo);
+final class ReplaceAllBooksImpl implements ReplaceAllBooks {
+  ReplaceAllBooksImpl(this.booksRepo);
 
   final BooksRepository booksRepo;
 
   @override
-  Future<Result<Unit, Failure>> call(AddAllParams params) async {
-    return booksRepo.addAll(params.books);
+  Future<Result<Unit, Failure>> call(ReplaceAllParams params) async {
+    return booksRepo.replaceAll(params.books);
   }
 }
 
-final class AddAllParams {
-  AddAllParams({required this.books});
+final class ReplaceAllParams {
+  ReplaceAllParams({required this.books});
 
   final List<Book> books;
 }

@@ -1,5 +1,5 @@
 import 'package:homer/core/error/failures.dart';
-import 'package:homer/features/backup_and_restore/domain/usecases/add_all_books.dart';
+import 'package:homer/features/backup_and_restore/domain/usecases/replace_all_books.dart';
 import 'package:homer/features/manage_books/domain/repositories/books_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -7,24 +7,24 @@ import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../test_utils.dart';
-import 'add_all_books_test.mocks.dart';
+import 'replace_all_books_test.mocks.dart';
 
 @GenerateMocks([BooksRepository])
 void main() {
-  group('addAllBooks', () {
-    test('should use books repo to add all books', () async {
+  group('replaceAllBooks', () {
+    test('should use books repo to replace all books', () async {
       // given
       final mockRepo = makeMockRepo();
       final books = [fakeBook()];
-      when(mockRepo.addAll(books)).thenAnswer(withSuccess);
-      final addAllBooks = AddAllBooksImpl(mockRepo);
+      when(mockRepo.replaceAll(books)).thenAnswer(withSuccess);
+      final replaceAllBooks = ReplaceAllBooksImpl(mockRepo);
       verifyZeroInteractions(mockRepo);
 
       // when
-      final _ = await addAllBooks(AddAllParams(books: books));
+      final _ = await replaceAllBooks(ReplaceAllParams(books: books));
 
       // then
-      verify(mockRepo.addAll(books));
+      verify(mockRepo.replaceAll(books));
       verifyNoMoreInteractions(mockRepo);
     });
 
@@ -32,11 +32,13 @@ void main() {
       // given
       final mockRepo = makeMockRepo();
       final notImportant = [fakeBook()];
-      when(mockRepo.addAll(any)).thenAnswer(withSuccess);
-      final addAllBooks = AddAllBooksImpl(mockRepo);
+      when(mockRepo.replaceAll(any)).thenAnswer(withSuccess);
+      final replaceAllBooks = ReplaceAllBooksImpl(mockRepo);
 
       // when
-      final result = await addAllBooks(AddAllParams(books: notImportant));
+      final result = await replaceAllBooks(
+        ReplaceAllParams(books: notImportant),
+      );
 
       // then
       expect(result.isSuccess(), true);
@@ -47,11 +49,13 @@ void main() {
       final mockRepo = makeMockRepo();
       final notImportant = [fakeBook()];
       final error = TestingFailure();
-      when(mockRepo.addAll(any)).thenAnswer((_) => withError(error));
-      final addAllBooks = AddAllBooksImpl(mockRepo);
+      when(mockRepo.replaceAll(any)).thenAnswer((_) => withError(error));
+      final replaceAllBooks = ReplaceAllBooksImpl(mockRepo);
 
       // when
-      final result = await addAllBooks(AddAllParams(books: notImportant));
+      final result = await replaceAllBooks(
+        ReplaceAllParams(books: notImportant),
+      );
 
       // then
       expect(result.isError(), true);

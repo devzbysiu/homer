@@ -9,13 +9,11 @@ abstract class BooksDataSource {
 
   Future<Unit> add(BookDTO book);
 
-  Future<Unit> addAll(List<BookDTO> books);
+  Future<Unit> replaceAll(List<BookDTO> books);
 
   Future<Unit> update(BookDTO book);
 
   Future<Unit> delete(List<BookDTO> bookDTOs);
-
-  Future<Unit> deleteAll();
 }
 
 final class IsarDataSource implements BooksDataSource {
@@ -44,8 +42,9 @@ final class IsarDataSource implements BooksDataSource {
   }
 
   @override
-  Future<Unit> addAll(List<BookDTO> books) async {
+  Future<Unit> replaceAll(List<BookDTO> books) async {
     await _isar.writeTxn(() async {
+      await _isar.bookDTOs.where().deleteAll();
       await _isar.bookDTOs.putAll(books);
     });
     return Future.value(unit);
@@ -67,14 +66,6 @@ final class IsarDataSource implements BooksDataSource {
           .filter()
           .anyOf(bookIDs, (q, id) => q.idEqualTo(id))
           .deleteAll();
-    });
-    return Future.value(unit);
-  }
-
-  @override
-  Future<Unit> deleteAll() async {
-    await _isar.writeTxn(() async {
-      await _isar.bookDTOs.where().deleteAll();
     });
     return Future.value(unit);
   }

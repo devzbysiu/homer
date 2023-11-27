@@ -123,17 +123,18 @@ class MockBooksRepository extends _i1.Mock implements _i8.BooksRepository {
       ) as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);
 
   @override
-  _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> addAll(List<_i5.Book>? books) =>
+  _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> replaceAll(
+          List<_i5.Book>? books) =>
       (super.noSuchMethod(
         Invocation.method(
-          #addAll,
+          #replaceAll,
           [books],
         ),
         returnValue: _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>.value(
             _i7.dummyValue<_i4.Result<_i4.Unit, _i6.Failure>>(
           this,
           Invocation.method(
-            #addAll,
+            #replaceAll,
             [books],
           ),
         )),
@@ -169,23 +170,6 @@ class MockBooksRepository extends _i1.Mock implements _i8.BooksRepository {
           Invocation.method(
             #delete,
             [books],
-          ),
-        )),
-      ) as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);
-
-  @override
-  _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> deleteAll() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deleteAll,
-          [],
-        ),
-        returnValue: _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>.value(
-            _i7.dummyValue<_i4.Result<_i4.Unit, _i6.Failure>>(
-          this,
-          Invocation.method(
-            #deleteAll,
-            [],
           ),
         )),
       ) as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);

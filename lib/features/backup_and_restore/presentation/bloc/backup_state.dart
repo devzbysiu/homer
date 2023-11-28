@@ -28,4 +28,6 @@ final class BackupInProgress extends BackupState {
   const BackupInProgress() : super(isBackupInProgress: true);
 }
 
+final class FailedToMakeBackup extends BackupState {}
+
 final class BackupFinished extends BackupState {}

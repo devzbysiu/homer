@@ -62,9 +62,11 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     Emitter<BackupState> emit,
   ) async {
     emit(const BackupInProgress());
-    // just to show progress indicator
-    await Future.delayed(const Duration(seconds: 3));
-    await makeBackup(BackupParams(path: event.path));
+    final makeBackupResult = await makeBackup(BackupParams(path: event.path));
+    if (makeBackupResult.isError()) {
+      emit(FailedToMakeBackup());
+      return Future.value();
+    }
     emit(BackupFinished());
     return Future.value();
   }

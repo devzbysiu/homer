@@ -40,6 +40,24 @@ void main() {
       expect: () => [const RestoreInProgress(), FailedToRestoreBooks()],
     );
   });
+
+  group('_onBackupTriggered', () {
+    final backupPath = fakePath();
+
+    blocTest<BackupBloc, BackupState>(
+      'should emit BackupInProgress and BackupFinished on success',
+      build: () => BackupBlocMock().allWorking(),
+      act: (bloc) => bloc.add(BackupTriggered(backupPath)),
+      expect: () => [const BackupInProgress(), BackupFinished()],
+    );
+
+    blocTest<BackupBloc, BackupState>(
+      'should emit BackupInProgress and FailedToMakeBackup on failure',
+      build: () => BackupBlocMock().onMakeBackup(Error(TestingFailure())).get(),
+      act: (bloc) => bloc.add(BackupTriggered(backupPath)),
+      expect: () => [const BackupInProgress(), FailedToMakeBackup()],
+    );
+  });
 }
 
 final class BackupBlocMock {
@@ -54,6 +72,8 @@ final class BackupBlocMock {
     when(_loadBackup.call(any))
         .thenAnswer((_) => Future.value(const Success([])));
     when(_replaceAllBooks.call(any))
+        .thenAnswer((_) => Future.value(const Success(unit)));
+    when(_makeBackup.call(any))
         .thenAnswer((_) => Future.value(const Success(unit)));
   }
 
@@ -70,6 +90,11 @@ final class BackupBlocMock {
 
   BackupBlocMock onReplaceAllBooks(Result<Unit, Failure> ret) {
     when(_replaceAllBooks.call(any)).thenAnswer((_) => Future.value(ret));
+    return this;
+  }
+
+  BackupBlocMock onMakeBackup(Result<Unit, Failure> ret) {
+    when(_makeBackup.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }
 

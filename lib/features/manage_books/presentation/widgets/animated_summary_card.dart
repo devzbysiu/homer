@@ -24,13 +24,16 @@ final class _AnimatedSummaryCard extends StatelessWidget {
           blur: 0.0,
           overlay: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: SingleChildScrollView(
-              child: Text(
-                book.summary.fold(
-                  () => _noSummaryText,
-                  (summary) => summary.isEmpty ? _noSummaryText : summary,
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (_) => true,
+              child: SingleChildScrollView(
+                child: Text(
+                  book.summary.fold(
+                    () => _noSummaryText,
+                    (summary) => summary.isEmpty ? _noSummaryText : summary,
+                  ),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
           ),
@@ -38,6 +41,31 @@ final class _AnimatedSummaryCard extends StatelessWidget {
           child: _BookCover(book: book),
         ),
       ),
+    );
+  }
+}
+
+/// This widget prevents scroll events propagation.
+///
+/// It's needed because [_AnimatedSummaryCard] is a scrollable and the scroll
+/// event on it, interacts with [FloatingSearchBar] which gets hidden on scroll.
+///
+/// This behavior of hiding search bar is needed when the parent [GridView]
+/// (listing all the  books) is scrolled, but it should not happen when
+/// [_AnimatedSummaryCard] is scrolled. This widget "swallows"
+/// [ScrollNotification]s to prevent that behaviour.
+final class _ScrollPropagationStopper
+    extends NotificationListener<ScrollNotification> {
+  const _ScrollPropagationStopper({required super.child});
+
+  @override
+  Widget build(BuildContext context, Widget child) {
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        // Stop propagating notification further.
+        return true;
+      },
+      child: child,
     );
   }
 }

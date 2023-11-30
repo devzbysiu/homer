@@ -36,11 +36,11 @@ final class _BookCard extends StatelessWidget {
     return BlocBuilder<BookSummaryBloc, BookSummaryState>(
       builder: (context, state) {
         switch (state.runtimeType) {
-          case EnableSummaryMode _:
+          case EnableSummaryMode:
             return _isInSummaryMode(state)
                 ? _AnimatedSummaryCard(book: book)
                 : _RegularCard(book: book);
-          case DisablingSummaryMode _:
+          case DisablingSummaryMode:
             return _wasInSummaryMode(state)
                 ? _AnimatedRegularCard(book: book, context: context)
                 : _RegularCard(book: book);

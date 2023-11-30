@@ -8,9 +8,9 @@ final class _PickedBookArea extends StatelessWidget {
     return BlocBuilder<BookSearchBloc, BookSearchState>(
       builder: (context, state) {
         switch (state.runtimeType) {
-          case FetchingSharedBookDetails _:
+          case FetchingSharedBookDetails:
             return const _SearchProgressIndicator();
-          case FailedToLookUpSharedBook _:
+          case FailedToLookUpSharedBook:
             return const _SearchError();
           default:
             return const _SavableBookWithSummary();

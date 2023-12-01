@@ -1,6 +1,7 @@
 import 'package:books_finder/books_finder.dart';
 
 import '../../../../core/error/exceptions.dart';
+import '../mappers/to_remote_book_dto.dart';
 import '../models/remote_book_dto.dart';
 
 abstract class RemoteBooksDataSource {
@@ -13,21 +14,7 @@ final class ExternalBooks implements RemoteBooksDataSource {
   @override
   Future<List<RemoteBookDTO>> getFromQuery(String query) async {
     final List<Book> books = await queryBooks(query);
-    return books.map(_toDTO).toList();
-  }
-
-  RemoteBookDTO _toDTO(Book book) {
-    return RemoteBookDTO(
-      title: book.info.title,
-      subtitle: book.info.subtitle,
-      authors: book.info.authors,
-      pageCount: book.info.pageCount,
-      industryIdentifiers:
-          book.info.industryIdentifiers.map((isbn) => isbn.identifier).toList(),
-      imageLinks: book.info.imageLinks,
-      averageRating: book.info.averageRating,
-      description: book.info.description,
-    );
+    return books.map(toRemoteBookDTO).toList();
   }
 
   @override
@@ -35,6 +22,6 @@ final class ExternalBooks implements RemoteBooksDataSource {
     final List<Book> books = await queryBooks(isbn, queryType: QueryType.isbn);
     if (books.isEmpty) throw NoBookWithIsbnFoundException(isbn);
     if (books.length > 1) throw TooManyBooksFoundException(isbn);
-    return _toDTO(books.first);
+    return toRemoteBookDTO(books.first);
   }
 }

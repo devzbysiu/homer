@@ -5,6 +5,7 @@ import 'package:homer/core/entities/tag.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
+import 'package:homer/features/find_new_book/data/models/remote_book_dto.dart';
 
 Book fakeBook() {
   return Book(
@@ -262,4 +263,40 @@ List<Tag> _toTags(List<BackupTagDTO> tags) {
 
 Tag _toTag(BackupTagDTO tag) {
   return Tag(name: tag.name, hexColor: tag.hexColor);
+}
+
+RemoteBookDTO fakeRemoteBookDTO() {
+  return RemoteBookDTO(
+    title: _fakeTitle(),
+    subtitle: _fakeSubtitle(),
+    authors: [_fakeAuthor()],
+    pageCount: _fakePageCount(),
+    industryIdentifiers: [_fakeIsbn()],
+    imageLinks: {faker.lorem.word(): Uri.parse(faker.internet.httpsUrl())},
+    averageRating: _fakeRating(),
+    description: _fakeSummary(),
+  );
+}
+
+Book bookFromRemoteDTO(RemoteBookDTO remoteBookDTO) {
+  return Book(
+    title: remoteBookDTO.title,
+    subtitle: remoteBookDTO.subtitle,
+    authors: remoteBookDTO.authors,
+    state: BookState.readLater,
+    pageCount: remoteBookDTO.pageCount,
+    isbn: remoteBookDTO.industryIdentifiers.firstOrNull ?? '',
+    thumbnailAddress:
+        optionOf(remoteBookDTO.imageLinks.values.firstOrNull?.toString()),
+    rating: remoteBookDTO.averageRating,
+    summary: optionOf(_descriptionOrDefault(remoteBookDTO)),
+    tags: const [],
+    startDate: none(),
+    endDate: none(),
+  );
+}
+
+String _descriptionOrDefault(RemoteBookDTO remoteBookDTO) {
+  final description = remoteBookDTO.description ?? '';
+  return description.isEmpty ? 'No description.' : description;
 }

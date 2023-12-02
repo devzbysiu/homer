@@ -39,14 +39,16 @@ final class RemoteBooksRepo implements RemoteBooksRepository {
       final bookDTO = await booksDataSource.getFromIsbn(bookIsbn.toNullable()!);
       final remoteBook = toBook(bookDTO);
       return Future.value(Success(remoteBook));
-    } on FormatException {
-      return Future.value(Error(InvalidUrlSharedFailure(url)));
+    } on InvalidUrlException catch (e) {
+      return Future.value(Error(InvalidUrlSharedFailure(e.url)));
+    } on IncorrectResponseException {
+      return Future.value(Error(ServerFailure()));
+    } on TimeoutException {
+      return Future.value(const Error(TimeoutOnApiResponseFailure()));
     } on NoBookWithIsbnFoundException catch (e) {
       return Future.value(Error(NoBookWithIsbnFailure(e.isbn)));
     } on TooManyBooksFoundException catch (e) {
       return Future.value(Error(TooManyBooksFoundFailure(e.isbn)));
-    } on TimeoutException {
-      return Future.value(const Error(TimeoutOnApiResponseFailure()));
     }
   }
 

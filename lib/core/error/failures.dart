@@ -64,3 +64,8 @@ final class MissingBackupFileFailure extends Equatable implements Failure {
   @override
   List<Object> get props => [path];
 }
+
+final class ServerFailure implements Failure {
+  @override
+  String userMessage() => 'Server failure';
+}

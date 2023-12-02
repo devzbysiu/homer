@@ -20,3 +20,21 @@ final class NoSettingsException implements Exception {
   @override
   String toString() => 'Settings not found';
 }
+
+final class InvalidUrlException implements Exception {
+  const InvalidUrlException(this.url);
+
+  final String url;
+
+  @override
+  String toString() => 'Invalid URL: $url';
+}
+
+final class IncorrectResponseException implements Exception {
+  const IncorrectResponseException(this.message);
+
+  final String message;
+
+  @override
+  String toString() => 'There is something wrong with the server: $message';
+}

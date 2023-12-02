@@ -1,4 +1,5 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -40,7 +41,7 @@ final class Homer extends StatelessWidget {
                 ? ThemeMode.dark
                 : ThemeMode.light;
         return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
+          debugShowCheckedModeBanner: !kReleaseMode,
           title: 'Homer',
           theme: FlexThemeData.light(scheme: scheme, useMaterial3: true),
           darkTheme: FlexThemeData.dark(scheme: scheme, useMaterial3: true),

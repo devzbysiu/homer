@@ -16,7 +16,8 @@ final class ScraperDataSource implements RemoteBookInfoDataSource {
     final apiUrl = 'https://dante-backend.shuttleapp.rs?url=$url';
     final resp = await http.get(tryParse(apiUrl)).timeout(30.seconds);
     final json = tryJsonDecode(utf8.decode(resp.bodyBytes));
-    return RemoteBookInfoDTO.fromJson(json);
+    final remoteBookInfoDTO = tryFromJson(json);
+    return Future.value(remoteBookInfoDTO);
   }
 
   Uri tryParse(String apiUrl) {
@@ -27,11 +28,19 @@ final class ScraperDataSource implements RemoteBookInfoDataSource {
     }
   }
 
-  dynamic tryJsonDecode(String body) {
+  Map<String, dynamic> tryJsonDecode(String body) {
     try {
       return jsonDecode(body);
     } on FormatException catch (e) {
       throw IncorrectResponseException(e.message);
+    }
+  }
+
+  RemoteBookInfoDTO tryFromJson(Map<String, dynamic> json) {
+    try {
+      return RemoteBookInfoDTO.fromJson(json);
+    } catch (e) {
+      throw InvalidJsonException(e);
     }
   }
 }

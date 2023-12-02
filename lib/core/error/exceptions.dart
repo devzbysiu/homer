@@ -38,3 +38,12 @@ final class IncorrectResponseException implements Exception {
   @override
   String toString() => 'There is something wrong with the server: $message';
 }
+
+final class InvalidJsonException implements Exception {
+  const InvalidJsonException(this.e);
+
+  final Object e;
+
+  @override
+  String toString() => 'Incorrect json response: $e';
+}

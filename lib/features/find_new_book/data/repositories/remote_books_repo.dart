@@ -43,6 +43,8 @@ final class RemoteBooksRepo implements RemoteBooksRepository {
       return Future.value(Error(InvalidUrlSharedFailure(e.url)));
     } on IncorrectResponseException {
       return Future.value(Error(ServerFailure()));
+    } on InvalidJsonException catch (_) {
+      return Future.value(Error(ServerFailure()));
     } on TimeoutException {
       return Future.value(const Error(TimeoutOnApiResponseFailure()));
     } on NoBookWithIsbnFoundException catch (e) {

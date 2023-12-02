@@ -149,10 +149,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "10c6bcdbf9d049a0b666702cf1cee4ddfdc38f02a19d35ae392863b47519848b"
+      sha256: "67d591d602906ef9201caf93452495ad1812bea2074f04e25dbd7c133785821b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.6"
+    version: "2.4.7"
   build_runner_core:
     dependency: transitive
     description:
@@ -585,10 +585,10 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"
+      sha256: d4872660c46d929f6b8a9ef4e7a7eff7e49bbf0c4ec3f385ee32df5119175139
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.2"
   http_multi_server:
     dependency: transitive
     description:
@@ -1334,10 +1334,10 @@ packages:
     dependency: "direct main"
     description:
       name: vibration
-      sha256: "63d4f6b03e38d106599da18e786d5edcd02354433a4ed478fccbbcfc347193ab"
+      sha256: "778ace40e84852e6cf6017cdbaf6790a837d73ff3dd50b27da9ac232a19de8fc"
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.3"
+    version: "1.8.4"
   vm_service:
     dependency: transitive
     description:

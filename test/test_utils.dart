@@ -1,3 +1,4 @@
+import 'package:books_finder/books_finder.dart' as bf;
 import 'package:dartz/dartz.dart';
 import 'package:faker/faker.dart';
 import 'package:homer/core/entities/book.dart';
@@ -299,4 +300,52 @@ Book bookFromRemoteDTO(RemoteBookDTO remoteBookDTO) {
 String _descriptionOrDefault(RemoteBookDTO remoteBookDTO) {
   final description = remoteBookDTO.description ?? '';
   return description.isEmpty ? 'No description.' : description;
+}
+
+bf.Book fakeBookFinderBook() {
+  return bf.Book(
+    id: '',
+    info: _fakeBookFinderBookInfo(),
+    saleInfo: const bf.SaleInfo(country: '', saleability: '', isEbook: true),
+  );
+}
+
+bf.BookInfo _fakeBookFinderBookInfo() {
+  return bf.BookInfo(
+    title: _fakeTitle(),
+    subtitle: _fakeSubtitle(),
+    authors: [_fakeAuthor()],
+    publisher: '',
+    averageRating: _fakeRating(),
+    categories: [],
+    contentVersion: '',
+    description: _fakeSummary(),
+    industryIdentifiers: [
+      bf.IndustryIdentifier(type: '', identifier: _fakeIsbn()),
+    ],
+    imageLinks: {'url': Uri.parse(_fakeThumbnailAddress())},
+    language: '',
+    maturityRating: '',
+    pageCount: _fakePageCount(),
+    publishedDate: null,
+    rawPublishedDate: '',
+    ratingsCount: 1,
+    previewLink: Uri.parse('https://google.com'),
+    infoLink: Uri.parse('https://google.com'),
+    canonicalVolumeLink: Uri.parse('https://google.com'),
+  );
+}
+
+RemoteBookDTO fromBookFinderBook(bf.Book book) {
+  return RemoteBookDTO(
+    title: book.info.title,
+    subtitle: book.info.subtitle,
+    authors: book.info.authors,
+    pageCount: book.info.pageCount,
+    industryIdentifiers:
+        book.info.industryIdentifiers.map((isbn) => isbn.identifier).toList(),
+    imageLinks: book.info.imageLinks,
+    averageRating: book.info.averageRating,
+    description: book.info.description,
+  );
 }

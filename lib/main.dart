@@ -43,13 +43,12 @@ void main() async {
 
 Future<void> _prepareForBackup() async {
   final directory = await getApplicationDocumentsDirectory();
-  await _moveFile(directory, 'dante-backup.json');
   await _moveFile(directory, 'homer-backup.json');
   return Future.value();
 }
 
 Future<void> _moveFile(Directory directory, String filename) async {
   var content = await rootBundle.load('assets/$filename');
-  var danteBackup = File('${directory.path}/$filename');
-  danteBackup.writeAsBytesSync(content.buffer.asUint8List());
+  var backupFile = File('${directory.path}/$filename');
+  backupFile.writeAsBytesSync(content.buffer.asUint8List());
 }

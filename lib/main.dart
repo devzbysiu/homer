@@ -48,7 +48,7 @@ Future<void> _prepareForBackup() async {
 }
 
 Future<void> _moveFile(Directory directory, String filename) async {
-  var content = await rootBundle.load('assets/$filename');
-  var backupFile = File('${directory.path}/$filename');
+  final content = await rootBundle.load('assets/$filename');
+  final backupFile = File('${directory.path}/$filename');
   backupFile.writeAsBytesSync(content.buffer.asUint8List());
 }

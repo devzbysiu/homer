@@ -7,6 +7,7 @@ import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
 import 'package:homer/features/find_new_book/data/models/remote_book_dto.dart';
+import 'package:homer/features/find_new_book/data/models/remote_book_info_dto.dart';
 
 Book fakeBook() {
   return Book(
@@ -348,4 +349,36 @@ RemoteBookDTO fromBookFinderBook(bf.Book book) {
     averageRating: book.info.averageRating,
     description: book.info.description,
   );
+}
+
+Map<String, dynamic> fakeBookInfoDTOJson() {
+  return {
+    'title': _fakeTitle(),
+    'isbn10': _fakeIsbn(),
+    'isbn13': _fakeIsbn(),
+  };
+}
+
+RemoteBookInfoDTO bookInfoDTOFromJson(Map<String, dynamic> json) {
+  return RemoteBookInfoDTO(
+    title: json['title'],
+    isbn10: optionOf(json['isbn10']),
+    isbn13: optionOf(json['isbn13']),
+  );
+}
+
+RemoteBookInfoDTO fakeBookInfoDTO() {
+  return RemoteBookInfoDTO(
+    title: _fakeTitle(),
+    isbn10: Some(_fakeIsbn()),
+    isbn13: Some(_fakeIsbn()),
+  );
+}
+
+Map<String, dynamic> bookInfoDTOToJson(RemoteBookInfoDTO dto) {
+  return {
+    'title': dto.title,
+    'isbn10': dto.isbn10.toNullable(),
+    'isbn13': dto.isbn13.toNullable(),
+  };
 }

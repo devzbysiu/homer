@@ -10,7 +10,7 @@ import '../../domain/repositories/remote_books_repository.dart';
 import '../datasources/remote_book_info_data_source.dart';
 import '../datasources/remote_books_data_source.dart';
 import '../mappers/to_books.dart';
-import '../models/remote_book_info_dto.dart';
+import '../models/book_info_dto.dart';
 
 final class RemoteBooksRepo implements RemoteBooksRepository {
   RemoteBooksRepo({
@@ -54,7 +54,7 @@ final class RemoteBooksRepo implements RemoteBooksRepository {
     }
   }
 
-  Option<String> _getIsbn(RemoteBookInfoDTO bookInfoDTO) {
+  Option<String> _getIsbn(BookInfoDTO bookInfoDTO) {
     return bookInfoDTO.isbn10.orElse(() => bookInfoDTO.isbn13);
   }
 }

@@ -6,8 +6,8 @@ import 'package:homer/core/entities/tag.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
+import 'package:homer/features/find_new_book/data/models/book_info_dto.dart';
 import 'package:homer/features/find_new_book/data/models/remote_book_dto.dart';
-import 'package:homer/features/find_new_book/data/models/remote_book_info_dto.dart';
 
 Book fakeBook() {
   return Book(
@@ -359,23 +359,23 @@ Map<String, dynamic> fakeBookInfoDTOJson() {
   };
 }
 
-RemoteBookInfoDTO bookInfoDTOFromJson(Map<String, dynamic> json) {
-  return RemoteBookInfoDTO(
+BookInfoDTO bookInfoDTOFromJson(Map<String, dynamic> json) {
+  return BookInfoDTO(
     title: json['title'],
     isbn10: optionOf(json['isbn10']),
     isbn13: optionOf(json['isbn13']),
   );
 }
 
-RemoteBookInfoDTO fakeBookInfoDTO() {
-  return RemoteBookInfoDTO(
+BookInfoDTO fakeBookInfoDTO() {
+  return BookInfoDTO(
     title: _fakeTitle(),
     isbn10: Some(_fakeIsbn()),
     isbn13: Some(_fakeIsbn()),
   );
 }
 
-Map<String, dynamic> bookInfoDTOToJson(RemoteBookInfoDTO dto) {
+Map<String, dynamic> bookInfoDTOToJson(BookInfoDTO dto) {
   return {
     'title': dto.title,
     'isbn10': dto.isbn10.toNullable(),

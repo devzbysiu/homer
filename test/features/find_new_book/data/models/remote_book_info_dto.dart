@@ -1,4 +1,4 @@
-import 'package:homer/features/find_new_book/data/models/remote_book_info_dto.dart';
+import 'package:homer/features/find_new_book/data/models/book_info_dto.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils.dart';
@@ -10,7 +10,7 @@ void main() {
       final json = fakeBookInfoDTOJson();
 
       // when
-      final result = RemoteBookInfoDTO.fromJson(json);
+      final result = BookInfoDTO.fromJson(json);
 
       // then
       expect(result, bookInfoDTOFromJson(json));

@@ -4,20 +4,20 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../core/error/exceptions.dart';
-import '../models/remote_book_info_dto.dart';
+import '../models/book_info_dto.dart';
 
 abstract class RemoteBookInfoDataSource {
-  Future<RemoteBookInfoDTO> getFromUrl(String url);
+  Future<BookInfoDTO> getFromUrl(String url);
 }
 
 final class ScraperDataSource implements RemoteBookInfoDataSource {
   @override
-  Future<RemoteBookInfoDTO> getFromUrl(String url) async {
+  Future<BookInfoDTO> getFromUrl(String url) async {
     final apiUrl = 'https://dante-backend.shuttleapp.rs?url=$url';
     final resp = await http.get(tryParse(apiUrl)).timeout(30.seconds);
     final json = tryJsonDecode(utf8.decode(resp.bodyBytes));
-    final remoteBookInfoDTO = tryFromJson(json);
-    return Future.value(remoteBookInfoDTO);
+    final bookInfoDTO = tryFromJson(json);
+    return Future.value(bookInfoDTO);
   }
 
   Uri tryParse(String apiUrl) {
@@ -36,9 +36,9 @@ final class ScraperDataSource implements RemoteBookInfoDataSource {
     }
   }
 
-  RemoteBookInfoDTO tryFromJson(Map<String, dynamic> json) {
+  BookInfoDTO tryFromJson(Map<String, dynamic> json) {
     try {
-      return RemoteBookInfoDTO.fromJson(json);
+      return BookInfoDTO.fromJson(json);
     } catch (e) {
       throw InvalidJsonException(e);
     }

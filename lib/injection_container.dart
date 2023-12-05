@@ -106,7 +106,7 @@ Future<void> initDi() async {
   sl.registerLazySingleton<ExternalBooksRepository>(() {
     return ExternalBooksRepo(
       booksDataSource: sl(),
-      booksInfoDataSource: sl(),
+      bookInfoDataSource: sl(),
     );
   });
   sl.registerLazySingleton<BackupRepository>(() {

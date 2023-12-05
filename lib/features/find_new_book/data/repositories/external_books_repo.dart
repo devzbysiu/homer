@@ -15,15 +15,16 @@ import '../models/external_book_info_dto.dart';
 final class ExternalBooksRepo implements ExternalBooksRepository {
   ExternalBooksRepo({
     required this.booksDataSource,
-    required this.booksInfoDataSource,
+    required this.bookInfoDataSource,
   });
 
   final ExternalBooksDataSource booksDataSource;
 
-  final ExternalBookInfoDataSource booksInfoDataSource;
+  final ExternalBookInfoDataSource bookInfoDataSource;
 
   @override
   Future<Result<List<Book>, Failure>> search(String query) async {
+    if (query.trim().isEmpty) return Future.value(Success(List.empty()));
     final bookDTOs = await booksDataSource.getFromQuery(query);
     final books = toBooks(bookDTOs);
     return Future.value(Success(books));
@@ -32,7 +33,7 @@ final class ExternalBooksRepo implements ExternalBooksRepository {
   @override
   Future<Result<Book, Failure>> fromUrl(String url) async {
     try {
-      final bookInfoDTO = await booksInfoDataSource.getFromUrl(url);
+      final bookInfoDTO = await bookInfoDataSource.getFromUrl(url);
       final bookIsbn = _getIsbn(bookInfoDTO);
       if (bookIsbn.isNone()) return Future.value(Error(NoIsbnFailure(url)));
 

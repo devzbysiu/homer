@@ -382,3 +382,16 @@ Map<String, dynamic> externalBookInfoDTOToJson(ExternalBookInfoDTO dto) {
     'isbn13': dto.isbn13.toNullable(),
   };
 }
+
+ExternalBookDTO fakeExternalBookDTO() {
+  return ExternalBookDTO(
+    title: _fakeTitle(),
+    subtitle: _fakeSubtitle(),
+    authors: [_fakeAuthor()],
+    pageCount: _fakePageCount(),
+    industryIdentifiers: [_fakeIsbn()],
+    imageLinks: {'url': Uri.parse(_fakeThumbnailAddress())},
+    averageRating: _fakeRating(),
+    description: _fakeSummary(),
+  );
+}

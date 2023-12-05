@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/entities/book.dart';
-import '../models/remote_book_dto.dart';
+import '../models/external_book_dto.dart';
 
-List<Book> toBooks(List<RemoteBookDTO> books) {
+List<Book> toBooks(List<ExternalBookDTO> books) {
   return books.map(toBook).toList();
 }
 
-Book toBook(RemoteBookDTO remoteBookDTO) {
+Book toBook(ExternalBookDTO remoteBookDTO) {
   return Book(
     title: remoteBookDTO.title,
     subtitle: remoteBookDTO.subtitle,
@@ -25,7 +25,7 @@ Book toBook(RemoteBookDTO remoteBookDTO) {
   );
 }
 
-String _descriptionOrDefault(RemoteBookDTO remoteBookDTO) {
+String _descriptionOrDefault(ExternalBookDTO remoteBookDTO) {
   final description = remoteBookDTO.description ?? '';
   return description.isEmpty ? 'No description.' : description;
 }

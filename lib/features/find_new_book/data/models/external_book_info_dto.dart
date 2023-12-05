@@ -2,11 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'book_info_dto.g.dart';
+part 'external_book_info_dto.g.dart';
 
 @JsonSerializable()
-final class BookInfoDTO extends Equatable {
-  const BookInfoDTO({
+final class ExternalBookInfoDTO extends Equatable {
+  const ExternalBookInfoDTO({
     required this.title,
     required this.isbn10,
     required this.isbn13,
@@ -20,11 +20,11 @@ final class BookInfoDTO extends Equatable {
   @JsonKey(fromJson: _toIsbn, toJson: _isbnToJson)
   final Option<String> isbn13;
 
-  factory BookInfoDTO.fromJson(Map<String, dynamic> json) {
-    return _$BookInfoDTOFromJson(json);
+  factory ExternalBookInfoDTO.fromJson(Map<String, dynamic> json) {
+    return _$ExternalBookInfoDTOFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$BookInfoDTOToJson(this);
+  Map<String, dynamic> toJson() => _$ExternalBookInfoDTOToJson(this);
 
   @override
   List<Object> get props => [title, isbn10, isbn13];

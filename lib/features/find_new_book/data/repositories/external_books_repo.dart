@@ -6,21 +6,21 @@ import 'package:multiple_result/multiple_result.dart';
 import '../../../../core/entities/book.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../../domain/repositories/remote_books_repository.dart';
-import '../datasources/remote_book_info_data_source.dart';
-import '../datasources/remote_books_data_source.dart';
+import '../../domain/repositories/external_books_repository.dart';
+import '../datasources/external_book_info_data_source.dart';
+import '../datasources/external_books_data_source.dart';
 import '../mappers/to_books.dart';
-import '../models/book_info_dto.dart';
+import '../models/external_book_info_dto.dart';
 
-final class RemoteBooksRepo implements RemoteBooksRepository {
-  RemoteBooksRepo({
+final class ExternalBooksRepo implements ExternalBooksRepository {
+  ExternalBooksRepo({
     required this.booksDataSource,
     required this.booksInfoDataSource,
   });
 
-  final RemoteBooksDataSource booksDataSource;
+  final ExternalBooksDataSource booksDataSource;
 
-  final RemoteBookInfoDataSource booksInfoDataSource;
+  final ExternalBookInfoDataSource booksInfoDataSource;
 
   @override
   Future<Result<List<Book>, Failure>> search(String query) async {
@@ -54,7 +54,7 @@ final class RemoteBooksRepo implements RemoteBooksRepository {
     }
   }
 
-  Option<String> _getIsbn(BookInfoDTO bookInfoDTO) {
+  Option<String> _getIsbn(ExternalBookInfoDTO bookInfoDTO) {
     return bookInfoDTO.isbn10.orElse(() => bookInfoDTO.isbn13);
   }
 }

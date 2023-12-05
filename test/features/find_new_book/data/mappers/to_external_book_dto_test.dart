@@ -5,12 +5,12 @@ import '../../../../test_utils.dart';
 
 void main() {
   group('toRemoteBookDTO', () {
-    test('should return valid remote book dto', () {
+    test('should return valid external book dto', () {
       // given
       final book = fakeBookFinderBook();
 
       // when
-      final result = toRemoteBookDTO(book);
+      final result = toExternalBookDTO(book);
 
       // then
       expect(result, fromBookFinderBook(book));

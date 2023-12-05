@@ -3,12 +3,12 @@ import 'package:multiple_result/multiple_result.dart';
 import '../../../../core/entities/book.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../repositories/remote_books_repository.dart';
+import '../repositories/external_books_repository.dart';
 
 final class SearchForBooks extends UseCase<List<Book>, SearchParams> {
   SearchForBooks(this.booksRepo);
 
-  final RemoteBooksRepository booksRepo;
+  final ExternalBooksRepository booksRepo;
 
   @override
   Future<Result<List<Book>, Failure>> call(SearchParams params) async {

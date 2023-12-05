@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-final class RemoteBookDTO extends Equatable {
-  const RemoteBookDTO({
+final class ExternalBookDTO extends Equatable {
+  const ExternalBookDTO({
     required this.title,
     required this.subtitle,
     required this.authors,

@@ -1,9 +1,9 @@
 import 'package:books_finder/books_finder.dart';
 
-import '../models/remote_book_dto.dart';
+import '../models/external_book_dto.dart';
 
-RemoteBookDTO toRemoteBookDTO(Book book) {
-  return RemoteBookDTO(
+ExternalBookDTO toExternalBookDTO(Book book) {
+  return ExternalBookDTO(
     title: book.info.title,
     subtitle: book.info.subtitle,
     authors: book.info.authors,

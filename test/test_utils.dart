@@ -6,8 +6,8 @@ import 'package:homer/core/entities/tag.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
-import 'package:homer/features/find_new_book/data/models/book_info_dto.dart';
-import 'package:homer/features/find_new_book/data/models/remote_book_dto.dart';
+import 'package:homer/features/find_new_book/data/models/external_book_dto.dart';
+import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
 
 Book fakeBook() {
   return Book(
@@ -267,8 +267,8 @@ Tag _toTag(BackupTagDTO tag) {
   return Tag(name: tag.name, hexColor: tag.hexColor);
 }
 
-RemoteBookDTO fakeRemoteBookDTO() {
-  return RemoteBookDTO(
+ExternalBookDTO fakeRemoteBookDTO() {
+  return ExternalBookDTO(
     title: _fakeTitle(),
     subtitle: _fakeSubtitle(),
     authors: [_fakeAuthor()],
@@ -280,7 +280,7 @@ RemoteBookDTO fakeRemoteBookDTO() {
   );
 }
 
-Book bookFromRemoteDTO(RemoteBookDTO remoteBookDTO) {
+Book bookFromRemoteDTO(ExternalBookDTO remoteBookDTO) {
   return Book(
     title: remoteBookDTO.title,
     subtitle: remoteBookDTO.subtitle,
@@ -298,7 +298,7 @@ Book bookFromRemoteDTO(RemoteBookDTO remoteBookDTO) {
   );
 }
 
-String _descriptionOrDefault(RemoteBookDTO remoteBookDTO) {
+String _descriptionOrDefault(ExternalBookDTO remoteBookDTO) {
   final description = remoteBookDTO.description ?? '';
   return description.isEmpty ? 'No description.' : description;
 }
@@ -337,8 +337,8 @@ bf.BookInfo _fakeBookFinderBookInfo() {
   );
 }
 
-RemoteBookDTO fromBookFinderBook(bf.Book book) {
-  return RemoteBookDTO(
+ExternalBookDTO fromBookFinderBook(bf.Book book) {
+  return ExternalBookDTO(
     title: book.info.title,
     subtitle: book.info.subtitle,
     authors: book.info.authors,
@@ -351,7 +351,7 @@ RemoteBookDTO fromBookFinderBook(bf.Book book) {
   );
 }
 
-Map<String, dynamic> fakeBookInfoDTOJson() {
+Map<String, dynamic> fakeExternalBookInfoDTOJson() {
   return {
     'title': _fakeTitle(),
     'isbn10': _fakeIsbn(),
@@ -359,23 +359,23 @@ Map<String, dynamic> fakeBookInfoDTOJson() {
   };
 }
 
-BookInfoDTO bookInfoDTOFromJson(Map<String, dynamic> json) {
-  return BookInfoDTO(
+ExternalBookInfoDTO externalBookInfoDTOFromJson(Map<String, dynamic> json) {
+  return ExternalBookInfoDTO(
     title: json['title'],
     isbn10: optionOf(json['isbn10']),
     isbn13: optionOf(json['isbn13']),
   );
 }
 
-BookInfoDTO fakeBookInfoDTO() {
-  return BookInfoDTO(
+ExternalBookInfoDTO fakeExternalBookInfoDTO() {
+  return ExternalBookInfoDTO(
     title: _fakeTitle(),
     isbn10: Some(_fakeIsbn()),
     isbn13: Some(_fakeIsbn()),
   );
 }
 
-Map<String, dynamic> bookInfoDTOToJson(BookInfoDTO dto) {
+Map<String, dynamic> externalBookInfoDTOToJson(ExternalBookInfoDTO dto) {
   return {
     'title': dto.title,
     'isbn10': dto.isbn10.toNullable(),

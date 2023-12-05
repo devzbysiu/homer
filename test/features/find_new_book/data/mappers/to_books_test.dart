@@ -1,5 +1,5 @@
 import 'package:homer/features/find_new_book/data/mappers/to_books.dart';
-import 'package:homer/features/find_new_book/data/models/remote_book_dto.dart';
+import 'package:homer/features/find_new_book/data/models/external_book_dto.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils.dart';
@@ -8,7 +8,7 @@ void main() {
   group('toBooks', () {
     test('should return empty list when empty list on input', () {
       // given
-      final List<RemoteBookDTO> input = List.empty();
+      final List<ExternalBookDTO> input = List.empty();
 
       // when
       final result = toBooks(input);

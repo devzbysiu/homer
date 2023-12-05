@@ -47,3 +47,12 @@ final class InvalidJsonException implements Exception {
   @override
   String toString() => 'Incorrect json response: $e';
 }
+
+final class BooksQueryException implements Exception {
+  const BooksQueryException(this.msg);
+
+  final String msg;
+
+  @override
+  String toString() => 'Exception while searching for books: $msg';
+}

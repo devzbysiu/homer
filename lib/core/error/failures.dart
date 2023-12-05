@@ -69,3 +69,11 @@ final class ServerFailure implements Failure {
   @override
   String userMessage() => 'Server failure';
 }
+
+final class SearchingForBooksFailure extends Equatable implements Failure {
+  @override
+  String userMessage() => 'Something went wrong when searching books';
+
+  @override
+  List<Object> get props => [];
+}

@@ -1,4 +1,7 @@
+import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:homer/core/error/exceptions.dart';
+import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/find_new_book/data/datasources/external_book_info_data_source.dart';
 import 'package:homer/features/find_new_book/data/datasources/external_books_data_source.dart';
 import 'package:homer/features/find_new_book/data/repositories/external_books_repo.dart';
@@ -17,11 +20,9 @@ void main() {
       when(booksDataSource.getFromQuery(any))
           .thenAnswer((_) => Future.value([fakeExternalBookDTO()]));
 
-      final bookInfoDataSource = MockExternalBookInfoDataSource();
-
       final repo = ExternalBooksRepo(
         booksDataSource: booksDataSource,
-        bookInfoDataSource: bookInfoDataSource,
+        bookInfoDataSource: MockExternalBookInfoDataSource(),
       );
 
       const emptyQuery = '';
@@ -40,11 +41,9 @@ void main() {
       when(booksDataSource.getFromQuery(any))
           .thenAnswer((_) => Future.value([fakeExternalBookDTO()]));
 
-      final bookInfoDataSource = MockExternalBookInfoDataSource();
-
       final repo = ExternalBooksRepo(
         booksDataSource: booksDataSource,
-        bookInfoDataSource: bookInfoDataSource,
+        bookInfoDataSource: MockExternalBookInfoDataSource(),
       );
 
       const blankQuery = '               ';
@@ -55,6 +54,50 @@ void main() {
       // then
       expect(result.isSuccess(), true);
       expect(result.tryGetSuccess()!.isEmpty, true);
+    });
+
+    test('should return list of external books when search works', () async {
+      // given
+      final externalBooks = [fakeExternalBookDTO(), fakeExternalBookDTO()];
+      final booksDataSource = MockExternalBooksDataSource();
+      when(booksDataSource.getFromQuery(any))
+          .thenAnswer((_) => Future.value(externalBooks));
+
+      final repo = ExternalBooksRepo(
+        booksDataSource: booksDataSource,
+        bookInfoDataSource: MockExternalBookInfoDataSource(),
+      );
+
+      final notImportantQuery = fakeSearchQuery();
+
+      // when
+      final result = await repo.search(notImportantQuery);
+
+      // then
+      expect(result.isSuccess(), true);
+      expect(result.tryGetSuccess()!.length, externalBooks.length);
+    });
+
+    test('should return failure when search failed', () async {
+      // given
+      final booksDataSource = MockExternalBooksDataSource();
+      when(booksDataSource.getFromQuery(any)).thenThrow(
+        BooksQueryException(faker.lorem.sentence()),
+      );
+
+      final repo = ExternalBooksRepo(
+        booksDataSource: booksDataSource,
+        bookInfoDataSource: MockExternalBookInfoDataSource(),
+      );
+
+      final notImportantQuery = fakeSearchQuery();
+
+      // when
+      final result = await repo.search(notImportantQuery);
+
+      // then
+      expect(result.isError(), true);
+      expect(result.tryGetError()!, SearchingForBooksFailure());
     });
   });
 }

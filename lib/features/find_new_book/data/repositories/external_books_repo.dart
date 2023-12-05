@@ -25,9 +25,13 @@ final class ExternalBooksRepo implements ExternalBooksRepository {
   @override
   Future<Result<List<Book>, Failure>> search(String query) async {
     if (query.trim().isEmpty) return Future.value(Success(List.empty()));
-    final bookDTOs = await booksDataSource.getFromQuery(query);
-    final books = toBooks(bookDTOs);
-    return Future.value(Success(books));
+    try {
+      final bookDTOs = await booksDataSource.getFromQuery(query);
+      final books = toBooks(bookDTOs);
+      return Future.value(Success(books));
+    } on BooksQueryException {
+      return Future.value(Error(SearchingForBooksFailure()));
+    }
   }
 
   @override

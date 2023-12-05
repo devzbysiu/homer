@@ -395,3 +395,5 @@ ExternalBookDTO fakeExternalBookDTO() {
     description: _fakeSummary(),
   );
 }
+
+String fakeSearchQuery() => faker.lorem.word();

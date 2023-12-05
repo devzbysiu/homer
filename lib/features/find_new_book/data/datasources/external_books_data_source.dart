@@ -13,8 +13,12 @@ abstract class ExternalBooksDataSource {
 final class ExternalBooks implements ExternalBooksDataSource {
   @override
   Future<List<ExternalBookDTO>> getFromQuery(String query) async {
-    final List<Book> books = await queryBooks(query);
-    return books.map(toExternalBookDTO).toList();
+    try {
+      final List<Book> books = await queryBooks(query);
+      return books.map(toExternalBookDTO).toList();
+    } catch (e) {
+      throw BooksQueryException('$e');
+    }
   }
 
   @override

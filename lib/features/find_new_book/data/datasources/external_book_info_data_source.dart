@@ -14,13 +14,13 @@ final class ScraperDataSource implements ExternalBookInfoDataSource {
   @override
   Future<ExternalBookInfoDTO> getFromUrl(String url) async {
     final apiUrl = 'https://dante-backend.shuttleapp.rs?url=$url';
-    final resp = await http.get(tryParse(apiUrl)).timeout(30.seconds);
-    final json = tryJsonDecode(utf8.decode(resp.bodyBytes));
-    final bookInfoDTO = tryFromJson(json);
+    final resp = await http.get(_tryParse(apiUrl)).timeout(30.seconds);
+    final json = _tryJsonDecode(utf8.decode(resp.bodyBytes));
+    final bookInfoDTO = _tryFromJson(json);
     return Future.value(bookInfoDTO);
   }
 
-  Uri tryParse(String apiUrl) {
+  Uri _tryParse(String apiUrl) {
     try {
       return Uri.parse(apiUrl);
     } on FormatException {
@@ -28,7 +28,7 @@ final class ScraperDataSource implements ExternalBookInfoDataSource {
     }
   }
 
-  Map<String, dynamic> tryJsonDecode(String body) {
+  Map<String, dynamic> _tryJsonDecode(String body) {
     try {
       return jsonDecode(body);
     } on FormatException catch (e) {
@@ -36,7 +36,7 @@ final class ScraperDataSource implements ExternalBookInfoDataSource {
     }
   }
 
-  ExternalBookInfoDTO tryFromJson(Map<String, dynamic> json) {
+  ExternalBookInfoDTO _tryFromJson(Map<String, dynamic> json) {
     try {
       return ExternalBookInfoDTO.fromJson(json);
     } catch (e) {

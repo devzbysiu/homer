@@ -8,6 +8,7 @@ import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.da
 import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
+import 'package:multiple_result/multiple_result.dart' as mr;
 
 Book fakeBook() {
   return Book(
@@ -397,3 +398,19 @@ ExternalBookDTO fakeExternalBookDTO() {
 }
 
 String fakeSearchQuery() => faker.lorem.word();
+
+Future<T> withIt<T>(T books) {
+  return Future.value(books);
+}
+
+Future<mr.Unit> withUnit() {
+  return Future.value(mr.unit);
+}
+
+Future<mr.Result<T, Failure>> withSuccess<T>(T books) {
+  return Future.value(mr.Success(books));
+}
+
+Future<mr.Result<T, Failure>> withFailure<T>(Failure failure) {
+  return Future.value(mr.Error(failure));
+}

@@ -20,8 +20,10 @@ void main() {
       // given
       final notExistingPath = fakePath();
       final failingDataSource = MockBackupDataSource();
-      when(failingDataSource.loadAll(notExistingPath))
-          .thenThrow(const FileSystemException());
+      when(failingDataSource.loadAll(notExistingPath)).thenThrow(
+        const FileSystemException(),
+      );
+
       final repo = BackupRepo(dataSource: failingDataSource);
 
       // when
@@ -34,19 +36,20 @@ void main() {
 
     test('should return list of restored books on success', () async {
       // given
-      final notImportantPath = fakePath();
       final failingDataSource = MockBackupDataSource();
-      final booksList = [fakeBackupBookDTO()];
-      when(failingDataSource.loadAll(any))
-          .thenAnswer((_) => Future.value(booksList));
+      final books = [fakeBackupBookDTO()];
+      when(failingDataSource.loadAll(any)).thenAnswer((_) => withIt(books));
+
       final repo = BackupRepo(dataSource: failingDataSource);
+
+      final notImportantPath = fakePath();
 
       // when
       final result = await repo.loadAll(notImportantPath);
 
       // then
       expect(result.isSuccess(), true);
-      expect(result.tryGetSuccess()!.length, booksList.length);
+      expect(result.tryGetSuccess()!.length, books.length);
     });
   });
 
@@ -55,11 +58,14 @@ void main() {
         () async {
       // given
       final notExistingPath = fakePath();
-      final List<Book> notImportant = List.empty();
       final failingDataSource = makeMockBackupDataSource();
-      when(failingDataSource.saveAll(notExistingPath, any))
-          .thenThrow(const FileSystemException());
+      when(failingDataSource.saveAll(notExistingPath, any)).thenThrow(
+        const FileSystemException(),
+      );
+
       final repo = BackupRepo(dataSource: failingDataSource);
+
+      final List<Book> notImportant = List.empty();
 
       // when
       final result = await repo.saveAll(notExistingPath, notImportant);
@@ -72,8 +78,8 @@ void main() {
     test('should return success when all books saved', () async {
       // given
       final workingDataSource = makeMockBackupDataSource();
-      when(workingDataSource.saveAll(any, any))
-          .thenAnswer((_) => Future.value(unit));
+      when(workingDataSource.saveAll(any, any)).thenAnswer((_) => withUnit());
+
       final repo = BackupRepo(dataSource: workingDataSource);
 
       // when

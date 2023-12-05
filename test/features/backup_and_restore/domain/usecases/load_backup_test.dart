@@ -18,7 +18,9 @@ void main() {
       MockBackupRepository mockRepo = makeMockRepo();
       final path = fakePath();
       when(mockRepo.loadAll(path)).thenAnswer((_) => withSuccess([]));
+
       final loadBackup = LoadBackupImpl(mockRepo);
+
       verifyZeroInteractions(mockRepo);
 
       // when
@@ -32,11 +34,14 @@ void main() {
     test('should propagate success result from backup repo', () async {
       // given
       MockBackupRepository mockRepo = makeMockRepo();
-      final notImportant = fakePath();
       final books = [fakeBook()];
       when(mockRepo.loadAll(any)).thenAnswer((_) => withSuccess(books));
+
       final loadBackup = LoadBackupImpl(mockRepo);
+
       verifyZeroInteractions(mockRepo);
+
+      final notImportant = fakePath();
 
       // when
       final result = await loadBackup(RestoreParams(path: notImportant));
@@ -49,11 +54,14 @@ void main() {
     test('should propagate error result from backup repo', () async {
       // given
       MockBackupRepository mockRepo = makeMockRepo();
-      final notImportant = fakePath();
       final error = TestingFailure();
-      when(mockRepo.loadAll(any)).thenAnswer((_) => withError(error));
+      when(mockRepo.loadAll(any)).thenAnswer((_) => withFailure(error));
+
       final loadBackup = LoadBackupImpl(mockRepo);
+
       verifyZeroInteractions(mockRepo);
+
+      final notImportant = fakePath();
 
       // when
       final result = await loadBackup(RestoreParams(path: notImportant));
@@ -63,14 +71,6 @@ void main() {
       expect(result, Error(error));
     });
   });
-}
-
-Future<Result<List<Book>, Failure>> withSuccess(List<Book> books) {
-  return Future.value(Success(books));
-}
-
-Future<Result<List<Book>, Failure>> withError(Failure failure) {
-  return Future.value(Error(failure));
 }
 
 MockBackupRepository makeMockRepo() {

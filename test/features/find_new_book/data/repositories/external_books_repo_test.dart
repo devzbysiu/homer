@@ -17,8 +17,9 @@ void main() {
     test('should return empty list when query is empty', () async {
       // given
       final booksDataSource = MockExternalBooksDataSource();
-      when(booksDataSource.getFromQuery(any))
-          .thenAnswer((_) => Future.value([fakeExternalBookDTO()]));
+      when(booksDataSource.getFromQuery(any)).thenAnswer(
+        (_) => withIt([fakeExternalBookDTO()]),
+      );
 
       final repo = ExternalBooksRepo(
         booksDataSource: booksDataSource,
@@ -38,8 +39,9 @@ void main() {
     test('should return empty list when query is blank', () async {
       // given
       final booksDataSource = MockExternalBooksDataSource();
-      when(booksDataSource.getFromQuery(any))
-          .thenAnswer((_) => Future.value([fakeExternalBookDTO()]));
+      when(booksDataSource.getFromQuery(any)).thenAnswer(
+        (_) => withIt([fakeExternalBookDTO()]),
+      );
 
       final repo = ExternalBooksRepo(
         booksDataSource: booksDataSource,
@@ -60,8 +62,9 @@ void main() {
       // given
       final externalBooks = [fakeExternalBookDTO(), fakeExternalBookDTO()];
       final booksDataSource = MockExternalBooksDataSource();
-      when(booksDataSource.getFromQuery(any))
-          .thenAnswer((_) => Future.value(externalBooks));
+      when(booksDataSource.getFromQuery(any)).thenAnswer(
+        (_) => withIt(externalBooks),
+      );
 
       final repo = ExternalBooksRepo(
         booksDataSource: booksDataSource,

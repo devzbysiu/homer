@@ -17,7 +17,9 @@ void main() {
       final mockRepo = makeMockRepo();
       final books = [fakeBook()];
       when(mockRepo.replaceAll(books)).thenAnswer(withSuccess);
+
       final replaceAllBooks = ReplaceAllBooksImpl(mockRepo);
+
       verifyZeroInteractions(mockRepo);
 
       // when
@@ -31,9 +33,11 @@ void main() {
     test('should propagate success result from books repo', () async {
       // given
       final mockRepo = makeMockRepo();
-      final notImportant = [fakeBook()];
       when(mockRepo.replaceAll(any)).thenAnswer(withSuccess);
+
       final replaceAllBooks = ReplaceAllBooksImpl(mockRepo);
+
+      final notImportant = [fakeBook()];
 
       // when
       final result = await replaceAllBooks(
@@ -47,10 +51,12 @@ void main() {
     test('should propagate error result from books repo', () async {
       // given
       final mockRepo = makeMockRepo();
-      final notImportant = [fakeBook()];
       final error = TestingFailure();
       when(mockRepo.replaceAll(any)).thenAnswer((_) => withError(error));
+
       final replaceAllBooks = ReplaceAllBooksImpl(mockRepo);
+
+      final notImportant = [fakeBook()];
 
       // when
       final result = await replaceAllBooks(

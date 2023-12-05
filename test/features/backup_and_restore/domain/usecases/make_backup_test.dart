@@ -17,11 +17,11 @@ void main() {
     test('should use books repo to load all books', () async {
       // given
       final booksRepo = makeMockBooksRepo();
-      when(booksRepo.listAll())
-          .thenAnswer((_) => Future.value(const Success([])));
+      when(booksRepo.listAll()).thenAnswer((_) => withSuccess([]));
+
       final backupRepo = makeMockBackupRepo();
-      when(backupRepo.saveAll(any, any))
-          .thenAnswer((_) => Future.value(const Success(unit)));
+      when(backupRepo.saveAll(any, any)).thenAnswer((_) => withSuccess(unit));
+
       final makeBackup = MakeBackupImpl(backupRepo, booksRepo);
 
       // when
@@ -36,11 +36,10 @@ void main() {
       // given
       final books = [fakeBook()];
       final booksRepo = makeMockBooksRepo();
-      when(booksRepo.listAll()).thenAnswer((_) => Future.value(Success(books)));
+      when(booksRepo.listAll()).thenAnswer((_) => withSuccess(books));
 
       final backupRepo = makeMockBackupRepo();
-      when(backupRepo.saveAll(any, any))
-          .thenAnswer((_) => Future.value(const Success(unit)));
+      when(backupRepo.saveAll(any, any)).thenAnswer((_) => withSuccess(unit));
       final makeBackup = MakeBackupImpl(backupRepo, booksRepo);
 
       final backupPath = fakePath();
@@ -57,7 +56,7 @@ void main() {
       // given
       final failure = TestingFailure();
       final booksRepo = makeMockBooksRepo();
-      when(booksRepo.listAll()).thenAnswer((_) => Future.value(Error(failure)));
+      when(booksRepo.listAll()).thenAnswer((_) => withFailure(failure));
 
       final backupRepo = makeMockBackupRepo();
 
@@ -78,13 +77,14 @@ void main() {
       // given
       final books = [fakeBook()];
       final booksRepo = makeMockBooksRepo();
-      when(booksRepo.listAll()).thenAnswer((_) => Future.value(Success(books)));
+      when(booksRepo.listAll()).thenAnswer((_) => withSuccess(books));
 
       final backupPath = fakePath();
       final failure = TestingFailure();
       final backupRepo = makeMockBackupRepo();
-      when(backupRepo.saveAll(backupPath, books))
-          .thenAnswer((_) => Future.value(Error(failure)));
+      when(backupRepo.saveAll(backupPath, books)).thenAnswer(
+        (_) => withFailure(failure),
+      );
 
       final makeBackup = MakeBackupImpl(backupRepo, booksRepo);
 

@@ -12,70 +12,72 @@ import 'package:multiple_result/multiple_result.dart' as mr;
 
 Book fakeBook() {
   return Book(
-    title: _fakeTitle(),
-    subtitle: _fakeSubtitle(),
-    authors: [_fakeAuthor()],
-    state: _fakeBookState(),
-    pageCount: _fakePageCount(),
-    isbn: _fakeIsbn(),
-    thumbnailAddress: some(_fakeThumbnailAddress()),
-    rating: _fakeRating(),
-    summary: some(_fakeSummary()),
+    title: fakeTitle(),
+    subtitle: fakeSubtitle(),
+    authors: [fakeAuthor()],
+    state: fakeBookState(),
+    pageCount: fakePageCount(),
+    isbn: fakeIsbn(),
+    thumbnailAddress: some(fakeThumbnailAddress()),
+    rating: fakeRating(),
+    summary: some(fakeSummary()),
     tags: [fakeTag(), fakeTag()],
-    startDate: some(_fakeDate()),
-    endDate: some(_fakeDate()),
+    startDate: some(fakeDate()),
+    endDate: some(fakeDate()),
   );
 }
 
-String _fakeTitle() => _fakeTagName();
+String fakeTitle() => fakeTagName();
 
-String _fakeSubtitle() => faker.lorem.sentence();
+String fakeSubtitle() => faker.lorem.sentence();
 
-String _fakeAuthor() => faker.person.name();
+String fakeAuthor() => faker.person.name();
 
-int _fakePageCount() => faker.randomGenerator.integer(1024);
+int fakePageCount() => faker.randomGenerator.integer(1024);
 
-String _fakeIsbn() => faker.guid.guid();
+String fakeIsbn() => faker.guid.guid();
 
-String _fakeThumbnailAddress() => faker.internet.httpsUrl();
+String fakeThumbnailAddress() => fakeUrl();
 
-double _fakeRating() => faker.randomGenerator.decimal(scale: 5);
+String fakeUrl() => faker.internet.httpsUrl();
 
-String _fakeSummary() => faker.lorem.sentences(7).join(' ');
+double fakeRating() => faker.randomGenerator.decimal(scale: 5);
 
-String _fakeTagColor() => faker.color.color();
+String fakeSummary() => faker.lorem.sentences(7).join(' ');
 
-String _fakeTagName() => faker.lorem.word();
+String fakeTagColor() => faker.color.color();
 
-int _fakeDateMillis() => faker.date.dateTime().millisecondsSinceEpoch;
+String fakeTagName() => faker.lorem.word();
 
-DateTime _fakeDate() => faker.date.dateTime(minYear: 1990, maxYear: 2023);
+int fakeDateMillis() => faker.date.dateTime().millisecondsSinceEpoch;
 
-Tag fakeTag() => Tag(name: _fakeTagName(), hexColor: _fakeTagColor());
+DateTime fakeDate() => faker.date.dateTime(minYear: 1990, maxYear: 2023);
+
+Tag fakeTag() => Tag(name: fakeTagName(), hexColor: fakeTagColor());
 
 Map<String, Object> fakeBackupBookDTOJson() {
   return {
-    'title': _fakeTitle(),
-    'subtitle': _fakeSubtitle(),
-    'authors': [_fakeAuthor()],
-    'state': _fakeBookStateString(),
-    'pageCount': _fakePageCount(),
-    'isbn': _fakeIsbn(),
-    'thumbnailAddress': _fakeThumbnailAddress(),
-    'rating': _fakeRating(),
-    'summary': _fakeSummary(),
+    'title': fakeTitle(),
+    'subtitle': fakeSubtitle(),
+    'authors': [fakeAuthor()],
+    'state': fakeBookStateString(),
+    'pageCount': fakePageCount(),
+    'isbn': fakeIsbn(),
+    'thumbnailAddress': fakeThumbnailAddress(),
+    'rating': fakeRating(),
+    'summary': fakeSummary(),
     'tags': [
       {
-        'name': _fakeTagName(),
-        'hexColor': _fakeTagColor(),
+        'name': fakeTagName(),
+        'hexColor': fakeTagColor(),
       },
     ],
-    'startDate': _fakeDateMillis(),
-    'endDate': _fakeDateMillis(),
+    'startDate': fakeDateMillis(),
+    'endDate': fakeDateMillis(),
   };
 }
 
-String _fakeBookStateString() {
+String fakeBookStateString() {
   switch (faker.randomGenerator.integer(4, min: 1)) {
     case 1:
       return 'readLater';
@@ -128,25 +130,25 @@ BackupTagDTO tagFromJson(Map<String, dynamic> tagJson) {
 
 BackupBookDTO fakeBackupBookDTO() {
   return BackupBookDTO(
-    title: _fakeTitle(),
-    subtitle: _fakeSubtitle(),
-    authors: [_fakeAuthor()],
-    state: _fakeBookState(),
-    pageCount: _fakePageCount(),
-    isbn: _fakeIsbn(),
-    thumbnailAddress: some(_fakeThumbnailAddress()),
-    rating: _fakeRating(),
-    summary: some(_fakeSummary()),
+    title: fakeTitle(),
+    subtitle: fakeSubtitle(),
+    authors: [fakeAuthor()],
+    state: fakeBookState(),
+    pageCount: fakePageCount(),
+    isbn: fakeIsbn(),
+    thumbnailAddress: some(fakeThumbnailAddress()),
+    rating: fakeRating(),
+    summary: some(fakeSummary()),
     tags: [
-      BackupTagDTO(name: _fakeTagName(), hexColor: _fakeTagColor()),
-      BackupTagDTO(name: _fakeTagName(), hexColor: _fakeTagColor()),
+      BackupTagDTO(name: fakeTagName(), hexColor: fakeTagColor()),
+      BackupTagDTO(name: fakeTagName(), hexColor: fakeTagColor()),
     ],
-    startDate: some(_fakeDate()),
-    endDate: some(_fakeDate()),
+    startDate: some(fakeDate()),
+    endDate: some(fakeDate()),
   );
 }
 
-BookState _fakeBookState() {
+BookState fakeBookState() {
   switch (faker.randomGenerator.integer(4, min: 1)) {
     case 1:
       return BookState.readLater;
@@ -270,14 +272,14 @@ Tag _toTag(BackupTagDTO tag) {
 
 ExternalBookDTO fakeRemoteBookDTO() {
   return ExternalBookDTO(
-    title: _fakeTitle(),
-    subtitle: _fakeSubtitle(),
-    authors: [_fakeAuthor()],
-    pageCount: _fakePageCount(),
-    industryIdentifiers: [_fakeIsbn()],
+    title: fakeTitle(),
+    subtitle: fakeSubtitle(),
+    authors: [fakeAuthor()],
+    pageCount: fakePageCount(),
+    industryIdentifiers: [fakeIsbn()],
     imageLinks: {faker.lorem.word(): Uri.parse(faker.internet.httpsUrl())},
-    averageRating: _fakeRating(),
-    description: _fakeSummary(),
+    averageRating: fakeRating(),
+    description: fakeSummary(),
   );
 }
 
@@ -307,28 +309,28 @@ String _descriptionOrDefault(ExternalBookDTO remoteBookDTO) {
 bf.Book fakeBookFinderBook() {
   return bf.Book(
     id: '',
-    info: _fakeBookFinderBookInfo(),
+    info: fakeBookFinderBookInfo(),
     saleInfo: const bf.SaleInfo(country: '', saleability: '', isEbook: true),
   );
 }
 
-bf.BookInfo _fakeBookFinderBookInfo() {
+bf.BookInfo fakeBookFinderBookInfo() {
   return bf.BookInfo(
-    title: _fakeTitle(),
-    subtitle: _fakeSubtitle(),
-    authors: [_fakeAuthor()],
+    title: fakeTitle(),
+    subtitle: fakeSubtitle(),
+    authors: [fakeAuthor()],
     publisher: '',
-    averageRating: _fakeRating(),
+    averageRating: fakeRating(),
     categories: [],
     contentVersion: '',
-    description: _fakeSummary(),
+    description: fakeSummary(),
     industryIdentifiers: [
-      bf.IndustryIdentifier(type: '', identifier: _fakeIsbn()),
+      bf.IndustryIdentifier(type: '', identifier: fakeIsbn()),
     ],
-    imageLinks: {'url': Uri.parse(_fakeThumbnailAddress())},
+    imageLinks: {'url': Uri.parse(fakeThumbnailAddress())},
     language: '',
     maturityRating: '',
-    pageCount: _fakePageCount(),
+    pageCount: fakePageCount(),
     publishedDate: null,
     rawPublishedDate: '',
     ratingsCount: 1,
@@ -354,9 +356,9 @@ ExternalBookDTO fromBookFinderBook(bf.Book book) {
 
 Map<String, dynamic> fakeExternalBookInfoDTOJson() {
   return {
-    'title': _fakeTitle(),
-    'isbn10': _fakeIsbn(),
-    'isbn13': _fakeIsbn(),
+    'title': fakeTitle(),
+    'isbn10': fakeIsbn(),
+    'isbn13': fakeIsbn(),
   };
 }
 
@@ -370,9 +372,9 @@ ExternalBookInfoDTO externalBookInfoDTOFromJson(Map<String, dynamic> json) {
 
 ExternalBookInfoDTO fakeExternalBookInfoDTO() {
   return ExternalBookInfoDTO(
-    title: _fakeTitle(),
-    isbn10: Some(_fakeIsbn()),
-    isbn13: Some(_fakeIsbn()),
+    title: fakeTitle(),
+    isbn10: Some(fakeIsbn()),
+    isbn13: Some(fakeIsbn()),
   );
 }
 
@@ -386,14 +388,14 @@ Map<String, dynamic> externalBookInfoDTOToJson(ExternalBookInfoDTO dto) {
 
 ExternalBookDTO fakeExternalBookDTO() {
   return ExternalBookDTO(
-    title: _fakeTitle(),
-    subtitle: _fakeSubtitle(),
-    authors: [_fakeAuthor()],
-    pageCount: _fakePageCount(),
-    industryIdentifiers: [_fakeIsbn()],
-    imageLinks: {'url': Uri.parse(_fakeThumbnailAddress())},
-    averageRating: _fakeRating(),
-    description: _fakeSummary(),
+    title: fakeTitle(),
+    subtitle: fakeSubtitle(),
+    authors: [fakeAuthor()],
+    pageCount: fakePageCount(),
+    industryIdentifiers: [fakeIsbn()],
+    imageLinks: {'url': Uri.parse(fakeThumbnailAddress())},
+    averageRating: fakeRating(),
+    description: fakeSummary(),
   );
 }
 
@@ -413,4 +415,18 @@ Future<mr.Result<T, Failure>> withSuccess<T>(T books) {
 
 Future<mr.Result<T, Failure>> withFailure<T>(Failure failure) {
   return Future.value(mr.Error(failure));
+}
+
+extension ExternalBookInfoDTOCopyWith on ExternalBookInfoDTO {
+  ExternalBookInfoDTO copyWith({
+    String? title,
+    Option<String>? isbn10,
+    Option<String>? isbn13,
+  }) {
+    return ExternalBookInfoDTO(
+      title: title ?? this.title,
+      isbn10: isbn10 ?? this.isbn10,
+      isbn13: isbn13 ?? this.isbn13,
+    );
+  }
 }

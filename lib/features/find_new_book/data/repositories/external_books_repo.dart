@@ -36,6 +36,11 @@ final class ExternalBooksRepo implements ExternalBooksRepository {
 
   @override
   Future<Result<Book, Failure>> fromUrl(String url) async {
+    if (url.trim().isEmpty) {
+      return Future.value(
+        Error(InvalidUrlSharedFailure(url)),
+      );
+    }
     try {
       final bookInfoDTO = await bookInfoDataSource.getFromUrl(url);
       final bookIsbn = _getIsbn(bookInfoDTO);

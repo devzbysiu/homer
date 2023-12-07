@@ -9,6 +9,7 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_return_helpers.dart';
 import 'load_backup_test.mocks.dart';
 
 @GenerateMocks([BackupRepository])

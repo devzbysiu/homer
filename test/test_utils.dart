@@ -196,22 +196,6 @@ Map<String, dynamic> externalBookInfoDTOToJson(ExternalBookInfoDTO dto) {
   };
 }
 
-Future<T> withIt<T>(T books) {
-  return Future.value(books);
-}
-
-Future<mr.Unit> withUnit() {
-  return Future.value(mr.unit);
-}
-
-Future<mr.Result<T, Failure>> withSuccess<T>(T books) {
-  return Future.value(mr.Success(books));
-}
-
-Future<mr.Result<T, Failure>> withFailure<T>(Failure failure) {
-  return Future.value(mr.Error(failure));
-}
-
 extension ExternalBookInfoDTOCopyWith on ExternalBookInfoDTO {
   ExternalBookInfoDTO copyWith({
     String? title,

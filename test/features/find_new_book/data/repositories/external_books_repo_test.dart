@@ -12,6 +12,7 @@ import 'package:mockito/mockito.dart';
 
 import '../../../../test_utils.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_return_helpers.dart';
 import 'external_books_repo_test.mocks.dart';
 
 @GenerateMocks([ExternalBooksDataSource, ExternalBookInfoDataSource])

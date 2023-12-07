@@ -10,7 +10,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 
-import '../../../../test_utils.dart';
+import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
 import 'backup_bloc_test.mocks.dart';
 

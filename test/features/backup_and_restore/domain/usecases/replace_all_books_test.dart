@@ -6,7 +6,7 @@ import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
-import '../../../../test_utils.dart';
+import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
 import 'replace_all_books_test.mocks.dart';
 

@@ -8,7 +8,7 @@ import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
-import '../../../../test_utils.dart';
+import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
 import 'make_backup_test.mocks.dart';

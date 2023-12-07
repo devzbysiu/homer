@@ -10,7 +10,7 @@ import 'package:homer/features/find_new_book/data/repositories/external_books_re
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../test_utils.dart';
+import '../../../../test_utils/copy_with_extensions.dart';
 import '../../../../test_utils/fakes.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
 import 'external_books_repo_test.mocks.dart';

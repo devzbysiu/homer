@@ -1,8 +1,9 @@
 import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
 import 'package:test/test.dart';
 
-import '../../../../test_utils.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/from_json_helpers.dart';
+import '../../../../test_utils/to_json_helpers.dart';
 
 void main() {
   group('fromJson', () {

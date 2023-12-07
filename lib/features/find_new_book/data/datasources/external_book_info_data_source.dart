@@ -32,7 +32,7 @@ final class ScraperDataSource implements ExternalBookInfoDataSource {
     try {
       return jsonDecode(body);
     } on FormatException catch (e) {
-      throw IncorrectResponseException(e.message);
+      throw NotJsonException(e.message);
     }
   }
 
@@ -40,7 +40,7 @@ final class ScraperDataSource implements ExternalBookInfoDataSource {
     try {
       return ExternalBookInfoDTO.fromJson(json);
     } catch (e) {
-      throw InvalidJsonException(e);
+      throw WrongJsonException(e);
     }
   }
 }

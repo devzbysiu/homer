@@ -1,5 +1,5 @@
-final class NoBookWithIsbnFoundException implements Exception {
-  const NoBookWithIsbnFoundException(this.isbn);
+final class NoBookFoundException implements Exception {
+  const NoBookFoundException(this.isbn);
 
   final String isbn;
 
@@ -30,8 +30,8 @@ final class InvalidUrlException implements Exception {
   String toString() => 'Invalid URL: $url';
 }
 
-final class IncorrectResponseException implements Exception {
-  const IncorrectResponseException(this.message);
+final class NotJsonException implements Exception {
+  const NotJsonException(this.message);
 
   final String message;
 
@@ -39,8 +39,8 @@ final class IncorrectResponseException implements Exception {
   String toString() => 'There is something wrong with the server: $message';
 }
 
-final class InvalidJsonException implements Exception {
-  const InvalidJsonException(this.e);
+final class WrongJsonException implements Exception {
+  const WrongJsonException(this.e);
 
   final Object e;
 

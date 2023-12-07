@@ -24,7 +24,7 @@ final class ExternalBooks implements ExternalBooksDataSource {
   @override
   Future<ExternalBookDTO> getFromIsbn(String isbn) async {
     final List<Book> books = await queryBooks(isbn, queryType: QueryType.isbn);
-    if (books.isEmpty) throw NoBookWithIsbnFoundException(isbn);
+    if (books.isEmpty) throw NoBookFoundException(isbn);
     if (books.length > 1) throw TooManyBooksFoundException(isbn);
     return toExternalBookDTO(books.first);
   }

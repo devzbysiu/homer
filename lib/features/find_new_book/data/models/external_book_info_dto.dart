@@ -28,6 +28,8 @@ final class ExternalBookInfoDTO extends Equatable {
 
   @override
   List<Object> get props => [title, isbn10, isbn13];
+
+  Option<String> get isbn => isbn10.orElse(() => isbn13);
 }
 
 Option<String> _toIsbn(String isbn) {

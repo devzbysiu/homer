@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:dartz/dartz.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/entities/book.dart';
@@ -41,30 +40,31 @@ final class ExternalBooksRepo implements ExternalBooksRepository {
         Error(InvalidUrlSharedFailure(url)),
       );
     }
-    try {
-      final bookInfoDTO = await bookInfoDataSource.getFromUrl(url);
-      final bookIsbn = _getIsbn(bookInfoDTO);
-      if (bookIsbn.isNone()) return Future.value(Error(NoIsbnFailure(url)));
 
-      final bookDTO = await booksDataSource.getFromIsbn(bookIsbn.toNullable()!);
-      final remoteBook = toBook(bookDTO);
-      return Future.value(Success(remoteBook));
+    ExternalBookInfoDTO bookInfoDTO;
+    try {
+      bookInfoDTO = await bookInfoDataSource.getFromUrl(url);
     } on InvalidUrlException catch (e) {
       return Future.value(Error(InvalidUrlSharedFailure(e.url)));
-    } on IncorrectResponseException {
+    } on NotJsonException {
       return Future.value(Error(ServerFailure()));
-    } on InvalidJsonException catch (_) {
+    } on WrongJsonException catch (_) {
       return Future.value(Error(ServerFailure()));
     } on TimeoutException {
       return Future.value(const Error(TimeoutOnApiResponseFailure()));
-    } on NoBookWithIsbnFoundException catch (e) {
+    }
+
+    try {
+      final bookIsbn = bookInfoDTO.isbn;
+      if (bookIsbn.isNone()) return Future.value(Error(NoIsbnFailure(url)));
+
+      final bookDTO = await booksDataSource.getFromIsbn(bookIsbn.toNullable()!);
+      final book = toBook(bookDTO);
+      return Future.value(Success(book));
+    } on NoBookFoundException catch (e) {
       return Future.value(Error(NoBookWithIsbnFailure(e.isbn)));
     } on TooManyBooksFoundException catch (e) {
       return Future.value(Error(TooManyBooksFoundFailure(e.isbn)));
     }
-  }
-
-  Option<String> _getIsbn(ExternalBookInfoDTO bookInfoDTO) {
-    return bookInfoDTO.isbn10.orElse(() => bookInfoDTO.isbn13);
   }
 }

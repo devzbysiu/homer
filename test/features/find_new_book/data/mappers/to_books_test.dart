@@ -31,8 +31,8 @@ void main() {
     final result = toBooks(bookDTOs);
 
     // then
-    expect(result[0], bookFromRemoteDTO(bookDTOs[0]));
-    expect(result[1], bookFromRemoteDTO(bookDTOs[1]));
-    expect(result[2], bookFromRemoteDTO(bookDTOs[2]));
+    expect(result[0], bookFromExternalBookDTO(bookDTOs[0]));
+    expect(result[1], bookFromExternalBookDTO(bookDTOs[1]));
+    expect(result[2], bookFromExternalBookDTO(bookDTOs[2]));
   });
 }

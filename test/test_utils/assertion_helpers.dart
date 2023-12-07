@@ -56,7 +56,7 @@ Tag _toTag(BackupTagDTO tag) {
   return Tag(name: tag.name, hexColor: tag.hexColor);
 }
 
-Book bookFromRemoteDTO(ExternalBookDTO remoteBookDTO) {
+Book bookFromExternalBookDTO(ExternalBookDTO remoteBookDTO) {
   return Book(
     title: remoteBookDTO.title,
     subtitle: remoteBookDTO.subtitle,

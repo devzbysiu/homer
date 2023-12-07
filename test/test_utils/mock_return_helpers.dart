@@ -1,18 +1,18 @@
 import 'package:homer/core/error/failures.dart';
-import 'package:multiple_result/multiple_result.dart' as mr;
+import 'package:multiple_result/multiple_result.dart';
 
-Future<T> withIt<T>(T books) {
-  return Future.value(books);
+Future<T> withIt<T>(T value) {
+  return Future.value(value);
 }
 
-Future<mr.Unit> withUnit() {
-  return Future.value(mr.unit);
+Future<Unit> withUnit() {
+  return Future.value(unit);
 }
 
-Future<mr.Result<T, Failure>> withSuccess<T>(T books) {
-  return Future.value(mr.Success(books));
+Future<Result<T, Failure>> withSuccess<T>(T value) {
+  return Future.value(Success(value));
 }
 
-Future<mr.Result<T, Failure>> withFailure<T>(Failure failure) {
-  return Future.value(mr.Error(failure));
+Future<Result<T, Failure>> withFailure<T>(Failure failure) {
+  return Future.value(Error(failure));
 }

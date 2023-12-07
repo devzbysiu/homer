@@ -2,6 +2,7 @@ import 'package:homer/features/find_new_book/data/models/external_book_info_dto.
 import 'package:test/test.dart';
 
 import '../../../../test_utils.dart';
+import '../../../../test_utils/fakes.dart';
 
 void main() {
   group('fromJson', () {

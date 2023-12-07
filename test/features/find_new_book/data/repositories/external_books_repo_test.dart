@@ -11,6 +11,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../test_utils.dart';
+import '../../../../test_utils/fakes.dart';
 import 'external_books_repo_test.mocks.dart';
 
 @GenerateMocks([ExternalBooksDataSource, ExternalBookInfoDataSource])

@@ -3,6 +3,7 @@ import 'package:homer/features/backup_and_restore/data/mappers/to_backup_book_dt
 import 'package:test/test.dart';
 
 import '../../../../test_utils.dart';
+import '../../../../test_utils/fakes.dart';
 
 void main() {
   group('toBackupBookDTOs', () {

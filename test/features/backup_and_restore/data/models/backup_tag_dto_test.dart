@@ -2,6 +2,7 @@ import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dar
 import 'package:test/test.dart';
 
 import '../../../../test_utils.dart';
+import '../../../../test_utils/fakes.dart';
 
 void main() {
   group('fromJson', () {

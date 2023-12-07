@@ -3,7 +3,7 @@ import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/utils/books_sort.dart';
 import 'package:test/test.dart';
 
-import '../../test_utils.dart';
+import '../../test_utils/fakes.dart';
 
 void main() {
   group('sortByStateAndDate', () {

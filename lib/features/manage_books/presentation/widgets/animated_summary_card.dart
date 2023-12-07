@@ -24,8 +24,7 @@ final class _AnimatedSummaryCard extends StatelessWidget {
           blur: 0.0,
           overlay: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: NotificationListener<ScrollNotification>(
-              onNotification: (_) => true,
+            child: _ScrollPropagationStopper(
               child: SingleChildScrollView(
                 child: Text(
                   book.summary.fold(
@@ -54,12 +53,13 @@ final class _AnimatedSummaryCard extends StatelessWidget {
 /// (listing all the  books) is scrolled, but it should not happen when
 /// [_AnimatedSummaryCard] is scrolled. This widget "swallows"
 /// [ScrollNotification]s to prevent that behaviour.
-final class _ScrollPropagationStopper
-    extends NotificationListener<ScrollNotification> {
-  const _ScrollPropagationStopper({required super.child});
+final class _ScrollPropagationStopper extends StatelessWidget {
+  const _ScrollPropagationStopper({required this.child});
+
+  final Widget child;
 
   @override
-  Widget build(BuildContext context, Widget child) {
+  Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         // Stop propagating notification further.

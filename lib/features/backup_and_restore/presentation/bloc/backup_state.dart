@@ -1,33 +1,36 @@
 part of 'backup_bloc.dart';
 
-abstract class BackupState extends Equatable {
-  const BackupState({
-    this.isRestoreInProgress = false,
-    this.isBackupInProgress = false,
-  });
+final class BackupState extends Equatable {
+  const BackupState.initial() : _state = State.initial;
 
-  final bool isRestoreInProgress;
+  const BackupState.restoreInProgress() : _state = State.restoreInProgress;
 
-  final bool isBackupInProgress;
+  const BackupState.restoreFinished() : _state = State.restoreFinished;
+
+  const BackupState.restoreFailed() : _state = State.restoreFailed;
+
+  const BackupState.backupInProgress() : _state = State.backupInProgress;
+
+  const BackupState.backupFinished() : _state = State.backupFinished;
+
+  const BackupState.backupFailed() : _state = State.backupFailed;
+
+  final State _state;
+
+  bool get isBackupInProgress => _state == State.backupInProgress;
+
+  bool get isRestoreInProgress => _state == State.restoreInProgress;
 
   @override
-  List<Object> get props => [isRestoreInProgress, isBackupInProgress];
+  List<Object> get props => [_state];
 }
 
-final class BackupAndRestoreInitial extends BackupState {}
-
-final class FailedToRestoreBooks extends BackupState {}
-
-final class RestoreFinished extends BackupState {}
-
-final class RestoreInProgress extends BackupState {
-  const RestoreInProgress() : super(isRestoreInProgress: true);
+enum State {
+  initial,
+  restoreInProgress,
+  restoreFinished,
+  restoreFailed,
+  backupInProgress,
+  backupFinished,
+  backupFailed,
 }
-
-final class BackupInProgress extends BackupState {
-  const BackupInProgress() : super(isBackupInProgress: true);
-}
-
-final class FailedToMakeBackup extends BackupState {}
-
-final class BackupFinished extends BackupState {}

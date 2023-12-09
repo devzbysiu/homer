@@ -11,7 +11,9 @@ import 'features/backup_and_restore/domain/usecases/replace_all_books.dart';
 import 'features/backup_and_restore/presentation/bloc/backup_bloc.dart';
 import 'features/find_new_book/data/datasources/external_book_info_data_source.dart';
 import 'features/find_new_book/data/datasources/external_books_data_source.dart';
+import 'features/find_new_book/data/repositories/external_book_info_repo.dart';
 import 'features/find_new_book/data/repositories/external_books_repo.dart';
+import 'features/find_new_book/domain/repositories/external_book_info_repository.dart';
 import 'features/find_new_book/domain/repositories/external_books_repository.dart';
 import 'features/find_new_book/domain/usecases/fetch_shared_book.dart';
 import 'features/find_new_book/domain/usecases/search_for_books.dart';
@@ -89,7 +91,9 @@ Future<void> initDi() async {
   sl.registerLazySingleton(() => ListTags(sl()));
   // search
   sl.registerLazySingleton(() => SearchForBooks(sl()));
-  sl.registerLazySingleton(() => FetchSharedBook(sl()));
+  sl.registerLazySingleton<FetchSharedBook>(
+    () => FetchSharedBookImpl(sl(), sl()),
+  );
   // backup and restore
   sl.registerFactory<LoadBackup>(() => LoadBackupImpl(sl()));
   sl.registerFactory<ReplaceAllBooks>(() => ReplaceAllBooksImpl(sl()));
@@ -104,10 +108,10 @@ Future<void> initDi() async {
   });
   sl.registerLazySingleton<TagsRepository>(() => InMemoryTagsRepo());
   sl.registerLazySingleton<ExternalBooksRepository>(() {
-    return ExternalBooksRepo(
-      booksDataSource: sl(),
-      bookInfoDataSource: sl(),
-    );
+    return ExternalBooksRepo(booksDataSource: sl());
+  });
+  sl.registerLazySingleton<ExternalBookInfoRepository>(() {
+    return ExternalBookInfoRepo(bookInfoDataSource: sl());
   });
   sl.registerLazySingleton<BackupRepository>(() {
     return BackupRepo(dataSource: sl());
@@ -121,7 +125,8 @@ Future<void> initDi() async {
   sl.registerLazySingleton<BooksDataSource>(() => isarDataSource);
   sl.registerLazySingleton<ExternalBooksDataSource>(() => ExternalBooks());
   sl.registerLazySingleton<ExternalBookInfoDataSource>(
-      () => ScraperDataSource());
+    () => ScraperDataSource(),
+  );
   sl.registerLazySingleton<BackupDataSource>(() => JsonFileBackupDataSource());
 
   final sharedPreferences = await SharedPreferences.getInstance();

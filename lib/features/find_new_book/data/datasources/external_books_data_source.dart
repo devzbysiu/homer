@@ -1,7 +1,7 @@
 import 'package:books_finder/books_finder.dart';
 
 import '../../../../core/error/exceptions.dart';
-import '../mappers/to_remote_book_dto.dart';
+import '../mappers/to_external_book_dto.dart';
 import '../models/external_book_dto.dart';
 
 abstract class ExternalBooksDataSource {

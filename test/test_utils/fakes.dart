@@ -7,6 +7,7 @@ import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.da
 import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
+import 'package:homer/features/find_new_book/domain/entities/external_book_info.dart';
 
 Book fakeBook() {
   return Book(
@@ -211,3 +212,10 @@ ExternalBookDTO fakeExternalBookDTO() {
 }
 
 String fakeSearchQuery() => faker.lorem.word();
+
+ExternalBookInfo fakeExternalBookInfo() {
+  return ExternalBookInfo(
+    title: fakeTitle(),
+    isbn: fakeIsbn(),
+  );
+}

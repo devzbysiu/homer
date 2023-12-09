@@ -5,6 +5,8 @@ import 'package:homer/core/entities/tag.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_dto.dart';
+import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
+import 'package:homer/features/find_new_book/domain/entities/external_book_info.dart';
 
 BackupBookDTO backupDTOFromBook(Book book) {
   return BackupBookDTO(
@@ -90,5 +92,12 @@ ExternalBookDTO fromBookFinderBook(bf.Book book) {
     imageLinks: book.info.imageLinks,
     averageRating: book.info.averageRating,
     description: book.info.description,
+  );
+}
+
+ExternalBookInfo externalBookInfoFromDTO(ExternalBookInfoDTO bookInfoDTO) {
+  return ExternalBookInfo(
+    isbn: bookInfoDTO.isbn.toNullable()!,
+    title: bookInfoDTO.title,
   );
 }

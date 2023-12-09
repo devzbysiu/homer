@@ -9,11 +9,11 @@ import '../repositories/external_books_repository.dart';
 typedef FetchSharedBook = UseCase<Book, SharedBookParams>;
 
 final class FetchSharedBookImpl implements FetchSharedBook {
-  FetchSharedBookImpl(this.booksRepo, this.bookInfoRepo);
-
-  final ExternalBooksRepository booksRepo;
+  FetchSharedBookImpl(this.bookInfoRepo, this.booksRepo);
 
   final ExternalBookInfoRepository bookInfoRepo;
+
+  final ExternalBooksRepository booksRepo;
 
   @override
   Future<Result<Book, Failure>> call(SharedBookParams params) async {

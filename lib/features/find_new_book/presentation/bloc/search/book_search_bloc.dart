@@ -40,7 +40,7 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
 
   final ShareHandlerPlatform shareHandler;
 
-  final SearchForBooks searchForBooks;
+  final SearchForBooksImpl searchForBooks;
 
   final FetchSharedBook fetchSharedBook;
 

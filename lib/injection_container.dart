@@ -90,7 +90,7 @@ Future<void> initDi() async {
   // tags
   sl.registerLazySingleton(() => ListTags(sl()));
   // search
-  sl.registerLazySingleton(() => SearchForBooks(sl()));
+  sl.registerLazySingleton<SearchForBooks>(() => SearchForBooksImpl(sl()));
   sl.registerLazySingleton<FetchSharedBook>(
     () => FetchSharedBookImpl(sl(), sl()),
   );

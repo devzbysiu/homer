@@ -5,8 +5,10 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../repositories/external_books_repository.dart';
 
-final class SearchForBooks extends UseCase<List<Book>, SearchParams> {
-  SearchForBooks(this.booksRepo);
+typedef SearchForBooks = UseCase<List<Book>, SearchParams>;
+
+final class SearchForBooksImpl implements SearchForBooks {
+  SearchForBooksImpl(this.booksRepo);
 
   final ExternalBooksRepository booksRepo;
 

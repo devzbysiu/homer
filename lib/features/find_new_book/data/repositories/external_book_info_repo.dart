@@ -18,14 +18,14 @@ final class ExternalBookInfoRepo implements ExternalBookInfoRepository {
   @override
   Future<Result<ExternalBookInfo, Failure>> fromUrl(String url) async {
     if (url.trim().isEmpty) {
-      log.e('Url cannot be empty');
+      log.e('URL cannot be empty');
       return Future.value(
         Error(InvalidUrlSharedFailure(url)),
       );
     }
 
     try {
-      log.i('fetching info from: $url');
+      log.i('Fetching info from: $url');
       final bookInfoDTO = await bookInfoDataSource.getFromWebsite(url);
       if (bookInfoDTO.isbn.isNone()) {
         return Future.value(Error(NoIsbnFailure(url)));

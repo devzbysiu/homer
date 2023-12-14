@@ -20,7 +20,7 @@ final class ScraperDataSource implements ExternalBookInfoDataSource {
   @override
   Future<ExternalBookInfoDTO> getFromWebsite(String websiteUrl) async {
     final apiUrl = config.bookInfoEndpoint(websiteUrl);
-    log.i('fetching book info from: $apiUrl');
+    log.i('Fetching book info from: $apiUrl');
     final resp = await http.get(_tryParse(apiUrl)).timeout(30.seconds);
     final json = _tryJsonDecode(utf8.decode(resp.bodyBytes));
     final bookInfoDTO = _tryFromJson(json);

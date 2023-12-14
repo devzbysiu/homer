@@ -35,17 +35,17 @@ class MockExternalBookInfoDataSource extends _i1.Mock
   }
 
   @override
-  _i3.Future<_i4.ExternalBookInfoDTO> getFromUrl(String? url) =>
+  _i3.Future<_i4.ExternalBookInfoDTO> getFromWebsite(String? url) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getFromUrl,
+          #getFromWebsite,
           [url],
         ),
         returnValue: _i3.Future<_i4.ExternalBookInfoDTO>.value(
             _i5.dummyValue<_i4.ExternalBookInfoDTO>(
           this,
           Invocation.method(
-            #getFromUrl,
+            #getFromWebsite,
             [url],
           ),
         )),

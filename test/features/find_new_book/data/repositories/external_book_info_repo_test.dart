@@ -39,7 +39,7 @@ void main() {
       // given
       const brokenUrl = 'ht//\\#';
       final bookInfoDataSource = makeMockBookInfoDatasource();
-      when(bookInfoDataSource.getFromUrl(brokenUrl)).thenThrow(
+      when(bookInfoDataSource.getFromWebsite(brokenUrl)).thenThrow(
         const InvalidUrlException(brokenUrl),
       );
 
@@ -57,7 +57,7 @@ void main() {
       // given
       final url = fakeUrl();
       final bookInfoDataSource = makeMockBookInfoDatasource();
-      when(bookInfoDataSource.getFromUrl(url)).thenThrow(
+      when(bookInfoDataSource.getFromWebsite(url)).thenThrow(
         const NotJsonException('not important'),
       );
 
@@ -75,7 +75,7 @@ void main() {
       // given
       final url = fakeUrl();
       final bookInfoDataSource = makeMockBookInfoDatasource();
-      when(bookInfoDataSource.getFromUrl(url)).thenThrow(
+      when(bookInfoDataSource.getFromWebsite(url)).thenThrow(
         const WrongJsonException('not important'),
       );
 
@@ -93,7 +93,7 @@ void main() {
       // given
       final url = fakeUrl();
       final bookInfoDataSource = makeMockBookInfoDatasource();
-      when(bookInfoDataSource.getFromUrl(url)).thenThrow(
+      when(bookInfoDataSource.getFromWebsite(url)).thenThrow(
         TimeoutException('not important'),
       );
 
@@ -111,7 +111,7 @@ void main() {
       // given
       final url = fakeUrl();
       final bookInfoDataSource = makeMockBookInfoDatasource();
-      when(bookInfoDataSource.getFromUrl(url)).thenAnswer(
+      when(bookInfoDataSource.getFromWebsite(url)).thenAnswer(
         (_) => withIt(fakeExternalBookInfoDTO().copyWith(
           isbn10: none(),
           isbn13: none(),
@@ -133,7 +133,7 @@ void main() {
       final url = fakeUrl();
       final bookInfoDTO = fakeExternalBookInfoDTO();
       final bookInfoDataSource = makeMockBookInfoDatasource();
-      when(bookInfoDataSource.getFromUrl(url)).thenAnswer(
+      when(bookInfoDataSource.getFromWebsite(url)).thenAnswer(
         (_) => withIt(bookInfoDTO),
       );
 

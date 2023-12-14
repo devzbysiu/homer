@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'app_config.dart';
 import 'features/backup_and_restore/data/datasources/backup_data_source.dart';
 import 'features/backup_and_restore/data/repositories/backup_repo.dart';
 import 'features/backup_and_restore/domain/repositories/backup_repository.dart';
@@ -44,7 +45,11 @@ import 'features/tags_manager/presentation/bloc/tags_bloc.dart';
 
 final sl = GetIt.instance;
 
-Future<void> initDi() async {
+Future<void> initDi({required Env env}) async {
+  // Config
+  final config = await AppConfig.forEnvironment(env);
+  sl.registerFactory(() => config);
+
   // Features
   sl.registerFactory(() => AppTabBloc());
   sl.registerFactory(() => BookSummaryBloc());
@@ -125,7 +130,7 @@ Future<void> initDi() async {
   sl.registerLazySingleton<BooksDataSource>(() => isarDataSource);
   sl.registerLazySingleton<ExternalBooksDataSource>(() => ExternalBooks());
   sl.registerLazySingleton<ExternalBookInfoDataSource>(
-    () => ScraperDataSource(),
+    () => ScraperDataSource(config: sl()),
   );
   sl.registerLazySingleton<BackupDataSource>(() => JsonFileBackupDataSource());
 

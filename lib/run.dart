@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'app.dart';
+import 'app_config.dart';
 import 'features/backup_and_restore/presentation/bloc/backup_bloc.dart';
 import 'features/find_new_book/presentation/bloc/search/book_search_bloc.dart';
 import 'features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_bloc.dart';
@@ -17,12 +18,12 @@ import 'features/settings/presentation/bloc/settings_bloc.dart';
 import 'features/tags_manager/presentation/bloc/tags_bloc.dart';
 import 'injection_container.dart';
 
-void main() async {
+void run({required Env env}) async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
-  await initDi();
+  await initDi(env: env);
   await _prepareForBackup();
 
   runApp(MultiBlocProvider(

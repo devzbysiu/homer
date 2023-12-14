@@ -2,18 +2,28 @@ import 'dart:convert';
 
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 
+import '../../../../app_config.dart';
 import '../../../../core/error/exceptions.dart';
+import '../../../../logger.dart';
 import '../models/external_book_info_dto.dart';
 
 abstract class ExternalBookInfoDataSource {
-  Future<ExternalBookInfoDTO> getFromUrl(String url);
+  Future<ExternalBookInfoDTO> getFromWebsite(String url);
 }
 
 final class ScraperDataSource implements ExternalBookInfoDataSource {
+  ScraperDataSource({required this.config});
+
+  final AppConfig config;
+
+  final Logger _log = getLogger('ScraperDataSource');
+
   @override
-  Future<ExternalBookInfoDTO> getFromUrl(String url) async {
-    final apiUrl = 'https://dante-backend.shuttleapp.rs?url=$url';
+  Future<ExternalBookInfoDTO> getFromWebsite(String websiteUrl) async {
+    final apiUrl = config.bookInfoEndpoint(websiteUrl);
+    _log.i('fetching book info from: $apiUrl');
     final resp = await http.get(_tryParse(apiUrl)).timeout(30.seconds);
     final json = _tryJsonDecode(utf8.decode(resp.bodyBytes));
     final bookInfoDTO = _tryFromJson(json);

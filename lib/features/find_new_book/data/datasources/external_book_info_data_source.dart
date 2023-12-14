@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 
 import '../../../../app_config.dart';
 import '../../../../core/error/exceptions.dart';
@@ -18,12 +17,10 @@ final class ScraperDataSource implements ExternalBookInfoDataSource {
 
   final AppConfig config;
 
-  final Logger _log = getLogger('ScraperDataSource');
-
   @override
   Future<ExternalBookInfoDTO> getFromWebsite(String websiteUrl) async {
     final apiUrl = config.bookInfoEndpoint(websiteUrl);
-    _log.i('fetching book info from: $apiUrl');
+    log.i('fetching book info from: $apiUrl');
     final resp = await http.get(_tryParse(apiUrl)).timeout(30.seconds);
     final json = _tryJsonDecode(utf8.decode(resp.bodyBytes));
     final bookInfoDTO = _tryFromJson(json);

@@ -1,14 +1,15 @@
 import 'package:logger/logger.dart';
 
-Logger getLogger(String className) {
+final Logger log = _getLogger();
+
+Logger _getLogger() {
   return Logger(
     printer: PrettyPrinter(
-      methodCount: 2,
-      errorMethodCount: 5,
-      lineLength: 50,
-      colors: true,
-      printEmojis: true,
-      printTime: false 
-    ),
+        methodCount: 2,
+        errorMethodCount: 5,
+        lineLength: 50,
+        colors: true,
+        printEmojis: true,
+        printTime: false),
   );
 }

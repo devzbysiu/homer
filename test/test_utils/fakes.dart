@@ -8,6 +8,8 @@ import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dar
 import 'package:homer/features/find_new_book/data/models/external_book_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
 import 'package:homer/features/find_new_book/domain/entities/external_book_info.dart';
+import 'package:homer/features/manage_books/data/models/book_dto.dart';
+import 'package:homer/features/manage_books/data/models/tag_dto.dart';
 
 Book fakeBook() {
   return Book(
@@ -218,4 +220,41 @@ ExternalBookInfo fakeExternalBookInfo() {
     title: fakeTitle(),
     isbn: fakeIsbn(),
   );
+}
+
+BookDTO fakeBookDTO() {
+  return BookDTO(
+    title: fakeTitle(),
+    subtitle: fakeSubtitle(),
+    authors: [fakeAuthor()],
+    state: fakeBookStateDTO(),
+    pageCount: fakePageCount(),
+    isbn: fakeIsbn(),
+    thumbnailAddress: fakeThumbnailAddress(),
+    rating: fakeRating(),
+    summary: fakeSummary(),
+    tags: [
+      TagDTO()
+        ..name = fakeTagName()
+        ..hexColor = fakeTagColor(),
+      TagDTO()
+        ..name = fakeTagName()
+        ..hexColor = fakeTagColor(),
+    ],
+    startDate: fakeDateMillis(),
+    endDate: fakeDateMillis(),
+  );
+}
+
+BookStateDTO fakeBookStateDTO() {
+  switch (faker.randomGenerator.integer(4, min: 1)) {
+    case 1:
+      return BookStateDTO.readLater;
+    case 2:
+      return BookStateDTO.reading;
+    case 3:
+      return BookStateDTO.read;
+    default:
+      throw Exception('Should not happen');
+  }
 }

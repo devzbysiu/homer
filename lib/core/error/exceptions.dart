@@ -1,3 +1,5 @@
+import '../entities/book.dart';
+
 final class NoBookFoundException implements Exception {
   const NoBookFoundException(this.isbn);
 
@@ -55,4 +57,29 @@ final class BooksQueryException implements Exception {
 
   @override
   String toString() => 'Exception while searching for books: $msg';
+}
+
+final class ListBooksException implements Exception {
+  @override
+  String toString() => 'Exception while listing books';
+}
+
+final class AddBookException implements Exception {
+  @override
+  String toString() => 'Exception while adding book';
+}
+
+final class ReplaceBooksException implements Exception {
+  @override
+  String toString() => 'Exception while replacing books';
+}
+
+final class UpdateBookException implements Exception {
+  @override
+  String toString() => 'Exception while updating book';
+}
+
+final class DeleteBooksException implements Exception {
+  @override
+  String toString() => 'Exception while deleting books';
 }

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import '../entities/book.dart';
+
 abstract class Failure {
   String userMessage();
 }
@@ -94,4 +96,61 @@ final class SearchingForBooksFailure extends Equatable implements Failure {
 
   @override
   List<Object> get props => [];
+}
+
+final class ListingBooksFailure extends Equatable implements Failure {
+  @override
+  String userMessage() => 'Something went wrong when listing books';
+
+  @override
+  List<Object> get props => [];
+}
+
+final class AddingBookFailure extends Equatable implements Failure {
+  const AddingBookFailure(this.book);
+
+  final Book book;
+
+  @override
+  String userMessage() => 'Something went wrong when adding book: $book';
+
+  @override
+  List<Object> get props => [book];
+}
+
+final class ReplacingBooksFailure extends Equatable implements Failure {
+  const ReplacingBooksFailure(this.books);
+
+  final List<Book> books;
+
+  @override
+  String userMessage() =>
+      'Something went wrong when replacing books with: $books';
+
+  @override
+  List<Object> get props => [books];
+}
+
+final class UpdatingBookFailure extends Equatable implements Failure {
+  const UpdatingBookFailure(this.book);
+
+  final Book book;
+
+  @override
+  String userMessage() => 'Something went wrong when updating book: $book';
+
+  @override
+  List<Object> get props => [book];
+}
+
+final class DeletingBooksFailure extends Equatable implements Failure {
+  const DeletingBooksFailure(this.books);
+
+  final List<Book> books;
+
+  @override
+  String userMessage() => 'Something went wrong when deleting books: $books';
+
+  @override
+  List<Object> get props => [books];
 }

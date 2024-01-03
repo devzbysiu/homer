@@ -1,5 +1,3 @@
-import '../entities/book.dart';
-
 final class NoBookFoundException implements Exception {
   const NoBookFoundException(this.isbn);
 

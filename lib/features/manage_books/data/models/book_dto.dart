@@ -6,6 +6,7 @@ import 'tag_dto.dart';
 part 'book_dto.g.dart';
 
 @Collection(inheritance: false)
+// ignore: must_be_immutable
 final class BookDTO extends Equatable {
   BookDTO({
     this.id = Isar.autoIncrement,

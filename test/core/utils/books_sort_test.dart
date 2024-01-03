@@ -84,15 +84,9 @@ void main() {
         '"readLater" books should be at the beginning, then "reading" sorted by '
         'start date, then "read" sorted by end date', () {
       // given
-      final readLaterBook1 = fakeBook().copyWith(
-        state: BookState.readLater,
-      );
-      final readLaterBook2 = fakeBook().copyWith(
-        state: BookState.readLater,
-      );
-      final readLaterBook3 = fakeBook().copyWith(
-        state: BookState.readLater,
-      );
+      final readLaterBook1 = fakeBook().copyWith(state: BookState.readLater);
+      final readLaterBook2 = fakeBook().copyWith(state: BookState.readLater);
+      final readLaterBook3 = fakeBook().copyWith(state: BookState.readLater);
 
       final readingBook1 = fakeBook().copyWith(
         state: BookState.reading,

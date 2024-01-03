@@ -2,20 +2,15 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
-import 'package:homer/features/backup_and_restore/domain/usecases/load_backup.dart';
-import 'package:homer/features/backup_and_restore/domain/usecases/make_backup.dart';
-import 'package:homer/features/backup_and_restore/domain/usecases/replace_all_books.dart';
 import 'package:homer/features/backup_and_restore/presentation/bloc/backup_bloc.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import 'backup_bloc_test.mocks.dart';
+import '../../../../test_utils/mocks.mocks.dart';
 
-@GenerateMocks([LoadBackup, MakeBackup, ReplaceAllBooks])
 void main() {
   group('_onRestoreTriggered', () {
     final backupPath = fakePath();

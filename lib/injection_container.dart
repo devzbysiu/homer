@@ -87,11 +87,11 @@ Future<void> initDi({required Env env}) async {
 
   // Use cases
   // books
-  sl.registerLazySingleton(() => ListBooks(sl()));
-  sl.registerLazySingleton(() => AddBook(sl()));
-  sl.registerLazySingleton(() => UpdateBook(sl()));
-  sl.registerLazySingleton(() => DeleteBooks(sl()));
-  sl.registerLazySingleton(() => FilterBooks(sl()));
+  sl.registerLazySingleton<ListSortedBooks>(() => ListSortedBooksImpl(sl()));
+  sl.registerLazySingleton<AddBook>(() => AddBookImpl(sl()));
+  sl.registerLazySingleton(() => UpdateBookImpl(sl()));
+  sl.registerLazySingleton<DeleteBooks>(() => DeleteBooksImpl(sl()));
+  sl.registerLazySingleton<FilterBooks>(() => FilterBooksImpl(sl()));
   // tags
   sl.registerLazySingleton(() => ListTags(sl()));
   // search

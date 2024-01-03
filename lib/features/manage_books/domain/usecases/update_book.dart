@@ -5,8 +5,10 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../repositories/books_repository.dart';
 
-final class UpdateBook extends UseCase<Unit, UpdateParams> {
-  UpdateBook(this.booksRepo);
+typedef UpdateBook = UseCase<Unit, UpdateParams>;
+
+final class UpdateBookImpl implements UpdateBook {
+  UpdateBookImpl(this.booksRepo);
 
   final BooksRepository booksRepo;
 

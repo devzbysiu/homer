@@ -2,18 +2,15 @@ import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/error/exceptions.dart';
 import 'package:homer/core/error/failures.dart';
-import 'package:homer/features/find_new_book/data/datasources/external_books_data_source.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_dto.dart';
 import 'package:homer/features/find_new_book/data/repositories/external_books_repo.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../test_utils/assertion_helpers.dart';
 import '../../../../test_utils/fakes.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import 'external_books_repo_test.mocks.dart';
+import '../../../../test_utils/mocks.mocks.dart';
 
-@GenerateMocks([ExternalBooksDataSource])
 void main() {
   group('search', () {
     test('should return empty list when query is empty', () async {

@@ -2,19 +2,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/find_new_book/domain/entities/external_book_info.dart';
-import 'package:homer/features/find_new_book/domain/repositories/external_book_info_repository.dart';
-import 'package:homer/features/find_new_book/domain/repositories/external_books_repository.dart';
 import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import 'fetch_shared_book_test.mocks.dart';
+import '../../../../test_utils/mocks.mocks.dart';
 
-@GenerateMocks([ExternalBookInfoRepository, ExternalBooksRepository])
 void main() {
   group('fetchSharedBook', () {
     test('should return failure when book info repo failed', () async {

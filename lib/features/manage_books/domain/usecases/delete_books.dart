@@ -5,15 +5,16 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../repositories/books_repository.dart';
 
-final class DeleteBooks implements UseCase<Unit, DeleteParams> {
-  DeleteBooks(this.booksRepo);
+typedef DeleteBooks = UseCase<Unit, DeleteParams>;
+
+final class DeleteBooksImpl implements DeleteBooks {
+  DeleteBooksImpl(this.booksRepo);
 
   final BooksRepository booksRepo;
 
   @override
   Future<Result<Unit, Failure>> call(DeleteParams params) async {
-    await booksRepo.delete(params.books);
-    return Future.value(const Success(unit));
+    return await booksRepo.delete(params.books);
   }
 }
 

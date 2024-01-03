@@ -1,9 +1,6 @@
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
-import 'package:homer/features/backup_and_restore/domain/repositories/backup_repository.dart';
 import 'package:homer/features/backup_and_restore/domain/usecases/make_backup.dart';
-import 'package:homer/features/manage_books/domain/repositories/books_repository.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
@@ -11,9 +8,8 @@ import 'package:test/test.dart';
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import 'make_backup_test.mocks.dart';
+import '../../../../test_utils/mocks.mocks.dart';
 
-@GenerateMocks([BackupRepository, BooksRepository])
 void main() {
   group('makeBackup', () {
     test('should use books repo to load all books', () async {

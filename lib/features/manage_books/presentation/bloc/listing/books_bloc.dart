@@ -33,9 +33,9 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
 
   final AddBook addBook;
 
-  final ListBooks listBooks;
+  final ListSortedBooks listBooks;
 
-  final UpdateBook updateBook;
+  final UpdateBookImpl updateBook;
 
   final FilterBooks filterBooks;
 

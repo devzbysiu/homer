@@ -2,18 +2,15 @@ import 'dart:io';
 
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
-import 'package:homer/features/backup_and_restore/data/datasources/backup_data_source.dart';
 import 'package:homer/features/backup_and_restore/data/repositories/backup_repo.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/fakes.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import 'backup_repo_test.mocks.dart';
+import '../../../../test_utils/mocks.mocks.dart';
 
-@GenerateMocks([BackupDataSource])
 void main() {
   group('loadAll', () {
     test('should return missing file failure when backup file does not exist',

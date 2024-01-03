@@ -7,8 +7,10 @@ import '../../../../core/usecase/usecase.dart';
 import '../../data/mappers/to_books.dart';
 import '../repositories/books_repository.dart';
 
-final class AddBook extends UseCase<Unit, AddParams> {
-  AddBook(this.booksRepo);
+typedef AddBook = UseCase<Unit, AddParams>;
+
+final class AddBookImpl implements AddBook {
+  AddBookImpl(this.booksRepo);
 
   final BooksRepository booksRepo;
 

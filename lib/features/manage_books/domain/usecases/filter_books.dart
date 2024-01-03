@@ -6,8 +6,10 @@ import '../../../../core/usecase/usecase.dart';
 import '../../../../core/utils/books_sort.dart';
 import '../repositories/books_repository.dart';
 
-final class FilterBooks extends UseCase<List<Book>, FilterParams> {
-  FilterBooks(this.booksRepo);
+typedef FilterBooks = UseCase<List<Book>, FilterParams>;
+
+final class FilterBooksImpl implements FilterBooks {
+  FilterBooksImpl(this.booksRepo);
 
   final BooksRepository booksRepo;
 

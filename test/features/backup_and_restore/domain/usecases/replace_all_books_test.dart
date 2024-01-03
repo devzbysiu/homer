@@ -1,16 +1,13 @@
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/backup_and_restore/domain/usecases/replace_all_books.dart';
-import 'package:homer/features/manage_books/domain/repositories/books_repository.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
-import 'replace_all_books_test.mocks.dart';
+import '../../../../test_utils/mocks.mocks.dart';
 
-@GenerateMocks([BooksRepository])
 void main() {
   group('replaceAllBooks', () {
     test('should use books repo to replace all books', () async {

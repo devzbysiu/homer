@@ -33,6 +33,10 @@ import 'package:homer/features/find_new_book/domain/repositories/external_book_i
     as _i18;
 import 'package:homer/features/find_new_book/domain/repositories/external_books_repository.dart'
     as _i16;
+import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book.dart'
+    as _i25;
+import 'package:homer/features/find_new_book/domain/usecases/search_for_books.dart'
+    as _i24;
 import 'package:homer/features/manage_books/data/datasources/books_data_source.dart'
     as _i11;
 import 'package:homer/features/manage_books/data/models/book_dto.dart' as _i12;
@@ -41,6 +45,8 @@ import 'package:homer/features/manage_books/domain/repositories/books_repository
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:multiple_result/multiple_result.dart' as _i4;
+import 'package:share_handler_platform_interface/share_handler_platform_interface.dart'
+    as _i23;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -545,4 +551,115 @@ class MockExternalBooksDataSource extends _i1.Mock
           ),
         )),
       ) as _i3.Future<_i22.ExternalBookDTO>);
+}
+
+/// A class which mocks [ShareHandlerPlatform].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockShareHandlerPlatform extends _i1.Mock
+    implements _i23.ShareHandlerPlatform {
+  MockShareHandlerPlatform() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Stream<_i23.SharedMedia> get sharedMediaStream => (super.noSuchMethod(
+        Invocation.getter(#sharedMediaStream),
+        returnValue: _i3.Stream<_i23.SharedMedia>.empty(),
+      ) as _i3.Stream<_i23.SharedMedia>);
+
+  @override
+  _i3.Future<_i23.SharedMedia?> getInitialSharedMedia() => (super.noSuchMethod(
+        Invocation.method(
+          #getInitialSharedMedia,
+          [],
+        ),
+        returnValue: _i3.Future<_i23.SharedMedia?>.value(),
+      ) as _i3.Future<_i23.SharedMedia?>);
+
+  @override
+  _i3.Future<void> recordSentMessage({
+    required String? conversationIdentifier,
+    required String? conversationName,
+    String? conversationImageFilePath,
+    String? serviceName,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #recordSentMessage,
+          [],
+          {
+            #conversationIdentifier: conversationIdentifier,
+            #conversationName: conversationName,
+            #conversationImageFilePath: conversationImageFilePath,
+            #serviceName: serviceName,
+          },
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<void> resetInitialSharedMedia() => (super.noSuchMethod(
+        Invocation.method(
+          #resetInitialSharedMedia,
+          [],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+}
+
+/// A class which mocks [SearchForBooks].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSearchForBooks extends _i1.Mock implements _i24.SearchForBooks {
+  MockSearchForBooks() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>> call(
+          _i24.SearchParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<List<_i5.Book>, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>>);
+}
+
+/// A class which mocks [FetchSharedBook].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFetchSharedBook extends _i1.Mock implements _i25.FetchSharedBook {
+  MockFetchSharedBook() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<_i5.Book, _i6.Failure>> call(
+          _i25.SharedBookParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i3.Future<_i4.Result<_i5.Book, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<_i5.Book, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<_i5.Book, _i6.Failure>>);
 }

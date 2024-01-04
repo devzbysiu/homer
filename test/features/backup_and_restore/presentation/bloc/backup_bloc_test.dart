@@ -16,7 +16,7 @@ void main() {
     final backupPath = fakePath();
 
     blocTest<BackupBloc, BackupState>(
-      'should emit RestoreInProgress and RestoredFinished on success',
+      'should emit restoreInProgress and restoredFinished on success',
       build: () => BackupBlocMock().allWorking(),
       act: (bloc) => bloc.add(RestoreTriggered(backupPath)),
       expect: () => [
@@ -26,7 +26,7 @@ void main() {
     );
 
     blocTest<BackupBloc, BackupState>(
-      'should emit RestoreInProgress and FailedToRestoreBooks on LoadBackup failure',
+      'should emit restoreInProgress and failedToRestoreBooks on LoadBackup failure',
       build: () => BackupBlocMock().onLoadBackup(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(RestoreTriggered(backupPath)),
       expect: () => [
@@ -36,7 +36,7 @@ void main() {
     );
 
     blocTest<BackupBloc, BackupState>(
-      'should emit RestoreInProgress and FailedToRestoreBooks on ReplaceAllBooks failure',
+      'should emit restoreInProgress and failedToRestoreBooks on ReplaceAllBooks failure',
       build: () =>
           BackupBlocMock().onReplaceAllBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(RestoreTriggered(backupPath)),
@@ -51,7 +51,7 @@ void main() {
     final backupPath = fakePath();
 
     blocTest<BackupBloc, BackupState>(
-      'should emit BackupInProgress and BackupFinished on success',
+      'should emit backupInProgress and backupFinished on success',
       build: () => BackupBlocMock().allWorking(),
       act: (bloc) => bloc.add(BackupTriggered(backupPath)),
       expect: () => [
@@ -61,7 +61,7 @@ void main() {
     );
 
     blocTest<BackupBloc, BackupState>(
-      'should emit BackupInProgress and FailedToMakeBackup on failure',
+      'should emit backupInProgress and failedToMakeBackup on failure',
       build: () => BackupBlocMock().onMakeBackup(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(BackupTriggered(backupPath)),
       expect: () => [

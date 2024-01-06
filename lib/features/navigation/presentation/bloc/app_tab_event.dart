@@ -9,5 +9,5 @@ final class TabChanged extends AppTabEvent {
   final AppTab selectedTab;
 
   @override
-  List<Object?> get props => [selectedTab];
+  List<Object> get props => [selectedTab];
 }

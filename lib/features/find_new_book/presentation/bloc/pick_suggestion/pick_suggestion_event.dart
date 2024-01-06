@@ -9,10 +9,10 @@ final class SuggestedBookPicked extends PickSuggestionEvent {
   final Book pickedBook;
 
   @override
-  List<Object?> get props => [pickedBook];
+  List<Object> get props => [pickedBook];
 }
 
 final class ClearPickedBook extends PickSuggestionEvent {
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }

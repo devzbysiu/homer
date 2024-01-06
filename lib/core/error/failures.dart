@@ -30,7 +30,7 @@ final class NoIsbnFailure extends Equatable implements Failure {
   String userMessage() => 'No ISBN found on shared page: $url';
 
   @override
-  List<Object?> get props => [url];
+  List<Object> get props => [url];
 }
 
 final class NoBookWithIsbnFailure extends Equatable implements Failure {

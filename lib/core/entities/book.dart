@@ -95,7 +95,7 @@ final class Book extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
+  List<Object> get props => [
         title,
         subtitle,
         authors,

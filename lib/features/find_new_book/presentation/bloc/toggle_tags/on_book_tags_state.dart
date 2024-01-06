@@ -10,12 +10,12 @@ final class Empty extends BookTagsState {
   const Empty() : super(selectedTags: const []);
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 final class TagsSelected extends BookTagsState {
   const TagsSelected({required super.selectedTags});
 
   @override
-  List<Object?> get props => [selectedTags];
+  List<Object> get props => [selectedTags];
 }

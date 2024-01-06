@@ -9,7 +9,7 @@ final class TagSelected extends BookTagsEvent {
   final Tag tag;
 
   @override
-  List<Object?> get props => [tag];
+  List<Object> get props => [tag];
 }
 
 final class TagDeselected extends BookTagsEvent {
@@ -18,10 +18,10 @@ final class TagDeselected extends BookTagsEvent {
   final Tag tag;
 
   @override
-  List<Object?> get props => [tag];
+  List<Object> get props => [tag];
 }
 
 final class ClearSelectedTags extends BookTagsEvent {
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }

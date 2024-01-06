@@ -60,7 +60,7 @@ final class BackupBookDTO extends Equatable {
   Map<String, dynamic> toJson() => _$BackupBookDTOToJson(this);
 
   @override
-  List<Object?> get props => [
+  List<Object> get props => [
         title,
         subtitle,
         authors,

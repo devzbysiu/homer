@@ -9,5 +9,5 @@ final class SearchInitiated extends BookSearchEvent {
   final String query;
 
   @override
-  List<Object?> get props => [query];
+  List<Object> get props => [query];
 }

@@ -24,7 +24,7 @@ final class BookSearchState extends Equatable {
   final Value value;
 
   @override
-  List<Object?> get props => [foundBooks, value];
+  List<Object> get props => [foundBooks, value];
 }
 
 enum Value {

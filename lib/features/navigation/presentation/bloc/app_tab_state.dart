@@ -15,7 +15,7 @@ final class AppTabState extends Equatable {
   const AppTabState.read() : this._(currentTab: AppTab.read);
 
   @override
-  List<Object?> get props => [currentTab];
+  List<Object> get props => [currentTab];
 }
 
 enum AppTab {

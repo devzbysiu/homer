@@ -9,10 +9,10 @@ final class BookSharedFromOutside extends ShareBookEvent {
   final String url;
 
   @override
-  List<Object?> get props => [url];
+  List<Object> get props => [url];
 }
 
 final class ClearSharedBook extends ShareBookEvent {
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }

@@ -41,7 +41,7 @@ final class ShareBookState extends Equatable {
   final Option<String> _cause;
 
   @override
-  List<Object?> get props => [sharedBook, value];
+  List<Object> get props => [sharedBook, value];
 }
 
 enum ShareState {

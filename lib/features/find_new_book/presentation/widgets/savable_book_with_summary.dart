@@ -5,34 +5,42 @@ final class _SavableBookWithSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<BookSearchBloc, BookSearchState, dartz.Option<Book>>(
-      selector: (state) => state.pickedBook,
-      builder: (context, pickedBook) {
-        return pickedBook.fold(
-          () => Container(),
-          (book) => Padding(
-            padding: const EdgeInsets.only(top: 80.0),
-            child: Stack(
-              children: [
-                _BookWithSummary(pickedBook: book),
-                Positioned(
-                  width: MediaQuery.of(context).size.width,
-                  bottom: 60,
-                  child: const Padding(
-                    padding: EdgeInsets.only(right: 18.0),
-                    child: _Tags(),
-                  ),
-                ),
-                Positioned(
-                  width: MediaQuery.of(context).size.width,
-                  bottom: 10,
-                  child: _SaveButtons(pickedBook: book),
-                )
-              ],
+    return Builder(builder: (context) {
+      final sharedBook = context.select(
+        (ShareBookBloc bloc) => bloc.state.sharedBook,
+      );
+      final pickedBook = context.select(
+        (PickSuggestionBloc bloc) => bloc.state.pickedBook,
+      );
+      final bookCandidate = pickedBook.orElse(() => sharedBook);
+      return bookCandidate.fold(
+        () => Container(),
+        (book) => _showBookCandidate(book, context),
+      );
+    });
+  }
+
+  Padding _showBookCandidate(Book book, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 80.0),
+      child: Stack(
+        children: [
+          _BookWithSummary(pickedBook: book),
+          Positioned(
+            width: MediaQuery.of(context).size.width,
+            bottom: 60,
+            child: const Padding(
+              padding: EdgeInsets.only(right: 18.0),
+              child: _Tags(),
             ),
           ),
-        );
-      },
+          Positioned(
+            width: MediaQuery.of(context).size.width,
+            bottom: 10,
+            child: _SaveButtons(pickedBook: book),
+          )
+        ],
+      ),
     );
   }
 }

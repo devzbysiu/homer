@@ -107,9 +107,7 @@ final class BackupBlocMock {
     return this;
   }
 
-  BackupBloc get() {
-    return _createMock();
-  }
+  BackupBloc get() => _createMock();
 
   BackupBloc _createMock() {
     return BackupBloc(
@@ -119,7 +117,5 @@ final class BackupBlocMock {
     );
   }
 
-  BackupBloc allWorking() {
-    return _createMock();
-  }
+  BackupBloc allWorking() => _createMock();
 }

@@ -1,5 +1,4 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
@@ -18,77 +17,30 @@ void main() {
     final notEmptyQuery = fakeSearchQuery();
 
     blocTest<BookSearchBloc, BookSearchState>(
-      'should emit notSearching when query is empty',
+      'should emit searchingFinished when query is empty',
       build: () => BookSearchBlocMock().allWorking(),
       act: (bloc) => bloc.add(SearchInitiated(emptyQuery)),
-      expect: () => [const BookSearchState()],
+      expect: () => [const BookSearchState.searchFinished()],
     );
 
     blocTest<BookSearchBloc, BookSearchState>(
-      'should emit searchInProgress and searchFinished when query is not empty',
+      'should emit searching and searchFinished when query is not empty',
       build: () => BookSearchBlocMock().allWorking(),
       act: (bloc) => bloc.add(SearchInitiated(notEmptyQuery)),
       expect: () => [
-        const BookSearchState().copyWith(isSearchInProgress: true),
-        const BookSearchState().copyWith(isSearchInProgress: false),
+        const BookSearchState.searching(),
+        const BookSearchState.searchFinished(),
       ],
     );
 
     blocTest<BookSearchBloc, BookSearchState>(
-      'should emit searchInProgress and failedToSearchBooks when search failed',
+      'should emit searching and failedToSearchBooks when search failed',
       build: () =>
           BookSearchBlocMock().onSearchForBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(SearchInitiated(notEmptyQuery)),
       expect: () => [
-        const BookSearchState().copyWith(isSearchInProgress: true),
-        FailedToSearchBooks(),
-      ],
-    );
-  });
-
-  group('_onSuggestedBookPicked', () {
-    final pickedBook = fakeBook();
-
-    blocTest<BookSearchBloc, BookSearchState>(
-      'should emit bookPicked',
-      build: () => BookSearchBlocMock().allWorking(),
-      act: (bloc) => bloc.add(SuggestedBookPicked(pickedBook)),
-      expect: () => [BookPicked(pickedBook: some(pickedBook))],
-    );
-  });
-
-  group('_onClearPickedBook', () {
-    blocTest<BookSearchBloc, BookSearchState>(
-      'should emit noPickedBook',
-      build: () => BookSearchBlocMock().allWorking(),
-      act: (bloc) => bloc.add(ClearPickedBook()),
-      expect: () => [NoPickedBook()],
-    );
-  });
-
-  group('_onBookSharedFromOutside', () {
-    final url = fakeUrl();
-    final pickedBook = fakeBook();
-    final failure = TestingFailure();
-
-    blocTest<BookSearchBloc, BookSearchState>(
-      'should emit fetchingSharedBookDetails and bookShared on success',
-      build: () =>
-          BookSearchBlocMock().onFetchSharedBook(Success(pickedBook)).get(),
-      act: (bloc) => bloc.add(BookSharedFromOutside(url)),
-      expect: () => [
-        FetchingSharedBookDetails(),
-        BookShared(pickedBook: some(pickedBook)),
-      ],
-    );
-
-    blocTest<BookSearchBloc, BookSearchState>(
-      'should emit fetchingSharedBookDetails and failedToLookUpSharedBook on failure',
-      build: () => BookSearchBlocMock().onFetchSharedBook(Error(failure)).get(),
-      act: (bloc) => bloc.add(BookSharedFromOutside(url)),
-      expect: () => [
-        FetchingSharedBookDetails(),
-        FailedToLookUpSharedBook(cause: failure.userMessage()),
+        const BookSearchState.searching(),
+        const BookSearchState.searchFailed(),
       ],
     );
   });
@@ -127,19 +79,11 @@ final class BookSearchBlocMock {
     return this;
   }
 
-  BookSearchBloc get() {
-    return _createMock();
-  }
+  BookSearchBloc get() => _createMock();
 
   BookSearchBloc _createMock() {
-    return BookSearchBloc(
-      shareHandler: _shareHandler,
-      searchForBooks: _searchForBooks,
-      fetchSharedBook: _fetchSharedBook,
-    );
+    return BookSearchBloc(searchForBooks: _searchForBooks);
   }
 
-  BookSearchBloc allWorking() {
-    return _createMock();
-  }
+  BookSearchBloc allWorking() => _createMock();
 }

@@ -17,7 +17,9 @@ import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
 import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
+import '../bloc/pick_suggestion/pick_suggestion_bloc.dart';
 import '../bloc/search/book_search_bloc.dart';
+import '../bloc/share_book/share_book_bloc.dart';
 import '../bloc/toggle_tags/on_book_tags_bloc.dart';
 
 part 'picked_book_area.dart';
@@ -39,11 +41,13 @@ class _BottomDrawerContentState extends State<BottomDrawerContent> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookSearchBloc, BookSearchState>(
-      builder: (context, state) {
-        if (state is BookPicked) _controller.close();
+        builder: (context, searchState) {
+      return BlocBuilder<PickSuggestionBloc, PickSuggestionState>(
+          builder: (context, suggestionState) {
+        if (suggestionState.isSuggestionPicked) _controller.close();
         return FloatingSearchBar(
           accentColor: Theme.of(context).primaryColor,
-          progress: state.isSearchInProgress,
+          progress: searchState.isSearching,
           controller: _controller,
           body: const _PickedBookArea(),
           backgroundColor: Theme.of(context).colorScheme.background.lighten(10),
@@ -61,8 +65,8 @@ class _BottomDrawerContentState extends State<BottomDrawerContent> {
           actions: [FloatingSearchBarAction.searchToClear(showIfClosed: false)],
           builder: (_, __) => const _SearchSuggestions(),
         );
-      },
-    );
+      });
+    });
   }
 
   @override

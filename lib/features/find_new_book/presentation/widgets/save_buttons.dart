@@ -83,5 +83,6 @@ void _addBook(
   final selectedTags = context.selectedTags();
   context.addBook(pickedBook, bookState, selectedTags);
   context.clearPickedBook();
+  context.clearSharedBook();
   context.clearSelectedTags();
 }

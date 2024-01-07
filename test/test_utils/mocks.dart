@@ -11,6 +11,7 @@ import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book.d
 import 'package:homer/features/find_new_book/domain/usecases/search_for_books.dart';
 import 'package:homer/features/manage_books/data/datasources/books_data_source.dart';
 import 'package:homer/features/manage_books/domain/repositories/books_repository.dart';
+import 'package:homer/features/manage_books/domain/usecases/delete_books.dart';
 import 'package:mockito/annotations.dart';
 import 'package:share_handler/share_handler.dart';
 
@@ -29,5 +30,6 @@ import 'package:share_handler/share_handler.dart';
   ShareHandlerPlatform,
   SearchForBooks,
   FetchSharedBook,
+  DeleteBooks,
 ])
 void main() {}

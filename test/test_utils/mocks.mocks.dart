@@ -42,6 +42,8 @@ import 'package:homer/features/manage_books/data/datasources/books_data_source.d
 import 'package:homer/features/manage_books/data/models/book_dto.dart' as _i12;
 import 'package:homer/features/manage_books/domain/repositories/books_repository.dart'
     as _i2;
+import 'package:homer/features/manage_books/domain/usecases/delete_books.dart'
+    as _i26;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:multiple_result/multiple_result.dart' as _i4;
@@ -662,4 +664,31 @@ class MockFetchSharedBook extends _i1.Mock implements _i25.FetchSharedBook {
           ),
         )),
       ) as _i3.Future<_i4.Result<_i5.Book, _i6.Failure>>);
+}
+
+/// A class which mocks [DeleteBooks].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDeleteBooks extends _i1.Mock implements _i26.DeleteBooks {
+  MockDeleteBooks() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> call(
+          _i26.DeleteParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<_i4.Unit, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);
 }

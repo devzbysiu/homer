@@ -1,23 +1,38 @@
 part of 'delete_books_bloc.dart';
 
 @immutable
-abstract class DeleteBooksState extends Equatable {
-  const DeleteBooksState({this.deletionList = const []});
+final class DeleteBooksState extends Equatable {
+  const DeleteBooksState.initial()
+      : deletionList = const [],
+        value = Value.initial;
+
+  const DeleteBooksState.deletionList(this.deletionList)
+      : value = Value.deletionList;
+
+  const DeleteBooksState.booksRemoved()
+      : deletionList = const [],
+        value = Value.booksRemoved;
+
+  const DeleteBooksState.deletionListCleared()
+      : deletionList = const [],
+        value = Value.deletionListCleared;
+
+  const DeleteBooksState.deletionFailed()
+      : deletionList = const [],
+        value = Value.deletionFailed;
 
   final List<Book> deletionList;
+
+  final Value value;
 
   @override
   List<Object> get props => [deletionList];
 }
 
-final class Empty extends DeleteBooksState {}
-
-final class DeletionList extends DeleteBooksState {
-  const DeletionList({required super.deletionList});
+enum Value {
+  initial,
+  deletionList,
+  booksRemoved,
+  deletionListCleared,
+  deletionFailed,
 }
-
-final class CleanDeletionList extends DeleteBooksState {}
-
-final class FailedToLoadBooks extends DeleteBooksState {}
-
-final class BooksRemoved extends DeleteBooksState {}

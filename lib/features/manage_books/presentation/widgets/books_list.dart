@@ -78,7 +78,7 @@ final class _BooksListState extends State<BooksList> {
   BlocListener<DeleteBooksBloc, DeleteBooksState> _refreshWhenBooksRemoved() {
     return BlocListener<DeleteBooksBloc, DeleteBooksState>(
       listener: (_, state) {
-        if (state is BooksRemoved) context.refreshBooksList();
+        if (state.value == Value.booksRemoved) context.refreshBooksList();
       },
     );
   }

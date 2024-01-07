@@ -40,8 +40,8 @@ final class ShareBookBloc extends Bloc<ShareBookEvent, ShareBookState> {
     Emitter<ShareBookState> emit,
   ) async {
     emit(const ShareBookState.fetchingSharedBookDetails());
-    final sharedBook = await fetchSharedBook(SharedBookParams(url: event.url));
-    sharedBook.when(
+    final result = await fetchSharedBook(SharedBookParams(url: event.url));
+    result.when(
       (book) => emit(ShareBookState.bookShared(book)),
       (error) => emit(ShareBookState.fetchingDetailsFailed(
         error.userMessage(),

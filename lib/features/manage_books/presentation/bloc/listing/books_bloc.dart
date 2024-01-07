@@ -44,16 +44,14 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     Emitter<BooksState> emit,
   ) async {
     await _emitSavedBooks(emit);
-    return Future.value();
   }
 
   Future<void> _emitSavedBooks(Emitter<BooksState> emit) async {
-    final res = await listBooks(NoParams());
-    res.when(
+    final result = await listBooks(NoParams());
+    result.when(
       (books) => emit(BooksLoaded(books: books)),
       (error) => emit(FailedToLoadBooks()),
     );
-    return Future.value();
   }
 
   Future<void> _onBookAdded(
@@ -66,7 +64,6 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       selectedTags: event.selectedTags,
     ));
     await _emitSavedBooks(emit);
-    return Future.value();
   }
 
   Future<void> _onBookSwipedRight(
@@ -75,7 +72,6 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   ) async {
     await updateBook(UpdateParams(modified: event.book.moveRight()));
     await _emitSavedBooks(emit);
-    return Future.value();
   }
 
   Future<void> _onBookSwipedLeft(
@@ -84,7 +80,6 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   ) async {
     await updateBook(UpdateParams(modified: event.book.moveLeft()));
     await _emitSavedBooks(emit);
-    return Future.value();
   }
 
   Future<void> _onTagToggled(
@@ -103,19 +98,17 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     final modifiedBook = book.copyWith(tags: tags);
     await updateBook(UpdateParams(modified: modifiedBook));
     await _emitSavedBooks(emit);
-    return Future.value();
   }
 
   Future<void> _onBooksFiltered(
     BooksFiltered event,
     Emitter<BooksState> emit,
   ) async {
-    final res = await filterBooks(FilterParams(query: event.query));
-    res.when(
+    final result = await filterBooks(FilterParams(query: event.query));
+    result.when(
       (success) => emit(BooksLoaded(books: success)),
       (error) => emit(FailedToLoadBooks()),
     );
-    return Future.value();
   }
 }
 

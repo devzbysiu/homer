@@ -20,9 +20,9 @@ final class BooksRepo implements BooksRepository {
     try {
       final bookDTOs = await dataSource.getBooks();
       final books = toBooks(bookDTOs);
-      return Future.value(Success(books));
+      return Success(books);
     } on ListBooksException {
-      return Future.value(Error(ListingBooksFailure()));
+      return Error(ListingBooksFailure());
     }
   }
 
@@ -31,9 +31,9 @@ final class BooksRepo implements BooksRepository {
     try {
       final bookDTO = toBookDTO(book);
       await dataSource.add(bookDTO);
-      return Future.value(const Success(unit));
+      return const Success(unit);
     } on AddBookException {
-      return Future.value(Error(AddingBookFailure(book)));
+      return Error(AddingBookFailure(book));
     }
   }
 
@@ -42,9 +42,9 @@ final class BooksRepo implements BooksRepository {
     try {
       final bookDTOs = toBookDTOs(books);
       await dataSource.replaceAll(bookDTOs);
-      return Future.value(const Success(unit));
+      return const Success(unit);
     } on ReplaceBooksException {
-      return Future.value(Error(ReplacingBooksFailure(books)));
+      return Error(ReplacingBooksFailure(books));
     }
   }
 
@@ -53,9 +53,9 @@ final class BooksRepo implements BooksRepository {
     try {
       final bookDTO = toBookDTO(modified);
       await dataSource.update(bookDTO);
-      return Future.value(const Success(unit));
+      return const Success(unit);
     } on UpdateBookException {
-      return Future.value(Error(UpdatingBookFailure(modified)));
+      return Error(UpdatingBookFailure(modified));
     }
   }
 
@@ -64,9 +64,9 @@ final class BooksRepo implements BooksRepository {
     try {
       final bookDTOs = toBookDTOs(books);
       await dataSource.delete(bookDTOs);
-      return Future.value(const Success(unit));
+      return const Success(unit);
     } on DeleteBooksException {
-      return Future.value(Error(DeletingBooksFailure(books)));
+      return Error(DeletingBooksFailure(books));
     }
   }
 }

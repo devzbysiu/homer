@@ -49,7 +49,6 @@ void run({required Env env}) async {
 Future<void> _prepareForBackup() async {
   final directory = await getApplicationDocumentsDirectory();
   await _moveFile(directory, 'homer-backup.json');
-  return Future.value();
 }
 
 Future<void> _moveFile(Directory directory, String filename) async {

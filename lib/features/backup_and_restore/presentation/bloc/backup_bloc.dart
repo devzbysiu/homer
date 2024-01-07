@@ -36,11 +36,10 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     final restoreResult = await loadBackup(RestoreParams(path: event.path));
     if (restoreResult.isError()) {
       emit(const BackupState.restoreFailed());
-      return Future.value();
+      return;
     }
     final List<Book> restoredBooks = restoreResult.tryGetSuccess()!;
     await _addToBooksRepo(restoredBooks, emit);
-    return Future.value();
   }
 
   Future<void> _addToBooksRepo(
@@ -54,7 +53,6 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
       (success) => emit(const BackupState.restoreFinished()),
       (error) => emit(const BackupState.restoreFailed()),
     );
-    return Future.value();
   }
 
   Future<void> _onBackupTriggered(
@@ -65,10 +63,9 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     final makeBackupResult = await makeBackup(BackupParams(path: event.path));
     if (makeBackupResult.isError()) {
       emit(const BackupState.backupFailed());
-      return Future.value();
+      return;
     }
     emit(const BackupState.backupFinished());
-    return Future.value();
   }
 }
 

@@ -20,7 +20,7 @@ final class InMemoryTagsRepo implements TagsRepository {
   ];
 
   @override
-  Future<Result<List<Tag>, Failure>> listAll() {
-    return Future.value(Success(List.of(_allTags)));
+  Future<Result<List<Tag>, Failure>> listAll() async {
+    return Success(List.of(_allTags));
   }
 }

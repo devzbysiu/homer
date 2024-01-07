@@ -22,7 +22,6 @@ final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
     Emitter<BookSummaryState> emit,
   ) async {
     emit(DisablingSummaryMode(wasInSummaryMode: state.bookInSummaryMode));
-    return Future.value();
   }
 
   Future<void> _onSummaryModeToggled(
@@ -35,15 +34,13 @@ final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
         wasInSummaryMode: state.bookInSummaryMode,
       )),
     );
-    return Future.value();
   }
 
   Future<void> _onSummaryModeDisabled(
     SummaryModeDisabled event,
     Emitter<BookSummaryState> emit,
-  ) {
+  ) async {
     emit(DisabledSummaryMode());
-    return Future.value();
   }
 }
 

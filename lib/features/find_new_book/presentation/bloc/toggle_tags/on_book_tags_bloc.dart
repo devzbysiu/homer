@@ -22,7 +22,6 @@ final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
   ) async {
     final selectedTags = List.of(state.selectedTags)..add(event.tag);
     emit(BookTagsState.tagsSelected(selectedTags));
-    return Future.value();
   }
 
   Future<void> _onTagDeselected(
@@ -31,7 +30,6 @@ final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
   ) async {
     final selectedTags = List.of(state.selectedTags)..remove(event.tag);
     emit(BookTagsState.tagsSelected(selectedTags));
-    return Future.value();
   }
 
   Future<void> _onClearTags(
@@ -39,7 +37,6 @@ final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     Emitter<BookTagsState> emit,
   ) async {
     emit(const BookTagsState.empty());
-    return Future.value();
   }
 }
 

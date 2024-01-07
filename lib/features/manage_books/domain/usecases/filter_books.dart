@@ -16,10 +16,10 @@ final class FilterBooksImpl implements FilterBooks {
   @override
   Future<Result<List<Book>, Failure>> call(FilterParams params) async {
     final listResult = await booksRepo.listAll();
-    return Future.value(listResult.when(
+    return listResult.when(
       (books) => Success(_filter(books, params.query)),
       (error) => Error(error),
-    ));
+    );
   }
 
   List<Book> _filter(List<Book> books, String query) {

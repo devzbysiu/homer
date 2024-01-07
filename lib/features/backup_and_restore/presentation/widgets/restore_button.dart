@@ -39,6 +39,5 @@ final class RestoreButton extends StatelessWidget {
     final directory = await getApplicationDocumentsDirectory();
     final backupPath = '${directory.path}/homer-backup.json';
     if (context.mounted) context.restoreBackup(backupPath);
-    return Future.value();
   }
 }

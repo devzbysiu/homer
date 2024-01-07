@@ -17,7 +17,7 @@ final class SettingsRepo implements SettingsRepository {
   Future<Result<Unit, Failure>> save(Settings settings) async {
     final settingsDTO = toSettingsDTO(settings);
     await settingsDataSource.save(settingsDTO);
-    return Future.value(const Success(unit));
+    return const Success(unit);
   }
 
   @override
@@ -30,9 +30,9 @@ final class SettingsRepo implements SettingsRepository {
         backupsDirectory: settingsDTO.backupsDirectory,
         bookSizeLimits: settingsDTO.bookSizeLimits,
       );
-      return Future.value(Success(settings));
+      return Success(settings);
     } on NoSettingsException {
-      return Future.value(Success(Settings.makeDefault()));
+      return Success(Settings.makeDefault());
     }
   }
 }

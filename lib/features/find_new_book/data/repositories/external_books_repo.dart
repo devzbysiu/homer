@@ -17,13 +17,13 @@ final class ExternalBooksRepo implements ExternalBooksRepository {
 
   @override
   Future<Result<List<Book>, Failure>> search(String query) async {
-    if (query.trim().isEmpty) return Future.value(Success(List.empty()));
+    if (query.trim().isEmpty) return Success(List.empty());
     try {
       final bookDTOs = await booksDataSource.getFromQuery(query);
       final books = toBooks(bookDTOs);
-      return Future.value(Success(books));
+      return Success(books);
     } on BooksQueryException {
-      return Future.value(Error(SearchingForBooksFailure()));
+      return Error(SearchingForBooksFailure());
     }
   }
 
@@ -32,11 +32,11 @@ final class ExternalBooksRepo implements ExternalBooksRepository {
     try {
       final bookDTO = await booksDataSource.getFromIsbn(bookInfo.isbn);
       final book = toBook(bookDTO);
-      return Future.value(Success(book));
+      return Success(book);
     } on NoBookFoundException catch (e) {
-      return Future.value(Error(NoBookWithIsbnFailure(e.isbn)));
+      return Error(NoBookWithIsbnFailure(e.isbn));
     } on TooManyBooksFoundException catch (e) {
-      return Future.value(Error(TooManyBooksFoundFailure(e.isbn)));
+      return Error(TooManyBooksFoundFailure(e.isbn));
     }
   }
 }

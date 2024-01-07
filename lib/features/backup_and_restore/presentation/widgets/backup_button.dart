@@ -48,6 +48,5 @@ final class BackupButton extends StatelessWidget {
   Future<void> _triggerBackup(Directory directory, BuildContext context) async {
     final backupPath = '${directory.path}/homer-backup.json';
     if (context.mounted) context.createBackup(backupPath);
-    return Future.value();
   }
 }

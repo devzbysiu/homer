@@ -19,9 +19,9 @@ final class BackupRepo implements BackupRepository {
     try {
       final backupBookDTO = await dataSource.loadAll(path);
       final books = toBooks(backupBookDTO);
-      return Future.value(Success(books));
+      return Success(books);
     } on FileSystemException {
-      return Future.value(Error(MissingBackupFileFailure(path)));
+      return Error(MissingBackupFileFailure(path));
     }
   }
 
@@ -33,9 +33,9 @@ final class BackupRepo implements BackupRepository {
     try {
       final backupBookDTOs = toBackupBookDTOs(books);
       await dataSource.saveAll(path, backupBookDTOs);
-      return Future.value(const Success(unit));
+      return const Success(unit);
     } on FileSystemException {
-      return Future.value(Error(MissingBackupFileFailure(path)));
+      return Error(MissingBackupFileFailure(path));
     }
   }
 }

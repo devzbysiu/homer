@@ -24,13 +24,12 @@ final class IsarDataSource implements BooksDataSource {
   static Future<IsarDataSource> create() async {
     final docsDir = await getApplicationDocumentsDirectory();
     final isar = await Isar.open([BookDTOSchema], directory: docsDir.path);
-    return Future.value(IsarDataSource._(isar));
+    return IsarDataSource._(isar);
   }
 
   @override
   Future<List<BookDTO>> getBooks() async {
-    final bookModels = await _isar.bookDTOs.where().findAll();
-    return Future.value(bookModels);
+    return await _isar.bookDTOs.where().findAll();
   }
 
   @override
@@ -38,7 +37,7 @@ final class IsarDataSource implements BooksDataSource {
     await _isar.writeTxn(() async {
       await _isar.bookDTOs.put(book);
     });
-    return Future.value(unit);
+    return unit;
   }
 
   @override
@@ -47,7 +46,7 @@ final class IsarDataSource implements BooksDataSource {
       await _isar.bookDTOs.where().deleteAll();
       await _isar.bookDTOs.putAll(books);
     });
-    return Future.value(unit);
+    return unit;
   }
 
   @override
@@ -55,7 +54,7 @@ final class IsarDataSource implements BooksDataSource {
     await _isar.writeTxn(() async {
       await _isar.bookDTOs.put(book);
     });
-    return Future.value(unit);
+    return unit;
   }
 
   @override
@@ -67,6 +66,6 @@ final class IsarDataSource implements BooksDataSource {
           .anyOf(bookIDs, (q, id) => q.idEqualTo(id))
           .deleteAll();
     });
-    return Future.value(unit);
+    return unit;
   }
 }

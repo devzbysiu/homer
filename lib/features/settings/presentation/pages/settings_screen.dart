@@ -54,8 +54,7 @@ class SettingsScreen extends StatelessWidget {
 
   Future<void> _pickBackupsPath(BuildContext context) async {
     final directory = await FilePicker.platform.getDirectoryPath();
-    if (directory == null) return Future.value();
+    if (directory == null) return;
     if (context.mounted) context.backupsDirectorySelected(Directory(directory));
-    return Future.value();
   }
 }

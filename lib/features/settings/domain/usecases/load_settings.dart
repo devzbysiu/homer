@@ -13,9 +13,9 @@ final class LoadSettings implements UseCase<Settings, NoParams> {
   @override
   Future<Result<Settings, Failure>> call(NoParams params) async {
     final settings = await settingsRepo.load();
-    return Future.value(settings.when(
+    return settings.when(
       (settings) => Success(settings),
       (error) => Error(error),
-    ));
+    );
   }
 }

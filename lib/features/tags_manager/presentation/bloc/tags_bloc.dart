@@ -23,12 +23,11 @@ final class TagsBloc extends Bloc<TagsEvent, TagsState> {
     TagsDisplayed event,
     Emitter<TagsState> emit,
   ) async {
-    final tagsResult = await listTags(NoParams());
-    tagsResult.when(
-      (success) => emit(TagsLoaded(success)),
+    final result = await listTags(NoParams());
+    result.when(
+      (tags) => emit(TagsLoaded(tags)),
       (error) => const FailedToLoadTags(),
     );
-    return Future.value();
   }
 }
 

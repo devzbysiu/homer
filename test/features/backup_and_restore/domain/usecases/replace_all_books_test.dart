@@ -6,6 +6,7 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_return_helpers.dart';
 import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
@@ -14,7 +15,7 @@ void main() {
       // given
       final mockRepo = makeMockRepo();
       final books = [fakeBook()];
-      when(mockRepo.replaceAll(books)).thenAnswer(withSuccess);
+      when(mockRepo.replaceAll(books)).thenAnswer((_) => withSuccess(unit));
 
       final replaceAllBooks = ReplaceAllBooksImpl(mockRepo);
 
@@ -31,7 +32,7 @@ void main() {
     test('should propagate success result from books repo', () async {
       // given
       final mockRepo = makeMockRepo();
-      when(mockRepo.replaceAll(any)).thenAnswer(withSuccess);
+      when(mockRepo.replaceAll(any)).thenAnswer((_) => withSuccess(unit));
 
       final replaceAllBooks = ReplaceAllBooksImpl(mockRepo);
 
@@ -49,8 +50,8 @@ void main() {
     test('should propagate error result from books repo', () async {
       // given
       final mockRepo = makeMockRepo();
-      final error = TestingFailure();
-      when(mockRepo.replaceAll(any)).thenAnswer((_) => withError(error));
+      final failure = TestingFailure();
+      when(mockRepo.replaceAll(any)).thenAnswer((_) => withFailure(failure));
 
       final replaceAllBooks = ReplaceAllBooksImpl(mockRepo);
 
@@ -63,17 +64,9 @@ void main() {
 
       // then
       expect(result.isError(), true);
-      expect(result, Error(error));
+      expect(result, Error(failure));
     });
   });
-}
-
-Future<Result<Unit, Failure>> withSuccess(_) {
-  return Future.value(const Success(unit));
-}
-
-Future<Result<Unit, Failure>> withError(error) {
-  return Future.value(Error(error));
 }
 
 MockBooksRepository makeMockRepo() {

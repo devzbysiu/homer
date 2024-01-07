@@ -16,9 +16,9 @@ final class ListSortedBooksImpl implements ListSortedBooks {
   @override
   Future<Result<List<Book>, Failure>> call(NoParams params) async {
     final listResult = await booksRepo.listAll();
-    return Future.value(listResult.when(
+    return listResult.when(
       (books) => Success(sortByStateAndDate(books)),
       (error) => Error(error),
-    ));
+    );
   }
 }

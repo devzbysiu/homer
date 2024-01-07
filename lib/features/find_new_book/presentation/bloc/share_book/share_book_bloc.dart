@@ -47,7 +47,6 @@ final class ShareBookBloc extends Bloc<ShareBookEvent, ShareBookState> {
         error.userMessage(),
       )),
     );
-    return Future.value();
   }
 
   Future<void> _onClearSharedBook(
@@ -55,7 +54,6 @@ final class ShareBookBloc extends Bloc<ShareBookEvent, ShareBookState> {
     Emitter<ShareBookState> emit,
   ) async {
     emit(const ShareBookState.bookNotShared());
-    return Future.value();
   }
 }
 

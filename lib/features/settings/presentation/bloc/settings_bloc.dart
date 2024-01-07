@@ -44,7 +44,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       )),
       (error) => emit(FailedToLoadSettings()),
     );
-    return Future.value();
   }
 
   void _onThemeToggled(

@@ -17,9 +17,9 @@ final class JsonFileBackupDataSource implements BackupDataSource {
     final backupFile = File(path);
     final backupContent = await backupFile.readAsString();
     final jsonBooks = jsonDecode(backupContent) as List;
-    final backupBookDTOs =
-        jsonBooks.map((jsonBook) => BackupBookDTO.fromJson(jsonBook)).toList();
-    return Future.value(backupBookDTOs);
+    return jsonBooks
+        .map((jsonBook) => BackupBookDTO.fromJson(jsonBook))
+        .toList();
   }
 
   @override
@@ -28,6 +28,6 @@ final class JsonFileBackupDataSource implements BackupDataSource {
     final backupContent = jsonEncode(jsonBooks);
     final backupFile = File(path);
     await backupFile.writeAsString(backupContent);
-    return Future.value(unit);
+    return unit;
   }
 }

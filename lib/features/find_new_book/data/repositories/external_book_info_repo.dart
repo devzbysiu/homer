@@ -19,30 +19,28 @@ final class ExternalBookInfoRepo implements ExternalBookInfoRepository {
   Future<Result<ExternalBookInfo, Failure>> fromUrl(String url) async {
     if (url.trim().isEmpty) {
       log.e('URL cannot be empty');
-      return Future.value(
-        Error(InvalidUrlSharedFailure(url)),
-      );
+      return Error(InvalidUrlSharedFailure(url));
     }
 
     try {
       log.i('Fetching info from: $url');
       final bookInfoDTO = await bookInfoDataSource.getFromWebsite(url);
       if (bookInfoDTO.isbn.isNone()) {
-        return Future.value(Error(NoIsbnFailure(url)));
+        return Error(NoIsbnFailure(url));
       }
-      return Future.value(Success(toExternalBookInfo(bookInfoDTO)));
+      return Success(toExternalBookInfo(bookInfoDTO));
     } on InvalidUrlException catch (e) {
       log.e('The url $url is invalid: $e');
-      return Future.value(Error(InvalidUrlSharedFailure(e.url)));
+      return Error(InvalidUrlSharedFailure(e.url));
     } on NotJsonException {
       log.e('Response was not a JSON');
-      return Future.value(Error(ServerFailure()));
+      return Error(ServerFailure());
     } on WrongJsonException catch (e) {
       log.e('Wrong JSON: $e');
-      return Future.value(Error(ServerFailure()));
+      return Error(ServerFailure());
     } on TimeoutException {
       log.e('Waiting too long for book info response, timeout');
-      return Future.value(const Error(TimeoutOnApiResponseFailure()));
+      return const Error(TimeoutOnApiResponseFailure());
     }
   }
 }

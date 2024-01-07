@@ -28,21 +28,18 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
       emit(DeleteBooksState.deletionList(
         List.of(state.deletionList)..remove(event.book),
       ));
-      return Future.value();
+      return;
     }
     emit(DeleteBooksState.deletionList(
       List.of(state.deletionList)..add(event.book),
     ));
-    return Future.value();
   }
 
   Future<void> _onDeleteBooks(
     DeletePickedBooks event,
     Emitter<DeleteBooksState> emit,
   ) async {
-    if (state.deletionList.isEmpty) {
-      return Future.value();
-    }
+    if (state.deletionList.isEmpty) return;
     final result = await deleteBooks(
       DeleteParams(books: List.of(state.deletionList)),
     );
@@ -50,7 +47,6 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
       (_) => emit(const DeleteBooksState.booksRemoved()),
       (error) => emit(const DeleteBooksState.deletionFailed()),
     );
-    return Future.value();
   }
 
   Future<void> _onClearDeletionList(
@@ -58,7 +54,6 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
     Emitter<DeleteBooksState> emit,
   ) async {
     emit(const DeleteBooksState.deletionListCleared());
-    return Future.value();
   }
 }
 

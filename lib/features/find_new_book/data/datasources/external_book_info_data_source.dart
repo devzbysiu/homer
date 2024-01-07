@@ -23,8 +23,7 @@ final class ScraperDataSource implements ExternalBookInfoDataSource {
     log.i('Fetching book info from: $apiUrl');
     final resp = await http.get(_tryParse(apiUrl)).timeout(30.seconds);
     final json = _tryJsonDecode(utf8.decode(resp.bodyBytes));
-    final bookInfoDTO = _tryFromJson(json);
-    return Future.value(bookInfoDTO);
+    return _tryFromJson(json);
   }
 
   Uri _tryParse(String apiUrl) {

@@ -21,14 +21,13 @@ final class SharedPrefsSettingsDataSource implements SettingsDataSource {
   Future<Unit> save(SettingsDTO settingsDTO) async {
     final jsonSettings = jsonEncode(settingsDTO.toJson());
     sharedPreferences.setString('settings', jsonSettings);
-    return Future.value(unit);
+    return unit;
   }
 
   @override
-  Future<SettingsDTO> load() {
+  Future<SettingsDTO> load() async {
     final settingsJson = sharedPreferences.getString('settings');
     if (settingsJson == null) throw NoSettingsException();
-    final settingsDTO = SettingsDTO.fromJson(jsonDecode(settingsJson));
-    return Future.value(settingsDTO);
+    return SettingsDTO.fromJson(jsonDecode(settingsJson));
   }
 }

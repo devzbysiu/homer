@@ -10,7 +10,7 @@ part 'on_book_tags_event.dart';
 part 'on_book_tags_state.dart';
 
 final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
-  OnBookTagsBloc() : super(const Empty()) {
+  OnBookTagsBloc() : super(const BookTagsState.initial()) {
     on<TagSelected>(_onTagSelected);
     on<TagDeselected>(_onTagDeselected);
     on<ClearSelectedTags>(_onClearTags);
@@ -21,7 +21,7 @@ final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     Emitter<BookTagsState> emit,
   ) async {
     final selectedTags = List.of(state.selectedTags)..add(event.tag);
-    emit(TagsSelected(selectedTags: selectedTags));
+    emit(BookTagsState.tagsSelected(selectedTags));
     return Future.value();
   }
 
@@ -30,7 +30,7 @@ final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     Emitter<BookTagsState> emit,
   ) async {
     final selectedTags = List.of(state.selectedTags)..remove(event.tag);
-    emit(TagsSelected(selectedTags: selectedTags));
+    emit(BookTagsState.tagsSelected(selectedTags));
     return Future.value();
   }
 
@@ -38,7 +38,7 @@ final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     ClearSelectedTags event,
     Emitter<BookTagsState> emit,
   ) async {
-    emit(const Empty());
+    emit(const BookTagsState.empty());
     return Future.value();
   }
 }

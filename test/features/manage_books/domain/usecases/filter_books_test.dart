@@ -16,7 +16,7 @@ void main() {
       // given
       final failure = TestingFailure();
       final booksRepo = makeMockBooksRepo();
-      when(booksRepo.listAll()).thenAnswer((_) => withFailure(failure));
+      when(booksRepo.listAll()).thenAnswer((_) => withError(failure));
 
       final filterBooks = FilterBooksImpl(booksRepo);
 

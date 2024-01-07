@@ -18,7 +18,7 @@ void main() {
       final failure = TestingFailure();
       final externalBookInfoRepo = makeMockExternalBookInfoRepo();
       when(externalBookInfoRepo.fromUrl(any)).thenAnswer(
-        (_) => withFailure(failure),
+        (_) => withError(failure),
       );
 
       final fetchSharedBook = FetchSharedBookImpl(
@@ -46,7 +46,7 @@ void main() {
       final failure = TestingFailure();
       final externalBooksRepo = makeMockExternalBooksRepository();
       when(externalBooksRepo.fromBookInfo(any)).thenAnswer(
-        (_) => withFailure(failure),
+        (_) => withError(failure),
       );
 
       final fetchSharedBook = FetchSharedBookImpl(

@@ -16,7 +16,7 @@ void main() {
       // given
       final failure = TestingFailure();
       final booksRepo = makeMockBooksRepo();
-      when(booksRepo.add(any)).thenAnswer((_) => withFailure(failure));
+      when(booksRepo.add(any)).thenAnswer((_) => withError(failure));
 
       final addBook = AddBookImpl(booksRepo);
 

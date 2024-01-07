@@ -54,7 +54,7 @@ void main() {
       // given
       MockBackupRepository mockRepo = makeMockRepo();
       final error = TestingFailure();
-      when(mockRepo.loadAll(any)).thenAnswer((_) => withFailure(error));
+      when(mockRepo.loadAll(any)).thenAnswer((_) => withError(error));
 
       final loadBackup = LoadBackupImpl(mockRepo);
 

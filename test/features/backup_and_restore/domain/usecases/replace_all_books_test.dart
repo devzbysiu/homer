@@ -51,7 +51,7 @@ void main() {
       // given
       final mockRepo = makeMockRepo();
       final failure = TestingFailure();
-      when(mockRepo.replaceAll(any)).thenAnswer((_) => withFailure(failure));
+      when(mockRepo.replaceAll(any)).thenAnswer((_) => withError(failure));
 
       final replaceAllBooks = ReplaceAllBooksImpl(mockRepo);
 

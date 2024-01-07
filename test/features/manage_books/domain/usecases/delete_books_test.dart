@@ -15,7 +15,7 @@ void main() {
       // given
       final failure = TestingFailure();
       final booksRepo = makeMockBooksRepo();
-      when(booksRepo.delete(any)).thenAnswer((_) => withFailure(failure));
+      when(booksRepo.delete(any)).thenAnswer((_) => withError(failure));
 
       final deleteBooks = DeleteBooksImpl(booksRepo);
 

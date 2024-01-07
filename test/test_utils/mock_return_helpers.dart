@@ -7,4 +7,4 @@ Future<Unit> withUnit() async => unit;
 
 Future<Result<T, Failure>> withSuccess<T>(T value) async => Success(value);
 
-Future<Result<T, Failure>> withFailure<T>(Failure f) async => Error(f);
+Future<Result<T, Failure>> withError<T>(Failure f) async => Error(f);

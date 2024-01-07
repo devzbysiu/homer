@@ -17,7 +17,7 @@ void main() {
       final booksRepo = makeMockExternalBooksRepository();
       final failure = TestingFailure();
       when(booksRepo.search(any)).thenAnswer(
-        (_) => withFailure(failure),
+        (_) => withError(failure),
       );
 
       final query = fakeSearchQuery();

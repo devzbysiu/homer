@@ -54,7 +54,7 @@ void main() {
       // given
       final failure = TestingFailure();
       final booksRepo = makeMockBooksRepo();
-      when(booksRepo.listAll()).thenAnswer((_) => withFailure(failure));
+      when(booksRepo.listAll()).thenAnswer((_) => withError(failure));
 
       final backupRepo = makeMockBackupRepo();
 
@@ -81,7 +81,7 @@ void main() {
       final failure = TestingFailure();
       final backupRepo = makeMockBackupRepo();
       when(backupRepo.saveAll(backupPath, books)).thenAnswer(
-        (_) => withFailure(failure),
+        (_) => withError(failure),
       );
 
       final makeBackup = MakeBackupImpl(backupRepo, booksRepo);

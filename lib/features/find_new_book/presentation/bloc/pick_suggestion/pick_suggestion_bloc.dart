@@ -23,7 +23,9 @@ final class PickSuggestionBloc
   }
 
   void _onClearPickedBook(
-      ClearPickedBook event, Emitter<PickSuggestionState> emit) {
+    ClearPickedBook event,
+    Emitter<PickSuggestionState> emit,
+  ) {
     emit(const PickSuggestionState.suggestionNotPicked());
   }
 }

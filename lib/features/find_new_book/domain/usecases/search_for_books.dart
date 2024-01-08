@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/entities/book.dart';
@@ -18,8 +19,11 @@ final class SearchForBooksImpl implements SearchForBooks {
   }
 }
 
-final class SearchParams {
-  SearchParams({required this.query});
+final class SearchParams extends Equatable {
+  const SearchParams({required this.query});
 
   final String query;
+
+  @override
+  List<Object> get props => [query];
 }

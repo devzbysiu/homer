@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
+import 'package:homer/features/find_new_book/domain/usecases/search_for_books.dart';
 import 'package:homer/features/find_new_book/presentation/bloc/search/book_search_bloc.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -21,6 +22,9 @@ void main() {
       build: () => BookSearchBlocMock().allWorking(),
       act: (bloc) => bloc.add(SearchInitiated(emptyQuery)),
       expect: () => [const BookSearchState.searchFinished()],
+      verify: (bloc) => verifyNever(bloc.searchForBooks(
+        const SearchParams(query: emptyQuery),
+      )),
     );
 
     blocTest<BookSearchBloc, BookSearchState>(
@@ -31,6 +35,9 @@ void main() {
         const BookSearchState.searching(),
         const BookSearchState.searchFinished(),
       ],
+      verify: (bloc) => verify(bloc.searchForBooks(
+        SearchParams(query: notEmptyQuery),
+      )),
     );
 
     blocTest<BookSearchBloc, BookSearchState>(
@@ -42,6 +49,9 @@ void main() {
         const BookSearchState.searching(),
         const BookSearchState.searchFailed(),
       ],
+      verify: (bloc) => verify(bloc.searchForBooks(
+        SearchParams(query: notEmptyQuery),
+      )),
     );
   });
 }

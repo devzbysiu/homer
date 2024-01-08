@@ -22,7 +22,7 @@ void main() {
       verifyZeroInteractions(mockRepo);
 
       // when
-      final _ = await replaceAllBooks(ReplaceAllParams(books: books));
+      final _ = await replaceAllBooks(ReplaceParams(books: books));
 
       // then
       verify(mockRepo.replaceAll(books));
@@ -40,7 +40,7 @@ void main() {
 
       // when
       final result = await replaceAllBooks(
-        ReplaceAllParams(books: notImportant),
+        ReplaceParams(books: notImportant),
       );
 
       // then
@@ -59,7 +59,7 @@ void main() {
 
       // when
       final result = await replaceAllBooks(
-        ReplaceAllParams(books: notImportant),
+        ReplaceParams(books: notImportant),
       );
 
       // then

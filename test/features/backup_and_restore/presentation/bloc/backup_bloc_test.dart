@@ -2,6 +2,9 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
+import 'package:homer/features/backup_and_restore/domain/usecases/load_backup.dart';
+import 'package:homer/features/backup_and_restore/domain/usecases/make_backup.dart';
+import 'package:homer/features/backup_and_restore/domain/usecases/replace_all_books.dart';
 import 'package:homer/features/backup_and_restore/presentation/bloc/backup_bloc.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -13,37 +16,44 @@ import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('_onRestoreTriggered', () {
-    final backupPath = fakePath();
+    final path = fakePath();
+    final books = [fakeBook(), fakeBook(), fakeBook()];
 
     blocTest<BackupBloc, BackupState>(
       'should emit restoreInProgress and restoredFinished on success',
-      build: () => BackupBlocMock().allWorking(),
-      act: (bloc) => bloc.add(RestoreTriggered(backupPath)),
+      build: () => BackupBlocMock().onLoadBackup(Success(books)).get(),
+      act: (bloc) => bloc.add(RestoreTriggered(path)),
       expect: () => [
         const BackupState.restoreInProgress(),
         const BackupState.restoreFinished(),
       ],
+      verify: (bloc) {
+        verify(bloc.loadBackup(RestoreParams(path: path)));
+        verify(bloc.replaceAllBooks(ReplaceParams(books: books)));
+      },
     );
 
     blocTest<BackupBloc, BackupState>(
       'should emit restoreInProgress and failedToRestoreBooks on LoadBackup failure',
       build: () => BackupBlocMock().onLoadBackup(Error(TestingFailure())).get(),
-      act: (bloc) => bloc.add(RestoreTriggered(backupPath)),
+      act: (bloc) => bloc.add(RestoreTriggered(path)),
       expect: () => [
         const BackupState.restoreInProgress(),
         const BackupState.restoreFailed(),
       ],
+      verify: (bloc) => verify(bloc.loadBackup(RestoreParams(path: path))),
     );
 
     blocTest<BackupBloc, BackupState>(
       'should emit restoreInProgress and failedToRestoreBooks on ReplaceAllBooks failure',
       build: () =>
           BackupBlocMock().onReplaceAllBooks(Error(TestingFailure())).get(),
-      act: (bloc) => bloc.add(RestoreTriggered(backupPath)),
+      act: (bloc) => bloc.add(RestoreTriggered(path)),
       expect: () => [
         const BackupState.restoreInProgress(),
         const BackupState.restoreFailed(),
       ],
+      verify: (bloc) => verify(bloc.loadBackup(RestoreParams(path: path))),
     );
   });
 
@@ -58,6 +68,7 @@ void main() {
         const BackupState.backupInProgress(),
         const BackupState.backupFinished(),
       ],
+      verify: (bloc) => verify(bloc.makeBackup(BackupParams(path: backupPath))),
     );
 
     blocTest<BackupBloc, BackupState>(
@@ -68,6 +79,7 @@ void main() {
         const BackupState.backupInProgress(),
         const BackupState.backupFailed(),
       ],
+      verify: (bloc) => verify(bloc.makeBackup(BackupParams(path: backupPath))),
     );
   });
 }

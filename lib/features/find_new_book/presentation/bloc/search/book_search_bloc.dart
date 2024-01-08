@@ -29,7 +29,7 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
     emit(const BookSearchState.searching());
     final searchResult = await searchForBooks(SearchParams(query: event.query));
     searchResult.when(
-      (fb) => emit(BookSearchState.searchFinished(foundBooks: fb)),
+      (books) => emit(BookSearchState.searchFinished(foundBooks: books)),
       (error) => emit(const BookSearchState.searchFailed()),
     );
   }

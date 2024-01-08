@@ -33,23 +33,19 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     Emitter<BackupState> emit,
   ) async {
     emit(const BackupState.restoreInProgress());
-    final restoreResult = await loadBackup(RestoreParams(path: event.path));
-    if (restoreResult.isError()) {
-      emit(const BackupState.restoreFailed());
-      return;
-    }
-    final List<Book> restoredBooks = restoreResult.tryGetSuccess()!;
-    await _addToBooksRepo(restoredBooks, emit);
+    final result = await loadBackup(RestoreParams(path: event.path));
+    await result.when(
+      (books) async => await _addToBooksRepo(books, emit),
+      (error) async => emit(const BackupState.restoreFailed()),
+    );
   }
 
   Future<void> _addToBooksRepo(
-    List<Book> restoredBooks,
+    List<Book> books,
     Emitter<BackupState> emit,
   ) async {
-    final replaceAllResult = await replaceAllBooks(
-      ReplaceAllParams(books: restoredBooks),
-    );
-    replaceAllResult.when(
+    final result = await replaceAllBooks(ReplaceParams(books: books));
+    result.when(
       (success) => emit(const BackupState.restoreFinished()),
       (error) => emit(const BackupState.restoreFailed()),
     );
@@ -60,12 +56,11 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     Emitter<BackupState> emit,
   ) async {
     emit(const BackupState.backupInProgress());
-    final makeBackupResult = await makeBackup(BackupParams(path: event.path));
-    if (makeBackupResult.isError()) {
-      emit(const BackupState.backupFailed());
-      return;
-    }
-    emit(const BackupState.backupFinished());
+    final result = await makeBackup(BackupParams(path: event.path));
+    result.when(
+      (success) => emit(const BackupState.backupFinished()),
+      (error) => emit(const BackupState.backupFailed()),
+    );
   }
 }
 

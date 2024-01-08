@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
@@ -24,8 +25,11 @@ final class MakeBackupImpl implements MakeBackup {
   }
 }
 
-final class BackupParams {
+final class BackupParams extends Equatable {
   const BackupParams({required this.path});
 
   final String path;
+
+  @override
+  List<Object> get props => [path];
 }

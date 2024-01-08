@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/entities/book.dart';
@@ -18,8 +19,11 @@ final class LoadBackupImpl implements LoadBackup {
   }
 }
 
-final class RestoreParams {
+final class RestoreParams extends Equatable {
   const RestoreParams({required this.path});
 
   final String path;
+
+  @override
+  List<Object> get props => [path];
 }

@@ -408,7 +408,7 @@ class MockReplaceAllBooks extends _i1.Mock implements _i15.ReplaceAllBooks {
 
   @override
   _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> call(
-          _i15.ReplaceAllParams? params) =>
+          _i15.ReplaceParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,

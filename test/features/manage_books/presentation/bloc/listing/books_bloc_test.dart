@@ -303,6 +303,4 @@ final class BlocMock {
       filterBooks: _filterBooks,
     );
   }
-
-  BooksBloc allWorking() => _createMock();
 }

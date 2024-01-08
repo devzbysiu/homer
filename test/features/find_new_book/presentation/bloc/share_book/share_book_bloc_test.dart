@@ -74,6 +74,4 @@ final class BlocMock {
       shareHandler: _shareHandler,
     );
   }
-
-  ShareBookBloc allWorking() => _createMock();
 }

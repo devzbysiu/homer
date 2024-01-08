@@ -19,7 +19,7 @@ void main() {
 
     blocTest<BookSearchBloc, BookSearchState>(
       'should emit searchingFinished when query is empty',
-      build: () => BookSearchBlocMock().allWorking(),
+      build: () => MockBuilder().allWorking(),
       act: (bloc) => bloc.add(SearchInitiated(emptyQuery)),
       expect: () => [const BookSearchState.searchFinished()],
       verify: (bloc) => verifyNever(bloc.searchForBooks(
@@ -29,7 +29,7 @@ void main() {
 
     blocTest<BookSearchBloc, BookSearchState>(
       'should emit searching and searchFinished when query is not empty',
-      build: () => BookSearchBlocMock().allWorking(),
+      build: () => MockBuilder().allWorking(),
       act: (bloc) => bloc.add(SearchInitiated(notEmptyQuery)),
       expect: () => [
         const BookSearchState.searching(),
@@ -43,7 +43,7 @@ void main() {
     blocTest<BookSearchBloc, BookSearchState>(
       'should emit searching and failedToSearchBooks when search failed',
       build: () =>
-          BookSearchBlocMock().onSearchForBooks(Error(TestingFailure())).get(),
+          MockBuilder().onSearchForBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(SearchInitiated(notEmptyQuery)),
       expect: () => [
         const BookSearchState.searching(),
@@ -56,8 +56,8 @@ void main() {
   });
 }
 
-final class BookSearchBlocMock {
-  BookSearchBlocMock() {
+final class MockBuilder {
+  MockBuilder() {
     provideDummy<Result<List<Book>, Failure>>(const Success([]));
     provideDummy<Result<Book, Failure>>(Success(fakeBook()));
 
@@ -79,12 +79,12 @@ final class BookSearchBlocMock {
 
   late final MockFetchSharedBook _fetchSharedBook;
 
-  BookSearchBlocMock onSearchForBooks(Result<List<Book>, Failure> ret) {
+  MockBuilder onSearchForBooks(Result<List<Book>, Failure> ret) {
     when(_searchForBooks.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }
 
-  BookSearchBlocMock onFetchSharedBook(Result<Book, Failure> ret) {
+  MockBuilder onFetchSharedBook(Result<Book, Failure> ret) {
     when(_fetchSharedBook.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }

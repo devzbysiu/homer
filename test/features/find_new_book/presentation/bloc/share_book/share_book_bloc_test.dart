@@ -20,8 +20,7 @@ void main() {
 
     blocTest<ShareBookBloc, ShareBookState>(
       'should emit fetchingSharedBookDetails and bookShared on success',
-      build: () =>
-          ShareBookBlocMock().onFetchSharedBook(Success(pickedBook)).get(),
+      build: () => MockBuilder().onFetchSharedBook(Success(pickedBook)).get(),
       act: (bloc) => bloc.add(BookSharedFromOutside(url)),
       expect: () => [
         const ShareBookState.fetchingSharedBookDetails(),
@@ -32,7 +31,7 @@ void main() {
 
     blocTest<ShareBookBloc, ShareBookState>(
       'should emit fetchingSharedBookDetails and failedToLookUpSharedBook on failure',
-      build: () => ShareBookBlocMock().onFetchSharedBook(Error(failure)).get(),
+      build: () => MockBuilder().onFetchSharedBook(Error(failure)).get(),
       act: (bloc) => bloc.add(BookSharedFromOutside(url)),
       expect: () => [
         const ShareBookState.fetchingSharedBookDetails(),
@@ -43,8 +42,8 @@ void main() {
   });
 }
 
-final class ShareBookBlocMock {
-  ShareBookBlocMock() {
+final class MockBuilder {
+  MockBuilder() {
     provideDummy<Result<List<Book>, Failure>>(const Success([]));
     provideDummy<Result<Book, Failure>>(Success(fakeBook()));
 
@@ -62,7 +61,7 @@ final class ShareBookBlocMock {
 
   late final MockFetchSharedBook _fetchSharedBook;
 
-  ShareBookBlocMock onFetchSharedBook(Result<Book, Failure> ret) {
+  MockBuilder onFetchSharedBook(Result<Book, Failure> ret) {
     when(_fetchSharedBook.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }

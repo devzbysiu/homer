@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:homer/core/error/failures.dart';
+import 'package:homer/features/manage_books/domain/usecases/delete_books.dart';
 import 'package:homer/features/manage_books/presentation/bloc/delete/delete_books_bloc.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -44,6 +45,7 @@ void main() {
       build: () => DeleteBooksBlocMock().allWorking(),
       act: (bloc) => bloc.add(DeletePickedBooks()),
       expect: () => [],
+      verify: (bloc) => verifyNever(bloc.deleteBooks(DeleteParams(books: []))),
     );
 
     blocTest<DeleteBooksBloc, DeleteBooksState>(
@@ -56,6 +58,7 @@ void main() {
         DeleteBooksState.deletionList([book]),
         const DeleteBooksState.booksRemoved(),
       ],
+      verify: (bloc) => verify(bloc.deleteBooks(DeleteParams(books: [book]))),
     );
 
     blocTest<DeleteBooksBloc, DeleteBooksState>(
@@ -69,6 +72,7 @@ void main() {
         DeleteBooksState.deletionList([book]),
         const DeleteBooksState.deletionFailed(),
       ],
+      verify: (bloc) => verify(bloc.deleteBooks(DeleteParams(books: [book]))),
     );
   });
 
@@ -78,6 +82,9 @@ void main() {
       build: () => DeleteBooksBlocMock().allWorking(),
       act: (bloc) => bloc.add(ClearDeletionList()),
       expect: () => [const DeleteBooksState.deletionListCleared()],
+      verify: (bloc) => verifyNever(bloc.deleteBooks(
+        const DeleteParams(books: []),
+      )),
     );
   });
 }

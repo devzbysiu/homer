@@ -29,7 +29,7 @@ void main() {
       final url = fakeUrl();
 
       // when
-      final result = await fetchSharedBook(SharedBookParams(url: url));
+      final result = await fetchSharedBook(FetchParams(url: url));
 
       // then
       expect(result.isError(), true);
@@ -57,7 +57,7 @@ void main() {
       final url = fakeUrl();
 
       // when
-      final result = await fetchSharedBook(SharedBookParams(url: url));
+      final result = await fetchSharedBook(FetchParams(url: url));
 
       // then
       expect(result.isError(), true);
@@ -86,7 +86,7 @@ void main() {
       final url = fakeUrl();
 
       // when
-      final result = await fetchSharedBook(SharedBookParams(url: url));
+      final result = await fetchSharedBook(FetchParams(url: url));
 
       // then
       expect(result.isSuccess(), true);

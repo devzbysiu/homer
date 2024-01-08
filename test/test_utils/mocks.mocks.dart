@@ -658,7 +658,7 @@ class MockFetchSharedBook extends _i1.Mock implements _i25.FetchSharedBook {
 
   @override
   _i3.Future<_i4.Result<_i5.Book, _i6.Failure>> call(
-          _i25.SharedBookParams? params) =>
+          _i25.FetchParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,

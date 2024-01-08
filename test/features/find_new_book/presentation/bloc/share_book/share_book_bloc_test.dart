@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
+import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book.dart';
 import 'package:homer/features/find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -26,6 +27,7 @@ void main() {
         const ShareBookState.fetchingSharedBookDetails(),
         ShareBookState.bookShared(pickedBook),
       ],
+      verify: (bloc) => verify(bloc.fetchSharedBook(FetchParams(url: url))),
     );
 
     blocTest<ShareBookBloc, ShareBookState>(
@@ -36,6 +38,7 @@ void main() {
         const ShareBookState.fetchingSharedBookDetails(),
         ShareBookState.fetchingDetailsFailed(failure.userMessage()),
       ],
+      verify: (bloc) => verify(bloc.fetchSharedBook(FetchParams(url: url))),
     );
   });
 }

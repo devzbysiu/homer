@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/entities/book.dart';
@@ -18,8 +19,11 @@ final class DeleteBooksImpl implements DeleteBooks {
   }
 }
 
-final class DeleteParams {
-  DeleteParams({required this.books});
+final class DeleteParams extends Equatable {
+  const DeleteParams({required this.books});
 
   final List<Book> books;
+
+  @override
+  List<Object> get props => [books];
 }

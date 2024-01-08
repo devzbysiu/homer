@@ -21,7 +21,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     required this.listBooks,
     required this.updateBook,
     required this.filterBooks,
-  }) : super(Empty()) {
+  }) : super(const BooksState.initial()) {
     on<RefreshBooksList>(_onRefreshBooksList);
     on<BookAdded>(_onBookAdded);
     on<BookSwipedRight>(_onBookSwipedRight);
@@ -49,8 +49,8 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   Future<void> _emitSavedBooks(Emitter<BooksState> emit) async {
     final result = await listBooks(NoParams());
     result.when(
-      (books) => emit(BooksLoaded(books: books)),
-      (error) => emit(FailedToLoadBooks()),
+      (books) => emit(BooksState.booksLoaded(books)),
+      (error) => emit(const BooksState.loadingFailed()),
     );
   }
 
@@ -65,7 +65,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     ));
     await result.when(
       (success) async => await _emitSavedBooks(emit),
-      (error) async => emit(FailedToAddBook()),
+      (error) async => emit(const BooksState.addingBookFailed()),
     );
   }
 
@@ -77,7 +77,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     final result = await updateBook(UpdateParams(modified: modifiedBook));
     await result.when(
       (success) async => await _emitSavedBooks(emit),
-      (error) async => emit(FailedToUpdateBook()),
+      (error) async => emit(const BooksState.updatingBookFailed()),
     );
   }
 
@@ -89,7 +89,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     final result = await updateBook(UpdateParams(modified: modifiedBook));
     await result.when(
       (success) async => await _emitSavedBooks(emit),
-      (error) async => emit(FailedToUpdateBook()),
+      (error) async => emit(const BooksState.updatingBookFailed()),
     );
   }
 
@@ -110,7 +110,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     final result = await updateBook(UpdateParams(modified: modifiedBook));
     await result.when(
       (success) async => await _emitSavedBooks(emit),
-      (error) async => emit(FailedToUpdateBook()),
+      (error) async => emit(const BooksState.updatingBookFailed()),
     );
   }
 
@@ -120,8 +120,8 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   ) async {
     final result = await filterBooks(FilterParams(query: event.query));
     result.when(
-      (success) => emit(BooksLoaded(books: success)),
-      (error) => emit(FailedToLoadBooks()),
+      (books) => emit(BooksState.booksLoaded(books)),
+      (error) => emit(const BooksState.loadingFailed()),
     );
   }
 }

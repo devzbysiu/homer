@@ -20,34 +20,34 @@ void main() {
     final books = [fakeBook(), fakeBook(), fakeBook()];
 
     blocTest<BooksBloc, BooksState>(
-      'should be triggered on BLoC creation and emit BooksLoaded on success',
+      'should be triggered on BLoC creation and emit booksLoaded on success',
       build: () => BooksBlocMock().onListBooks(Success(books)).get(),
       act: (bloc) {/* do nothing */},
-      expect: () => [BooksLoaded(books: books)],
+      expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
     );
 
     blocTest<BooksBloc, BooksState>(
-      'should be triggered on BLoC creation and emit FailedToLoadBooks on failure',
+      'should be triggered on BLoC creation and emit loadingFailed on failure',
       build: () => BooksBlocMock().onListBooks(Error(TestingFailure())).get(),
       act: (bloc) {/* do nothing */},
-      expect: () => [FailedToLoadBooks()],
+      expect: () => [const BooksState.loadingFailed()],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
     );
 
     blocTest<BooksBloc, BooksState>(
-      'should emit BooksLoaded on success',
+      'should emit booksLoaded on success',
       build: () => BooksBlocMock().onListBooks(Success(books)).get(),
       act: (bloc) => bloc.add(RefreshBooksList()),
-      expect: () => [BooksLoaded(books: books)],
+      expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
     );
 
     blocTest<BooksBloc, BooksState>(
-      'should emit FailedToLoadBooks on failure',
+      'should emit failedToLoadBooks on failure',
       build: () => BooksBlocMock().onListBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(RefreshBooksList()),
-      expect: () => [FailedToLoadBooks()],
+      expect: () => [const BooksState.loadingFailed()],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
     );
   });
@@ -57,13 +57,13 @@ void main() {
     final newBook = fakeBook();
 
     blocTest<BooksBloc, BooksState>(
-      'should emit BooksLoaded on success',
+      'should emit booksLoaded on success',
       build: () => BooksBlocMock()
           .onListBooks(Success(books))
           .onAddBooks(const Success(unit))
           .get(),
       act: (bloc) => bloc.add(BookAdded(newBook, newBook.state, const [])),
-      expect: () => [BooksLoaded(books: books)],
+      expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) {
         verify(bloc.addBook(AddParams(
           book: newBook,
@@ -75,13 +75,16 @@ void main() {
     );
 
     blocTest<BooksBloc, BooksState>(
-      'should emit FailedToAddBook on failure',
+      'should emit addingBooksFailed on failure',
       build: () => BooksBlocMock()
           .onListBooks(Success(books))
           .onAddBooks(Error(TestingFailure()))
           .get(),
       act: (bloc) => bloc.add(BookAdded(newBook, newBook.state, const [])),
-      expect: () => [BooksLoaded(books: books), FailedToAddBook()],
+      expect: () => [
+        BooksState.booksLoaded(books),
+        const BooksState.addingBookFailed(),
+      ],
       verify: (bloc) {
         verify(bloc.addBook(AddParams(
           book: newBook,
@@ -98,13 +101,13 @@ void main() {
     final book = fakeBook();
 
     blocTest<BooksBloc, BooksState>(
-      'should emit BooksLoaded on success',
+      'should emit booksLoaded on success',
       build: () => BooksBlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
       act: (bloc) => bloc.add(BookSwipedRight(book)),
-      expect: () => [BooksLoaded(books: books)],
+      expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(modified: book.moveRight())));
         verify(bloc.listBooks(NoParams()));
@@ -112,13 +115,16 @@ void main() {
     );
 
     blocTest<BooksBloc, BooksState>(
-      'should emit FailedToUpdateBook on failure',
+      'should emit updatingBookFailed on failure',
       build: () => BooksBlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
       act: (bloc) => bloc.add(BookSwipedRight(book)),
-      expect: () => [BooksLoaded(books: books), FailedToUpdateBook()],
+      expect: () => [
+        BooksState.booksLoaded(books),
+        const BooksState.updatingBookFailed(),
+      ],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(modified: book.moveRight())));
         verify(bloc.listBooks(NoParams()));
@@ -131,13 +137,13 @@ void main() {
     final book = fakeBook();
 
     blocTest<BooksBloc, BooksState>(
-      'should emit BooksLoaded on success',
+      'should emit booksLoaded on success',
       build: () => BooksBlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
       act: (bloc) => bloc.add(BookSwipedLeft(book)),
-      expect: () => [BooksLoaded(books: books)],
+      expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(modified: book.moveLeft())));
         verify(bloc.listBooks(NoParams()));
@@ -145,13 +151,16 @@ void main() {
     );
 
     blocTest<BooksBloc, BooksState>(
-      'should emit FailedToUpdateBook on failure',
+      'should emit updatingBookFailed on failure',
       build: () => BooksBlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
       act: (bloc) => bloc.add(BookSwipedLeft(book)),
-      expect: () => [BooksLoaded(books: books), FailedToUpdateBook()],
+      expect: () => [
+        BooksState.booksLoaded(books),
+        const BooksState.updatingBookFailed(),
+      ],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(modified: book.moveLeft())));
         verify(bloc.listBooks(NoParams()));
@@ -165,13 +174,13 @@ void main() {
     final tag = fakeTag();
 
     blocTest<BooksBloc, BooksState>(
-      'should emit BooksLoaded with added tag on success',
+      'should emit booksLoaded with added tag on success',
       build: () => BooksBlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
       act: (bloc) => bloc.add(TagToggled(book, tag)),
-      expect: () => [BooksLoaded(books: books)],
+      expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(
           modified: book.copyWith(tags: [...book.tags, tag]),
@@ -181,13 +190,13 @@ void main() {
     );
 
     blocTest<BooksBloc, BooksState>(
-      'should emit BooksLoaded with removed tag on success',
+      'should emit booksLoaded with removed tag on success',
       build: () => BooksBlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
       act: (bloc) => bloc.add(TagToggled(book, book.tags.first)),
-      expect: () => [BooksLoaded(books: books)],
+      expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) {
         final updatedTags = List.of(book.tags);
         updatedTags.remove(book.tags.first);
@@ -199,13 +208,16 @@ void main() {
     );
 
     blocTest<BooksBloc, BooksState>(
-      'should emit FailedToUpdateBook on failure',
+      'should emit updatingBookFailed on failure',
       build: () => BooksBlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
       act: (bloc) => bloc.add(TagToggled(book, tag)),
-      expect: () => [BooksLoaded(books: books), FailedToUpdateBook()],
+      expect: () => [
+        BooksState.booksLoaded(books),
+        const BooksState.updatingBookFailed(),
+      ],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(
           modified: book.copyWith(tags: [...book.tags, tag]),
@@ -220,18 +232,21 @@ void main() {
     final query = fakeSearchQuery();
 
     blocTest<BooksBloc, BooksState>(
-      'should emit BooksLoaded on success',
+      'should emit booksLoaded on success',
       build: () => BooksBlocMock().onFilterBooks(Success(books)).get(),
       act: (bloc) => bloc.add(BooksFiltered(query)),
-      expect: () => [const BooksLoaded(books: []), BooksLoaded(books: books)],
+      expect: () => [
+        const BooksState.booksLoaded([]),
+        BooksState.booksLoaded(books),
+      ],
       verify: (bloc) => verify(bloc.filterBooks(FilterParams(query: query))),
     );
 
     blocTest<BooksBloc, BooksState>(
-      'should emit FailedToLoadBooks on failure',
+      'should emit loadingFailed on failure',
       build: () => BooksBlocMock().onFilterBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(BooksFiltered(query)),
-      expect: () => [const BooksLoaded(books: []), FailedToLoadBooks()],
+      expect: () => [const BooksState.loadingFailed()],
       verify: (bloc) => verify(bloc.filterBooks(FilterParams(query: query))),
     );
   });

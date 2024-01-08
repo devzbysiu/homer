@@ -18,7 +18,7 @@ final class BottomNavBar extends StatefulWidget {
 }
 
 final class _BottomNavBarState extends State<BottomNavBar> {
-  final _sheetController = BottomBarWithSheetController(initialIndex: 0);
+  final _sheetCtl = BottomBarWithSheetController(initialIndex: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
         _openSheetWhenBookShared(),
       ],
       child: BottomBarWithSheet(
-        controller: _sheetController,
+        controller: _sheetCtl,
         duration: const Duration(milliseconds: 200),
         mainActionButtonBuilder: _mainActionButton,
         bottomBarTheme: _bottomBarTheme(context),
@@ -55,16 +55,15 @@ final class _BottomNavBarState extends State<BottomNavBar> {
   BlocListener<BooksBloc, BooksState> _closeSheetWhenBooksLoaded() {
     return BlocListener<BooksBloc, BooksState>(
       listener: (context, state) {
-        if (state is BooksLoaded) _sheetController.closeSheet();
+        if (state.value == StateValue.booksLoaded) _sheetCtl.closeSheet();
       },
     );
   }
 
-  BlocListener<ShareBookBloc, ShareBookState>
-      _openSheetWhenBookShared() {
+  BlocListener<ShareBookBloc, ShareBookState> _openSheetWhenBookShared() {
     return BlocListener<ShareBookBloc, ShareBookState>(
       listener: (context, state) {
-        if (state.isFetchingBookDetails) _sheetController.openSheet();
+        if (state.isFetchingBookDetails) _sheetCtl.openSheet();
       },
     );
   }
@@ -101,7 +100,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
         selector: (state) => state.deletionList,
         builder: (context, booksToDelete) {
           return booksToDelete.isEmpty
-              ? _AddButton(sheetController: _sheetController)
+              ? _AddButton(sheetController: _sheetCtl)
               : const _DeleteButton();
         });
   }

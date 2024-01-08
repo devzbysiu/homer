@@ -21,7 +21,7 @@ void main() {
 
     blocTest<BackupBloc, BackupState>(
       'should emit restoreInProgress and restoredFinished on success',
-      build: () => MockBuilder().onLoadBackup(Success(books)).get(),
+      build: () => BlocMock().onLoadBackup(Success(books)).get(),
       act: (bloc) => bloc.add(RestoreTriggered(path)),
       expect: () => [
         const BackupState.restoreInProgress(),
@@ -35,7 +35,7 @@ void main() {
 
     blocTest<BackupBloc, BackupState>(
       'should emit restoreInProgress and failedToRestoreBooks on LoadBackup failure',
-      build: () => MockBuilder().onLoadBackup(Error(TestingFailure())).get(),
+      build: () => BlocMock().onLoadBackup(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(RestoreTriggered(path)),
       expect: () => [
         const BackupState.restoreInProgress(),
@@ -46,8 +46,7 @@ void main() {
 
     blocTest<BackupBloc, BackupState>(
       'should emit restoreInProgress and failedToRestoreBooks on ReplaceAllBooks failure',
-      build: () =>
-          MockBuilder().onReplaceAllBooks(Error(TestingFailure())).get(),
+      build: () => BlocMock().onReplaceAllBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(RestoreTriggered(path)),
       expect: () => [
         const BackupState.restoreInProgress(),
@@ -62,7 +61,7 @@ void main() {
 
     blocTest<BackupBloc, BackupState>(
       'should emit backupInProgress and backupFinished on success',
-      build: () => MockBuilder().allWorking(),
+      build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(BackupTriggered(backupPath)),
       expect: () => [
         const BackupState.backupInProgress(),
@@ -73,7 +72,7 @@ void main() {
 
     blocTest<BackupBloc, BackupState>(
       'should emit backupInProgress and failedToMakeBackup on failure',
-      build: () => MockBuilder().onMakeBackup(Error(TestingFailure())).get(),
+      build: () => BlocMock().onMakeBackup(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(BackupTriggered(backupPath)),
       expect: () => [
         const BackupState.backupInProgress(),
@@ -84,8 +83,8 @@ void main() {
   });
 }
 
-final class MockBuilder {
-  MockBuilder() {
+final class BlocMock {
+  BlocMock() {
     provideDummy<Result<List<Book>, Failure>>(const Success([]));
     provideDummy<Result<Unit, Failure>>(const Success(unit));
 
@@ -104,17 +103,17 @@ final class MockBuilder {
 
   late final MockReplaceAllBooks _replaceAllBooks;
 
-  MockBuilder onLoadBackup(Result<List<Book>, Failure> ret) {
+  BlocMock onLoadBackup(Result<List<Book>, Failure> ret) {
     when(_loadBackup.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }
 
-  MockBuilder onReplaceAllBooks(Result<Unit, Failure> ret) {
+  BlocMock onReplaceAllBooks(Result<Unit, Failure> ret) {
     when(_replaceAllBooks.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }
 
-  MockBuilder onMakeBackup(Result<Unit, Failure> ret) {
+  BlocMock onMakeBackup(Result<Unit, Failure> ret) {
     when(_makeBackup.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }

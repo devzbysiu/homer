@@ -21,7 +21,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should be triggered on BLoC creation and emit booksLoaded on success',
-      build: () => MockBuilder().onListBooks(Success(books)).get(),
+      build: () => BlocMock().onListBooks(Success(books)).get(),
       act: (bloc) {/* do nothing */},
       expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
@@ -29,7 +29,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should be triggered on BLoC creation and emit loadingFailed on failure',
-      build: () => MockBuilder().onListBooks(Error(TestingFailure())).get(),
+      build: () => BlocMock().onListBooks(Error(TestingFailure())).get(),
       act: (bloc) {/* do nothing */},
       expect: () => [const BooksState.loadingFailed()],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
@@ -37,7 +37,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit booksLoaded on success',
-      build: () => MockBuilder().onListBooks(Success(books)).get(),
+      build: () => BlocMock().onListBooks(Success(books)).get(),
       act: (bloc) => bloc.add(RefreshBooksList()),
       expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
@@ -45,7 +45,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit failedToLoadBooks on failure',
-      build: () => MockBuilder().onListBooks(Error(TestingFailure())).get(),
+      build: () => BlocMock().onListBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(RefreshBooksList()),
       expect: () => [const BooksState.loadingFailed()],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
@@ -58,7 +58,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit booksLoaded on success',
-      build: () => MockBuilder()
+      build: () => BlocMock()
           .onListBooks(Success(books))
           .onAddBooks(const Success(unit))
           .get(),
@@ -76,7 +76,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit addingBooksFailed on failure',
-      build: () => MockBuilder()
+      build: () => BlocMock()
           .onListBooks(Success(books))
           .onAddBooks(Error(TestingFailure()))
           .get(),
@@ -102,7 +102,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit booksLoaded on success',
-      build: () => MockBuilder()
+      build: () => BlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
@@ -116,7 +116,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit updatingBookFailed on failure',
-      build: () => MockBuilder()
+      build: () => BlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
@@ -138,7 +138,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit booksLoaded on success',
-      build: () => MockBuilder()
+      build: () => BlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
@@ -152,7 +152,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit updatingBookFailed on failure',
-      build: () => MockBuilder()
+      build: () => BlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
@@ -175,7 +175,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit booksLoaded with added tag on success',
-      build: () => MockBuilder()
+      build: () => BlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
@@ -191,7 +191,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit booksLoaded with removed tag on success',
-      build: () => MockBuilder()
+      build: () => BlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
@@ -209,7 +209,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit updatingBookFailed on failure',
-      build: () => MockBuilder()
+      build: () => BlocMock()
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
@@ -233,7 +233,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit booksLoaded on success',
-      build: () => MockBuilder().onFilterBooks(Success(books)).get(),
+      build: () => BlocMock().onFilterBooks(Success(books)).get(),
       act: (bloc) => bloc.add(BooksFiltered(query)),
       expect: () => [
         const BooksState.booksLoaded([]),
@@ -244,7 +244,7 @@ void main() {
 
     blocTest<BooksBloc, BooksState>(
       'should emit loadingFailed on failure',
-      build: () => MockBuilder().onFilterBooks(Error(TestingFailure())).get(),
+      build: () => BlocMock().onFilterBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(BooksFiltered(query)),
       expect: () => [const BooksState.loadingFailed()],
       verify: (bloc) => verify(bloc.filterBooks(FilterParams(query: query))),
@@ -252,8 +252,8 @@ void main() {
   });
 }
 
-final class MockBuilder {
-  MockBuilder() {
+final class BlocMock {
+  BlocMock() {
     provideDummy<Result<List<Book>, Failure>>(const Success([]));
     provideDummy<Result<Unit, Failure>>(const Success(unit));
 
@@ -273,22 +273,22 @@ final class MockBuilder {
 
   late final MockFilterBooks _filterBooks;
 
-  MockBuilder onAddBooks(Result<Unit, Failure> ret) {
+  BlocMock onAddBooks(Result<Unit, Failure> ret) {
     when(_addBook.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }
 
-  MockBuilder onListBooks(Result<List<Book>, Failure> ret) {
+  BlocMock onListBooks(Result<List<Book>, Failure> ret) {
     when(_listBooks.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }
 
-  MockBuilder onUpdateBook(Result<Unit, Failure> ret) {
+  BlocMock onUpdateBook(Result<Unit, Failure> ret) {
     when(_updateBook.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }
 
-  MockBuilder onFilterBooks(Result<List<Book>, Failure> ret) {
+  BlocMock onFilterBooks(Result<List<Book>, Failure> ret) {
     when(_filterBooks.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }

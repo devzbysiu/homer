@@ -106,8 +106,9 @@ final class Book extends Equatable {
         rating,
         summary,
         tags,
-        startDate,
-        endDate,
+        // NOTE: Can those be removed?
+        // startDate,
+        // endDate,
       ];
 }
 

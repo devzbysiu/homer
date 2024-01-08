@@ -7,6 +7,7 @@ import 'dart:async' as _i3;
 
 import 'package:homer/core/entities/book.dart' as _i5;
 import 'package:homer/core/error/failures.dart' as _i6;
+import 'package:homer/core/usecase/usecase.dart' as _i29;
 import 'package:homer/features/backup_and_restore/data/datasources/backup_data_source.dart'
     as _i8;
 import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart'
@@ -42,8 +43,16 @@ import 'package:homer/features/manage_books/data/datasources/books_data_source.d
 import 'package:homer/features/manage_books/data/models/book_dto.dart' as _i12;
 import 'package:homer/features/manage_books/domain/repositories/books_repository.dart'
     as _i2;
+import 'package:homer/features/manage_books/domain/usecases/add_book.dart'
+    as _i27;
 import 'package:homer/features/manage_books/domain/usecases/delete_books.dart'
     as _i26;
+import 'package:homer/features/manage_books/domain/usecases/filter_books.dart'
+    as _i31;
+import 'package:homer/features/manage_books/domain/usecases/list_books.dart'
+    as _i28;
+import 'package:homer/features/manage_books/domain/usecases/update_book.dart'
+    as _i30;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:multiple_result/multiple_result.dart' as _i4;
@@ -691,4 +700,111 @@ class MockDeleteBooks extends _i1.Mock implements _i26.DeleteBooks {
           ),
         )),
       ) as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);
+}
+
+/// A class which mocks [AddBook].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAddBook extends _i1.Mock implements _i27.AddBook {
+  MockAddBook() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> call(_i27.AddParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<_i4.Unit, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);
+}
+
+/// A class which mocks [ListSortedBooks].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockListSortedBooks extends _i1.Mock implements _i28.ListSortedBooks {
+  MockListSortedBooks() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>> call(
+          _i29.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<List<_i5.Book>, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>>);
+}
+
+/// A class which mocks [UpdateBook].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUpdateBook extends _i1.Mock implements _i30.UpdateBook {
+  MockUpdateBook() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> call(
+          _i30.UpdateParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<_i4.Unit, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);
+}
+
+/// A class which mocks [FilterBooks].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFilterBooks extends _i1.Mock implements _i31.FilterBooks {
+  MockFilterBooks() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>> call(
+          _i31.FilterParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<List<_i5.Book>, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>>);
 }

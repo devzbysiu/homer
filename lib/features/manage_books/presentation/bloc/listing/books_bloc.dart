@@ -35,7 +35,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
 
   final ListSortedBooks listBooks;
 
-  final UpdateBookImpl updateBook;
+  final UpdateBook updateBook;
 
   final FilterBooks filterBooks;
 
@@ -58,28 +58,39 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     BookAdded event,
     Emitter<BooksState> emit,
   ) async {
-    await addBook(AddParams(
+    final result = await addBook(AddParams(
       book: event.book,
       bookState: event.bookState,
       selectedTags: event.selectedTags,
     ));
-    await _emitSavedBooks(emit);
+    await result.when(
+      (success) async => await _emitSavedBooks(emit),
+      (error) async => emit(FailedToAddBook()),
+    );
   }
 
   Future<void> _onBookSwipedRight(
     BookSwipedRight event,
     Emitter<BooksState> emit,
   ) async {
-    await updateBook(UpdateParams(modified: event.book.moveRight()));
-    await _emitSavedBooks(emit);
+    final modifiedBook = event.book.moveRight();
+    final result = await updateBook(UpdateParams(modified: modifiedBook));
+    await result.when(
+      (success) async => await _emitSavedBooks(emit),
+      (error) async => emit(FailedToUpdateBook()),
+    );
   }
 
   Future<void> _onBookSwipedLeft(
     BookSwipedLeft event,
     Emitter<BooksState> emit,
   ) async {
-    await updateBook(UpdateParams(modified: event.book.moveLeft()));
-    await _emitSavedBooks(emit);
+    final modifiedBook = event.book.moveLeft();
+    final result = await updateBook(UpdateParams(modified: modifiedBook));
+    await result.when(
+      (success) async => await _emitSavedBooks(emit),
+      (error) async => emit(FailedToUpdateBook()),
+    );
   }
 
   Future<void> _onTagToggled(
@@ -96,8 +107,11 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       tags.add(toggledTag);
     }
     final modifiedBook = book.copyWith(tags: tags);
-    await updateBook(UpdateParams(modified: modifiedBook));
-    await _emitSavedBooks(emit);
+    final result = await updateBook(UpdateParams(modified: modifiedBook));
+    await result.when(
+      (success) async => await _emitSavedBooks(emit),
+      (error) async => emit(FailedToUpdateBook()),
+    );
   }
 
   Future<void> _onBooksFiltered(

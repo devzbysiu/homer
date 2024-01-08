@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/entities/book.dart';
@@ -18,8 +19,11 @@ final class UpdateBookImpl implements UpdateBook {
   }
 }
 
-final class UpdateParams {
-  UpdateParams({required this.modified});
+final class UpdateParams extends Equatable {
+  const UpdateParams({required this.modified});
 
   final Book modified;
+
+  @override
+  List<Object> get props => [modified];
 }

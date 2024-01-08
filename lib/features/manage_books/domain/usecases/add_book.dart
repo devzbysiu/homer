@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/entities/book.dart';
@@ -25,8 +26,8 @@ final class AddBookImpl implements AddBook {
   }
 }
 
-final class AddParams {
-  AddParams({
+final class AddParams extends Equatable {
+  const AddParams({
     required this.book,
     required this.bookState,
     required this.selectedTags,
@@ -37,4 +38,7 @@ final class AddParams {
   final BookState bookState;
 
   final List<Tag> selectedTags;
+
+  @override
+  List<Object> get props => [book, bookState, selectedTags];
 }

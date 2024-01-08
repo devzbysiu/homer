@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/entities/book.dart';
@@ -30,8 +31,11 @@ final class FilterBooksImpl implements FilterBooks {
   }
 }
 
-final class FilterParams {
-  FilterParams({required this.query});
+final class FilterParams extends Equatable {
+  const FilterParams({required this.query});
 
   final String query;
+
+  @override
+  List<Object> get props => [query];
 }

@@ -17,3 +17,7 @@ final class BooksLoaded extends BooksState {
 }
 
 final class FailedToLoadBooks extends BooksState {}
+
+final class FailedToAddBook extends BooksState {}
+
+final class FailedToUpdateBook extends BooksState {}

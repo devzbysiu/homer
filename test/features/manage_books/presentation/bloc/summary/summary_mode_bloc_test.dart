@@ -10,22 +10,18 @@ void main() {
     final book = fakeBook();
 
     blocTest<BookSummaryBloc, BookSummaryState>(
-      'should emit DisablingSummaryMode with wasInSummaryMode set to None()',
+      'should emit disabling with None() as previous book in summary',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeDisabling()),
-      expect: () => [BookSummaryState.disabling(const None())],
+      expect: () => [const BookSummaryState.disabling(None())],
     );
 
     blocTest<BookSummaryBloc, BookSummaryState>(
-      'should emit DisablingSummaryMode with wasInSummaryMode set to last book',
+      'should emit disabling with last book in summary',
+      seed: () => BookSummaryState.enabled(book),
       build: () => BookSummaryBloc(),
-      act: (bloc) => bloc
-        ..add(SummaryModeToggled(book))
-        ..add(SummaryModeDisabling()),
-      expect: () => [
-        BookSummaryState.enabled(book),
-        BookSummaryState.disabling(some(book)),
-      ],
+      act: (bloc) => bloc.add(SummaryModeDisabling()),
+      expect: () => [BookSummaryState.disabling(some(book))],
     );
   });
 
@@ -33,14 +29,14 @@ void main() {
     final book = fakeBook();
 
     blocTest<BookSummaryBloc, BookSummaryState>(
-      'should emit EnableSummaryMode when this book is not in summary mode',
+      'should emit enabled when book is not in summary mode',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeToggled(book)),
       expect: () => [BookSummaryState.enabled(book)],
     );
 
     blocTest<BookSummaryBloc, BookSummaryState>(
-      'should emit DisablingSummaryMode when this book is already in summary mode',
+      'should emit disabling when this book is already in summary mode',
       seed: () => BookSummaryState.enabled(book),
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeToggled(book)),
@@ -50,7 +46,7 @@ void main() {
 
   group('_onSummaryModeDisabled', () {
     blocTest<BookSummaryBloc, BookSummaryState>(
-      'should emit DisabledSummaryMode',
+      'should emit disabled',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeDisabled()),
       expect: () => [const BookSummaryState.disabled()],

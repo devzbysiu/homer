@@ -1,6 +1,6 @@
 part of 'books_list.dart';
 
-class _RegularCard extends StatelessWidget {
+final class _RegularCard extends StatelessWidget {
   const _RegularCard({required this.book});
 
   final Book book;

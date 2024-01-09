@@ -74,7 +74,7 @@ final class _BookWithSummary extends StatelessWidget {
 
 // This is copy of https://github.com/mtiziano/drop_cap_text/blob/2c1c7eee913e03650ff2c5f52d83fa24068f5ba2/lib/drop_cap_text.dart
 // Heavily modified (striped out of useless stuff).
-class _DropCap extends StatelessWidget {
+final class _DropCap extends StatelessWidget {
   const _DropCap({
     required this.child,
     required this.width,
@@ -97,7 +97,7 @@ class _DropCap extends StatelessWidget {
   }
 }
 
-class _DropCapText extends StatelessWidget {
+final class _DropCapText extends StatelessWidget {
   const _DropCapText({
     required this.text,
     required this.dropCap,

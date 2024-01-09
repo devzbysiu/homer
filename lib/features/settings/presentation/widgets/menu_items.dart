@@ -5,7 +5,7 @@ import '../../../backup_and_restore/presentation/widgets/backup_button.dart';
 import '../../../backup_and_restore/presentation/widgets/restore_button.dart';
 import 'settings_button.dart';
 
-class MenuItems extends StatelessWidget {
+final class MenuItems extends StatelessWidget {
   const MenuItems({super.key});
 
   @override

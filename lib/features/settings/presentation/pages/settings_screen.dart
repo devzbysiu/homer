@@ -9,7 +9,7 @@ import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import '../bloc/settings_bloc.dart';
 import '../widgets/book_size_slider.dart';
 
-class SettingsScreen extends StatelessWidget {
+final class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override

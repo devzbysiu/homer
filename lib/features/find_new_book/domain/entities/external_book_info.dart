@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class ExternalBookInfo extends Equatable {
+final class ExternalBookInfo extends Equatable {
   const ExternalBookInfo({
     required this.isbn,
     required this.title,

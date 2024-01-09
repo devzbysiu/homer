@@ -1,7 +1,7 @@
 // This is copy from https://github.com/zeref278/image_card/blob/3c85102539087d5bf9530ec5196f34cd512da105/lib/src/transparent_image_card.dart
 import 'package:flutter/material.dart';
 
-class TransparentImageCard extends StatelessWidget {
+final class TransparentImageCard extends StatelessWidget {
   const TransparentImageCard({
     super.key,
     this.width,
@@ -123,7 +123,7 @@ class TransparentImageCard extends StatelessWidget {
   }
 }
 
-class _ImageCardContent extends StatelessWidget {
+final class _ImageCardContent extends StatelessWidget {
   const _ImageCardContent({
     this.contentPadding,
     this.tags,

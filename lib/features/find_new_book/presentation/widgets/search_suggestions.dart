@@ -21,7 +21,7 @@ final class _SearchSuggestions extends StatelessWidget {
   }
 }
 
-class _SuggestionsList extends StatelessWidget {
+final class _SuggestionsList extends StatelessWidget {
   const _SuggestionsList();
 
   @override

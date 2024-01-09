@@ -33,7 +33,7 @@ final class BookCardFooter extends StatelessWidget {
   }
 }
 
-class _BookRating extends StatelessWidget {
+final class _BookRating extends StatelessWidget {
   const _BookRating({required this.rating});
 
   final double rating;
@@ -57,7 +57,7 @@ class _BookRating extends StatelessWidget {
   }
 }
 
-class _ShareButton extends StatelessWidget {
+final class _ShareButton extends StatelessWidget {
   const _ShareButton({required this.shareText});
 
   final Option<String> shareText;
@@ -81,7 +81,7 @@ class _ShareButton extends StatelessWidget {
   }
 }
 
-class _BookSize extends StatelessWidget {
+final class _BookSize extends StatelessWidget {
   const _BookSize({required this.pageCount});
 
   final int pageCount;
@@ -111,7 +111,7 @@ class _BookSize extends StatelessWidget {
   }
 }
 
-class _BookSizeLabel extends StatelessWidget {
+final class _BookSizeLabel extends StatelessWidget {
   const _BookSizeLabel({required this.pageCount});
 
   final int pageCount;

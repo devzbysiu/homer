@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 enum Env { dev, prod }
 
-class AppConfig {
+final class AppConfig {
   AppConfig({required String bookInfoUrl}) : _apiUrl = bookInfoUrl;
 
   final String _apiUrl;

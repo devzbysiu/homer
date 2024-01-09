@@ -13,7 +13,7 @@ import '../../domain/usecases/save_settings.dart';
 part 'settings_event.dart';
 part 'settings_state.dart';
 
-class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
+final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({
     required this.saveSettings,
     required this.loadSettings,

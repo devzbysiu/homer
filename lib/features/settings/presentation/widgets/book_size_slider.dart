@@ -4,14 +4,14 @@ import 'package:flutter_multi_slider/flutter_multi_slider.dart';
 import '../../domain/entities/book_size_limits.dart';
 import '../bloc/settings_bloc.dart';
 
-class BookSizeSlider extends StatefulWidget {
+final class BookSizeSlider extends StatefulWidget {
   const BookSizeSlider({super.key});
 
   @override
   State<BookSizeSlider> createState() => BookSizeSliderState();
 }
 
-class BookSizeSliderState extends State<BookSizeSlider> {
+final class BookSizeSliderState extends State<BookSizeSlider> {
   BookSizeLimits? componentBookSizeLimits;
 
   @override

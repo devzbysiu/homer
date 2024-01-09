@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/settings_bloc.dart';
 
-class ThemeSwitcher extends StatelessWidget {
+final class ThemeSwitcher extends StatelessWidget {
   const ThemeSwitcher({super.key});
 
   @override

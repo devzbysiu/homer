@@ -35,7 +35,7 @@ final class BottomDrawerContent extends StatefulWidget {
   State<BottomDrawerContent> createState() => _BottomDrawerContentState();
 }
 
-class _BottomDrawerContentState extends State<BottomDrawerContent> {
+final class _BottomDrawerContentState extends State<BottomDrawerContent> {
   final FloatingSearchBarController _controller = FloatingSearchBarController();
 
   @override

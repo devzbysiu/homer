@@ -13,7 +13,7 @@ final class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+final class _MainScreenState extends State<MainScreen> {
   final _searchController = FloatingSearchBarController();
 
   bool isSearchInProgress = false;

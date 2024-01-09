@@ -1,6 +1,6 @@
 part of 'settings_bloc.dart';
 
-class SettingsState extends Equatable {
+final class SettingsState extends Equatable {
   const SettingsState({
     required this.isDarkThemeOn,
     required this.isSystemThemeOn,

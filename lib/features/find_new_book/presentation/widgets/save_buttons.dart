@@ -18,7 +18,7 @@ final class _SaveButtons extends StatelessWidget {
   }
 }
 
-class _SaveToReadButton extends StatelessWidget {
+final class _SaveToReadButton extends StatelessWidget {
   const _SaveToReadButton({required this.pickedBook});
 
   final Book pickedBook;
@@ -37,7 +37,7 @@ class _SaveToReadButton extends StatelessWidget {
   }
 }
 
-class _SaveToReadingButton extends StatelessWidget {
+final class _SaveToReadingButton extends StatelessWidget {
   const _SaveToReadingButton({required this.pickedBook});
 
   final Book pickedBook;
@@ -56,7 +56,7 @@ class _SaveToReadingButton extends StatelessWidget {
   }
 }
 
-class _SaveForLaterButton extends StatelessWidget {
+final class _SaveForLaterButton extends StatelessWidget {
   const _SaveForLaterButton({required this.pickedBook});
 
   final Book pickedBook;

@@ -29,9 +29,7 @@ final class _BookCover extends StatelessWidget {
     );
   }
 
-  List<Widget> _tags() {
-    return book.tags.map((tag) => _Tag(tag: tag)).toList();
-  }
+  List<Widget> _tags() => book.tags.map((tag) => _Tag(tag: tag)).toList();
 }
 
 final class _Tag extends StatelessWidget {

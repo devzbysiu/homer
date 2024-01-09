@@ -8,7 +8,7 @@ import '../../../find_new_book/presentation/bloc/share_book/share_book_bloc.dart
 import '../../../find_new_book/presentation/widgets/bottom_drawer_content.dart';
 import '../../../manage_books/presentation/bloc/delete/delete_books_bloc.dart';
 import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
-import '../../presentation/bloc/app_tab_bloc.dart';
+import '../bloc/navigation/app_tab_bloc.dart';
 
 final class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});

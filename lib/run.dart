@@ -14,8 +14,8 @@ import 'features/find_new_book/presentation/bloc/share_book/share_book_bloc.dart
 import 'features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_bloc.dart';
 import 'features/manage_books/presentation/bloc/delete/delete_books_bloc.dart';
 import 'features/manage_books/presentation/bloc/listing/books_bloc.dart';
+import 'features/manage_books/presentation/bloc/navigation/app_tab_bloc.dart';
 import 'features/manage_books/presentation/bloc/summary/book_summary_bloc.dart';
-import 'features/navigation/presentation/bloc/app_tab_bloc.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
 import 'features/tags_manager/presentation/bloc/tags_bloc.dart';
 import 'injection_container.dart';

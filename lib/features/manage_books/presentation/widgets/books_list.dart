@@ -18,10 +18,10 @@ import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
-import '../../../navigation/presentation/bloc/app_tab_bloc.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
 import '../bloc/delete/delete_books_bloc.dart';
 import '../bloc/listing/books_bloc.dart';
+import '../bloc/navigation/app_tab_bloc.dart';
 import '../bloc/summary/book_summary_bloc.dart';
 
 part 'animated_regular_card.dart';

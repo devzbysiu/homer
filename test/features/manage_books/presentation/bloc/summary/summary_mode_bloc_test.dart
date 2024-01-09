@@ -13,7 +13,7 @@ void main() {
       'should emit DisablingSummaryMode with wasInSummaryMode set to None()',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeDisabling()),
-      expect: () => [const DisablingSummaryMode(wasInSummaryMode: None())],
+      expect: () => [BookSummaryState.disabling(const None())],
     );
 
     blocTest<BookSummaryBloc, BookSummaryState>(
@@ -23,8 +23,8 @@ void main() {
         ..add(SummaryModeToggled(book))
         ..add(SummaryModeDisabling()),
       expect: () => [
-        EnableSummaryMode(bookInSummaryMode: some(book)),
-        DisablingSummaryMode(wasInSummaryMode: some(book)),
+        BookSummaryState.enabled(book),
+        BookSummaryState.disabling(some(book)),
       ],
     );
   });
@@ -36,15 +36,15 @@ void main() {
       'should emit EnableSummaryMode when this book is not in summary mode',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeToggled(book)),
-      expect: () => [EnableSummaryMode(bookInSummaryMode: some(book))],
+      expect: () => [BookSummaryState.enabled(book)],
     );
 
     blocTest<BookSummaryBloc, BookSummaryState>(
       'should emit DisablingSummaryMode when this book is already in summary mode',
-      seed: () => EnableSummaryMode(bookInSummaryMode: some(book)),
+      seed: () => BookSummaryState.enabled(book),
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeToggled(book)),
-      expect: () => [DisablingSummaryMode(wasInSummaryMode: some(book))],
+      expect: () => [BookSummaryState.disabling(some(book))],
     );
   });
 
@@ -53,7 +53,7 @@ void main() {
       'should emit DisabledSummaryMode',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeDisabled()),
-      expect: () => [DisabledSummaryMode()],
+      expect: () => [const BookSummaryState.disabled()],
     );
   });
 }

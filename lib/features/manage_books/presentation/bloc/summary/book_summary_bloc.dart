@@ -11,7 +11,7 @@ part 'book_summary_event.dart';
 part 'book_summary_state.dart';
 
 final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
-  BookSummaryBloc() : super(Empty()) {
+  BookSummaryBloc() : super(const BookSummaryState.initial()) {
     on<SummaryModeDisabling>(_onSummaryModeDisabling);
     on<SummaryModeToggled>(_onSummaryModeToggled);
     on<SummaryModeDisabled>(_onSummaryModeDisabled);
@@ -21,18 +21,16 @@ final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
     SummaryModeDisabling event,
     Emitter<BookSummaryState> emit,
   ) async {
-    emit(DisablingSummaryMode(wasInSummaryMode: state.bookInSummaryMode));
+    emit(BookSummaryState.disabling(state.current));
   }
 
   Future<void> _onSummaryModeToggled(
     SummaryModeToggled event,
     Emitter<BookSummaryState> emit,
   ) async {
-    state.bookInSummaryMode.fold(
-      () => emit(EnableSummaryMode(bookInSummaryMode: some(event.book))),
-      (book) => emit(DisablingSummaryMode(
-        wasInSummaryMode: state.bookInSummaryMode,
-      )),
+    state.current.fold(
+      () => emit(BookSummaryState.enabled(event.book)),
+      (book) => emit(BookSummaryState.disabling(state.current)),
     );
   }
 
@@ -40,7 +38,7 @@ final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
     SummaryModeDisabled event,
     Emitter<BookSummaryState> emit,
   ) async {
-    emit(DisabledSummaryMode());
+    emit(const BookSummaryState.disabled());
   }
 }
 

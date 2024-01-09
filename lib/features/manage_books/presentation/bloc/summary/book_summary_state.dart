@@ -1,28 +1,39 @@
 part of 'book_summary_bloc.dart';
 
-@immutable
-abstract class BookSummaryState extends Equatable {
-  const BookSummaryState({
-    this.bookInSummaryMode = const None(),
-    this.wasInSummaryMode = const None(),
-  });
+final class BookSummaryState extends Equatable {
+  const BookSummaryState.initial()
+      : current = const None(),
+        previous = const None(),
+        value = SummaryMode.initial;
 
-  final Option<Book> bookInSummaryMode;
+  BookSummaryState.enabled(Book book)
+      : current = some(book),
+        previous = const None(),
+        value = SummaryMode.enabled;
 
-  final Option<Book> wasInSummaryMode;
+  const BookSummaryState.disabled()
+      : current = const None(),
+        previous = const None(),
+        value = SummaryMode.disabled;
+
+  const BookSummaryState.disabling(Option<Book> current)
+      : current = const None(),
+        previous = current,
+        value = SummaryMode.disabling;
+
+  final Option<Book> current;
+
+  final Option<Book> previous;
+
+  final SummaryMode value;
 
   @override
-  List<Object> get props => [bookInSummaryMode];
+  List<Object> get props => [current, previous, value];
 }
 
-final class Empty extends BookSummaryState {}
-
-final class EnableSummaryMode extends BookSummaryState {
-  const EnableSummaryMode({required super.bookInSummaryMode});
+enum SummaryMode {
+  initial,
+  enabled,
+  disabled,
+  disabling,
 }
-
-final class DisablingSummaryMode extends BookSummaryState {
-  const DisablingSummaryMode({required super.wasInSummaryMode});
-}
-
-final class DisabledSummaryMode extends BookSummaryState {}

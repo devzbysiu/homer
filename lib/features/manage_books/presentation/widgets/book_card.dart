@@ -26,7 +26,7 @@ final class _BookCard extends StatelessWidget {
   }
 
   void _toggleModes(List<Book> booksToDelete, BuildContext context) {
-    context.disableSummaryMode(); // always disable summary mode on toggle
+    context.disableSummaryMode(); // always disable summary mode on tap
     if (booksToDelete.isEmpty) return; // not in delete mode
     context.toggleBookOnDeleteList(book);
   }
@@ -35,13 +35,13 @@ final class _BookCard extends StatelessWidget {
     if (booksToDelete.isNotEmpty) return _DeletableCard(book: book);
     return BlocBuilder<BookSummaryBloc, BookSummaryState>(
       builder: (context, state) {
-        switch (state.runtimeType) {
-          case EnableSummaryMode:
-            return _isInSummaryMode(state)
+        switch (state.value) {
+          case SummaryMode.enabled:
+            return _isInSummaryMode(state.current)
                 ? _AnimatedSummaryCard(book: book)
                 : _RegularCard(book: book);
-          case DisablingSummaryMode:
-            return _wasInSummaryMode(state)
+          case SummaryMode.disabling:
+            return _wasInSummaryMode(state.previous)
                 ? _AnimatedRegularCard(book: book, context: context)
                 : _RegularCard(book: book);
           default:
@@ -51,14 +51,14 @@ final class _BookCard extends StatelessWidget {
     );
   }
 
-  bool _isInSummaryMode(BookSummaryState state) {
-    return state.bookInSummaryMode
+  bool _isInSummaryMode(dartz.Option<Book> current) {
+    return current
         .map((bookInSummaryMode) => book == bookInSummaryMode)
         .getOrElse(() => false);
   }
 
-  bool _wasInSummaryMode(BookSummaryState state) {
-    return state.wasInSummaryMode
+  bool _wasInSummaryMode(dartz.Option<Book> previous) {
+    return previous
         .map((wasInSummaryMode) => book == wasInSummaryMode)
         .getOrElse(() => false);
   }

@@ -48,3 +48,4 @@ tools/
 
 # Coverage
 coverage/
+mutation-test-report

@@ -773,6 +773,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.0"
+  mutation_test:
+    dependency: "direct dev"
+    description:
+      name: mutation_test
+      sha256: "52c88b39ffd5ff9a1c6b837643c712e15cc3f92484f69b5bd348cc8f2ce9355d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.0"
   nested:
     dependency: transitive
     description:

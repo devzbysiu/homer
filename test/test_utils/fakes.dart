@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:books_finder/books_finder.dart' as bf;
 import 'package:dartz/dartz.dart';
 import 'package:faker/faker.dart';
@@ -10,6 +12,9 @@ import 'package:homer/features/find_new_book/data/models/external_book_info_dto.
 import 'package:homer/features/find_new_book/domain/entities/external_book_info.dart';
 import 'package:homer/features/manage_books/data/models/book_dto.dart';
 import 'package:homer/features/manage_books/data/models/tag_dto.dart';
+import 'package:homer/features/settings/data/models/settings_dto.dart';
+import 'package:homer/features/settings/domain/entities/book_size_limits.dart';
+import 'package:homer/features/settings/domain/entities/settings.dart';
 
 Book fakeBook() {
   return Book(
@@ -257,4 +262,30 @@ BookStateDTO fakeBookStateDTO() {
     default:
       throw Exception('Should not happen');
   }
+}
+
+Settings fakeSettings() {
+  return Settings(
+    isSystemThemeOn: fakeBool(),
+    isDarkThemeOn: fakeBool(),
+    backupsDirectory: Directory(fakePath()),
+    bookSizeLimits: BookSizeLimits(
+      shortMax: faker.randomGenerator.integer(100),
+      mediumMax: faker.randomGenerator.integer(min: 100, 200),
+    ),
+  );
+}
+
+bool fakeBool() => faker.randomGenerator.boolean();
+
+SettingsDTO fakeSettingsDTO() {
+  return SettingsDTO(
+    isSystemThemeOn: fakeBool(),
+    isDarkThemeOn: fakeBool(),
+    backupsDirectory: Directory(fakePath()),
+    bookSizeLimits: BookSizeLimits(
+      shortMax: faker.randomGenerator.integer(100),
+      mediumMax: faker.randomGenerator.integer(min: 100, 200),
+    ),
+  );
 }

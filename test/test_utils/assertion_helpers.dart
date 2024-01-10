@@ -10,6 +10,8 @@ import 'package:homer/features/find_new_book/data/models/external_book_info_dto.
 import 'package:homer/features/find_new_book/domain/entities/external_book_info.dart';
 import 'package:homer/features/manage_books/data/models/book_dto.dart';
 import 'package:homer/features/manage_books/data/models/tag_dto.dart';
+import 'package:homer/features/settings/data/models/settings_dto.dart';
+import 'package:homer/features/settings/domain/entities/settings.dart';
 
 BackupBookDTO backupDTOFromBook(Book book) {
   return BackupBookDTO(
@@ -185,4 +187,22 @@ Option<DateTime> _toDateTime(int? millisSinceEpoch) {
   return millisSinceEpoch == null || millisSinceEpoch == 0
       ? none()
       : some(DateTime.fromMillisecondsSinceEpoch(millisSinceEpoch));
+}
+
+SettingsDTO settingsDTOFromSettings(Settings settings) {
+  return SettingsDTO(
+    isDarkThemeOn: settings.isDarkThemeOn,
+    isSystemThemeOn: settings.isSystemThemeOn,
+    backupsDirectory: settings.backupsDirectory,
+    bookSizeLimits: settings.bookSizeLimits,
+  );
+}
+
+Settings settingsFromSettingsDTO(SettingsDTO settingsDTO) {
+  return Settings(
+    isDarkThemeOn: settingsDTO.isDarkThemeOn,
+    isSystemThemeOn: settingsDTO.isSystemThemeOn,
+    backupsDirectory: settingsDTO.backupsDirectory,
+    bookSizeLimits: settingsDTO.bookSizeLimits,
+  );
 }

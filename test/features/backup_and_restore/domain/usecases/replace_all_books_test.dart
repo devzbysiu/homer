@@ -39,9 +39,7 @@ void main() {
       final notImportant = [fakeBook()];
 
       // when
-      final result = await replaceAllBooks(
-        ReplaceParams(books: notImportant),
-      );
+      final result = await replaceAllBooks(ReplaceParams(books: notImportant));
 
       // then
       expect(result.isSuccess(), true);
@@ -58,9 +56,7 @@ void main() {
       final notImportant = [fakeBook()];
 
       // when
-      final result = await replaceAllBooks(
-        ReplaceParams(books: notImportant),
-      );
+      final result = await replaceAllBooks(ReplaceParams(books: notImportant));
 
       // then
       expect(result.isError(), true);

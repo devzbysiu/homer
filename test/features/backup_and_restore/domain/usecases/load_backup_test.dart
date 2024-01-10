@@ -38,8 +38,6 @@ void main() {
 
       final loadBackup = LoadBackupImpl(mockRepo);
 
-      verifyZeroInteractions(mockRepo);
-
       final notImportant = fakePath();
 
       // when
@@ -57,8 +55,6 @@ void main() {
       when(mockRepo.loadAll(any)).thenAnswer((_) => withError(error));
 
       final loadBackup = LoadBackupImpl(mockRepo);
-
-      verifyZeroInteractions(mockRepo);
 
       final notImportant = fakePath();
 

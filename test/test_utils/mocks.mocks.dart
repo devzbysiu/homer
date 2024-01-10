@@ -53,6 +53,9 @@ import 'package:homer/features/manage_books/domain/usecases/list_books.dart'
     as _i28;
 import 'package:homer/features/manage_books/domain/usecases/update_book.dart'
     as _i30;
+import 'package:homer/features/settings/data/datasources/settings_data_source.dart'
+    as _i32;
+import 'package:homer/features/settings/data/models/settings_dto.dart' as _i33;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:multiple_result/multiple_result.dart' as _i4;
@@ -807,4 +810,46 @@ class MockFilterBooks extends _i1.Mock implements _i31.FilterBooks {
           ),
         )),
       ) as _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>>);
+}
+
+/// A class which mocks [SettingsDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSettingsDataSource extends _i1.Mock
+    implements _i32.SettingsDataSource {
+  MockSettingsDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Unit> save(_i33.SettingsDTO? settingsDTO) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #save,
+          [settingsDTO],
+        ),
+        returnValue: _i3.Future<_i4.Unit>.value(_i7.dummyValue<_i4.Unit>(
+          this,
+          Invocation.method(
+            #save,
+            [settingsDTO],
+          ),
+        )),
+      ) as _i3.Future<_i4.Unit>);
+
+  @override
+  _i3.Future<_i33.SettingsDTO> load() => (super.noSuchMethod(
+        Invocation.method(
+          #load,
+          [],
+        ),
+        returnValue:
+            _i3.Future<_i33.SettingsDTO>.value(_i7.dummyValue<_i33.SettingsDTO>(
+          this,
+          Invocation.method(
+            #load,
+            [],
+          ),
+        )),
+      ) as _i3.Future<_i33.SettingsDTO>);
 }

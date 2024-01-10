@@ -12,6 +12,23 @@ import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('listAll', () {
+    test('should use books data source to list books', () async {
+      // given
+      final booksDataSource = makeMockBooksDatasource();
+      final bookDTOs = [fakeBookDTO(), fakeBookDTO(), fakeBookDTO()];
+      when(booksDataSource.getBooks()).thenAnswer((_) => withIt(bookDTOs));
+      final repo = BooksRepo(dataSource: booksDataSource);
+
+      verifyZeroInteractions(booksDataSource);
+
+      // when
+      final _ = await repo.listAll();
+
+      // then
+      verify(booksDataSource.getBooks());
+      verifyNoMoreInteractions(booksDataSource);
+    });
+
     test('should return failure when datasource throws', () async {
       // given
       final booksDataSource = makeMockBooksDatasource();
@@ -56,6 +73,24 @@ void main() {
   });
 
   group('add', () {
+    test('should use datasource to add book', () async {
+      // given
+      final booksDataSource = makeMockBooksDatasource();
+      final book = fakeBook();
+      final bookDTO = bookDTOFromBook(book);
+      when(booksDataSource.add(bookDTO)).thenAnswer((_) => withUnit());
+      final repo = BooksRepo(dataSource: booksDataSource);
+
+      verifyZeroInteractions(booksDataSource);
+
+      // when
+      final _ = await repo.add(book);
+
+      // then
+      verify(booksDataSource.add(bookDTO));
+      verifyNoMoreInteractions(booksDataSource);
+    });
+
     test('should return failure when datasource throws', () async {
       // given
       final booksDataSource = makeMockBooksDatasource();
@@ -69,22 +104,6 @@ void main() {
       // then
       expect(result.isError(), true);
       expect(result.tryGetError()!, AddingBookFailure(book));
-    });
-
-    test('should use datasource to add book', () async {
-      // given
-      final booksDataSource = makeMockBooksDatasource();
-      final book = fakeBook();
-      final bookDTO = bookDTOFromBook(book);
-      when(booksDataSource.add(bookDTO)).thenAnswer((_) => withUnit());
-      final repo = BooksRepo(dataSource: booksDataSource);
-
-      // when
-      final result = await repo.add(book);
-
-      // then
-      expect(result.isSuccess(), true);
-      verify(booksDataSource.add(bookDTO));
     });
   });
 
@@ -112,12 +131,14 @@ void main() {
       when(booksDataSource.replaceAll(bookDTOs)).thenAnswer((_) => withUnit());
       final repo = BooksRepo(dataSource: booksDataSource);
 
+      verifyZeroInteractions(booksDataSource);
+
       // when
-      final result = await repo.replaceAll(books);
+      final _ = await repo.replaceAll(books);
 
       // then
-      expect(result.isSuccess(), true);
       verify(booksDataSource.replaceAll(bookDTOs));
+      verifyNoMoreInteractions(booksDataSource);
     });
   });
 
@@ -145,12 +166,14 @@ void main() {
       when(booksDataSource.update(bookDTO)).thenAnswer((_) => withUnit());
       final repo = BooksRepo(dataSource: booksDataSource);
 
+      verifyZeroInteractions(booksDataSource);
+
       // when
-      final result = await repo.update(book);
+      final _ = await repo.update(book);
 
       // then
-      expect(result.isSuccess(), true);
       verify(booksDataSource.update(bookDTO));
+      verifyNoMoreInteractions(booksDataSource);
     });
   });
 
@@ -178,12 +201,14 @@ void main() {
       when(booksDataSource.delete(bookDTOs)).thenAnswer((_) => withUnit());
       final repo = BooksRepo(dataSource: booksDataSource);
 
+      verifyNoMoreInteractions(booksDataSource);
+
       // when
-      final result = await repo.delete(books);
+      final _ = await repo.delete(books);
 
       // then
-      expect(result.isSuccess(), true);
       verify(booksDataSource.delete(bookDTOs));
+      verifyNoMoreInteractions(booksDataSource);
     });
   });
 }

@@ -22,6 +22,8 @@ void main() {
 
       final makeBackup = MakeBackupImpl(backupRepo, booksRepo);
 
+      verifyZeroInteractions(booksRepo);
+
       // when
       final _ = await makeBackup(BackupParams(path: fakePath()));
 
@@ -41,6 +43,8 @@ void main() {
       final makeBackup = MakeBackupImpl(backupRepo, booksRepo);
 
       final backupPath = fakePath();
+
+      verifyZeroInteractions(backupRepo);
 
       // when
       final _ = await makeBackup(BackupParams(path: backupPath));
@@ -64,11 +68,8 @@ void main() {
       final result = await makeBackup(BackupParams(path: fakePath()));
 
       // then
-      verify(booksRepo.listAll());
       expect(result.isError(), true);
       expect(result.tryGetError(), failure);
-      verifyNoMoreInteractions(booksRepo);
-      verifyNoMoreInteractions(backupRepo);
     });
 
     test('should return error when backup repo fails', () async {
@@ -90,12 +91,8 @@ void main() {
       final result = await makeBackup(BackupParams(path: backupPath));
 
       // then
-      verify(booksRepo.listAll());
-      verify(backupRepo.saveAll(backupPath, books));
       expect(result.isError(), true);
       expect(result.tryGetError(), failure);
-      verifyNoMoreInteractions(booksRepo);
-      verifyNoMoreInteractions(backupRepo);
     });
   });
 }

@@ -289,3 +289,15 @@ SettingsDTO fakeSettingsDTO() {
     ),
   );
 }
+
+Map<String, dynamic> fakeSettingsDTOJson() {
+  return {
+    'isSystemThemeOn': fakeBool(),
+    'isDarkThemeOn': fakeBool(),
+    'backupsDirectory': fakePath(),
+    'bookSizeLimits': [
+      faker.randomGenerator.integer(100),
+      faker.randomGenerator.integer(min: 100, 200),
+    ],
+  };
+}

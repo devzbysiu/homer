@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
 import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
+import 'package:homer/features/settings/data/models/settings_dto.dart';
+import 'package:homer/features/settings/domain/entities/book_size_limits.dart';
 
 BackupBookDTO backupBookDTOFromJson(Map<String, dynamic> json) {
   return BackupBookDTO(
@@ -51,5 +55,18 @@ ExternalBookInfoDTO externalBookInfoDTOFromJson(Map<String, dynamic> json) {
     title: json['title'],
     isbn10: optionOf(json['isbn10']),
     isbn13: optionOf(json['isbn13']),
+  );
+}
+
+SettingsDTO settingsDTOFromJson(Map<String, dynamic> json) {
+  final bookSizeLimits = json['bookSizeLimits'];
+  return SettingsDTO(
+    isSystemThemeOn: json['isSystemThemeOn'],
+    isDarkThemeOn: json['isDarkThemeOn'],
+    backupsDirectory: Directory(json['backupsDirectory']),
+    bookSizeLimits: BookSizeLimits(
+      shortMax: bookSizeLimits[0],
+      mediumMax: bookSizeLimits[1],
+    ),
   );
 }

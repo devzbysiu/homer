@@ -24,11 +24,10 @@ final class BookSizeLimits extends Equatable {
     ];
   }
 
-  static fromDoubleList(List<double> value) {
-    return BookSizeLimits(
-      shortMax: value[0].toInt(),
-      mediumMax: value[1].toInt(),
-    );
+  BookSizeLimits.fromDoubleList(List<double> value) {
+    assert(value.length == 2);
+    short = SizeLimit(value[0].toInt());
+    medium = SizeLimit(value[1].toInt());
   }
 
   bool isShort(int pageCount) {

@@ -5,17 +5,15 @@ import '../../../../core/usecase/usecase.dart';
 import '../entities/settings.dart';
 import '../repositories/settings_repository.dart';
 
-final class LoadSettings implements UseCase<Settings, NoParams> {
-  const LoadSettings({required this.settingsRepo});
+typedef LoadSettings = UseCase<Settings, NoParams>;
+
+final class LoadSettingsImpl implements LoadSettings {
+  const LoadSettingsImpl({required this.settingsRepo});
 
   final SettingsRepository settingsRepo;
 
   @override
   Future<Result<Settings, Failure>> call(NoParams params) async {
-    final settings = await settingsRepo.load();
-    return settings.when(
-      (settings) => Success(settings),
-      (error) => Error(error),
-    );
+    return await settingsRepo.load();
   }
 }

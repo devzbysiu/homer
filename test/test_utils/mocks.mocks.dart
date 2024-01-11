@@ -56,6 +56,9 @@ import 'package:homer/features/manage_books/domain/usecases/update_book.dart'
 import 'package:homer/features/settings/data/datasources/settings_data_source.dart'
     as _i32;
 import 'package:homer/features/settings/data/models/settings_dto.dart' as _i33;
+import 'package:homer/features/settings/domain/entities/settings.dart' as _i35;
+import 'package:homer/features/settings/domain/repositories/settings_repository.dart'
+    as _i34;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:multiple_result/multiple_result.dart' as _i4;
@@ -852,4 +855,48 @@ class MockSettingsDataSource extends _i1.Mock
           ),
         )),
       ) as _i3.Future<_i33.SettingsDTO>);
+}
+
+/// A class which mocks [SettingsRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSettingsRepository extends _i1.Mock
+    implements _i34.SettingsRepository {
+  MockSettingsRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> save(_i35.Settings? settings) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #save,
+          [settings],
+        ),
+        returnValue: _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<_i4.Unit, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #save,
+            [settings],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);
+
+  @override
+  _i3.Future<_i4.Result<_i35.Settings, _i6.Failure>> load() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #load,
+          [],
+        ),
+        returnValue: _i3.Future<_i4.Result<_i35.Settings, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<_i35.Settings, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #load,
+            [],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<_i35.Settings, _i6.Failure>>);
 }

@@ -17,6 +17,7 @@ import 'package:homer/features/manage_books/domain/usecases/filter_books.dart';
 import 'package:homer/features/manage_books/domain/usecases/list_books.dart';
 import 'package:homer/features/manage_books/domain/usecases/update_book.dart';
 import 'package:homer/features/settings/data/datasources/settings_data_source.dart';
+import 'package:homer/features/settings/domain/repositories/settings_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:share_handler/share_handler.dart';
 
@@ -41,5 +42,6 @@ import 'package:share_handler/share_handler.dart';
   UpdateBook,
   FilterBooks,
   SettingsDataSource,
+  SettingsRepository,
 ])
 void main() {}

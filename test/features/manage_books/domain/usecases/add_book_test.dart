@@ -26,7 +26,7 @@ void main() {
       final result = await addBook(AddParams(
         book: book,
         bookState: BookState.read,
-        selectedTags: [],
+        selectedTags: const [],
       ));
 
       // then
@@ -47,7 +47,7 @@ void main() {
       final result = await addBook(AddParams(
         book: book,
         bookState: BookState.read,
-        selectedTags: [],
+        selectedTags: const [],
       ));
 
       // then

@@ -108,7 +108,7 @@ Future<void> initDi({required Env env}) async {
   sl.registerFactory<MakeBackup>(() => MakeBackupImpl(sl(), sl()));
   // settings
   sl.registerFactory(() => SaveSettings(settingsRepo: sl()));
-  sl.registerFactory(() => LoadSettings(settingsRepo: sl()));
+  sl.registerFactory<LoadSettings>(() => LoadSettingsImpl(settingsRepo: sl()));
 
   // Repositories
   sl.registerLazySingleton<BooksRepository>(() {

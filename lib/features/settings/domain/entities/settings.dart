@@ -21,6 +21,22 @@ final class Settings extends Equatable {
     );
   }
 
+  Settings toggleDarkTheme() {
+    return _copyWith(isDarkThemeOn: !isDarkThemeOn);
+  }
+
+  Settings toggleSystemTheme() {
+    return _copyWith(isSystemThemeOn: !isSystemThemeOn);
+  }
+
+  Settings changeBackupDir(Directory newDir) {
+    return _copyWith(backupsDirectory: newDir);
+  }
+
+  Settings changeSizeLimits(BookSizeLimits limits) {
+    return _copyWith(bookSizeLimits: limits);
+  }
+
   final bool isSystemThemeOn;
 
   final bool isDarkThemeOn;
@@ -28,6 +44,20 @@ final class Settings extends Equatable {
   final BookSizeLimits bookSizeLimits;
 
   final Directory backupsDirectory;
+
+  Settings _copyWith({
+    bool? isDarkThemeOn,
+    bool? isSystemThemeOn,
+    Directory? backupsDirectory,
+    BookSizeLimits? bookSizeLimits,
+  }) {
+    return Settings(
+      isDarkThemeOn: isDarkThemeOn ?? this.isDarkThemeOn,
+      isSystemThemeOn: isSystemThemeOn ?? this.isSystemThemeOn,
+      backupsDirectory: backupsDirectory ?? this.backupsDirectory,
+      bookSizeLimits: bookSizeLimits ?? this.bookSizeLimits,
+    );
+  }
 
   @override
   List<Object> get props => [

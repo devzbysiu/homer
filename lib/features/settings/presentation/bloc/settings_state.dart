@@ -1,68 +1,42 @@
 part of 'settings_bloc.dart';
 
 final class SettingsState extends Equatable {
-  const SettingsState({
-    required this.isDarkThemeOn,
-    required this.isSystemThemeOn,
-    required this.backupsDirectory,
-    required this.bookSizeLimits,
-  });
+  const SettingsState({required this.settings});
 
-  factory SettingsState.initial() {
-    return SettingsState(
-      isDarkThemeOn: true,
-      isSystemThemeOn: true,
-      backupsDirectory: Directory('/storage/emulated/0/Documents'),
-      bookSizeLimits: BookSizeLimits(shortMax: 300, mediumMax: 500),
-    );
+  SettingsState.initial() : settings = Settings.makeDefault();
+
+  const SettingsState.from(this.settings);
+
+  SettingsState.failedToLoad() : settings = Settings.makeDefault();
+
+  SettingsState.failedToSave() : settings = Settings.makeDefault();
+
+  final Settings settings;
+
+  SettingsState toggleDarkTheme() {
+    return SettingsState.from(settings.toggleDarkTheme());
   }
 
-  final bool isDarkThemeOn;
-
-  final bool isSystemThemeOn;
-
-  final Directory backupsDirectory;
-
-  final BookSizeLimits bookSizeLimits;
-
-  SettingsState copyWith({
-    bool? isDarkThemeOn,
-    bool? isSystemThemeOn,
-    Directory? backupsDirectory,
-    BookSizeLimits? bookSizeLimits,
-  }) {
-    return SettingsState(
-      isDarkThemeOn: isDarkThemeOn ?? this.isDarkThemeOn,
-      isSystemThemeOn: isSystemThemeOn ?? this.isSystemThemeOn,
-      backupsDirectory: backupsDirectory ?? this.backupsDirectory,
-      bookSizeLimits: bookSizeLimits ?? this.bookSizeLimits,
-    );
+  SettingsState toggleSystemTheme() {
+    return SettingsState.from(settings.toggleSystemTheme());
   }
+
+  SettingsState changeBackupDir(Directory newDir) {
+    return SettingsState.from(settings.changeBackupDir(newDir));
+  }
+
+  SettingsState changeSizeLimits(BookSizeLimits limits) {
+    return SettingsState.from(settings.changeSizeLimits(limits));
+  }
+
+  bool get isDarkThemeOn => settings.isDarkThemeOn;
+
+  bool get isSystemThemeOn => settings.isSystemThemeOn;
+
+  Directory get backupsDirectory => settings.backupsDirectory;
+
+  BookSizeLimits get bookSizeLimits => settings.bookSizeLimits;
 
   @override
-  List<Object> get props => [
-        isDarkThemeOn,
-        isSystemThemeOn,
-        backupsDirectory.path,
-        bookSizeLimits,
-      ];
-}
-
-final class FailedToLoadSettings extends SettingsState {
-  FailedToLoadSettings()
-      : super(
-          isDarkThemeOn: true,
-          isSystemThemeOn: true,
-          backupsDirectory: Directory('/storage/emulated/0/Documents'),
-          bookSizeLimits: BookSizeLimits(shortMax: 300, mediumMax: 500),
-        );
-}
-
-final class FailedToSaveSettings extends SettingsState {
-      FailedToSaveSettings(): super(
-          isDarkThemeOn: true,
-          isSystemThemeOn: true,
-          backupsDirectory: Directory('/storage/emulated/0/Documents'),
-          bookSizeLimits: BookSizeLimits(shortMax: 300, mediumMax: 500),
-        );
+  List<Object> get props => [settings];
 }

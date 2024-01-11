@@ -24,14 +24,7 @@ void main() {
       'should emit SettingsState with loaded settings',
       build: () => BlocMock().onLoadSettings(Success(settings)).get(),
       act: (bloc) => bloc.add(SettingsLoaded()),
-      expect: () => [
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        )
-      ],
+      expect: () => [SettingsState.from(settings)],
       verify: (bloc) => verify(bloc.loadSettings(NoParams())),
     );
 
@@ -39,7 +32,7 @@ void main() {
       'should emit FailedToLoadSettings when loading failed',
       build: () => BlocMock().onLoadSettings(Error(TestingFailure())).get(),
       act: (bloc) => {/* do nothing */},
-      expect: () => [FailedToLoadSettings()],
+      expect: () => [SettingsState.failedToLoad()],
       verify: (bloc) => verify(bloc.loadSettings(NoParams())),
     );
   });
@@ -52,26 +45,11 @@ void main() {
       build: () => BlocMock().onLoadSettings(Success(settings)).get(),
       act: (bloc) => bloc.add(ThemeToggled()),
       expect: () => [
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
-        SettingsState(
-          isDarkThemeOn: !settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        )
+        SettingsState.from(settings),
+        SettingsState.from(settings).toggleDarkTheme(),
       ],
       verify: (bloc) => verify(bloc.saveSettings(SettingsParams(
-        settings: Settings(
-          isDarkThemeOn: !settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
+        settings: settings.toggleDarkTheme(),
       ))),
     );
 
@@ -83,21 +61,11 @@ void main() {
           .get(),
       act: (bloc) => bloc.add(ThemeToggled()),
       expect: () => [
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
-        FailedToSaveSettings(),
+        SettingsState.from(settings),
+        SettingsState.failedToLoad(),
       ],
       verify: (bloc) => verify(bloc.saveSettings(SettingsParams(
-        settings: Settings(
-          isDarkThemeOn: !settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
+        settings: settings.toggleDarkTheme(),
       ))),
     );
   });
@@ -110,26 +78,11 @@ void main() {
       build: () => BlocMock().onLoadSettings(Success(settings)).get(),
       act: (bloc) => bloc.add(SystemThemeToggled()),
       expect: () => [
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: !settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        )
+        SettingsState.from(settings),
+        SettingsState.from(settings).toggleSystemTheme()
       ],
       verify: (bloc) => verify(bloc.saveSettings(SettingsParams(
-        settings: Settings(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: !settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
+        settings: settings.toggleSystemTheme(),
       ))),
     );
 
@@ -141,21 +94,11 @@ void main() {
           .get(),
       act: (bloc) => bloc.add(SystemThemeToggled()),
       expect: () => [
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
-        FailedToSaveSettings(),
+        SettingsState.from(settings),
+        SettingsState.failedToLoad(),
       ],
       verify: (bloc) => verify(bloc.saveSettings(SettingsParams(
-        settings: Settings(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: !settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
+        settings: settings.toggleSystemTheme(),
       ))),
     );
   });
@@ -169,26 +112,11 @@ void main() {
       build: () => BlocMock().onLoadSettings(Success(settings)).get(),
       act: (bloc) => bloc.add(BackupsDirectorySelected(directory)),
       expect: () => [
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: directory,
-          bookSizeLimits: settings.bookSizeLimits,
-        )
+        SettingsState.from(settings),
+        SettingsState.from(settings).changeBackupDir(directory)
       ],
       verify: (bloc) => verify(bloc.saveSettings(SettingsParams(
-        settings: Settings(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: directory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
+        settings: settings.changeBackupDir(directory),
       ))),
     );
 
@@ -200,21 +128,11 @@ void main() {
           .get(),
       act: (bloc) => bloc.add(BackupsDirectorySelected(directory)),
       expect: () => [
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
-        FailedToSaveSettings(),
+        SettingsState.from(settings),
+        SettingsState.failedToLoad(),
       ],
       verify: (bloc) => verify(bloc.saveSettings(SettingsParams(
-        settings: Settings(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: directory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
+        settings: settings.changeBackupDir(directory),
       ))),
     );
   });
@@ -228,26 +146,11 @@ void main() {
       build: () => BlocMock().onLoadSettings(Success(settings)).get(),
       act: (bloc) => bloc.add(BookSizeLimitsChanged(limits)),
       expect: () => [
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: limits,
-        )
+        SettingsState.from(settings),
+        SettingsState.from(settings).changeSizeLimits(limits)
       ],
       verify: (bloc) => verify(bloc.saveSettings(SettingsParams(
-        settings: Settings(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: limits,
-        ),
+        settings: settings.changeSizeLimits(limits),
       ))),
     );
 
@@ -259,21 +162,11 @@ void main() {
           .get(),
       act: (bloc) => bloc.add(BookSizeLimitsChanged(limits)),
       expect: () => [
-        SettingsState(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: settings.bookSizeLimits,
-        ),
-        FailedToSaveSettings(),
+        SettingsState.from(settings),
+        SettingsState.failedToLoad(),
       ],
       verify: (bloc) => verify(bloc.saveSettings(SettingsParams(
-        settings: Settings(
-          isDarkThemeOn: settings.isDarkThemeOn,
-          isSystemThemeOn: settings.isSystemThemeOn,
-          backupsDirectory: settings.backupsDirectory,
-          bookSizeLimits: limits,
-        ),
+        settings: settings.changeSizeLimits(limits),
       ))),
     );
   });
@@ -288,8 +181,9 @@ final class BlocMock {
     _loadSettings = MockLoadSettings();
 
     when(_saveSettings.call(any)).thenAnswer((_) => withSuccess(unit));
-    when(_loadSettings.call(any))
-        .thenAnswer((_) => withSuccess(fakeSettings()));
+    when(_loadSettings.call(any)).thenAnswer(
+      (_) => withSuccess(fakeSettings()),
+    );
   }
 
   late final MockSaveSettings _saveSettings;

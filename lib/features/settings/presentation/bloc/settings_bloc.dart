@@ -37,13 +37,8 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     final result = await loadSettings(NoParams());
     result.when(
-      (settings) => emit(SettingsState(
-        isDarkThemeOn: settings.isDarkThemeOn,
-        isSystemThemeOn: settings.isSystemThemeOn,
-        backupsDirectory: settings.backupsDirectory,
-        bookSizeLimits: settings.bookSizeLimits,
-      )),
-      (error) => emit(FailedToLoadSettings()),
+      (settings) => emit(SettingsState.from(settings)),
+      (error) => emit(SettingsState.failedToLoad()),
     );
   }
 
@@ -51,7 +46,7 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     ThemeToggled event,
     Emitter<SettingsState> emit,
   ) async {
-    final newState = state.copyWith(isDarkThemeOn: !state.isDarkThemeOn);
+    final newState = state.toggleDarkTheme();
     await _saveAndEmit(newState, emit);
   }
 
@@ -62,7 +57,7 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     final result = await saveSettings(newState.toParams());
     result.when(
       (_) => emit(newState),
-      (error) => emit(FailedToSaveSettings()),
+      (error) => emit(SettingsState.failedToLoad()),
     );
   }
 
@@ -70,7 +65,7 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SystemThemeToggled event,
     Emitter<SettingsState> emit,
   ) async {
-    final newState = state.copyWith(isSystemThemeOn: !state.isSystemThemeOn);
+    final newState = state.toggleSystemTheme();
     await _saveAndEmit(newState, emit);
   }
 
@@ -78,7 +73,7 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     BackupsDirectorySelected event,
     Emitter<SettingsState> emit,
   ) async {
-    final newState = state.copyWith(backupsDirectory: event.directory);
+    final newState = state.changeBackupDir(event.directory);
     await _saveAndEmit(newState, emit);
   }
 
@@ -86,7 +81,7 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     BookSizeLimitsChanged event,
     Emitter<SettingsState> emit,
   ) async {
-    final newState = state.copyWith(bookSizeLimits: event.limits);
+    final newState = state.changeSizeLimits(event.limits);
     await _saveAndEmit(newState, emit);
   }
 }
@@ -109,7 +104,7 @@ extension SettingsContextExt on BuildContext {
   }
 
   BookSizeLimits bookSizeLimits() {
-    return read<SettingsBloc>().state.bookSizeLimits;
+    return read<SettingsBloc>().state.settings.bookSizeLimits;
   }
 
   void _emitSettingsEvt(SettingsEvent event) {
@@ -121,10 +116,10 @@ extension _SettingsStateExt on SettingsState {
   SettingsParams toParams() {
     return SettingsParams(
       settings: Settings(
-        isSystemThemeOn: isSystemThemeOn,
-        isDarkThemeOn: isDarkThemeOn,
-        backupsDirectory: backupsDirectory,
-        bookSizeLimits: bookSizeLimits,
+        isSystemThemeOn: settings.isSystemThemeOn,
+        isDarkThemeOn: settings.isDarkThemeOn,
+        backupsDirectory: settings.backupsDirectory,
+        bookSizeLimits: settings.bookSizeLimits,
       ),
     );
   }

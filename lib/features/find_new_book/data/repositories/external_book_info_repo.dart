@@ -11,9 +11,9 @@ import '../datasources/external_book_info_data_source.dart';
 import '../mappers/to_external_book_info.dart';
 
 final class ExternalBookInfoRepo implements ExternalBookInfoRepository {
-  ExternalBookInfoRepo({required this.bookInfoDataSource});
+  ExternalBookInfoRepo({required this.dataSource});
 
-  final ExternalBookInfoDataSource bookInfoDataSource;
+  final ExternalBookInfoDataSource dataSource;
 
   @override
   Future<Result<ExternalBookInfo, Failure>> fromUrl(String url) async {
@@ -24,7 +24,7 @@ final class ExternalBookInfoRepo implements ExternalBookInfoRepository {
 
     try {
       log.i('Fetching info from: $url');
-      final bookInfoDTO = await bookInfoDataSource.getFromWebsite(url);
+      final bookInfoDTO = await dataSource.getFromWebsite(url);
       if (bookInfoDTO.isbn.isNone()) {
         return Error(NoIsbnFailure(url));
       }

@@ -107,23 +107,23 @@ Future<void> initDi({required Env env}) async {
   sl.registerFactory<ReplaceAllBooks>(() => ReplaceAllBooksImpl(sl()));
   sl.registerFactory<MakeBackup>(() => MakeBackupImpl(sl(), sl()));
   // settings
-  sl.registerFactory<SaveSettings>(() => SaveSettingsImpl(settingsRepo: sl()));
-  sl.registerFactory<LoadSettings>(() => LoadSettingsImpl(settingsRepo: sl()));
+  sl.registerFactory<SaveSettings>(() => SaveSettingsImpl(sl()));
+  sl.registerFactory<LoadSettings>(() => LoadSettingsImpl(sl()));
 
   // Repositories
   sl.registerLazySingleton<BooksRepository>(() => BooksRepo(dataSource: sl()));
   sl.registerLazySingleton<TagsRepository>(() => InMemoryTagsRepo());
   sl.registerLazySingleton<ExternalBooksRepository>(() {
-    return ExternalBooksRepo(booksDataSource: sl());
+    return ExternalBooksRepo(dataSource: sl());
   });
   sl.registerLazySingleton<ExternalBookInfoRepository>(() {
-    return ExternalBookInfoRepo(bookInfoDataSource: sl());
+    return ExternalBookInfoRepo(dataSource: sl());
   });
   sl.registerLazySingleton<BackupRepository>(() {
     return BackupRepo(dataSource: sl());
   });
   sl.registerLazySingleton<SettingsRepository>(() {
-    return SettingsRepo(settingsDataSource: sl());
+    return SettingsRepo(dataSource: sl());
   });
 
   // Data sources

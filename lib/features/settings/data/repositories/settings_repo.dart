@@ -9,21 +9,21 @@ import '../mappers/to_settings.dart';
 import '../mappers/to_settings_dto.dart';
 
 final class SettingsRepo implements SettingsRepository {
-  const SettingsRepo({required this.settingsDataSource});
+  const SettingsRepo({required this.dataSource});
 
-  final SettingsDataSource settingsDataSource;
+  final SettingsDataSource dataSource;
 
   @override
   Future<Result<Unit, Failure>> save(Settings settings) async {
     final settingsDTO = toSettingsDTO(settings);
-    await settingsDataSource.save(settingsDTO);
+    await dataSource.save(settingsDTO);
     return const Success(unit);
   }
 
   @override
   Future<Result<Settings, Failure>> load() async {
     try {
-      final settingsDTO = await settingsDataSource.load();
+      final settingsDTO = await dataSource.load();
       final settings = toSettings(
         isSystemThemeOn: settingsDTO.isSystemThemeOn,
         isDarkThemeOn: settingsDTO.isDarkThemeOn,

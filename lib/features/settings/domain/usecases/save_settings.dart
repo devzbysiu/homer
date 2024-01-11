@@ -11,9 +11,9 @@ import '../repositories/settings_repository.dart';
 typedef SaveSettings = UseCase<Unit, SaveSettingsParams>;
 
 final class SaveSettingsImpl implements SaveSettings {
-  const SaveSettingsImpl({required this.settingsRepo});
+  const SaveSettingsImpl(this.repo);
 
-  final SettingsRepository settingsRepo;
+  final SettingsRepository repo;
 
   @override
   Future<Result<Unit, Failure>> call(SaveSettingsParams params) async {
@@ -23,7 +23,7 @@ final class SaveSettingsImpl implements SaveSettings {
       backupsDirectory: params.backupsDirectory,
       bookSizeLimits: params.bookSizeLimits,
     );
-    return await settingsRepo.save(settings);
+    return await repo.save(settings);
   }
 }
 

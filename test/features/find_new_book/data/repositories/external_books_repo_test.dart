@@ -20,7 +20,7 @@ void main() {
         (_) => withIt([fakeExternalBookDTO()]),
       );
 
-      final repo = ExternalBooksRepo(booksDataSource: booksDataSource);
+      final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
       const emptyQuery = '';
 
@@ -39,7 +39,7 @@ void main() {
         (_) => withIt([fakeExternalBookDTO()]),
       );
 
-      final repo = ExternalBooksRepo(booksDataSource: booksDataSource);
+      final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
       const blankQuery = '               ';
 
@@ -59,7 +59,7 @@ void main() {
         (_) => withIt(externalBooks),
       );
 
-      final repo = ExternalBooksRepo(booksDataSource: booksDataSource);
+      final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
       final notImportantQuery = fakeSearchQuery();
 
@@ -78,7 +78,7 @@ void main() {
         BooksQueryException(faker.lorem.sentence()),
       );
 
-      final repo = ExternalBooksRepo(booksDataSource: booksDataSource);
+      final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
       final notImportantQuery = fakeSearchQuery();
 
@@ -102,7 +102,7 @@ void main() {
         NoBookFoundException(isbn),
       );
 
-      final repo = ExternalBooksRepo(booksDataSource: booksDataSource);
+      final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
       // when
       final result = await repo.fromBookInfo(bookInfo);
@@ -122,7 +122,7 @@ void main() {
         TooManyBooksFoundException(isbn),
       );
 
-      final repo = ExternalBooksRepo(booksDataSource: booksDataSource);
+      final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
       // when
       final result = await repo.fromBookInfo(bookInfo);
@@ -141,7 +141,7 @@ void main() {
         (_) => withIt(bookDTO),
       );
 
-      final repo = ExternalBooksRepo(booksDataSource: booksDataSource);
+      final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
       // when
       final result = await repo.fromBookInfo(bookInfo);

@@ -17,7 +17,7 @@ void main() {
       // given
       final settingsDataSource = makeMockSettingsDatasource();
       when(settingsDataSource.save(any)).thenAnswer((_) => withUnit());
-      final repo = SettingsRepo(settingsDataSource: settingsDataSource);
+      final repo = SettingsRepo(dataSource: settingsDataSource);
 
       final settings = fakeSettings();
 
@@ -33,7 +33,7 @@ void main() {
       final settingsDataSource = makeMockSettingsDatasource();
       final settingsDTO = fakeSettingsDTO();
       when(settingsDataSource.save(settingsDTO)).thenAnswer((_) => withUnit());
-      final repo = SettingsRepo(settingsDataSource: settingsDataSource);
+      final repo = SettingsRepo(dataSource: settingsDataSource);
 
       final settings = settingsFromSettingsDTO(settingsDTO);
 
@@ -54,7 +54,7 @@ void main() {
       // given
       final settingsDataSource = makeMockSettingsDatasource();
       when(settingsDataSource.load()).thenThrow(NoSettingsException());
-      final repo = SettingsRepo(settingsDataSource: settingsDataSource);
+      final repo = SettingsRepo(dataSource: settingsDataSource);
 
       // when
       final result = await repo.load();
@@ -69,7 +69,7 @@ void main() {
       final settingsDTO = fakeSettingsDTO();
       final settingsDataSource = makeMockSettingsDatasource();
       when(settingsDataSource.load()).thenAnswer((_) => withIt(settingsDTO));
-      final repo = SettingsRepo(settingsDataSource: settingsDataSource);
+      final repo = SettingsRepo(dataSource: settingsDataSource);
 
       // when
       final result = await repo.load();
@@ -84,7 +84,7 @@ void main() {
       final settingsDataSource = makeMockSettingsDatasource();
       final settingsDTO = fakeSettingsDTO();
       when(settingsDataSource.load()).thenAnswer((_) => withIt(settingsDTO));
-      final repo = SettingsRepo(settingsDataSource: settingsDataSource);
+      final repo = SettingsRepo(dataSource: settingsDataSource);
 
       verifyZeroInteractions(settingsDataSource);
 

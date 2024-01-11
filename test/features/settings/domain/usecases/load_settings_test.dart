@@ -17,7 +17,7 @@ void main() {
       // given
       final settingsRepo = makeMockSettingsRepo();
       when(settingsRepo.load()).thenAnswer((_) => withError(TestingFailure()));
-      final loadSettings = LoadSettingsImpl(settingsRepo: settingsRepo);
+      final loadSettings = LoadSettingsImpl(settingsRepo);
 
       // when
       final result = await loadSettings(NoParams());
@@ -31,7 +31,7 @@ void main() {
       final settingsRepo = makeMockSettingsRepo();
       final settings = fakeSettings();
       when(settingsRepo.load()).thenAnswer((_) => withSuccess(settings));
-      final loadSettings = LoadSettingsImpl(settingsRepo: settingsRepo);
+      final loadSettings = LoadSettingsImpl(settingsRepo);
 
       // when
       final result = await loadSettings(NoParams());

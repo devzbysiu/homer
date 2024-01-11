@@ -11,15 +11,15 @@ import '../datasources/external_books_data_source.dart';
 import '../mappers/to_books.dart';
 
 final class ExternalBooksRepo implements ExternalBooksRepository {
-  ExternalBooksRepo({required this.booksDataSource});
+  ExternalBooksRepo({required this.dataSource});
 
-  final ExternalBooksDataSource booksDataSource;
+  final ExternalBooksDataSource dataSource;
 
   @override
   Future<Result<List<Book>, Failure>> search(String query) async {
     if (query.trim().isEmpty) return Success(List.empty());
     try {
-      final bookDTOs = await booksDataSource.getFromQuery(query);
+      final bookDTOs = await dataSource.getFromQuery(query);
       final books = toBooks(bookDTOs);
       return Success(books);
     } on BooksQueryException {
@@ -30,7 +30,7 @@ final class ExternalBooksRepo implements ExternalBooksRepository {
   @override
   Future<Result<Book, Failure>> fromBookInfo(ExternalBookInfo bookInfo) async {
     try {
-      final bookDTO = await booksDataSource.getFromIsbn(bookInfo.isbn);
+      final bookDTO = await dataSource.getFromIsbn(bookInfo.isbn);
       final book = toBook(bookDTO);
       return Success(book);
     } on NoBookFoundException catch (e) {

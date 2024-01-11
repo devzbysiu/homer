@@ -1,7 +1,4 @@
 import 'package:homer/core/error/failures.dart';
-import 'package:homer/core/usecase/usecase.dart';
-import 'package:homer/features/settings/domain/entities/settings.dart';
-import 'package:homer/features/settings/domain/usecases/load_settings.dart';
 import 'package:homer/features/settings/domain/usecases/save_settings.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -19,7 +16,7 @@ void main() {
       final settingsRepo = makeMockSettingsRepo();
       when(settingsRepo.save(any))
           .thenAnswer((_) => withError(TestingFailure()));
-      final saveSettings = SaveSettingsImpl(settingsRepo: settingsRepo);
+      final saveSettings = SaveSettingsImpl(settingsRepo);
 
       final settings = fakeSettings();
 
@@ -39,7 +36,7 @@ void main() {
       // given
       final settingsRepo = makeMockSettingsRepo();
       when(settingsRepo.save(any)).thenAnswer((_) => withSuccess(unit));
-      final saveSettings = SaveSettingsImpl(settingsRepo: settingsRepo);
+      final saveSettings = SaveSettingsImpl(settingsRepo);
 
       final settings = fakeSettings();
 

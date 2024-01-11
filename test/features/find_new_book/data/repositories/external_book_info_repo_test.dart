@@ -20,7 +20,7 @@ void main() {
       // given
       final bookInfoDataSource = makeMockBookInfoDatasource();
 
-      final repo = ExternalBookInfoRepo(bookInfoDataSource: bookInfoDataSource);
+      final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
       const emptyUrl = '';
 
@@ -40,7 +40,7 @@ void main() {
         const InvalidUrlException(brokenUrl),
       );
 
-      final repo = ExternalBookInfoRepo(bookInfoDataSource: bookInfoDataSource);
+      final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
       // when
       final result = await repo.fromUrl(brokenUrl);
@@ -58,7 +58,7 @@ void main() {
         const NotJsonException('not important'),
       );
 
-      final repo = ExternalBookInfoRepo(bookInfoDataSource: bookInfoDataSource);
+      final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
       // when
       final result = await repo.fromUrl(url);
@@ -76,7 +76,7 @@ void main() {
         const WrongJsonException('not important'),
       );
 
-      final repo = ExternalBookInfoRepo(bookInfoDataSource: bookInfoDataSource);
+      final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
       // when
       final result = await repo.fromUrl(url);
@@ -94,7 +94,7 @@ void main() {
         TimeoutException('not important'),
       );
 
-      final repo = ExternalBookInfoRepo(bookInfoDataSource: bookInfoDataSource);
+      final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
       // when
       final result = await repo.fromUrl(url);
@@ -115,7 +115,7 @@ void main() {
         )),
       );
 
-      final repo = ExternalBookInfoRepo(bookInfoDataSource: bookInfoDataSource);
+      final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
       // when
       final result = await repo.fromUrl(url);
@@ -134,7 +134,7 @@ void main() {
         (_) => withIt(bookInfoDTO),
       );
 
-      final repo = ExternalBookInfoRepo(bookInfoDataSource: bookInfoDataSource);
+      final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
       // when
       final result = await repo.fromUrl(url);

@@ -8,8 +8,10 @@ import '../../data/mappers/to_settings.dart';
 import '../entities/book_size_limits.dart';
 import '../repositories/settings_repository.dart';
 
-final class SaveSettings implements UseCase<Unit, SaveSettingsParams> {
-  const SaveSettings({required this.settingsRepo});
+typedef SaveSettings = UseCase<Unit, SaveSettingsParams>;
+
+final class SaveSettingsImpl implements SaveSettings {
+  const SaveSettingsImpl({required this.settingsRepo});
 
   final SettingsRepository settingsRepo;
 

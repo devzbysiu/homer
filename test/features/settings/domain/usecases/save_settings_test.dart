@@ -21,12 +21,7 @@ void main() {
       final settings = fakeSettings();
 
       // when
-      final result = await saveSettings(SaveSettingsParams(
-        isSystemThemeOn: settings.isSystemThemeOn,
-        isDarkThemeOn: settings.isDarkThemeOn,
-        backupsDirectory: settings.backupsDirectory,
-        bookSizeLimits: settings.bookSizeLimits,
-      ));
+      final result = await saveSettings(SettingsParams(settings: settings));
 
       // then
       expect(result.isError(), true);
@@ -41,12 +36,7 @@ void main() {
       final settings = fakeSettings();
 
       // when
-      final result = await saveSettings(SaveSettingsParams(
-        isSystemThemeOn: settings.isSystemThemeOn,
-        isDarkThemeOn: settings.isDarkThemeOn,
-        backupsDirectory: settings.backupsDirectory,
-        bookSizeLimits: settings.bookSizeLimits,
-      ));
+      final result = await saveSettings(SettingsParams(settings: settings));
 
       // then
       expect(result.isSuccess(), true);

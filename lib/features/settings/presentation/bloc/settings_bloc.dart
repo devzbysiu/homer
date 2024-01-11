@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/book_size_limits.dart';
+import '../../domain/entities/settings.dart';
 import '../../domain/usecases/load_settings.dart';
 import '../../domain/usecases/save_settings.dart';
 
@@ -110,12 +111,14 @@ extension SettingsContextExt on BuildContext {
 }
 
 extension _SettingsStateExt on SettingsState {
-  SaveSettingsParams toParams() {
-    return SaveSettingsParams(
-      isSystemThemeOn: isSystemThemeOn,
-      isDarkThemeOn: isDarkThemeOn,
-      backupsDirectory: backupsDirectory,
-      bookSizeLimits: bookSizeLimits,
+  SettingsParams toParams() {
+    return SettingsParams(
+      settings: Settings(
+        isSystemThemeOn: isSystemThemeOn,
+        isDarkThemeOn: isDarkThemeOn,
+        backupsDirectory: backupsDirectory,
+        bookSizeLimits: bookSizeLimits,
+      ),
     );
   }
 }

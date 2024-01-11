@@ -19,9 +19,10 @@ final class FetchSharedBookImpl implements FetchSharedBook {
   @override
   Future<Result<Book, Failure>> call(FetchParams params) async {
     final result = await bookInfoRepo.fromUrl(params.url);
-    if (result.isError()) return Error(result.tryGetError()!);
-    final bookInfo = result.tryGetSuccess()!;
-    return await booksRepo.fromBookInfo(bookInfo);
+    return await result.when(
+      (bookInfo) async => await booksRepo.fromBookInfo(bookInfo),
+      (failure) async => Error(failure),
+    );
   }
 }
 

@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/error/failures.dart';
@@ -18,8 +19,11 @@ final class SaveSettingsImpl implements SaveSettings {
   }
 }
 
-final class SettingsParams {
+final class SettingsParams extends Equatable {
   const SettingsParams({required this.settings});
 
   final Settings settings;
+
+  @override
+  List<Object> get props => [settings];
 }

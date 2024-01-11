@@ -50,37 +50,44 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   void _onThemeToggled(
     ThemeToggled event,
     Emitter<SettingsState> emit,
-  ) {
+  ) async {
     final newState = state.copyWith(isDarkThemeOn: !state.isDarkThemeOn);
-    saveSettings(newState.toParams());
-    emit(newState);
+    await _saveAndEmit(newState, emit);
+  }
+
+  Future<void> _saveAndEmit(
+    SettingsState newState,
+    Emitter<SettingsState> emit,
+  ) async {
+    final result = await saveSettings(newState.toParams());
+    result.when(
+      (_) => emit(newState),
+      (error) => emit(FailedToSaveSettings()),
+    );
   }
 
   void _onSystemThemeToggled(
     SystemThemeToggled event,
     Emitter<SettingsState> emit,
-  ) {
+  ) async {
     final newState = state.copyWith(isSystemThemeOn: !state.isSystemThemeOn);
-    saveSettings(newState.toParams());
-    emit(newState);
+    await _saveAndEmit(newState, emit);
   }
 
   void _onBackupPathSelected(
     BackupsDirectorySelected event,
     Emitter<SettingsState> emit,
-  ) {
+  ) async {
     final newState = state.copyWith(backupsDirectory: event.directory);
-    saveSettings(newState.toParams());
-    emit(newState);
+    await _saveAndEmit(newState, emit);
   }
 
   void _onBookSizeLimitsChanged(
     BookSizeLimitsChanged event,
     Emitter<SettingsState> emit,
-  ) {
+  ) async {
     final newState = state.copyWith(bookSizeLimits: event.limits);
-    saveSettings(newState.toParams());
-    emit(newState);
+    await _saveAndEmit(newState, emit);
   }
 }
 

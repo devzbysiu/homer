@@ -43,7 +43,7 @@ final class SettingsState extends Equatable {
   List<Object> get props => [
         isDarkThemeOn,
         isSystemThemeOn,
-        backupsDirectory,
+        backupsDirectory.path,
         bookSizeLimits,
       ];
 }
@@ -51,6 +51,15 @@ final class SettingsState extends Equatable {
 final class FailedToLoadSettings extends SettingsState {
   FailedToLoadSettings()
       : super(
+          isDarkThemeOn: true,
+          isSystemThemeOn: true,
+          backupsDirectory: Directory('/storage/emulated/0/Documents'),
+          bookSizeLimits: BookSizeLimits(shortMax: 300, mediumMax: 500),
+        );
+}
+
+final class FailedToSaveSettings extends SettingsState {
+      FailedToSaveSettings(): super(
           isDarkThemeOn: true,
           isSystemThemeOn: true,
           backupsDirectory: Directory('/storage/emulated/0/Documents'),

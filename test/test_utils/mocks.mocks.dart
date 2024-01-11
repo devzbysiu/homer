@@ -59,6 +59,10 @@ import 'package:homer/features/settings/data/models/settings_dto.dart' as _i33;
 import 'package:homer/features/settings/domain/entities/settings.dart' as _i35;
 import 'package:homer/features/settings/domain/repositories/settings_repository.dart'
     as _i34;
+import 'package:homer/features/settings/domain/usecases/load_settings.dart'
+    as _i37;
+import 'package:homer/features/settings/domain/usecases/save_settings.dart'
+    as _i36;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:multiple_result/multiple_result.dart' as _i4;
@@ -896,6 +900,60 @@ class MockSettingsRepository extends _i1.Mock
           Invocation.method(
             #load,
             [],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<_i35.Settings, _i6.Failure>>);
+}
+
+/// A class which mocks [SaveSettings].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSaveSettings extends _i1.Mock implements _i36.SaveSettings {
+  MockSaveSettings() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> call(
+          _i36.SettingsParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<_i4.Unit, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);
+}
+
+/// A class which mocks [LoadSettings].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLoadSettings extends _i1.Mock implements _i37.LoadSettings {
+  MockLoadSettings() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<_i35.Settings, _i6.Failure>> call(
+          _i29.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i3.Future<_i4.Result<_i35.Settings, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<_i35.Settings, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
           ),
         )),
       ) as _i3.Future<_i4.Result<_i35.Settings, _i6.Failure>>);

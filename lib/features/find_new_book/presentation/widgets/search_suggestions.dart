@@ -44,6 +44,12 @@ final class _SuggestionsList extends StatelessWidget {
   }
 }
 
+const _bookStateToIcon = {
+  BookState.readLater: Icons.bookmark_border,
+  BookState.reading: Icons.book,
+  BookState.read: Icons.check,
+};
+
 final class _SearchSuggestion extends StatelessWidget {
   const _SearchSuggestion({required this.book});
 
@@ -55,26 +61,55 @@ final class _SearchSuggestion extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Material(
         elevation: 3,
-        child: BannerListTile(
-          bannerTextColor: Theme.of(context).colorScheme.background,
-          bannerColor: Theme.of(context).primaryColor,
-          bannerText: book.rating.toStringAsFixed(2),
-          onTap: () => context.pickSuggestedBook(book),
-          backgroundColor: Theme.of(context).listTileTheme.tileColor,
-          borderRadius: BorderRadius.circular(8),
-          imageContainer: _ListTileThumbnail(book: book),
-          title: Text(
-            book.title,
-            style: Theme.of(context).textTheme.titleMedium,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
-          subtitle: Text(
-            'by ${book.authors.join(', ')}',
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.titleSmall,
-          ),
+        child: Stack(
+          children: [
+            BannerListTile(
+              bannerTextColor: Theme.of(context).colorScheme.background,
+              bannerColor: Theme.of(context).primaryColor,
+              bannerText: book.rating.toStringAsFixed(2),
+              onTap: () => context.pickSuggestedBook(book),
+              backgroundColor: Theme.of(context).listTileTheme.tileColor,
+              borderRadius: BorderRadius.circular(8),
+              imageContainer: _ListTileThumbnail(book: book),
+              title: Text(
+                book.title,
+                style: Theme.of(context).textTheme.titleMedium,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+              subtitle: Text(
+                'by ${book.authors.join(', ')}',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+            ),
+            if (book.alreadySaved)
+              Positioned(
+                top: 0,
+                left: 0,
+                child: Container(
+                  width: 20,
+                  height: 25,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.background,
+                  ),
+                ),
+              ),
+            if (book.alreadySaved)
+              Positioned(
+                top: 0,
+                left: -3,
+                child: Tooltip(
+                  message: 'Looks like this book is already saved',
+                  showDuration: const Duration(seconds: 4),
+                  child: Icon(
+                    _bookStateToIcon[book.state],
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
     );

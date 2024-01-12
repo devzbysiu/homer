@@ -30,6 +30,7 @@ Book fakeBook() {
     tags: [fakeTag(), fakeTag()],
     startDate: some(fakeDate()),
     endDate: some(fakeDate()),
+    alreadySaved: false,
   );
 }
 

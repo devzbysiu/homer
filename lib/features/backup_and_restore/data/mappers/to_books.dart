@@ -21,6 +21,7 @@ Book _toBook(BackupBookDTO book) {
     tags: _toTags(book.tags),
     startDate: book.startDate,
     endDate: book.endDate,
+    alreadySaved: true,
   );
 }
 

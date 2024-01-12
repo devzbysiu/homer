@@ -18,6 +18,7 @@ final class Book extends Equatable {
     required this.tags,
     required this.startDate,
     required this.endDate,
+    required this.alreadySaved,
   });
 
   final int? id;
@@ -46,6 +47,8 @@ final class Book extends Equatable {
 
   final Option<DateTime> endDate;
 
+  final bool alreadySaved;
+
   Book copyWith({
     int? id,
     String? title,
@@ -60,6 +63,7 @@ final class Book extends Equatable {
     List<Tag>? tags,
     Option<DateTime>? startDate,
     Option<DateTime>? endDate,
+    bool? alreadySaved,
   }) {
     return Book(
       id: id ?? this.id,
@@ -75,6 +79,7 @@ final class Book extends Equatable {
       tags: tags ?? this.tags,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
+      alreadySaved: alreadySaved ?? this.alreadySaved,
     );
   }
 
@@ -106,6 +111,7 @@ final class Book extends Equatable {
         rating,
         summary,
         tags,
+        alreadySaved
         // NOTE: Can those be removed?
         // startDate,
         // endDate,

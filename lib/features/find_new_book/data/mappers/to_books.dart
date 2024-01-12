@@ -22,6 +22,7 @@ Book toBook(ExternalBookDTO remoteBookDTO) {
     tags: const [],
     startDate: none(),
     endDate: none(),
+    alreadySaved: false,
   );
 }
 

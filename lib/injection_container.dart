@@ -17,6 +17,7 @@ import 'features/find_new_book/data/repositories/external_books_repo.dart';
 import 'features/find_new_book/domain/repositories/external_book_info_repository.dart';
 import 'features/find_new_book/domain/repositories/external_books_repository.dart';
 import 'features/find_new_book/domain/usecases/fetch_shared_book.dart';
+import 'features/find_new_book/domain/usecases/search_and_check_saved.dart';
 import 'features/find_new_book/domain/usecases/search_for_books.dart';
 import 'features/find_new_book/presentation/bloc/pick_suggestion/pick_suggestion_bloc.dart';
 import 'features/find_new_book/presentation/bloc/search/book_search_bloc.dart';
@@ -98,7 +99,9 @@ Future<void> initDi({required Env env}) async {
   // tags
   sl.registerLazySingleton<ListTags>(() => ListTagsImpl(sl()));
   // search
-  sl.registerLazySingleton<SearchForBooks>(() => SearchForBooksImpl(sl()));
+  sl.registerLazySingleton<SearchForBooks>(
+    () => SearchAndCheckSaved(sl(), sl()),
+  );
   sl.registerLazySingleton<FetchSharedBook>(
     () => FetchSharedBookImpl(sl(), sl()),
   );

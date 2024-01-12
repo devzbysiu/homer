@@ -24,6 +24,7 @@ Book _toBook(BookDTO bookDTO) {
     tags: _toTags(bookDTO.tags),
     startDate: _toDateTime(bookDTO.startDate),
     endDate: _toDateTime(bookDTO.endDate),
+    alreadySaved: true,
   );
 }
 
@@ -38,13 +39,9 @@ BookState _toBookState(BookStateDTO state) {
   }
 }
 
-List<Tag> _toTags(List<TagDTO> tags) {
-  return tags.map(_toTag).toList();
-}
+List<Tag> _toTags(List<TagDTO> tags) => tags.map(_toTag).toList();
 
-Tag _toTag(TagDTO tag) {
-  return Tag(name: tag.name, hexColor: tag.hexColor);
-}
+Tag _toTag(TagDTO tag) => Tag(name: tag.name, hexColor: tag.hexColor);
 
 Option<DateTime> _toDateTime(int? millisSinceEpoch) {
   return millisSinceEpoch == null || millisSinceEpoch == 0
@@ -52,23 +49,6 @@ Option<DateTime> _toDateTime(int? millisSinceEpoch) {
       : some(DateTime.fromMillisecondsSinceEpoch(millisSinceEpoch));
 }
 
-Book toBook(
-  Book book,
-  BookState state,
-  List<Tag> tags,
-) {
-  return Book(
-    title: book.title,
-    subtitle: book.subtitle,
-    authors: book.authors,
-    state: state,
-    pageCount: book.pageCount,
-    isbn: book.isbn,
-    thumbnailAddress: book.thumbnailAddress,
-    rating: book.rating,
-    summary: book.summary,
-    tags: tags,
-    startDate: none(),
-    endDate: none(),
-  );
+Book toBook(Book book, BookState state, List<Tag> tags) {
+  return book.copyWith(state: state, tags: tags, alreadySaved: true);
 }

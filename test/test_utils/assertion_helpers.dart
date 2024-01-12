@@ -52,6 +52,7 @@ Book bookFromBackupDTO(BackupBookDTO book) {
     tags: _toTags(book.tags),
     startDate: book.startDate,
     endDate: book.endDate,
+    alreadySaved: true,
   );
 }
 
@@ -78,6 +79,7 @@ Book bookFromExternalBookDTO(ExternalBookDTO remoteBookDTO) {
     tags: const [],
     startDate: none(),
     endDate: none(),
+    alreadySaved: false,
   );
 }
 
@@ -161,6 +163,7 @@ Book bookFromBookDTO(BookDTO bookDTO) {
     tags: _toBookTags(bookDTO.tags),
     startDate: _toDateTime(bookDTO.startDate),
     endDate: _toDateTime(bookDTO.endDate),
+    alreadySaved: true,
   );
 }
 

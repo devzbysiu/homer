@@ -45,9 +45,9 @@ final class _SuggestionsList extends StatelessWidget {
 }
 
 const _bookStateToIcon = {
-  BookState.readLater: Icons.bookmark_border,
-  BookState.reading: Icons.book,
-  BookState.read: Icons.check,
+  BookState.readLater: Icons.bookmark_outline,
+  BookState.reading: Icons.book_outlined,
+  BookState.read: Icons.done_outline,
 };
 
 final class _SearchSuggestion extends StatelessWidget {

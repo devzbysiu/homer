@@ -30,10 +30,13 @@ final class SearchAndCheckSaved implements SearchForBooks {
   }
 
   List<Book> markAlreadySavedBooks(List<Book> found, List<Book> saved) {
-    final savedTitles = saved.map((book) => book.title).toSet();
-    return found
-        .map((b) => b.copyWith(alreadySaved: savedTitles.contains(b.title)))
-        .toList();
+    final savedTitles = {for (final book in saved) book.title: book.state};
+    return [
+      for (final book in found)
+        savedTitles.containsKey(book.title)
+            ? book.copyWith(alreadySaved: true, state: savedTitles[book.title])
+            : book
+    ];
   }
 }
 

@@ -15,7 +15,6 @@ void main() {
   group('_onToggleBookOnDeleteList', () {
     final book = fakeBook();
 
-    // TODO: Add `verify` clause
     blocTest<DeleteBooksBloc, DeleteBooksState>(
       'should emit deletionList with book if it was not on the list before',
       build: () => BlocMock().allWorking(),

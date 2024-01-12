@@ -96,7 +96,7 @@ Future<void> initDi({required Env env}) async {
   sl.registerLazySingleton<DeleteBooks>(() => DeleteBooksImpl(sl()));
   sl.registerLazySingleton<FilterBooks>(() => FilterBooksImpl(sl()));
   // tags
-  sl.registerLazySingleton(() => ListTags(sl()));
+  sl.registerLazySingleton<ListTags>(() => ListTagsImpl(sl()));
   // search
   sl.registerLazySingleton<SearchForBooks>(() => SearchForBooksImpl(sl()));
   sl.registerLazySingleton<FetchSharedBook>(

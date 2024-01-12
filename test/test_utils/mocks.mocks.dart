@@ -6,6 +6,7 @@
 import 'dart:async' as _i3;
 
 import 'package:homer/core/entities/book.dart' as _i5;
+import 'package:homer/core/entities/tag.dart' as _i39;
 import 'package:homer/core/error/failures.dart' as _i6;
 import 'package:homer/core/usecase/usecase.dart' as _i29;
 import 'package:homer/features/backup_and_restore/data/datasources/backup_data_source.dart'
@@ -63,6 +64,8 @@ import 'package:homer/features/settings/domain/usecases/load_settings.dart'
     as _i37;
 import 'package:homer/features/settings/domain/usecases/save_settings.dart'
     as _i36;
+import 'package:homer/features/tags_manager/domain/repositories/tags_repository.dart'
+    as _i38;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:multiple_result/multiple_result.dart' as _i4;
@@ -957,4 +960,30 @@ class MockLoadSettings extends _i1.Mock implements _i37.LoadSettings {
           ),
         )),
       ) as _i3.Future<_i4.Result<_i35.Settings, _i6.Failure>>);
+}
+
+/// A class which mocks [TagsRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTagsRepository extends _i1.Mock implements _i38.TagsRepository {
+  MockTagsRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<List<_i39.Tag>, _i6.Failure>> listAll() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #listAll,
+          [],
+        ),
+        returnValue: _i3.Future<_i4.Result<List<_i39.Tag>, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<List<_i39.Tag>, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #listAll,
+            [],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<List<_i39.Tag>, _i6.Failure>>);
 }

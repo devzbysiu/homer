@@ -5,8 +5,10 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../repositories/tags_repository.dart';
 
-final class ListTags extends UseCase<List<Tag>, NoParams> {
-  ListTags(this.tagsRepo);
+typedef ListTags = UseCase<List<Tag>, NoParams>;
+
+final class ListTagsImpl implements ListTags {
+  ListTagsImpl(this.tagsRepo);
 
   final TagsRepository tagsRepo;
 

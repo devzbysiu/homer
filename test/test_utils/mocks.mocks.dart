@@ -66,6 +66,8 @@ import 'package:homer/features/settings/domain/usecases/save_settings.dart'
     as _i36;
 import 'package:homer/features/tags_manager/domain/repositories/tags_repository.dart'
     as _i38;
+import 'package:homer/features/tags_manager/domain/usecases/list_tags.dart'
+    as _i40;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:multiple_result/multiple_result.dart' as _i4;
@@ -983,6 +985,33 @@ class MockTagsRepository extends _i1.Mock implements _i38.TagsRepository {
           Invocation.method(
             #listAll,
             [],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<List<_i39.Tag>, _i6.Failure>>);
+}
+
+/// A class which mocks [ListTags].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockListTags extends _i1.Mock implements _i40.ListTags {
+  MockListTags() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<List<_i39.Tag>, _i6.Failure>> call(
+          _i29.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue: _i3.Future<_i4.Result<List<_i39.Tag>, _i6.Failure>>.value(
+            _i7.dummyValue<_i4.Result<List<_i39.Tag>, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
           ),
         )),
       ) as _i3.Future<_i4.Result<List<_i39.Tag>, _i6.Failure>>);

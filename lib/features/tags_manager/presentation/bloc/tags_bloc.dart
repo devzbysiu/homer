@@ -26,7 +26,7 @@ final class TagsBloc extends Bloc<TagsEvent, TagsState> {
     final result = await listTags(NoParams());
     result.when(
       (tags) => emit(TagsLoaded(tags)),
-      (error) => const FailedToLoadTags(),
+      (error) => emit(const FailedToLoadTags()),
     );
   }
 }

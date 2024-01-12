@@ -21,6 +21,7 @@ import 'package:homer/features/settings/domain/repositories/settings_repository.
 import 'package:homer/features/settings/domain/usecases/load_settings.dart';
 import 'package:homer/features/settings/domain/usecases/save_settings.dart';
 import 'package:homer/features/tags_manager/domain/repositories/tags_repository.dart';
+import 'package:homer/features/tags_manager/domain/usecases/list_tags.dart';
 import 'package:mockito/annotations.dart';
 import 'package:share_handler/share_handler.dart';
 
@@ -49,5 +50,6 @@ import 'package:share_handler/share_handler.dart';
   SaveSettings,
   LoadSettings,
   TagsRepository,
+  ListTags,
 ])
 void main() {}

@@ -10,67 +10,57 @@ final class _SaveButtons extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _SaveForLaterButton(pickedBook: pickedBook),
-        _SaveToReadingButton(pickedBook: pickedBook),
-        _SaveToReadButton(pickedBook: pickedBook),
+        _saveForLaterButton(),
+        _saveToReadingButton(),
+        _saveToReadButton(),
       ],
     );
   }
-}
 
-final class _SaveToReadButton extends StatelessWidget {
-  const _SaveToReadButton({required this.pickedBook});
+  _SavingButton _saveForLaterButton() {
+    return _SavingButton(
+        pickedBook: pickedBook,
+        bookState: BookState.readLater,
+        icon: Icons.bookmark,
+      );
+  }
 
-  final Book pickedBook;
+  _SavingButton _saveToReadingButton() {
+    return _SavingButton(
+        pickedBook: pickedBook,
+        bookState: BookState.reading,
+        icon: Icons.book,
+      );
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () => _addBook(
-        context,
-        pickedBook,
-        BookState.read,
-      ),
-      color: Theme.of(context).colorScheme.secondary,
-      icon: const Icon(Icons.done),
-    );
+  _SavingButton _saveToReadButton() {
+    return _SavingButton(
+        pickedBook: pickedBook,
+        bookState: BookState.read,
+        icon: Icons.done
+      );
   }
 }
 
-final class _SaveToReadingButton extends StatelessWidget {
-  const _SaveToReadingButton({required this.pickedBook});
+final class _SavingButton extends StatelessWidget {
+  const _SavingButton({
+    required this.pickedBook,
+    required this.bookState,
+    required this.icon,
+  });
 
   final Book pickedBook;
+
+  final BookState bookState;
+
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => _addBook(
-        context,
-        pickedBook,
-        BookState.reading,
-      ),
+      onPressed: () => _addBook(context, pickedBook, bookState),
       color: Theme.of(context).colorScheme.secondary,
-      icon: const Icon(Icons.book),
-    );
-  }
-}
-
-final class _SaveForLaterButton extends StatelessWidget {
-  const _SaveForLaterButton({required this.pickedBook});
-
-  final Book pickedBook;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () => _addBook(
-        context,
-        pickedBook,
-        BookState.readLater,
-      ),
-      color: Theme.of(context).colorScheme.secondary,
-      icon: const Icon(Icons.bookmark),
+      icon: Icon(icon),
     );
   }
 }

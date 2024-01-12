@@ -26,10 +26,10 @@ final class SearchAndCheckSaved implements SearchForBooks {
     if (savedResult.isError()) return Error(savedResult.tryGetError()!);
     final savedBooks = savedResult.tryGetSuccess()!;
 
-    return Success(markAlreadySavedBooks(foundBooks, savedBooks));
+    return Success(_markAlreadySavedBooks(foundBooks, savedBooks));
   }
 
-  List<Book> markAlreadySavedBooks(List<Book> found, List<Book> saved) {
+  List<Book> _markAlreadySavedBooks(List<Book> found, List<Book> saved) {
     final savedTitles = {for (final book in saved) book.title: book.state};
     return [
       for (final book in found)

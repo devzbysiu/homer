@@ -80,7 +80,7 @@ void main() {
       const query = 'some-random-text-not-found-in-books-title';
 
       // when
-      final result = await filterBooks(FilterParams(query: query));
+      final result = await filterBooks(const FilterParams(query: query));
 
       // then
       expect(result.isSuccess(), true);

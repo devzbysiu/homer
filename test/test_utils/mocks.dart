@@ -8,7 +8,7 @@ import 'package:homer/features/find_new_book/data/datasources/external_books_dat
 import 'package:homer/features/find_new_book/domain/repositories/external_book_info_repository.dart';
 import 'package:homer/features/find_new_book/domain/repositories/external_books_repository.dart';
 import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book.dart';
-import 'package:homer/features/find_new_book/domain/usecases/search_for_books.dart';
+import 'package:homer/features/find_new_book/domain/usecases/search_and_check_saved.dart';
 import 'package:homer/features/manage_books/data/datasources/books_data_source.dart';
 import 'package:homer/features/manage_books/domain/repositories/books_repository.dart';
 import 'package:homer/features/manage_books/domain/usecases/add_book.dart';

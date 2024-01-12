@@ -31,9 +31,11 @@ void main() {
       ));
 
       // then
-      verify(booksRepo.add(
-        book.copyWith(state: BookState.read, tags: const []),
-      ));
+      verify(booksRepo.add(book.copyWith(
+        state: BookState.read,
+        tags: const [],
+        alreadySaved: true,
+      )));
       verifyNoMoreInteractions(booksRepo);
     });
 

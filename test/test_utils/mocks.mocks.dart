@@ -37,7 +37,7 @@ import 'package:homer/features/find_new_book/domain/repositories/external_books_
     as _i16;
 import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book.dart'
     as _i25;
-import 'package:homer/features/find_new_book/domain/usecases/search_for_books.dart'
+import 'package:homer/features/find_new_book/domain/usecases/search_and_check_saved.dart'
     as _i24;
 import 'package:homer/features/manage_books/data/datasources/books_data_source.dart'
     as _i11;

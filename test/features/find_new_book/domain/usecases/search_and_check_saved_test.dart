@@ -1,7 +1,6 @@
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/find_new_book/domain/usecases/search_and_check_saved.dart';
-import 'package:homer/features/find_new_book/domain/usecases/search_for_books.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';

@@ -1,10 +1,13 @@
+import 'package:equatable/equatable.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/entities/book.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/usecase/usecase.dart';
 import '../../../manage_books/domain/repositories/books_repository.dart';
 import '../repositories/external_books_repository.dart';
-import 'search_for_books.dart';
+
+typedef SearchForBooks = UseCase<List<Book>, SearchParams>;
 
 final class SearchAndCheckSaved implements SearchForBooks {
   SearchAndCheckSaved(this.externalBooksRepo, this.booksRepo);
@@ -32,4 +35,13 @@ final class SearchAndCheckSaved implements SearchForBooks {
         .map((b) => b.copyWith(alreadySaved: savedTitles.contains(b.title)))
         .toList();
   }
+}
+
+final class SearchParams extends Equatable {
+  const SearchParams({required this.query});
+
+  final String query;
+
+  @override
+  List<Object> get props => [query];
 }

@@ -20,29 +20,30 @@ final class SettingsScreen extends StatelessWidget {
         builder: (context, state) {
           final isSystemThemeEnabled = state.isSystemThemeOn;
           return SettingsList(
-            darkBackgroundColor: Theme.of(context).colorScheme.background,
-            lightBackgroundColor: Theme.of(context).colorScheme.background,
+            contentPadding: const EdgeInsets.only(top: 50),
+            darkTheme: SettingsThemeData(
+              settingsListBackground: Theme.of(context).colorScheme.background,
+            ),
+            lightTheme: SettingsThemeData(
+              settingsListBackground: Theme.of(context).colorScheme.background,
+            ),
             sections: [
               SettingsSection(
-                titleTextStyle: Theme.of(context)
-                    .textTheme
-                    .titleLarge!
-                    .copyWith(color: Theme.of(context).colorScheme.primary),
                 tiles: [
                   SettingsTile.switchTile(
-                    switchActiveColor: Theme.of(context).colorScheme.primary,
-                    title: 'Use system theme',
+                    activeSwitchColor: Theme.of(context).colorScheme.primary,
+                    title: const Text('Use system theme'),
                     leading: const Icon(Icons.brush),
-                    switchValue: isSystemThemeEnabled,
+                    initialValue: isSystemThemeEnabled,
                     onToggle: (_) => context.toggleSystemTheme(),
                   ),
                   SettingsTile(
-                    title: 'Backups directory',
+                    title: const Text('Backups directory'),
                     leading: const Icon(Icons.backup),
-                    subtitle: state.backupsDirectory.path,
+                    description: Text(state.backupsDirectory.path),
                     onPressed: _pickBackupsPath,
                   ),
-                  const CustomTile(child: BookSizeSlider()),
+                  const CustomSettingsTile(child: BookSizeSlider()),
                 ],
               ),
             ],

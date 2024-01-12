@@ -17,30 +17,32 @@ final class BookSizeSliderState extends State<BookSizeSlider> {
   @override
   Widget build(BuildContext context) {
     componentBookSizeLimits ??= context.bookSizeLimits();
-    return ListTile(
-      contentPadding: const EdgeInsets.only(top: 10, left: 15, right: 25),
-      leading: const Icon(Icons.menu_book_rounded),
-      title: const Text('Book size limits'),
-      subtitle: MultiSlider(
-        textHeightOffset: -25,
-        horizontalPadding: 0,
-        indicator: (_) => IndicatorOptions(
-          formatter: (value) => value.toInt().toString(),
+    return Material(
+      child: ListTile(
+        contentPadding: const EdgeInsets.only(top: 10, left: 15, right: 25),
+        leading: const Icon(Icons.menu_book_rounded),
+        title: const Text('Book size limits'),
+        subtitle: MultiSlider(
+          textHeightOffset: -25,
+          horizontalPadding: 0,
+          indicator: (_) => IndicatorOptions(
+            formatter: (value) => value.toInt().toString(),
+          ),
+          selectedIndicator: (_) => IndicatorOptions(
+            formatter: (value) => value.toInt().toString(),
+          ),
+          rangeColors: const [Colors.green, Colors.blue, Colors.orange],
+          min: 1,
+          max: 1244,
+          values: componentBookSizeLimits!.asDoubleList(),
+          onChanged: (value) => setState(() {
+            componentBookSizeLimits = BookSizeLimits.fromDoubleList(value);
+          }),
+          onChangeEnd: (value) => context.bookSizeLimitsChanged(
+            BookSizeLimits.fromDoubleList(value),
+          ),
+          divisions: 240,
         ),
-        selectedIndicator: (_) => IndicatorOptions(
-          formatter: (value) => value.toInt().toString(),
-        ),
-        rangeColors: const [Colors.green, Colors.blue, Colors.orange],
-        min: 1,
-        max: 1244,
-        values: componentBookSizeLimits!.asDoubleList(),
-        onChanged: (value) => setState(() {
-          componentBookSizeLimits = BookSizeLimits.fromDoubleList(value);
-        }),
-        onChangeEnd: (value) => context.bookSizeLimitsChanged(
-          BookSizeLimits.fromDoubleList(value),
-        ),
-        divisions: 240,
       ),
     );
   }

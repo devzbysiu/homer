@@ -13,6 +13,22 @@ import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('loadSettings', () {
+    test('should use settings repo to read settings', () async {
+      // given
+      final settingsRepo = makeMockSettingsRepo();
+      when(settingsRepo.load()).thenAnswer((_) => withSuccess(fakeSettings()));
+      final loadSettings = LoadSettingsImpl(settingsRepo);
+
+      verifyZeroInteractions(settingsRepo);
+
+      // when
+      final _ = await loadSettings(NoParams());
+
+      // then
+      verify(settingsRepo.load());
+      verifyNoMoreInteractions(settingsRepo);
+    });
+
     test('should return failure when settings repo fails', () async {
       // given
       final settingsRepo = makeMockSettingsRepo();

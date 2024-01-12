@@ -12,13 +12,30 @@ import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('searchForBooks', () {
+    test('should use external books repo to search for books', () async {
+      // given
+      final booksRepo = makeMockExternalBooksRepository();
+      final query = fakeSearchQuery();
+      final books = [fakeBook(), fakeBook(), fakeBook()];
+      when(booksRepo.search(query)).thenAnswer((_) => withSuccess(books));
+
+      final searchForBooks = SearchForBooksImpl(booksRepo);
+
+      verifyZeroInteractions(booksRepo);
+
+      // when
+      final _ = await searchForBooks(SearchParams(query: query));
+
+      // then
+      verify(booksRepo.search(query));
+      verifyNoMoreInteractions(booksRepo);
+    });
+
     test('should return failure when book info repo failed', () async {
       // given
       final booksRepo = makeMockExternalBooksRepository();
       final failure = TestingFailure();
-      when(booksRepo.search(any)).thenAnswer(
-        (_) => withError(failure),
-      );
+      when(booksRepo.search(any)).thenAnswer((_) => withError(failure));
 
       final query = fakeSearchQuery();
 

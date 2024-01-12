@@ -12,6 +12,31 @@ import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('addBook', () {
+    test('should use booksRepo to add updated book', () async {
+      // given
+      final booksRepo = makeMockBooksRepo();
+      when(booksRepo.add(any)).thenAnswer((_) => withSuccess(unit));
+
+      final book = fakeBook();
+
+      final addBook = AddBookImpl(booksRepo);
+
+      verifyZeroInteractions(booksRepo);
+
+      // when
+      final _ = await addBook(AddParams(
+        book: book,
+        bookState: BookState.read,
+        selectedTags: const [],
+      ));
+
+      // then
+      verify(booksRepo.add(
+        book.copyWith(state: BookState.read, tags: const []),
+      ));
+      verifyNoMoreInteractions(booksRepo);
+    });
+
     test('should return failure when books repo failed', () async {
       // given
       final failure = TestingFailure();

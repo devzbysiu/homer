@@ -13,6 +13,23 @@ import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('listBooks', () {
+    test('should use books repo to list all books', () async {
+      // given
+      final booksRepo = makeMockBooksRepo();
+      final allBooks = [fakeBook(), fakeBook(), fakeBook()];
+      when(booksRepo.listAll()).thenAnswer((_) => withSuccess(allBooks));
+
+      final filterBooks = ListSortedBooksImpl(booksRepo);
+
+      verifyZeroInteractions(booksRepo);
+
+      // when
+      final _ = await filterBooks(NoParams());
+
+      // then
+      verify(booksRepo.listAll());
+    });
+
     test('should return failure when books repo failed', () async {
       // given
       final failure = TestingFailure();

@@ -19,11 +19,14 @@ void main() {
       when(tagsRepo.listAll()).thenAnswer((_) => withSuccess([]));
       final listTags = ListTagsImpl(tagsRepo);
 
+      verifyZeroInteractions(tagsRepo);
+
       // when
       final _ = await listTags(NoParams());
 
       // then
       verify(tagsRepo.listAll());
+      verifyNoMoreInteractions(tagsRepo);
     });
 
     test('should return failure when tags repo fails', () async {

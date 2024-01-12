@@ -11,6 +11,24 @@ import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('deleteBooks', () {
+    test('should use books repo to delete books', () async {
+      // given
+      final booksRepo = makeMockBooksRepo();
+      final books = [fakeBook(), fakeBook(), fakeBook()];
+      when(booksRepo.delete(books)).thenAnswer((_) => withSuccess(unit));
+
+      final deleteBooks = DeleteBooksImpl(booksRepo);
+
+      verifyZeroInteractions(booksRepo);
+
+      // when
+      final _ = await deleteBooks(DeleteParams(books: books));
+
+      // then
+      verify(booksRepo.delete(books));
+      verifyNoMoreInteractions(booksRepo);
+    });
+
     test('should return failure when books repo failed', () async {
       // given
       final failure = TestingFailure();

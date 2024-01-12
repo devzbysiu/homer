@@ -11,11 +11,30 @@ import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('saveSettings', () {
+    test('should use settings repo to save settings', () async {
+      // given
+      final settingsRepo = makeMockSettingsRepo();
+      when(settingsRepo.save(any)).thenAnswer((_) => withSuccess(unit));
+      final saveSettings = SaveSettingsImpl(settingsRepo);
+
+      final settings = fakeSettings();
+
+      verifyZeroInteractions(settingsRepo);
+
+      // when
+      final _ = await saveSettings(SettingsParams(settings: settings));
+
+      // then
+      verify(settingsRepo.save(settings));
+      verifyNoMoreInteractions(settingsRepo);
+    });
+
     test('should return failure when settings repo fails', () async {
       // given
       final settingsRepo = makeMockSettingsRepo();
-      when(settingsRepo.save(any))
-          .thenAnswer((_) => withError(TestingFailure()));
+      when(settingsRepo.save(any)).thenAnswer(
+        (_) => withError(TestingFailure()),
+      );
       final saveSettings = SaveSettingsImpl(settingsRepo);
 
       final settings = fakeSettings();

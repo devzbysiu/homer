@@ -13,6 +13,40 @@ import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('fetchSharedBook', () {
+    test('should use external book info and external books repos', () async {
+      // given
+      final externalBookInfoRepo = makeMockExternalBookInfoRepo();
+      final bookInfo = fakeExternalBookInfo();
+      when(externalBookInfoRepo.fromUrl(any)).thenAnswer(
+        (_) => withSuccess(bookInfo),
+      );
+
+      final book = fakeBook();
+      final externalBooksRepo = makeMockExternalBooksRepository();
+      when(externalBooksRepo.fromBookInfo(any)).thenAnswer(
+        (_) => withSuccess(book),
+      );
+
+      final fetchSharedBook = FetchSharedBookImpl(
+        externalBookInfoRepo,
+        externalBooksRepo,
+      );
+
+      final url = fakeUrl();
+
+      verifyZeroInteractions(externalBookInfoRepo);
+      verifyZeroInteractions(externalBooksRepo);
+
+      // when
+      final _ = await fetchSharedBook(FetchParams(url: url));
+
+      // then
+      verify(externalBookInfoRepo.fromUrl(url));
+      verify(externalBooksRepo.fromBookInfo(bookInfo));
+      verifyNoMoreInteractions(externalBookInfoRepo);
+      verifyNoMoreInteractions(externalBooksRepo);
+    });
+
     test('should return failure when book info repo failed', () async {
       // given
       final failure = TestingFailure();

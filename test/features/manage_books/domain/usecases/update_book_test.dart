@@ -11,6 +11,24 @@ import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('updateBook', () {
+    test('should use books repo to update book', () async {
+      // given
+      final booksRepo = makeMockBooksRepo();
+      final book = fakeBook();
+      when(booksRepo.update(book)).thenAnswer((_) => withSuccess(unit));
+
+      final updateBook = UpdateBookImpl(booksRepo);
+
+      verifyZeroInteractions(booksRepo);
+
+      // when
+      final _ = await updateBook(UpdateParams(modified: book));
+
+      // then
+      verify(booksRepo.update(book));
+      verifyNoMoreInteractions(booksRepo);
+    });
+
     test('should return failure when books repo failed', () async {
       // given
       final failure = TestingFailure();

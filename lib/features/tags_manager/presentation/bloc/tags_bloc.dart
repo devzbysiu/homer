@@ -12,7 +12,7 @@ part 'tags_event.dart';
 part 'tags_state.dart';
 
 final class TagsBloc extends Bloc<TagsEvent, TagsState> {
-  TagsBloc({required this.listTags}) : super(const Empty()) {
+  TagsBloc({required this.listTags}) : super(const TagsState.initial()) {
     on<TagsDisplayed>(_onTagsDisplayed);
     add(TagsDisplayed());
   }
@@ -25,8 +25,8 @@ final class TagsBloc extends Bloc<TagsEvent, TagsState> {
   ) async {
     final result = await listTags(NoParams());
     result.when(
-      (tags) => emit(TagsLoaded(tags)),
-      (error) => emit(const FailedToLoadTags()),
+      (tags) => emit(TagsState.loaded(tags)),
+      (error) => emit(const TagsState.failedToLoad()),
     );
   }
 }

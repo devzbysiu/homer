@@ -19,26 +19,26 @@ final class _SaveButtons extends StatelessWidget {
 
   _SavingButton _saveForLaterButton() {
     return _SavingButton(
-        pickedBook: pickedBook,
-        bookState: BookState.readLater,
-        icon: Icons.bookmark,
-      );
+      pickedBook: pickedBook,
+      bookState: BookState.readLater,
+      icon: Icons.bookmark,
+    );
   }
 
   _SavingButton _saveToReadingButton() {
     return _SavingButton(
-        pickedBook: pickedBook,
-        bookState: BookState.reading,
-        icon: Icons.book,
-      );
+      pickedBook: pickedBook,
+      bookState: BookState.reading,
+      icon: Icons.book,
+    );
   }
 
   _SavingButton _saveToReadButton() {
     return _SavingButton(
-        pickedBook: pickedBook,
-        bookState: BookState.read,
-        icon: Icons.done
-      );
+      pickedBook: pickedBook,
+      bookState: BookState.read,
+      icon: Icons.done,
+    );
   }
 }
 
@@ -65,13 +65,9 @@ final class _SavingButton extends StatelessWidget {
   }
 }
 
-void _addBook(
-  BuildContext context,
-  Book pickedBook,
-  BookState bookState,
-) {
+void _addBook(BuildContext context, Book pickedBook, BookState pickedState) {
   final selectedTags = context.selectedTags();
-  context.addBook(pickedBook, bookState, selectedTags);
+  context.addBook(pickedBook, pickedState, selectedTags);
   context.clearPickedBook();
   context.clearSharedBook();
   context.clearSelectedTags();

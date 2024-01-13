@@ -10,7 +10,7 @@ final class _SavableBookWithSummary extends StatelessWidget {
         (ShareBookBloc bloc) => bloc.state.sharedBook,
       );
       final pickedBook = context.select(
-        (PickSuggestionBloc bloc) => bloc.state.pickedBook,
+        (BookSearchBloc bloc) => bloc.state.pickedBook,
       );
       final bookCandidate = pickedBook.orElse(() => sharedBook);
       return bookCandidate.fold(

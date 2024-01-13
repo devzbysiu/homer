@@ -35,9 +35,8 @@ final class _SearchError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<PickSuggestionBloc, PickSuggestionState,
-        dartz.Option<String>>(
-      selector: (state) => state.failureCause,
+    return BlocSelector<BookSearchBloc, BookSearchState, dartz.Option<String>>(
+      selector: (state) => state.searchFailureCause,
       builder: (context, failureCause) {
         return failureCause.fold(
           () => const Placeholder(),

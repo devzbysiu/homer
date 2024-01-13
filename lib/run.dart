@@ -8,7 +8,6 @@ import 'package:path_provider/path_provider.dart';
 import 'app.dart';
 import 'app_config.dart';
 import 'features/backup_and_restore/presentation/bloc/backup_bloc.dart';
-import 'features/find_new_book/presentation/bloc/pick_suggestion/pick_suggestion_bloc.dart';
 import 'features/find_new_book/presentation/bloc/search/book_search_bloc.dart';
 import 'features/find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
 import 'features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_bloc.dart';
@@ -41,7 +40,6 @@ void run({required Env env}) async {
       BlocProvider(create: (_) => sl<TagsBloc>()),
       BlocProvider(create: (_) => sl<BookSearchBloc>()),
       BlocProvider(create: (_) => sl<ShareBookBloc>()),
-      BlocProvider(create: (_) => sl<PickSuggestionBloc>()),
       BlocProvider(create: (_) => sl<OnBookTagsBloc>()),
       BlocProvider(create: (_) => sl<BackupBloc>()),
       BlocProvider(create: (_) => sl<SettingsBloc>()),

@@ -11,3 +11,26 @@ final class SearchInitiated extends BookSearchEvent {
   @override
   List<Object> get props => [query];
 }
+
+final class SuggestedBookPicked extends BookSearchEvent {
+  SuggestedBookPicked(this.pickedBook);
+
+  final Book pickedBook;
+
+  @override
+  List<Object?> get props => [pickedBook];
+}
+
+final class ClearPickedBook extends BookSearchEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+final class BookSharedFromOutside extends BookSearchEvent {
+  BookSharedFromOutside(this.url);
+
+  final String url;
+
+  @override
+  List<Object?> get props => [url];
+}

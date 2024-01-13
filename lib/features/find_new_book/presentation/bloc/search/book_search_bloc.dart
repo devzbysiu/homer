@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +15,8 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
   BookSearchBloc({required this.searchForBooks})
       : super(const BookSearchState.initial()) {
     on<SearchInitiated>(_onSearchInitiated);
+    on<SuggestedBookPicked>(_onSuggestedBookPicked);
+    on<ClearPickedBook>(_onClearPickedBook);
   }
 
   final SearchForBooks searchForBooks;
@@ -23,21 +26,43 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
     Emitter<BookSearchState> emit,
   ) async {
     if (event.query.isEmpty) {
-      emit(const BookSearchState.searchFinished());
+      emit(state.searchFinished([]));
       return;
     }
-    emit(const BookSearchState.searching());
+    emit(state.searching());
     final searchResult = await searchForBooks(SearchParams(query: event.query));
     searchResult.when(
-      (books) => emit(BookSearchState.searchFinished(foundBooks: books)),
-      (error) => emit(const BookSearchState.searchFailed()),
+      (books) => emit(state.searchFinished(books)),
+      (error) => emit(state.searchFailed()),
     );
+  }
+
+  void _onSuggestedBookPicked(
+    SuggestedBookPicked event,
+    Emitter<BookSearchState> emit,
+  ) {
+    emit(BookSearchState.picked(some(event.pickedBook)));
+  }
+
+  void _onClearPickedBook(
+    ClearPickedBook event,
+    Emitter<BookSearchState> emit,
+  ) {
+    emit(const BookSearchState.noPickedBook());
   }
 }
 
 extension BookSearchContextExt on BuildContext {
   void initiateSearch(String query) {
     _emitSearchForBooksEvt(SearchInitiated(query));
+  }
+
+  void clearPickedBook() {
+    _emitSearchForBooksEvt(ClearPickedBook());
+  }
+
+  void pickSuggestedBook(Book book) {
+    _emitSearchForBooksEvt(SuggestedBookPicked(book));
   }
 
   void _emitSearchForBooksEvt(BookSearchEvent event) {

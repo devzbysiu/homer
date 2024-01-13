@@ -17,7 +17,6 @@ import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
 import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
-import '../bloc/pick_suggestion/pick_suggestion_bloc.dart';
 import '../bloc/search/book_search_bloc.dart';
 import '../bloc/share_book/share_book_bloc.dart';
 import '../bloc/toggle_tags/on_book_tags_bloc.dart';
@@ -41,31 +40,28 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookSearchBloc, BookSearchState>(
-        builder: (context, searchState) {
-      return BlocBuilder<PickSuggestionBloc, PickSuggestionState>(
-          builder: (context, suggestionState) {
-        if (suggestionState.isSuggestionPicked) _controller.close();
-        return FloatingSearchBar(
-          accentColor: Theme.of(context).primaryColor,
-          progress: searchState.isSearching,
-          controller: _controller,
-          body: const _PickedBookArea(),
-          backgroundColor: Theme.of(context).colorScheme.background.lighten(10),
-          backdropColor: Colors.transparent,
-          hint: 'Search...',
-          scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-          transitionDuration: const Duration(milliseconds: 600),
-          transitionCurve: Curves.easeInOut,
-          physics: const BouncingScrollPhysics(),
-          axisAlignment: 0.0,
-          openAxisAlignment: 0.0,
-          debounceDelay: const Duration(milliseconds: 500),
-          onQueryChanged: (query) => context.initiateSearch(query),
-          transition: CircularFloatingSearchBarTransition(),
-          actions: [FloatingSearchBarAction.searchToClear(showIfClosed: false)],
-          builder: (_, __) => const _SearchSuggestions(),
-        );
-      });
+        builder: (context, state) {
+      if (state.isSuggestionPicked) _controller.close();
+      return FloatingSearchBar(
+        accentColor: Theme.of(context).primaryColor,
+        progress: state.isSearching,
+        controller: _controller,
+        body: const _PickedBookArea(),
+        backgroundColor: Theme.of(context).colorScheme.background.lighten(10),
+        backdropColor: Colors.transparent,
+        hint: 'Search...',
+        scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+        transitionDuration: const Duration(milliseconds: 600),
+        transitionCurve: Curves.easeInOut,
+        physics: const BouncingScrollPhysics(),
+        axisAlignment: 0.0,
+        openAxisAlignment: 0.0,
+        debounceDelay: const Duration(milliseconds: 500),
+        onQueryChanged: (query) => context.initiateSearch(query),
+        transition: CircularFloatingSearchBarTransition(),
+        actions: [FloatingSearchBarAction.searchToClear(showIfClosed: false)],
+        builder: (_, __) => const _SearchSuggestions(),
+      );
     });
   }
 

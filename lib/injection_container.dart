@@ -18,7 +18,6 @@ import 'features/find_new_book/domain/repositories/external_book_info_repository
 import 'features/find_new_book/domain/repositories/external_books_repository.dart';
 import 'features/find_new_book/domain/usecases/fetch_shared_book.dart';
 import 'features/find_new_book/domain/usecases/search_and_check_saved.dart';
-import 'features/find_new_book/presentation/bloc/pick_suggestion/pick_suggestion_bloc.dart';
 import 'features/find_new_book/presentation/bloc/search/book_search_bloc.dart';
 import 'features/find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
 import 'features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_bloc.dart';
@@ -66,7 +65,6 @@ Future<void> initDi({required Env env}) async {
   sl.registerFactory(() => DeleteBooksBloc(deleteBooks: sl()));
   sl.registerFactory(() => TagsBloc(listTags: sl()));
   sl.registerFactory(() => BookSearchBloc(searchForBooks: sl()));
-  sl.registerFactory(() => PickSuggestionBloc());
   sl.registerFactory(() {
     return ShareBookBloc(
       shareHandler: sl(),

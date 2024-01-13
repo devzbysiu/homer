@@ -54,18 +54,24 @@ final class _BookWithSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 9, right: 9),
-      child: _DropCapText(
-        // NOTE: mapper takes care of mapping null summary to default 'No description'
-        text: pickedBook.summary.toNullable()!,
-        overflow: TextOverflow.ellipsis,
-        dropCap: _DropCap(
-          width: 150,
-          height: 220,
-          child: _RemoteBookCard(book: pickedBook),
-        ),
-        dropCapPadding: const EdgeInsets.only(
-          bottom: 5,
-          right: 15,
+      child: WithSavedCheckMark(
+        book: pickedBook,
+        width: 24,
+        height: 30,
+        iconSize: 30,
+        child: _DropCapText(
+          // NOTE: mapper takes care of mapping null summary to default 'No description'
+          text: pickedBook.summary.toNullable()!,
+          overflow: TextOverflow.ellipsis,
+          dropCap: _DropCap(
+            width: 150,
+            height: 220,
+            child: _RemoteBookCard(book: pickedBook),
+          ),
+          dropCapPadding: const EdgeInsets.only(
+            bottom: 5,
+            right: 15,
+          ),
         ),
       ),
     );

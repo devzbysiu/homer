@@ -20,6 +20,7 @@ import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
 import '../bloc/search/book_search_bloc.dart';
 import '../bloc/share_book/share_book_bloc.dart';
 import '../bloc/toggle_tags/on_book_tags_bloc.dart';
+import 'with_saved_check_mark.dart';
 
 part 'picked_book_area.dart';
 part 'savable_book_with_summary.dart';

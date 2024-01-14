@@ -3,17 +3,16 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/widgets/menu_button.dart';
 
-// TODO: Move all XYZButton to separate feature (like side drawer)
-final class SettingsButton extends StatelessWidget {
-  const SettingsButton({super.key});
+final class StatsButton extends StatelessWidget {
+  const StatsButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         MenuButton(
-          text: 'Settings',
-          onPressed: () => context.go('/settings'),
+          text: 'Stats',
+          onPressed: () => context.go('/stats'),
         )
       ],
     );

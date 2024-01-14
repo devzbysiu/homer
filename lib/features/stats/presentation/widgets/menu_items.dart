@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/menu_button.dart';
 import '../../../backup_and_restore/presentation/widgets/backup_button.dart';
 import '../../../backup_and_restore/presentation/widgets/restore_button.dart';
-import '../../../stats/presentation/widgets/stats_button.dart';
-import 'settings_button.dart';
+import 'stats_button.dart';
 
 final class MenuItems extends StatelessWidget {
   const MenuItems({super.key});
@@ -18,9 +18,12 @@ final class MenuItems extends StatelessWidget {
         spaceBetween(),
         const RestoreButton(),
         spaceBetween(),
-        const StatsButton(),
+        MenuButton(
+          text: 'Stats',
+          onPressed: () {},
+        ),
         spaceBetween(),
-        const SettingsButton(),
+        const StatsButton(),
         spaceBetween(),
       ],
     );

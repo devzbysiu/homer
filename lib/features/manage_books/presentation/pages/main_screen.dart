@@ -80,7 +80,7 @@ final class _MainScreenState extends State<MainScreen> {
               end: Alignment.bottomCenter,
               colors: [
                 Theme.of(context).colorScheme.primaryContainer,
-                Theme.of(context).colorScheme.primaryContainer.lighten(15),
+                Theme.of(context).colorScheme.primaryContainer.lighten(20),
               ],
             ),
           ),

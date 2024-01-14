@@ -48,7 +48,7 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
         progress: state.isSearching,
         controller: _controller,
         body: const _PickedBookArea(),
-        backgroundColor: Theme.of(context).colorScheme.background.lighten(10),
+        backgroundColor: Theme.of(context).colorScheme.background.lighten(20),
         backdropColor: Colors.transparent,
         hint: 'Search...',
         scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),

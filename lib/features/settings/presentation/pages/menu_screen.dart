@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/menu_items.dart';
 import '../widgets/theme_switcher.dart';
 
+// TODO: This should be moved to separate screen like side drawer (similar to XYZButtons)
 final class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
 

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'features/manage_books/presentation/pages/home.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
 import 'features/settings/presentation/pages/settings_screen.dart';
+import 'features/stats/presentation/pages/stats_screen.dart';
 
 final GoRouter _router = GoRouter(
   routes: [
@@ -20,6 +21,12 @@ final GoRouter _router = GoRouter(
           path: 'settings',
           builder: (BuildContext context, GoRouterState state) {
             return const SettingsScreen();
+          },
+        ),
+        GoRoute(
+          path: 'stats',
+          builder: (BuildContext context, GoRouterState state) {
+            return const StatsScreen();
           },
         ),
       ],

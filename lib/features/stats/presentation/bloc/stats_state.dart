@@ -1,18 +1,17 @@
 part of 'stats_bloc.dart';
 
-typedef Year = int;
-
-typedef BookCounts = int;
-
 final class StatsState extends Equatable {
-  const StatsState.initial()
-      : years = const [2021, 2022, 2023, 2024],
-        bookCounts = const [23, 73, 90, 6];
+  StatsState.initial()
+      : booksPerYear = BooksPerYear(SplayTreeMap.from({}));
 
-  final List<Year> years;
+  const StatsState.loaded(this.booksPerYear);
 
-  final List<BookCounts> bookCounts;
+  final BooksPerYear booksPerYear;
+
+  List<Year> get years => booksPerYear.years;
+
+  List<BookCounts> get bookCounts => booksPerYear.bookCounts;
 
   @override
-  List<Object> get props => [years, bookCounts];
+  List<Object> get props => [booksPerYear];
 }

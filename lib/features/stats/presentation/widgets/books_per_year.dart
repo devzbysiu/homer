@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/theme.dart';
+import '../../domain/entities/books_per_year.dart';
 import '../bloc/stats_bloc.dart';
 import 'chart_wrapper.dart';
 
@@ -13,8 +14,6 @@ final class BooksPerYear extends StatelessWidget {
   BooksPerYear({super.key});
 
   late final List<Color> _gradientColors;
-
-  late final List<FlSpot> _spots;
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +37,11 @@ final class BooksPerYear extends StatelessWidget {
   }
 
   LineChartData mainData(BuildContext context, List<BookCounts> bookCounts) {
-    _spots = _spotsFromState(bookCounts);
+    final spots = _spotsFromState(bookCounts);
 
     final lineBarData = LineChartBarData(
-      showingIndicators: _spotIndices,
-      spots: _spots,
+      showingIndicators: _spotIndices(spots),
+      spots: spots,
       isCurved: true,
       gradient: LinearGradient(colors: _gradientColors),
       barWidth: 5,
@@ -51,7 +50,7 @@ final class BooksPerYear extends StatelessWidget {
     );
 
     return LineChartData(
-      showingTooltipIndicators: _makeSpots(lineBarData),
+      showingTooltipIndicators: _makeSpots(lineBarData, spots),
       lineTouchData: _tooltipStyle(context),
       backgroundColor: context.background,
       titlesData: _titlesData(context),
@@ -79,10 +78,13 @@ final class BooksPerYear extends StatelessWidget {
     );
   }
 
-  List<ShowingTooltipIndicators> _makeSpots(LineChartBarData tooltipsOnBar) {
-    return _spotIndices.map((index) {
+  List<ShowingTooltipIndicators> _makeSpots(
+    LineChartBarData tooltipsOnBar,
+    List<FlSpot> spots,
+  ) {
+    return _spotIndices(spots).map((index) {
       return ShowingTooltipIndicators([
-        LineBarSpot(tooltipsOnBar, 0, _spots[index]),
+        LineBarSpot(tooltipsOnBar, 0, spots[index]),
       ]);
     }).toList();
   }
@@ -236,5 +238,7 @@ final class BooksPerYear extends StatelessWidget {
     );
   }
 
-  List<int> get _spotIndices => _spots.asMap().keys.toList();
+  List<int> _spotIndices(List<FlSpot> spots) {
+    return spots.indexed.map((e) => e.$1).toList();
+  }
 }

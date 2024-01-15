@@ -49,6 +49,7 @@ dependencies:
   flutter_multi_slider: ^2.0.0
   logger: ^2.0.2+1
   fl_chart: ^0.66.0
+  collection: ^1.18.0
 
 dev_dependencies:
   flutter_test:

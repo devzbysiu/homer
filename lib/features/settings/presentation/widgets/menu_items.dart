@@ -15,16 +15,16 @@ final class MenuItems extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const BackupButton(),
-        spaceBetween(),
+        _spaceBetween(),
         const RestoreButton(),
-        spaceBetween(),
+        _spaceBetween(),
         const StatsButton(),
-        spaceBetween(),
+        _spaceBetween(),
         const SettingsButton(),
-        spaceBetween(),
+        _spaceBetween(),
       ],
     );
   }
 
-  SizedBox spaceBetween() => const SizedBox(height: 20);
+  SizedBox _spaceBetween() => const SizedBox(height: 20);
 }

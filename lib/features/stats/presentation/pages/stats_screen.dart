@@ -35,7 +35,7 @@ final class BooksPerYear extends StatelessWidget {
   // ignore: prefer_const_constructors_in_immutables
   BooksPerYear({super.key});
 
-  late final List<Color> gradientColors;
+  late final List<Color> _gradientColors;
 
   final List<FlSpot> _spots = [
     const FlSpot(0, 23),
@@ -46,15 +46,12 @@ final class BooksPerYear extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    gradientColors = [context.primary, context.lightPrimary];
+    _gradientColors = [context.primary, context.lightPrimary];
 
     return Center(
       child: Column(
         children: [
-          Text(
-            'Books per year',
-            style: context.headlineSmall,
-          ),
+          Text('Books per year', style: context.headlineSmall),
           _ChartWrapper(child: LineChart(mainData(context))),
         ],
       ),
@@ -66,7 +63,7 @@ final class BooksPerYear extends StatelessWidget {
       showingIndicators: _spotIndices,
       spots: _spots,
       isCurved: true,
-      gradient: LinearGradient(colors: gradientColors),
+      gradient: LinearGradient(colors: _gradientColors),
       barWidth: 5,
       dotData: const FlDotData(show: true),
       belowBarData: _belowBarStyle(),
@@ -86,10 +83,12 @@ final class BooksPerYear extends StatelessWidget {
     );
   }
 
-  FlBorderData _grayBorder() {
-    return FlBorderData(
+  BarAreaData _belowBarStyle() {
+    return BarAreaData(
       show: true,
-      border: Border.all(color: const Color(0xff37434d)),
+      gradient: LinearGradient(
+        colors: _gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+      ),
     );
   }
 
@@ -117,6 +116,30 @@ final class BooksPerYear extends StatelessWidget {
           lineBarsSpot,
         ),
       ),
+    );
+  }
+
+  List<TouchedSpotIndicatorData> _tooltipAreaStyle(
+    BuildContext context,
+    List<int> spotIndexes,
+  ) {
+    return spotIndexes.map((index) {
+      return TouchedSpotIndicatorData(
+        const FlLine(strokeWidth: 0),
+        FlDotData(
+          show: true,
+          getDotPainter: (_, __, ___, ____) => _areaStyle(context),
+        ),
+      );
+    }).toList();
+  }
+
+  FlDotCirclePainter _areaStyle(BuildContext context) {
+    return FlDotCirclePainter(
+      radius: 8,
+      color: context.primary,
+      strokeWidth: 2,
+      strokeColor: context.primary,
     );
   }
 
@@ -150,21 +173,6 @@ final class BooksPerYear extends StatelessWidget {
     );
   }
 
-  AxisTitles _leftTitles(BuildContext context) {
-    return AxisTitles(
-      sideTitles: SideTitles(
-        showTitles: true,
-        interval: 1,
-        getTitlesWidget: (value, meta) => leftTitleWidgets(
-          context,
-          value,
-          meta,
-        ),
-        reservedSize: 42,
-      ),
-    );
-  }
-
   AxisTitles _bottomTitles(BuildContext context) {
     return AxisTitles(
       sideTitles: SideTitles(
@@ -176,39 +184,6 @@ final class BooksPerYear extends StatelessWidget {
           value,
           meta,
         ),
-      ),
-    );
-  }
-
-  List<TouchedSpotIndicatorData> _tooltipAreaStyle(
-    BuildContext context,
-    List<int> spotIndexes,
-  ) {
-    return spotIndexes.map((index) {
-      return TouchedSpotIndicatorData(
-        const FlLine(strokeWidth: 0),
-        FlDotData(
-          show: true,
-          getDotPainter: (_, __, ___, ____) => _areaStyle(context),
-        ),
-      );
-    }).toList();
-  }
-
-  FlDotCirclePainter _areaStyle(BuildContext context) {
-    return FlDotCirclePainter(
-      radius: 8,
-      color: context.primary,
-      strokeWidth: 2,
-      strokeColor: context.primary,
-    );
-  }
-
-  BarAreaData _belowBarStyle() {
-    return BarAreaData(
-      show: true,
-      gradient: LinearGradient(
-        colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
       ),
     );
   }
@@ -245,6 +220,21 @@ final class BooksPerYear extends StatelessWidget {
     );
   }
 
+  AxisTitles _leftTitles(BuildContext context) {
+    return AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        interval: 1,
+        getTitlesWidget: (value, meta) => leftTitleWidgets(
+          context,
+          value,
+          meta,
+        ),
+        reservedSize: 42,
+      ),
+    );
+  }
+
   Widget leftTitleWidgets(BuildContext context, double value, TitleMeta meta) {
     final style = context.bodyMedium;
 
@@ -273,6 +263,13 @@ final class BooksPerYear extends StatelessWidget {
       text,
       style: style,
       textAlign: TextAlign.left,
+    );
+  }
+
+  FlBorderData _grayBorder() {
+    return FlBorderData(
+      show: true,
+      border: Border.all(color: const Color(0xff37434d)),
     );
   }
 

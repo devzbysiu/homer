@@ -1,7 +1,6 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 import '../../../../core/utils/theme.dart';
 
@@ -38,7 +37,7 @@ final class BooksPerYear extends StatelessWidget {
 
   late final List<Color> gradientColors;
 
-  final List<FlSpot> spots = [
+  final List<FlSpot> _spots = [
     const FlSpot(0, 23),
     const FlSpot(1, 73),
     const FlSpot(2, 90),
@@ -47,10 +46,8 @@ final class BooksPerYear extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    gradientColors = [
-      context.primary,
-      context.primary.lighten(20),
-    ];
+    gradientColors = [context.primary, context.lightPrimary];
+
     return Center(
       child: Column(
         children: [
@@ -67,7 +64,7 @@ final class BooksPerYear extends StatelessWidget {
   LineChartData mainData(BuildContext context) {
     final lineBarData = LineChartBarData(
       showingIndicators: _spotIndices,
-      spots: spots,
+      spots: _spots,
       isCurved: true,
       gradient: LinearGradient(colors: gradientColors),
       barWidth: 5,
@@ -80,10 +77,7 @@ final class BooksPerYear extends StatelessWidget {
       lineTouchData: _tooltipStyle(context),
       backgroundColor: context.background,
       titlesData: _titlesData(context),
-      borderData: FlBorderData(
-        show: true,
-        border: Border.all(color: const Color(0xff37434d)),
-      ),
+      borderData: _grayBorder(),
       minX: 0,
       maxX: 3,
       minY: 0,
@@ -92,10 +86,17 @@ final class BooksPerYear extends StatelessWidget {
     );
   }
 
+  FlBorderData _grayBorder() {
+    return FlBorderData(
+      show: true,
+      border: Border.all(color: const Color(0xff37434d)),
+    );
+  }
+
   List<ShowingTooltipIndicators> _makeSpots(LineChartBarData tooltipsOnBar) {
     return _spotIndices.map((index) {
       return ShowingTooltipIndicators([
-        LineBarSpot(tooltipsOnBar, 0, spots[index]),
+        LineBarSpot(tooltipsOnBar, 0, _spots[index]),
       ]);
     }).toList();
   }
@@ -134,22 +135,18 @@ final class BooksPerYear extends StatelessWidget {
   FlTitlesData _titlesData(BuildContext context) {
     return FlTitlesData(
       show: true,
-      rightTitles: _hideRightTitles(),
-      topTitles: _hideTopTitles(),
+      rightTitles: _hide(),
+      topTitles: _hide(),
       bottomTitles: _bottomTitles(context),
       leftTitles: _leftTitles(context),
     );
   }
 
-  AxisTitles _hideTopTitles() {
+  AxisTitles _hide() {
     return const AxisTitles(
-      sideTitles: SideTitles(showTitles: false),
-    );
-  }
-
-  AxisTitles _hideRightTitles() {
-    return const AxisTitles(
-      sideTitles: SideTitles(showTitles: false),
+      sideTitles: SideTitles(
+        showTitles: false,
+      ),
     );
   }
 
@@ -192,15 +189,19 @@ final class BooksPerYear extends StatelessWidget {
         const FlLine(strokeWidth: 0),
         FlDotData(
           show: true,
-          getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
-            radius: 8,
-            color: context.primary,
-            strokeWidth: 2,
-            strokeColor: context.primary,
-          ),
+          getDotPainter: (_, __, ___, ____) => _areaStyle(context),
         ),
       );
     }).toList();
+  }
+
+  FlDotCirclePainter _areaStyle(BuildContext context) {
+    return FlDotCirclePainter(
+      radius: 8,
+      color: context.primary,
+      strokeWidth: 2,
+      strokeColor: context.primary,
+    );
   }
 
   BarAreaData _belowBarStyle() {
@@ -246,6 +247,7 @@ final class BooksPerYear extends StatelessWidget {
 
   Widget leftTitleWidgets(BuildContext context, double value, TitleMeta meta) {
     final style = context.bodyMedium;
+
     String text;
     switch (value.toInt()) {
       case 20:
@@ -267,10 +269,14 @@ final class BooksPerYear extends StatelessWidget {
         return Container();
     }
 
-    return Text(text, style: style, textAlign: TextAlign.left);
+    return Text(
+      text,
+      style: style,
+      textAlign: TextAlign.left,
+    );
   }
 
-  List<int> get _spotIndices => spots.asMap().keys.toList();
+  List<int> get _spotIndices => _spots.asMap().keys.toList();
 }
 
 final class _ChartWrapper extends StatelessWidget {

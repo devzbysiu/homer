@@ -20,6 +20,7 @@ extension ThemeExtension on BuildContext {
 
   // Colors
   Color get primary => colorScheme.primary;
+  Color get lightPrimary => colorScheme.primary.lighten(20);
   Color get primaryContainer => colorScheme.primaryContainer;
   Color get lightPrimaryContainer => colorScheme.primaryContainer.lighten(20);
   Color get headlineMediumColor => headlineMedium.color!;

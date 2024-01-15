@@ -11,7 +11,7 @@ final class _SearchSuggestions extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Material(
-            color: Theme.of(context).listTileTheme.tileColor,
+            color: context.tile,
             elevation: 4.0,
             child: const _SuggestionsList(),
           ),
@@ -58,16 +58,16 @@ final class _SearchSuggestion extends StatelessWidget {
         child: WithSavedCheckMark(
           book: book,
           child: BannerListTile(
-            bannerTextColor: Theme.of(context).colorScheme.background,
-            bannerColor: Theme.of(context).primaryColor,
+            bannerTextColor: context.background,
+            bannerColor: context.primary,
             bannerText: book.rating.toStringAsFixed(2),
             onTap: () => context.pickSuggestedBook(book),
-            backgroundColor: Theme.of(context).listTileTheme.tileColor,
+            backgroundColor: context.tile,
             borderRadius: BorderRadius.circular(8),
             imageContainer: _ListTileThumbnail(book: book),
             title: Text(
               book.title,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: context.titleMedium,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
@@ -75,7 +75,7 @@ final class _SearchSuggestion extends StatelessWidget {
               'by ${book.authors.join(', ')}',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleSmall,
+              style: context.titleSmall,
             ),
           ),
         ),

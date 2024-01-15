@@ -80,7 +80,7 @@ final class _AddTagTile extends StatelessWidget {
         height: 25,
         decoration: BoxDecoration(
           border: Border.all(
-            color: Theme.of(context).primaryColor,
+            color: context.primary,
           ),
           borderRadius: BorderRadius.circular(6),
           color: Colors.black,

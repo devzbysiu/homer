@@ -22,12 +22,12 @@ final class _DeletableCard extends StatelessWidget {
                 child: isOnDeleteList
                     ? Icon(
                         Icons.done,
-                        color: Theme.of(context).iconTheme.color,
+                        color: context.icon,
                         size: 35,
                       )
                     : null,
               ),
-              blurColor: Theme.of(context).colorScheme.error,
+              blurColor: context.error,
               child: _BookCover(book: book),
             );
           },

@@ -10,7 +10,7 @@ final class _SwipeableCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SwipeableTile.swipeToTriggerCard(
-      color: Theme.of(context).cardColor,
+      color: context.card,
       shadow: const BoxShadow(),
       horizontalPadding: 10,
       verticalPadding: 10,
@@ -68,7 +68,7 @@ final class _SwipeableCard extends StatelessWidget {
       behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
       content: AwesomeSnackbarContent(
-        color: Theme.of(context).colorScheme.primaryContainer,
+        color: context.primaryContainer,
         messageFontSize: 18,
         title: 'Yay!',
         message: msg,

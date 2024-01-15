@@ -1,8 +1,8 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
+import '../../../../core/utils/theme.dart';
 import '../bloc/listing/books_bloc.dart';
 import '../widgets/books_list.dart';
 
@@ -27,7 +27,7 @@ final class _MainScreenState extends State<MainScreen> {
       onQueryChanged: (query) => _onQueryChanged(query),
       actions: _clearOrSearchIcon(),
       leadingActions: _openDrawerIcon(context),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: context.background,
       hint: 'Filter...',
       body: _booksListing(context),
       builder: (_, __) => Container(),
@@ -79,8 +79,8 @@ final class _MainScreenState extends State<MainScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Theme.of(context).colorScheme.primaryContainer,
-                Theme.of(context).colorScheme.primaryContainer.lighten(20),
+                context.primaryContainer,
+                context.lightPrimaryContainer,
               ],
             ),
           ),

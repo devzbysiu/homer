@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 
+import '../../../../core/utils/theme.dart';
 import '../bloc/settings_bloc.dart';
 import '../widgets/book_size_slider.dart';
 
@@ -22,16 +23,16 @@ final class SettingsScreen extends StatelessWidget {
           return SettingsList(
             contentPadding: const EdgeInsets.only(top: 50),
             darkTheme: SettingsThemeData(
-              settingsListBackground: Theme.of(context).colorScheme.background,
+              settingsListBackground: context.background,
             ),
             lightTheme: SettingsThemeData(
-              settingsListBackground: Theme.of(context).colorScheme.background,
+              settingsListBackground: context.background,
             ),
             sections: [
               SettingsSection(
                 tiles: [
                   SettingsTile.switchTile(
-                    activeSwitchColor: Theme.of(context).colorScheme.primary,
+                    activeSwitchColor: context.primary,
                     title: const Text('Use system theme'),
                     leading: const Icon(Icons.brush),
                     initialValue: isSystemThemeEnabled,

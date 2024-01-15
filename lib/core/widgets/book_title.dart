@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/theme.dart';
+
 final class BookTitle extends StatelessWidget {
   const BookTitle({super.key, required this.title});
 
@@ -13,10 +15,7 @@ final class BookTitle extends StatelessWidget {
         // (but max lines is 2 so it's always 2 lines)
         '$title\n',
         maxLines: 2,
-        style: Theme.of(context)
-            .textTheme
-            .bodyLarge
-            ?.copyWith(color: Colors.white),
+        style: context.bodyLarge.copyWith(color: Colors.white),
         overflow: TextOverflow.ellipsis,
       ),
     );

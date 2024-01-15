@@ -48,14 +48,11 @@ final class _SearchError extends StatelessWidget {
                 Icon(
                   Icons.error,
                   size: 80,
-                  color: Theme.of(context).colorScheme.error,
+                  color: context.error,
                 ),
                 Text(
                   cause,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(color: Theme.of(context).colorScheme.error),
+                  style: context.errorStyle,
                 )
               ],
             );

@@ -35,7 +35,7 @@ final class _TagsState extends State<_Tags> {
   }
 
   List<Color> _inactiveText(BuildContext context, List<Tag> tags) {
-    return tags.map((_) => Theme.of(context).colorScheme.onBackground).toList();
+    return tags.map((_) => context.onBackground).toList();
   }
 
   List<Color> _whiteColors(List<Tag> tags) {
@@ -54,6 +54,6 @@ final class _TagsState extends State<_Tags> {
   }
 
   List<Color> _inactiveColors(BuildContext context, List<Tag> tags) {
-    return tags.map((_) => Theme.of(context).colorScheme.background).toList();
+    return tags.map((_) => context.background).toList();
   }
 }

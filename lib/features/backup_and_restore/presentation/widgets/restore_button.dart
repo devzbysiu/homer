@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
+import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/menu_button.dart';
 import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
 import '../bloc/backup_bloc.dart';
@@ -27,7 +28,7 @@ final class RestoreButton extends StatelessWidget {
             }
             return JumpingDotsProgressIndicator(
               fontSize: 30,
-              color: Theme.of(context).textTheme.headlineMedium!.color!,
+              color: context.headlineMediumColor,
             );
           },
         ),

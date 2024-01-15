@@ -2,7 +2,6 @@ import 'package:banner_listtile/banner_listtile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chip_list/chip_list.dart';
 import 'package:dartz/dartz.dart' as dartz;
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -11,6 +10,7 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
 import '../../../../core/entities/book.dart';
 import '../../../../core/entities/tag.dart';
 import '../../../../core/utils/fallback_img.dart';
+import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
@@ -44,11 +44,11 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
         builder: (context, state) {
       if (state.isSuggestionPicked) _controller.close();
       return FloatingSearchBar(
-        accentColor: Theme.of(context).primaryColor,
+        accentColor: context.primary,
         progress: state.isSearching,
         controller: _controller,
         body: const _PickedBookArea(),
-        backgroundColor: Theme.of(context).colorScheme.background.lighten(20),
+        backgroundColor: context.lightBackground,
         backdropColor: Colors.transparent,
         hint: 'Search...',
         scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),

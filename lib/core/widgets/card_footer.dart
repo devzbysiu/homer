@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../features/settings/domain/entities/book_size_limits.dart';
 import '../../features/settings/presentation/bloc/settings_bloc.dart';
+import '../utils/theme.dart';
 
 final class BookCardFooter extends StatelessWidget {
   const BookCardFooter({
@@ -43,7 +44,7 @@ final class _BookRating extends StatelessWidget {
     return Wrap(children: [
       Icon(
         Icons.star,
-        color: Theme.of(context).colorScheme.primary,
+        color: context.primary,
       ),
       const SizedBox(width: 4),
       Padding(
@@ -97,11 +98,7 @@ final class _BookSize extends StatelessWidget {
             style: const TextStyle(color: Colors.white),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.only(
-            left: 10,
-          ),
-        ),
+        const Padding(padding: EdgeInsets.only(left: 10)),
         Padding(
           padding: const EdgeInsets.only(top: 3.0),
           child: _BookSizeLabel(pageCount: pageCount),

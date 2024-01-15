@@ -1,6 +1,8 @@
 import '../../../../core/entities/book.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/theme.dart';
+
 const _bookStateToIcon = {
   BookState.readLater: Icons.bookmark_outline,
   BookState.reading: Icons.book_outlined,
@@ -40,7 +42,7 @@ class WithSavedCheckMark extends StatelessWidget {
               width: width,
               height: height,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.background,
+                color: context.background,
               ),
             ),
           ),
@@ -54,7 +56,7 @@ class WithSavedCheckMark extends StatelessWidget {
               child: Icon(
                 _bookStateToIcon[book.state],
                 size: iconSize,
-                color: Theme.of(context).colorScheme.primary,
+                color: context.primary,
               ),
             ),
           ),

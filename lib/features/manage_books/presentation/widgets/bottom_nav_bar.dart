@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/entities/book.dart';
+import '../../../../core/utils/theme.dart';
 import '../../../find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
 import '../../../find_new_book/presentation/widgets/bottom_drawer_content.dart';
 import '../../../manage_books/presentation/bloc/delete/delete_books_bloc.dart';
@@ -76,18 +77,18 @@ final class _BottomNavBarState extends State<BottomNavBar> {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).shadowColor,
+            color: context.shadow,
             spreadRadius: 1,
             blurRadius: 4,
             offset: const Offset(0, 3),
           ),
         ],
-        color: Theme.of(context).colorScheme.background,
+        color: context.background,
         borderRadius: const BorderRadius.only(topRight: Radius.circular(45)),
       ),
-      itemIconColor: Theme.of(context).unselectedWidgetColor,
-      itemTextStyle: Theme.of(context).textTheme.bodyMedium,
-      selectedItemTextStyle: Theme.of(context).textTheme.bodyMedium,
+      itemIconColor: context.unselected,
+      itemTextStyle: context.bodyMedium,
+      selectedItemTextStyle: context.bodyMedium,
     );
   }
 
@@ -118,11 +119,11 @@ final class _AddButton extends StatelessWidget {
       style: ButtonStyle(
         shape: const CircleBorder().msp(),
         padding: const EdgeInsets.all(10).msp(),
-        backgroundColor: Theme.of(context).primaryColor.msp(),
+        backgroundColor: context.primary.msp(),
       ),
       child: Icon(
         Icons.add,
-        color: Theme.of(context).colorScheme.background,
+        color: context.background,
       ),
     );
   }
@@ -145,13 +146,13 @@ final class _DeleteButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () => context.deletePickedBooks(),
         style: ButtonStyle(
-          backgroundColor: Theme.of(context).colorScheme.error.msp(),
+          backgroundColor: context.error.msp(),
           shape: const CircleBorder().msp(),
           padding: const EdgeInsets.all(10).msp(),
         ),
         child: Icon(
           Icons.delete_forever,
-          color: Theme.of(context).colorScheme.background,
+          color: context.background,
         ),
       ),
     );

@@ -137,7 +137,7 @@ final class _DropCapText extends StatelessWidget {
 
     TextSpan textSpan = TextSpan(
       text: text,
-      style: Theme.of(context).textTheme.bodyLarge,
+      style: context.bodyLarge,
     );
 
     TextPainter textPainter = TextPainter(
@@ -196,7 +196,7 @@ final class _DropCapText extends StatelessWidget {
                 textDirection: textDirection,
                 text: TextSpan(
                   text: text.substring(charIndexEnd),
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: context.bodyLarge,
                 ),
               ),
             ],

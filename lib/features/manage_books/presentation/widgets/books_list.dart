@@ -14,6 +14,7 @@ import 'package:vibration/vibration.dart';
 import '../../../../core/entities/book.dart';
 import '../../../../core/entities/tag.dart';
 import '../../../../core/utils/fallback_img.dart';
+import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';

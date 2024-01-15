@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:fl_chart/fl_chart.dart';
 
+import '../../../../core/utils/theme.dart';
+
 final class StatsScreen extends StatelessWidget {
   const StatsScreen({super.key});
 
@@ -11,7 +13,7 @@ final class StatsScreen extends StatelessWidget {
     return Animate(
       effects: const [FadeEffect()],
       child: Container(
-        color: Theme.of(context).colorScheme.background,
+        color: context.background,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(top: 50),
@@ -46,15 +48,15 @@ final class BooksPerYear extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     gradientColors = [
-      Theme.of(context).colorScheme.primary,
-      Theme.of(context).colorScheme.primary.lighten(20),
+      context.primary,
+      context.primary.lighten(20),
     ];
     return Center(
       child: Column(
         children: [
           Text(
             'Books per year',
-            style: Theme.of(context).textTheme.headlineSmall!,
+            style: context.headlineSmall,
           ),
           _ChartWrapper(child: LineChart(mainData(context))),
         ],
@@ -76,7 +78,7 @@ final class BooksPerYear extends StatelessWidget {
     return LineChartData(
       showingTooltipIndicators: _makeSpots(lineBarData),
       lineTouchData: _tooltipStyle(context),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: context.background,
       titlesData: _titlesData(context),
       borderData: FlBorderData(
         show: true,
@@ -107,7 +109,7 @@ final class BooksPerYear extends StatelessWidget {
         spotIndexes,
       ),
       touchTooltipData: LineTouchTooltipData(
-        tooltipBgColor: Theme.of(context).colorScheme.primary,
+        tooltipBgColor: context.primary,
         tooltipRoundedRadius: 8,
         getTooltipItems: (lineBarsSpot) => _tooltipTextStyle(
           context,
@@ -123,11 +125,9 @@ final class BooksPerYear extends StatelessWidget {
   ) {
     return lineBarsSpot.map((lineBarSpot) {
       return LineTooltipItem(
-          lineBarSpot.y.floor().toString(),
-          Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(color: Theme.of(context).colorScheme.background));
+        lineBarSpot.y.floor().toString(),
+        context.bodyMedium.copyWith(color: context.background),
+      );
     }).toList();
   }
 
@@ -194,9 +194,9 @@ final class BooksPerYear extends StatelessWidget {
           show: true,
           getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
             radius: 8,
-            color: Theme.of(context).colorScheme.primary,
+            color: context.primary,
             strokeWidth: 2,
-            strokeColor: Theme.of(context).colorScheme.primary,
+            strokeColor: context.primary,
           ),
         ),
       );
@@ -217,7 +217,8 @@ final class BooksPerYear extends StatelessWidget {
     double value,
     TitleMeta meta,
   ) {
-    final style = Theme.of(context).textTheme.bodyMedium!;
+    final style = context.bodyMedium;
+
     Widget text;
     switch (value.toInt()) {
       case 0:
@@ -244,7 +245,7 @@ final class BooksPerYear extends StatelessWidget {
   }
 
   Widget leftTitleWidgets(BuildContext context, double value, TitleMeta meta) {
-    final style = Theme.of(context).textTheme.bodyMedium!;
+    final style = context.bodyMedium;
     String text;
     switch (value.toInt()) {
       case 20:
@@ -287,7 +288,7 @@ final class _ChartWrapper extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(18)),
-            color: Theme.of(context).colorScheme.background,
+            color: context.background,
           ),
           child: Padding(
             padding: const EdgeInsets.only(

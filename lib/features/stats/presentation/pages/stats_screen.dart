@@ -12,9 +12,9 @@ final class StatsScreen extends StatelessWidget {
       effects: const [FadeEffect()],
       child: Container(
         color: Theme.of(context).colorScheme.background,
-        child: const SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
                 BooksPerYear(),
@@ -31,10 +31,24 @@ final class StatsScreen extends StatelessWidget {
 }
 
 final class BooksPerYear extends StatelessWidget {
-  const BooksPerYear({super.key});
+  // ignore: prefer_const_constructors_in_immutables
+  BooksPerYear({super.key});
+
+  late final List<Color> gradientColors;
+
+  final List<FlSpot> spots = [
+    const FlSpot(0, 23),
+    const FlSpot(1, 73),
+    const FlSpot(2, 90),
+    const FlSpot(3, 6),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    gradientColors = [
+      Theme.of(context).colorScheme.primary,
+      Theme.of(context).colorScheme.primary.lighten(20),
+    ];
     return Center(
       child: Column(
         children: [
@@ -42,146 +56,28 @@ final class BooksPerYear extends StatelessWidget {
             'Books per year',
             style: Theme.of(context).textTheme.headlineSmall!,
           ),
-          SizedBox(
-            width: 400, // Set the width of the chart
-            height: 300, // Set the height of the chart
-            child: AspectRatio(
-              aspectRatio: 2.5,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(18)),
-                  color: Theme.of(context).colorScheme.background,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: 18.0,
-                    left: 12.0,
-                    top: 24,
-                    bottom: 12,
-                  ),
-                  child: LineChart(mainData(context)),
-                ),
-              ),
-            ),
-          ),
+          _ChartWrapper(child: LineChart(mainData(context))),
         ],
       ),
     );
   }
 
   LineChartData mainData(BuildContext context) {
-    final List<Color> gradientColors = [
-      Theme.of(context).colorScheme.primary,
-      Theme.of(context).colorScheme.primary.lighten(20),
-    ];
-
-    const showingTooltipOnSpots = [0, 1, 2, 3];
-
-    final lineBarsData = [
-      LineChartBarData(
-        showingIndicators: showingTooltipOnSpots,
-        spots: const [
-          FlSpot(0, 23),
-          FlSpot(1, 73),
-          FlSpot(2, 90),
-          FlSpot(3, 6),
-        ],
-        isCurved: true,
-        gradient: LinearGradient(colors: gradientColors),
-        barWidth: 5,
-        dotData: const FlDotData(show: true),
-        belowBarData: BarAreaData(
-          show: true,
-          gradient: LinearGradient(
-            colors:
-                gradientColors.map((color) => color.withOpacity(0.3)).toList(),
-          ),
-        ),
-      ),
-    ];
-
-    final tooltipsOnBar = lineBarsData[0];
+    final lineBarData = LineChartBarData(
+      showingIndicators: _spotIndices,
+      spots: spots,
+      isCurved: true,
+      gradient: LinearGradient(colors: gradientColors),
+      barWidth: 5,
+      dotData: const FlDotData(show: true),
+      belowBarData: _belowBarStyle(),
+    );
 
     return LineChartData(
-      showingTooltipIndicators: showingTooltipOnSpots.map((index) {
-        return ShowingTooltipIndicators([
-          LineBarSpot(
-            tooltipsOnBar,
-            lineBarsData.indexOf(tooltipsOnBar),
-            tooltipsOnBar.spots[index],
-          ),
-        ]);
-      }).toList(),
-      lineTouchData: LineTouchData(
-        enabled: true,
-        handleBuiltInTouches: false,
-        getTouchedSpotIndicator:
-            (LineChartBarData barData, List<int> spotIndexes) {
-          return spotIndexes.map((index) {
-            return TouchedSpotIndicatorData(
-              const FlLine(strokeWidth: 0),
-              FlDotData(
-                show: true,
-                getDotPainter: (spot, percent, barData, index) =>
-                    FlDotCirclePainter(
-                  radius: 8,
-                  color: Theme.of(context).colorScheme.primary,
-                  strokeWidth: 2,
-                  strokeColor: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            );
-          }).toList();
-        },
-        touchTooltipData: LineTouchTooltipData(
-          tooltipBgColor: Theme.of(context).colorScheme.primary,
-          tooltipRoundedRadius: 8,
-          getTooltipItems: (List<LineBarSpot> lineBarsSpot) {
-            return lineBarsSpot.map((lineBarSpot) {
-              return LineTooltipItem(
-                lineBarSpot.y.floor().toString(),
-                Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.background,
-                    ),
-              );
-            }).toList();
-          },
-        ),
-      ),
+      showingTooltipIndicators: _makeSpots(lineBarData),
+      lineTouchData: _tooltipStyle(context),
       backgroundColor: Theme.of(context).colorScheme.background,
-      titlesData: FlTitlesData(
-        show: true,
-        rightTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        topTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 30,
-            interval: 1,
-            getTitlesWidget: (value, meta) => bottomTitleWidgets(
-              context,
-              value,
-              meta,
-            ),
-          ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            interval: 1,
-            getTitlesWidget: (value, meta) => leftTitleWidgets(
-              context,
-              value,
-              meta,
-            ),
-            reservedSize: 42,
-          ),
-        ),
-      ),
+      titlesData: _titlesData(context),
       borderData: FlBorderData(
         show: true,
         border: Border.all(color: const Color(0xff37434d)),
@@ -190,7 +86,129 @@ final class BooksPerYear extends StatelessWidget {
       maxX: 3,
       minY: 0,
       maxY: 100,
-      lineBarsData: lineBarsData,
+      lineBarsData: [lineBarData],
+    );
+  }
+
+  List<ShowingTooltipIndicators> _makeSpots(LineChartBarData tooltipsOnBar) {
+    return _spotIndices.map((index) {
+      return ShowingTooltipIndicators([
+        LineBarSpot(tooltipsOnBar, 0, spots[index]),
+      ]);
+    }).toList();
+  }
+
+  LineTouchData _tooltipStyle(BuildContext context) {
+    return LineTouchData(
+      enabled: true,
+      handleBuiltInTouches: false,
+      getTouchedSpotIndicator: (_, spotIndexes) => _tooltipAreaStyle(
+        context,
+        spotIndexes,
+      ),
+      touchTooltipData: LineTouchTooltipData(
+        tooltipBgColor: Theme.of(context).colorScheme.primary,
+        tooltipRoundedRadius: 8,
+        getTooltipItems: (lineBarsSpot) => _tooltipTextStyle(
+          context,
+          lineBarsSpot,
+        ),
+      ),
+    );
+  }
+
+  List<LineTooltipItem> _tooltipTextStyle(
+    BuildContext context,
+    List<LineBarSpot> lineBarsSpot,
+  ) {
+    return lineBarsSpot.map((lineBarSpot) {
+      return LineTooltipItem(
+          lineBarSpot.y.floor().toString(),
+          Theme.of(context)
+              .textTheme
+              .bodyMedium!
+              .copyWith(color: Theme.of(context).colorScheme.background));
+    }).toList();
+  }
+
+  FlTitlesData _titlesData(BuildContext context) {
+    return FlTitlesData(
+      show: true,
+      rightTitles: _hideRightTitles(),
+      topTitles: _hideTopTitles(),
+      bottomTitles: _bottomTitles(context),
+      leftTitles: _leftTitles(context),
+    );
+  }
+
+  AxisTitles _hideTopTitles() {
+    return const AxisTitles(
+      sideTitles: SideTitles(showTitles: false),
+    );
+  }
+
+  AxisTitles _hideRightTitles() {
+    return const AxisTitles(
+      sideTitles: SideTitles(showTitles: false),
+    );
+  }
+
+  AxisTitles _leftTitles(BuildContext context) {
+    return AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        interval: 1,
+        getTitlesWidget: (value, meta) => leftTitleWidgets(
+          context,
+          value,
+          meta,
+        ),
+        reservedSize: 42,
+      ),
+    );
+  }
+
+  AxisTitles _bottomTitles(BuildContext context) {
+    return AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        reservedSize: 30,
+        interval: 1,
+        getTitlesWidget: (value, meta) => bottomTitleWidgets(
+          context,
+          value,
+          meta,
+        ),
+      ),
+    );
+  }
+
+  List<TouchedSpotIndicatorData> _tooltipAreaStyle(
+    BuildContext context,
+    List<int> spotIndexes,
+  ) {
+    return spotIndexes.map((index) {
+      return TouchedSpotIndicatorData(
+        const FlLine(strokeWidth: 0),
+        FlDotData(
+          show: true,
+          getDotPainter: (_, __, ___, ____) => FlDotCirclePainter(
+            radius: 8,
+            color: Theme.of(context).colorScheme.primary,
+            strokeWidth: 2,
+            strokeColor: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+      );
+    }).toList();
+  }
+
+  BarAreaData _belowBarStyle() {
+    return BarAreaData(
+      show: true,
+      gradient: LinearGradient(
+        colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+      ),
     );
   }
 
@@ -249,5 +267,39 @@ final class BooksPerYear extends StatelessWidget {
     }
 
     return Text(text, style: style, textAlign: TextAlign.left);
+  }
+
+  List<int> get _spotIndices => spots.asMap().keys.toList();
+}
+
+final class _ChartWrapper extends StatelessWidget {
+  const _ChartWrapper({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 400, // Set the width of the chart
+      height: 300, // Set the height of the chart
+      child: AspectRatio(
+        aspectRatio: 2.5,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(18)),
+            color: Theme.of(context).colorScheme.background,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(
+              right: 18.0,
+              left: 12.0,
+              top: 24,
+              bottom: 12,
+            ),
+            child: child,
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -12,19 +12,15 @@ final class StatsScreen extends StatelessWidget {
       effects: const [FadeEffect()],
       child: Container(
         color: Theme.of(context).colorScheme.background,
-        child: SingleChildScrollView(
+        child: const SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 50),
+            padding: EdgeInsets.only(top: 50),
             child: Column(
               children: [
-                Text(
-                  'Books per year',
-                  style: Theme.of(context).textTheme.displayMedium!,
-                ),
-                const BooksPerYear(),
-                const BooksPerYear(),
-                const BooksPerYear(),
-                const BooksPerYear(),
+                BooksPerYear(),
+                BooksPerYear(),
+                BooksPerYear(),
+                BooksPerYear(),
               ],
             ),
           ),
@@ -40,27 +36,35 @@ final class BooksPerYear extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SizedBox(
-        width: 400, // Set the width of the chart
-        height: 300, // Set the height of the chart
-        child: AspectRatio(
-          aspectRatio: 2.5,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(18)),
-              color: Theme.of(context).colorScheme.background,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                right: 18.0,
-                left: 12.0,
-                top: 24,
-                bottom: 12,
+      child: Column(
+        children: [
+          Text(
+            'Books per year',
+            style: Theme.of(context).textTheme.headlineSmall!,
+          ),
+          SizedBox(
+            width: 400, // Set the width of the chart
+            height: 300, // Set the height of the chart
+            child: AspectRatio(
+              aspectRatio: 2.5,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(18)),
+                  color: Theme.of(context).colorScheme.background,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    right: 18.0,
+                    left: 12.0,
+                    top: 24,
+                    bottom: 12,
+                  ),
+                  child: LineChart(mainData(context)),
+                ),
               ),
-              child: LineChart(mainData(context)),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

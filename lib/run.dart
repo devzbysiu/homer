@@ -16,6 +16,7 @@ import 'features/manage_books/presentation/bloc/listing/books_bloc.dart';
 import 'features/manage_books/presentation/bloc/navigation/app_tab_bloc.dart';
 import 'features/manage_books/presentation/bloc/summary/book_summary_bloc.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
+import 'features/stats/presentation/bloc/stats_bloc.dart';
 import 'features/tags_manager/presentation/bloc/tags_bloc.dart';
 import 'injection_container.dart';
 
@@ -43,6 +44,7 @@ void run({required Env env}) async {
       BlocProvider(create: (_) => sl<OnBookTagsBloc>()),
       BlocProvider(create: (_) => sl<BackupBloc>()),
       BlocProvider(create: (_) => sl<SettingsBloc>()),
+      BlocProvider(create: (_) => sl<StatsBloc>()),
     ],
     child: const Homer(),
   ));

@@ -39,6 +39,7 @@ import 'features/settings/domain/repositories/settings_repository.dart';
 import 'features/settings/domain/usecases/load_settings.dart';
 import 'features/settings/domain/usecases/save_settings.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
+import 'features/stats/presentation/bloc/stats_bloc.dart';
 import 'features/tags_manager/data/repositories/in_memory_tags_repo.dart';
 import 'features/tags_manager/domain/repositories/tags_repository.dart';
 import 'features/tags_manager/domain/usecases/list_tags.dart';
@@ -85,6 +86,7 @@ Future<void> initDi({required Env env}) async {
       loadSettings: sl(),
     );
   });
+  sl.registerFactory(() => StatsBloc());
 
   // Use cases
   // books

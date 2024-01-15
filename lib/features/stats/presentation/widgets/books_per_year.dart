@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/theme.dart';
+import '../bloc/stats_bloc.dart';
 import 'chart_wrapper.dart';
 
 final class BooksPerYear extends StatelessWidget {
@@ -10,12 +14,7 @@ final class BooksPerYear extends StatelessWidget {
 
   late final List<Color> _gradientColors;
 
-  final List<FlSpot> _spots = [
-    const FlSpot(0, 23),
-    const FlSpot(1, 73),
-    const FlSpot(2, 90),
-    const FlSpot(3, 6),
-  ];
+  late final List<FlSpot> _spots;
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +24,22 @@ final class BooksPerYear extends StatelessWidget {
       child: Column(
         children: [
           Text('Books per year', style: context.headlineSmall),
-          ChartWrapper(child: LineChart(mainData(context))),
+          ChartWrapper(
+            child: BlocSelector<StatsBloc, StatsState, List<BookCounts>>(
+              selector: (state) => state.bookCounts,
+              builder: (context, bookCounts) {
+                return LineChart(mainData(context, bookCounts));
+              },
+            ),
+          ),
         ],
       ),
     );
   }
 
-  LineChartData mainData(BuildContext context) {
+  LineChartData mainData(BuildContext context, List<BookCounts> bookCounts) {
+    _spots = _spotsFromState(bookCounts);
+
     final lineBarData = LineChartBarData(
       showingIndicators: _spotIndices,
       spots: _spots,
@@ -54,6 +62,12 @@ final class BooksPerYear extends StatelessWidget {
       maxY: 100,
       lineBarsData: [lineBarData],
     );
+  }
+
+  List<FlSpot> _spotsFromState(List<BookCounts> bookCounts) {
+    return bookCounts.indexed
+        .map((c) => FlSpot(c.$1.toDouble(), c.$2.toDouble()))
+        .toList();
   }
 
   BarAreaData _belowBarStyle() {
@@ -152,7 +166,7 @@ final class BooksPerYear extends StatelessWidget {
         showTitles: true,
         reservedSize: 30,
         interval: 1,
-        getTitlesWidget: (value, meta) => bottomTitleWidgets(
+        getTitlesWidget: (value, meta) => _bottomTitleWidgets(
           context,
           value,
           meta,
@@ -161,35 +175,24 @@ final class BooksPerYear extends StatelessWidget {
     );
   }
 
-  Widget bottomTitleWidgets(
+  Widget _bottomTitleWidgets(
     BuildContext context,
     double value,
     TitleMeta meta,
   ) {
-    final style = context.bodyMedium;
+    return BlocSelector<StatsBloc, StatsState, List<Year>>(
+      selector: (state) => state.years,
+      builder: (context, years) {
+        if (value < 0 || value > years.length - 1) return Container();
 
-    Widget text;
-    switch (value.toInt()) {
-      case 0:
-        text = Text('2021', style: style);
-        break;
-      case 1:
-        text = Text('2022', style: style);
-        break;
-      case 2:
-        text = Text('2023', style: style);
-        break;
-      case 3:
-        text = Text('2024', style: style);
-        break;
-      default:
-        text = Text('', style: style);
-        break;
-    }
-
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: text,
+        return SideTitleWidget(
+          axisSide: meta.axisSide,
+          child: Text(
+            '${years[value.toInt()]}',
+            style: context.bodyMedium,
+          ),
+        );
+      },
     );
   }
 
@@ -198,7 +201,7 @@ final class BooksPerYear extends StatelessWidget {
       sideTitles: SideTitles(
         showTitles: true,
         interval: 1,
-        getTitlesWidget: (value, meta) => leftTitleWidgets(
+        getTitlesWidget: (value, meta) => _leftTitleWidgets(
           context,
           value,
           meta,
@@ -208,35 +211,22 @@ final class BooksPerYear extends StatelessWidget {
     );
   }
 
-  Widget leftTitleWidgets(BuildContext context, double value, TitleMeta meta) {
-    final style = context.bodyMedium;
-
-    String text;
-    switch (value.toInt()) {
-      case 20:
-        text = '20';
-        break;
-      case 40:
-        text = '40';
-        break;
-      case 60:
-        text = '60';
-        break;
-      case 80:
-        text = '80';
-        break;
-      case 100:
-        text = '100';
-        break;
-      default:
+  Widget _leftTitleWidgets(BuildContext context, double value, TitleMeta meta) {
+    return BlocBuilder<StatsBloc, StatsState>(builder: (context, state) {
+      final maxReadBooks = state.bookCounts.fold(
+        0,
+        (curr, next) => max(curr, next),
+      );
+      if (value < 0 || value > maxReadBooks + 20 || value % 20 != 0) {
         return Container();
-    }
+      }
 
-    return Text(
-      text,
-      style: style,
-      textAlign: TextAlign.left,
-    );
+      return Text(
+        value.toInt().toString(),
+        style: context.bodyMedium,
+        textAlign: TextAlign.left,
+      );
+    });
   }
 
   FlBorderData _grayBorder() {

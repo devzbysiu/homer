@@ -7,8 +7,8 @@ typedef Year = int;
 typedef BookCounts = int;
 
 final class BooksPerYear extends Equatable {
-  const BooksPerYear(SplayTreeMap<Year, BookCounts> booksPerYear)
-      : _booksPerYear = booksPerYear;
+  BooksPerYear(Map<Year, BookCounts> booksPerYear)
+      : _booksPerYear = SplayTreeMap.from(booksPerYear);
 
   final SplayTreeMap<Year, BookCounts> _booksPerYear;
 

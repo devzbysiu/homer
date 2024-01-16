@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:collection/collection.dart';
 import 'package:multiple_result/multiple_result.dart';
 
@@ -23,7 +21,7 @@ final class LoadBooksPerYearImpl implements LoadBooksPerYear {
     final books = result.tryGetSuccess()!;
     final years = _groupByFinishedYear(books);
     final bookCounts = years.map((year, books) => MapEntry(year, books.length));
-    return Success(BooksPerYear(SplayTreeMap.from(bookCounts)));
+    return Success(BooksPerYear(bookCounts));
   }
 
   Map<int, List<Book>> _groupByFinishedYear(List<Book> books) {

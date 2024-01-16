@@ -15,24 +15,35 @@ final class _DeletableCard extends StatelessWidget {
         child: BlocSelector<DeleteBooksBloc, DeleteBooksState, bool>(
           selector: (state) => state.deletionList.contains(book),
           builder: (context, isOnDeleteList) {
-            return Blur(
-              colorOpacity: isOnDeleteList ? 0.8 : 0.0,
-              blur: 0.0,
-              overlay: Center(
-                child: isOnDeleteList
-                    ? Icon(
-                        Icons.done,
-                        color: context.icon,
-                        size: 35,
-                      )
-                    : null,
-              ),
-              blurColor: context.error,
-              child: _BookCover(book: book),
-            );
+            return isOnDeleteList
+                ? _WithRedOverlay(child: _BookCover(book: book))
+                : _BookCover(book: book);
           },
         ),
       ),
+    );
+  }
+}
+
+final class _WithRedOverlay extends StatelessWidget {
+  const _WithRedOverlay({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Blur(
+      colorOpacity: 0.8,
+      blur: 0.0,
+      overlay: Center(
+        child: Icon(
+          Icons.done,
+          color: context.icon,
+          size: 35,
+        ),
+      ),
+      blurColor: context.error,
+      child: child,
     );
   }
 }

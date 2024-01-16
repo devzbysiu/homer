@@ -22,9 +22,9 @@ final class BooksPerYear extends StatelessWidget {
                 if (state.bookCounts.isNone() || state.years.isNone()) {
                   return Container();
                 }
+
                 final bookCounts = state.bookCounts.toNullable()!;
                 final years = state.years.toNullable()!;
-
                 return _LineChartBooksPerYear(
                   bookCounts: bookCounts,
                   years: years,

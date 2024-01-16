@@ -21,6 +21,7 @@ void main() {
       'should emit loaded with loaded stats on start',
       build: () => BlocMock().onLoadStats(Success(booksPerYear)).get(),
       act: (bloc) => {/* do nothing */},
+      // TODO: All bloc tests should create the state manually in `expect`
       expect: () => [StatsState.loaded(some(booksPerYear))],
       verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
     );

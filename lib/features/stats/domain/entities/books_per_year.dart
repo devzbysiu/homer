@@ -16,9 +16,19 @@ final class BooksPerYear extends Equatable {
 
   final SplayTreeMap<Year, BookCounts> _booksPerYear;
 
-  BooksPerYear update(Book book) {
+  BooksPerYear add(Book book) {
     final year = book.endDate.toNullable()!.year;
     final newBookCounts = (_booksPerYear[year] ?? 0) + 1;
+    final Map<Year, BookCounts> newBooksPerYear =
+        SplayTreeMap.from(_booksPerYear);
+    newBooksPerYear[year] = newBookCounts;
+    return BooksPerYear(newBooksPerYear);
+  }
+
+  BooksPerYear remove(Book book) {
+    final year = book.endDate.toNullable()!.year;
+    // can use `!` because we know that the book is finished so it's already in the map
+    final newBookCounts = _booksPerYear[year]!  - 1;
     final Map<Year, BookCounts> newBooksPerYear =
         SplayTreeMap.from(_booksPerYear);
     newBooksPerYear[year] = newBookCounts;

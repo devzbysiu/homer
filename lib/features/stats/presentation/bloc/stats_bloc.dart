@@ -18,6 +18,7 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
       : super(const StatsState.initial()) {
     on<LoadStats>(_onLoadStats);
     on<BookFinished>(_onBookFinished);
+    on<BookUnfinished>(_onBookUnfinished);
     add(LoadStats());
   }
 
@@ -40,8 +41,16 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
   ) async {
     emit(state.bookFinished(event.book));
   }
+
+  Future<void> _onBookUnfinished(
+    BookUnfinished event,
+    Emitter<StatsState> emit,
+  ) async {
+    emit(state.undoFinished(event.book));
+  }
 }
 
 extension StatsContextExt on BuildContext {
   void bookFinished(Book book) => read<StatsBloc>().add(BookFinished(book));
+  void undoFinished(Book book) => read<StatsBloc>().add(BookUnfinished(book));
 }

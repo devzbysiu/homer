@@ -33,6 +33,54 @@ void main() {
       verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
     );
   });
+
+  group('_onBookFinished', () {
+    final booksPerYear = fakeBooksPerYear();
+    final book = fakeBook().copyWith(endDate: some(DateTime(2024)));
+
+    blocTest<StatsBloc, StatsState>(
+      'should emit bookFinished with updated stats',
+      build: () => BlocMock().onLoadStats(Success(booksPerYear)).get(),
+      act: (bloc) => bloc.add(BookFinished(book)),
+      expect: () => [
+        StatsState.loaded(some(booksPerYear)),
+        StatsState.loaded(some(booksPerYear)).bookFinished(book),
+      ],
+      verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
+    );
+
+    blocTest<StatsBloc, StatsState>(
+      'should emit loadFailed when loading stats fails',
+      build: () => BlocMock().onLoadStats(Error(TestingFailure())).get(),
+      act: (bloc) => bloc.add(BookFinished(book)),
+      expect: () => [const StatsState.loadFailed()],
+      verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
+    );
+  });
+
+  group('_onBookUnfinished', () {
+    final booksPerYear = fakeBooksPerYear();
+    final book = fakeBook().copyWith(endDate: some(DateTime(2024)));
+
+    blocTest<StatsBloc, StatsState>(
+      'should emit undoFinished with updated stats',
+      build: () => BlocMock().onLoadStats(Success(booksPerYear)).get(),
+      act: (bloc) => bloc.add(BookUnfinished(book)),
+      expect: () => [
+        StatsState.loaded(some(booksPerYear)),
+        StatsState.loaded(some(booksPerYear)).undoFinished(book),
+      ],
+      verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
+    );
+
+    blocTest<StatsBloc, StatsState>(
+      'should emit loadFailed when loading stats fails',
+      build: () => BlocMock().onLoadStats(Error(TestingFailure())).get(),
+      act: (bloc) => bloc.add(BookUnfinished(book)),
+      expect: () => [const StatsState.loadFailed()],
+      verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
+    );
+  });
 }
 
 final class BlocMock {
@@ -62,4 +110,4 @@ final class BlocMock {
   }
 
   StatsBloc allWorking() => _createMock();
-}
+} //

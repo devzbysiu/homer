@@ -12,3 +12,9 @@ final class BookFinished extends StatsEvent {
 
   final Book book;
 }
+
+final class BookUnfinished extends StatsEvent {
+  BookUnfinished(this.book);
+
+  final Book book;
+}

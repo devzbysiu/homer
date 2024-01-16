@@ -19,7 +19,17 @@ final class StatsState extends Equatable {
     return booksPerYear.fold(
       () => this,
       (bpy) {
-        final newBooksPerYear = bpy.update(book);
+        final newBooksPerYear = bpy.add(book);
+        return StatsState.loaded(some(newBooksPerYear));
+      },
+    );
+  }
+
+  StatsState undoFinished(Book book) {
+    return booksPerYear.fold(
+      () => this,
+      (bpy) {
+        final newBooksPerYear = bpy.remove(book);
         return StatsState.loaded(some(newBooksPerYear));
       },
     );

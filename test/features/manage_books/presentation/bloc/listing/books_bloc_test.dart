@@ -106,7 +106,7 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
-      act: (bloc) => bloc.add(BookSwipedRight(book)),
+      act: (bloc) => bloc.add(BookSwipedRight(book.moveRight())),
       expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(modified: book.moveRight())));
@@ -142,7 +142,7 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
-      act: (bloc) => bloc.add(BookSwipedLeft(book)),
+      act: (bloc) => bloc.add(BookSwipedLeft(book.moveLeft())),
       expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(modified: book.moveLeft())));

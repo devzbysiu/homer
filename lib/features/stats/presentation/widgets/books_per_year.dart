@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,7 +63,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
       spots: spots,
       isCurved: true,
       gradient: LinearGradient(colors: _gradientColors),
-      barWidth: 5,
+      barWidth: 2,
       dotData: const FlDotData(show: true),
       belowBarData: _belowBarStyle(),
     );
@@ -116,6 +117,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
         spotIndexes,
       ),
       touchTooltipData: LineTouchTooltipData(
+        tooltipPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         tooltipBgColor: context.primary,
         tooltipRoundedRadius: 8,
         getTooltipItems: (lineBarsSpot) => _tooltipTextStyle(
@@ -135,15 +137,15 @@ final class _LineChartBooksPerYear extends StatelessWidget {
         const FlLine(strokeWidth: 0),
         FlDotData(
           show: true,
-          getDotPainter: (_, __, ___, ____) => _areaStyle(context),
+          getDotPainter: (_, __, ___, ____) => _pointStyle(context),
         ),
       );
     }).toList();
   }
 
-  FlDotCirclePainter _areaStyle(BuildContext context) {
+  FlDotCirclePainter _pointStyle(BuildContext context) {
     return FlDotCirclePainter(
-      radius: 8,
+      radius: 3,
       color: context.primary,
       strokeWidth: 2,
       strokeColor: context.primary,
@@ -227,7 +229,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
   }
 
   Widget _leftTitleWidgets(BuildContext context, double value, TitleMeta meta) {
-    final maxReadBooks = bookCounts.last.toDouble();
+    final maxReadBooks = maxBy(bookCounts, (count) => count)!;
     if (value < 0 || value > maxReadBooks + 20 || value % 20 != 0) {
       return Container();
     }

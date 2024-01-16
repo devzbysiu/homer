@@ -26,10 +26,15 @@ final class _SwipeableCard extends StatelessWidget {
   void _onSwiped(BuildContext context, SwipeDirection direction) {
     if (_swipingToRight(direction) && _canSwipeRight()) {
       _showSnackbarOnRightSwipe(context);
-      context.bookSwipedRight(book);
+      final movedBook = book.moveRight();
+      context.bookSwipedRight(movedBook);
+      if (movedBook.state == BookState.read) {
+        context.bookFinished(movedBook);
+      }
     } else if (_swipingToLeft(direction) && _canSwipeLeft()) {
       _showSnackbarOnLeftSwipe(context);
-      context.bookSwipedLeft(book);
+      final movedBook = book.moveLeft();
+      context.bookSwipedLeft(movedBook);
     }
   }
 

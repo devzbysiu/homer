@@ -15,6 +15,16 @@ final class StatsState extends Equatable {
     return booksPerYear.map((bpy) => bpy.bookCounts);
   }
 
+  StatsState bookFinished(Book book) {
+    return booksPerYear.fold(
+      () => this,
+      (bpy) {
+        final newBooksPerYear = bpy.update(book);
+        return StatsState.loaded(some(newBooksPerYear));
+      },
+    );
+  }
+
   @override
   List<Object> get props => [booksPerYear];
 }

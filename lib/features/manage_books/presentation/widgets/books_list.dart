@@ -19,6 +19,7 @@ import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
+import '../../../stats/presentation/bloc/stats_bloc.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
 import '../bloc/delete/delete_books_bloc.dart';
 import '../bloc/listing/books_bloc.dart';

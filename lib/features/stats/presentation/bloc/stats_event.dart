@@ -6,3 +6,9 @@ abstract class StatsEvent extends Equatable {
 }
 
 final class LoadStats extends StatsEvent {}
+
+final class BookFinished extends StatsEvent {
+  BookFinished(this.book);
+
+  final Book book;
+}

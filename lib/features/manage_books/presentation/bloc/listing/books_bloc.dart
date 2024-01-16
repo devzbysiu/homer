@@ -73,7 +73,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     BookSwipedRight event,
     Emitter<BooksState> emit,
   ) async {
-    final modifiedBook = event.book.moveRight();
+    final modifiedBook = event.book;
     final result = await updateBook(UpdateParams(modified: modifiedBook));
     await result.when(
       (success) async => await _emitSavedBooks(emit),
@@ -85,7 +85,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     BookSwipedLeft event,
     Emitter<BooksState> emit,
   ) async {
-    final modifiedBook = event.book.moveLeft();
+    final modifiedBook = event.book;
     final result = await updateBook(UpdateParams(modified: modifiedBook));
     await result.when(
       (success) async => await _emitSavedBooks(emit),

@@ -2,6 +2,8 @@ import 'dart:collection';
 
 import 'package:equatable/equatable.dart';
 
+import '../../../../core/entities/book.dart';
+
 typedef Year = int;
 
 typedef BookCounts = int;
@@ -13,6 +15,15 @@ final class BooksPerYear extends Equatable {
   BooksPerYear.empty() : _booksPerYear = SplayTreeMap.from({});
 
   final SplayTreeMap<Year, BookCounts> _booksPerYear;
+
+  BooksPerYear update(Book book) {
+    final year = book.endDate.toNullable()!.year;
+    final newBookCounts = (_booksPerYear[year] ?? 0) + 1;
+    final Map<Year, BookCounts> newBooksPerYear =
+        SplayTreeMap.from(_booksPerYear);
+    newBooksPerYear[year] = newBookCounts;
+    return BooksPerYear(newBooksPerYear);
+  }
 
   List<Year> get years => _booksPerYear.keys.toList();
 

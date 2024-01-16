@@ -95,7 +95,7 @@ extension SettingsContextExt on BuildContext {
     _emitSettingsEvt(SystemThemeToggled());
   }
 
-  void backupsDirectorySelected(Directory directory) {
+  void backupsDirPicked(Directory directory) {
     _emitSettingsEvt(BackupsDirectorySelected(directory));
   }
 
@@ -116,9 +116,9 @@ extension _SettingsStateExt on SettingsState {
   SettingsParams toParams() {
     return SettingsParams(
       settings: Settings(
-        isSystemThemeOn: settings.isSystemThemeOn,
-        isDarkThemeOn: settings.isDarkThemeOn,
-        backupsDirectory: settings.backupsDirectory,
+        useSystemTheme: settings.useSystemTheme,
+        useDarkTheme: settings.useDarkTheme,
+        backupsDir: settings.backupsDir,
         bookSizeLimits: settings.bookSizeLimits,
       ),
     );

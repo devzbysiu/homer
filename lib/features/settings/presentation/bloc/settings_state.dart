@@ -29,11 +29,11 @@ final class SettingsState extends Equatable {
     return SettingsState.from(settings.changeSizeLimits(limits));
   }
 
-  bool get isDarkThemeOn => settings.isDarkThemeOn;
+  bool get useDarkTheme => settings.useDarkTheme;
 
-  bool get isSystemThemeOn => settings.isSystemThemeOn;
+  bool get useSystemTheme => settings.useSystemTheme;
 
-  Directory get backupsDirectory => settings.backupsDirectory;
+  Directory get backupsDir => settings.backupsDir;
 
   BookSizeLimits get bookSizeLimits => settings.bookSizeLimits;
 

@@ -194,18 +194,18 @@ Option<DateTime> _toDateTime(int? millisSinceEpoch) {
 
 SettingsDTO settingsDTOFromSettings(Settings settings) {
   return SettingsDTO(
-    isDarkThemeOn: settings.isDarkThemeOn,
-    isSystemThemeOn: settings.isSystemThemeOn,
-    backupsDirectory: settings.backupsDirectory,
+    isDarkThemeOn: settings.useDarkTheme,
+    isSystemThemeOn: settings.useSystemTheme,
+    backupsDirectory: settings.backupsDir,
     bookSizeLimits: settings.bookSizeLimits,
   );
 }
 
 Settings settingsFromSettingsDTO(SettingsDTO settingsDTO) {
   return Settings(
-    isDarkThemeOn: settingsDTO.isDarkThemeOn,
-    isSystemThemeOn: settingsDTO.isSystemThemeOn,
-    backupsDirectory: settingsDTO.backupsDirectory,
+    useDarkTheme: settingsDTO.isDarkThemeOn,
+    useSystemTheme: settingsDTO.isSystemThemeOn,
+    backupsDir: settingsDTO.backupsDirectory,
     bookSizeLimits: settingsDTO.bookSizeLimits,
   );
 }

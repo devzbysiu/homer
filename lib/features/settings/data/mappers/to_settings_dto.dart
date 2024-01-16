@@ -3,9 +3,9 @@ import '../models/settings_dto.dart';
 
 SettingsDTO toSettingsDTO(Settings settings) {
   return SettingsDTO(
-    isDarkThemeOn: settings.isDarkThemeOn,
-    isSystemThemeOn: settings.isSystemThemeOn,
-    backupsDirectory: settings.backupsDirectory,
+    isDarkThemeOn: settings.useDarkTheme,
+    isSystemThemeOn: settings.useSystemTheme,
+    backupsDirectory: settings.backupsDir,
     bookSizeLimits: settings.bookSizeLimits,
   );
 }

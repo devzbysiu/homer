@@ -267,9 +267,9 @@ BookStateDTO fakeBookStateDTO() {
 
 Settings fakeSettings() {
   return Settings(
-    isSystemThemeOn: fakeBool(),
-    isDarkThemeOn: fakeBool(),
-    backupsDirectory: Directory(fakePath()),
+    useSystemTheme: fakeBool(),
+    useDarkTheme: fakeBool(),
+    backupsDir: Directory(fakePath()),
     bookSizeLimits: BookSizeLimits(
       shortMax: faker.randomGenerator.integer(100),
       mediumMax: faker.randomGenerator.integer(min: 100, 200),

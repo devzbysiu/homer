@@ -31,8 +31,8 @@ final class SettingsScreen extends StatelessWidget {
       sections: [
         SettingsSection(
           tiles: [
-            _useSystemThemeSwitch(context, state.isSystemThemeOn),
-            _backupDirectoryPicker(state),
+            _useSystemTheme(context, state.useSystemTheme),
+            _backupDirPicker(state),
             const CustomSettingsTile(child: BookSizeSlider()),
           ],
         ),
@@ -44,24 +44,21 @@ final class SettingsScreen extends StatelessWidget {
     return SettingsThemeData(settingsListBackground: context.background);
   }
 
-  SettingsTile _useSystemThemeSwitch(
-    BuildContext context,
-    bool isSystemThemeEnabled,
-  ) {
+  SettingsTile _useSystemTheme(BuildContext context, bool useSystemTheme) {
     return SettingsTile.switchTile(
       activeSwitchColor: context.primary,
       title: const Text('Use system theme'),
       leading: const Icon(Icons.brush),
-      initialValue: isSystemThemeEnabled,
+      initialValue: useSystemTheme,
       onToggle: (_) => context.toggleSystemTheme(),
     );
   }
 
-  SettingsTile _backupDirectoryPicker(SettingsState state) {
+  SettingsTile _backupDirPicker(SettingsState state) {
     return SettingsTile(
       title: const Text('Backups directory'),
       leading: const Icon(Icons.backup),
-      description: Text(state.backupsDirectory.path),
+      description: Text(state.backupsDir.path),
       onPressed: _pickBackupsPath,
     );
   }
@@ -69,6 +66,6 @@ final class SettingsScreen extends StatelessWidget {
   Future<void> _pickBackupsPath(BuildContext context) async {
     final directory = await FilePicker.platform.getDirectoryPath();
     if (directory == null) return;
-    if (context.mounted) context.backupsDirectorySelected(Directory(directory));
+    if (context.mounted) context.backupsDirPicked(Directory(directory));
   }
 }

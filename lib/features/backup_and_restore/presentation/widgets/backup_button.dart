@@ -18,7 +18,7 @@ final class BackupButton extends StatelessWidget {
     return Row(
       children: [
         BlocSelector<SettingsBloc, SettingsState, Directory>(
-          selector: (state) => state.backupsDirectory,
+          selector: (state) => state.backupsDir,
           builder: (context, backupDirectory) {
             return MenuButton(
               text: 'Backup',

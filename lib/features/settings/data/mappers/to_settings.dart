@@ -10,9 +10,9 @@ Settings toSettings({
   required BookSizeLimits bookSizeLimits,
 }) {
   return Settings(
-    isDarkThemeOn: isDarkThemeOn,
-    isSystemThemeOn: isSystemThemeOn,
-    backupsDirectory: backupsDirectory,
+    useDarkTheme: isDarkThemeOn,
+    useSystemTheme: isSystemThemeOn,
+    backupsDir: backupsDirectory,
     bookSizeLimits: bookSizeLimits,
   );
 }

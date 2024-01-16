@@ -96,7 +96,15 @@ final class Book extends Equatable {
   }
 
   Book moveLeft() {
-    return copyWith(state: state.moveLeft());
+    final newState = state.moveLeft();
+    switch (newState) {
+      case BookState.readLater:
+        return copyWith(state: newState, startDate: none());
+      case BookState.reading:
+        return copyWith(state: newState, endDate: none());
+      default:
+        throw Exception('Should not happen');
+    }
   }
 
   @override

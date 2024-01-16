@@ -197,13 +197,13 @@ final class _AnimatedBackground extends StatelessWidget {
       case BookState.readLater:
         return Container();
       case BookState.reading:
-        return _animateToForLater(context);
+        return _animateToReadLater(context);
       case BookState.read:
         return _animateToReadingLeft(context);
     }
   }
 
-  Widget _animateToForLater(BuildContext context) {
+  Widget _animateToReadLater(BuildContext context) {
     return _animateTo(
       Icons.bookmark,
       progress,

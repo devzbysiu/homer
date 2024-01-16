@@ -10,14 +10,14 @@ final class _SaveButtons extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _saveForLaterButton(),
+        _saveToReadLaterButton(),
         _saveToReadingButton(),
         _saveToReadButton(),
       ],
     );
   }
 
-  _SavingButton _saveForLaterButton() {
+  _SavingButton _saveToReadLaterButton() {
     return _SavingButton(
       pickedBook: pickedBook,
       bookState: BookState.readLater,

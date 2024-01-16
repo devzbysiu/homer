@@ -10,6 +10,8 @@ final class BooksPerYear extends Equatable {
   BooksPerYear(Map<Year, BookCounts> booksPerYear)
       : _booksPerYear = SplayTreeMap.from(booksPerYear);
 
+  BooksPerYear.empty() : _booksPerYear = SplayTreeMap.from({});
+
   final SplayTreeMap<Year, BookCounts> _booksPerYear;
 
   List<Year> get years => _booksPerYear.keys.toList();

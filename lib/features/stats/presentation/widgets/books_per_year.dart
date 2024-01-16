@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,24 +8,27 @@ import '../bloc/stats_bloc.dart';
 import 'chart_wrapper.dart';
 
 final class BooksPerYear extends StatelessWidget {
-  // ignore: prefer_const_constructors_in_immutables
-  BooksPerYear({super.key});
-
-  late final List<Color> _gradientColors;
+  const BooksPerYear({super.key});
 
   @override
   Widget build(BuildContext context) {
-    _gradientColors = [context.primary, context.lightPrimary];
-
     return Center(
       child: Column(
         children: [
           Text('Books per year', style: context.headlineSmall),
           ChartWrapper(
-            child: BlocSelector<StatsBloc, StatsState, List<BookCounts>>(
-              selector: (state) => state.bookCounts,
-              builder: (context, bookCounts) {
-                return LineChart(mainData(context, bookCounts));
+            child: BlocBuilder<StatsBloc, StatsState>(
+              builder: (context, state) {
+                if (state.bookCounts.isNone() || state.years.isNone()) {
+                  return Container();
+                }
+                final bookCounts = state.bookCounts.toNullable()!;
+                final years = state.years.toNullable()!;
+
+                return _LineChartBooksPerYear(
+                  bookCounts: bookCounts,
+                  years: years,
+                );
               },
             ),
           ),
@@ -35,9 +36,26 @@ final class BooksPerYear extends StatelessWidget {
       ),
     );
   }
+}
 
-  LineChartData mainData(BuildContext context, List<BookCounts> bookCounts) {
-    final spots = _spotsFromState(bookCounts);
+final class _LineChartBooksPerYear extends StatelessWidget {
+  // ignore: prefer_const_constructors_in_immutables
+  _LineChartBooksPerYear({required this.bookCounts, required this.years});
+
+  final List<BookCounts> bookCounts;
+
+  final List<Year> years;
+
+  late final List<Color> _gradientColors;
+
+  @override
+  Widget build(BuildContext context) {
+    _gradientColors = [context.primary, context.lightPrimary];
+    return LineChart(mainData(context));
+  }
+
+  LineChartData mainData(BuildContext context) {
+    final spots = _spotsFromState();
 
     final lineBarData = LineChartBarData(
       showingIndicators: _spotIndices(spots),
@@ -63,7 +81,7 @@ final class BooksPerYear extends StatelessWidget {
     );
   }
 
-  List<FlSpot> _spotsFromState(List<BookCounts> bookCounts) {
+  List<FlSpot> _spotsFromState() {
     return bookCounts.indexed
         .map((c) => FlSpot(c.$1.toDouble(), c.$2.toDouble()))
         .toList();
@@ -182,19 +200,14 @@ final class BooksPerYear extends StatelessWidget {
     double value,
     TitleMeta meta,
   ) {
-    return BlocSelector<StatsBloc, StatsState, List<Year>>(
-      selector: (state) => state.years,
-      builder: (context, years) {
-        if (value < 0 || value > years.length - 1) return Container();
+    if (value < 0 || value > years.length - 1) return Container();
 
-        return SideTitleWidget(
-          axisSide: meta.axisSide,
-          child: Text(
-            '${years[value.toInt()]}',
-            style: context.bodyMedium,
-          ),
-        );
-      },
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      child: Text(
+        '${years[value.toInt()]}',
+        style: context.bodyMedium,
+      ),
     );
   }
 
@@ -214,21 +227,16 @@ final class BooksPerYear extends StatelessWidget {
   }
 
   Widget _leftTitleWidgets(BuildContext context, double value, TitleMeta meta) {
-    return BlocBuilder<StatsBloc, StatsState>(builder: (context, state) {
-      final maxReadBooks = state.bookCounts.fold(
-        0,
-        (curr, next) => max(curr, next),
-      );
-      if (value < 0 || value > maxReadBooks + 20 || value % 20 != 0) {
-        return Container();
-      }
+    final maxReadBooks = bookCounts.last.toDouble();
+    if (value < 0 || value > maxReadBooks + 20 || value % 20 != 0) {
+      return Container();
+    }
 
-      return Text(
-        value.toInt().toString(),
-        style: context.bodyMedium,
-        textAlign: TextAlign.left,
-      );
-    });
+    return Text(
+      value.toInt().toString(),
+      style: context.bodyMedium,
+      textAlign: TextAlign.left,
+    );
   }
 
   FlBorderData _grayBorder() {

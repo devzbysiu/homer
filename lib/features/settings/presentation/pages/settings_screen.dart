@@ -18,39 +18,51 @@ final class SettingsScreen extends StatelessWidget {
     return Animate(
       effects: const [FadeEffect()],
       child: BlocBuilder<SettingsBloc, SettingsState>(
-        builder: (context, state) {
-          final isSystemThemeEnabled = state.isSystemThemeOn;
-          return SettingsList(
-            contentPadding: const EdgeInsets.only(top: 50),
-            darkTheme: SettingsThemeData(
-              settingsListBackground: context.background,
-            ),
-            lightTheme: SettingsThemeData(
-              settingsListBackground: context.background,
-            ),
-            sections: [
-              SettingsSection(
-                tiles: [
-                  SettingsTile.switchTile(
-                    activeSwitchColor: context.primary,
-                    title: const Text('Use system theme'),
-                    leading: const Icon(Icons.brush),
-                    initialValue: isSystemThemeEnabled,
-                    onToggle: (_) => context.toggleSystemTheme(),
-                  ),
-                  SettingsTile(
-                    title: const Text('Backups directory'),
-                    leading: const Icon(Icons.backup),
-                    description: Text(state.backupsDirectory.path),
-                    onPressed: _pickBackupsPath,
-                  ),
-                  const CustomSettingsTile(child: BookSizeSlider()),
-                ],
-              ),
-            ],
-          );
-        },
+        builder: (context, state) => _settingsList(context, state),
       ),
+    );
+  }
+
+  SettingsList _settingsList(BuildContext context, SettingsState state) {
+    return SettingsList(
+      contentPadding: const EdgeInsets.only(top: 50),
+      darkTheme: _themeBackground(context),
+      lightTheme: _themeBackground(context),
+      sections: [
+        SettingsSection(
+          tiles: [
+            _useSystemThemeSwitch(context, state.isSystemThemeOn),
+            _backupDirectoryPicker(state),
+            const CustomSettingsTile(child: BookSizeSlider()),
+          ],
+        ),
+      ],
+    );
+  }
+
+  SettingsThemeData _themeBackground(BuildContext context) {
+    return SettingsThemeData(settingsListBackground: context.background);
+  }
+
+  SettingsTile _useSystemThemeSwitch(
+    BuildContext context,
+    bool isSystemThemeEnabled,
+  ) {
+    return SettingsTile.switchTile(
+      activeSwitchColor: context.primary,
+      title: const Text('Use system theme'),
+      leading: const Icon(Icons.brush),
+      initialValue: isSystemThemeEnabled,
+      onToggle: (_) => context.toggleSystemTheme(),
+    );
+  }
+
+  SettingsTile _backupDirectoryPicker(SettingsState state) {
+    return SettingsTile(
+      title: const Text('Backups directory'),
+      leading: const Icon(Icons.backup),
+      description: Text(state.backupsDirectory.path),
+      onPressed: _pickBackupsPath,
     );
   }
 

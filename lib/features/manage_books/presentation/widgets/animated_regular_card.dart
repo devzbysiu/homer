@@ -1,11 +1,9 @@
 part of 'books_list.dart';
 
 final class _AnimatedRegularCard extends StatelessWidget {
-  const _AnimatedRegularCard({required this.book, required this.context});
+  const _AnimatedRegularCard({required this.book});
 
   final Book book;
-
-  final BuildContext context;
 
   @override
   Widget build(BuildContext context) {

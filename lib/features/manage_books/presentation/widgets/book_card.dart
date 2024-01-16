@@ -42,7 +42,7 @@ final class _BookCard extends StatelessWidget {
                 : _RegularCard(book: book);
           case SummaryMode.disabling:
             return _wasInSummaryMode(state.previous)
-                ? _AnimatedRegularCard(book: book, context: context)
+                ? _AnimatedRegularCard(book: book)
                 : _RegularCard(book: book);
           default:
             return _RegularCard(book: book);

@@ -2,6 +2,8 @@ part of 'on_book_tags_bloc.dart';
 
 @immutable
 final class BookTagsState extends Equatable {
+  const BookTagsState({required this.selectedTags});
+
   const BookTagsState.initial() : selectedTags = const [];
 
   const BookTagsState.tagsSelected(this.selectedTags);

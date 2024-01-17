@@ -120,7 +120,7 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
-      act: (bloc) => bloc.add(BookSwipedRight(book)),
+      act: (bloc) => bloc.add(BookSwipedRight(book.moveRight())),
       expect: () => [
         BooksState.booksLoaded(books),
         const BooksState.updatingBookFailed(),
@@ -156,7 +156,7 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
-      act: (bloc) => bloc.add(BookSwipedLeft(book)),
+      act: (bloc) => bloc.add(BookSwipedLeft(book.moveLeft())),
       expect: () => [
         BooksState.booksLoaded(books),
         const BooksState.updatingBookFailed(),

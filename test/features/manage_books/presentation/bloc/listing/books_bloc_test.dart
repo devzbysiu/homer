@@ -23,7 +23,7 @@ void main() {
       'should be triggered on BLoC creation and emit booksLoaded on success',
       build: () => BlocMock().onListBooks(Success(books)).get(),
       act: (bloc) {/* do nothing */},
-      expect: () => [BooksState.booksLoaded(books)],
+      expect: () => [BooksState(books: books, value: StateValue.booksLoaded)],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
     );
 
@@ -31,7 +31,9 @@ void main() {
       'should be triggered on BLoC creation and emit loadingFailed on failure',
       build: () => BlocMock().onListBooks(Error(TestingFailure())).get(),
       act: (bloc) {/* do nothing */},
-      expect: () => [const BooksState.loadingFailed()],
+      expect: () => [
+        const BooksState(books: [], value: StateValue.loadingFailed),
+      ],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
     );
 
@@ -39,7 +41,7 @@ void main() {
       'should emit booksLoaded on success',
       build: () => BlocMock().onListBooks(Success(books)).get(),
       act: (bloc) => bloc.add(RefreshBooksList()),
-      expect: () => [BooksState.booksLoaded(books)],
+      expect: () => [BooksState(books: books, value: StateValue.booksLoaded)],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
     );
 
@@ -47,7 +49,9 @@ void main() {
       'should emit failedToLoadBooks on failure',
       build: () => BlocMock().onListBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(RefreshBooksList()),
-      expect: () => [const BooksState.loadingFailed()],
+      expect: () => [
+        const BooksState(books: [], value: StateValue.loadingFailed),
+      ],
       verify: (bloc) => verify(bloc.listBooks(NoParams())),
     );
   });
@@ -63,7 +67,7 @@ void main() {
           .onAddBooks(const Success(unit))
           .get(),
       act: (bloc) => bloc.add(BookAdded(newBook, newBook.state, const [])),
-      expect: () => [BooksState.booksLoaded(books)],
+      expect: () => [BooksState(books: books, value: StateValue.booksLoaded)],
       verify: (bloc) {
         verify(bloc.addBook(AddParams(
           book: newBook,
@@ -82,8 +86,8 @@ void main() {
           .get(),
       act: (bloc) => bloc.add(BookAdded(newBook, newBook.state, const [])),
       expect: () => [
-        BooksState.booksLoaded(books),
-        const BooksState.addingBookFailed(),
+        BooksState(books: books, value: StateValue.booksLoaded),
+        const BooksState(books: [], value: StateValue.loadingFailed),
       ],
       verify: (bloc) {
         verify(bloc.addBook(AddParams(
@@ -107,7 +111,7 @@ void main() {
           .onUpdateBook(const Success(unit))
           .get(),
       act: (bloc) => bloc.add(BookSwipedRight(book.moveRight())),
-      expect: () => [BooksState.booksLoaded(books)],
+      expect: () => [BooksState(books: books, value: StateValue.booksLoaded)],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(modified: book.moveRight())));
         verify(bloc.listBooks(NoParams()));
@@ -122,8 +126,8 @@ void main() {
           .get(),
       act: (bloc) => bloc.add(BookSwipedRight(book.moveRight())),
       expect: () => [
-        BooksState.booksLoaded(books),
-        const BooksState.updatingBookFailed(),
+        BooksState(books: books, value: StateValue.booksLoaded),
+        const BooksState(books: [], value: StateValue.updatingBookFailed),
       ],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(modified: book.moveRight())));
@@ -143,7 +147,7 @@ void main() {
           .onUpdateBook(const Success(unit))
           .get(),
       act: (bloc) => bloc.add(BookSwipedLeft(book.moveLeft())),
-      expect: () => [BooksState.booksLoaded(books)],
+      expect: () => [BooksState(books: books, value: StateValue.booksLoaded)],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(modified: book.moveLeft())));
         verify(bloc.listBooks(NoParams()));
@@ -158,8 +162,8 @@ void main() {
           .get(),
       act: (bloc) => bloc.add(BookSwipedLeft(book.moveLeft())),
       expect: () => [
-        BooksState.booksLoaded(books),
-        const BooksState.updatingBookFailed(),
+        BooksState(books: books, value: StateValue.booksLoaded),
+        const BooksState(books: [], value: StateValue.updatingBookFailed),
       ],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(modified: book.moveLeft())));
@@ -180,7 +184,7 @@ void main() {
           .onUpdateBook(const Success(unit))
           .get(),
       act: (bloc) => bloc.add(TagToggled(book, tag)),
-      expect: () => [BooksState.booksLoaded(books)],
+      expect: () => [BooksState(books: books, value: StateValue.booksLoaded)],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(
           modified: book.copyWith(tags: [...book.tags, tag]),
@@ -196,7 +200,7 @@ void main() {
           .onUpdateBook(const Success(unit))
           .get(),
       act: (bloc) => bloc.add(TagToggled(book, book.tags.first)),
-      expect: () => [BooksState.booksLoaded(books)],
+      expect: () => [BooksState(books: books, value: StateValue.booksLoaded)],
       verify: (bloc) {
         final updatedTags = List.of(book.tags);
         updatedTags.remove(book.tags.first);
@@ -215,8 +219,8 @@ void main() {
           .get(),
       act: (bloc) => bloc.add(TagToggled(book, tag)),
       expect: () => [
-        BooksState.booksLoaded(books),
-        const BooksState.updatingBookFailed(),
+        BooksState(books: books, value: StateValue.booksLoaded),
+        const BooksState(books: [], value: StateValue.loadingFailed),
       ],
       verify: (bloc) {
         verify(bloc.updateBook(UpdateParams(
@@ -236,8 +240,8 @@ void main() {
       build: () => BlocMock().onFilterBooks(Success(books)).get(),
       act: (bloc) => bloc.add(BooksFiltered(query)),
       expect: () => [
-        const BooksState.booksLoaded([]),
-        BooksState.booksLoaded(books),
+        const BooksState(books: [], value: StateValue.booksLoaded),
+        BooksState(books: books, value: StateValue.booksLoaded),
       ],
       verify: (bloc) => verify(bloc.filterBooks(FilterParams(query: query))),
     );
@@ -246,7 +250,9 @@ void main() {
       'should emit loadingFailed on failure',
       build: () => BlocMock().onFilterBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(BooksFiltered(query)),
-      expect: () => [const BooksState.loadingFailed()],
+      expect: () => [
+        const BooksState(books: [], value: StateValue.loadingFailed),
+      ],
       verify: (bloc) => verify(bloc.filterBooks(FilterParams(query: query))),
     );
   });

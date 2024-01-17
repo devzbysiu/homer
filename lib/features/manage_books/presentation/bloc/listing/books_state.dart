@@ -2,6 +2,8 @@ part of 'books_bloc.dart';
 
 @immutable
 final class BooksState extends Equatable {
+  const BooksState({required this.books, required this.value});
+
   const BooksState.initial()
       : books = const [],
         value = StateValue.initial;

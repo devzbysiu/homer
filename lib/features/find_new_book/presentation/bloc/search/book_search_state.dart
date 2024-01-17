@@ -2,14 +2,20 @@ part of 'book_search_bloc.dart';
 
 @immutable
 final class BookSearchState extends Equatable {
-  const BookSearchState._({
-    this.foundBooks = const [],
-    this.pickedBook = const None(),
-    this.value = Value.initial,
-    this.searchFailureCause = const None(),
+  const BookSearchState({
+    required this.foundBooks,
+    required this.pickedBook,
+    required this.value,
+    required this.searchFailureCause,
   });
 
-  const BookSearchState.initial() : this._();
+  const BookSearchState.initial()
+      : this(
+          foundBooks: const [],
+          pickedBook: const None(),
+          value: Value.initial,
+          searchFailureCause: const None(),
+        );
 
   BookSearchState searching() => _copyWith(
         value: Value.searching,
@@ -21,9 +27,10 @@ final class BookSearchState extends Equatable {
         foundBooks: foundBooks,
       );
 
-  BookSearchState searchFailed() => _copyWith(
+  BookSearchState searchFailed(String cause) => _copyWith(
         value: Value.searchFailed,
         foundBooks: const [],
+        searchFailureCause: some(cause),
       );
 
   const BookSearchState.picked(this.pickedBook)
@@ -53,11 +60,13 @@ final class BookSearchState extends Equatable {
     List<Book>? foundBooks,
     Option<Book>? pickedBook,
     Value? value,
+    Option<String>? searchFailureCause,
   }) {
-    return BookSearchState._(
+    return BookSearchState(
       foundBooks: foundBooks ?? this.foundBooks,
       pickedBook: pickedBook ?? this.pickedBook,
       value: value ?? this.value,
+      searchFailureCause: searchFailureCause ?? this.searchFailureCause, 
     );
   }
 

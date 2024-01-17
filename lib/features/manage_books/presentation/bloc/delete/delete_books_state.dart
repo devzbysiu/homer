@@ -2,6 +2,8 @@ part of 'delete_books_bloc.dart';
 
 @immutable
 final class DeleteBooksState extends Equatable {
+  const DeleteBooksState({required this.deletionList, required this.value});
+
   const DeleteBooksState.initial()
       : deletionList = const [],
         value = Value.initial;

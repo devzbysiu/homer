@@ -20,7 +20,7 @@ void main() {
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(ToggleBookOnDeleteList(book)),
       expect: () => [
-        DeleteBooksState.deletionList([book])
+        DeleteBooksState(deletionList: [book], value: Value.deletionList),
       ],
     );
 
@@ -31,8 +31,8 @@ void main() {
         ..add(ToggleBookOnDeleteList(book))
         ..add(ToggleBookOnDeleteList(book)),
       expect: () => [
-        DeleteBooksState.deletionList([book]),
-        const DeleteBooksState.deletionList([])
+        DeleteBooksState(deletionList: [book], value: Value.deletionList),
+        const DeleteBooksState(deletionList: [], value: Value.deletionList),
       ],
     );
   });
@@ -57,8 +57,8 @@ void main() {
         ..add(ToggleBookOnDeleteList(book))
         ..add(DeletePickedBooks()),
       expect: () => [
-        DeleteBooksState.deletionList([book]),
-        const DeleteBooksState.booksRemoved(),
+        DeleteBooksState(deletionList: [book], value: Value.deletionList),
+        const DeleteBooksState(deletionList: [], value: Value.booksRemoved),
       ],
       verify: (bloc) => verify(bloc.deleteBooks(DeleteParams(books: [book]))),
     );
@@ -70,8 +70,8 @@ void main() {
         ..add(ToggleBookOnDeleteList(book))
         ..add(DeletePickedBooks()),
       expect: () => [
-        DeleteBooksState.deletionList([book]),
-        const DeleteBooksState.deletionFailed(),
+        DeleteBooksState(deletionList: [book], value: Value.deletionList),
+        const DeleteBooksState(deletionList: [], value: Value.deletionFailed),
       ],
       verify: (bloc) => verify(bloc.deleteBooks(DeleteParams(books: [book]))),
     );
@@ -82,7 +82,12 @@ void main() {
       'should emit deletionListCleared',
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(ClearDeletionList()),
-      expect: () => [const DeleteBooksState.deletionListCleared()],
+      expect: () => [
+        const DeleteBooksState(
+          deletionList: [],
+          value: Value.deletionListCleared,
+        ),
+      ],
       verify: (bloc) => verifyNever(bloc.deleteBooks(
         const DeleteParams(books: []),
       )),

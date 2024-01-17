@@ -13,7 +13,13 @@ void main() {
       'should emit disabling with None() as previous book in summary',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeDisabling()),
-      expect: () => [const BookSummaryState.disabling(None())],
+      expect: () => [
+        const BookSummaryState(
+          current: None(),
+          previous: None(),
+          value: SummaryMode.disabling,
+        ),
+      ],
     );
 
     blocTest<BookSummaryBloc, BookSummaryState>(
@@ -21,7 +27,13 @@ void main() {
       seed: () => BookSummaryState.enabled(book),
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeDisabling()),
-      expect: () => [BookSummaryState.disabling(some(book))],
+      expect: () => [
+        BookSummaryState(
+          current: const None(),
+          previous: some(book),
+          value: SummaryMode.disabling,
+        ),
+      ],
     );
   });
 
@@ -32,7 +44,13 @@ void main() {
       'should emit enabled when book is not in summary mode',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeToggled(book)),
-      expect: () => [BookSummaryState.enabled(book)],
+      expect: () => [
+        BookSummaryState(
+          current: some(book),
+          previous: const None(),
+          value: SummaryMode.enabled,
+        ),
+      ],
     );
 
     blocTest<BookSummaryBloc, BookSummaryState>(
@@ -40,7 +58,13 @@ void main() {
       seed: () => BookSummaryState.enabled(book),
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeToggled(book)),
-      expect: () => [BookSummaryState.disabling(some(book))],
+      expect: () => [
+        BookSummaryState(
+          current: const None(),
+          previous: some(book),
+          value: SummaryMode.disabling,
+        ),
+      ],
     );
   });
 
@@ -49,7 +73,13 @@ void main() {
       'should emit disabled',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeDisabled()),
-      expect: () => [const BookSummaryState.disabled()],
+      expect: () => [
+        const BookSummaryState(
+          current: None(),
+          previous: None(),
+          value: SummaryMode.disabled,
+        ),
+      ],
     );
   });
 }

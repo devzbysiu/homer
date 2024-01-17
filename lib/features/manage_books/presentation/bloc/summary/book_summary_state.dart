@@ -1,6 +1,12 @@
 part of 'book_summary_bloc.dart';
 
 final class BookSummaryState extends Equatable {
+  const BookSummaryState({
+    required this.current,
+    required this.previous,
+    required this.value,
+  });
+
   const BookSummaryState.initial()
       : current = const None(),
         previous = const None(),

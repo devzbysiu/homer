@@ -1,4 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
@@ -23,8 +24,16 @@ void main() {
       build: () => BlocMock().onFetchSharedBook(Success(pickedBook)).get(),
       act: (bloc) => bloc.add(BookSharedFromOutside(url)),
       expect: () => [
-        const ShareBookState.fetchingSharedBookDetails(),
-        ShareBookState.bookShared(pickedBook),
+        const ShareBookState(
+          sharedBook: None(),
+          value: ShareState.fetchingBookDetails,
+          cause: None(),
+        ),
+        ShareBookState(
+          sharedBook: some(pickedBook),
+          value: ShareState.bookShared,
+          cause: const None(),
+        ),
       ],
       verify: (bloc) => verify(bloc.fetchSharedBook(FetchParams(url: url))),
     );
@@ -34,8 +43,16 @@ void main() {
       build: () => BlocMock().onFetchSharedBook(Error(failure)).get(),
       act: (bloc) => bloc.add(BookSharedFromOutside(url)),
       expect: () => [
-        const ShareBookState.fetchingSharedBookDetails(),
-        ShareBookState.fetchingDetailsFailed(failure.userMessage()),
+        const ShareBookState(
+          sharedBook: None(),
+          value: ShareState.fetchingBookDetails,
+          cause: None(),
+        ),
+        ShareBookState(
+          sharedBook: const None(),
+          value: ShareState.fetchingDetailsFailed,
+          cause: some(failure.userMessage()),
+        ),
       ],
       verify: (bloc) => verify(bloc.fetchSharedBook(FetchParams(url: url))),
     );

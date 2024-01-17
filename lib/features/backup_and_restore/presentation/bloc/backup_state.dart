@@ -1,28 +1,30 @@
 part of 'backup_bloc.dart';
 
 final class BackupState extends Equatable {
-  const BackupState.initial() : _value = Value.initial;
+  const BackupState({required this.value});
 
-  const BackupState.restoreInProgress() : _value = Value.restoreInProgress;
+  const BackupState.initial() : value = Value.initial;
 
-  const BackupState.restoreFinished() : _value = Value.restoreFinished;
+  const BackupState.restoreInProgress() : value = Value.restoreInProgress;
 
-  const BackupState.restoreFailed() : _value = Value.restoreFailed;
+  const BackupState.restoreFinished() : value = Value.restoreFinished;
 
-  const BackupState.backupInProgress() : _value = Value.backupInProgress;
+  const BackupState.restoreFailed() : value = Value.restoreFailed;
 
-  const BackupState.backupFinished() : _value = Value.backupFinished;
+  const BackupState.backupInProgress() : value = Value.backupInProgress;
 
-  const BackupState.backupFailed() : _value = Value.backupFailed;
+  const BackupState.backupFinished() : value = Value.backupFinished;
 
-  final Value _value;
+  const BackupState.backupFailed() : value = Value.backupFailed;
 
-  bool get isBackupInProgress => _value == Value.backupInProgress;
+  final Value value;
 
-  bool get isRestoreInProgress => _value == Value.restoreInProgress;
+  bool get isBackupInProgress => value == Value.backupInProgress;
+
+  bool get isRestoreInProgress => value == Value.restoreInProgress;
 
   @override
-  List<Object> get props => [_value];
+  List<Object> get props => [value];
 }
 
 enum Value {

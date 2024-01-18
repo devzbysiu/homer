@@ -83,9 +83,7 @@ final class BlocMock {
     return this;
   }
 
-  ShareBookBloc get() => _createMock();
-
-  ShareBookBloc _createMock() {
+  ShareBookBloc get() {
     return ShareBookBloc(
       fetchSharedBook: _fetchSharedBook,
       shareHandler: _shareHandler,

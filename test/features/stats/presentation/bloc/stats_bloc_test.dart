@@ -101,7 +101,5 @@ final class BlocMock {
     return this;
   }
 
-  StatsBloc get() => _createMock();
-
-  StatsBloc _createMock() => StatsBloc(loadBooksPerYear: _loadBooksPerYear);
+  StatsBloc get() => StatsBloc(loadBooksPerYear: _loadBooksPerYear);
 }

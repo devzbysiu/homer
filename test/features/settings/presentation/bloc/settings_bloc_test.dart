@@ -246,9 +246,7 @@ final class BlocMock {
     return this;
   }
 
-  SettingsBloc get() => _createMock();
-
-  SettingsBloc _createMock() {
+  SettingsBloc get() {
     return SettingsBloc(
       saveSettings: _saveSettings,
       loadSettings: _loadSettings,

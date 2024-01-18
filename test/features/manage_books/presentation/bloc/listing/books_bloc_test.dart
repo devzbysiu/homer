@@ -299,9 +299,7 @@ final class BlocMock {
     return this;
   }
 
-  BooksBloc get() => _createMock();
-
-  BooksBloc _createMock() {
+  BooksBloc get() {
     return BooksBloc(
       addBook: _addBook,
       listBooks: _listBooks,

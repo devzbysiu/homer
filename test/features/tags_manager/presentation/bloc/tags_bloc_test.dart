@@ -20,7 +20,7 @@ void main() {
       'should emit TagsLoaded on start',
       build: () => BlocMock().onListTags(Success(tags)).get(),
       act: (bloc) => {/* do nothing */},
-      expect: () => [TagsState.loaded(tags)],
+      expect: () => [TagsState(tags:tags)],
       verify: (bloc) => verify(bloc.listTags(NoParams())),
     );
 
@@ -28,7 +28,7 @@ void main() {
       'should emit TagsLoaded with loaded tags',
       build: () => BlocMock().onListTags(Success(tags)).get(),
       act: (bloc) => bloc.add(TagsDisplayed()),
-      expect: () => [TagsState.loaded(tags)],
+      expect: () => [TagsState(tags:tags)],
       verify: (bloc) => verify(bloc.listTags(NoParams())),
     );
 
@@ -36,7 +36,7 @@ void main() {
       'should emit FailedToLoadTags when listTags fails ',
       build: () => BlocMock().onListTags(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(TagsDisplayed()),
-      expect: () => [const TagsState.failedToLoad()],
+      expect: () => [const TagsState(tags: [])],
       verify: (bloc) => verify(bloc.listTags(NoParams())),
     );
   });

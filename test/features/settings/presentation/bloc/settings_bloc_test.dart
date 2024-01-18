@@ -254,6 +254,4 @@ final class BlocMock {
       loadSettings: _loadSettings,
     );
   }
-
-  SettingsBloc allWorking() => _createMock();
 }

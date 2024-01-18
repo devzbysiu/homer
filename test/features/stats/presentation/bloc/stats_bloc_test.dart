@@ -21,8 +21,7 @@ void main() {
       'should emit loaded with loaded stats on start',
       build: () => BlocMock().onLoadStats(Success(booksPerYear)).get(),
       act: (bloc) => {/* do nothing */},
-      // TODO: All bloc tests should create the state manually in `expect`
-      expect: () => [StatsState.loaded(some(booksPerYear))],
+      expect: () => [StatsState(booksPerYear: some(booksPerYear))],
       verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
     );
 
@@ -30,7 +29,7 @@ void main() {
       'should emit loadFailed when loading stats fails',
       build: () => BlocMock().onLoadStats(Error(TestingFailure())).get(),
       act: (bloc) => {/* do nothing */},
-      expect: () => [const StatsState.loadFailed()],
+      expect: () => [const StatsState(booksPerYear: None())],
       verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
     );
   });
@@ -44,8 +43,8 @@ void main() {
       build: () => BlocMock().onLoadStats(Success(booksPerYear)).get(),
       act: (bloc) => bloc.add(BookFinished(book)),
       expect: () => [
-        StatsState.loaded(some(booksPerYear)),
-        StatsState.loaded(some(booksPerYear)).bookFinished(book),
+        StatsState(booksPerYear: some(booksPerYear)),
+        StatsState(booksPerYear: some(booksPerYear.add(book))),
       ],
       verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
     );
@@ -54,7 +53,7 @@ void main() {
       'should emit loadFailed when loading stats fails',
       build: () => BlocMock().onLoadStats(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(BookFinished(book)),
-      expect: () => [const StatsState.loadFailed()],
+      expect: () => [const StatsState(booksPerYear: None())],
       verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
     );
   });
@@ -68,8 +67,8 @@ void main() {
       build: () => BlocMock().onLoadStats(Success(booksPerYear)).get(),
       act: (bloc) => bloc.add(BookUnfinished(book)),
       expect: () => [
-        StatsState.loaded(some(booksPerYear)),
-        StatsState.loaded(some(booksPerYear)).undoFinished(book),
+        StatsState(booksPerYear: some(booksPerYear)),
+        StatsState(booksPerYear: some(booksPerYear.remove(book))),
       ],
       verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
     );
@@ -78,7 +77,7 @@ void main() {
       'should emit loadFailed when loading stats fails',
       build: () => BlocMock().onLoadStats(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(BookUnfinished(book)),
-      expect: () => [const StatsState.loadFailed()],
+      expect: () => [const StatsState(booksPerYear: None())],
       verify: (bloc) => verify(bloc.loadBooksPerYear(NoParams())),
     );
   });
@@ -104,11 +103,5 @@ final class BlocMock {
 
   StatsBloc get() => _createMock();
 
-  StatsBloc _createMock() {
-    return StatsBloc(
-      loadBooksPerYear: _loadBooksPerYear,
-    );
-  }
-
-  StatsBloc allWorking() => _createMock();
-} //
+  StatsBloc _createMock() => StatsBloc(loadBooksPerYear: _loadBooksPerYear);
+}

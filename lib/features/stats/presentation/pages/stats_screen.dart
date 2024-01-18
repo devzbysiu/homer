@@ -13,9 +13,9 @@ final class StatsScreen extends StatelessWidget {
       effects: const [FadeEffect()],
       child: Container(
         color: context.background,
-        child: SingleChildScrollView(
+        child: const SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 50),
+            padding: EdgeInsets.only(top: 50),
             child: Column(
               children: [
                 BooksPerYear(),

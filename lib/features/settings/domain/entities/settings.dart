@@ -52,9 +52,9 @@ final class Settings extends Equatable {
     BookSizeLimits? bookSizeLimits,
   }) {
     return Settings(
-      useDarkTheme: isDarkThemeOn ?? this.useDarkTheme,
-      useSystemTheme: isSystemThemeOn ?? this.useSystemTheme,
-      backupsDir: backupsDirectory ?? this.backupsDir,
+      useDarkTheme: isDarkThemeOn ?? useDarkTheme,
+      useSystemTheme: isSystemThemeOn ?? useSystemTheme,
+      backupsDir: backupsDirectory ?? backupsDir,
       bookSizeLimits: bookSizeLimits ?? this.bookSizeLimits,
     );
   }

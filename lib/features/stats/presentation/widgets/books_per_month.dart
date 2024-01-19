@@ -56,28 +56,36 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
       showingIndicators: _spotIndices(spots),
       spots: spots,
       isCurved: false,
-      gradient: LinearGradient(colors: _gradientColors),
+      gradient: LinearGradient(
+        colors: _gradientColors,
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ),
       barWidth: 2,
       dotData: const FlDotData(show: true),
       belowBarData: _belowBarStyle(),
     );
 
     return LineChartData(
+      gridData: _noGrid(),
       showingTooltipIndicators: _makeSpots(lineBarData, spots),
       lineTouchData: _tooltipStyle(context),
       backgroundColor: context.background,
       titlesData: _titlesData(context),
-      borderData: _grayBorder(),
+      borderData: _noBorder(),
       minX: 0,
-      maxX: 3,
+      maxX: booksPerMonth.months().length.toDouble() - 1,
       minY: 0,
-      maxY: 100,
+      maxY: booksPerMonth.bookCounts().max.toDouble() + 2,
       lineBarsData: [lineBarData],
+      extraLinesData: _readingGoal(context),
     );
   }
 
   List<FlSpot> _spotsFromData() {
-    return booksPerMonth.bookCounts().indexed
+    return booksPerMonth
+        .bookCounts()
+        .indexed
         .map((c) => FlSpot(c.$1.toDouble(), c.$2.toDouble()))
         .toList();
   }
@@ -86,10 +94,14 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
     return BarAreaData(
       show: true,
       gradient: LinearGradient(
-        colors: _gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: _gradientColors.map((color) => color.withOpacity(0.2)).toList(),
       ),
     );
   }
+
+  FlGridData _noGrid() => const FlGridData(show: false);
 
   List<ShowingTooltipIndicators> _makeSpots(
     LineChartBarData tooltipsOnBar,
@@ -105,7 +117,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
   LineTouchData _tooltipStyle(BuildContext context) {
     return LineTouchData(
       enabled: true,
-      handleBuiltInTouches: false,
+      handleBuiltInTouches: true,
       getTouchedSpotIndicator: (_, spotIndexes) => _tooltipAreaStyle(
         context,
         spotIndexes,
@@ -201,9 +213,13 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      child: Text(
-        '${months[value.toInt()]}',
-        style: context.bodyMedium,
+      angle: -0.7,
+      child: Padding(
+        padding: const EdgeInsets.only(right: 8.0),
+        child: Text(
+          '${months[value.toInt()]}',
+          style: context.bodyMedium,
+        ),
       ),
     );
   }
@@ -225,8 +241,8 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
 
   Widget _leftTitleWidgets(BuildContext context, double value, TitleMeta meta) {
     final bookCounts = booksPerMonth.bookCounts();
-    final maxReadBooks = maxBy(bookCounts, (count) => count)!;
-    if (value < 0 || value > maxReadBooks + 20 || value % 20 != 0) {
+    final maxReadBooks = bookCounts.max;
+    if (value < 0 || value > maxReadBooks + 2 || value % 2 != 0) {
       return Container();
     }
 
@@ -237,11 +253,30 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
     );
   }
 
-  FlBorderData _grayBorder() {
-    return FlBorderData(
-      show: true,
-      border: Border.all(color: const Color(0xff37434d)),
+  ExtraLinesData _readingGoal(BuildContext context) {
+    return ExtraLinesData(
+      horizontalLines: [
+        HorizontalLine(
+          y: 6,
+          color: context.secondary,
+          strokeWidth: 1,
+          dashArray: [10, 4],
+          label: HorizontalLineLabel(
+            show: true,
+            alignment: Alignment.topCenter,
+            padding: const EdgeInsets.only(right: 8),
+            style: context.bodyMedium.copyWith(
+              color: context.secondary.withOpacity(0.3),
+            ),
+            labelResolver: (_) => 'goal: 6',
+          ),
+        ),
+      ],
     );
+  }
+
+  FlBorderData _noBorder() {
+    return FlBorderData(show: false);
   }
 
   List<int> _spotIndices(List<FlSpot> spots) {

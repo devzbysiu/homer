@@ -13,7 +13,16 @@ final class StatsScreen extends StatelessWidget {
     return Animate(
       effects: const [FadeEffect()],
       child: Container(
-        color: context.background,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              context.primaryContainer,
+              context.lightPrimaryContainer,
+            ],
+          ),
+        ),
         child: const SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(top: 50),

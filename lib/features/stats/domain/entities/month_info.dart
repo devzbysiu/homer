@@ -4,6 +4,21 @@ typedef Year = int;
 
 typedef Month = int;
 
+const Map<Month, String> _monthShortNames = {
+  1: 'Jan',
+  2: 'Feb',
+  3: 'Mar',
+  4: 'Apr',
+  5: 'May',
+  6: 'Jun',
+  7: 'Jul',
+  8: 'Aug',
+  9: 'Sep',
+  10: 'Oct',
+  11: 'Nov',
+  12: 'Dec',
+};
+
 final class MonthInfo extends Equatable implements Comparable<MonthInfo> {
   MonthInfo(this.year, this.month) {
     assert(month >= 1 && month <= 12);
@@ -54,5 +69,12 @@ final class MonthInfo extends Equatable implements Comparable<MonthInfo> {
     } else {
       return month.compareTo(other.month);
     }
+  }
+
+  @override
+  String toString() {
+    final monthShort = _monthShortNames[month];
+    final yearShort = year.toString().substring(2);
+    return '$monthShort $yearShort';
   }
 }

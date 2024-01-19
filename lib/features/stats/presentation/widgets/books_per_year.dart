@@ -56,6 +56,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
       showingIndicators: _spotIndices(spots),
       spots: spots,
       isCurved: true,
+      preventCurveOverShooting: true,
       gradient: LinearGradient(colors: _gradientColors),
       barWidth: 2,
       dotData: const FlDotData(show: true),
@@ -63,15 +64,16 @@ final class _LineChartBooksPerYear extends StatelessWidget {
     );
 
     return LineChartData(
+      gridData: _noGrid(),
       showingTooltipIndicators: _makeSpots(lineBarData, spots),
       lineTouchData: _tooltipStyle(context),
       backgroundColor: context.background,
       titlesData: _titlesData(context),
-      borderData: _grayBorder(),
+      borderData: _noBorder(),
       minX: 0,
-      maxX: 3,
+      maxX: booksPerYear.years.length.toDouble() - 1,
       minY: 0,
-      maxY: 100,
+      maxY: booksPerYear.bookCounts.max.toDouble() + 20,
       lineBarsData: [lineBarData],
     );
   }
@@ -86,10 +88,14 @@ final class _LineChartBooksPerYear extends StatelessWidget {
     return BarAreaData(
       show: true,
       gradient: LinearGradient(
-        colors: _gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: _gradientColors.map((color) => color.withOpacity(0.2)).toList(),
       ),
     );
   }
+
+  FlGridData _noGrid() => const FlGridData(show: false);
 
   List<ShowingTooltipIndicators> _makeSpots(
     LineChartBarData tooltipsOnBar,
@@ -224,7 +230,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
   }
 
   Widget _leftTitleWidgets(BuildContext context, double value, TitleMeta meta) {
-    final maxReadBooks = maxBy(booksPerYear.bookCounts, (count) => count)!;
+    final maxReadBooks = booksPerYear.bookCounts.max;
     if (value < 0 || value > maxReadBooks + 20 || value % 20 != 0) {
       return Container();
     }
@@ -236,11 +242,8 @@ final class _LineChartBooksPerYear extends StatelessWidget {
     );
   }
 
-  FlBorderData _grayBorder() {
-    return FlBorderData(
-      show: true,
-      border: Border.all(color: const Color(0xff37434d)),
-    );
+  FlBorderData _noBorder() {
+    return FlBorderData(show: false);
   }
 
   List<int> _spotIndices(List<FlSpot> spots) {

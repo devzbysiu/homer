@@ -66,7 +66,7 @@ final class BookSearchState extends Equatable {
       foundBooks: foundBooks ?? this.foundBooks,
       pickedBook: pickedBook ?? this.pickedBook,
       value: value ?? this.value,
-      searchFailureCause: searchFailureCause ?? this.searchFailureCause, 
+      searchFailureCause: searchFailureCause ?? this.searchFailureCause,
     );
   }
 

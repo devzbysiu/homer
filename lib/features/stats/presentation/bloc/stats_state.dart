@@ -9,33 +9,7 @@ final class StatsState extends Equatable {
 
   const StatsState.loadFailed() : booksPerYear = const None();
 
-  final Option<BooksPerYear> booksPerYear;
-
-  Option<List<Year>> get years => booksPerYear.map((bpy) => bpy.years);
-
-  Option<List<BookCounts>> get bookCounts {
-    return booksPerYear.map((bpy) => bpy.bookCounts);
-  }
-
-  StatsState bookFinished(Book book) {
-    return booksPerYear.fold(
-      () => this,
-      (bpy) {
-        final newBooksPerYear = bpy.add(book);
-        return StatsState.loaded(some(newBooksPerYear));
-      },
-    );
-  }
-
-  StatsState undoFinished(Book book) {
-    return booksPerYear.fold(
-      () => this,
-      (bpy) {
-        final newBooksPerYear = bpy.remove(book);
-        return StatsState.loaded(some(newBooksPerYear));
-      },
-    );
-  }
+  final Option<BooksPerYearData> booksPerYear;
 
   @override
   List<Object> get props => [booksPerYear];

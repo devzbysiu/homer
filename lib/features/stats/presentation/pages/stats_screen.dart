@@ -19,9 +19,7 @@ final class StatsScreen extends StatelessWidget {
             child: Column(
               children: [
                 BooksPerYear(),
-                BooksPerYear(),
-                BooksPerYear(),
-                BooksPerYear(),
+                // BooksPerMonth(),
               ],
             ),
           ),

@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/entities/book.dart';
 import '../../../../core/usecase/usecase.dart';
-import '../../domain/entities/books_per_year.dart';
+import '../../domain/entities/books_per_year_data.dart';
 import '../../domain/usecases/load_books_per_year.dart';
 
 part 'stats_event.dart';
@@ -39,14 +39,16 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
     BookFinished event,
     Emitter<StatsState> emit,
   ) async {
-    emit(state.bookFinished(event.book));
+    final newBpy = state.booksPerYear.map((bpy) => bpy.add(event.book));
+    emit(StatsState.loaded(newBpy));
   }
 
   Future<void> _onBookUnfinished(
     BookUnfinished event,
     Emitter<StatsState> emit,
   ) async {
-    emit(state.undoFinished(event.book));
+    final newBpy = state.booksPerYear.map((bpy) => bpy.remove(event.book));
+    emit(StatsState.loaded(newBpy));
   }
 }
 

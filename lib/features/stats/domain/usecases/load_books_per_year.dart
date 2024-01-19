@@ -5,9 +5,9 @@ import '../../../../core/entities/book.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../manage_books/domain/repositories/books_repository.dart';
-import '../entities/books_per_year.dart';
+import '../entities/books_per_year_data.dart';
 
-typedef LoadBooksPerYear = UseCase<BooksPerYear, NoParams>;
+typedef LoadBooksPerYear = UseCase<BooksPerYearData, NoParams>;
 
 final class LoadBooksPerYearImpl implements LoadBooksPerYear {
   LoadBooksPerYearImpl(this.repo);
@@ -15,13 +15,13 @@ final class LoadBooksPerYearImpl implements LoadBooksPerYear {
   final BooksRepository repo;
 
   @override
-  Future<Result<BooksPerYear, Failure>> call(NoParams params) async {
+  Future<Result<BooksPerYearData, Failure>> call(NoParams params) async {
     final result = await repo.listAll();
     if (result.isError()) return Error(result.tryGetError()!);
     final books = result.tryGetSuccess()!;
     final years = _groupByFinishedYear(books);
     final bookCounts = years.map((year, books) => MapEntry(year, books.length));
-    return Success(BooksPerYear(bookCounts));
+    return Success(BooksPerYearData(bookCounts));
   }
 
   Map<int, List<Book>> _groupByFinishedYear(List<Book> books) {

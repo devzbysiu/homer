@@ -15,7 +15,7 @@ import 'package:homer/features/manage_books/data/models/tag_dto.dart';
 import 'package:homer/features/settings/data/models/settings_dto.dart';
 import 'package:homer/features/settings/domain/entities/book_size_limits.dart';
 import 'package:homer/features/settings/domain/entities/settings.dart';
-import 'package:homer/features/stats/domain/entities/books_per_year.dart';
+import 'package:homer/features/stats/domain/entities/books_per_year_data.dart';
 
 Book fakeBook() {
   return Book(
@@ -304,11 +304,11 @@ Map<String, dynamic> fakeSettingsDTOJson() {
   };
 }
 
-BooksPerYear fakeBooksPerYear() {
-  return BooksPerYear(const {
+BooksPerYearData fakeBooksPerYear() {
+  return BooksPerYearData(const {
     2021: 1,
     2022: 1,
     2023: 1,
     2024: 2,
   });
-} 
+}

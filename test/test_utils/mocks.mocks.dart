@@ -64,7 +64,7 @@ import 'package:homer/features/settings/domain/usecases/load_settings.dart'
     as _i37;
 import 'package:homer/features/settings/domain/usecases/save_settings.dart'
     as _i36;
-import 'package:homer/features/stats/domain/entities/books_per_year.dart'
+import 'package:homer/features/stats/domain/entities/books_per_year_data.dart'
     as _i42;
 import 'package:homer/features/stats/domain/usecases/load_books_per_year.dart'
     as _i41;
@@ -1030,7 +1030,7 @@ class MockLoadBooksPerYear extends _i1.Mock implements _i41.LoadBooksPerYear {
   }
 
   @override
-  _i3.Future<_i4.Result<_i42.BooksPerYear, _i6.Failure>> call(
+  _i3.Future<_i4.Result<_i42.BooksPerYearData, _i6.Failure>> call(
           _i29.NoParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1038,13 +1038,13 @@ class MockLoadBooksPerYear extends _i1.Mock implements _i41.LoadBooksPerYear {
           [params],
         ),
         returnValue:
-            _i3.Future<_i4.Result<_i42.BooksPerYear, _i6.Failure>>.value(
-                _i7.dummyValue<_i4.Result<_i42.BooksPerYear, _i6.Failure>>(
+            _i3.Future<_i4.Result<_i42.BooksPerYearData, _i6.Failure>>.value(
+                _i7.dummyValue<_i4.Result<_i42.BooksPerYearData, _i6.Failure>>(
           this,
           Invocation.method(
             #call,
             [params],
           ),
         )),
-      ) as _i3.Future<_i4.Result<_i42.BooksPerYear, _i6.Failure>>);
+      ) as _i3.Future<_i4.Result<_i42.BooksPerYearData, _i6.Failure>>);
 }

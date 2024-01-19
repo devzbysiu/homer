@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/core/usecase/usecase.dart';
-import 'package:homer/features/stats/domain/entities/books_per_year.dart';
+import 'package:homer/features/stats/domain/entities/books_per_year_data.dart';
 import 'package:homer/features/stats/presentation/bloc/stats_bloc.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -85,7 +85,8 @@ void main() {
 
 final class BlocMock {
   BlocMock() {
-    provideDummy<Result<BooksPerYear, Failure>>(Success(fakeBooksPerYear()));
+    provideDummy<Result<BooksPerYearData, Failure>>(
+        Success(fakeBooksPerYear()));
 
     _loadBooksPerYear = MockLoadBooksPerYear();
 
@@ -96,7 +97,7 @@ final class BlocMock {
 
   late final MockLoadBooksPerYear _loadBooksPerYear;
 
-  BlocMock onLoadStats(Result<BooksPerYear, Failure> ret) {
+  BlocMock onLoadStats(Result<BooksPerYearData, Failure> ret) {
     when(_loadBooksPerYear.call(any)).thenAnswer((_) => Future.value(ret));
     return this;
   }

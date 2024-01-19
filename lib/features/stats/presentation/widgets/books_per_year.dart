@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/theme.dart';
-import '../../domain/entities/books_per_year.dart';
+import '../../domain/entities/books_per_year_data.dart';
 import '../bloc/stats_bloc.dart';
 import 'chart_wrapper.dart';
 
@@ -20,16 +20,12 @@ final class BooksPerYear extends StatelessWidget {
           ChartWrapper(
             child: BlocBuilder<StatsBloc, StatsState>(
               builder: (context, state) {
-                if (state.bookCounts.isNone() || state.years.isNone()) {
+                if (state.booksPerYear.isNone()) {
                   return Container();
                 }
 
-                final bookCounts = state.bookCounts.toNullable()!;
-                final years = state.years.toNullable()!;
-                return _LineChartBooksPerYear(
-                  bookCounts: bookCounts,
-                  years: years,
-                );
+                final booksPerYear = state.booksPerYear.toNullable()!;
+                return _LineChartBooksPerYear(booksPerYear: booksPerYear);
               },
             ),
           ),
@@ -41,11 +37,9 @@ final class BooksPerYear extends StatelessWidget {
 
 final class _LineChartBooksPerYear extends StatelessWidget {
   // ignore: prefer_const_constructors_in_immutables
-  _LineChartBooksPerYear({required this.bookCounts, required this.years});
+  _LineChartBooksPerYear({required this.booksPerYear});
 
-  final List<BookCounts> bookCounts;
-
-  final List<Year> years;
+  final BooksPerYearData booksPerYear;
 
   late final List<Color> _gradientColors;
 
@@ -83,7 +77,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
   }
 
   List<FlSpot> _spotsFromState() {
-    return bookCounts.indexed
+    return booksPerYear.bookCounts.indexed
         .map((c) => FlSpot(c.$1.toDouble(), c.$2.toDouble()))
         .toList();
   }
@@ -202,6 +196,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
     double value,
     TitleMeta meta,
   ) {
+    final years = booksPerYear.years;
     if (value < 0 || value > years.length - 1) return Container();
 
     return SideTitleWidget(
@@ -229,7 +224,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
   }
 
   Widget _leftTitleWidgets(BuildContext context, double value, TitleMeta meta) {
-    final maxReadBooks = maxBy(bookCounts, (count) => count)!;
+    final maxReadBooks = maxBy(booksPerYear.bookCounts, (count) => count)!;
     if (value < 0 || value > maxReadBooks + 20 || value % 20 != 0) {
       return Container();
     }

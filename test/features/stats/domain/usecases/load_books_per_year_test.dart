@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/core/usecase/usecase.dart';
-import 'package:homer/features/stats/domain/entities/books_per_year.dart';
+import 'package:homer/features/stats/domain/entities/books_per_year_data.dart';
 import 'package:homer/features/stats/domain/usecases/load_books_per_year.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -65,7 +65,7 @@ void main() {
       expect(result.isSuccess(), true);
       expect(
         result.tryGetSuccess()!,
-        BooksPerYear(const {
+        BooksPerYearData(const {
           2021: 1,
           2022: 1,
           2023: 1,
@@ -86,7 +86,7 @@ void main() {
 
       // then
       expect(result.isSuccess(), true);
-      expect(result.tryGetSuccess()!, BooksPerYear(const {}));
+      expect(result.tryGetSuccess()!, BooksPerYearData(const {}));
     });
 
     test('should ignore not finished books', () async {
@@ -109,7 +109,7 @@ void main() {
       expect(result.isSuccess(), true);
       expect(
         result.tryGetSuccess()!,
-        BooksPerYear(const {
+        BooksPerYearData(const {
           2022: 1,
           2023: 1,
           2024: 1,

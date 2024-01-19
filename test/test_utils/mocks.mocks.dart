@@ -64,8 +64,12 @@ import 'package:homer/features/settings/domain/usecases/load_settings.dart'
     as _i37;
 import 'package:homer/features/settings/domain/usecases/save_settings.dart'
     as _i36;
+import 'package:homer/features/stats/domain/entities/books_per_month_data.dart'
+    as _i44;
 import 'package:homer/features/stats/domain/entities/books_per_year_data.dart'
     as _i42;
+import 'package:homer/features/stats/domain/usecases/load_books_per_month.dart'
+    as _i43;
 import 'package:homer/features/stats/domain/usecases/load_books_per_year.dart'
     as _i41;
 import 'package:homer/features/tags_manager/domain/repositories/tags_repository.dart'
@@ -1047,4 +1051,32 @@ class MockLoadBooksPerYear extends _i1.Mock implements _i41.LoadBooksPerYear {
           ),
         )),
       ) as _i3.Future<_i4.Result<_i42.BooksPerYearData, _i6.Failure>>);
+}
+
+/// A class which mocks [LoadBooksPerMonth].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLoadBooksPerMonth extends _i1.Mock implements _i43.LoadBooksPerMonth {
+  MockLoadBooksPerMonth() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<_i44.BooksPerMonthData, _i6.Failure>> call(
+          _i29.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue:
+            _i3.Future<_i4.Result<_i44.BooksPerMonthData, _i6.Failure>>.value(
+                _i7.dummyValue<_i4.Result<_i44.BooksPerMonthData, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<_i44.BooksPerMonthData, _i6.Failure>>);
 }

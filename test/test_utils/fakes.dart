@@ -15,7 +15,9 @@ import 'package:homer/features/manage_books/data/models/tag_dto.dart';
 import 'package:homer/features/settings/data/models/settings_dto.dart';
 import 'package:homer/features/settings/domain/entities/book_size_limits.dart';
 import 'package:homer/features/settings/domain/entities/settings.dart';
+import 'package:homer/features/stats/domain/entities/books_per_month_data.dart';
 import 'package:homer/features/stats/domain/entities/books_per_year_data.dart';
+import 'package:homer/features/stats/domain/entities/month_info.dart';
 
 Book fakeBook() {
   return Book(
@@ -310,5 +312,14 @@ BooksPerYearData fakeBooksPerYear() {
     2022: 1,
     2023: 1,
     2024: 2,
+  });
+}
+
+BooksPerMonthData fakeBooksPerMonth() {
+  return BooksPerMonthData({
+    MonthInfo(2023, 10): 1,
+    MonthInfo(2023, 11): 1,
+    MonthInfo(2023, 12): 1,
+    MonthInfo(2024, 1): 2,
   });
 }

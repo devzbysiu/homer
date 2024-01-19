@@ -1,16 +1,22 @@
 part of 'stats_bloc.dart';
 
 final class StatsState extends Equatable {
-  const StatsState({required this.booksPerYear});
+  const StatsState({required this.booksPerYear, required this.booksPerMonth});
 
-  const StatsState.initial() : booksPerYear = const None();
+  const StatsState.initial()
+      : booksPerYear = const None(),
+        booksPerMonth = const None();
 
-  const StatsState.loaded(this.booksPerYear);
+  const StatsState.loaded(this.booksPerYear, this.booksPerMonth);
 
-  const StatsState.loadFailed() : booksPerYear = const None();
+  const StatsState.loadFailed()
+      : booksPerYear = const None(),
+        booksPerMonth = const None();
 
   final Option<BooksPerYearData> booksPerYear;
 
+  final Option<BooksPerMonthData> booksPerMonth;
+
   @override
-  List<Object> get props => [booksPerYear];
+  List<Object> get props => [booksPerYear, booksPerMonth];
 }

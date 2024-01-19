@@ -50,7 +50,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
   }
 
   LineChartData mainData(BuildContext context) {
-    final spots = _spotsFromState();
+    final spots = _spotsFromData();
 
     final lineBarData = LineChartBarData(
       showingIndicators: _spotIndices(spots),
@@ -76,7 +76,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
     );
   }
 
-  List<FlSpot> _spotsFromState() {
+  List<FlSpot> _spotsFromData() {
     return booksPerYear.bookCounts.indexed
         .map((c) => FlSpot(c.$1.toDouble(), c.$2.toDouble()))
         .toList();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/utils/theme.dart';
+import '../widgets/books_per_month.dart';
 import '../widgets/books_per_year.dart';
 
 final class StatsScreen extends StatelessWidget {
@@ -19,7 +20,7 @@ final class StatsScreen extends StatelessWidget {
             child: Column(
               children: [
                 BooksPerYear(),
-                // BooksPerMonth(),
+                BooksPerMonth(),
               ],
             ),
           ),

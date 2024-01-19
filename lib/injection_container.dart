@@ -39,6 +39,7 @@ import 'features/settings/domain/repositories/settings_repository.dart';
 import 'features/settings/domain/usecases/load_settings.dart';
 import 'features/settings/domain/usecases/save_settings.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
+import 'features/stats/domain/usecases/load_books_per_month.dart';
 import 'features/stats/domain/usecases/load_books_per_year.dart';
 import 'features/stats/presentation/bloc/stats_bloc.dart';
 import 'features/tags_manager/data/repositories/in_memory_tags_repo.dart';
@@ -87,7 +88,12 @@ Future<void> initDi({required Env env}) async {
       loadSettings: sl(),
     );
   });
-  sl.registerFactory(() => StatsBloc(loadBooksPerYear: sl()));
+  sl.registerFactory(() {
+    return StatsBloc(
+      loadBooksPerYear: sl(),
+      loadBooksPerMonth: sl(),
+    );
+  });
 
   // Use cases
   // books
@@ -112,7 +118,9 @@ Future<void> initDi({required Env env}) async {
   // settings
   sl.registerFactory<SaveSettings>(() => SaveSettingsImpl(sl()));
   sl.registerFactory<LoadSettings>(() => LoadSettingsImpl(sl()));
+  // stats
   sl.registerFactory<LoadBooksPerYear>(() => LoadBooksPerYearImpl(sl()));
+  sl.registerFactory<LoadBooksPerMonth>(() => LoadBooksPerMonthImpl(sl()));
 
   // Repositories
   sl.registerLazySingleton<BooksRepository>(() => BooksRepo(dataSource: sl()));

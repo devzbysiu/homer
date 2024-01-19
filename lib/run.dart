@@ -44,7 +44,7 @@ void run({required Env env}) async {
       BlocProvider(create: (_) => sl<OnBookTagsBloc>()),
       BlocProvider(create: (_) => sl<BackupBloc>()),
       BlocProvider(create: (_) => sl<SettingsBloc>()),
-      BlocProvider(create: (_) => sl<StatsBloc>()),
+      BlocProvider(create: (_) => sl<StatsBloc>()..add(LoadStats())),
     ],
     child: const Homer(),
   ));

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
@@ -53,7 +54,23 @@ void main() {
     test('should filter using query matching one of the books title', () async {
       // given
       final booksRepo = makeMockBooksRepo();
-      final allBooks = [fakeBook(), fakeBook(), fakeBook()];
+      final allBooks = [
+        fakeBook().copyWith(
+          title: 'book 1 title',
+          subtitle: 'book 1 subtitle',
+          summary: some('book 1 summary'),
+        ),
+        fakeBook().copyWith(
+          title: 'book 2 title',
+          subtitle: 'book 2 subtitle',
+          summary: some('book 2 summary'),
+        ),
+        fakeBook().copyWith(
+          title: 'book 3 title',
+          subtitle: 'book 3 subtitle',
+          summary: some('book 3 summary'),
+        )
+      ];
       when(booksRepo.listAll()).thenAnswer((_) => withSuccess(allBooks));
 
       final filterBooks = FilterBooksImpl(booksRepo);
@@ -68,7 +85,75 @@ void main() {
       expect(result.tryGetSuccess()!, [allBooks[0]]);
     });
 
-    test('should return empty list when query does not match any book title',
+    test('should filter using query matching one of the books subtitle', () async {
+      // given
+      final booksRepo = makeMockBooksRepo();
+      final allBooks = [
+        fakeBook().copyWith(
+          title: 'book 1 title',
+          subtitle: 'book 1 subtitle',
+          summary: some('book 1 summary'),
+        ),
+        fakeBook().copyWith(
+          title: 'book 2 title',
+          subtitle: 'book 2 subtitle',
+          summary: some('book 2 summary'),
+        ),
+        fakeBook().copyWith(
+          title: 'book 3 title',
+          subtitle: 'book 3 subtitle',
+          summary: some('book 3 summary'),
+        )
+      ];
+      when(booksRepo.listAll()).thenAnswer((_) => withSuccess(allBooks));
+
+      final filterBooks = FilterBooksImpl(booksRepo);
+
+      final query = allBooks[1].subtitle;
+
+      // when
+      final result = await filterBooks(FilterParams(query: query));
+
+      // then
+      expect(result.isSuccess(), true);
+      expect(result.tryGetSuccess()!, [allBooks[1]]);
+    });
+
+    test('should filter using query matching one of the books summary', () async {
+      // given
+      final booksRepo = makeMockBooksRepo();
+      final allBooks = [
+        fakeBook().copyWith(
+          title: 'book 1 title',
+          subtitle: 'book 1 subtitle',
+          summary: some('book 1 summary'),
+        ),
+        fakeBook().copyWith(
+          title: 'book 2 title',
+          subtitle: 'book 2 subtitle',
+          summary: some('book 2 summary'),
+        ),
+        fakeBook().copyWith(
+          title: 'book 3 title',
+          subtitle: 'book 3 subtitle',
+          summary: some('book 3 summary'),
+        )
+      ];
+      when(booksRepo.listAll()).thenAnswer((_) => withSuccess(allBooks));
+
+      final filterBooks = FilterBooksImpl(booksRepo);
+
+      final query = allBooks[2].summary.toNullable()!;
+
+      // when
+      final result = await filterBooks(FilterParams(query: query));
+
+      // then
+      expect(result.isSuccess(), true);
+      expect(result.tryGetSuccess()!, [allBooks[2]]);
+    });
+
+    test('should return empty list when query does not match any book title, subtitle or summary',
         () async {
       // given
       final booksRepo = makeMockBooksRepo();

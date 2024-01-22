@@ -24,8 +24,12 @@ final class FilterBooksImpl implements FilterBooks {
   }
 
   List<Book> _filter(List<Book> books, String query) {
+    final lowercaseQuery = query.toLowerCase();
     final matchingBooks = books
-        .where((book) => book.title.toLowerCase().contains(query.toLowerCase()))
+        .where((book) =>
+            book.title.toLowerCase().contains(lowercaseQuery) ||
+            book.subtitle.toLowerCase().contains(lowercaseQuery) ||
+            book.summary.getOrElse(() => '').contains(lowercaseQuery))
         .toList();
     return sortByStateAndDate(matchingBooks);
   }

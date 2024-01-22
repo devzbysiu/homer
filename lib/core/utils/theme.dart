@@ -29,7 +29,6 @@ extension ThemeExtension on BuildContext {
   Color get lightBackground => background.lighten(20);
   Color get error => colorScheme.error;
   Color get secondary => colorScheme.secondary;
-  Color get tile => listTileTheme.tileColor!;
   Color get icon => iconTheme.color!;
   Color get card => theme.cardColor;
   Color get shadow => theme.shadowColor;

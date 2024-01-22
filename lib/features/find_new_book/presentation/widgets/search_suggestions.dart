@@ -11,7 +11,7 @@ final class _SearchSuggestions extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Material(
-            color: context.tile,
+            color: context.lightBackground,
             elevation: 4.0,
             child: const _SuggestionsList(),
           ),
@@ -62,7 +62,7 @@ final class _SearchSuggestion extends StatelessWidget {
             bannerColor: context.primary,
             bannerText: book.rating.toStringAsFixed(2),
             onTap: () => context.pickSuggestedBook(book),
-            backgroundColor: context.tile,
+            backgroundColor: context.background,
             borderRadius: BorderRadius.circular(8),
             imageContainer: _ListTileThumbnail(book: book),
             title: Text(

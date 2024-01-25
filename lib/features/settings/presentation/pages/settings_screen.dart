@@ -9,6 +9,7 @@ import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import '../../../../core/utils/theme.dart';
 import '../bloc/settings_bloc.dart';
 import '../widgets/book_size_slider.dart';
+import '../widgets/reading_goal_slider.dart';
 
 final class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -32,8 +33,9 @@ final class SettingsScreen extends StatelessWidget {
         SettingsSection(
           tiles: [
             _useSystemTheme(context, state.useSystemTheme),
-            _backupDirPicker(state),
+            _backupDirPicker(context, state),
             const CustomSettingsTile(child: BookSizeSlider()),
+            const CustomSettingsTile(child: ReadingGoalSlider()),
           ],
         ),
       ],
@@ -47,16 +49,16 @@ final class SettingsScreen extends StatelessWidget {
   SettingsTile _useSystemTheme(BuildContext context, bool useSystemTheme) {
     return SettingsTile.switchTile(
       activeSwitchColor: context.primary,
-      title: const Text('Use system theme'),
+      title: Text('Use system theme', style: context.headlineSmall),
       leading: const Icon(Icons.brush),
       initialValue: useSystemTheme,
       onToggle: (_) => context.toggleSystemTheme(),
     );
   }
 
-  SettingsTile _backupDirPicker(SettingsState state) {
+  SettingsTile _backupDirPicker(BuildContext context, SettingsState state) {
     return SettingsTile(
-      title: const Text('Backups directory'),
+      title: Text('Backups directory', style: context.headlineSmall),
       leading: const Icon(Icons.backup),
       description: Text(state.backupsDir.path),
       onPressed: _pickBackupsPath,

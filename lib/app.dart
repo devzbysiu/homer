@@ -47,26 +47,49 @@ final class Homer extends StatelessWidget {
             : state.useDarkTheme
                 ? ThemeMode.dark
                 : ThemeMode.light;
+
         return MaterialApp.router(
           debugShowCheckedModeBanner: !kReleaseMode,
           title: 'Homer',
-          theme: FlexThemeData.light(scheme: scheme, useMaterial3: true),
-          darkTheme: FlexThemeData.dark(scheme: scheme, useMaterial3: true),
+          theme: FlexColorScheme.light(scheme: scheme, useMaterial3: true)
+              .toTheme
+              .copyWith(
+                sliderTheme: SliderThemeData(
+                  overlayShape: SliderComponentShape.noThumb,
+                ),
+              ),
+          darkTheme: FlexColorScheme.dark(scheme: scheme, useMaterial3: true)
+              .toTheme
+              .copyWith(
+                sliderTheme: SliderThemeData(
+                  overlayShape: SliderComponentShape.noThumb,
+                  valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+                ),
+              ),
           themeMode: themeMode,
           routerConfig: _router,
-          // TODO: Take care of splash screen
-          // home: FlutterSplashScreen(
-          //   duration: const Duration(milliseconds: 2000),
-          //   nextScreen: const Home(),
-          //   backgroundColor: Colors.white,
-          //   splashScreenBody: Center(
-          //     child: Lottie.asset(
-          //       'assets/splash-screen.json',
-          //       repeat: false,
-          //     ),
-          //   ),
-          // ),
         );
+
+        // return MaterialApp.router(
+        //   debugShowCheckedModeBanner: !kReleaseMode,
+        //   title: 'Homer',
+        //   theme: FlexThemeData.light(scheme: scheme, useMaterial3: true),
+        //   darkTheme: FlexThemeData.dark(scheme: scheme, useMaterial3: true),
+        //   themeMode: themeMode,
+        //   routerConfig: _router,
+        //   // TODO: Take care of splash screen
+        //   // home: FlutterSplashScreen(
+        //   //   duration: const Duration(milliseconds: 2000),
+        //   //   nextScreen: const Home(),
+        //   //   backgroundColor: Colors.white,
+        //   //   splashScreenBody: Center(
+        //   //     child: Lottie.asset(
+        //   //       'assets/splash-screen.json',
+        //   //       repeat: false,
+        //   //     ),
+        //   //   ),
+        //   // ),
+        // );
       },
     );
   }

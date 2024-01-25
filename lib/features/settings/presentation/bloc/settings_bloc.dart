@@ -114,13 +114,19 @@ extension SettingsContextExt on BuildContext {
     _emitSettingsEvt(BookSizeLimitsChanged(limits));
   }
 
-  BookSizeLimits bookSizeLimits() {
-    return read<SettingsBloc>().state.settings.bookSizeLimits;
+  void readingGoalChanged(ReadingGoal goal) {
+    _emitSettingsEvt(ReadingGoalChanged(goal));
   }
+
+  BookSizeLimits bookSizeLimits() => _settings().bookSizeLimits;
+
+  ReadingGoal readingGoal() => _settings().readingGoal;
 
   void _emitSettingsEvt(SettingsEvent event) {
     read<SettingsBloc>().add(event);
   }
+
+  Settings _settings() => read<SettingsBloc>().state.settings;
 }
 
 extension _SettingsStateExt on SettingsState {

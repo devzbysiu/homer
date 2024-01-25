@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/theme.dart';
+import '../../../settings/domain/entities/reading_goal.dart';
+import '../../../settings/presentation/bloc/settings_bloc.dart';
 import '../../domain/entities/books_per_month_data.dart';
 import '../bloc/stats_bloc.dart';
 import 'chart_wrapper.dart';
@@ -46,10 +48,13 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _gradientColors = [context.primary, context.lightPrimary];
-    return LineChart(mainData(context));
+    return BlocSelector<SettingsBloc, SettingsState, ReadingGoal>(
+      selector: (state) => state.settings.readingGoal,
+      builder: (context, readingGoal) => LineChart(mainData(context, readingGoal)),
+    );
   }
 
-  LineChartData mainData(BuildContext context) {
+  LineChartData mainData(BuildContext context, ReadingGoal readingGoal) {
     final spots = _spotsFromData();
 
     final lineBarData = LineChartBarData(
@@ -78,7 +83,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
       minY: 0,
       maxY: booksPerMonth.bookCounts().max.toDouble() + 2,
       lineBarsData: [lineBarData],
-      extraLinesData: _readingGoal(context),
+      extraLinesData: _readingGoal(context, readingGoal),
     );
   }
 
@@ -253,11 +258,11 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
     );
   }
 
-  ExtraLinesData _readingGoal(BuildContext context) {
+  ExtraLinesData _readingGoal(BuildContext context, ReadingGoal readingGoal) {
     return ExtraLinesData(
       horizontalLines: [
         HorizontalLine(
-          y: 6,
+          y: readingGoal.books.toDouble(),
           color: context.background,
           strokeWidth: 1,
           dashArray: [10, 4],
@@ -268,7 +273,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
             style: context.bodyMedium.copyWith(
               color: context.background,
             ),
-            labelResolver: (_) => 'goal: 6',
+            labelResolver: (_) => 'goal: ${readingGoal.books}',
           ),
         ),
       ],

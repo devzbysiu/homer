@@ -24,18 +24,15 @@ final class StatsScreen extends StatelessWidget {
             ],
           ),
         ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: Column(
-              children: [
-                const BooksPerState(),
-                spaceBetween(50),
-                const BooksPerYear(),
-                spaceBetween(50),
-                const BooksPerMonth(),
-              ],
-            ),
+        child: SafeArea(
+          child: ListView(
+            children: [
+              const BooksPerState(),
+              spaceBetween(50),
+              const BooksPerYear(),
+              spaceBetween(50),
+              const BooksPerMonth(),
+            ],
           ),
         ),
       ),

@@ -85,7 +85,7 @@ final class _MainScreenState extends State<MainScreen> {
             ),
           ),
           child: const Padding(
-            padding: EdgeInsets.only(top: 60),
+            padding: EdgeInsets.only(top: 52),
             child: BooksList(),
           ),
         )

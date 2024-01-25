@@ -67,7 +67,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
       gridData: _noGrid(),
       showingTooltipIndicators: _makeSpots(lineBarData, spots),
       lineTouchData: _tooltipStyle(context),
-      backgroundColor: context.background,
+      backgroundColor: Colors.transparent,
       titlesData: _titlesData(context),
       borderData: _noBorder(),
       minX: 0,
@@ -209,7 +209,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
       axisSide: meta.axisSide,
       child: Text(
         '${years[value.toInt()]}',
-        style: context.bodyMedium,
+        style: context.bodySmall,
       ),
     );
   }
@@ -237,7 +237,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
 
     return Text(
       value.toInt().toString(),
-      style: context.bodyMedium,
+      style: context.bodySmall,
       textAlign: TextAlign.left,
     );
   }

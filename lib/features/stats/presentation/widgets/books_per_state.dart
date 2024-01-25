@@ -16,7 +16,7 @@ final class BooksPerState extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Text('Books per state', style: context.headlineSmall),
+          Text('Books', style: context.headlineSmall),
           ChartWrapper(
             height: 100,
             child: BlocBuilder<StatsBloc, StatsState>(
@@ -118,7 +118,7 @@ final class _ChartLegend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         _LegendTile(color: context.primary, text: _waiting()),
         _LegendTile(color: context.secondary, text: _inProgress()),
@@ -144,10 +144,11 @@ final class _ChartLegend extends StatelessWidget {
 }
 
 final class _LegendTile extends StatelessWidget {
-  final Color color;
-  final String text;
-
   const _LegendTile({required this.color, required this.text});
+
+  final Color color;
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +160,7 @@ final class _LegendTile extends StatelessWidget {
           color: color,
         ),
         const SizedBox(width: 5),
-        Text(text),
+        Text(text, style: context.titleSmall),
         const SizedBox(width: 20),
       ],
     );

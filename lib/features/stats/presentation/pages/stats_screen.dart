@@ -24,40 +24,21 @@ final class StatsScreen extends StatelessWidget {
             ],
           ),
         ),
-        child: const SingleChildScrollView(
+        child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
-                _StatsSection(child: BooksPerState()),
-                _StatsSection(child: BooksPerYear()),
-                _StatsSection(child: BooksPerMonth()),
+                const BooksPerState(),
+                spaceBetween(50),
+                const BooksPerYear(),
+                spaceBetween(50),
+                const BooksPerMonth(),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class _StatsSection extends StatelessWidget {
-  const _StatsSection({
-    required this.child,
-  });
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      padding: const EdgeInsets.only(bottom: 12.0, top: 8.0),
-      decoration: BoxDecoration(
-        color: context.background,
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: child,
     );
   }
 }

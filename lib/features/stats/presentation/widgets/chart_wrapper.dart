@@ -1,4 +1,3 @@
-import '../../../../core/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 final class ChartWrapper extends StatelessWidget {
@@ -10,24 +9,15 @@ final class ChartWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 18, right: 18),
-      child: Material(
-        elevation: 0,
-        borderRadius: BorderRadius.circular(8),
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(bottom: 12.0, top: 8.0),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 18, right: 18),
         child: SizedBox(
           width: 400, // Set the width of the chart
           height: height ?? 300, // Set the height of the chart
-          child: AspectRatio(
-            aspectRatio: 2.5,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(18)),
-                color: context.background,
-              ),
-              child: child,
-            ),
-          ),
+          child: child,
         ),
       ),
     );

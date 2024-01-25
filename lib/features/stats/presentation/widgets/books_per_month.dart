@@ -70,7 +70,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
       gridData: _noGrid(),
       showingTooltipIndicators: _makeSpots(lineBarData, spots),
       lineTouchData: _tooltipStyle(context),
-      backgroundColor: context.background,
+      backgroundColor: Colors.transparent,
       titlesData: _titlesData(context),
       borderData: _noBorder(),
       minX: 0,
@@ -193,7 +193,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
       sideTitles: SideTitles(
         showTitles: true,
         reservedSize: 30,
-        interval: 2,
+        interval: 1,
         getTitlesWidget: (value, meta) => _bottomTitleWidgets(
           context,
           value,
@@ -218,7 +218,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
         padding: const EdgeInsets.only(right: 8.0),
         child: Text(
           '${months[value.toInt()]}',
-          style: context.bodyMedium,
+          style: context.bodySmall,
         ),
       ),
     );
@@ -248,7 +248,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
 
     return Text(
       value.toInt().toString(),
-      style: context.bodyMedium,
+      style: context.bodySmall,
       textAlign: TextAlign.left,
     );
   }
@@ -258,7 +258,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
       horizontalLines: [
         HorizontalLine(
           y: 6,
-          color: context.secondary,
+          color: context.background,
           strokeWidth: 1,
           dashArray: [10, 4],
           label: HorizontalLineLabel(
@@ -266,7 +266,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
             alignment: Alignment.topCenter,
             padding: const EdgeInsets.only(right: 8),
             style: context.bodyMedium.copyWith(
-              color: context.secondary.withOpacity(0.3),
+              color: context.background,
             ),
             labelResolver: (_) => 'goal: 6',
           ),

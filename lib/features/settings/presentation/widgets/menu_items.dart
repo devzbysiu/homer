@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/utils/theme.dart';
 import '../../../backup_and_restore/presentation/widgets/backup_button.dart';
 import '../../../backup_and_restore/presentation/widgets/restore_button.dart';
 import '../../../stats/presentation/widgets/stats_button.dart';
@@ -15,16 +16,14 @@ final class MenuItems extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const BackupButton(),
-        _spaceBetween(),
+        spaceBetween(),
         const RestoreButton(),
-        _spaceBetween(),
+        spaceBetween(),
         const StatsButton(),
-        _spaceBetween(),
+        spaceBetween(),
         const SettingsButton(),
-        _spaceBetween(),
+        spaceBetween(),
       ],
     );
   }
-
-  SizedBox _spaceBetween() => const SizedBox(height: 20);
 }

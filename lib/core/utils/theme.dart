@@ -10,6 +10,7 @@ extension ThemeExtension on BuildContext {
   IconThemeData get iconTheme => theme.iconTheme;
 
   // Text
+  TextStyle get bodySmall => textTheme.bodySmall!;
   TextStyle get bodyMedium => textTheme.bodyMedium!;
   TextStyle get bodyLarge => textTheme.bodyLarge!;
   TextStyle get headlineMedium => textTheme.headlineMedium!;
@@ -34,3 +35,5 @@ extension ThemeExtension on BuildContext {
   Color get shadow => theme.shadowColor;
   Color get unselected => theme.unselectedWidgetColor;
 }
+
+SizedBox spaceBetween([double howMuch = 20]) => SizedBox(height: howMuch);

@@ -14,6 +14,7 @@ import 'package:homer/features/manage_books/data/models/book_dto.dart';
 import 'package:homer/features/manage_books/data/models/tag_dto.dart';
 import 'package:homer/features/settings/data/models/settings_dto.dart';
 import 'package:homer/features/settings/domain/entities/book_size_limits.dart';
+import 'package:homer/features/settings/domain/entities/reading_goal.dart';
 import 'package:homer/features/settings/domain/entities/settings.dart';
 import 'package:homer/features/stats/domain/entities/books_per_month_data.dart';
 import 'package:homer/features/stats/domain/entities/books_per_state_data.dart';
@@ -278,6 +279,7 @@ Settings fakeSettings() {
       shortMax: faker.randomGenerator.integer(100),
       mediumMax: faker.randomGenerator.integer(min: 100, 200),
     ),
+    readingGoal: ReadingGoal(books: faker.randomGenerator.integer(10)),
   );
 }
 
@@ -292,6 +294,7 @@ SettingsDTO fakeSettingsDTO() {
       shortMax: faker.randomGenerator.integer(100),
       mediumMax: faker.randomGenerator.integer(min: 100, 200),
     ),
+    readingGoal: ReadingGoal(books: faker.randomGenerator.integer(20, min: 10)),
   );
 }
 
@@ -304,6 +307,7 @@ Map<String, dynamic> fakeSettingsDTOJson() {
       faker.randomGenerator.integer(100),
       faker.randomGenerator.integer(min: 100, 200),
     ],
+    'readingGoal': faker.randomGenerator.integer(20, min: 10),
   };
 }
 

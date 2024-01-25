@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 
 import 'book_size_limits.dart';
+import 'reading_goal.dart';
 
 final class Settings extends Equatable {
   const Settings({
@@ -10,6 +11,7 @@ final class Settings extends Equatable {
     required this.useDarkTheme,
     required this.backupsDir,
     required this.bookSizeLimits,
+    required this.readingGoal,
   });
 
   factory Settings.makeDefault() {
@@ -18,6 +20,7 @@ final class Settings extends Equatable {
       useDarkTheme: true,
       backupsDir: Directory('/storage/emulated/0/Documents'),
       bookSizeLimits: BookSizeLimits(shortMax: 300, mediumMax: 500),
+      readingGoal: const ReadingGoal(books: 0),
     );
   }
 
@@ -37,6 +40,10 @@ final class Settings extends Equatable {
     return _copyWith(bookSizeLimits: limits);
   }
 
+  Settings changeReadingGoal(ReadingGoal goal) {
+    return _copyWith(readingGoal: goal);
+  }
+
   final bool useSystemTheme;
 
   final bool useDarkTheme;
@@ -45,17 +52,21 @@ final class Settings extends Equatable {
 
   final Directory backupsDir;
 
+  final ReadingGoal readingGoal;
+
   Settings _copyWith({
     bool? isDarkThemeOn,
     bool? isSystemThemeOn,
     Directory? backupsDirectory,
     BookSizeLimits? bookSizeLimits,
+    ReadingGoal? readingGoal,
   }) {
     return Settings(
       useDarkTheme: isDarkThemeOn ?? useDarkTheme,
       useSystemTheme: isSystemThemeOn ?? useSystemTheme,
       backupsDir: backupsDirectory ?? backupsDir,
       bookSizeLimits: bookSizeLimits ?? this.bookSizeLimits,
+      readingGoal: readingGoal ?? this.readingGoal,
     );
   }
 
@@ -65,5 +76,6 @@ final class Settings extends Equatable {
         useDarkTheme,
         bookSizeLimits,
         backupsDir.path,
+        readingGoal,
       ];
 }

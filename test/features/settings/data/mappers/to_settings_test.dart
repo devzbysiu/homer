@@ -16,6 +16,7 @@ void main() {
         isSystemThemeOn: settingsDTO.isSystemThemeOn,
         backupsDirectory: settingsDTO.backupsDirectory,
         bookSizeLimits: settingsDTO.bookSizeLimits,
+        readingGoal: settingsDTO.readingGoal,
       );
 
       // then

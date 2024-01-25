@@ -198,6 +198,7 @@ SettingsDTO settingsDTOFromSettings(Settings settings) {
     isSystemThemeOn: settings.useSystemTheme,
     backupsDirectory: settings.backupsDir,
     bookSizeLimits: settings.bookSizeLimits,
+    readingGoal: settings.readingGoal,
   );
 }
 
@@ -207,5 +208,6 @@ Settings settingsFromSettingsDTO(SettingsDTO settingsDTO) {
     useSystemTheme: settingsDTO.isSystemThemeOn,
     backupsDir: settingsDTO.backupsDirectory,
     bookSizeLimits: settingsDTO.bookSizeLimits,
+    readingGoal: settingsDTO.readingGoal,
   );
 }

@@ -29,6 +29,10 @@ final class SettingsState extends Equatable {
     return SettingsState.from(settings.changeSizeLimits(limits));
   }
 
+  SettingsState changeReadingGoal(ReadingGoal goal) {
+    return SettingsState.from(settings.changeReadingGoal(goal));
+  }
+
   bool get useDarkTheme => settings.useDarkTheme;
 
   bool get useSystemTheme => settings.useSystemTheme;

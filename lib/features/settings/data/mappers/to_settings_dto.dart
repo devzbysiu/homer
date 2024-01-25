@@ -7,5 +7,6 @@ SettingsDTO toSettingsDTO(Settings settings) {
     isSystemThemeOn: settings.useSystemTheme,
     backupsDirectory: settings.backupsDir,
     bookSizeLimits: settings.bookSizeLimits,
+    readingGoal: settings.readingGoal,
   );
 }

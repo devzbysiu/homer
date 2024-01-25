@@ -29,6 +29,7 @@ final class SettingsRepo implements SettingsRepository {
         isDarkThemeOn: settingsDTO.isDarkThemeOn,
         backupsDirectory: settingsDTO.backupsDirectory,
         bookSizeLimits: settingsDTO.bookSizeLimits,
+        readingGoal: settingsDTO.readingGoal,
       );
       return Success(settings);
     } on NoSettingsException {

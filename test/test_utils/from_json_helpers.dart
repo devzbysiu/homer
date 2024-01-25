@@ -7,6 +7,7 @@ import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dar
 import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
 import 'package:homer/features/settings/data/models/settings_dto.dart';
 import 'package:homer/features/settings/domain/entities/book_size_limits.dart';
+import 'package:homer/features/settings/domain/entities/reading_goal.dart';
 
 BackupBookDTO backupBookDTOFromJson(Map<String, dynamic> json) {
   return BackupBookDTO(
@@ -68,5 +69,6 @@ SettingsDTO settingsDTOFromJson(Map<String, dynamic> json) {
       shortMax: bookSizeLimits[0],
       mediumMax: bookSizeLimits[1],
     ),
+    readingGoal: ReadingGoal(books: json['readingGoal']),
   );
 }

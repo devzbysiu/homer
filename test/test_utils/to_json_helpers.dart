@@ -62,5 +62,6 @@ Map<String, dynamic> settingsDTOToJson(SettingsDTO dto) {
       dto.bookSizeLimits.short.maxPages,
       dto.bookSizeLimits.medium.maxPages,
     ],
+    'readingGoal': dto.readingGoal.books,
   };
 }

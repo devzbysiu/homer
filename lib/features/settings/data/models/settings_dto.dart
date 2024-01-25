@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entities/book_size_limits.dart';
+import '../../domain/entities/reading_goal.dart';
 
 part 'settings_dto.g.dart';
 
@@ -14,6 +15,7 @@ final class SettingsDTO extends Equatable {
     required this.isDarkThemeOn,
     required this.backupsDirectory,
     required this.bookSizeLimits,
+    required this.readingGoal,
   });
 
   final bool isSystemThemeOn;
@@ -25,6 +27,9 @@ final class SettingsDTO extends Equatable {
 
   @JsonKey(fromJson: _directoryFromJson, toJson: _directoryToJson)
   final Directory backupsDirectory;
+
+  @JsonKey(fromJson: _readingGoalFromJson, toJson: _readingGoalToJson)
+  final ReadingGoal readingGoal;
 
   Map<String, dynamic> toJson() => _$SettingsDTOToJson(this);
 
@@ -38,6 +43,7 @@ final class SettingsDTO extends Equatable {
         isDarkThemeOn,
         bookSizeLimits,
         backupsDirectory.path,
+        readingGoal,
       ];
 }
 
@@ -50,3 +56,7 @@ BookSizeLimits _sizeLimitsFromJson(List<dynamic> sizeLimits) {
 }
 
 List<int> _sizeLimitsToJson(BookSizeLimits limits) => limits.asIntList();
+
+ReadingGoal _readingGoalFromJson(int goal) => ReadingGoal(books: goal);
+
+int _readingGoalToJson(ReadingGoal goal) => goal.books;

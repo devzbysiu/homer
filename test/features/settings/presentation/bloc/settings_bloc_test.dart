@@ -4,6 +4,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/core/usecase/usecase.dart';
 import 'package:homer/features/settings/domain/entities/book_size_limits.dart';
+import 'package:homer/features/settings/domain/entities/reading_goal.dart';
 import 'package:homer/features/settings/domain/entities/settings.dart';
 import 'package:homer/features/settings/domain/usecases/save_settings.dart';
 import 'package:homer/features/settings/presentation/bloc/settings_bloc.dart';
@@ -52,6 +53,7 @@ void main() {
             useDarkTheme: !settings.useDarkTheme,
             backupsDir: settings.backupsDir,
             bookSizeLimits: settings.bookSizeLimits,
+            readingGoal: settings.readingGoal,
           ),
         ),
       ],
@@ -92,6 +94,7 @@ void main() {
             useDarkTheme: settings.useDarkTheme,
             backupsDir: settings.backupsDir,
             bookSizeLimits: settings.bookSizeLimits,
+            readingGoal: settings.readingGoal,
           ),
         ),
       ],
@@ -133,6 +136,7 @@ void main() {
             useDarkTheme: settings.useDarkTheme,
             backupsDir: directory,
             bookSizeLimits: settings.bookSizeLimits,
+            readingGoal: settings.readingGoal,
           ),
         ),
       ],
@@ -174,6 +178,7 @@ void main() {
             useDarkTheme: settings.useDarkTheme,
             backupsDir: settings.backupsDir,
             bookSizeLimits: limits,
+            readingGoal: settings.readingGoal,
           ),
         ),
       ],
@@ -198,6 +203,47 @@ void main() {
       ))),
     );
   });
+
+  group('_onReadingGoalChanged', () {
+    final settings = fakeSettings();
+
+    blocTest<SettingsBloc, SettingsState>(
+      'should emit SettingsState with changed reading goal',
+      build: () => BlocMock().onLoadSettings(Success(settings)).get(),
+      act: (bloc) => bloc.add(ReadingGoalChanged(const ReadingGoal(books: 6))),
+      expect: () => [
+        SettingsState(settings: _from(settings)),
+        SettingsState(
+          settings: Settings(
+            useSystemTheme: settings.useSystemTheme,
+            useDarkTheme: settings.useDarkTheme,
+            backupsDir: settings.backupsDir,
+            bookSizeLimits: settings.bookSizeLimits,
+            readingGoal: const ReadingGoal(books: 6),
+          ),
+        ),
+      ],
+      verify: (bloc) => verify(bloc.saveSettings(SettingsParams(
+        settings: settings.changeReadingGoal(const ReadingGoal(books: 6)),
+      ))),
+    );
+
+    blocTest<SettingsBloc, SettingsState>(
+      'should emit default settings when saving fails',
+      build: () => BlocMock()
+          .onLoadSettings(Success(settings))
+          .onSaveSettings(Error(TestingFailure()))
+          .get(),
+      act: (bloc) => bloc.add(ReadingGoalChanged(const ReadingGoal(books: 6))),
+      expect: () => [
+        SettingsState(settings: _from(settings)),
+        SettingsState(settings: _defaultSettings()),
+      ],
+      verify: (bloc) => verify(bloc.saveSettings(SettingsParams(
+        settings: settings.changeReadingGoal(const ReadingGoal(books: 6)),
+      ))),
+    );
+  });
 }
 
 Settings _from(Settings settings) {
@@ -206,6 +252,7 @@ Settings _from(Settings settings) {
     useDarkTheme: settings.useDarkTheme,
     backupsDir: settings.backupsDir,
     bookSizeLimits: settings.bookSizeLimits,
+    readingGoal: settings.readingGoal,
   );
 }
 
@@ -215,6 +262,7 @@ Settings _defaultSettings() {
     useDarkTheme: true,
     backupsDir: Directory('/storage/emulated/0/Documents'),
     bookSizeLimits: BookSizeLimits(shortMax: 300, mediumMax: 500),
+    readingGoal: const ReadingGoal(books: 0),
   );
 }
 

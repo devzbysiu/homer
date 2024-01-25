@@ -25,3 +25,9 @@ final class BookSizeLimitsChanged extends SettingsEvent {
 
   final BookSizeLimits limits;
 }
+
+final class ReadingGoalChanged extends SettingsEvent {
+  ReadingGoalChanged(this.goal);
+
+  final ReadingGoal goal;
+}

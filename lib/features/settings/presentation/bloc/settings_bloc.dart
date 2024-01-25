@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/book_size_limits.dart';
+import '../../domain/entities/reading_goal.dart';
 import '../../domain/entities/settings.dart';
 import '../../domain/usecases/load_settings.dart';
 import '../../domain/usecases/save_settings.dart';
@@ -24,6 +25,8 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SystemThemeToggled>(_onSystemThemeToggled);
     on<BackupsDirectorySelected>(_onBackupPathSelected);
     on<BookSizeLimitsChanged>(_onBookSizeLimitsChanged);
+    on<ReadingGoalChanged>(_onReadingGoalChanged);
+    // TODO: Move initial even triggering to `run.dart`
     add(SettingsLoaded());
   }
 
@@ -84,6 +87,14 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     final newState = state.changeSizeLimits(event.limits);
     await _saveAndEmit(newState, emit);
   }
+
+  void _onReadingGoalChanged(
+    ReadingGoalChanged event,
+    Emitter<SettingsState> emit,
+  ) async {
+    final newState = state.changeReadingGoal(event.goal);
+    await _saveAndEmit(newState, emit);
+  }
 }
 
 extension SettingsContextExt on BuildContext {
@@ -113,14 +124,5 @@ extension SettingsContextExt on BuildContext {
 }
 
 extension _SettingsStateExt on SettingsState {
-  SettingsParams toParams() {
-    return SettingsParams(
-      settings: Settings(
-        useSystemTheme: settings.useSystemTheme,
-        useDarkTheme: settings.useDarkTheme,
-        backupsDir: settings.backupsDir,
-        bookSizeLimits: settings.bookSizeLimits,
-      ),
-    );
-  }
+  SettingsParams toParams() => SettingsParams(settings: settings);
 }

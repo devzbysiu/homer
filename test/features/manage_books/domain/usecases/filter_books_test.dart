@@ -85,7 +85,8 @@ void main() {
       expect(result.tryGetSuccess()!, [allBooks[0]]);
     });
 
-    test('should filter using query matching one of the books subtitle', () async {
+    test('should filter using query matching one of the books subtitle',
+        () async {
       // given
       final booksRepo = makeMockBooksRepo();
       final allBooks = [
@@ -119,7 +120,8 @@ void main() {
       expect(result.tryGetSuccess()!, [allBooks[1]]);
     });
 
-    test('should filter using query matching one of the books summary', () async {
+    test('should filter using query matching one of the books summary',
+        () async {
       // given
       final booksRepo = makeMockBooksRepo();
       final allBooks = [
@@ -153,7 +155,8 @@ void main() {
       expect(result.tryGetSuccess()!, [allBooks[2]]);
     });
 
-    test('should return empty list when query does not match any book title, subtitle or summary',
+    test(
+        'should return empty list when query does not match any book title, subtitle or summary',
         () async {
       // given
       final booksRepo = makeMockBooksRepo();

@@ -50,7 +50,9 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
     _gradientColors = [context.primary, context.lightPrimary];
     return BlocSelector<SettingsBloc, SettingsState, ReadingGoal>(
       selector: (state) => state.settings.readingGoal,
-      builder: (context, readingGoal) => LineChart(mainData(context, readingGoal)),
+      builder: (context, readingGoal) {
+        return LineChart(mainData(context, readingGoal));
+      },
     );
   }
 

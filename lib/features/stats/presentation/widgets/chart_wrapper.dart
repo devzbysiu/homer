@@ -2,9 +2,11 @@ import '../../../../core/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 final class ChartWrapper extends StatelessWidget {
-  const ChartWrapper({super.key, required this.child});
+  const ChartWrapper({super.key, required this.child, this.height});
 
   final Widget child;
+
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ final class ChartWrapper extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         child: SizedBox(
           width: 400, // Set the width of the chart
-          height: 300, // Set the height of the chart
+          height: height ?? 300, // Set the height of the chart
           child: AspectRatio(
             aspectRatio: 2.5,
             child: Container(
@@ -24,12 +26,7 @@ final class ChartWrapper extends StatelessWidget {
                 color: context.background,
               ),
               child: Padding(
-                padding: const EdgeInsets.only(
-                  right: 18.0,
-                  left: 12.0,
-                  top: 24,
-                  bottom: 12,
-                ),
+                padding: const EdgeInsets.all(18),
                 child: child,
               ),
             ),

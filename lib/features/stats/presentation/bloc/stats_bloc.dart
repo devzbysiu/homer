@@ -8,8 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/entities/book.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/books_per_month_data.dart';
+import '../../domain/entities/books_per_state_data.dart';
 import '../../domain/entities/books_per_year_data.dart';
 import '../../domain/usecases/load_books_per_month.dart';
+import '../../domain/usecases/load_books_per_state.dart';
 import '../../domain/usecases/load_books_per_year.dart';
 
 part 'stats_event.dart';
@@ -19,6 +21,7 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
   StatsBloc({
     required this.loadBooksPerYear,
     required this.loadBooksPerMonth,
+    required this.loadBooksPerState,
   }) : super(const StatsState.initial()) {
     on<LoadStats>(_onLoadStats);
     on<BookFinished>(_onBookFinished);
@@ -29,20 +32,28 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
 
   final LoadBooksPerMonth loadBooksPerMonth;
 
+  final LoadBooksPerState loadBooksPerState;
+
   Future<void> _onLoadStats(
     LoadStats event,
     Emitter<StatsState> emit,
   ) async {
     final bpy = await loadBooksPerYear(NoParams());
     final bpm = await loadBooksPerMonth(NoParams());
+    final bps = await loadBooksPerState(NoParams());
 
-    if (bpy.isError() || bpm.isError()) {
+    if (bpy.isError() || bpm.isError() || bps.isError()) {
       return emit(const StatsState.loadFailed());
     }
 
     final booksPerYear = bpy.tryGetSuccess()!;
     final booksPerMonth = bpm.tryGetSuccess()!;
-    emit(StatsState.loaded(some(booksPerYear), some(booksPerMonth)));
+    final booksPerState = bps.tryGetSuccess()!;
+    emit(StatsState.loaded(
+      some(booksPerYear),
+      some(booksPerMonth),
+      some(booksPerState),
+    ));
   }
 
   Future<void> _onBookFinished(
@@ -57,7 +68,11 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
         .getOrElse(() => BooksPerMonthData.empty())
         .add(event.book);
 
-    emit(StatsState.loaded(some(newBpy), some(newBpm)));
+    final newBps = state.booksPerState
+        .getOrElse(() => BooksPerStateData.empty())
+        .move(event.book.state, BookState.read);
+
+    emit(StatsState.loaded(some(newBpy), some(newBpm), some(newBps)));
   }
 
   Future<void> _onBookUnfinished(
@@ -72,7 +87,11 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
         .map((bpm) => bpm.remove(event.book))
         .getOrElse(() => BooksPerMonthData.empty());
 
-    emit(StatsState.loaded(some(newBpy), some(newBpm)));
+    final newBps = state.booksPerState
+        .map((bps) => bps.move(event.book.state, BookState.reading))
+        .getOrElse(() => BooksPerStateData.empty());
+
+    emit(StatsState.loaded(some(newBpy), some(newBpm), some(newBps)));
   }
 }
 

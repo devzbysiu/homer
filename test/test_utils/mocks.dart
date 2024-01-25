@@ -21,6 +21,7 @@ import 'package:homer/features/settings/domain/repositories/settings_repository.
 import 'package:homer/features/settings/domain/usecases/load_settings.dart';
 import 'package:homer/features/settings/domain/usecases/save_settings.dart';
 import 'package:homer/features/stats/domain/usecases/load_books_per_month.dart';
+import 'package:homer/features/stats/domain/usecases/load_books_per_state.dart';
 import 'package:homer/features/stats/domain/usecases/load_books_per_year.dart';
 import 'package:homer/features/tags_manager/domain/repositories/tags_repository.dart';
 import 'package:homer/features/tags_manager/domain/usecases/list_tags.dart';
@@ -55,5 +56,6 @@ import 'package:share_handler/share_handler.dart';
   ListTags,
   LoadBooksPerYear,
   LoadBooksPerMonth,
+  LoadBooksPerState,
 ])
 void main() {}

@@ -132,6 +132,17 @@ enum BookState {
   read,
 }
 
+final class ComparableBookState implements Comparable<ComparableBookState> {
+  const ComparableBookState(this.state);
+
+  final BookState state;
+
+  @override
+  int compareTo(ComparableBookState other) {
+    return state.index.compareTo(other.state.index);
+  }
+}
+
 extension StateChangeExt on BookState {
   BookState moveRight() {
     switch (this) {

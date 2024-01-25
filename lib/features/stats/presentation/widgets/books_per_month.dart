@@ -193,7 +193,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
       sideTitles: SideTitles(
         showTitles: true,
         reservedSize: 30,
-        interval: 1,
+        interval: 2,
         getTitlesWidget: (value, meta) => _bottomTitleWidgets(
           context,
           value,

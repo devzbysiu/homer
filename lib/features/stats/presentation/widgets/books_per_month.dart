@@ -263,7 +263,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
       horizontalLines: [
         HorizontalLine(
           y: readingGoal.books.toDouble(),
-          color: context.background,
+          color: context.onBackground,
           strokeWidth: 1,
           dashArray: [10, 4],
           label: HorizontalLineLabel(
@@ -271,7 +271,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
             alignment: Alignment.topCenter,
             padding: const EdgeInsets.only(right: 8),
             style: context.bodyMedium.copyWith(
-              color: context.background,
+              color: context.onBackground,
             ),
             labelResolver: (_) => 'goal: ${readingGoal.books}',
           ),

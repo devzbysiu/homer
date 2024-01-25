@@ -52,7 +52,7 @@ class _StatsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8.0),
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(bottom: 12.0, top: 8.0),
       decoration: BoxDecoration(
         color: context.background,
         borderRadius: BorderRadius.circular(8.0),

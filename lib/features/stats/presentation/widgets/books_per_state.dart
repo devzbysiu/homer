@@ -44,29 +44,35 @@ final class _BarChartBooksPerState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // `RotatedBox` here and there is a workaround for horizontal bar chart: 
+    // `RotatedBox` here and there is a workaround for horizontal bar chart:
     // https://github.com/imaNNeo/fl_chart/issues/552#issuecomment-775812719
     return RotatedBox(
       quarterTurns: 1,
       child: Row(
         children: [
           Expanded(child: BarChart(mainData(context))),
-          RotatedBox(quarterTurns: -1, child: _ChartLegend()),
+          RotatedBox(
+            quarterTurns: -1,
+            child: _ChartLegend(
+              booksPerState: booksPerState,
+            ),
+          ),
         ],
       ),
     );
   }
 
   BarChartData mainData(BuildContext context) {
-    final barGroups = _barGroupsFromData();
+    final barGroups = _barGroupsFromData(context);
     return BarChartData(
       barGroups: barGroups,
       titlesData: const FlTitlesData(show: false),
       gridData: const FlGridData(show: false),
+      borderData: FlBorderData(show: false),
     );
   }
 
-  List<BarChartGroupData> _barGroupsFromData() {
+  List<BarChartGroupData> _barGroupsFromData(BuildContext context) {
     final forLaterCount = booksPerState[BookState.readLater];
     final readingCount = booksPerState[BookState.reading];
     final readCount = booksPerState[BookState.read];
@@ -74,12 +80,12 @@ final class _BarChartBooksPerState extends StatelessWidget {
     final forLaterBar = BarChartRodStackItem(
       0,
       forLaterCount.toDouble(),
-      Colors.red,
+      context.primary,
     );
     final readingBar = BarChartRodStackItem(
       forLaterCount.toDouble(),
       forLaterCount.toDouble() + readingCount.toDouble(),
-      Colors.blue,
+      context.secondary,
     );
     final readBar = BarChartRodStackItem(
       forLaterCount.toDouble() + readingCount.toDouble(),
@@ -105,15 +111,35 @@ final class _BarChartBooksPerState extends StatelessWidget {
 }
 
 final class _ChartLegend extends StatelessWidget {
+  const _ChartLegend({required this.booksPerState});
+
+  final BooksPerStateData booksPerState;
+
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _LegendTile(color: Colors.red, text: 'For Later'),
-        _LegendTile(color: Colors.blue, text: 'Reading'),
-        _LegendTile(color: Colors.green, text: 'Read'),
+        _LegendTile(color: context.primary, text: _waiting()),
+        _LegendTile(color: context.secondary, text: _inProgress()),
+        _LegendTile(color: Colors.green, text: _read()),
       ],
     );
+  }
+
+  String _waiting() {
+    final count = booksPerState[BookState.readLater];
+    return '${count.toString()} waiting';
+  }
+
+  String _inProgress() {
+    final count = booksPerState[BookState.reading];
+    return '${count.toString()} in progress';
+  }
+
+  String _read() {
+    final count = booksPerState[BookState.read];
+    return '${count.toString()} read';
   }
 }
 
@@ -126,7 +152,7 @@ final class _LegendTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: <Widget>[
+      children: [
         Container(
           width: 20,
           height: 20,

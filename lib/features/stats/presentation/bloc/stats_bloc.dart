@@ -70,7 +70,7 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
 
     final newBps = state.booksPerState
         .getOrElse(() => BooksPerStateData.empty())
-        .move(event.book.state, BookState.read);
+        .move(BookState.reading, BookState.read);
 
     emit(StatsState.loaded(some(newBpy), some(newBpm), some(newBps)));
   }
@@ -88,7 +88,7 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
         .getOrElse(() => BooksPerMonthData.empty());
 
     final newBps = state.booksPerState
-        .map((bps) => bps.move(event.book.state, BookState.reading))
+        .map((bps) => bps.move(BookState.read, BookState.reading))
         .getOrElse(() => BooksPerStateData.empty());
 
     emit(StatsState.loaded(some(newBpy), some(newBpm), some(newBps)));

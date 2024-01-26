@@ -60,7 +60,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
       gradient: LinearGradient(colors: _gradientColors),
       barWidth: 2,
       dotData: const FlDotData(show: true),
-      belowBarData: _belowBarStyle(),
+      belowBarData: _belowBarStyle(context),
     );
 
     return LineChartData(
@@ -84,13 +84,13 @@ final class _LineChartBooksPerYear extends StatelessWidget {
         .toList();
   }
 
-  BarAreaData _belowBarStyle() {
+  BarAreaData _belowBarStyle(BuildContext context) {
     return BarAreaData(
       show: true,
       gradient: LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: _gradientColors.map((color) => color.withOpacity(0.2)).toList(),
+        colors: [context.background, context.background.withOpacity(0.2)],
       ),
     );
   }

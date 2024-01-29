@@ -13,7 +13,7 @@ final class SettingsButton extends StatelessWidget {
       children: [
         MenuButton(
           text: 'Settings',
-          onPressed: () => context.go('/settings'),
+          onPressed: () => context.go('/home/settings'),
         )
       ],
     );

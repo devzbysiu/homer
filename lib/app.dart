@@ -5,32 +5,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'features/manage_books/presentation/pages/home.dart';
+import 'features/manage_books/presentation/pages/splash_screen.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
 import 'features/settings/presentation/pages/settings_screen.dart';
 import 'features/stats/presentation/pages/stats_screen.dart';
 
 final GoRouter _router = GoRouter(
   routes: [
-    GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const Home();
-      },
-      routes: <RouteBase>[
-        GoRoute(
-          path: 'settings',
-          builder: (BuildContext context, GoRouterState state) {
-            return const SettingsScreen();
-          },
-        ),
-        GoRoute(
-          path: 'stats',
-          builder: (BuildContext context, GoRouterState state) {
-            return const StatsScreen();
-          },
-        ),
-      ],
-    ),
+    GoRoute(path: '/', builder: (_, __) => const SplashScreen()),
+    GoRoute(path: '/home', builder: (_, __) => const Home(), routes: [
+      GoRoute(path: 'settings', builder: (_, __) => const SettingsScreen()),
+      GoRoute(path: 'stats', builder: (_, __) => const StatsScreen()),
+    ]),
   ],
 );
 
@@ -69,27 +55,6 @@ final class Homer extends StatelessWidget {
           themeMode: themeMode,
           routerConfig: _router,
         );
-
-        // return MaterialApp.router(
-        //   debugShowCheckedModeBanner: !kReleaseMode,
-        //   title: 'Homer',
-        //   theme: FlexThemeData.light(scheme: scheme, useMaterial3: true),
-        //   darkTheme: FlexThemeData.dark(scheme: scheme, useMaterial3: true),
-        //   themeMode: themeMode,
-        //   routerConfig: _router,
-        //   // TODO: Take care of splash screen
-        //   // home: FlutterSplashScreen(
-        //   //   duration: const Duration(milliseconds: 2000),
-        //   //   nextScreen: const Home(),
-        //   //   backgroundColor: Colors.white,
-        //   //   splashScreenBody: Center(
-        //   //     child: Lottie.asset(
-        //   //       'assets/splash-screen.json',
-        //   //       repeat: false,
-        //   //     ),
-        //   //   ),
-        //   // ),
-        // );
       },
     );
   }

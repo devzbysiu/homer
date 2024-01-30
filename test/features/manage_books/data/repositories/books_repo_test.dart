@@ -13,7 +13,7 @@ void main() {
   group('listAll', () {
     test('should use books data source to list books', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       final bookDTOs = [fakeBookDTO(), fakeBookDTO(), fakeBookDTO()];
       when(booksDataSource.getBooks()).thenAnswer((_) => withIt(bookDTOs));
       final repo = BooksRepo(dataSource: booksDataSource);
@@ -30,7 +30,7 @@ void main() {
 
     test('should return failure when datasource throws', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       when(booksDataSource.getBooks()).thenThrow(ListBooksException());
       final repo = BooksRepo(dataSource: booksDataSource);
 
@@ -44,7 +44,7 @@ void main() {
 
     test('should return empty list when datasource returns nothing', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       when(booksDataSource.getBooks()).thenAnswer((_) async => []);
       final repo = BooksRepo(dataSource: booksDataSource);
 
@@ -58,7 +58,7 @@ void main() {
 
     test('should return list of books when datasource returns books', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       when(booksDataSource.getBooks()).thenAnswer((_) async => [fakeBookDTO()]);
       final repo = BooksRepo(dataSource: booksDataSource);
 
@@ -74,7 +74,7 @@ void main() {
   group('add', () {
     test('should use datasource to add book', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       final book = fakeBook();
       final bookDTO = bookDTOFromBook(book);
       when(booksDataSource.add(bookDTO)).thenAnswer((_) => withUnit());
@@ -92,7 +92,7 @@ void main() {
 
     test('should return failure when datasource throws', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       when(booksDataSource.add(any)).thenThrow(AddBookException());
       final repo = BooksRepo(dataSource: booksDataSource);
       final book = fakeBook();
@@ -109,7 +109,7 @@ void main() {
   group('replaceAll', () {
     test('should return failure when datasource throws', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       when(booksDataSource.replaceAll(any)).thenThrow(ReplaceBooksException());
       final repo = BooksRepo(dataSource: booksDataSource);
       final books = [fakeBook(), fakeBook(), fakeBook()];
@@ -124,7 +124,7 @@ void main() {
 
     test('should use datasource to replace books', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       final books = [fakeBook(), fakeBook(), fakeBook()];
       final bookDTOs = books.map(bookDTOFromBook).toList();
       when(booksDataSource.replaceAll(bookDTOs)).thenAnswer((_) => withUnit());
@@ -144,7 +144,7 @@ void main() {
   group('update', () {
     test('should return failure when datasource throws', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       when(booksDataSource.update(any)).thenThrow(UpdateBookException());
       final repo = BooksRepo(dataSource: booksDataSource);
       final book = fakeBook();
@@ -159,7 +159,7 @@ void main() {
 
     test('should use datasource to replace books', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       final book = fakeBook();
       final bookDTO = bookDTOFromBook(book);
       when(booksDataSource.update(bookDTO)).thenAnswer((_) => withUnit());
@@ -179,7 +179,7 @@ void main() {
   group('delete', () {
     test('should return failure when datasource throws', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       when(booksDataSource.delete(any)).thenThrow(DeleteBooksException());
       final repo = BooksRepo(dataSource: booksDataSource);
       final books = [fakeBook(), fakeBook(), fakeBook()];
@@ -194,7 +194,7 @@ void main() {
 
     test('should use datasource to delete books', () async {
       // given
-      final booksDataSource = makeMockBooksDatasource();
+      final booksDataSource = makeMockBooksDataSource();
       final books = [fakeBook(), fakeBook(), fakeBook()];
       final bookDTOs = books.map(bookDTOFromBook).toList();
       when(booksDataSource.delete(bookDTOs)).thenAnswer((_) => withUnit());

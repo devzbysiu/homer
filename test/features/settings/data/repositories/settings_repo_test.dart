@@ -13,7 +13,7 @@ void main() {
   group('save', () {
     test('should return success', () async {
       // given
-      final settingsDataSource = makeMockSettingsDatasource();
+      final settingsDataSource = makeMockSettingsDataSource();
       when(settingsDataSource.save(any)).thenAnswer((_) => withUnit());
       final repo = SettingsRepo(dataSource: settingsDataSource);
 
@@ -28,7 +28,7 @@ void main() {
 
     test('should use settings data source to save settings', () async {
       // given
-      final settingsDataSource = makeMockSettingsDatasource();
+      final settingsDataSource = makeMockSettingsDataSource();
       final settingsDTO = fakeSettingsDTO();
       when(settingsDataSource.save(settingsDTO)).thenAnswer((_) => withUnit());
       final repo = SettingsRepo(dataSource: settingsDataSource);
@@ -50,7 +50,7 @@ void main() {
     test('should return success with default settings when datasource throws',
         () async {
       // given
-      final settingsDataSource = makeMockSettingsDatasource();
+      final settingsDataSource = makeMockSettingsDataSource();
       when(settingsDataSource.load()).thenThrow(NoSettingsException());
       final repo = SettingsRepo(dataSource: settingsDataSource);
 
@@ -65,7 +65,7 @@ void main() {
     test('should return success with settings when datasource works', () async {
       // given
       final settingsDTO = fakeSettingsDTO();
-      final settingsDataSource = makeMockSettingsDatasource();
+      final settingsDataSource = makeMockSettingsDataSource();
       when(settingsDataSource.load()).thenAnswer((_) => withIt(settingsDTO));
       final repo = SettingsRepo(dataSource: settingsDataSource);
 
@@ -79,7 +79,7 @@ void main() {
 
     test('should use settings data source to load settings', () async {
       // given
-      final settingsDataSource = makeMockSettingsDatasource();
+      final settingsDataSource = makeMockSettingsDataSource();
       final settingsDTO = fakeSettingsDTO();
       when(settingsDataSource.load()).thenAnswer((_) => withIt(settingsDTO));
       final repo = SettingsRepo(dataSource: settingsDataSource);

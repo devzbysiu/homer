@@ -17,7 +17,7 @@ void main() {
   group('fromUrl', () {
     test('should return failure when url is empty', () async {
       // given
-      final bookInfoDataSource = makeMockBookInfoDatasource();
+      final bookInfoDataSource = makeMockBookInfoDataSource();
 
       final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
@@ -34,7 +34,7 @@ void main() {
     test('should return failure when url is broken', () async {
       // given
       const brokenUrl = 'ht//\\#';
-      final bookInfoDataSource = makeMockBookInfoDatasource();
+      final bookInfoDataSource = makeMockBookInfoDataSource();
       when(bookInfoDataSource.getFromWebsite(brokenUrl)).thenThrow(
         const InvalidUrlException(brokenUrl),
       );
@@ -52,7 +52,7 @@ void main() {
     test('should return failure when response is not json', () async {
       // given
       final url = fakeUrl();
-      final bookInfoDataSource = makeMockBookInfoDatasource();
+      final bookInfoDataSource = makeMockBookInfoDataSource();
       when(bookInfoDataSource.getFromWebsite(url)).thenThrow(
         const NotJsonException('not important'),
       );
@@ -70,7 +70,7 @@ void main() {
     test('should return failure when wrong json was returned', () async {
       // given
       final url = fakeUrl();
-      final bookInfoDataSource = makeMockBookInfoDatasource();
+      final bookInfoDataSource = makeMockBookInfoDataSource();
       when(bookInfoDataSource.getFromWebsite(url)).thenThrow(
         const WrongJsonException('not important'),
       );
@@ -88,7 +88,7 @@ void main() {
     test('should return failure when request timed out', () async {
       // given
       final url = fakeUrl();
-      final bookInfoDataSource = makeMockBookInfoDatasource();
+      final bookInfoDataSource = makeMockBookInfoDataSource();
       when(bookInfoDataSource.getFromWebsite(url)).thenThrow(
         TimeoutException('not important'),
       );
@@ -106,7 +106,7 @@ void main() {
     test('should return failure when no isbn was found', () async {
       // given
       final url = fakeUrl();
-      final bookInfoDataSource = makeMockBookInfoDatasource();
+      final bookInfoDataSource = makeMockBookInfoDataSource();
       when(bookInfoDataSource.getFromWebsite(url)).thenAnswer(
         (_) => withIt(fakeExternalBookInfoDTO().copyWith(
           isbn10: none(),
@@ -128,7 +128,7 @@ void main() {
       // given
       final url = fakeUrl();
       final bookInfoDTO = fakeExternalBookInfoDTO();
-      final bookInfoDataSource = makeMockBookInfoDatasource();
+      final bookInfoDataSource = makeMockBookInfoDataSource();
       when(bookInfoDataSource.getFromWebsite(url)).thenAnswer(
         (_) => withIt(bookInfoDTO),
       );

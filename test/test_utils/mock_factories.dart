@@ -64,28 +64,28 @@ MockBackupDataSource makeMockBackupDataSource() {
   return mockDataSource;
 }
 
-MockExternalBookInfoDataSource makeMockBookInfoDatasource() {
-  final mockDataSource = MockExternalBookInfoDataSource();
+MockExternalBookInfoDataSource makeMockBookInfoDataSource() {
+  final mock = MockExternalBookInfoDataSource();
   provideDummy<ExternalBookInfoDTO>(fakeExternalBookInfoDTO());
-  return mockDataSource;
+  return mock;
 }
 
-MockSettingsDataSource makeMockSettingsDatasource() {
-  final mockDataSource = MockSettingsDataSource();
+MockSettingsDataSource makeMockSettingsDataSource() {
+  final mock = MockSettingsDataSource();
   provideDummy<SettingsDTO>(fakeSettingsDTO());
   // NOTE: SettingsDatasource does not return `Unit`, but some tests need this dummy
   provideDummy<Unit>(unit);
-  return mockDataSource;
+  return mock;
 }
 
-MockBooksDataSource makeMockBooksDatasource() {
-  final mockDataSource = MockBooksDataSource();
+MockBooksDataSource makeMockBooksDataSource() {
+  final mock = MockBooksDataSource();
   provideDummy<Unit>(unit);
-  return mockDataSource;
+  return mock;
 }
 
 MockExternalBooksDataSource makeMockExternalBooksDataSource() {
-  final mockDataSource = MockExternalBooksDataSource();
+  final mock = MockExternalBooksDataSource();
   provideDummy<ExternalBookDTO>(fakeExternalBookDTO());
-  return mockDataSource;
+  return mock;
 }

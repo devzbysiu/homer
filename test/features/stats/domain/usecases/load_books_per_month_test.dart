@@ -1,18 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:homer/core/entities/book.dart';
-import 'package:homer/core/error/failures.dart';
 import 'package:homer/core/usecase/usecase.dart';
 import 'package:homer/features/stats/domain/entities/books_per_month_data.dart';
 import 'package:homer/features/stats/domain/entities/month_info.dart';
 import 'package:homer/features/stats/domain/usecases/load_books_per_month.dart';
 import 'package:mockito/mockito.dart';
-import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('loadBooksPerMonth', () {
@@ -118,10 +116,4 @@ void main() {
       );
     });
   });
-}
-
-MockBooksRepository makeMockBooksRepo() {
-  final mockRepo = MockBooksRepository();
-  provideDummy<Result<List<Book>, Failure>>(const Success([]));
-  return mockRepo;
 }

@@ -1,15 +1,12 @@
-import 'package:homer/core/error/failures.dart';
 import 'package:homer/core/usecase/usecase.dart';
-import 'package:homer/features/settings/domain/entities/settings.dart';
 import 'package:homer/features/settings/domain/usecases/load_settings.dart';
 import 'package:mockito/mockito.dart';
-import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('loadSettings', () {
@@ -57,10 +54,4 @@ void main() {
       expect(result.tryGetSuccess()!, settings);
     });
   });
-}
-
-MockSettingsRepository makeMockSettingsRepo() {
-  final mockRepo = MockSettingsRepository();
-  provideDummy<Result<Settings, Failure>>(Success(Settings.makeDefault()));
-  return mockRepo;
 }

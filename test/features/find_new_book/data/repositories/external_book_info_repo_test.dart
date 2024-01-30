@@ -4,15 +4,14 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/error/exceptions.dart';
 import 'package:homer/core/error/failures.dart';
-import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
 import 'package:homer/features/find_new_book/data/repositories/external_book_info_repo.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../test_utils/assertion_helpers.dart';
 import '../../../../test_utils/copy_with_extensions.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('fromUrl', () {
@@ -144,10 +143,4 @@ void main() {
       expect(result.tryGetSuccess()!, externalBookInfoFromDTO(bookInfoDTO));
     });
   });
-}
-
-MockExternalBookInfoDataSource makeMockBookInfoDatasource() {
-  final mock = MockExternalBookInfoDataSource();
-  provideDummy<ExternalBookInfoDTO>(fakeExternalBookInfoDTO());
-  return mock;
 }

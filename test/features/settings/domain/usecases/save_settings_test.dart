@@ -1,4 +1,3 @@
-import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/settings/domain/usecases/save_settings.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -6,8 +5,8 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('saveSettings', () {
@@ -61,10 +60,4 @@ void main() {
       expect(result.isSuccess(), true);
     });
   });
-}
-
-MockSettingsRepository makeMockSettingsRepo() {
-  final mockRepo = MockSettingsRepository();
-  provideDummy<Result<Unit, Failure>>(const Success(unit));
-  return mockRepo;
 }

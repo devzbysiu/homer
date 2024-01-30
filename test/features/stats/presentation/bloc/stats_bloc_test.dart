@@ -137,7 +137,9 @@ void main() {
         StatsState(
           booksPerYear: some(booksPerYear.add(book)),
           booksPerMonth: some(booksPerMonth.add(book)),
-          booksPerState: some(booksPerState.move(book.state, BookState.read)),
+          booksPerState: some(
+            booksPerState.move(BookState.reading, BookState.read),
+          ),
         ),
       ],
     );
@@ -162,8 +164,9 @@ void main() {
         StatsState(
           booksPerYear: some(booksPerYear.remove(book)),
           booksPerMonth: some(booksPerMonth.remove(book)),
-          booksPerState:
-              some(booksPerState.move(book.state, BookState.reading)),
+          booksPerState: some(
+            booksPerState.move(BookState.read, BookState.reading),
+          ),
         ),
       ],
     );

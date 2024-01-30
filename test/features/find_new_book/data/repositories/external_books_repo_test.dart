@@ -2,14 +2,13 @@ import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/error/exceptions.dart';
 import 'package:homer/core/error/failures.dart';
-import 'package:homer/features/find_new_book/data/models/external_book_dto.dart';
 import 'package:homer/features/find_new_book/data/repositories/external_books_repo.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../test_utils/assertion_helpers.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('search', () {
@@ -153,8 +152,3 @@ void main() {
   });
 }
 
-MockExternalBooksDataSource makeMockExternalBooksDataSource() {
-  final mock = MockExternalBooksDataSource();
-  provideDummy<ExternalBookDTO>(fakeExternalBookDTO());
-  return mock;
-}

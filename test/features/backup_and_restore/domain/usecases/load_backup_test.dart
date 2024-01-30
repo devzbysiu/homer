@@ -1,5 +1,3 @@
-import 'package:homer/core/entities/book.dart';
-import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/backup_and_restore/domain/usecases/load_backup.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -7,14 +5,14 @@ import 'package:test/test.dart';
 
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('loadBackup', () {
     test('should use backup repo to load all books', () async {
       // given
-      MockBackupRepository mockRepo = makeMockRepo();
+      final mockRepo = makeMockBackupRepo();
       final path = fakePath();
       when(mockRepo.loadAll(path)).thenAnswer((_) => withSuccess([]));
 
@@ -32,7 +30,7 @@ void main() {
 
     test('should propagate success result from backup repo', () async {
       // given
-      MockBackupRepository mockRepo = makeMockRepo();
+      final mockRepo = makeMockBackupRepo();
       final books = [fakeBook()];
       when(mockRepo.loadAll(any)).thenAnswer((_) => withSuccess(books));
 
@@ -50,7 +48,7 @@ void main() {
 
     test('should propagate error result from backup repo', () async {
       // given
-      MockBackupRepository mockRepo = makeMockRepo();
+      final mockRepo = makeMockBackupRepo();
       final error = TestingFailure();
       when(mockRepo.loadAll(any)).thenAnswer((_) => withError(error));
 
@@ -66,10 +64,4 @@ void main() {
       expect(result, Error(error));
     });
   });
-}
-
-MockBackupRepository makeMockRepo() {
-  final mockRepo = MockBackupRepository();
-  provideDummy<Result<List<Book>, Failure>>(const Success([]));
-  return mockRepo;
 }

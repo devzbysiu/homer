@@ -4,10 +4,10 @@ import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/backup_and_restore/data/repositories/backup_repo.dart';
 import 'package:mockito/mockito.dart';
-import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
 import '../../../../test_utils/mocks.mocks.dart';
 
@@ -87,10 +87,4 @@ void main() {
       expect(result.isSuccess(), true);
     });
   });
-}
-
-MockBackupDataSource makeMockBackupDataSource() {
-  final mockDataSource = MockBackupDataSource();
-  provideDummy<Unit>(unit);
-  return mockDataSource;
 }

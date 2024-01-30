@@ -1,14 +1,11 @@
-import 'package:homer/core/entities/book.dart';
-import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/find_new_book/domain/usecases/search_and_check_saved.dart';
 import 'package:mockito/mockito.dart';
-import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('searchForBooks', () {
@@ -135,16 +132,4 @@ void main() {
       expect(result.tryGetSuccess()!, foundBooks);
     });
   });
-}
-
-MockBooksRepository makeMockBooksRepo() {
-  final mockRepo = MockBooksRepository();
-  provideDummy<Result<List<Book>, Failure>>(const Success([]));
-  return mockRepo;
-}
-
-MockExternalBooksRepository makeMockExternalBooksRepo() {
-  final mockRepo = MockExternalBooksRepository();
-  provideDummy<Result<List<Book>, Failure>>(Success([fakeBook()]));
-  return mockRepo;
 }

@@ -1,15 +1,12 @@
-import 'package:homer/core/entities/tag.dart';
-import 'package:homer/core/error/failures.dart';
 import 'package:homer/core/usecase/usecase.dart';
 import 'package:homer/features/tags_manager/domain/usecases/list_tags.dart';
 import 'package:mockito/mockito.dart';
-import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('listTags', () {
@@ -59,8 +56,3 @@ void main() {
   });
 }
 
-MockTagsRepository makeMockTagsRepo() {
-  final mockRepo = MockTagsRepository();
-  provideDummy<Result<List<Tag>, Failure>>(const Success([]));
-  return mockRepo;
-}

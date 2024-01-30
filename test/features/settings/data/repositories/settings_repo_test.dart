@@ -1,15 +1,13 @@
 import 'package:homer/core/error/exceptions.dart';
-import 'package:homer/features/settings/data/models/settings_dto.dart';
 import 'package:homer/features/settings/data/repositories/settings_repo.dart';
 import 'package:homer/features/settings/domain/entities/settings.dart';
 import 'package:mockito/mockito.dart';
-import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/assertion_helpers.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('save', () {
@@ -98,9 +96,3 @@ void main() {
   });
 }
 
-MockSettingsDataSource makeMockSettingsDatasource() {
-  final mock = MockSettingsDataSource();
-  provideDummy<Unit>(unit);
-  provideDummy<SettingsDTO>(fakeSettingsDTO());
-  return mock;
-}

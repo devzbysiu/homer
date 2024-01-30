@@ -2,13 +2,12 @@ import 'package:homer/core/error/exceptions.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/manage_books/data/repositories/books_repo.dart';
 import 'package:mockito/mockito.dart';
-import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_utils/assertion_helpers.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('listAll', () {
@@ -211,10 +210,4 @@ void main() {
       verifyNoMoreInteractions(booksDataSource);
     });
   });
-}
-
-MockBooksDataSource makeMockBooksDatasource() {
-  final mock = MockBooksDataSource();
-  provideDummy<Unit>(unit);
-  return mock;
 }

@@ -1,15 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:homer/core/entities/book.dart';
-import 'package:homer/core/error/failures.dart';
-import 'package:homer/features/find_new_book/domain/entities/external_book_info.dart';
 import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book.dart';
 import 'package:mockito/mockito.dart';
-import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../test_utils/failure.dart';
 import '../../../../test_utils/fakes.dart';
+import '../../../../test_utils/mock_factories.dart';
 import '../../../../test_utils/mock_return_helpers.dart';
-import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('fetchSharedBook', () {
@@ -22,7 +18,7 @@ void main() {
       );
 
       final book = fakeBook();
-      final externalBooksRepo = makeMockExternalBooksRepository();
+      final externalBooksRepo = makeMockExternalBooksRepo();
       when(externalBooksRepo.fromBookInfo(any)).thenAnswer(
         (_) => withSuccess(book),
       );
@@ -57,7 +53,7 @@ void main() {
 
       final fetchSharedBook = FetchSharedBookImpl(
         externalBookInfoRepo,
-        makeMockExternalBooksRepository(),
+        makeMockExternalBooksRepo(),
       );
 
       final url = fakeUrl();
@@ -78,7 +74,7 @@ void main() {
       );
 
       final failure = TestingFailure();
-      final externalBooksRepo = makeMockExternalBooksRepository();
+      final externalBooksRepo = makeMockExternalBooksRepo();
       when(externalBooksRepo.fromBookInfo(any)).thenAnswer(
         (_) => withError(failure),
       );
@@ -107,7 +103,7 @@ void main() {
       );
 
       final book = fakeBook();
-      final externalBooksRepo = makeMockExternalBooksRepository();
+      final externalBooksRepo = makeMockExternalBooksRepo();
       when(externalBooksRepo.fromBookInfo(any)).thenAnswer(
         (_) => withSuccess(book),
       );
@@ -129,16 +125,3 @@ void main() {
   });
 }
 
-MockExternalBookInfoRepository makeMockExternalBookInfoRepo() {
-  final mockRepo = MockExternalBookInfoRepository();
-  provideDummy<Result<ExternalBookInfo, Failure>>(
-    Success(fakeExternalBookInfo()),
-  );
-  return mockRepo;
-}
-
-MockExternalBooksRepository makeMockExternalBooksRepository() {
-  final mockRepo = MockExternalBooksRepository();
-  provideDummy<Result<Book, Failure>>(Success(fakeBook()));
-  return mockRepo;
-}

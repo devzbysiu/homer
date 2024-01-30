@@ -330,9 +330,9 @@ BooksPerMonthData fakeBooksPerMonth() {
 }
 
 BooksPerStateData fakeBooksPerState() {
-  return BooksPerStateData(const {
-    ComparableBookState(BookState.readLater): 10,
-    ComparableBookState(BookState.reading): 2,
-    ComparableBookState(BookState.read): 5,
+  return BooksPerStateData({
+    const ComparableBookState(BookState.readLater): 10,
+    const ComparableBookState(BookState.reading): 2,
+    const ComparableBookState(BookState.read): 5,
   });
 }

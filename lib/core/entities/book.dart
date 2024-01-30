@@ -132,7 +132,8 @@ enum BookState {
   read,
 }
 
-final class ComparableBookState implements Comparable<ComparableBookState> {
+final class ComparableBookState extends Equatable
+    implements Comparable<ComparableBookState> {
   const ComparableBookState(this.state);
 
   final BookState state;
@@ -141,6 +142,9 @@ final class ComparableBookState implements Comparable<ComparableBookState> {
   int compareTo(ComparableBookState other) {
     return state.index.compareTo(other.state.index);
   }
+
+  @override
+  List<Object> get props => [state];
 }
 
 extension StateChangeExt on BookState {

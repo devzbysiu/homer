@@ -20,8 +20,9 @@ final class LoadBooksPerMonthImpl implements LoadBooksPerMonth {
     final result = await repo.listAll();
     if (result.isError()) return Error(result.tryGetError()!);
     final books = result.tryGetSuccess()!;
-    final years = _groupByFinishedMonthInfo(books);
-    final bookCounts = years.map((year, books) => MapEntry(year, books.length));
+    final monthInfos = _groupByFinishedMonthInfo(books);
+    final bookCounts =
+        monthInfos.map((monthInfo, books) => MapEntry(monthInfo, books.length));
     return Success(BooksPerMonthData(bookCounts));
   }
 

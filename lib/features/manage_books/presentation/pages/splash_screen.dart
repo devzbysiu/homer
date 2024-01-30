@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../core/utils/theme.dart';
 
-class SplashScreen extends StatelessWidget {
+final class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override

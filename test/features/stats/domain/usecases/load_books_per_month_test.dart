@@ -44,7 +44,9 @@ void main() {
       expect(result.isError(), true);
     });
 
-    test('should return books grouped by latest year and month when books repo works', () async {
+    test(
+        'should return books grouped by latest year and month when books repo works',
+        () async {
       // given
       final booksRepo = makeMockBooksRepo();
       final books = [

@@ -42,7 +42,8 @@ void main() {
       expect(result.isError(), true);
     });
 
-    test('should return books grouped by state when books repo works', () async {
+    test('should return books grouped by state when books repo works',
+        () async {
       // given
       final booksRepo = makeMockBooksRepo();
       final books = [

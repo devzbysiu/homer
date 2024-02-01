@@ -5,6 +5,7 @@ import '../../../../core/utils/theme.dart';
 import '../widgets/books_per_month.dart';
 import '../widgets/books_per_state.dart';
 import '../widgets/books_per_year.dart';
+import '../widgets/other_stats.dart';
 
 final class StatsScreen extends StatelessWidget {
   const StatsScreen({super.key});
@@ -32,6 +33,8 @@ final class StatsScreen extends StatelessWidget {
               const BooksPerYear().animate(effects: _effects),
               spaceBetween(50),
               const BooksPerMonth().animate(effects: _effects),
+              spaceBetween(50),
+              const OtherStats().animate(effects: _effects),
             ],
           ),
         ),

@@ -23,6 +23,7 @@ import 'package:homer/features/settings/domain/usecases/save_settings.dart';
 import 'package:homer/features/stats/domain/usecases/load_books_per_month.dart';
 import 'package:homer/features/stats/domain/usecases/load_books_per_state.dart';
 import 'package:homer/features/stats/domain/usecases/load_books_per_year.dart';
+import 'package:homer/features/stats/domain/usecases/load_other_stats.dart';
 import 'package:homer/features/tags_manager/domain/repositories/tags_repository.dart';
 import 'package:homer/features/tags_manager/domain/usecases/list_tags.dart';
 import 'package:mockito/annotations.dart';
@@ -57,5 +58,6 @@ import 'package:share_handler/share_handler.dart';
   LoadBooksPerYear,
   LoadBooksPerMonth,
   LoadBooksPerState,
+  LoadOtherStats,
 ])
 void main() {}

@@ -70,12 +70,16 @@ import 'package:homer/features/stats/domain/entities/books_per_state_data.dart'
     as _i46;
 import 'package:homer/features/stats/domain/entities/books_per_year_data.dart'
     as _i42;
+import 'package:homer/features/stats/domain/entities/other_stats_data.dart'
+    as _i48;
 import 'package:homer/features/stats/domain/usecases/load_books_per_month.dart'
     as _i43;
 import 'package:homer/features/stats/domain/usecases/load_books_per_state.dart'
     as _i45;
 import 'package:homer/features/stats/domain/usecases/load_books_per_year.dart'
     as _i41;
+import 'package:homer/features/stats/domain/usecases/load_other_stats.dart'
+    as _i47;
 import 'package:homer/features/tags_manager/domain/repositories/tags_repository.dart'
     as _i38;
 import 'package:homer/features/tags_manager/domain/usecases/list_tags.dart'
@@ -1111,4 +1115,32 @@ class MockLoadBooksPerState extends _i1.Mock implements _i45.LoadBooksPerState {
           ),
         )),
       ) as _i3.Future<_i4.Result<_i46.BooksPerStateData, _i6.Failure>>);
+}
+
+/// A class which mocks [LoadOtherStats].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockLoadOtherStats extends _i1.Mock implements _i47.LoadOtherStats {
+  MockLoadOtherStats() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<_i48.OtherStatsData, _i6.Failure>> call(
+          _i29.NoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue:
+            _i3.Future<_i4.Result<_i48.OtherStatsData, _i6.Failure>>.value(
+                _i7.dummyValue<_i4.Result<_i48.OtherStatsData, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<_i48.OtherStatsData, _i6.Failure>>);
 }

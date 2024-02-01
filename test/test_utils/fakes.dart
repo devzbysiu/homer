@@ -20,6 +20,7 @@ import 'package:homer/features/stats/domain/entities/books_per_month_data.dart';
 import 'package:homer/features/stats/domain/entities/books_per_state_data.dart';
 import 'package:homer/features/stats/domain/entities/books_per_year_data.dart';
 import 'package:homer/features/stats/domain/entities/month_info.dart';
+import 'package:homer/features/stats/domain/entities/other_stats_data.dart';
 
 Book fakeBook() {
   return Book(
@@ -334,5 +335,14 @@ BooksPerStateData fakeBooksPerState() {
     const ComparableBookState(BookState.readLater): 10,
     const ComparableBookState(BookState.reading): 2,
     const ComparableBookState(BookState.read): 5,
+  });
+}
+
+OtherStatsData fakeOtherStats() {
+  return OtherStatsData({
+    MonthInfo(2023, 10): 1,
+    MonthInfo(2023, 11): 1,
+    MonthInfo(2023, 12): 1,
+    MonthInfo(2024, 1): 2,
   });
 }

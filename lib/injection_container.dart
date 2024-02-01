@@ -42,6 +42,7 @@ import 'features/settings/presentation/bloc/settings_bloc.dart';
 import 'features/stats/domain/usecases/load_books_per_month.dart';
 import 'features/stats/domain/usecases/load_books_per_state.dart';
 import 'features/stats/domain/usecases/load_books_per_year.dart';
+import 'features/stats/domain/usecases/load_other_stats.dart';
 import 'features/stats/presentation/bloc/stats_bloc.dart';
 import 'features/tags_manager/data/repositories/in_memory_tags_repo.dart';
 import 'features/tags_manager/domain/repositories/tags_repository.dart';
@@ -94,6 +95,7 @@ Future<void> initDi({required Env env}) async {
       loadBooksPerYear: sl(),
       loadBooksPerMonth: sl(),
       loadBooksPerState: sl(),
+      loadOtherStats: sl(),
     );
   });
 
@@ -124,6 +126,7 @@ Future<void> initDi({required Env env}) async {
   sl.registerFactory<LoadBooksPerYear>(() => LoadBooksPerYearImpl(sl()));
   sl.registerFactory<LoadBooksPerMonth>(() => LoadBooksPerMonthImpl(sl()));
   sl.registerFactory<LoadBooksPerState>(() => LoadBooksPerStateImpl(sl()));
+  sl.registerFactory<LoadOtherStats>(() => LoadOtherStatsImpl(sl()));
 
   // Repositories
   sl.registerLazySingleton<BooksRepository>(() => BooksRepo(dataSource: sl()));

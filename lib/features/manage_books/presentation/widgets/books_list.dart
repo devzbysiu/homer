@@ -7,7 +7,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
-import 'package:pull_down_button/pull_down_button.dart';
 import 'package:swipeable_tile/swipeable_tile.dart';
 import 'package:vibration/vibration.dart';
 
@@ -20,7 +19,6 @@ import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
 import '../../../stats/presentation/bloc/stats_bloc.dart';
-import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
 import '../bloc/delete/delete_books_bloc.dart';
 import '../bloc/listing/books_bloc.dart';
 import '../bloc/navigation/app_tab_bloc.dart';

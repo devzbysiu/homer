@@ -219,7 +219,7 @@ final class _RemoteBookCard extends StatelessWidget {
       height: 280,
       imageProvider: _imageProvider() as ImageProvider<Object>,
       tags: const [],
-      title: BookTitle(title: book.title),
+      title: BookTitleAndTagTile(book: book),
       endColor: Colors.black,
       description: BookAuthors(authorNames: book.authors),
       footer: BookCardFooter(

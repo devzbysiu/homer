@@ -27,15 +27,19 @@ final class StatsScreen extends StatelessWidget {
         child: SafeArea(
           child: ListView(
             children: [
-              const BooksPerState(),
+              const BooksPerState().animate(effects: _effects),
               spaceBetween(50),
-              const BooksPerYear(),
+              const BooksPerYear().animate(effects: _effects),
               spaceBetween(50),
-              const BooksPerMonth(),
+              const BooksPerMonth().animate(effects: _effects),
             ],
           ),
         ),
       ),
     );
+  }
+
+  List<Effect<dynamic>> get _effects {
+    return [const FadeEffect(duration: Duration(milliseconds: 700))];
   }
 }

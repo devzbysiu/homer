@@ -35,7 +35,7 @@ final class Homer extends StatelessWidget {
                 : ThemeMode.light;
 
         return MaterialApp.router(
-          debugShowCheckedModeBanner: !kReleaseMode,
+          debugShowCheckedModeBanner: kDebugMode,
           title: 'Homer',
           theme: FlexColorScheme.light(scheme: scheme, useMaterial3: true)
               .toTheme

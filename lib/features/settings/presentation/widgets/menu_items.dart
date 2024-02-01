@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/utils/theme.dart';
@@ -17,8 +18,8 @@ final class MenuItems extends StatelessWidget {
       children: [
         const BackupButton(),
         spaceBetween(),
-        const RestoreButton(),
-        spaceBetween(),
+        if (kDebugMode) const RestoreButton(),
+        if (kDebugMode) spaceBetween(),
         const StatsButton(),
         spaceBetween(),
         const SettingsButton(),

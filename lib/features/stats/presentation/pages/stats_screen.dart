@@ -40,6 +40,9 @@ final class StatsScreen extends StatelessWidget {
   }
 
   List<Effect<dynamic>> get _effects {
-    return [const FadeEffect(duration: Duration(milliseconds: 700))];
+    return [
+      const SlideEffect(duration: Duration(milliseconds: 700)),
+      const FadeEffect(duration: Duration(milliseconds: 700)),
+    ];
   }
 }

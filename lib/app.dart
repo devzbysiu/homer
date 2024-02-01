@@ -25,7 +25,7 @@ final class Homer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const scheme = FlexScheme.amber;
+    const scheme = FlexScheme.material;
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
         final themeMode = state.useSystemTheme

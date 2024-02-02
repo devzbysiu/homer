@@ -23,7 +23,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     required this.filterBooks,
   }) : super(const BooksState.initial()) {
     on<RefreshBooksList>(_onRefreshBooksList);
-    on<BookAdded>(_onBookAdded);
+    on<SaveBook>(_onBookAdded);
     on<BookSwipedRight>(_onBookSwipedRight);
     on<BookSwipedLeft>(_onBookSwipedLeft);
     on<TagToggled>(_onTagToggled);
@@ -55,7 +55,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   }
 
   Future<void> _onBookAdded(
-    BookAdded event,
+    SaveBook event,
     Emitter<BooksState> emit,
   ) async {
     final result = await addBook(AddParams(
@@ -127,10 +127,6 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
 }
 
 extension BooksContextExt on BuildContext {
-  void addBook(Book book, BookState state, List<Tag> tags) {
-    _emitBooksEvt(BookAdded(book, state, tags));
-  }
-
   void bookSwipedRight(Book book) {
     _emitBooksEvt(BookSwipedRight(book));
   }

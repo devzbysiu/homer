@@ -1,5 +1,8 @@
 import 'package:equatable/equatable.dart';
 
+import '../entities/book.dart';
+import '../entities/tag.dart';
+
 abstract class BusEvent extends Equatable {
   const BusEvent();
 
@@ -28,3 +31,34 @@ final class BackupStarted extends BusEvent {
 }
 
 final class BackupFinished extends BusEvent {}
+
+final class SearchStarted extends BusEvent {
+  const SearchStarted(this.query);
+
+  final String query;
+
+  @override
+  List<Object> get props => [query];
+}
+
+final class SaveBookStarted extends BusEvent {
+  const SaveBookStarted(this.book, this.bookState, this.selectedTags);
+
+  final Book book;
+
+  final BookState bookState;
+
+  final List<Tag> selectedTags;
+
+  @override
+  List<Object> get props => [book, bookState, selectedTags];
+}
+
+final class SuggestionPicked extends BusEvent {
+  const SuggestionPicked(this.book);
+
+  final Book book;
+
+  @override
+  List<Object> get props => [book];
+}

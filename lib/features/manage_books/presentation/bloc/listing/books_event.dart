@@ -6,8 +6,8 @@ abstract class BooksEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class BookAdded extends BooksEvent {
-  BookAdded(this.book, this.bookState, this.selectedTags);
+final class SaveBook extends BooksEvent {
+  SaveBook(this.book, this.bookState, this.selectedTags);
 
   final Book book;
 

@@ -66,7 +66,7 @@ void main() {
           .onListBooks(Success(books))
           .onAddBooks(const Success(unit))
           .get(),
-      act: (bloc) => bloc.add(BookAdded(newBook, newBook.state, const [])),
+      act: (bloc) => bloc.add(SaveBook(newBook, newBook.state, const [])),
       expect: () => [BooksState(books: books, value: StateValue.booksLoaded)],
       verify: (bloc) {
         verify(bloc.addBook(AddParams(
@@ -84,7 +84,7 @@ void main() {
           .onListBooks(Success(books))
           .onAddBooks(Error(TestingFailure()))
           .get(),
-      act: (bloc) => bloc.add(BookAdded(newBook, newBook.state, const [])),
+      act: (bloc) => bloc.add(SaveBook(newBook, newBook.state, const [])),
       expect: () => [
         BooksState(books: books, value: StateValue.booksLoaded),
         const BooksState(books: [], value: StateValue.loadingFailed),

@@ -51,21 +51,3 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
     emit(const BookSearchState.noPickedBook());
   }
 }
-
-extension BookSearchContextExt on BuildContext {
-  void initiateSearch(String query) {
-    _emitSearchForBooksEvt(SearchInitiated(query));
-  }
-
-  void clearPickedBook() {
-    _emitSearchForBooksEvt(ClearPickedBook());
-  }
-
-  void pickSuggestedBook(Book book) {
-    _emitSearchForBooksEvt(SuggestedBookPicked(book));
-  }
-
-  void _emitSearchForBooksEvt(BookSearchEvent event) {
-    read<BookSearchBloc>().add(event);
-  }
-}

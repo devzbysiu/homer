@@ -45,10 +45,6 @@ extension OnBookTagsContextExt on BuildContext {
     return read<OnBookTagsBloc>().state.selectedTags;
   }
 
-  void clearSelectedTags() {
-    _emitBookTagsEvt(ClearSelectedTags());
-  }
-
   void selectTag(Tag tag) {
     _emitBookTagsEvt(TagSelected(tag));
   }

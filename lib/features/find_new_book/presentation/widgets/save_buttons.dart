@@ -43,17 +43,20 @@ final class _SaveButtons extends StatelessWidget {
 }
 
 final class _SavingButton extends StatelessWidget {
-  const _SavingButton({
+  _SavingButton({
     required this.pickedBook,
     required this.bookState,
     required this.icon,
-  });
+    Bus? eventBus,
+  }) : _eventBus = eventBus ?? sl<Bus>();
 
   final Book pickedBook;
 
   final BookState bookState;
 
   final IconData icon;
+
+  final Bus _eventBus;
 
   @override
   Widget build(BuildContext context) {
@@ -63,12 +66,9 @@ final class _SavingButton extends StatelessWidget {
       icon: Icon(icon),
     );
   }
-}
 
-void _addBook(BuildContext context, Book pickedBook, BookState pickedState) {
-  final selectedTags = context.selectedTags();
-  context.addBook(pickedBook, pickedState, selectedTags);
-  context.clearPickedBook();
-  context.clearSharedBook();
-  context.clearSelectedTags();
+  void _addBook(BuildContext context, Book pickedBook, BookState pickedState) {
+    final selectedTags = context.selectedTags();
+    _eventBus.fire(SaveBookStarted(pickedBook, pickedState, selectedTags));
+  }
 }

@@ -34,7 +34,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
         mainActionButtonBuilder: _mainActionButton,
         bottomBarTheme: _bottomBarTheme(context),
         onSelectItem: (idx) => _handleIndexChanged(idx, context),
-        sheetChild: const BottomDrawerContent(),
+        sheetChild: BottomDrawerContent(),
         items: const [
           BottomBarWithSheetItem(
             label: 'For Later',

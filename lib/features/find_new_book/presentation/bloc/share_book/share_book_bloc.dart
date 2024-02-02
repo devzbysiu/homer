@@ -56,13 +56,3 @@ final class ShareBookBloc extends Bloc<ShareBookEvent, ShareBookState> {
     emit(const ShareBookState.bookNotShared());
   }
 }
-
-extension ShareBookContextExt on BuildContext {
-  void clearSharedBook() {
-    _emitShareBookEvt(ClearSharedBook());
-  }
-
-  void _emitShareBookEvt(ShareBookEvent event) {
-    read<ShareBookBloc>().add(event);
-  }
-}

@@ -179,5 +179,8 @@ Future<void> initDi({required Env env}) async {
     backupBloc: sl(),
     statsBloc: sl(),
     booksBloc: sl(),
+    bookSearchBloc: sl(),
+    shareBookBloc: sl(),
+    onBookTagsBloc: sl(),
   ));
 }

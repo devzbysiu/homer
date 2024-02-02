@@ -1,9 +1,9 @@
-import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
+import '../../../../core/orchestrator/bus.dart';
 import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/menu_button.dart';
@@ -11,10 +11,9 @@ import '../../../../injection_container.dart';
 import '../bloc/backup_bloc.dart';
 
 final class RestoreButton extends StatelessWidget {
-  RestoreButton({super.key, EventBus? eventBus})
-      : _eventBus = eventBus ?? sl<EventBus>();
+  RestoreButton({super.key, Bus? eventBus}) : _eventBus = eventBus ?? sl<Bus>();
 
-  final EventBus _eventBus;
+  final Bus _eventBus;
 
   @override
   Widget build(BuildContext context) {

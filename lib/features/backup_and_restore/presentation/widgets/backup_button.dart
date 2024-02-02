@@ -22,10 +22,7 @@ final class BackupButton extends StatelessWidget {
           builder: (context, backupDirectory) {
             return MenuButton(
               text: 'Backup',
-              onPressed: () async => await _triggerBackup(
-                backupDirectory,
-                context,
-              ),
+              onPressed: () => _triggerBackup(backupDirectory, context),
             );
           },
         ),
@@ -46,8 +43,8 @@ final class BackupButton extends StatelessWidget {
     );
   }
 
-  Future<void> _triggerBackup(Directory directory, BuildContext context) async {
+  void _triggerBackup(Directory directory, BuildContext context) {
     final backupPath = '${directory.path}/homer-backup.json';
-    if (context.mounted) context.createBackup(backupPath);
+    context.createBackup(backupPath);
   }
 }

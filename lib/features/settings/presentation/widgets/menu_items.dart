@@ -18,7 +18,7 @@ final class MenuItems extends StatelessWidget {
       children: [
         const BackupButton(),
         spaceBetween(),
-        if (kDebugMode) const RestoreButton(),
+        if (kDebugMode) RestoreButton(),
         if (kDebugMode) spaceBetween(),
         const StatsButton(),
         spaceBetween(),

@@ -2,6 +2,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
+import 'package:homer/core/orchestrator/bus.dart';
+import 'package:homer/core/orchestrator/events.dart';
 import 'package:homer/features/backup_and_restore/domain/usecases/load_backup.dart';
 import 'package:homer/features/backup_and_restore/domain/usecases/make_backup.dart';
 import 'package:homer/features/backup_and_restore/domain/usecases/replace_all_books.dart';
@@ -30,6 +32,7 @@ void main() {
       verify: (bloc) {
         verify(bloc.loadBackup(RestoreParams(path: path)));
         verify(bloc.replaceAllBooks(ReplaceParams(books: books)));
+        verify(bloc.eventBus.fire(RestoreFinished()));
       },
     );
 
@@ -88,6 +91,7 @@ final class BlocMock {
     provideDummy<Result<List<Book>, Failure>>(const Success([]));
     provideDummy<Result<Unit, Failure>>(const Success(unit));
 
+    _eventBus = MockBus();
     _loadBackup = MockLoadBackup();
     _makeBackup = MockMakeBackup();
     _replaceAllBooks = MockReplaceAllBooks();
@@ -96,6 +100,8 @@ final class BlocMock {
     when(_replaceAllBooks.call(any)).thenAnswer((_) => withSuccess(unit));
     when(_makeBackup.call(any)).thenAnswer((_) => withSuccess(unit));
   }
+
+  late final Bus _eventBus;
 
   late final MockLoadBackup _loadBackup;
 
@@ -122,6 +128,7 @@ final class BlocMock {
 
   BackupBloc _createMock() {
     return BackupBloc(
+      eventBus: _eventBus,
       loadBackup: _loadBackup,
       makeBackup: _makeBackup,
       replaceAllBooks: _replaceAllBooks,

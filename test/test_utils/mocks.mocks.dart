@@ -8,6 +8,8 @@ import 'dart:async' as _i3;
 import 'package:homer/core/entities/book.dart' as _i5;
 import 'package:homer/core/entities/tag.dart' as _i39;
 import 'package:homer/core/error/failures.dart' as _i6;
+import 'package:homer/core/orchestrator/bus.dart' as _i49;
+import 'package:homer/core/orchestrator/events.dart' as _i50;
 import 'package:homer/core/usecase/usecase.dart' as _i29;
 import 'package:homer/features/backup_and_restore/data/datasources/backup_data_source.dart'
     as _i8;
@@ -1143,4 +1145,32 @@ class MockLoadOtherStats extends _i1.Mock implements _i47.LoadOtherStats {
           ),
         )),
       ) as _i3.Future<_i4.Result<_i48.OtherStatsData, _i6.Failure>>);
+}
+
+/// A class which mocks [Bus].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBus extends _i1.Mock implements _i49.Bus {
+  MockBus() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  void fire<T extends _i50.BusEvent>(T? event) => super.noSuchMethod(
+        Invocation.method(
+          #fire,
+          [event],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void on<T extends _i50.BusEvent>(void Function(T)? onEvent) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #on,
+          [onEvent],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

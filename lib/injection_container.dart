@@ -1,8 +1,11 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_config.dart';
+import 'core/orchestrator/bus.dart';
+import 'core/orchestrator/orchestrator.dart';
 import 'features/backup_and_restore/data/datasources/backup_data_source.dart';
 import 'features/backup_and_restore/data/repositories/backup_repo.dart';
 import 'features/backup_and_restore/domain/repositories/backup_repository.dart';
@@ -56,47 +59,43 @@ Future<void> initDi({required Env env}) async {
   final config = await AppConfig.forEnvironment(env);
   sl.registerFactory(() => config);
 
-  // Features
-  sl.registerFactory(() => AppTabBloc());
-  sl.registerFactory(() => BookSummaryBloc());
-  sl.registerFactory(() {
-    return BooksBloc(
-      addBook: sl(),
-      listBooks: sl(),
-      updateBook: sl(),
-      filterBooks: sl(),
+  sl.registerSingleton<Bus>(BusImpl(EventBus()));
+
+  // External
+  sl.registerLazySingleton<ShareHandlerPlatform>(() {
+    return ShareHandlerPlatform.instance;
+  });
+
+  // Data sources
+  final isarDataSource = await IsarDataSource.create();
+  sl.registerLazySingleton<BooksDataSource>(() => isarDataSource);
+  sl.registerLazySingleton<ExternalBooksDataSource>(() => ExternalBooks());
+  sl.registerLazySingleton<ExternalBookInfoDataSource>(
+    () => ScraperDataSource(config: sl()),
+  );
+  sl.registerLazySingleton<BackupDataSource>(() => JsonFileBackupDataSource());
+
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton<SettingsDataSource>(() {
+    return SharedPrefsSettingsDataSource(
+      sharedPreferences: sharedPreferences,
     );
   });
-  sl.registerFactory(() => DeleteBooksBloc(deleteBooks: sl()));
-  sl.registerFactory(() => TagsBloc(listTags: sl()));
-  sl.registerFactory(() => BookSearchBloc(searchForBooks: sl()));
-  sl.registerFactory(() {
-    return ShareBookBloc(
-      shareHandler: sl(),
-      fetchSharedBook: sl(),
-    );
+
+  // Repositories
+  sl.registerLazySingleton<BooksRepository>(() => BooksRepo(dataSource: sl()));
+  sl.registerLazySingleton<TagsRepository>(() => InMemoryTagsRepo());
+  sl.registerLazySingleton<ExternalBooksRepository>(() {
+    return ExternalBooksRepo(dataSource: sl());
   });
-  sl.registerFactory(() => OnBookTagsBloc());
-  sl.registerFactory(() {
-    return BackupBloc(
-      loadBackup: sl(),
-      replaceAllBooks: sl(),
-      makeBackup: sl(),
-    );
+  sl.registerLazySingleton<ExternalBookInfoRepository>(() {
+    return ExternalBookInfoRepo(dataSource: sl());
   });
-  sl.registerFactory(() {
-    return SettingsBloc(
-      saveSettings: sl(),
-      loadSettings: sl(),
-    );
+  sl.registerLazySingleton<BackupRepository>(() {
+    return BackupRepo(dataSource: sl());
   });
-  sl.registerFactory(() {
-    return StatsBloc(
-      loadBooksPerYear: sl(),
-      loadBooksPerMonth: sl(),
-      loadBooksPerState: sl(),
-      loadOtherStats: sl(),
-    );
+  sl.registerLazySingleton<SettingsRepository>(() {
+    return SettingsRepo(dataSource: sl());
   });
 
   // Use cases
@@ -116,54 +115,69 @@ Future<void> initDi({required Env env}) async {
     () => FetchSharedBookImpl(sl(), sl()),
   );
   // backup and restore
-  sl.registerFactory<LoadBackup>(() => LoadBackupImpl(sl()));
-  sl.registerFactory<ReplaceAllBooks>(() => ReplaceAllBooksImpl(sl()));
-  sl.registerFactory<MakeBackup>(() => MakeBackupImpl(sl(), sl()));
+  sl.registerLazySingleton<LoadBackup>(() => LoadBackupImpl(sl()));
+  sl.registerLazySingleton<ReplaceAllBooks>(() => ReplaceAllBooksImpl(sl()));
+  sl.registerLazySingleton<MakeBackup>(() => MakeBackupImpl(sl(), sl()));
   // settings
-  sl.registerFactory<SaveSettings>(() => SaveSettingsImpl(sl()));
-  sl.registerFactory<LoadSettings>(() => LoadSettingsImpl(sl()));
+  sl.registerLazySingleton<SaveSettings>(() => SaveSettingsImpl(sl()));
+  sl.registerLazySingleton<LoadSettings>(() => LoadSettingsImpl(sl()));
   // stats
-  sl.registerFactory<LoadBooksPerYear>(() => LoadBooksPerYearImpl(sl()));
-  sl.registerFactory<LoadBooksPerMonth>(() => LoadBooksPerMonthImpl(sl()));
-  sl.registerFactory<LoadBooksPerState>(() => LoadBooksPerStateImpl(sl()));
-  sl.registerFactory<LoadOtherStats>(() => LoadOtherStatsImpl(sl()));
+  sl.registerLazySingleton<LoadBooksPerYear>(() => LoadBooksPerYearImpl(sl()));
+  sl.registerLazySingleton<LoadBooksPerMonth>(
+      () => LoadBooksPerMonthImpl(sl()));
+  sl.registerLazySingleton<LoadBooksPerState>(
+      () => LoadBooksPerStateImpl(sl()));
+  sl.registerLazySingleton<LoadOtherStats>(() => LoadOtherStatsImpl(sl()));
 
-  // Repositories
-  sl.registerLazySingleton<BooksRepository>(() => BooksRepo(dataSource: sl()));
-  sl.registerLazySingleton<TagsRepository>(() => InMemoryTagsRepo());
-  sl.registerLazySingleton<ExternalBooksRepository>(() {
-    return ExternalBooksRepo(dataSource: sl());
+  // Features
+  sl.registerLazySingleton(() => AppTabBloc());
+  sl.registerLazySingleton(() => BookSummaryBloc());
+  sl.registerLazySingleton(() {
+    return BooksBloc(
+      addBook: sl(),
+      listBooks: sl(),
+      updateBook: sl(),
+      filterBooks: sl(),
+    );
   });
-  sl.registerLazySingleton<ExternalBookInfoRepository>(() {
-    return ExternalBookInfoRepo(dataSource: sl());
+  sl.registerLazySingleton(() => DeleteBooksBloc(deleteBooks: sl()));
+  sl.registerLazySingleton(() => TagsBloc(listTags: sl()));
+  sl.registerLazySingleton(() => BookSearchBloc(searchForBooks: sl()));
+  sl.registerLazySingleton(() {
+    return ShareBookBloc(
+      shareHandler: sl(),
+      fetchSharedBook: sl(),
+    );
   });
-  sl.registerLazySingleton<BackupRepository>(() {
-    return BackupRepo(dataSource: sl());
-  });
-  sl.registerLazySingleton<SettingsRepository>(() {
-    return SettingsRepo(dataSource: sl());
-  });
-
-  // Data sources
-  final isarDataSource = await IsarDataSource.create();
-  sl.registerLazySingleton<BooksDataSource>(() => isarDataSource);
-  sl.registerLazySingleton<ExternalBooksDataSource>(() => ExternalBooks());
-  sl.registerLazySingleton<ExternalBookInfoDataSource>(
-    () => ScraperDataSource(config: sl()),
+  sl.registerLazySingleton(() => OnBookTagsBloc());
+  sl.registerLazySingleton(
+    () => BackupBloc(
+      eventBus: sl(),
+      loadBackup: sl(),
+      replaceAllBooks: sl(),
+      makeBackup: sl(),
+    ),
   );
-  sl.registerLazySingleton<BackupDataSource>(() => JsonFileBackupDataSource());
-
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton<SettingsDataSource>(() {
-    return SharedPrefsSettingsDataSource(
-      sharedPreferences: sharedPreferences,
+  sl.registerLazySingleton(() {
+    return SettingsBloc(
+      saveSettings: sl(),
+      loadSettings: sl(),
+    );
+  });
+  sl.registerLazySingleton(() {
+    return StatsBloc(
+      loadBooksPerYear: sl(),
+      loadBooksPerMonth: sl(),
+      loadBooksPerState: sl(),
+      loadOtherStats: sl(),
     );
   });
 
   // Core
-
-  // External
-  sl.registerLazySingleton<ShareHandlerPlatform>(() {
-    return ShareHandlerPlatform.instance;
-  });
+  sl.registerSingleton<Orchestrator>(Orchestrator(
+    eventBus: sl(),
+    backupBloc: sl(),
+    statsBloc: sl(),
+    booksBloc: sl(),
+  ));
 }

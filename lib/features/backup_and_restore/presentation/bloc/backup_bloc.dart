@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/entities/book.dart';
+import '../../../../core/orchestrator/bus.dart';
+import '../../../../core/orchestrator/events.dart';
 import '../../domain/usecases/load_backup.dart';
 import '../../domain/usecases/make_backup.dart';
 import '../../domain/usecases/replace_all_books.dart';
@@ -14,6 +16,7 @@ part 'backup_state.dart';
 
 final class BackupBloc extends Bloc<BackupEvent, BackupState> {
   BackupBloc({
+    required this.eventBus,
     required this.loadBackup,
     required this.makeBackup,
     required this.replaceAllBooks,
@@ -21,6 +24,8 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     on<RestoreTriggered>(_onRestoreTriggered);
     on<BackupTriggered>(_onBackupTriggered);
   }
+
+  final Bus eventBus;
 
   final LoadBackup loadBackup;
 
@@ -46,7 +51,10 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
   ) async {
     final result = await replaceAllBooks(ReplaceParams(books: books));
     result.when(
-      (success) => emit(const BackupState.restoreFinished()),
+      (success) {
+        emit(const BackupState.restoreFinished());
+        eventBus.fire(RestoreFinished());
+      },
       (error) => emit(const BackupState.restoreFailed()),
     );
   }
@@ -65,10 +73,6 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
 }
 
 extension BackupContextExt on BuildContext {
-  void restoreBackup(String backupPath) {
-    _emitRestoreEvt(RestoreTriggered(backupPath));
-  }
-
   void createBackup(String backupPath) {
     _emitRestoreEvt(BackupTriggered(backupPath));
   }

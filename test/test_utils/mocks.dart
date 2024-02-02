@@ -1,3 +1,4 @@
+import 'package:homer/core/orchestrator/bus.dart';
 import 'package:homer/features/backup_and_restore/data/datasources/backup_data_source.dart';
 import 'package:homer/features/backup_and_restore/domain/repositories/backup_repository.dart';
 import 'package:homer/features/backup_and_restore/domain/usecases/load_backup.dart';
@@ -59,5 +60,6 @@ import 'package:share_handler/share_handler.dart';
   LoadBooksPerMonth,
   LoadBooksPerState,
   LoadOtherStats,
+  Bus,
 ])
 void main() {}

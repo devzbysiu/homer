@@ -28,18 +28,25 @@ final class _SwipeableCard extends StatelessWidget {
       _showSnackbarOnRightSwipe(context);
       final movedBook = book.moveRight();
       context.bookSwipedRight(movedBook);
+      // Update stats
       if (movedBook.state == BookState.read) {
         context.bookFinished(movedBook);
+      } else if (movedBook.state == BookState.reading) {
+        context.bookStarted(movedBook);
       }
     } else if (_swipingToLeft(direction) && _canSwipeLeft()) {
       _showSnackbarOnLeftSwipe(context);
       final movedBook = book.moveLeft();
+      context.bookSwipedLeft(movedBook);
+      // Update stats
       if (movedBook.state == BookState.reading) {
         // so it was in `read` state before
-        // need to use `book` with `endDate` (not `movedBook`)
+        // need to use `book` with set `endDate` (not `movedBook`)
         context.undoFinished(book);
+      } else if (movedBook.state == BookState.readLater) {
+        // so it was in `reading` state before
+        context.undoStarted(book);
       }
-      context.bookSwipedLeft(movedBook);
     }
   }
 

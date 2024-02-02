@@ -29,6 +29,8 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
     on<LoadStats>(_onLoadStats);
     on<BookFinished>(_onBookFinished);
     on<BookUnfinished>(_onBookUnfinished);
+    on<BookStarted>(_onBookStarted);
+    on<BookUnstarted>(_onBookUnstarted);
   }
 
   final LoadBooksPerYear loadBooksPerYear;
@@ -120,10 +122,44 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
       some(newOs),
     ));
   }
+
+  Future<void> _onBookStarted(
+    BookStarted event,
+    Emitter<StatsState> emit,
+  ) async {
+    final newBps = state.booksPerState
+        .getOrElse(() => BooksPerStateData.empty())
+        .move(BookState.read, BookState.reading);
+
+    emit(StatsState.loaded(
+      state.booksPerYear,
+      state.booksPerMonth,
+      some(newBps),
+      state.otherStats,
+    ));
+  }
+
+  Future<void> _onBookUnstarted(
+    BookUnstarted event,
+    Emitter<StatsState> emit,
+  ) async {
+    final newBps = state.booksPerState
+        .getOrElse(() => BooksPerStateData.empty())
+        .move(BookState.reading, BookState.read);
+
+    emit(StatsState.loaded(
+      state.booksPerYear,
+      state.booksPerMonth,
+      some(newBps),
+      state.otherStats,
+    ));
+  }
 }
 
 extension StatsContextExt on BuildContext {
-  // TODO: You need to handle book moved to `reading` state and moved out of it
+  void reloadStats() => read<StatsBloc>().add(LoadStats());
   void bookFinished(Book book) => read<StatsBloc>().add(BookFinished(book));
   void undoFinished(Book book) => read<StatsBloc>().add(BookUnfinished(book));
+  void bookStarted(Book book) => read<StatsBloc>().add(BookStarted());
+  void undoStarted(Book book) => read<StatsBloc>().add(BookUnstarted());
 }

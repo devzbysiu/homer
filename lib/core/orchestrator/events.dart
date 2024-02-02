@@ -17,3 +17,14 @@ final class RestoreStarted extends BusEvent {
 }
 
 final class RestoreFinished extends BusEvent {}
+
+final class BackupStarted extends BusEvent {
+  const BackupStarted(this.backupPath);
+
+  final String backupPath;
+
+  @override
+  List<Object> get props => [backupPath];
+}
+
+final class BackupFinished extends BusEvent {}

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/entities/book.dart';
@@ -69,15 +68,5 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
       (success) => emit(const BackupState.backupFinished()),
       (error) => emit(const BackupState.backupFailed()),
     );
-  }
-}
-
-extension BackupContextExt on BuildContext {
-  void createBackup(String backupPath) {
-    _emitRestoreEvt(BackupTriggered(backupPath));
-  }
-
-  void _emitRestoreEvt(BackupEvent event) {
-    read<BackupBloc>().add(event);
   }
 }

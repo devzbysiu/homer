@@ -16,7 +16,7 @@ final class MenuItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const BackupButton(),
+        BackupButton(),
         spaceBetween(),
         if (kDebugMode) RestoreButton(),
         if (kDebugMode) spaceBetween(),

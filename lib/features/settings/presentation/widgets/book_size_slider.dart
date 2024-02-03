@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_slider/flutter_multi_slider.dart';
 
+import '../../../../core/orchestrator/bus.dart';
+import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
+import '../../../../injection_container.dart';
 import '../../domain/entities/book_size_limits.dart';
 import '../bloc/settings_bloc.dart';
 
 final class BookSizeSlider extends StatefulWidget {
-  const BookSizeSlider({super.key});
+  BookSizeSlider({super.key, Bus? eventBus})
+      : _eventBus = eventBus ?? sl<Bus>();
+
+  final Bus _eventBus;
 
   @override
   State<BookSizeSlider> createState() => BookSizeSliderState();
@@ -45,9 +51,9 @@ final class BookSizeSliderState extends State<BookSizeSlider> {
           onChanged: (value) => setState(() {
             componentBookSizeLimits = BookSizeLimits.fromDoubleList(value);
           }),
-          onChangeEnd: (value) => context.bookSizeLimitsChanged(
+          onChangeEnd: (value) => widget._eventBus.fire(SizeLimitsChanged(
             BookSizeLimits.fromDoubleList(value),
-          ),
+          )),
           divisions: 240,
         ),
       ),

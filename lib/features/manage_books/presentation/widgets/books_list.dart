@@ -12,13 +12,15 @@ import 'package:vibration/vibration.dart';
 
 import '../../../../core/entities/book.dart';
 import '../../../../core/entities/tag.dart';
+import '../../../../core/orchestrator/bus.dart';
+import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/fallback_img.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
-import '../../../stats/presentation/bloc/stats_bloc.dart';
+import '../../../../injection_container.dart';
 import '../bloc/delete/delete_books_bloc.dart';
 import '../bloc/listing/books_bloc.dart';
 import '../bloc/navigation/app_tab_bloc.dart';
@@ -33,7 +35,9 @@ part 'regular_card.dart';
 part 'swipeable_card.dart';
 
 final class BooksList extends StatefulWidget {
-  const BooksList({super.key});
+  BooksList({super.key, Bus? bus}) : _eventBus = bus ?? sl<Bus>();
+
+  final Bus _eventBus;
 
   @override
   State<BooksList> createState() => _BooksListState();
@@ -45,12 +49,9 @@ final class _BooksListState extends State<BooksList> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
-      listeners: [
-        _refreshWhenBooksRemoved(),
-        _jumpToTopOnTabChange(),
-      ],
+      listeners: [_jumpToTopOnTabChange()],
       child: GestureDetector(
-        onTap: () => context.clearDeletionList(),
+        onTap: () => widget._eventBus.fire(DeleteModeExited()),
         child: FloatingSearchBarScrollNotifier(
           child: BlocSelector<BooksBloc, BooksState, List<Book>>(
             selector: (state) => state.books,
@@ -75,17 +76,9 @@ final class _BooksListState extends State<BooksList> {
     );
   }
 
-  BlocListener<DeleteBooksBloc, DeleteBooksState> _refreshWhenBooksRemoved() {
-    return BlocListener<DeleteBooksBloc, DeleteBooksState>(
-      listener: (_, state) {
-        if (state.value == Value.booksRemoved) context.refreshBooksList();
-      },
-    );
-  }
-
   BlocListener<AppTabBloc, AppTabState> _jumpToTopOnTabChange() {
     return BlocListener<AppTabBloc, AppTabState>(
-      listener: (_, state) => _scrollController.jumpTo(0),
+      listener: (_, __) => _scrollController.jumpTo(0),
     );
   }
 

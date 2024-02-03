@@ -4,7 +4,10 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/entities/book.dart';
+import '../../../../core/orchestrator/bus.dart';
+import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
+import '../../../../injection_container.dart';
 import '../../../find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
 import '../../../find_new_book/presentation/widgets/bottom_drawer_content.dart';
 import '../../../manage_books/presentation/bloc/delete/delete_books_bloc.dart';
@@ -12,7 +15,9 @@ import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
 import '../bloc/navigation/app_tab_bloc.dart';
 
 final class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
+  BottomNavBar({super.key, Bus? eventBus}) : _eventBus = eventBus ?? sl<Bus>();
+
+  final Bus _eventBus;
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -33,7 +38,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
         duration: const Duration(milliseconds: 200),
         mainActionButtonBuilder: _mainActionButton,
         bottomBarTheme: _bottomBarTheme(context),
-        onSelectItem: (idx) => _handleIndexChanged(idx, context),
+        onSelectItem: (idx) => _changeTab(idx),
         sheetChild: BottomDrawerContent(),
         items: const [
           BottomBarWithSheetItem(
@@ -92,18 +97,17 @@ final class _BottomNavBarState extends State<BottomNavBar> {
     );
   }
 
-  void _handleIndexChanged(int i, BuildContext context) {
-    context.changeTab(AppTab.values[i]);
-  }
+  void _changeTab(int i) => widget._eventBus.fire(TabTapped(AppTab.values[i]));
 
   Widget _mainActionButton(BuildContext context) {
     return BlocSelector<DeleteBooksBloc, DeleteBooksState, List<Book>>(
-        selector: (state) => state.deletionList,
-        builder: (context, booksToDelete) {
-          return booksToDelete.isEmpty
-              ? _AddButton(sheetController: _sheetCtl)
-              : const _DeleteButton();
-        });
+      selector: (state) => state.deletionList,
+      builder: (context, booksToDelete) {
+        return booksToDelete.isEmpty
+            ? _AddButton(sheetController: _sheetCtl)
+            : _DeleteButton();
+      },
+    );
   }
 }
 
@@ -136,7 +140,9 @@ final class _AddButton extends StatelessWidget {
 }
 
 final class _DeleteButton extends StatelessWidget {
-  const _DeleteButton();
+  _DeleteButton({Bus? eventBus}) : _eventBus = eventBus ?? sl<Bus>();
+
+  final Bus _eventBus;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +150,7 @@ final class _DeleteButton extends StatelessWidget {
       onPlay: (controller) => controller.repeat(),
       effects: const [ShakeEffect(hz: 2.5)],
       child: ElevatedButton(
-        onPressed: () => context.deletePickedBooks(),
+        onPressed: () => _eventBus.fire(DeleteBooksStarted()),
         style: ButtonStyle(
           backgroundColor: context.error.msp(),
           shape: const CircleBorder().msp(),

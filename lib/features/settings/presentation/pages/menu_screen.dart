@@ -9,9 +9,9 @@ final class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Stack(
+    return Stack(
       children: [
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(left: 5),
           child: MenuItems(),
         ),

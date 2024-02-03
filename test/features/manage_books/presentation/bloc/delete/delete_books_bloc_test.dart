@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:homer/core/error/failures.dart';
+import 'package:homer/core/orchestrator/events.dart';
 import 'package:homer/features/manage_books/domain/usecases/delete_books.dart';
 import 'package:homer/features/manage_books/presentation/bloc/delete/delete_books_bloc.dart';
 import 'package:mockito/mockito.dart';
@@ -45,9 +46,10 @@ void main() {
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(DeletePickedBooks()),
       expect: () => [],
-      verify: (bloc) => verifyNever(bloc.deleteBooks(
-        const DeleteParams(books: []),
-      )),
+      verify: (bloc) {
+        verifyNever(bloc.deleteBooks(const DeleteParams(books: [])));
+        verifyNever(bloc.eventBus.fire(DeleteBooksFinished()));
+      },
     );
 
     blocTest<DeleteBooksBloc, DeleteBooksState>(
@@ -60,7 +62,10 @@ void main() {
         DeleteBooksState(deletionList: [book], value: Value.deletionList),
         const DeleteBooksState(deletionList: [], value: Value.booksRemoved),
       ],
-      verify: (bloc) => verify(bloc.deleteBooks(DeleteParams(books: [book]))),
+      verify: (bloc) {
+        verify(bloc.deleteBooks(DeleteParams(books: [book])));
+        verify(bloc.eventBus.fire(DeleteBooksFinished()));
+      },
     );
 
     blocTest<DeleteBooksBloc, DeleteBooksState>(
@@ -73,7 +78,10 @@ void main() {
         DeleteBooksState(deletionList: [book], value: Value.deletionList),
         const DeleteBooksState(deletionList: [], value: Value.deletionFailed),
       ],
-      verify: (bloc) => verify(bloc.deleteBooks(DeleteParams(books: [book]))),
+      verify: (bloc) {
+        verify(bloc.deleteBooks(DeleteParams(books: [book])));
+        verifyNever(bloc.eventBus.fire(DeleteBooksFinished()));
+      },
     );
   });
 
@@ -88,9 +96,10 @@ void main() {
           value: Value.deletionListCleared,
         ),
       ],
-      verify: (bloc) => verifyNever(bloc.deleteBooks(
-        const DeleteParams(books: []),
-      )),
+      verify: (bloc) {
+        verifyNever(bloc.deleteBooks(const DeleteParams(books: [])));
+        verifyNever(bloc.eventBus.fire(DeleteBooksFinished()));
+      },
     );
   });
 }
@@ -100,9 +109,12 @@ final class BlocMock {
     provideDummy<Result<Unit, Failure>>(const Success(unit));
 
     _deleteBooks = MockDeleteBooks();
+    _eventBus = MockBus();
 
     when(_deleteBooks.call(any)).thenAnswer((_) => withSuccess(unit));
   }
+
+  late final MockBus _eventBus;
 
   late final MockDeleteBooks _deleteBooks;
 
@@ -113,7 +125,12 @@ final class BlocMock {
 
   DeleteBooksBloc get() => _createMock();
 
-  DeleteBooksBloc _createMock() => DeleteBooksBloc(deleteBooks: _deleteBooks);
+  DeleteBooksBloc _createMock() {
+    return DeleteBooksBloc(
+      deleteBooks: _deleteBooks,
+      eventBus: _eventBus,
+    );
+  }
 
   DeleteBooksBloc allWorking() => _createMock();
 }

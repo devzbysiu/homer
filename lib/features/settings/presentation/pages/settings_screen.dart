@@ -6,13 +6,19 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 
+import '../../../../core/orchestrator/bus.dart';
+import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
+import '../../../../injection_container.dart';
 import '../bloc/settings_bloc.dart';
 import '../widgets/book_size_slider.dart';
 import '../widgets/reading_goal_slider.dart';
 
 final class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+  SettingsScreen({super.key, Bus? eventBus})
+      : _eventBus = eventBus ?? sl<Bus>();
+
+  final Bus _eventBus;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +40,8 @@ final class SettingsScreen extends StatelessWidget {
           tiles: [
             _useSystemTheme(context, state.useSystemTheme),
             _backupDirPicker(context, state),
-            const CustomSettingsTile(child: BookSizeSlider()),
-            const CustomSettingsTile(child: ReadingGoalSlider()),
+            CustomSettingsTile(child: BookSizeSlider()),
+            CustomSettingsTile(child: ReadingGoalSlider()),
           ],
         ),
       ],
@@ -52,7 +58,7 @@ final class SettingsScreen extends StatelessWidget {
       title: Text('Use system theme', style: context.headlineSmall),
       leading: const Icon(Icons.brush),
       initialValue: useSystemTheme,
-      onToggle: (_) => context.toggleSystemTheme(),
+      onToggle: (_) => _eventBus.fire(SystemThemeEnabled()),
     );
   }
 
@@ -68,6 +74,6 @@ final class SettingsScreen extends StatelessWidget {
   Future<void> _pickBackupsPath(BuildContext context) async {
     final directory = await FilePicker.platform.getDirectoryPath();
     if (directory == null) return;
-    if (context.mounted) context.backupsDirPicked(Directory(directory));
+    _eventBus.fire(BackupDirPicked(Directory(directory)));
   }
 }

@@ -15,14 +15,14 @@ final class Home extends StatelessWidget {
       body: ZoomDrawer(
         controller: ZoomDrawerController(),
         menuScreen: const MenuScreen(),
-        mainScreen: const MainScreen(),
+        mainScreen: MainScreen(),
         borderRadius: 24.0,
         showShadow: true,
         angle: -12.0,
         drawerShadowsBackgroundColor: Colors.grey,
         slideWidth: MediaQuery.of(context).size.width * 0.65,
       ),
-      bottomNavigationBar: const BottomNavBar(),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

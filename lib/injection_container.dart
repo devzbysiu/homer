@@ -140,7 +140,12 @@ Future<void> initDi({required Env env}) async {
       filterBooks: sl(),
     );
   });
-  sl.registerLazySingleton(() => DeleteBooksBloc(deleteBooks: sl()));
+  sl.registerLazySingleton(() {
+    return DeleteBooksBloc(
+      deleteBooks: sl(),
+      eventBus: sl(),
+    );
+  });
   sl.registerLazySingleton(() => TagsBloc(listTags: sl()));
   sl.registerLazySingleton(() => BookSearchBloc(searchForBooks: sl()));
   sl.registerLazySingleton(() {
@@ -176,11 +181,15 @@ Future<void> initDi({required Env env}) async {
   // Core
   sl.registerSingleton<Orchestrator>(Orchestrator(
     eventBus: sl(),
+    appTabBloc: sl(),
     backupBloc: sl(),
     statsBloc: sl(),
     booksBloc: sl(),
     bookSearchBloc: sl(),
     shareBookBloc: sl(),
     onBookTagsBloc: sl(),
+    deleteBooksBloc: sl(),
+    bookSummaryBloc: sl(),
+    settingsBloc: sl(),
   ));
 }

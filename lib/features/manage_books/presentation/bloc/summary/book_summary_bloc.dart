@@ -41,21 +41,3 @@ final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
     emit(const BookSummaryState.disabled());
   }
 }
-
-extension BookSummaryContextExt on BuildContext {
-  void toggleSummaryMode(Book book) {
-    _emitBookEvt(SummaryModeToggled(book));
-  }
-
-  void disableSummaryMode() {
-    _emitBookEvt(SummaryModeDisabling());
-  }
-
-  void summaryModeDisabled() {
-    _emitBookEvt(SummaryModeDisabled());
-  }
-
-  void _emitBookEvt(BookSummaryEvent event) {
-    read<BookSummaryBloc>().add(event);
-  }
-}

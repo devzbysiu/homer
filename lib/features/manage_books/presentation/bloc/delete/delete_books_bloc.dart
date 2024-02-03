@@ -5,18 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/entities/book.dart';
+import '../../../../../core/orchestrator/bus.dart';
+import '../../../../../core/orchestrator/events.dart';
 import '../../../domain/usecases/delete_books.dart';
 
 part 'delete_books_event.dart';
 part 'delete_books_state.dart';
 
 final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
-  DeleteBooksBloc({required this.deleteBooks})
+  DeleteBooksBloc({required this.eventBus, required this.deleteBooks})
       : super(const DeleteBooksState.initial()) {
     on<ToggleBookOnDeleteList>(_onToggleBookOnDeleteList);
     on<DeletePickedBooks>(_onDeleteBooks);
     on<ClearDeletionList>(_onClearDeletionList);
   }
+
+  final Bus eventBus;
 
   final DeleteBooks deleteBooks;
 
@@ -44,7 +48,10 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
       DeleteParams(books: List.of(state.deletionList)),
     );
     result.when(
-      (_) => emit(const DeleteBooksState.booksRemoved()),
+      (_) {
+        emit(const DeleteBooksState.booksRemoved());
+        eventBus.fire(DeleteBooksFinished());
+      },
       (error) => emit(const DeleteBooksState.deletionFailed()),
     );
   }
@@ -54,23 +61,5 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
     Emitter<DeleteBooksState> emit,
   ) async {
     emit(const DeleteBooksState.deletionListCleared());
-  }
-}
-
-extension BooksContextExt on BuildContext {
-  void clearDeletionList() {
-    _emitDeleteBooksEvt(ClearDeletionList());
-  }
-
-  void deletePickedBooks() {
-    _emitDeleteBooksEvt(DeletePickedBooks());
-  }
-
-  void toggleBookOnDeleteList(Book book) {
-    _emitDeleteBooksEvt(ToggleBookOnDeleteList(book));
-  }
-
-  void _emitDeleteBooksEvt(DeleteBooksEvent event) {
-    read<DeleteBooksBloc>().add(event);
   }
 }

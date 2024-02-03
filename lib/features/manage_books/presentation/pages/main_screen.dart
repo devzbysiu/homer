@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
+import '../../../../core/orchestrator/bus.dart';
+import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
-import '../bloc/listing/books_bloc.dart';
+import '../../../../injection_container.dart';
 import '../widgets/books_list.dart';
 
 final class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  MainScreen({super.key, Bus? bus}) : _eventBus = bus ?? sl<Bus>();
+
+  final Bus _eventBus;
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -38,7 +42,7 @@ final class _MainScreenState extends State<MainScreen> {
     setState(() {
       isSearchInProgress = query.isNotEmpty;
     });
-    context.filterBooks(query);
+    widget._eventBus.fire(FilteringStarted(query));
   }
 
   List<Widget> _clearOrSearchIcon() {
@@ -84,8 +88,8 @@ final class _MainScreenState extends State<MainScreen> {
               ],
             ),
           ),
-          child: const Padding(
-            padding: EdgeInsets.only(top: 52),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 52),
             child: BooksList(),
           ),
         )

@@ -125,29 +125,3 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     );
   }
 }
-
-extension BooksContextExt on BuildContext {
-  void bookSwipedRight(Book book) {
-    _emitBooksEvt(BookSwipedRight(book));
-  }
-
-  void bookSwipedLeft(Book book) {
-    _emitBooksEvt(BookSwipedLeft(book));
-  }
-
-  void refreshBooksList() {
-    _emitBooksEvt(RefreshBooksList());
-  }
-
-  void toggleTag(Book book, Tag tag) {
-    _emitBooksEvt(TagToggled(book, tag));
-  }
-
-  void filterBooks(String query) {
-    _emitBooksEvt(BooksFiltered(query));
-  }
-
-  void _emitBooksEvt(BooksEvent event) {
-    read<BooksBloc>().add(event);
-  }
-}

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
-import '../../features/manage_books/presentation/bloc/listing/books_bloc.dart';
 import '../../features/tags_manager/presentation/bloc/tags_bloc.dart';
+import '../../injection_container.dart';
 import '../entities/book.dart';
 import '../entities/tag.dart';
+import '../orchestrator/bus.dart';
+import '../orchestrator/events.dart';
 import '../utils/theme.dart';
 
 final class BookTitleAndTagTile extends StatelessWidget {
@@ -41,9 +43,12 @@ final class BookTitleAndTagTile extends StatelessWidget {
 }
 
 final class _AddTagTile extends StatelessWidget {
-  const _AddTagTile({required this.book});
+  _AddTagTile({required this.book, Bus? eventBus})
+      : _eventBus = eventBus ?? sl<Bus>();
 
   final Book book;
+
+  final Bus _eventBus;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +84,8 @@ final class _AddTagTile extends StatelessWidget {
     return tags.map((tag) {
       return PullDownMenuItem.selectable(
         selected: book.tags.contains(tag),
-        onTap: () => context.toggleTag(book, tag),
+        // onTap: () => context.toggleTag(book, tag),
+        onTap: () => _eventBus.fire(TagAdded(book, tag)),
         title: tag.name,
         icon: Icons.circle,
         iconColor: HexColor(tag.hexColor),

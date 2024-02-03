@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/entities/book.dart';
@@ -154,12 +153,4 @@ final class StatsBloc extends Bloc<StatsEvent, StatsState> {
       state.otherStats,
     ));
   }
-}
-
-extension StatsContextExt on BuildContext {
-  void reloadStats() => read<StatsBloc>().add(LoadStats());
-  void bookFinished(Book book) => read<StatsBloc>().add(BookFinished(book));
-  void undoFinished(Book book) => read<StatsBloc>().add(BookUnfinished(book));
-  void bookStarted(Book book) => read<StatsBloc>().add(BookStarted());
-  void undoStarted(Book book) => read<StatsBloc>().add(BookUnstarted());
 }

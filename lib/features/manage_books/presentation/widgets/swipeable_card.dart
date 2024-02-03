@@ -1,11 +1,14 @@
 part of 'books_list.dart';
 
 final class _SwipeableCard extends StatelessWidget {
-  const _SwipeableCard({required this.child, required this.book});
+  _SwipeableCard({required this.child, required this.book, Bus? eventBus})
+      : _eventBus = eventBus ?? sl<Bus>();
 
   final Widget child;
 
   final Book book;
+
+  final Bus _eventBus;
 
   @override
   Widget build(BuildContext context) {
@@ -27,25 +30,25 @@ final class _SwipeableCard extends StatelessWidget {
     if (_swipingToRight(direction) && _canSwipeRight()) {
       _showSnackbarOnRightSwipe(context);
       final movedBook = book.moveRight();
-      context.bookSwipedRight(movedBook);
+      _eventBus.fire(SwipedToRight(movedBook));
       // Update stats
       if (movedBook.state == BookState.read) {
-        context.bookFinished(movedBook);
+        _eventBus.fire(BookRead(movedBook));
       } else if (movedBook.state == BookState.reading) {
-        context.bookStarted(movedBook);
+        _eventBus.fire(BookReading());
       }
     } else if (_swipingToLeft(direction) && _canSwipeLeft()) {
       _showSnackbarOnLeftSwipe(context);
       final movedBook = book.moveLeft();
-      context.bookSwipedLeft(movedBook);
+      _eventBus.fire(SwipedToLeft(movedBook));
       // Update stats
       if (movedBook.state == BookState.reading) {
         // so it was in `read` state before
         // need to use `book` with set `endDate` (not `movedBook`)
-        context.undoFinished(book);
+        _eventBus.fire(BookUnread(book));
       } else if (movedBook.state == BookState.readLater) {
         // so it was in `reading` state before
-        context.undoStarted(book);
+        _eventBus.fire(BookUnreading());
       }
     }
   }

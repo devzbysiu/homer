@@ -98,33 +98,33 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 }
 
 extension SettingsContextExt on BuildContext {
-  void toggleTheme() {
-    _emitSettingsEvt(ThemeToggled());
-  }
+//   void toggleTheme() {
+//     _emitSettingsEvt(ThemeToggled());
+//   }
 
-  void toggleSystemTheme() {
-    _emitSettingsEvt(SystemThemeToggled());
-  }
+//   void toggleSystemTheme() {
+//     _emitSettingsEvt(SystemThemeToggled());
+//   }
 
-  void backupsDirPicked(Directory directory) {
-    _emitSettingsEvt(BackupsDirectorySelected(directory));
-  }
+//   void backupsDirPicked(Directory directory) {
+//     _emitSettingsEvt(BackupsDirectorySelected(directory));
+//   }
 
-  void bookSizeLimitsChanged(BookSizeLimits limits) {
-    _emitSettingsEvt(BookSizeLimitsChanged(limits));
-  }
+//   void bookSizeLimitsChanged(BookSizeLimits limits) {
+//     _emitSettingsEvt(BookSizeLimitsChanged(limits));
+//   }
 
-  void readingGoalChanged(ReadingGoal goal) {
-    _emitSettingsEvt(ReadingGoalChanged(goal));
-  }
+//   void readingGoalChanged(ReadingGoal goal) {
+//     _emitSettingsEvt(ReadingGoalChanged(goal));
+//   }
 
   BookSizeLimits bookSizeLimits() => _settings().bookSizeLimits;
 
   ReadingGoal readingGoal() => _settings().readingGoal;
 
-  void _emitSettingsEvt(SettingsEvent event) {
-    read<SettingsBloc>().add(event);
-  }
+//   void _emitSettingsEvt(SettingsEvent event) {
+//     read<SettingsBloc>().add(event);
+//   }
 
   Settings _settings() => read<SettingsBloc>().state.settings;
 }

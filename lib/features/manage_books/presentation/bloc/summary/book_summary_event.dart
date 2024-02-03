@@ -1,12 +1,12 @@
 part of 'book_summary_bloc.dart';
 
 @immutable
-abstract class BookSummaryEvent extends Equatable {
+abstract class BookSummaryEvent extends Equatable implements BusEvent {
   @override
   List<Object> get props => [];
 }
 
-final class SummaryModeDisabling extends BookSummaryEvent {}
+final class SummaryModeClosing extends BookSummaryEvent {}
 
 final class SummaryModeToggled extends BookSummaryEvent {
   SummaryModeToggled(this.book);
@@ -14,4 +14,4 @@ final class SummaryModeToggled extends BookSummaryEvent {
   final Book book;
 }
 
-final class SummaryModeDisabled extends BookSummaryEvent {}
+final class SummaryModeClosed extends BookSummaryEvent {}

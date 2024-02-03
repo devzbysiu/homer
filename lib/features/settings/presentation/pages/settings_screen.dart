@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 
 import '../../../../core/orchestrator/bus.dart';
-import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../injection_container.dart';
 import '../bloc/settings_bloc.dart';
@@ -58,7 +57,7 @@ final class SettingsScreen extends StatelessWidget {
       title: Text('Use system theme', style: context.headlineSmall),
       leading: const Icon(Icons.brush),
       initialValue: useSystemTheme,
-      onToggle: (_) => _eventBus.fire(SystemThemeEnabled()),
+      onToggle: (_) => _eventBus.fire(SystemThemeToggled()),
     );
   }
 
@@ -74,6 +73,6 @@ final class SettingsScreen extends StatelessWidget {
   Future<void> _pickBackupsPath(BuildContext context) async {
     final directory = await FilePicker.platform.getDirectoryPath();
     if (directory == null) return;
-    _eventBus.fire(BackupDirPicked(Directory(directory)));
+    _eventBus.fire(BackupsDirPicked(Directory(directory)));
   }
 }

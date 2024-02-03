@@ -15,7 +15,7 @@ part 'delete_books_state.dart';
 final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
   DeleteBooksBloc({required this.eventBus, required this.deleteBooks})
       : super(const DeleteBooksState.initial()) {
-    on<ToggleBookOnDeleteList>(_onToggleBookOnDeleteList);
+    on<DeleteModeToggled>(_onToggleBookOnDeleteList);
     on<DeletePickedBooks>(_onDeleteBooks);
     on<ClearDeletionList>(_onClearDeletionList);
   }
@@ -25,7 +25,7 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
   final DeleteBooks deleteBooks;
 
   Future<void> _onToggleBookOnDeleteList(
-    ToggleBookOnDeleteList event,
+    DeleteModeToggled event,
     Emitter<DeleteBooksState> emit,
   ) async {
     if (state.deletionList.contains(event.book)) {

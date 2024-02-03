@@ -15,7 +15,7 @@ final class _BookCard extends StatelessWidget {
       builder: (context, booksToDelete) {
         return GestureDetector(
           onLongPress: () => _switchToDeleteMode(context),
-          onDoubleTap: () => _eventBus.fire(SummaryModeEntered(book)),
+          onDoubleTap: () => _eventBus.fire(SummaryModeToggled(book)),
           onTap: () => _toggleModes(booksToDelete, context),
           child: _bookCard(booksToDelete),
         );

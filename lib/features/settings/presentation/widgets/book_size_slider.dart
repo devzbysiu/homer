@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_slider/flutter_multi_slider.dart';
 
 import '../../../../core/orchestrator/bus.dart';
-import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../injection_container.dart';
 import '../../domain/entities/book_size_limits.dart';

@@ -1,6 +1,6 @@
 part of 'backup_bloc.dart';
 
-abstract class BackupEvent extends Equatable {
+abstract class BackupEvent extends Equatable implements BusEvent {
   const BackupEvent(this.path);
 
   final String path;

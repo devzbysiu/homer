@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 import '../../../../core/orchestrator/bus.dart';
-import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/menu_button.dart';
 import '../../../../injection_container.dart';
@@ -46,6 +45,6 @@ final class BackupButton extends StatelessWidget {
 
   void _triggerBackup(Directory directory, BuildContext context) {
     final backupPath = '${directory.path}/homer-backup.json';
-    _eventBus.fire(BackupStarted(backupPath));
+    _eventBus.fire(BackupTriggered(backupPath));
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/orchestrator/bus.dart';
-import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../injection_container.dart';
 import '../../domain/entities/reading_goal.dart';
@@ -40,7 +39,7 @@ final class ReadingGoalSliderState extends State<ReadingGoalSlider> {
             onChanged: (value) => setState(() {
               componentReadingGoal = ReadingGoal(books: value.toInt());
             }),
-            onChangeEnd: (value) => widget._eventBus.fire(GoalChanged(
+            onChangeEnd: (value) => widget._eventBus.fire(ReadingGoalChanged(
               ReadingGoal(books: value.toInt()),
             )),
             min: 0,

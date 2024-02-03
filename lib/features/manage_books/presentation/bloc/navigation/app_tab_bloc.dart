@@ -4,6 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/orchestrator/events.dart';
+
 part 'app_tab_event.dart';
 part 'app_tab_state.dart';
 

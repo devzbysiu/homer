@@ -181,15 +181,15 @@ Future<void> initDi({required Env env}) async {
   // Core
   sl.registerSingleton<Orchestrator>(Orchestrator(
     eventBus: sl(),
-    appTabBloc: sl(),
-    backupBloc: sl(),
-    statsBloc: sl(),
-    booksBloc: sl(),
-    bookSearchBloc: sl(),
-    shareBookBloc: sl(),
-    onBookTagsBloc: sl(),
-    deleteBooksBloc: sl(),
-    bookSummaryBloc: sl(),
-    settingsBloc: sl(),
+    appTab: sl(),
+    backup: sl(),
+    stats: sl(),
+    books: sl(),
+    search: sl(),
+    share: sl(),
+    onBookTags: sl(),
+    delete: sl(),
+    summary: sl(),
+    settings: sl(),
   ));
 }

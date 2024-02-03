@@ -1,7 +1,7 @@
 part of 'books_bloc.dart';
 
 @immutable
-abstract class BooksEvent extends Equatable {
+abstract class BooksEvent extends Equatable implements BusEvent {
   @override
   List<Object> get props => [];
 }

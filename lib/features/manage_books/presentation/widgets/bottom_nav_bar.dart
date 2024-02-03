@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/entities/book.dart';
 import '../../../../core/orchestrator/bus.dart';
-import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../injection_container.dart';
 import '../../../find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
@@ -97,7 +96,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
     );
   }
 
-  void _changeTab(int i) => widget._eventBus.fire(TabTapped(AppTab.values[i]));
+  void _changeTab(int i) => widget._eventBus.fire(TabChanged(AppTab.values[i]));
 
   Widget _mainActionButton(BuildContext context) {
     return BlocSelector<DeleteBooksBloc, DeleteBooksState, List<Book>>(
@@ -150,7 +149,7 @@ final class _DeleteButton extends StatelessWidget {
       onPlay: (controller) => controller.repeat(),
       effects: const [ShakeEffect(hz: 2.5)],
       child: ElevatedButton(
-        onPressed: () => _eventBus.fire(DeleteBooksStarted()),
+        onPressed: () => _eventBus.fire(DeletePickedBooks()),
         style: ButtonStyle(
           backgroundColor: context.error.msp(),
           shape: const CircleBorder().msp(),

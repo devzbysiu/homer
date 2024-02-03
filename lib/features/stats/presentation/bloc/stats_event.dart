@@ -1,6 +1,6 @@
 part of 'stats_bloc.dart';
 
-abstract class StatsEvent extends Equatable {
+abstract class StatsEvent extends Equatable implements BusEvent {
   @override
   List<Object> get props => [];
 }

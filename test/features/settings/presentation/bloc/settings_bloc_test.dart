@@ -127,7 +127,7 @@ void main() {
     blocTest<SettingsBloc, SettingsState>(
       'should emit SettingsState with changed backup path setting',
       build: () => BlocMock().onLoadSettings(Success(settings)).get(),
-      act: (bloc) => bloc.add(BackupsDirectorySelected(directory)),
+      act: (bloc) => bloc.add(BackupsDirPicked(directory)),
       expect: () => [
         SettingsState(settings: _from(settings)),
         SettingsState(
@@ -151,7 +151,7 @@ void main() {
           .onLoadSettings(Success(settings))
           .onSaveSettings(Error(TestingFailure()))
           .get(),
-      act: (bloc) => bloc.add(BackupsDirectorySelected(directory)),
+      act: (bloc) => bloc.add(BackupsDirPicked(directory)),
       expect: () => [
         SettingsState(settings: _from(settings)),
         SettingsState(settings: _defaultSettings()),
@@ -169,7 +169,7 @@ void main() {
     blocTest<SettingsBloc, SettingsState>(
       'should emit SettingsState with changed book size limits',
       build: () => BlocMock().onLoadSettings(Success(settings)).get(),
-      act: (bloc) => bloc.add(BookSizeLimitsChanged(limits)),
+      act: (bloc) => bloc.add(SizeLimitsChanged(limits)),
       expect: () => [
         SettingsState(settings: _from(settings)),
         SettingsState(
@@ -193,7 +193,7 @@ void main() {
           .onLoadSettings(Success(settings))
           .onSaveSettings(Error(TestingFailure()))
           .get(),
-      act: (bloc) => bloc.add(BookSizeLimitsChanged(limits)),
+      act: (bloc) => bloc.add(SizeLimitsChanged(limits)),
       expect: () => [
         SettingsState(settings: _from(settings)),
         SettingsState(settings: _defaultSettings()),

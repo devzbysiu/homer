@@ -13,7 +13,6 @@ import 'package:vibration/vibration.dart';
 import '../../../../core/entities/book.dart';
 import '../../../../core/entities/tag.dart';
 import '../../../../core/orchestrator/bus.dart';
-import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/fallback_img.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/book_authors.dart';
@@ -21,6 +20,7 @@ import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
 import '../../../../injection_container.dart';
+import '../../../stats/presentation/bloc/stats_bloc.dart';
 import '../bloc/delete/delete_books_bloc.dart';
 import '../bloc/listing/books_bloc.dart';
 import '../bloc/navigation/app_tab_bloc.dart';
@@ -51,7 +51,7 @@ final class _BooksListState extends State<BooksList> {
     return MultiBlocListener(
       listeners: [_jumpToTopOnTabChange()],
       child: GestureDetector(
-        onTap: () => widget._eventBus.fire(DeleteModeExited()),
+        onTap: () => widget._eventBus.fire(ClearDeletionList()),
         child: FloatingSearchBarScrollNotifier(
           child: BlocSelector<BooksBloc, BooksState, List<Book>>(
             selector: (state) => state.books,

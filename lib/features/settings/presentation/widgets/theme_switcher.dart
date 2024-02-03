@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/orchestrator/bus.dart';
-import '../../../../core/orchestrator/events.dart';
 import '../../../../injection_container.dart';
 import '../bloc/settings_bloc.dart';
 
@@ -20,7 +19,7 @@ final class ThemeSwitcher extends StatelessWidget {
             ? const SizedBox.shrink()
             : DayNightSwitcher(
                 isDarkModeEnabled: state.useDarkTheme,
-                onStateChanged: (_) => _eventBus.fire(ThemeChanged()));
+                onStateChanged: (_) => _eventBus.fire(ThemeToggled()));
       },
     );
   }

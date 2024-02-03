@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/orchestrator/events.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/book_size_limits.dart';
 import '../../domain/entities/reading_goal.dart';
@@ -23,8 +24,8 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingsLoaded>(_onSettingsLoaded);
     on<ThemeToggled>(_onThemeToggled);
     on<SystemThemeToggled>(_onSystemThemeToggled);
-    on<BackupsDirectorySelected>(_onBackupPathSelected);
-    on<BookSizeLimitsChanged>(_onBookSizeLimitsChanged);
+    on<BackupsDirPicked>(_onBackupPathSelected);
+    on<SizeLimitsChanged>(_onBookSizeLimitsChanged);
     on<ReadingGoalChanged>(_onReadingGoalChanged);
     // TODO: Move initial even triggering to `run.dart`
     add(SettingsLoaded());
@@ -73,7 +74,7 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   void _onBackupPathSelected(
-    BackupsDirectorySelected event,
+    BackupsDirPicked event,
     Emitter<SettingsState> emit,
   ) async {
     final newState = state.changeBackupDir(event.directory);
@@ -81,7 +82,7 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   }
 
   void _onBookSizeLimitsChanged(
-    BookSizeLimitsChanged event,
+    SizeLimitsChanged event,
     Emitter<SettingsState> emit,
   ) async {
     final newState = state.changeSizeLimits(event.limits);

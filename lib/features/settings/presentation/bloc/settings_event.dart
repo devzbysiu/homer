@@ -1,6 +1,6 @@
 part of 'settings_bloc.dart';
 
-abstract class SettingsEvent extends Equatable {
+abstract class SettingsEvent extends Equatable implements BusEvent {
   @override
   List<Object> get props => [];
 }
@@ -11,8 +11,8 @@ final class ThemeToggled extends SettingsEvent {}
 
 final class SystemThemeToggled extends SettingsEvent {}
 
-final class BackupsDirectorySelected extends SettingsEvent {
-  BackupsDirectorySelected(this.directory);
+final class BackupsDirPicked extends SettingsEvent {
+  BackupsDirPicked(this.directory);
 
   final Directory directory;
 
@@ -20,8 +20,8 @@ final class BackupsDirectorySelected extends SettingsEvent {
   List<Object> get props => [directory];
 }
 
-final class BookSizeLimitsChanged extends SettingsEvent {
-  BookSizeLimitsChanged(this.limits);
+final class SizeLimitsChanged extends SettingsEvent {
+  SizeLimitsChanged(this.limits);
 
   final BookSizeLimits limits;
 }

@@ -3,9 +3,9 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 import '../../../../core/orchestrator/bus.dart';
-import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../injection_container.dart';
+import '../bloc/listing/books_bloc.dart';
 import '../widgets/books_list.dart';
 
 final class MainScreen extends StatefulWidget {
@@ -42,7 +42,7 @@ final class _MainScreenState extends State<MainScreen> {
     setState(() {
       isSearchInProgress = query.isNotEmpty;
     });
-    widget._eventBus.fire(FilteringStarted(query));
+    widget._eventBus.fire(BooksFiltered(query));
   }
 
   List<Widget> _clearOrSearchIcon() {

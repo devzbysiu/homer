@@ -11,198 +11,134 @@ import '../../features/stats/presentation/bloc/stats_bloc.dart';
 import 'bus.dart';
 import 'events.dart';
 
-// TODO: Make event names consistent (maybe get rid of two types of events
-// - for bus and for blocs - and just use one event)
 // TODO: Make formatting of two named parameters consistent (one line vs two lines)
 final class Orchestrator {
   Orchestrator({
     required this.eventBus,
-    required this.appTabBloc,
-    required this.backupBloc,
-    required this.booksBloc,
-    required this.bookSearchBloc,
-    required this.shareBookBloc,
-    required this.onBookTagsBloc,
-    required this.deleteBooksBloc,
-    required this.bookSummaryBloc,
-    required this.settingsBloc,
-    required this.statsBloc,
+    required this.appTab,
+    required this.backup,
+    required this.books,
+    required this.search,
+    required this.share,
+    required this.onBookTags,
+    required this.delete,
+    required this.summary,
+    required this.settings,
+    required this.stats,
   }) {
     // AppTab
-    eventBus.on<TabTapped>(_onTabTapped);
+    eventBus.on<TabChanged>(_onTabChanged);
 
     // Backup and Restore
-    eventBus.on<RestoreStarted>(_onRestoreStarted);
+    eventBus.on<RestoreTriggered>(_onRestoreTriggered);
     eventBus.on<RestoreFinished>(_onRestoreFinished);
-    eventBus.on<BackupStarted>(_onBackupStarted);
+    eventBus.on<BackupTriggered>(_onBackupTriggered);
 
     // Find new Book
-    eventBus.on<SearchStarted>(_onSearchStarted);
-    eventBus.on<SuggestionPicked>(_onSuggestionsPicked);
+    eventBus.on<SearchStarted>(_onSearchInitiated);
+    eventBus.on<SuggestionPicked>(_onSuggestionPicked);
     eventBus.on<SaveBookStarted>(_onSaveBookStarted);
 
     // Delete
     eventBus.on<DeleteModeToggled>(_onDeleteModeToggled);
-    eventBus.on<DeleteModeExited>(_onDeleteModeExited);
-    eventBus.on<DeleteBooksStarted>(_onDeleteBooksStarted);
+    eventBus.on<ClearDeletionList>(_onClearDeletionList);
+    eventBus.on<DeletePickedBooks>(_onDeletePickedBooks);
     eventBus.on<DeleteBooksFinished>(_onDeleteBooksFinished);
 
     // Listing
-    eventBus.on<FilteringStarted>(_onFilteringStarted);
-    eventBus.on<SwipedToRight>(_onSwipedToRight);
-    eventBus.on<SwipedToLeft>(_onSwipedToLeft);
-    eventBus.on<TagAdded>(_onTagAdded);
+    eventBus.on<BooksFiltered>(_onBooksFiltered);
+    eventBus.on<BookSwipedRight>(_onSwipedRight);
+    eventBus.on<BookSwipedLeft>(_onSwipedLeft);
+    eventBus.on<TagToggled>(_onTagToggled);
 
     // Summary
-    eventBus.on<SummaryModeEntered>(_onSummaryModeEntered);
+    eventBus.on<SummaryModeToggled>(_onSummaryModeToggled);
     eventBus.on<SummaryModeClosing>(_onSummaryModeClosing);
     eventBus.on<SummaryModeClosed>(_onSummaryModeClosed);
 
     // Settings
-    eventBus.on<BackupDirPicked>(_onBackupDirPicked);
+    eventBus.on<BackupsDirPicked>(_onBackupsDirPicked);
     eventBus.on<SizeLimitsChanged>(_onSizeLimitsChanged);
-    eventBus.on<GoalChanged>(_onGoalChanged);
-    eventBus.on<ThemeChanged>(_onThemeChanged);
-    eventBus.on<SystemThemeEnabled>(_onSystemThemeEnabled);
+    eventBus.on<ReadingGoalChanged>(_onReadingGoalChanged);
+    eventBus.on<ThemeToggled>(_onThemeToggled);
+    eventBus.on<SystemThemeToggled>(_onSystemThemeEnabled);
 
     // Stats
-    eventBus.on<BookRead>(_onBookRead);
-    eventBus.on<BookReading>(_onBookReading);
-    eventBus.on<BookUnread>(_onBookUnread);
-    eventBus.on<BookUnreading>(_onBookUnreading);
+    eventBus.on<BookFinished>(_onBookFinished);
+    eventBus.on<BookStarted>(_onBookStarted);
+    eventBus.on<BookUnfinished>(_onBookUnfinished);
+    eventBus.on<BookUnstarted>(_onBookUnstarted);
   }
 
   final Bus eventBus;
 
-  final AppTabBloc appTabBloc;
+  final AppTabBloc appTab;
 
-  final BackupBloc backupBloc;
+  final BackupBloc backup;
 
-  final StatsBloc statsBloc;
+  final StatsBloc stats;
 
-  final BooksBloc booksBloc;
+  final BooksBloc books;
 
-  final BookSearchBloc bookSearchBloc;
+  final BookSearchBloc search;
 
-  final ShareBookBloc shareBookBloc;
+  final ShareBookBloc share;
 
-  final OnBookTagsBloc onBookTagsBloc;
+  final OnBookTagsBloc onBookTags;
 
-  final DeleteBooksBloc deleteBooksBloc;
+  final DeleteBooksBloc delete;
 
-  final BookSummaryBloc bookSummaryBloc;
+  final BookSummaryBloc summary;
 
-  final SettingsBloc settingsBloc;
+  final SettingsBloc settings;
 
-  void _onTabTapped(TabTapped event) {
-    appTabBloc.add(TabChanged(event.tab));
+  void _onTabChanged(TabChanged event) => appTab.add(event);
+
+  void _onRestoreTriggered(RestoreTriggered event) => backup.add(event);
+
+  void _onRestoreFinished(RestoreFinished event) {
+    stats.add(LoadStats());
+    books.add(RefreshBooksList());
   }
 
-  void _onRestoreStarted(RestoreStarted event) {
-    backupBloc.add(RestoreTriggered(event.backupPath));
-  }
+  void _onBackupTriggered(BackupTriggered event) => backup.add(event);
 
-  void _onRestoreFinished(_) {
-    statsBloc.add(LoadStats());
-    booksBloc.add(RefreshBooksList());
-  }
-
-  void _onBackupStarted(BackupStarted event) {
-    backupBloc.add(BackupTriggered(event.backupPath));
-  }
-
-  void _onSearchStarted(SearchStarted event) {
-    bookSearchBloc.add(SearchInitiated(event.query));
-  }
-
-  void _onSuggestionsPicked(SuggestionPicked event) {
-    bookSearchBloc.add(SuggestedBookPicked(event.book));
-  }
+  void _onSearchInitiated(SearchStarted event) => search.add(event);
+  void _onSuggestionPicked(SuggestionPicked event) => search.add(event);
 
   void _onSaveBookStarted(SaveBookStarted event) {
-    booksBloc.add(SaveBook(event.book, event.bookState, event.selectedTags));
-    bookSearchBloc.add(ClearPickedBook());
-    shareBookBloc.add(ClearSharedBook());
-    onBookTagsBloc.add(ClearSelectedTags());
+    books.add(SaveBook(event.book, event.bookState, event.selectedTags));
+    search.add(ClearPickedBook());
+    share.add(ClearSharedBook());
+    onBookTags.add(ClearSelectedTags());
   }
 
-  void _onDeleteModeToggled(DeleteModeToggled event) {
-    deleteBooksBloc.add(ToggleBookOnDeleteList(event.book));
+  void _onDeleteModeToggled(DeleteModeToggled event) => delete.add(event);
+  void _onClearDeletionList(ClearDeletionList event) => delete.add(event);
+  void _onDeletePickedBooks(DeletePickedBooks event) => delete.add(event);
+
+  void _onDeleteBooksFinished(_) {
+    books.add(RefreshBooksList());
+    stats.add(LoadStats());
   }
 
-  void _onDeleteModeExited(DeleteModeExited event) {
-    deleteBooksBloc.add(ClearDeletionList());
-  }
+  void _onBooksFiltered(BooksFiltered event) => books.add(event);
+  void _onSwipedRight(BookSwipedRight event) => books.add(event);
+  void _onSwipedLeft(BookSwipedLeft event) => books.add(event);
+  void _onTagToggled(TagToggled event) => books.add(event);
 
-  void _onDeleteBooksStarted(DeleteBooksStarted event) {
-    deleteBooksBloc.add(DeletePickedBooks());
-  }
+  void _onSummaryModeToggled(SummaryModeToggled event) => summary.add(event);
+  void _onSummaryModeClosing(SummaryModeClosing event) => summary.add(event);
+  void _onSummaryModeClosed(SummaryModeClosed event) => summary.add(event);
 
-  void _onDeleteBooksFinished(DeleteBooksFinished event) {
-    booksBloc.add(RefreshBooksList());
-  }
+  void _onBackupsDirPicked(BackupsDirPicked event) => settings.add(event);
+  void _onSizeLimitsChanged(SizeLimitsChanged event) => settings.add(event);
+  void _onReadingGoalChanged(ReadingGoalChanged event) => settings.add(event);
+  void _onThemeToggled(ThemeToggled event) => settings.add(event);
+  void _onSystemThemeEnabled(SystemThemeToggled event) => settings.add(event);
 
-  void _onFilteringStarted(FilteringStarted event) {
-    booksBloc.add(BooksFiltered(event.query));
-  }
-
-  void _onSwipedToRight(SwipedToRight event) {
-    booksBloc.add(BookSwipedRight(event.book));
-  }
-
-  void _onSwipedToLeft(SwipedToLeft event) {
-    booksBloc.add(BookSwipedLeft(event.book));
-  }
-
-  void _onTagAdded(TagAdded event) {
-    booksBloc.add(TagToggled(event.book, event.tag));
-  }
-
-  void _onSummaryModeEntered(SummaryModeEntered event) {
-    bookSummaryBloc.add(SummaryModeToggled(event.book));
-  }
-
-  void _onSummaryModeClosing(SummaryModeClosing event) {
-    bookSummaryBloc.add(SummaryModeDisabling());
-  }
-
-  void _onSummaryModeClosed(SummaryModeClosed event) {
-    bookSummaryBloc.add(SummaryModeDisabled());
-  }
-
-  void _onBackupDirPicked(BackupDirPicked event) {
-    settingsBloc.add(BackupsDirectorySelected(event.dir));
-  }
-
-  void _onSizeLimitsChanged(SizeLimitsChanged event) {
-    settingsBloc.add(BookSizeLimitsChanged(event.limits));
-  }
-
-  void _onGoalChanged(GoalChanged event) {
-    settingsBloc.add(ReadingGoalChanged(event.goal));
-  }
-
-  void _onThemeChanged(ThemeChanged event) {
-    settingsBloc.add(ThemeToggled());
-  }
-
-  void _onSystemThemeEnabled(SystemThemeEnabled event) {
-    settingsBloc.add(SystemThemeToggled());
-  }
-
-  void _onBookRead(BookRead event) {
-    statsBloc.add(BookFinished(event.book));
-  }
-
-  void _onBookReading(BookReading event) {
-    statsBloc.add(BookStarted());
-  }
-
-  void _onBookUnread(BookUnread event) {
-    statsBloc.add(BookUnfinished(event.book));
-  }
-
-  void _onBookUnreading(BookUnreading event) {
-    statsBloc.add(BookUnstarted());
-  }
+  void _onBookFinished(BookFinished event) => stats.add(event);
+  void _onBookStarted(BookStarted event) => stats.add(event);
+  void _onBookUnfinished(BookUnfinished event) => stats.add(event);
+  void _onBookUnstarted(BookUnstarted event) => stats.add(event);
 }

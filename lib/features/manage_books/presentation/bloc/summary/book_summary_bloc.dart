@@ -6,19 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/entities/book.dart';
+import '../../../../../core/orchestrator/events.dart';
 
 part 'book_summary_event.dart';
 part 'book_summary_state.dart';
 
 final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
   BookSummaryBloc() : super(const BookSummaryState.initial()) {
-    on<SummaryModeDisabling>(_onSummaryModeDisabling);
+    on<SummaryModeClosing>(_onSummaryModeDisabling);
     on<SummaryModeToggled>(_onSummaryModeToggled);
-    on<SummaryModeDisabled>(_onSummaryModeDisabled);
+    on<SummaryModeClosed>(_onSummaryModeDisabled);
   }
 
   Future<void> _onSummaryModeDisabling(
-    SummaryModeDisabling event,
+    SummaryModeClosing event,
     Emitter<BookSummaryState> emit,
   ) async {
     emit(BookSummaryState.disabling(state.current));
@@ -35,7 +36,7 @@ final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
   }
 
   Future<void> _onSummaryModeDisabled(
-    SummaryModeDisabled event,
+    SummaryModeClosed event,
     Emitter<BookSummaryState> emit,
   ) async {
     emit(const BookSummaryState.disabled());

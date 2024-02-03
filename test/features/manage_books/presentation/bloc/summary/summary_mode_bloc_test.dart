@@ -12,7 +12,7 @@ void main() {
     blocTest<BookSummaryBloc, BookSummaryState>(
       'should emit disabling with None() as previous book in summary',
       build: () => BookSummaryBloc(),
-      act: (bloc) => bloc.add(SummaryModeDisabling()),
+      act: (bloc) => bloc.add(SummaryModeClosing()),
       expect: () => [
         const BookSummaryState(
           current: None(),
@@ -26,7 +26,7 @@ void main() {
       'should emit disabling with last book in summary',
       seed: () => BookSummaryState.enabled(book),
       build: () => BookSummaryBloc(),
-      act: (bloc) => bloc.add(SummaryModeDisabling()),
+      act: (bloc) => bloc.add(SummaryModeClosing()),
       expect: () => [
         BookSummaryState(
           current: const None(),
@@ -72,7 +72,7 @@ void main() {
     blocTest<BookSummaryBloc, BookSummaryState>(
       'should emit disabled',
       build: () => BookSummaryBloc(),
-      act: (bloc) => bloc.add(SummaryModeDisabled()),
+      act: (bloc) => bloc.add(SummaryModeClosed()),
       expect: () => [
         const BookSummaryState(
           current: None(),

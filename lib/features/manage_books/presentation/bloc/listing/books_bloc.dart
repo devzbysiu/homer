@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/entities/book.dart';
 import '../../../../../core/entities/tag.dart';
+import '../../../../../core/orchestrator/events.dart';
 import '../../../../../core/usecase/usecase.dart';
 import '../../../domain/usecases/add_book.dart';
 import '../../../domain/usecases/filter_books.dart';

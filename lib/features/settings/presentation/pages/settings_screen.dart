@@ -6,18 +6,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 
-import '../../../../core/orchestrator/bus.dart';
+import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
-import '../../../../injection_container.dart';
 import '../bloc/settings_bloc.dart';
 import '../widgets/book_size_slider.dart';
 import '../widgets/reading_goal_slider.dart';
 
-final class SettingsScreen extends StatelessWidget {
-  SettingsScreen({super.key, Bus? eventBus})
-      : _eventBus = eventBus ?? sl<Bus>();
-
-  final Bus _eventBus;
+final class SettingsScreen extends StatelessBusWidget {
+  SettingsScreen({super.key, super.bus});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +53,7 @@ final class SettingsScreen extends StatelessWidget {
       title: Text('Use system theme', style: context.headlineSmall),
       leading: const Icon(Icons.brush),
       initialValue: useSystemTheme,
-      onToggle: (_) => _eventBus.fire(SystemThemeToggled()),
+      onToggle: (_) => fire(SystemThemeToggled()),
     );
   }
 
@@ -73,6 +69,6 @@ final class SettingsScreen extends StatelessWidget {
   Future<void> _pickBackupsPath(BuildContext context) async {
     final directory = await FilePicker.platform.getDirectoryPath();
     if (directory == null) return;
-    _eventBus.fire(BackupsDirPicked(Directory(directory)));
+    fire(BackupsDirPicked(Directory(directory)));
   }
 }

@@ -1,12 +1,10 @@
 part of 'books_list.dart';
 
-final class _BookCard extends StatelessWidget {
-  _BookCard({required this.book, Bus? eventBus})
-      : _eventBus = eventBus ?? sl<Bus>();
+final class _BookCard extends StatelessBusWidget {
+  // ignore: unused_element
+  _BookCard({required this.book, super.bus});
 
   final Book book;
-
-  final Bus _eventBus;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +13,7 @@ final class _BookCard extends StatelessWidget {
       builder: (context, booksToDelete) {
         return GestureDetector(
           onLongPress: () => _switchToDeleteMode(context),
-          onDoubleTap: () => _eventBus.fire(SummaryModeToggled(book)),
+          onDoubleTap: () => fire(SummaryModeToggled(book)),
           onTap: () => _toggleModes(booksToDelete, context),
           child: _bookCard(booksToDelete),
         );
@@ -24,14 +22,14 @@ final class _BookCard extends StatelessWidget {
   }
 
   void _switchToDeleteMode(BuildContext context) {
-    _eventBus.fire(DeleteModeToggled(book));
+    fire(DeleteModeToggled(book));
     Vibration.vibrate(duration: 100);
   }
 
   void _toggleModes(List<Book> booksToDelete, BuildContext context) {
-    _eventBus.fire(SummaryModeClosing()); // always disable summary mode on tap
+    fire(SummaryModeClosing()); // always disable summary mode on tap
     if (booksToDelete.isEmpty) return; // not in delete mode
-    _eventBus.fire(DeleteModeToggled(book));
+    fire(DeleteModeToggled(book));
   }
 
   Widget _bookCard(List<Book> booksToDelete) {

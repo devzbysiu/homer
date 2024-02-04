@@ -44,13 +44,11 @@ final class _SuggestionsList extends StatelessWidget {
   }
 }
 
-final class _SearchSuggestion extends StatelessWidget {
-  _SearchSuggestion({required this.book, Bus? eventBus})
-      : _eventBus = eventBus ?? sl<Bus>();
+final class _SearchSuggestion extends StatelessBusWidget {
+  // ignore: unused_element
+  _SearchSuggestion({required this.book, super.bus});
 
   final Book book;
-
-  final Bus _eventBus;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +62,7 @@ final class _SearchSuggestion extends StatelessWidget {
             bannerTextColor: context.background,
             bannerColor: context.primary,
             bannerText: book.rating.toStringAsFixed(2),
-            onTap: () => _eventBus.fire(SuggestionPicked(book)),
+            onTap: () => fire(SuggestionPicked(book)),
             backgroundColor: context.background,
             borderRadius: BorderRadius.circular(8),
             imageContainer: _ListTileThumbnail(book: book),

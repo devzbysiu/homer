@@ -9,7 +9,7 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
 
 import '../../../../core/entities/book.dart';
 import '../../../../core/entities/tag.dart';
-import '../../../../core/orchestrator/bus.dart';
+import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/fallback_img.dart';
 import '../../../../core/utils/theme.dart';
@@ -17,7 +17,6 @@ import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
-import '../../../../injection_container.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
 import '../bloc/search/book_search_bloc.dart';
 import '../bloc/share_book/share_book_bloc.dart';
@@ -30,11 +29,8 @@ part 'save_buttons.dart';
 part 'search_suggestions.dart';
 part 'tags.dart';
 
-final class BottomDrawerContent extends StatefulWidget {
-  BottomDrawerContent({super.key, Bus? eventBus})
-      : _eventBus = eventBus ?? sl<Bus>();
-
-  final Bus _eventBus;
+final class BottomDrawerContent extends StatefulBusWidget {
+  BottomDrawerContent({super.key, super.bus});
 
   @override
   State<BottomDrawerContent> createState() => _BottomDrawerContentState();
@@ -65,7 +61,7 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
         axisAlignment: 0.0,
         openAxisAlignment: 0.0,
         debounceDelay: const Duration(milliseconds: 500),
-        onQueryChanged: (query) => widget._eventBus.fire(SearchStarted(query)),
+        onQueryChanged: (query) => widget.fire(SearchStarted(query)),
         transition: CircularFloatingSearchBarTransition(),
         actions: [FloatingSearchBarAction.searchToClear(showIfClosed: false)],
         builder: (_, __) => const _SearchSuggestions(),

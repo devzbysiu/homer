@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/orchestrator/bus.dart';
+import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
-import '../../../../injection_container.dart';
 import '../../domain/entities/reading_goal.dart';
 import '../bloc/settings_bloc.dart';
 
-final class ReadingGoalSlider extends StatefulWidget {
-  ReadingGoalSlider({super.key, Bus? bus}) : _eventBus = bus ?? sl<Bus>();
-
-  final Bus _eventBus;
+final class ReadingGoalSlider extends StatefulBusWidget {
+  ReadingGoalSlider({super.key, super.bus});
 
   @override
   State<ReadingGoalSlider> createState() => ReadingGoalSliderState();
@@ -39,7 +36,7 @@ final class ReadingGoalSliderState extends State<ReadingGoalSlider> {
             onChanged: (value) => setState(() {
               componentReadingGoal = ReadingGoal(books: value.toInt());
             }),
-            onChangeEnd: (value) => widget._eventBus.fire(ReadingGoalChanged(
+            onChangeEnd: (value) => widget.fire(ReadingGoalChanged(
               ReadingGoal(books: value.toInt()),
             )),
             min: 0,

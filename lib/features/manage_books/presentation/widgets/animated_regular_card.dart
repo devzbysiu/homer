@@ -1,12 +1,10 @@
 part of 'books_list.dart';
 
-final class _AnimatedRegularCard extends StatelessWidget {
-  _AnimatedRegularCard({required this.book, Bus? eventBus})
-      : _eventBus = eventBus ?? sl<Bus>();
+final class _AnimatedRegularCard extends StatelessBusWidget {
+  // ignore: unused_element
+  _AnimatedRegularCard({required this.book, super.bus});
 
   final Book book;
-
-  final Bus _eventBus;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ final class _AnimatedRegularCard extends StatelessWidget {
         ),
       ],
       child: _RegularCard(book: book),
-      onComplete: (_) => _eventBus.fire(SummaryModeClosed()),
+      onComplete: (_) => fire(SummaryModeClosed()),
     );
   }
 }

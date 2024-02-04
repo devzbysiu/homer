@@ -42,21 +42,20 @@ final class _SaveButtons extends StatelessWidget {
   }
 }
 
-final class _SavingButton extends StatelessWidget {
+final class _SavingButton extends StatelessBusWidget {
   _SavingButton({
     required this.pickedBook,
     required this.bookState,
     required this.icon,
-    Bus? eventBus,
-  }) : _eventBus = eventBus ?? sl<Bus>();
+    // ignore: unused_element
+    super.bus,
+  });
 
   final Book pickedBook;
 
   final BookState bookState;
 
   final IconData icon;
-
-  final Bus _eventBus;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +68,6 @@ final class _SavingButton extends StatelessWidget {
 
   void _addBook(BuildContext context, Book pickedBook, BookState pickedState) {
     final selectedTags = context.selectedTags();
-    _eventBus.fire(SaveBookStarted(pickedBook, pickedState, selectedTags));
+    fire(SaveBookStarted(pickedBook, pickedState, selectedTags));
   }
 }

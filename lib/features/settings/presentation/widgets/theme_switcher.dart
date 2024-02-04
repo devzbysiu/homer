@@ -2,14 +2,11 @@ import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/orchestrator/bus.dart';
-import '../../../../injection_container.dart';
+import '../../../../core/orchestrator/bus_widget.dart';
 import '../bloc/settings_bloc.dart';
 
-final class ThemeSwitcher extends StatelessWidget {
-  ThemeSwitcher({super.key, Bus? eventBus}) : _eventBus = eventBus ?? sl<Bus>();
-
-  final Bus _eventBus;
+final class ThemeSwitcher extends StatelessBusWidget {
+  ThemeSwitcher({super.key, super.bus});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +16,8 @@ final class ThemeSwitcher extends StatelessWidget {
             ? const SizedBox.shrink()
             : DayNightSwitcher(
                 isDarkModeEnabled: state.useDarkTheme,
-                onStateChanged: (_) => _eventBus.fire(ThemeToggled()));
+                onStateChanged: (_) => fire(ThemeToggled()),
+              );
       },
     );
   }

@@ -12,14 +12,13 @@ import 'package:vibration/vibration.dart';
 
 import '../../../../core/entities/book.dart';
 import '../../../../core/entities/tag.dart';
-import '../../../../core/orchestrator/bus.dart';
+import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/fallback_img.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
-import '../../../../injection_container.dart';
 import '../../../stats/presentation/bloc/stats_bloc.dart';
 import '../bloc/delete/delete_books_bloc.dart';
 import '../bloc/listing/books_bloc.dart';
@@ -34,10 +33,8 @@ part 'deletable_card.dart';
 part 'regular_card.dart';
 part 'swipeable_card.dart';
 
-final class BooksList extends StatefulWidget {
-  BooksList({super.key, Bus? bus}) : _eventBus = bus ?? sl<Bus>();
-
-  final Bus _eventBus;
+final class BooksList extends StatefulBusWidget {
+  BooksList({super.key, super.bus});
 
   @override
   State<BooksList> createState() => _BooksListState();
@@ -51,7 +48,7 @@ final class _BooksListState extends State<BooksList> {
     return BlocListener<AppTabBloc, AppTabState>(
       listener: (_, __) => _scrollController.jumpTo(0),
       child: GestureDetector(
-        onTap: () => widget._eventBus.fire(ClearDeletionList()),
+        onTap: () => widget.fire(ClearDeletionList()),
         child: FloatingSearchBarScrollNotifier(
           child: BlocSelector<BooksBloc, BooksState, List<Book>>(
             selector: (state) => state.books,

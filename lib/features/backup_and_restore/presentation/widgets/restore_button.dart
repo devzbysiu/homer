@@ -3,16 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
-import '../../../../core/orchestrator/bus.dart';
+import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/menu_button.dart';
-import '../../../../injection_container.dart';
 import '../bloc/backup_bloc.dart';
 
-final class RestoreButton extends StatelessWidget {
-  RestoreButton({super.key, Bus? eventBus}) : _eventBus = eventBus ?? sl<Bus>();
-
-  final Bus _eventBus;
+final class RestoreButton extends StatelessBusWidget {
+  RestoreButton({super.key, super.bus});
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +36,6 @@ final class RestoreButton extends StatelessWidget {
   Future<void> _triggerRestore(BuildContext context) async {
     final directory = await getApplicationDocumentsDirectory();
     final backupPath = '${directory.path}/homer-backup.json';
-    _eventBus.fire(RestoreTriggered(backupPath));
+    fire(RestoreTriggered(backupPath));
   }
 }

@@ -39,22 +39,17 @@ final class _BottomNavBarState extends State<BottomNavBar> {
         bottomBarTheme: _bottomBarTheme(context),
         onSelectItem: (idx) => _changeTab(idx),
         sheetChild: BottomDrawerContent(),
-        items: const [
-          BottomBarWithSheetItem(
-            label: 'For Later',
-            icon: Icons.bookmark_outline,
-          ),
-          BottomBarWithSheetItem(
-            label: 'Reading',
-            icon: Icons.book_outlined,
-          ),
-          BottomBarWithSheetItem(
-            label: 'Read',
-            icon: Icons.done_outline,
-          ),
+        items: [
+          _item('Read Later', Icons.bookmark_outline),
+          _item('Reading', Icons.book_outlined),
+          _item('Read', Icons.done_outline),
         ],
       ),
     );
+  }
+
+  BottomBarWithSheetItem _item(String label, IconData icon) {
+    return BottomBarWithSheetItem(label: label, icon: icon);
   }
 
   BlocListener<BooksBloc, BooksState> _closeSheetWhenBooksLoaded() {

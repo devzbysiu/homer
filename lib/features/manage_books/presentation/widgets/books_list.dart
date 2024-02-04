@@ -48,8 +48,8 @@ final class _BooksListState extends State<BooksList> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [_jumpToTopOnTabChange()],
+    return BlocListener<AppTabBloc, AppTabState>(
+      listener: (_, __) => _scrollController.jumpTo(0),
       child: GestureDetector(
         onTap: () => widget._eventBus.fire(ClearDeletionList()),
         child: FloatingSearchBarScrollNotifier(
@@ -73,12 +73,6 @@ final class _BooksListState extends State<BooksList> {
           ),
         ),
       ),
-    );
-  }
-
-  BlocListener<AppTabBloc, AppTabState> _jumpToTopOnTabChange() {
-    return BlocListener<AppTabBloc, AppTabState>(
-      listener: (_, __) => _scrollController.jumpTo(0),
     );
   }
 

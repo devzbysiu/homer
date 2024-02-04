@@ -37,7 +37,7 @@ final class Orchestrator {
     // Find new Book
     eventBus.on<SearchStarted>(_onSearchInitiated);
     eventBus.on<SuggestionPicked>(_onSuggestionPicked);
-    eventBus.on<SaveBookStarted>(_onSaveBookStarted);
+    eventBus.on<SaveBook>(_onSaveBookStarted);
 
     // Delete
     eventBus.on<DeleteModeToggled>(_onDeleteModeToggled);
@@ -106,8 +106,8 @@ final class Orchestrator {
   void _onSearchInitiated(SearchStarted event) => search.add(event);
   void _onSuggestionPicked(SuggestionPicked event) => search.add(event);
 
-  void _onSaveBookStarted(SaveBookStarted event) {
-    books.add(SaveBook(event.book, event.bookState, event.selectedTags));
+  void _onSaveBookStarted(SaveBook event) {
+    books.add(event);
     search.add(ClearPickedBook());
     share.add(ClearSharedBook());
     onBookTags.add(ClearSelectedTags());

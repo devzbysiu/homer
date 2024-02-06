@@ -32,8 +32,8 @@ final class ExternalBookInfoDTO extends Equatable {
   Option<String> get isbn => isbn10.orElse(() => isbn13);
 }
 
-Option<String> _toIsbn(String isbn) {
-  return isbn.isEmpty ? none() : some(isbn);
+Option<String> _toIsbn(String? isbn) {
+  return (isbn == null || isbn.isEmpty) ? none() : some(isbn);
 }
 
 String _isbnToJson(Option<String> isbn) {

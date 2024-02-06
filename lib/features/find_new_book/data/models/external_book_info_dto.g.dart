@@ -9,8 +9,8 @@ part of 'external_book_info_dto.dart';
 ExternalBookInfoDTO _$ExternalBookInfoDTOFromJson(Map<String, dynamic> json) =>
     ExternalBookInfoDTO(
       title: json['title'] as String,
-      isbn10: _toIsbn(json['isbn10'] as String),
-      isbn13: _toIsbn(json['isbn13'] as String),
+      isbn10: _toIsbn(json['isbn10'] as String?),
+      isbn13: _toIsbn(json['isbn13'] as String?),
     );
 
 Map<String, dynamic> _$ExternalBookInfoDTOToJson(

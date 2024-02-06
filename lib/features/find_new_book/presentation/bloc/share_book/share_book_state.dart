@@ -38,7 +38,7 @@ final class ShareBookState extends Equatable {
   bool get failedToLookUpSharedBook =>
       value == ShareState.fetchingDetailsFailed;
 
-  Option<String> get failureCause => cause;
+  String get failureCause => cause.toNullable()!;
 
   final Option<Book> sharedBook;
 

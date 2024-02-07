@@ -90,11 +90,11 @@ void main() {
     });
   });
 
-  group('fromBookInfo', () {
+  group('fromIsbn', () {
     test('should return failure when no book found by isbn', () async {
       // given
       final bookInfo = fakeExternalBookInfo();
-      final isbn = bookInfo.isbn;
+      final isbn = bookInfo.isbn.toNullable()!;
 
       final booksDataSource = makeMockExternalBooksDataSource();
       when(booksDataSource.getFromIsbn(any)).thenThrow(
@@ -104,7 +104,7 @@ void main() {
       final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
       // when
-      final result = await repo.fromBookInfo(bookInfo);
+      final result = await repo.fromIsbn(isbn);
 
       // then
       expect(result.isError(), true);
@@ -114,7 +114,7 @@ void main() {
     test('should return failure when too many books were found', () async {
       // given
       final bookInfo = fakeExternalBookInfo();
-      final isbn = bookInfo.isbn;
+      final isbn = bookInfo.isbn.toNullable()!;
 
       final booksDataSource = makeMockExternalBooksDataSource();
       when(booksDataSource.getFromIsbn(any)).thenThrow(
@@ -124,7 +124,7 @@ void main() {
       final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
       // when
-      final result = await repo.fromBookInfo(bookInfo);
+      final result = await repo.fromIsbn(isbn);
 
       // then
       expect(result.isError(), true);
@@ -135,15 +135,17 @@ void main() {
       // given
       final bookInfo = fakeExternalBookInfo();
       final bookDTO = fakeExternalBookDTO();
+      final isbn = bookInfo.isbn.toNullable()!;
+
       final booksDataSource = makeMockExternalBooksDataSource();
-      when(booksDataSource.getFromIsbn(bookInfo.isbn)).thenAnswer(
+      when(booksDataSource.getFromIsbn(isbn)).thenAnswer(
         (_) => withIt(bookDTO),
       );
 
       final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
       // when
-      final result = await repo.fromBookInfo(bookInfo);
+      final result = await repo.fromIsbn(isbn);
 
       // then
       expect(result.isSuccess(), true);

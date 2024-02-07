@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 final class ExternalBookInfo extends Equatable {
@@ -8,7 +9,17 @@ final class ExternalBookInfo extends Equatable {
 
   final String title;
 
-  final String isbn;
+  final Option<String> isbn;
+
+  ExternalBookInfo copyWith({
+    String? title,
+    Option<String>? isbn,
+  }) {
+    return ExternalBookInfo(
+      title: title ?? this.title,
+      isbn: isbn ?? this.isbn,
+    );
+  }
 
   @override
   List<Object> get props => [title, isbn];

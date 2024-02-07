@@ -16,6 +16,8 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
   BookSearchBloc({required this.searchForBooks})
       : super(const BookSearchState.initial()) {
     on<SearchStarted>(_onSearchInitiated);
+    on<ShareOffloaded>(_onShareOffloaded);
+    on<ResetShareOffload>(_onResetShareOffload);
     on<SuggestionPicked>(_onSuggestedBookPicked);
     on<ClearPickedBook>(_onClearPickedBook);
   }
@@ -36,6 +38,29 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
       (books) => emit(state.searchFinished(books)),
       (error) => emit(state.searchFailed(error.userMessage())),
     );
+  }
+
+  Future<void> _onShareOffloaded(
+    ShareOffloaded event,
+    Emitter<BookSearchState> emit,
+  ) async {
+    if (event.query.isEmpty) {
+      emit(state.shareOffloadFinished([]));
+      return;
+    }
+    emit(state.searching());
+    final searchResult = await searchForBooks(SearchParams(query: event.query));
+    searchResult.when(
+      (books) => emit(state.shareOffloadFinished(books)),
+      (error) => emit(state.searchFailed(error.userMessage())),
+    );
+  }
+
+  Future<void> _onResetShareOffload(
+    ResetShareOffload event,
+    Emitter<BookSearchState> emit,
+  ) async {
+    emit(state.resetShareOffload());
   }
 
   void _onSuggestedBookPicked(

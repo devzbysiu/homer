@@ -21,18 +21,6 @@ final class InvalidUrlSharedFailure extends Equatable implements Failure {
   List<Object> get props => [url];
 }
 
-final class NoIsbnFailure extends Equatable implements Failure {
-  const NoIsbnFailure(this.url);
-
-  final String url;
-
-  @override
-  String userMessage() => 'No ISBN found on shared page: $url';
-
-  @override
-  List<Object> get props => [url];
-}
-
 final class NoBookWithIsbnFailure extends Equatable implements Failure {
   const NoBookWithIsbnFailure(this.isbn);
 

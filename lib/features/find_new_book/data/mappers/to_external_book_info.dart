@@ -3,7 +3,7 @@ import '../models/external_book_info_dto.dart';
 
 ExternalBookInfo toExternalBookInfo(ExternalBookInfoDTO dto) {
   return ExternalBookInfo(
-    isbn: dto.isbn.toNullable()!,
+    isbn: dto.isbn,
     title: dto.title,
   );
 }

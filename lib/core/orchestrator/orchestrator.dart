@@ -35,7 +35,9 @@ final class Orchestrator {
     eventBus.on<BackupTriggered>(_onBackupTriggered);
 
     // Find new Book
-    eventBus.on<SearchStarted>(_onSearchInitiated);
+    eventBus.on<SearchStarted>(_onSearchStarted);
+    eventBus.on<ShareOffloaded>(_onShareOffloaded);
+    eventBus.on<ResetShareOffload>(_onResetShareOffload);
     eventBus.on<SuggestionPicked>(_onSuggestionPicked);
     eventBus.on<SaveBook>(_onSaveBookStarted);
 
@@ -103,7 +105,9 @@ final class Orchestrator {
 
   void _onBackupTriggered(BackupTriggered event) => backup.add(event);
 
-  void _onSearchInitiated(SearchStarted event) => search.add(event);
+  void _onSearchStarted(SearchStarted event) => search.add(event);
+  void _onShareOffloaded(ShareOffloaded event) => search.add(event);
+  void _onResetShareOffload(ResetShareOffload event) => search.add(event);
   void _onSuggestionPicked(SuggestionPicked event) => search.add(event);
 
   void _onSaveBookStarted(SaveBook event) {

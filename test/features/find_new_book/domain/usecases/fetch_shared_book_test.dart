@@ -9,114 +9,62 @@ import '../../../../test_utils/mock_return_helpers.dart';
 
 void main() {
   group('fetchSharedBook', () {
-    test('should use external book info and external books repos', () async {
+    test('should use external books repo', () async {
       // given
-      final externalBookInfoRepo = makeMockExternalBookInfoRepo();
-      final bookInfo = fakeExternalBookInfo();
-      when(externalBookInfoRepo.fromUrl(any)).thenAnswer(
-        (_) => withSuccess(bookInfo),
-      );
-
       final book = fakeBook();
       final externalBooksRepo = makeMockExternalBooksRepo();
-      when(externalBooksRepo.fromBookInfo(any)).thenAnswer(
+      when(externalBooksRepo.fromIsbn(any)).thenAnswer(
         (_) => withSuccess(book),
       );
 
-      final fetchSharedBook = FetchSharedBookImpl(
-        externalBookInfoRepo,
-        externalBooksRepo,
-      );
+      final fetchSharedBook = FetchSharedBookImpl(externalBooksRepo);
 
-      final url = fakeUrl();
+      final isbn = fakeIsbn();
 
-      verifyZeroInteractions(externalBookInfoRepo);
       verifyZeroInteractions(externalBooksRepo);
 
       // when
-      final _ = await fetchSharedBook(FetchParams(url: url));
+      final _ = await fetchSharedBook(FetchBookParams(isbn: isbn));
 
       // then
-      verify(externalBookInfoRepo.fromUrl(url));
-      verify(externalBooksRepo.fromBookInfo(bookInfo));
-      verifyNoMoreInteractions(externalBookInfoRepo);
+      verify(externalBooksRepo.fromIsbn(isbn));
       verifyNoMoreInteractions(externalBooksRepo);
-    });
-
-    test('should return failure when book info repo failed', () async {
-      // given
-      final failure = TestingFailure();
-      final externalBookInfoRepo = makeMockExternalBookInfoRepo();
-      when(externalBookInfoRepo.fromUrl(any)).thenAnswer(
-        (_) => withError(failure),
-      );
-
-      final fetchSharedBook = FetchSharedBookImpl(
-        externalBookInfoRepo,
-        makeMockExternalBooksRepo(),
-      );
-
-      final url = fakeUrl();
-
-      // when
-      final result = await fetchSharedBook(FetchParams(url: url));
-
-      // then
-      expect(result.isError(), true);
-      expect(result.tryGetError()!, failure);
     });
 
     test('should return failure when books repo failed', () async {
       // given
-      final externalBookInfoRepo = makeMockExternalBookInfoRepo();
-      when(externalBookInfoRepo.fromUrl(any)).thenAnswer(
-        (_) => withSuccess(fakeExternalBookInfo()),
-      );
-
       final failure = TestingFailure();
       final externalBooksRepo = makeMockExternalBooksRepo();
-      when(externalBooksRepo.fromBookInfo(any)).thenAnswer(
+      when(externalBooksRepo.fromIsbn(any)).thenAnswer(
         (_) => withError(failure),
       );
 
-      final fetchSharedBook = FetchSharedBookImpl(
-        externalBookInfoRepo,
-        externalBooksRepo,
-      );
+      final fetchSharedBook = FetchSharedBookImpl(externalBooksRepo);
 
-      final url = fakeUrl();
+      final isbn = fakeIsbn();
 
       // when
-      final result = await fetchSharedBook(FetchParams(url: url));
+      final result = await fetchSharedBook(FetchBookParams(isbn: isbn));
 
       // then
       expect(result.isError(), true);
       expect(result.tryGetError()!, failure);
     });
 
-    test('should return success when book info repo & books repo work',
-        () async {
+    test('should return success when books repo work', () async {
       // given
-      final externalBookInfoRepo = makeMockExternalBookInfoRepo();
-      when(externalBookInfoRepo.fromUrl(any)).thenAnswer(
-        (_) => withSuccess(fakeExternalBookInfo()),
-      );
-
       final book = fakeBook();
       final externalBooksRepo = makeMockExternalBooksRepo();
-      when(externalBooksRepo.fromBookInfo(any)).thenAnswer(
+      when(externalBooksRepo.fromIsbn(any)).thenAnswer(
         (_) => withSuccess(book),
       );
 
-      final fetchSharedBook = FetchSharedBookImpl(
-        externalBookInfoRepo,
-        externalBooksRepo,
-      );
+      final fetchSharedBook = FetchSharedBookImpl(externalBooksRepo);
 
-      final url = fakeUrl();
+      final isbn = fakeIsbn();
 
       // when
-      final result = await fetchSharedBook(FetchParams(url: url));
+      final result = await fetchSharedBook(FetchBookParams(isbn: isbn));
 
       // then
       expect(result.isSuccess(), true);

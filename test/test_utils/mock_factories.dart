@@ -45,6 +45,7 @@ MockSettingsRepository makeMockSettingsRepo() {
 MockExternalBooksRepository makeMockExternalBooksRepo() {
   final mockRepo = MockExternalBooksRepository();
   provideDummy<Result<List<Book>, Failure>>(Success([fakeBook()]));
+  provideDummy<Result<Book, Failure>>(Success(fakeBook()));
   return mockRepo;
 }
 

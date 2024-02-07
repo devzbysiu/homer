@@ -230,7 +230,7 @@ String fakeSearchQuery() => faker.lorem.word();
 ExternalBookInfo fakeExternalBookInfo() {
   return ExternalBookInfo(
     title: fakeTitle(),
-    isbn: fakeIsbn(),
+    isbn: some(fakeIsbn()),
   );
 }
 

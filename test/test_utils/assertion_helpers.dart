@@ -104,7 +104,7 @@ ExternalBookDTO fromBookFinderBook(bf.Book book) {
 
 ExternalBookInfo externalBookInfoFromDTO(ExternalBookInfoDTO bookInfoDTO) {
   return ExternalBookInfo(
-    isbn: bookInfoDTO.isbn.toNullable()!,
+    isbn: bookInfoDTO.isbn,
     title: bookInfoDTO.title,
   );
 }

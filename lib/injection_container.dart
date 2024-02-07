@@ -20,6 +20,7 @@ import 'features/find_new_book/data/repositories/external_books_repo.dart';
 import 'features/find_new_book/domain/repositories/external_book_info_repository.dart';
 import 'features/find_new_book/domain/repositories/external_books_repository.dart';
 import 'features/find_new_book/domain/usecases/fetch_shared_book.dart';
+import 'features/find_new_book/domain/usecases/fetch_shared_book_info.dart';
 import 'features/find_new_book/domain/usecases/search_and_check_saved.dart';
 import 'features/find_new_book/presentation/bloc/search/book_search_bloc.dart';
 import 'features/find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
@@ -112,7 +113,10 @@ Future<void> initDi({required Env env}) async {
     () => SearchAndCheckSaved(sl(), sl()),
   );
   sl.registerLazySingleton<FetchSharedBook>(
-    () => FetchSharedBookImpl(sl(), sl()),
+    () => FetchSharedBookImpl(sl()),
+  );
+  sl.registerLazySingleton<FetchSharedBookInfo>(
+    () => FetchSharedBookInfoImpl(sl()),
   );
   // backup and restore
   sl.registerLazySingleton<LoadBackup>(() => LoadBackupImpl(sl()));
@@ -150,8 +154,10 @@ Future<void> initDi({required Env env}) async {
   sl.registerLazySingleton(() => BookSearchBloc(searchForBooks: sl()));
   sl.registerLazySingleton(() {
     return ShareBookBloc(
+      eventBus: sl(),
       shareHandler: sl(),
       fetchSharedBook: sl(),
+      fetchSharedBookInfo: sl(),
     );
   });
   sl.registerLazySingleton(() => OnBookTagsBloc());

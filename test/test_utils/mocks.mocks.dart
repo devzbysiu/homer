@@ -32,13 +32,15 @@ import 'package:homer/features/find_new_book/data/models/external_book_dto.dart'
 import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart'
     as _i20;
 import 'package:homer/features/find_new_book/domain/entities/external_book_info.dart'
-    as _i17;
-import 'package:homer/features/find_new_book/domain/repositories/external_book_info_repository.dart'
     as _i18;
+import 'package:homer/features/find_new_book/domain/repositories/external_book_info_repository.dart'
+    as _i17;
 import 'package:homer/features/find_new_book/domain/repositories/external_books_repository.dart'
     as _i16;
 import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book.dart'
     as _i25;
+import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book_info.dart'
+    as _i51;
 import 'package:homer/features/find_new_book/domain/usecases/search_and_check_saved.dart'
     as _i24;
 import 'package:homer/features/manage_books/data/datasources/books_data_source.dart'
@@ -485,19 +487,18 @@ class MockExternalBooksRepository extends _i1.Mock
       ) as _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>>);
 
   @override
-  _i3.Future<_i4.Result<_i5.Book, _i6.Failure>> fromBookInfo(
-          _i17.ExternalBookInfo? bookInfo) =>
+  _i3.Future<_i4.Result<_i5.Book, _i6.Failure>> fromIsbn(String? isbn) =>
       (super.noSuchMethod(
         Invocation.method(
-          #fromBookInfo,
-          [bookInfo],
+          #fromIsbn,
+          [isbn],
         ),
         returnValue: _i3.Future<_i4.Result<_i5.Book, _i6.Failure>>.value(
             _i7.dummyValue<_i4.Result<_i5.Book, _i6.Failure>>(
           this,
           Invocation.method(
-            #fromBookInfo,
-            [bookInfo],
+            #fromIsbn,
+            [isbn],
           ),
         )),
       ) as _i3.Future<_i4.Result<_i5.Book, _i6.Failure>>);
@@ -507,13 +508,13 @@ class MockExternalBooksRepository extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockExternalBookInfoRepository extends _i1.Mock
-    implements _i18.ExternalBookInfoRepository {
+    implements _i17.ExternalBookInfoRepository {
   MockExternalBookInfoRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<_i4.Result<_i17.ExternalBookInfo, _i6.Failure>> fromUrl(
+  _i3.Future<_i4.Result<_i18.ExternalBookInfo, _i6.Failure>> fromUrl(
           String? url) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -521,15 +522,15 @@ class MockExternalBookInfoRepository extends _i1.Mock
           [url],
         ),
         returnValue:
-            _i3.Future<_i4.Result<_i17.ExternalBookInfo, _i6.Failure>>.value(
-                _i7.dummyValue<_i4.Result<_i17.ExternalBookInfo, _i6.Failure>>(
+            _i3.Future<_i4.Result<_i18.ExternalBookInfo, _i6.Failure>>.value(
+                _i7.dummyValue<_i4.Result<_i18.ExternalBookInfo, _i6.Failure>>(
           this,
           Invocation.method(
             #fromUrl,
             [url],
           ),
         )),
-      ) as _i3.Future<_i4.Result<_i17.ExternalBookInfo, _i6.Failure>>);
+      ) as _i3.Future<_i4.Result<_i18.ExternalBookInfo, _i6.Failure>>);
 }
 
 /// A class which mocks [ExternalBookInfoDataSource].
@@ -691,7 +692,7 @@ class MockFetchSharedBook extends _i1.Mock implements _i25.FetchSharedBook {
 
   @override
   _i3.Future<_i4.Result<_i5.Book, _i6.Failure>> call(
-          _i25.FetchParams? params) =>
+          _i25.FetchBookParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
@@ -1173,4 +1174,33 @@ class MockBus extends _i1.Mock implements _i49.Bus {
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [FetchSharedBookInfo].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFetchSharedBookInfo extends _i1.Mock
+    implements _i51.FetchSharedBookInfo {
+  MockFetchSharedBookInfo() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<_i4.Result<_i18.ExternalBookInfo, _i6.Failure>> call(
+          _i51.FetchInfoParams? params) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [params],
+        ),
+        returnValue:
+            _i3.Future<_i4.Result<_i18.ExternalBookInfo, _i6.Failure>>.value(
+                _i7.dummyValue<_i4.Result<_i18.ExternalBookInfo, _i6.Failure>>(
+          this,
+          Invocation.method(
+            #call,
+            [params],
+          ),
+        )),
+      ) as _i3.Future<_i4.Result<_i18.ExternalBookInfo, _i6.Failure>>);
 }

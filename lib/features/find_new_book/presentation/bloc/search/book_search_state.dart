@@ -27,6 +27,15 @@ final class BookSearchState extends Equatable {
         foundBooks: foundBooks,
       );
 
+  BookSearchState shareOffloadFinished(List<Book> foundBooks) => _copyWith(
+        value: Value.shareOffloadFinished,
+        foundBooks: foundBooks,
+      );
+
+  BookSearchState resetShareOffload() => _copyWith(
+        value: Value.initial,
+      );
+
   BookSearchState searchFailed(String cause) => _copyWith(
         value: Value.searchFailed,
         foundBooks: const [],
@@ -56,6 +65,8 @@ final class BookSearchState extends Equatable {
 
   bool get isSuggestionPicked => value == Value.bookPicked;
 
+  bool get isShareOffloaded => value == Value.shareOffloadFinished;
+
   BookSearchState _copyWith({
     List<Book>? foundBooks,
     Option<Book>? pickedBook,
@@ -78,6 +89,7 @@ enum Value {
   initial,
   searching,
   searchFinished,
+  shareOffloadFinished,
   bookPicked,
   bookNotPicked,
   searchFailed,

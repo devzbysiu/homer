@@ -45,6 +45,10 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
     return BlocBuilder<BookSearchBloc, BookSearchState>(
         builder: (context, state) {
       if (state.isSuggestionPicked) _controller.close();
+      if (state.isShareOffloaded) {
+        _controller.open();
+        widget.fire(ResetShareOffload());
+      }
       return FloatingSearchBar(
         accentColor: context.primary,
         progress: state.isSearching,

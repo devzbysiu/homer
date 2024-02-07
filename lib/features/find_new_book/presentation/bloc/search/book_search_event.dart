@@ -1,7 +1,10 @@
 part of 'book_search_bloc.dart';
 
 @immutable
-abstract class BookSearchEvent extends Equatable implements BusEvent {}
+abstract class BookSearchEvent extends Equatable implements BusEvent {
+  @override
+  List<Object> get props => [];
+}
 
 final class SearchStarted extends BookSearchEvent {
   SearchStarted(this.query);
@@ -21,16 +24,15 @@ final class SuggestionPicked extends BookSearchEvent {
   List<Object> get props => [pickedBook];
 }
 
-final class ClearPickedBook extends BookSearchEvent {
-  @override
-  List<Object> get props => [];
-}
+final class ClearPickedBook extends BookSearchEvent {}
 
-final class BookSharedFromOutside extends BookSearchEvent {
-  BookSharedFromOutside(this.url);
+final class ShareOffloaded extends BookSearchEvent {
+  ShareOffloaded(this.query);
 
-  final String url;
+  final String query;
 
   @override
-  List<Object> get props => [url];
+  List<Object> get props => [query];
 }
+
+final class ResetShareOffload extends BookSearchEvent {}

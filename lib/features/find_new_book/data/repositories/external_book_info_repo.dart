@@ -25,9 +25,6 @@ final class ExternalBookInfoRepo implements ExternalBookInfoRepository {
     try {
       log.i('Fetching info from: $url');
       final bookInfoDTO = await dataSource.getFromWebsite(url);
-      if (bookInfoDTO.isbn.isNone()) {
-        return Error(NoIsbnFailure(url));
-      }
       return Success(toExternalBookInfo(bookInfoDTO));
     } on InvalidUrlException catch (e) {
       log.e('The url $url is invalid: $e');

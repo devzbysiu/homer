@@ -6,16 +6,18 @@
         {
             "label": "run prod",
             "type": "shell",
-            "command": "./tools/run.sh",
+            "command": "./tools/ctl.sh",
             "args": [
+                "run",
                 "prod"
             ]
         },
         {
             "label": "run dev",
             "type": "shell",
-            "command": "./tools/run.sh",
+            "command": "./tools/ctl.sh",
             "args": [
+                "run",
                 "dev"
             ]
         }

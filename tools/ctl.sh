@@ -45,21 +45,56 @@ function run_app() {
   fi
 }
 
+function install_app() {
+  local env="$1"
+  if [[ "${env}" == "prod" ]]; then
+    info "Building 'flutter build apk --release --flavor prod -t lib/envs/prod.dart --dart-define SENTRY_DSN=${SENTRY_DSN}'"
+    flutter build apk --release --flavor prod -t lib/envs/prod.dart --dart-define SENTRY_DSN=${SENTRY_DSN}
+    info "Installing the app"
+    flutter install --release --flavor prod
+  elif [[ "${env}" == "dev" ]]; then
+    info "Building 'flutter build apk --debug --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN=${SENTRY_DSN}'"
+    flutter build apk --debug --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN=${SENTRY_DSN}
+    info "Installing the app"
+    flutter install --debug --flavor dev
+  else
+    error "Unknown environment '${env}'."
+    exit 1
+  fi
+}
+
 function main() {
   info "starting app"
-  if [[ $# -lt 1 ]]; then
-    error "You need to specify an environment."
+  if [[ $# -lt 2 ]]; then
+    error "You need to specify command and environment."
     error ""
     error "Usage:"
-    error "$0 <env>"
+    error "$0 <cmd> <env>"
+    error "\t <cmd>: run|install"
     error "\t <env>: prod|dev"
     exit 1
   fi 
-  local env="$1"
-  info "Running '${env}' app."
+
+  local env="$2"
   load_props "${env}"
   check_required_props
-  run_app "${env}"
+
+  local cmd="$1"
+
+  case "${cmd}" in
+    "run")
+      info "Running '${env}' app."
+      run_app "${env}"
+      ;;
+    "install")
+      info "Installing '${env}' app."
+      install_app "${env}"
+      ;;
+    *)
+      error "Unknown command '${cmd}'."
+      exit 1
+      ;;
+  esac
 }
 
 # ================= [  execution   ] =================

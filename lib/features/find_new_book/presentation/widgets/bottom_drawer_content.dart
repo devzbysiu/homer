@@ -2,6 +2,7 @@ import 'package:banner_listtile/banner_listtile.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chip_list/chip_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
@@ -49,25 +50,31 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
         _controller.open();
         widget.fire(ResetShareOffload());
       }
-      return FloatingSearchBar(
-        accentColor: context.primary,
-        progress: state.isSearching,
-        controller: _controller,
-        body: const _PickedBookArea(),
-        backgroundColor: context.lightBackground,
-        backdropColor: Colors.transparent,
-        hint: 'Search...',
-        scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-        transitionDuration: const Duration(milliseconds: 600),
-        transitionCurve: Curves.easeInOut,
-        physics: const BouncingScrollPhysics(),
-        axisAlignment: 0.0,
-        openAxisAlignment: 0.0,
-        debounceDelay: const Duration(milliseconds: 500),
-        onQueryChanged: (query) => widget.fire(SearchStarted(query)),
-        transition: CircularFloatingSearchBarTransition(),
-        actions: [FloatingSearchBarAction.searchToClear(showIfClosed: false)],
-        builder: (_, __) => const _SearchSuggestions(),
+
+      return Animate(
+        // NOTE: `FadeEffect` make the widget rendering delayed. This solves the
+        //  issue with render overflow when the drawer is in the process of opening.
+        //  After it's opened, the overflow is not happening.
+        effects: const [FadeEffect(duration: Duration(milliseconds: 500))],
+        child: FloatingSearchBar(
+          accentColor: context.primary,
+          progress: state.isSearching,
+          controller: _controller,
+          body: const _PickedBookArea(),
+          backgroundColor: context.lightBackground,
+          backdropColor: Colors.transparent,
+          hint: 'Search...',
+          scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+          transitionCurve: Curves.easeInOut,
+          physics: const BouncingScrollPhysics(),
+          axisAlignment: 0.0,
+          openAxisAlignment: 0.0,
+          debounceDelay: const Duration(milliseconds: 600),
+          onQueryChanged: (query) => widget.fire(SearchStarted(query)),
+          transition: CircularFloatingSearchBarTransition(),
+          actions: [FloatingSearchBarAction.searchToClear(showIfClosed: false)],
+          builder: (_, __) => const _SearchSuggestions(),
+        ),
       );
     });
   }

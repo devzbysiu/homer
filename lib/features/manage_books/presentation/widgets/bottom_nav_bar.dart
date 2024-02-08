@@ -131,6 +131,7 @@ final class _AddButton extends StatelessWidget {
 }
 
 final class _DeleteButton extends StatelessBusWidget {
+  // ignore: unused_element
   _DeleteButton({super.bus});
 
   @override

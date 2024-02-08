@@ -36,11 +36,11 @@ function check_required_props() {
 function run_app() {
   local env="$1"
   if [[ "${env}" == "prod" ]]; then
-    info "Running 'flutter run --flavor prod --release -t lib/envs/prod.dart --dart-define SENTY_DSN=<value>'"
-    flutter run --flavor prod --release -t lib/envs/prod.dart --dart-define SENTY_DSN=${SENTRY_DSN}
+    info "Running 'flutter run --flavor prod --release -t lib/envs/prod.dart --dart-define SENTRY_DSN=<value>'"
+    flutter run --flavor prod --release -t lib/envs/prod.dart --dart-define SENTRY_DSN="${SENTRY_DSN}"
   elif [[ "${env}" == "dev" ]]; then
     info "Running 'flutter run --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN=<value>'"
-    flutter run --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN=${SENTRY_DSN}
+    flutter run --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN="${SENTRY_DSN}"
   else
     error "Unknown environment '${env}'."
     exit 1
@@ -51,12 +51,12 @@ function install_app() {
   local env="$1"
   if [[ "${env}" == "prod" ]]; then
     info "Building 'flutter build apk --release --flavor prod -t lib/envs/prod.dart --dart-define SENTRY_DSN=${SENTRY_DSN}'"
-    flutter build apk --release --flavor prod -t lib/envs/prod.dart --dart-define SENTRY_DSN=${SENTRY_DSN}
+    flutter build apk --release --flavor prod -t lib/envs/prod.dart --dart-define SENTRY_DSN="${SENTRY_DSN}"
     info "Installing the app"
     flutter install --release --flavor prod
   elif [[ "${env}" == "dev" ]]; then
     info "Building 'flutter build apk --debug --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN=${SENTRY_DSN}'"
-    flutter build apk --debug --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN=${SENTRY_DSN}
+    flutter build apk --debug --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN="${SENTRY_DSN}"
     info "Installing the app"
     flutter install --debug --flavor dev
   else

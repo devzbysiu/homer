@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +53,7 @@ void run({required Env env}) async {
         BlocProvider(create: (_) => sl<SettingsBloc>()),
         BlocProvider(create: (_) => sl<StatsBloc>()..add(LoadStats())),
       ],
-      child: const Homer(),
+      child: const BetterFeedback(child: Homer()),
     )),
   );
 }

@@ -5,6 +5,7 @@ import '../../../../core/utils/theme.dart';
 import '../../../backup_and_restore/presentation/widgets/backup_button.dart';
 import '../../../backup_and_restore/presentation/widgets/restore_button.dart';
 import '../../../stats/presentation/widgets/stats_button.dart';
+import 'feedback_button.dart';
 import 'settings_button.dart';
 
 final class MenuItems extends StatelessWidget {
@@ -23,6 +24,8 @@ final class MenuItems extends StatelessWidget {
         const StatsButton(),
         spaceBetween(),
         const SettingsButton(),
+        spaceBetween(),
+        const FeedbackButton(),
         spaceBetween(),
       ],
     );

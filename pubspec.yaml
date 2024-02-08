@@ -51,6 +51,7 @@ dependencies:
   fl_chart: ^0.66.0
   collection: ^1.18.0
   event_bus: ^2.0.0
+  sentry_flutter: ^7.16.0
 
 dev_dependencies:
   flutter_test:

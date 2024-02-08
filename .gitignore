@@ -49,3 +49,5 @@ tools/
 # Coverage
 coverage/
 mutation-test-report
+tools/prod-properties.sh
+tools/dev-properties.sh

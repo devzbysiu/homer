@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'app.dart';
 import 'app_config.dart';
@@ -32,22 +33,28 @@ void run({required Env env}) async {
   await initDi(env: env);
   await _prepareForBackup();
 
-  runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider(create: (_) => sl<AppTabBloc>()),
-      BlocProvider(create: (_) => sl<BookSummaryBloc>()),
-      BlocProvider(create: (_) => sl<BooksBloc>()),
-      BlocProvider(create: (_) => sl<DeleteBooksBloc>()),
-      BlocProvider(create: (_) => sl<TagsBloc>()),
-      BlocProvider(create: (_) => sl<BookSearchBloc>()),
-      BlocProvider(create: (_) => sl<ShareBookBloc>()),
-      BlocProvider(create: (_) => sl<OnBookTagsBloc>()),
-      BlocProvider(create: (_) => sl<BackupBloc>()),
-      BlocProvider(create: (_) => sl<SettingsBloc>()),
-      BlocProvider(create: (_) => sl<StatsBloc>()..add(LoadStats())),
-    ],
-    child: const Homer(),
-  ));
+  await SentryFlutter.init(
+    (options) {
+      options.tracesSampleRate = env == Env.prod ? 0.1 : 1.0;
+      options.environment = envString(env);
+    },
+    appRunner: () => runApp(MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => sl<AppTabBloc>()),
+        BlocProvider(create: (_) => sl<BookSummaryBloc>()),
+        BlocProvider(create: (_) => sl<BooksBloc>()),
+        BlocProvider(create: (_) => sl<DeleteBooksBloc>()),
+        BlocProvider(create: (_) => sl<TagsBloc>()),
+        BlocProvider(create: (_) => sl<BookSearchBloc>()),
+        BlocProvider(create: (_) => sl<ShareBookBloc>()),
+        BlocProvider(create: (_) => sl<OnBookTagsBloc>()),
+        BlocProvider(create: (_) => sl<BackupBloc>()),
+        BlocProvider(create: (_) => sl<SettingsBloc>()),
+        BlocProvider(create: (_) => sl<StatsBloc>()..add(LoadStats())),
+      ],
+      child: const Homer(),
+    )),
+  );
 }
 
 Future<void> _prepareForBackup() async {

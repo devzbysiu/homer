@@ -5,38 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "dart",
             "name": "homer-release",
             "request": "launch",
-            "type": "dart",
-            "flutterMode": "release",
-            "program": "lib/envs/prod.dart",
-            "args": [
-                "-t",
-                "lib/envs/prod.dart",
-                "--flavor",
-                "usable"
-            ]
+            "preLaunchTask": "run prod"
         },
         {
+            "type": "dart",
             "name": "homer-debug",
             "request": "launch",
-            "type": "dart",
-            "program": "lib/envs/dev.dart",
-            "args": [
-                "--flavor",
-                "construction"
-            ]
-        },
-        {
-            "name": "homer-release (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile",
-            "program": "lib/envs/prod.dart",
-            "args": [
-                "--flavor",
-                "usable"
-            ]
+            "preLaunchTask": "run dev"
         },
     ]
 }

@@ -65,12 +65,12 @@ android {
     flavorDimensions "default"
 
     productFlavors {
-        construction {
+        dev {
             dimension "default"
             resValue "string", "homer", "debug version"
             applicationIdSuffix ".debug"
         }
-        usable {
+        prod {
             dimension "default"
             resValue "string", "homer", "release version"
             applicationIdSuffix ".release"

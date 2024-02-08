@@ -10,7 +10,7 @@ final class AppConfig {
 
   static Future<AppConfig> forEnvironment(Env env) async {
     final contents = await rootBundle.loadString(
-      'assets/config/${_envString(env)}.json',
+      'assets/config/${envString(env)}.json',
     );
 
     final json = jsonDecode(contents);
@@ -21,11 +21,13 @@ final class AppConfig {
   String bookInfoEndpoint(String websiteUrl) => '$_apiUrl?url=$websiteUrl';
 }
 
-String _envString(Env env) {
+String envString(Env env) {
   switch (env) {
     case Env.dev:
       return 'dev';
     case Env.prod:
       return 'prod';
+    default:
+      throw Exception('Environment not found');
   }
 }

@@ -66,7 +66,7 @@ function install_app() {
 }
 
 function main() {
-  info "starting app"
+  info "Starting app..."
   if [[ $# -lt 2 ]]; then
     error "You need to specify command and environment."
     error ""
@@ -75,7 +75,7 @@ function main() {
     error "\t <cmd>: run|install"
     error "\t <env>: prod|dev"
     exit 1
-  fi 
+  fi
 
   local env="$2"
   load_props "${env}"
@@ -84,18 +84,18 @@ function main() {
   local cmd="$1"
 
   case "${cmd}" in
-    "run")
-      info "Running '${env}' app."
-      run_app "${env}"
-      ;;
-    "install")
-      info "Installing '${env}' app."
-      install_app "${env}"
-      ;;
-    *)
-      error "Unknown command '${cmd}'."
-      exit 1
-      ;;
+  "run")
+    info "Running '${env}' app."
+    run_app "${env}"
+    ;;
+  "install")
+    info "Installing '${env}' app."
+    install_app "${env}"
+    ;;
+  *)
+    error "Unknown command '${cmd}'."
+    exit 1
+    ;;
   esac
 }
 

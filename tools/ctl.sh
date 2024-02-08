@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # ================= [ declarations ] =================
 
@@ -14,6 +14,7 @@ function error() {
 
 function load_props() {
   local env="$1"
+  # shellcheck disable=SC2155
   local script_dir=$(dirname "$0")
   local props_path="${script_dir}/${env}-properties.sh"
   if [[ ! -f "${props_path}" ]]; then
@@ -21,7 +22,8 @@ function load_props() {
     exit 1
   fi
   info "Loading properties from '${props_path}'."
-  source ${props_path}
+  # shellcheck disable=SC1090
+  source "${props_path}"
 }
 
 function check_required_props() {

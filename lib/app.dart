@@ -1,9 +1,10 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import 'core/utils/theme.dart';
 import 'features/manage_books/presentation/pages/home.dart';
 import 'features/manage_books/presentation/pages/splash_screen.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
@@ -25,35 +26,19 @@ final class Homer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const scheme = FlexScheme.redM3;
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
-        final themeMode = state.useSystemTheme
-            ? ThemeMode.system
-            : state.useDarkTheme
-                ? ThemeMode.dark
-                : ThemeMode.light;
-
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: kDebugMode,
-          title: 'Homer',
-          theme: FlexColorScheme.light(scheme: scheme, useMaterial3: true)
-              .toTheme
-              .copyWith(
-                sliderTheme: SliderThemeData(
-                  overlayShape: SliderComponentShape.noThumb,
-                ),
-              ),
-          darkTheme: FlexColorScheme.dark(scheme: scheme, useMaterial3: true)
-              .toTheme
-              .copyWith(
-                sliderTheme: SliderThemeData(
-                  overlayShape: SliderComponentShape.noThumb,
-                  valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
-                ),
-              ),
-          themeMode: themeMode,
-          routerConfig: _router,
+        return DynamicColorBuilder(
+          builder: (lightDynamic, darkDynamic) {
+            return MaterialApp.router(
+              debugShowCheckedModeBanner: kDebugMode,
+              title: 'Homer',
+              theme: lightTheme(lightDynamic, darkDynamic),
+              darkTheme: darkTheme(lightDynamic, darkDynamic),
+              themeMode: themeMode(state),
+              routerConfig: _router,
+            );
+          },
         );
       },
     );

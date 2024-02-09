@@ -54,6 +54,7 @@ dependencies:
   sentry_flutter: ^7.16.0
   feedback: ^3.0.0
   feedback_sentry: ^3.0.0
+  dynamic_color: ^1.6.9
 
 dev_dependencies:
   flutter_test:

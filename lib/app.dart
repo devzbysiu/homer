@@ -11,16 +11,6 @@ import 'features/settings/presentation/bloc/settings_bloc.dart';
 import 'features/settings/presentation/pages/settings_screen.dart';
 import 'features/stats/presentation/pages/stats_screen.dart';
 
-final GoRouter _router = GoRouter(
-  routes: [
-    GoRoute(path: '/', builder: (_, __) => const SplashScreen()),
-    GoRoute(path: '/home', builder: (_, __) => const Home(), routes: [
-      GoRoute(path: 'settings', builder: (_, __) => SettingsScreen()),
-      GoRoute(path: 'stats', builder: (_, __) => const StatsScreen()),
-    ]),
-  ],
-);
-
 final class Homer extends StatelessWidget {
   const Homer({super.key});
 
@@ -36,11 +26,23 @@ final class Homer extends StatelessWidget {
               theme: lightTheme(lightDynamic, darkDynamic),
               darkTheme: darkTheme(lightDynamic, darkDynamic),
               themeMode: themeMode(state),
-              routerConfig: _router,
+              routerConfig: _router(),
             );
           },
         );
       },
     );
   }
+}
+
+GoRouter _router() {
+  return GoRouter(
+    routes: [
+      GoRoute(path: '/', builder: (_, __) => const SplashScreen()),
+      GoRoute(path: '/home', builder: (_, __) => const Home(), routes: [
+        GoRoute(path: 'settings', builder: (_, __) => SettingsScreen()),
+        GoRoute(path: 'stats', builder: (_, __) => const StatsScreen()),
+      ]),
+    ],
+  );
 }

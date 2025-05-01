@@ -103,7 +103,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
       gradient: LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: [context.background, context.background.withOpacity(0.2)],
+        colors: [context.background, context.background.withValues(alpha: 0.2)],
       ),
     );
   }
@@ -131,7 +131,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
       ),
       touchTooltipData: LineTouchTooltipData(
         tooltipPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-        tooltipBgColor: context.primary,
+        getTooltipColor: (_) => context.primary,
         tooltipRoundedRadius: 8,
         getTooltipItems: (lineBarsSpot) => _tooltipTextStyle(
           context,
@@ -219,7 +219,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
     if (value < 0 || value > months.length - 1) return Container();
 
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       angle: -0.7,
       child: Padding(
         padding: const EdgeInsets.only(right: 8.0),

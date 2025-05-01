@@ -13,7 +13,7 @@ BackupBookDTO _$BackupBookDTOFromJson(Map<String, dynamic> json) =>
       authors:
           (json['authors'] as List<dynamic>).map((e) => e as String).toList(),
       state: $enumDecode(_$BookStateEnumMap, json['state']),
-      pageCount: json['pageCount'] as int,
+      pageCount: (json['pageCount'] as num).toInt(),
       isbn: json['isbn'] as String,
       thumbnailAddress: _toThumbnailAddress(json['thumbnailAddress'] as String),
       rating: (json['rating'] as num).toDouble(),
@@ -21,8 +21,8 @@ BackupBookDTO _$BackupBookDTOFromJson(Map<String, dynamic> json) =>
       tags: (json['tags'] as List<dynamic>)
           .map((e) => BackupTagDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
-      startDate: _toDate(json['startDate'] as int),
-      endDate: _toDate(json['endDate'] as int),
+      startDate: _toDate((json['startDate'] as num).toInt()),
+      endDate: _toDate((json['endDate'] as num).toInt()),
     );
 
 Map<String, dynamic> _$BackupBookDTOToJson(BackupBookDTO instance) =>

@@ -87,7 +87,7 @@ final class _SwipeableCard extends StatelessBusWidget {
       backgroundColor: Colors.transparent,
       content: AwesomeSnackbarContent(
         color: context.primaryContainer,
-        messageFontSize: 18,
+        messageTextStyle: TextStyle(fontSize: 18),
         title: 'Yay!',
         message: msg,
         contentType: ContentType.success,

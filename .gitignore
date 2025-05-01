@@ -48,6 +48,12 @@ assets/homer-backup.json
 # Coverage
 coverage/
 mutation-test-report
+
+# tools
 tools/prod-properties.sh
 tools/dev-properties.sh
 tools/get-homer-backup.sh
+
+# others
+android/build/reports/problems
+**/.cxx

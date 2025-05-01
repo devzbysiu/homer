@@ -11,7 +11,7 @@ SettingsDTO _$SettingsDTOFromJson(Map<String, dynamic> json) => SettingsDTO(
       isDarkThemeOn: json['isDarkThemeOn'] as bool,
       backupsDirectory: _directoryFromJson(json['backupsDirectory'] as String),
       bookSizeLimits: _sizeLimitsFromJson(json['bookSizeLimits'] as List),
-      readingGoal: _readingGoalFromJson(json['readingGoal'] as int),
+      readingGoal: _readingGoalFromJson((json['readingGoal'] as num).toInt()),
     );
 
 Map<String, dynamic> _$SettingsDTOToJson(SettingsDTO instance) =>

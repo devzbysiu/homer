@@ -19,7 +19,7 @@ final class _TagsState extends State<_Tags> {
           supportsMultiSelect: true,
           listOfChipNames: tags.map((tag) => tag.name).toList(),
           extraOnToggle: (idx) => _tagSelected(context, idx, tags),
-          listOfChipIndicesCurrentlySeclected: _selectedTagIndices.toList(),
+          listOfChipIndicesCurrentlySelected: _selectedTagIndices.toList(),
           inactiveBgColorList: _inactiveColors(context, tags),
           inactiveBorderColorList: _tagColors(tags),
           inactiveTextColorList: _inactiveText(context, tags),

@@ -27,7 +27,5 @@ String envString(Env env) {
       return 'dev';
     case Env.prod:
       return 'prod';
-    default:
-      throw Exception('Environment not found');
   }
 }

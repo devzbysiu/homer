@@ -47,8 +47,6 @@ final class _SavingButton extends StatelessBusWidget {
     required this.pickedBook,
     required this.bookState,
     required this.icon,
-    // ignore: unused_element
-    super.bus,
   });
 
   final Book pickedBook;

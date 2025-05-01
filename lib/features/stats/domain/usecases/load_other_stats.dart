@@ -6,7 +6,6 @@ import '../../../../core/error/failures.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../../manage_books/domain/repositories/books_repository.dart';
 import '../entities/month_info.dart';
-import '../entities/most_read_info.dart';
 import '../entities/other_stats_data.dart';
 
 typedef LoadOtherStats = UseCase<OtherStatsData, NoParams>;
@@ -31,14 +30,5 @@ final class LoadOtherStatsImpl implements LoadOtherStats {
       final endDate = b.endDate.toNullable()!;
       return MonthInfo(endDate.year, endDate.month);
     }).map((monthInfo, books) => MapEntry(monthInfo, books.length));
-  }
-
-  MostReadInfo _mostReadInMonth(Map<MonthInfo, List<Book>> monthInfos) {
-    final maxEntry = monthInfos.entries.reduce((currentMaxEntry, nextEntry) {
-      return nextEntry.value.length > currentMaxEntry.value.length
-          ? nextEntry
-          : currentMaxEntry;
-    });
-    return MostReadInfo(maxEntry.key, maxEntry.value.length);
   }
 }

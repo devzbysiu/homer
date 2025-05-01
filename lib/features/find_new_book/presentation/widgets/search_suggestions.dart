@@ -45,8 +45,7 @@ final class _SuggestionsList extends StatelessWidget {
 }
 
 final class _SearchSuggestion extends StatelessBusWidget {
-  // ignore: unused_element
-  _SearchSuggestion({required this.book, super.bus});
+  _SearchSuggestion({required this.book});
 
   final Book book;
 

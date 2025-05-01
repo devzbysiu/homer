@@ -1,8 +1,7 @@
 part of 'books_list.dart';
 
 final class _BookCard extends StatelessBusWidget {
-  // ignore: unused_element
-  _BookCard({required this.book, super.bus});
+  _BookCard({required this.book});
 
   final Book book;
 

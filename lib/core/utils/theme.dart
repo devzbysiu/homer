@@ -30,8 +30,8 @@ extension ThemeExtension on BuildContext {
   Color get primaryContainer => colorScheme.primaryContainer;
   Color get lightPrimaryContainer => colorScheme.primaryContainer.lighten(20);
   Color get headlineMediumColor => headlineMedium.color!;
-  Color get background => colorScheme.background;
-  Color get onBackground => colorScheme.onBackground;
+  Color get background => colorScheme.surface;
+  Color get onBackground => colorScheme.onSurface;
   Color get lightBackground => background.lighten(20);
   Color get error => colorScheme.error;
   Color get secondary => colorScheme.secondary;

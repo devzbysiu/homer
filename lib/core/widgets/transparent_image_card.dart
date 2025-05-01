@@ -88,7 +88,7 @@ final class TransparentImageCard extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: <Color>[
-                  startColor ?? const Color(0xff575757).withOpacity(0),
+                  startColor ?? const Color(0xff575757).withValues(alpha: 0),
                   endColor ?? const Color(0xff000000),
                 ],
               ).createShader(bound);

@@ -42,8 +42,7 @@ final class BookTitleAndTagTile extends StatelessWidget {
 }
 
 final class _AddTagTile extends StatelessBusWidget {
-  // ignore: unused_element
-  _AddTagTile({required this.book, super.bus});
+  _AddTagTile({required this.book});
 
   final Book book;
 

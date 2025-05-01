@@ -1,8 +1,10 @@
 part of 'books_list.dart';
 
 final class _SwipeableCard extends StatelessBusWidget {
-  // ignore: unused_element
-  _SwipeableCard({super.bus, required this.child, required this.book});
+  _SwipeableCard({
+    required this.child,
+    required this.book,
+  });
 
   final Widget child;
 

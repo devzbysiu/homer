@@ -51,7 +51,7 @@ dependencies:
   flutter_settings_ui: ^3.0.1
   go_router: ^14.8.1
   shared_preferences: ^2.5.3
-  file_picker: ^10.1.2
+  file_picker: ^9.2.3
   share_plus: ^10.1.4
   flutter_multi_slider: ^2.0.1
   logger: ^2.5.0
@@ -78,11 +78,6 @@ dev_dependencies:
   mockito: ^5.4.5
   bloc_test: ^10.0.0
   mutation_test: ^1.7.0
-
-# dirty fix for isar_generator having old dependency on analyzer
-# copied from https://github.com/isar/isar/issues/1505
-# dependency_overrides:
-#   analyzer: ^6.0.0
 
 flutter:
   uses-material-design: true

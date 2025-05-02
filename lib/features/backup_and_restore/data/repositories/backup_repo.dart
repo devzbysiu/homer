@@ -20,8 +20,8 @@ final class BackupRepo implements BackupRepository {
       final backupBookDTO = await dataSource.loadAll(path);
       final books = toBooks(backupBookDTO);
       return Success(books);
-    } on FileSystemException {
-      return Error(MissingBackupFileFailure(path));
+    } on FileSystemException catch (e) {
+      return Error(MissingBackupFileFailure(path, e.message));
     }
   }
 
@@ -34,8 +34,8 @@ final class BackupRepo implements BackupRepository {
       final backupBookDTOs = toBackupBookDTOs(books);
       await dataSource.saveAll(path, backupBookDTOs);
       return const Success(unit);
-    } on FileSystemException {
-      return Error(MissingBackupFileFailure(path));
+    } on FileSystemException catch (e) {
+      return Error(MissingBackupFileFailure(path, e.message));
     }
   }
 }

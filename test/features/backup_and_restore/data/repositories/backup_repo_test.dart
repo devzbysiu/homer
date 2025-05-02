@@ -19,7 +19,7 @@ void main() {
       final notExistingPath = fakePath();
       final failingDataSource = MockBackupDataSource();
       when(failingDataSource.loadAll(notExistingPath)).thenThrow(
-        const FileSystemException(),
+        const FileSystemException('test-failure'),
       );
 
       final repo = BackupRepo(dataSource: failingDataSource);
@@ -29,7 +29,13 @@ void main() {
 
       // then
       expect(result.isError(), true);
-      expect(result.tryGetError(), MissingBackupFileFailure(notExistingPath));
+      expect(
+        result.tryGetError(),
+        MissingBackupFileFailure(
+          notExistingPath,
+          'test-failure',
+        ),
+      );
     });
 
     test('should return list of restored books on success', () async {
@@ -58,7 +64,7 @@ void main() {
       final notExistingPath = fakePath();
       final failingDataSource = makeMockBackupDataSource();
       when(failingDataSource.saveAll(notExistingPath, any)).thenThrow(
-        const FileSystemException(),
+        const FileSystemException('test-failure'),
       );
 
       final repo = BackupRepo(dataSource: failingDataSource);
@@ -70,7 +76,13 @@ void main() {
 
       // then
       expect(result.isError(), true);
-      expect(result.tryGetError(), MissingBackupFileFailure(notExistingPath));
+      expect(
+        result.tryGetError(),
+        MissingBackupFileFailure(
+          notExistingPath,
+          'test-failure',
+        ),
+      );
     });
 
     test('should return success when all books saved', () async {

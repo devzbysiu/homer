@@ -59,12 +59,14 @@ final class TimeoutOnApiResponseFailure extends Equatable implements Failure {
 }
 
 final class MissingBackupFileFailure extends Equatable implements Failure {
-  const MissingBackupFileFailure(this.path);
+  const MissingBackupFileFailure(this.path, this.msg);
 
   final String path;
 
+  final String msg;
+
   @override
-  String userMessage() => 'Failed to load backup from path "$path"';
+  String userMessage() => 'Failed to load backup from path "$path": "$msg"';
 
   @override
   List<Object> get props => [path];

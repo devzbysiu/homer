@@ -22,7 +22,7 @@ final class BackupButton extends StatelessBusWidget {
           builder: (context, backupDirectory) {
             return MenuButton(
               text: 'Backup',
-              onPressed: () => _triggerBackup(backupDirectory, context),
+              onPressed: () => _triggerBackup(backupDirectory),
             );
           },
         ),
@@ -40,7 +40,7 @@ final class BackupButton extends StatelessBusWidget {
     );
   }
 
-  void _triggerBackup(Directory directory, BuildContext context) {
+  void _triggerBackup(Directory directory) {
     final backupPath = '${directory.path}/homer-backup.json';
     fire(BackupTriggered(backupPath));
   }

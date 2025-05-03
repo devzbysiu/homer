@@ -112,9 +112,9 @@ final class _AddButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: _toggleSheet,
       style: ButtonStyle(
-        shape: const CircleBorder().msp(),
-        padding: const EdgeInsets.all(10).msp(),
-        backgroundColor: context.primary.msp(),
+        shape: const CircleBorder().wsp(),
+        padding: const EdgeInsets.all(10).wsp(),
+        backgroundColor: context.primary.wsp(),
       ),
       child: Icon(
         Icons.add,
@@ -139,9 +139,9 @@ final class _DeleteButton extends StatelessBusWidget {
       child: ElevatedButton(
         onPressed: () => fire(DeletePickedBooks()),
         style: ButtonStyle(
-          backgroundColor: context.error.msp(),
-          shape: const CircleBorder().msp(),
-          padding: const EdgeInsets.all(10).msp(),
+          backgroundColor: context.error.wsp(),
+          shape: const CircleBorder().wsp(),
+          padding: const EdgeInsets.all(10).wsp(),
         ),
         child: Icon(
           Icons.delete_forever,
@@ -153,7 +153,7 @@ final class _DeleteButton extends StatelessBusWidget {
 }
 
 extension _MspExt<T> on T {
-  MaterialStateProperty<T> msp() {
-    return MaterialStateProperty.all(this);
+  WidgetStateProperty<T> wsp() {
+    return WidgetStateProperty.all(this);
   }
 }

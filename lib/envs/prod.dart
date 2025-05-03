@@ -1,6 +1,4 @@
 import '../app_config.dart';
 import '../run.dart';
 
-void main() async {
-  run(env: Env.prod);
-}
+void main() => run(env: Env.prod);

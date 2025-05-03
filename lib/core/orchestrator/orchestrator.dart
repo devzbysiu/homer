@@ -35,7 +35,7 @@ final class Orchestrator {
     eventBus.on<BackupTriggered>(_onBackupTriggered);
 
     // Find new Book
-    eventBus.on<SearchStarted>(_onSearchStarted);
+    eventBus.on<Searching>(_onSearching);
     eventBus.on<ShareOffloaded>(_onShareOffloaded);
     eventBus.on<ResetShareOffload>(_onResetShareOffload);
     eventBus.on<SuggestionPicked>(_onSuggestionPicked);
@@ -105,7 +105,14 @@ final class Orchestrator {
 
   void _onBackupTriggered(BackupTriggered event) => backup.add(event);
 
-  void _onSearchStarted(SearchStarted event) => search.add(event);
+  void _onSearching(Searching event) {
+    search.add(event);
+    // reset error if happened
+    if (share.state.failedToLookUpSharedBook) {
+      share.add(ClearSharedBook());
+    }
+  }
+
   void _onShareOffloaded(ShareOffloaded event) => search.add(event);
   void _onResetShareOffload(ResetShareOffload event) => search.add(event);
   void _onSuggestionPicked(SuggestionPicked event) => search.add(event);

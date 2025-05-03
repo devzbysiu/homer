@@ -15,7 +15,7 @@ part 'book_search_state.dart';
 final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
   BookSearchBloc({required this.searchForBooks})
       : super(const BookSearchState.initial()) {
-    on<SearchStarted>(_onSearchInitiated);
+    on<Searching>(_onSearching);
     on<ShareOffloaded>(_onShareOffloaded);
     on<ResetShareOffload>(_onResetShareOffload);
     on<SuggestionPicked>(_onSuggestedBookPicked);
@@ -24,8 +24,8 @@ final class BookSearchBloc extends Bloc<BookSearchEvent, BookSearchState> {
 
   final SearchForBooks searchForBooks;
 
-  Future<void> _onSearchInitiated(
-    SearchStarted event,
+  Future<void> _onSearching(
+    Searching event,
     Emitter<BookSearchState> emit,
   ) async {
     if (event.query.isEmpty) {

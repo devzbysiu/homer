@@ -70,7 +70,7 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
           axisAlignment: 0.0,
           openAxisAlignment: 0.0,
           debounceDelay: const Duration(milliseconds: 600),
-          onQueryChanged: (query) => widget.fire(SearchStarted(query)),
+          onQueryChanged: (query) => widget.fire(Searching(query)),
           transition: CircularFloatingSearchBarTransition(),
           actions: [FloatingSearchBarAction.searchToClear(showIfClosed: false)],
           builder: (_, __) => const _SearchSuggestions(),

@@ -6,8 +6,8 @@ abstract class BookSearchEvent extends Equatable implements BusEvent {
   List<Object> get props => [];
 }
 
-final class SearchStarted extends BookSearchEvent {
-  SearchStarted(this.query);
+final class Searching extends BookSearchEvent {
+  Searching(this.query);
 
   final String query;
 

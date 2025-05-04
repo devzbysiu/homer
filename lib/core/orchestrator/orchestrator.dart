@@ -69,6 +69,9 @@ final class Orchestrator {
     eventBus.on<BookStarted>(_onBookStarted);
     eventBus.on<BookUnfinished>(_onBookUnfinished);
     eventBus.on<BookUnstarted>(_onBookUnstarted);
+
+    // Bottom Drawer
+    eventBus.on<BookSharedFromOutside>(_onBookSharedFromOutside);
   }
 
   final Bus eventBus;
@@ -151,4 +154,7 @@ final class Orchestrator {
   void _onBookStarted(BookStarted event) => stats.add(event);
   void _onBookUnfinished(BookUnfinished event) => stats.add(event);
   void _onBookUnstarted(BookUnstarted event) => stats.add(event);
+
+  void _onBookSharedFromOutside(BookSharedFromOutside event) =>
+      share.add(event);
 }

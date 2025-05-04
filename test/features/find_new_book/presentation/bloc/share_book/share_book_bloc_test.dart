@@ -143,20 +143,13 @@ final class BlocMock {
     );
 
     _eventBus = MockBus();
-    _shareHandler = MockShareHandlerPlatform();
     _fetchSharedBook = MockFetchSharedBook();
     _fetchSharedBookInfo = MockFetchSharedBookInfo();
 
-    when(_shareHandler.getInitialSharedMedia()).thenAnswer((_) => withIt(null));
-    when(
-      _shareHandler.sharedMediaStream,
-    ).thenAnswer((_) => const Stream.empty());
     when(_fetchSharedBook.call(any)).thenAnswer((_) => withSuccess(fakeBook()));
   }
 
   late final MockBus _eventBus;
-
-  late final MockShareHandlerPlatform _shareHandler;
 
   late final MockFetchSharedBook _fetchSharedBook;
 
@@ -177,7 +170,6 @@ final class BlocMock {
       eventBus: _eventBus,
       fetchSharedBook: _fetchSharedBook,
       fetchSharedBookInfo: _fetchSharedBookInfo,
-      shareHandler: _shareHandler,
     );
   }
 }

@@ -1,7 +1,7 @@
 part of 'share_book_bloc.dart';
 
 @immutable
-abstract class ShareBookEvent extends Equatable {}
+abstract class ShareBookEvent extends Equatable implements BusEvent {}
 
 final class BookSharedFromOutside extends ShareBookEvent {
   BookSharedFromOutside(this.url);

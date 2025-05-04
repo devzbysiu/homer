@@ -2,10 +2,12 @@ import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_handler/share_handler.dart';
 
 import '../../../../core/entities/book.dart';
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
+import '../../../../injection_container.dart';
 import '../../../find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
 import '../../../find_new_book/presentation/widgets/bottom_drawer_content.dart';
 import '../../../manage_books/presentation/bloc/delete/delete_books_bloc.dart';
@@ -21,6 +23,25 @@ final class BottomNavBar extends StatefulBusWidget {
 
 final class _BottomNavBarState extends State<BottomNavBar> {
   final _sheetCtl = BottomBarWithSheetController(initialIndex: 0);
+
+  @override
+  void initState() {
+    super.initState();
+    final ShareHandlerPlatform shareHandler = sl();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // This happens when user shares URL, but the app was not running.
+      shareHandler.getInitialSharedMedia().then((media) {
+        if (media?.content == null) return;
+        widget.fire(BookSharedFromOutside(media!.content!));
+      });
+    });
+
+    // This happens when the app is already running.
+    shareHandler.sharedMediaStream.listen((media) {
+      if (media.content == null) return;
+      widget.fire(BookSharedFromOutside(media.content!));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

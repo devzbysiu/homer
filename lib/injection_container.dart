@@ -150,7 +150,6 @@ Future<void> initDi({required Env env}) async {
   sl.registerLazySingleton(() {
     return ShareBookBloc(
       eventBus: sl(),
-      shareHandler: sl(),
       fetchSharedBook: sl(),
       fetchSharedBookInfo: sl(),
     );

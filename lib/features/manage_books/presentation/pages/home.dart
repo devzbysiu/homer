@@ -20,7 +20,7 @@ final class Home extends StatelessWidget {
         showShadow: true,
         angle: -12.0,
         drawerShadowsBackgroundColor: Colors.grey,
-        slideWidth: MediaQuery.of(context).size.width * 0.65,
+        slideWidth: MediaQuery.sizeOf(context).width * 0.65,
       ),
       bottomNavigationBar: BottomNavBar(),
     );

@@ -11,17 +11,11 @@ final class BookSizeLimits extends Equatable {
   late final SizeLimit medium;
 
   List<double> asDoubleList() {
-    return [
-      short.maxPages.toDouble(),
-      medium.maxPages.toDouble(),
-    ];
+    return [short.maxPages.toDouble(), medium.maxPages.toDouble()];
   }
 
   List<int> asIntList() {
-    return [
-      short.maxPages,
-      medium.maxPages,
-    ];
+    return [short.maxPages, medium.maxPages];
   }
 
   BookSizeLimits.fromDoubleList(List<double> value) {

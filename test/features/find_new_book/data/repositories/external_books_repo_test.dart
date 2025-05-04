@@ -15,9 +15,9 @@ void main() {
     test('should return empty list when query is empty', () async {
       // given
       final booksDataSource = makeMockExternalBooksDataSource();
-      when(booksDataSource.getFromQuery(any)).thenAnswer(
-        (_) => withIt([fakeExternalBookDTO()]),
-      );
+      when(
+        booksDataSource.getFromQuery(any),
+      ).thenAnswer((_) => withIt([fakeExternalBookDTO()]));
 
       final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
@@ -34,9 +34,9 @@ void main() {
     test('should return empty list when query is blank', () async {
       // given
       final booksDataSource = makeMockExternalBooksDataSource();
-      when(booksDataSource.getFromQuery(any)).thenAnswer(
-        (_) => withIt([fakeExternalBookDTO()]),
-      );
+      when(
+        booksDataSource.getFromQuery(any),
+      ).thenAnswer((_) => withIt([fakeExternalBookDTO()]));
 
       final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
@@ -54,9 +54,9 @@ void main() {
       // given
       final externalBooks = [fakeExternalBookDTO(), fakeExternalBookDTO()];
       final booksDataSource = makeMockExternalBooksDataSource();
-      when(booksDataSource.getFromQuery(any)).thenAnswer(
-        (_) => withIt(externalBooks),
-      );
+      when(
+        booksDataSource.getFromQuery(any),
+      ).thenAnswer((_) => withIt(externalBooks));
 
       final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
@@ -73,9 +73,9 @@ void main() {
     test('should return failure when search failed', () async {
       // given
       final booksDataSource = makeMockExternalBooksDataSource();
-      when(booksDataSource.getFromQuery(any)).thenThrow(
-        BooksQueryException(faker.lorem.sentence()),
-      );
+      when(
+        booksDataSource.getFromQuery(any),
+      ).thenThrow(BooksQueryException(faker.lorem.sentence()));
 
       final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
@@ -97,9 +97,9 @@ void main() {
       final isbn = bookInfo.isbn.toNullable()!;
 
       final booksDataSource = makeMockExternalBooksDataSource();
-      when(booksDataSource.getFromIsbn(any)).thenThrow(
-        NoBookFoundException(isbn),
-      );
+      when(
+        booksDataSource.getFromIsbn(any),
+      ).thenThrow(NoBookFoundException(isbn));
 
       final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
@@ -117,9 +117,9 @@ void main() {
       final isbn = bookInfo.isbn.toNullable()!;
 
       final booksDataSource = makeMockExternalBooksDataSource();
-      when(booksDataSource.getFromIsbn(any)).thenThrow(
-        TooManyBooksFoundException(isbn),
-      );
+      when(
+        booksDataSource.getFromIsbn(any),
+      ).thenThrow(TooManyBooksFoundException(isbn));
 
       final repo = ExternalBooksRepo(dataSource: booksDataSource);
 
@@ -138,9 +138,9 @@ void main() {
       final isbn = bookInfo.isbn.toNullable()!;
 
       final booksDataSource = makeMockExternalBooksDataSource();
-      when(booksDataSource.getFromIsbn(isbn)).thenAnswer(
-        (_) => withIt(bookDTO),
-      );
+      when(
+        booksDataSource.getFromIsbn(isbn),
+      ).thenAnswer((_) => withIt(bookDTO));
 
       final repo = ExternalBooksRepo(dataSource: booksDataSource);
 

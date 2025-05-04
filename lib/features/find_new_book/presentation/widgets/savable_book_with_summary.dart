@@ -5,19 +5,21 @@ final class _SavableBookWithSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      final sharedBook = context.select(
-        (ShareBookBloc bloc) => bloc.state.sharedBook,
-      );
-      final pickedBook = context.select(
-        (BookSearchBloc bloc) => bloc.state.pickedBook,
-      );
-      final bookCandidate = pickedBook.orElse(() => sharedBook);
-      return bookCandidate.fold(
-        () => Container(),
-        (book) => _showBookCandidate(book, context),
-      );
-    });
+    return Builder(
+      builder: (context) {
+        final sharedBook = context.select(
+          (ShareBookBloc bloc) => bloc.state.sharedBook,
+        );
+        final pickedBook = context.select(
+          (BookSearchBloc bloc) => bloc.state.pickedBook,
+        );
+        final bookCandidate = pickedBook.orElse(() => sharedBook);
+        return bookCandidate.fold(
+          () => Container(),
+          (book) => _showBookCandidate(book, context),
+        );
+      },
+    );
   }
 
   Padding _showBookCandidate(Book book, BuildContext context) {
@@ -38,7 +40,7 @@ final class _SavableBookWithSummary extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             bottom: 10,
             child: _SaveButtons(pickedBook: book),
-          )
+          ),
         ],
       ),
     );
@@ -69,10 +71,7 @@ final class _BookWithSummary extends StatelessWidget {
             child: _RemoteBookCard(book: pickedBook),
           ),
         ),
-        dropCapPadding: const EdgeInsets.only(
-          bottom: 5,
-          right: 15,
-        ),
+        dropCapPadding: const EdgeInsets.only(bottom: 5, right: 15),
       ),
     );
   }
@@ -95,11 +94,7 @@ final class _DropCap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: child,
-    );
+    return SizedBox(width: width, height: height, child: child);
   }
 }
 
@@ -135,10 +130,7 @@ final class _DropCapText extends StatelessWidget {
     capWidth += dropCapPadding.left + dropCapPadding.right;
     capHeight += dropCapPadding.top + dropCapPadding.bottom;
 
-    TextSpan textSpan = TextSpan(
-      text: text,
-      style: context.bodyLarge,
-    );
+    TextSpan textSpan = TextSpan(text: text, style: context.bodyLarge);
 
     TextPainter textPainter = TextPainter(
       textDirection: textDirection,
@@ -151,59 +143,60 @@ final class _DropCapText extends StatelessWidget {
 
     // BUILDER
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      double boundsWidth = constraints.maxWidth - capWidth;
-      if (boundsWidth < 1) boundsWidth = 1;
+      builder: (BuildContext context, BoxConstraints constraints) {
+        double boundsWidth = constraints.maxWidth - capWidth;
+        if (boundsWidth < 1) boundsWidth = 1;
 
-      int charIndexEnd = text.length;
+        int charIndexEnd = text.length;
 
-      if (rows > 0) {
-        textPainter.layout(maxWidth: boundsWidth);
-        double yPos = rows * lineHeight;
-        int charIndex =
-            textPainter.getPositionForOffset(Offset(0, yPos)).offset;
-        textPainter.maxLines = rows;
-        textPainter.layout(maxWidth: boundsWidth);
-        if (textPainter.didExceedMaxLines) charIndexEnd = charIndex;
-      }
+        if (rows > 0) {
+          textPainter.layout(maxWidth: boundsWidth);
+          double yPos = rows * lineHeight;
+          int charIndex =
+              textPainter.getPositionForOffset(Offset(0, yPos)).offset;
+          textPainter.maxLines = rows;
+          textPainter.layout(maxWidth: boundsWidth);
+          if (textPainter.didExceedMaxLines) charIndexEnd = charIndex;
+        }
 
-      return SizedBox(
-        height: 340,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                textDirection: textDirection,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(padding: dropCapPadding, child: dropCap),
-                  Flexible(
-                    child: SizedBox(
-                      width: boundsWidth,
-                      height: lineHeight * rows,
-                      child: RichText(
-                        textDirection: textDirection,
-                        textAlign: textAlign,
-                        text: textSpan,
+        return SizedBox(
+          height: 340,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  textDirection: textDirection,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(padding: dropCapPadding, child: dropCap),
+                    Flexible(
+                      child: SizedBox(
+                        width: boundsWidth,
+                        height: lineHeight * rows,
+                        child: RichText(
+                          textDirection: textDirection,
+                          textAlign: textAlign,
+                          text: textSpan,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              RichText(
-                textAlign: textAlign,
-                textDirection: textDirection,
-                text: TextSpan(
-                  text: text.substring(charIndexEnd),
-                  style: context.bodyLarge,
+                  ],
                 ),
-              ),
-            ],
+                RichText(
+                  textAlign: textAlign,
+                  textDirection: textDirection,
+                  text: TextSpan(
+                    text: text.substring(charIndexEnd),
+                    style: context.bodyLarge,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
 
@@ -222,10 +215,7 @@ final class _RemoteBookCard extends StatelessWidget {
       title: BookTitleAndTagTile(book: book),
       endColor: Colors.black,
       description: BookAuthors(authorNames: book.authors),
-      footer: BookCardFooter(
-        rating: book.rating,
-        pageCount: book.pageCount,
-      ),
+      footer: BookCardFooter(rating: book.rating, pageCount: book.pageCount),
     );
   }
 

@@ -13,30 +13,29 @@ import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
   group('loadAll', () {
-    test('should return missing file failure when backup file does not exist',
-        () async {
-      // given
-      final notExistingPath = fakePath();
-      final failingDataSource = MockBackupDataSource();
-      when(failingDataSource.loadAll(notExistingPath)).thenThrow(
-        const FileSystemException('test-failure'),
-      );
+    test(
+      'should return missing file failure when backup file does not exist',
+      () async {
+        // given
+        final notExistingPath = fakePath();
+        final failingDataSource = MockBackupDataSource();
+        when(
+          failingDataSource.loadAll(notExistingPath),
+        ).thenThrow(const FileSystemException('test-failure'));
 
-      final repo = BackupRepo(dataSource: failingDataSource);
+        final repo = BackupRepo(dataSource: failingDataSource);
 
-      // when
-      final result = await repo.loadAll(notExistingPath);
+        // when
+        final result = await repo.loadAll(notExistingPath);
 
-      // then
-      expect(result.isError(), true);
-      expect(
-        result.tryGetError(),
-        MissingBackupFileFailure(
-          notExistingPath,
-          'test-failure',
-        ),
-      );
-    });
+        // then
+        expect(result.isError(), true);
+        expect(
+          result.tryGetError(),
+          MissingBackupFileFailure(notExistingPath, 'test-failure'),
+        );
+      },
+    );
 
     test('should return list of restored books on success', () async {
       // given
@@ -58,32 +57,31 @@ void main() {
   });
 
   group('saveAll', () {
-    test('should return missing file failure when backup file does not exist',
-        () async {
-      // given
-      final notExistingPath = fakePath();
-      final failingDataSource = makeMockBackupDataSource();
-      when(failingDataSource.saveAll(notExistingPath, any)).thenThrow(
-        const FileSystemException('test-failure'),
-      );
+    test(
+      'should return missing file failure when backup file does not exist',
+      () async {
+        // given
+        final notExistingPath = fakePath();
+        final failingDataSource = makeMockBackupDataSource();
+        when(
+          failingDataSource.saveAll(notExistingPath, any),
+        ).thenThrow(const FileSystemException('test-failure'));
 
-      final repo = BackupRepo(dataSource: failingDataSource);
+        final repo = BackupRepo(dataSource: failingDataSource);
 
-      final List<Book> notImportant = List.empty();
+        final List<Book> notImportant = List.empty();
 
-      // when
-      final result = await repo.saveAll(notExistingPath, notImportant);
+        // when
+        final result = await repo.saveAll(notExistingPath, notImportant);
 
-      // then
-      expect(result.isError(), true);
-      expect(
-        result.tryGetError(),
-        MissingBackupFileFailure(
-          notExistingPath,
-          'test-failure',
-        ),
-      );
-    });
+        // then
+        expect(result.isError(), true);
+        expect(
+          result.tryGetError(),
+          MissingBackupFileFailure(notExistingPath, 'test-failure'),
+        );
+      },
+    );
 
     test('should return success when all books saved', () async {
       // given

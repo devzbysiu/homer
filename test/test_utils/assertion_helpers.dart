@@ -72,8 +72,9 @@ Book bookFromExternalBookDTO(ExternalBookDTO remoteBookDTO) {
     state: BookState.readLater,
     pageCount: remoteBookDTO.pageCount,
     isbn: remoteBookDTO.industryIdentifiers.firstOrNull ?? '',
-    thumbnailAddress:
-        optionOf(remoteBookDTO.imageLinks.values.firstOrNull?.toString()),
+    thumbnailAddress: optionOf(
+      remoteBookDTO.imageLinks.values.firstOrNull?.toString(),
+    ),
     rating: remoteBookDTO.averageRating,
     summary: optionOf(_descriptionOrDefault(remoteBookDTO)),
     tags: const [],
@@ -103,10 +104,7 @@ ExternalBookDTO fromBookFinderBook(bf.Book book) {
 }
 
 ExternalBookInfo externalBookInfoFromDTO(ExternalBookInfoDTO bookInfoDTO) {
-  return ExternalBookInfo(
-    isbn: bookInfoDTO.isbn,
-    title: bookInfoDTO.title,
-  );
+  return ExternalBookInfo(isbn: bookInfoDTO.isbn, title: bookInfoDTO.title);
 }
 
 BookDTO bookDTOFromBook(Book book) {

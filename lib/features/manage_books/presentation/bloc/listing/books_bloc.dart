@@ -55,15 +55,14 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     );
   }
 
-  Future<void> _onBookAdded(
-    SaveBook event,
-    Emitter<BooksState> emit,
-  ) async {
-    final result = await addBook(AddParams(
-      book: event.book,
-      bookState: event.bookState,
-      selectedTags: event.selectedTags,
-    ));
+  Future<void> _onBookAdded(SaveBook event, Emitter<BooksState> emit) async {
+    final result = await addBook(
+      AddParams(
+        book: event.book,
+        bookState: event.bookState,
+        selectedTags: event.selectedTags,
+      ),
+    );
     await result.when(
       (success) async => await _emitSavedBooks(emit),
       (error) async => emit(const BooksState.addingBookFailed()),
@@ -94,10 +93,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     );
   }
 
-  Future<void> _onTagToggled(
-    TagToggled event,
-    Emitter<BooksState> emit,
-  ) async {
+  Future<void> _onTagToggled(TagToggled event, Emitter<BooksState> emit) async {
     final book = event.book;
     final tags = List.of(book.tags);
     final toggledTag = event.tag;

@@ -20,21 +20,25 @@ void main() {
       'should emit deletionList with book if it was not on the list before',
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(DeleteModeToggled(book)),
-      expect: () => [
-        DeleteBooksState(deletionList: [book], value: Value.deletionList),
-      ],
+      expect:
+          () => [
+            DeleteBooksState(deletionList: [book], value: Value.deletionList),
+          ],
     );
 
     blocTest<DeleteBooksBloc, DeleteBooksState>(
       'should emit deletionList without book if it was on the list before',
       build: () => BlocMock().allWorking(),
-      act: (bloc) => bloc
-        ..add(DeleteModeToggled(book))
-        ..add(DeleteModeToggled(book)),
-      expect: () => [
-        DeleteBooksState(deletionList: [book], value: Value.deletionList),
-        const DeleteBooksState(deletionList: [], value: Value.deletionList),
-      ],
+      act:
+          (bloc) =>
+              bloc
+                ..add(DeleteModeToggled(book))
+                ..add(DeleteModeToggled(book)),
+      expect:
+          () => [
+            DeleteBooksState(deletionList: [book], value: Value.deletionList),
+            const DeleteBooksState(deletionList: [], value: Value.deletionList),
+          ],
     );
   });
 
@@ -55,13 +59,16 @@ void main() {
     blocTest<DeleteBooksBloc, DeleteBooksState>(
       'should emit booksRemoved on success',
       build: () => BlocMock().allWorking(),
-      act: (bloc) => bloc
-        ..add(DeleteModeToggled(book))
-        ..add(DeletePickedBooks()),
-      expect: () => [
-        DeleteBooksState(deletionList: [book], value: Value.deletionList),
-        const DeleteBooksState(deletionList: [], value: Value.booksRemoved),
-      ],
+      act:
+          (bloc) =>
+              bloc
+                ..add(DeleteModeToggled(book))
+                ..add(DeletePickedBooks()),
+      expect:
+          () => [
+            DeleteBooksState(deletionList: [book], value: Value.deletionList),
+            const DeleteBooksState(deletionList: [], value: Value.booksRemoved),
+          ],
       verify: (bloc) {
         verify(bloc.deleteBooks(DeleteParams(books: [book])));
         verify(bloc.eventBus.fire(DeleteBooksFinished()));
@@ -71,13 +78,19 @@ void main() {
     blocTest<DeleteBooksBloc, DeleteBooksState>(
       'should emit deletionFailed on failure',
       build: () => BlocMock().onDeleteBooks(Error(TestingFailure())).get(),
-      act: (bloc) => bloc
-        ..add(DeleteModeToggled(book))
-        ..add(DeletePickedBooks()),
-      expect: () => [
-        DeleteBooksState(deletionList: [book], value: Value.deletionList),
-        const DeleteBooksState(deletionList: [], value: Value.deletionFailed),
-      ],
+      act:
+          (bloc) =>
+              bloc
+                ..add(DeleteModeToggled(book))
+                ..add(DeletePickedBooks()),
+      expect:
+          () => [
+            DeleteBooksState(deletionList: [book], value: Value.deletionList),
+            const DeleteBooksState(
+              deletionList: [],
+              value: Value.deletionFailed,
+            ),
+          ],
       verify: (bloc) {
         verify(bloc.deleteBooks(DeleteParams(books: [book])));
         verifyNever(bloc.eventBus.fire(DeleteBooksFinished()));
@@ -90,12 +103,13 @@ void main() {
       'should emit deletionListCleared',
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(ClearDeletionList()),
-      expect: () => [
-        const DeleteBooksState(
-          deletionList: [],
-          value: Value.deletionListCleared,
-        ),
-      ],
+      expect:
+          () => [
+            const DeleteBooksState(
+              deletionList: [],
+              value: Value.deletionListCleared,
+            ),
+          ],
       verify: (bloc) {
         verifyNever(bloc.deleteBooks(const DeleteParams(books: [])));
         verifyNever(bloc.eventBus.fire(DeleteBooksFinished()));
@@ -126,10 +140,7 @@ final class BlocMock {
   DeleteBooksBloc get() => _createMock();
 
   DeleteBooksBloc _createMock() {
-    return DeleteBooksBloc(
-      deleteBooks: _deleteBooks,
-      eventBus: _eventBus,
-    );
+    return DeleteBooksBloc(deleteBooks: _deleteBooks, eventBus: _eventBus);
   }
 
   DeleteBooksBloc allWorking() => _createMock();

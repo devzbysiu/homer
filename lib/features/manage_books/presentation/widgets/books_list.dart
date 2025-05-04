@@ -53,9 +53,10 @@ final class _BooksListState extends State<BooksList> {
           child: BlocSelector<BooksBloc, BooksState, List<Book>>(
             selector: (state) => state.books,
             builder: (context, allBooks) {
-              final books = allBooks
-                  .where((b) => b.state.name == context.currentTab().name)
-                  .toList();
+              final books =
+                  allBooks
+                      .where((b) => b.state.name == context.currentTab().name)
+                      .toList();
               if (books.isEmpty) return Container();
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

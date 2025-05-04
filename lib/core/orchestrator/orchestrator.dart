@@ -11,7 +11,6 @@ import '../../features/stats/presentation/bloc/stats_bloc.dart';
 import 'bus.dart';
 import 'events.dart';
 
-// TODO: Make formatting of two named parameters consistent (one line vs two lines)
 final class Orchestrator {
   Orchestrator({
     required this.eventBus,

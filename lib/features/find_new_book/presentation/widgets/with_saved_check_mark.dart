@@ -41,9 +41,7 @@ class WithSavedCheckMark extends StatelessWidget {
             child: Container(
               width: width,
               height: height,
-              decoration: BoxDecoration(
-                color: context.background,
-              ),
+              decoration: BoxDecoration(color: context.background),
             ),
           ),
         if (book.alreadySaved)

@@ -72,10 +72,10 @@ final class Settings extends Equatable {
 
   @override
   List<Object> get props => [
-        useSystemTheme,
-        useDarkTheme,
-        bookSizeLimits,
-        backupsDir.path,
-        readingGoal,
-      ];
+    useSystemTheme,
+    useDarkTheme,
+    bookSizeLimits,
+    backupsDir.path,
+    readingGoal,
+  ];
 }

@@ -6,7 +6,7 @@ import 'most_read_info.dart';
 
 final class OtherStatsData extends Equatable {
   const OtherStatsData(Map<MonthInfo, int> readByMonth)
-      : _readByMonth = readByMonth;
+    : _readByMonth = readByMonth;
 
   OtherStatsData.empty() : _readByMonth = {};
 

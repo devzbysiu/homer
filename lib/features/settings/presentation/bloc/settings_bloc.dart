@@ -17,10 +17,8 @@ part 'settings_event.dart';
 part 'settings_state.dart';
 
 final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  SettingsBloc({
-    required this.saveSettings,
-    required this.loadSettings,
-  }) : super(SettingsState.initial()) {
+  SettingsBloc({required this.saveSettings, required this.loadSettings})
+    : super(SettingsState.initial()) {
     on<SettingsLoaded>(_onSettingsLoaded);
     on<ThemeToggled>(_onThemeToggled);
     on<SystemThemeToggled>(_onSystemThemeToggled);
@@ -46,10 +44,7 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     );
   }
 
-  void _onThemeToggled(
-    ThemeToggled event,
-    Emitter<SettingsState> emit,
-  ) async {
+  void _onThemeToggled(ThemeToggled event, Emitter<SettingsState> emit) async {
     final newState = state.toggleDarkTheme();
     await _saveAndEmit(newState, emit);
   }
@@ -99,33 +94,33 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 }
 
 extension SettingsContextExt on BuildContext {
-//   void toggleTheme() {
-//     _emitSettingsEvt(ThemeToggled());
-//   }
+  //   void toggleTheme() {
+  //     _emitSettingsEvt(ThemeToggled());
+  //   }
 
-//   void toggleSystemTheme() {
-//     _emitSettingsEvt(SystemThemeToggled());
-//   }
+  //   void toggleSystemTheme() {
+  //     _emitSettingsEvt(SystemThemeToggled());
+  //   }
 
-//   void backupsDirPicked(Directory directory) {
-//     _emitSettingsEvt(BackupsDirectorySelected(directory));
-//   }
+  //   void backupsDirPicked(Directory directory) {
+  //     _emitSettingsEvt(BackupsDirectorySelected(directory));
+  //   }
 
-//   void bookSizeLimitsChanged(BookSizeLimits limits) {
-//     _emitSettingsEvt(BookSizeLimitsChanged(limits));
-//   }
+  //   void bookSizeLimitsChanged(BookSizeLimits limits) {
+  //     _emitSettingsEvt(BookSizeLimitsChanged(limits));
+  //   }
 
-//   void readingGoalChanged(ReadingGoal goal) {
-//     _emitSettingsEvt(ReadingGoalChanged(goal));
-//   }
+  //   void readingGoalChanged(ReadingGoal goal) {
+  //     _emitSettingsEvt(ReadingGoalChanged(goal));
+  //   }
 
   BookSizeLimits bookSizeLimits() => _settings().bookSizeLimits;
 
   ReadingGoal readingGoal() => _settings().readingGoal;
 
-//   void _emitSettingsEvt(SettingsEvent event) {
-//     read<SettingsBloc>().add(event);
-//   }
+  //   void _emitSettingsEvt(SettingsEvent event) {
+  //     read<SettingsBloc>().add(event);
+  //   }
 
   Settings _settings() => read<SettingsBloc>().state.settings;
 }

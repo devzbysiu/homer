@@ -42,34 +42,36 @@ void main() {
       expect(result.isError(), true);
     });
 
-    test('should return books grouped by state when books repo works',
-        () async {
-      // given
-      final booksRepo = makeMockBooksRepo();
-      final books = [
-        fakeBook().copyWith(state: BookState.reading),
-        fakeBook().copyWith(state: BookState.reading),
-        fakeBook().copyWith(state: BookState.readLater),
-        fakeBook().copyWith(state: BookState.read),
-        fakeBook().copyWith(state: BookState.read),
-      ];
-      when(booksRepo.listAll()).thenAnswer((_) => withSuccess(books));
-      final loadBooksPerState = LoadBooksPerStateImpl(booksRepo);
+    test(
+      'should return books grouped by state when books repo works',
+      () async {
+        // given
+        final booksRepo = makeMockBooksRepo();
+        final books = [
+          fakeBook().copyWith(state: BookState.reading),
+          fakeBook().copyWith(state: BookState.reading),
+          fakeBook().copyWith(state: BookState.readLater),
+          fakeBook().copyWith(state: BookState.read),
+          fakeBook().copyWith(state: BookState.read),
+        ];
+        when(booksRepo.listAll()).thenAnswer((_) => withSuccess(books));
+        final loadBooksPerState = LoadBooksPerStateImpl(booksRepo);
 
-      // when
-      final result = await loadBooksPerState(NoParams());
+        // when
+        final result = await loadBooksPerState(NoParams());
 
-      // then
-      expect(result.isSuccess(), true);
-      expect(
-        result.tryGetSuccess()!,
-        BooksPerStateData({
-          const ComparableBookState(BookState.readLater): 1,
-          const ComparableBookState(BookState.reading): 2,
-          const ComparableBookState(BookState.read): 2,
-        }),
-      );
-    });
+        // then
+        expect(result.isSuccess(), true);
+        expect(
+          result.tryGetSuccess()!,
+          BooksPerStateData({
+            const ComparableBookState(BookState.readLater): 1,
+            const ComparableBookState(BookState.reading): 2,
+            const ComparableBookState(BookState.read): 2,
+          }),
+        );
+      },
+    );
 
     test('should return empty group of books when no books saved', () async {
       // given

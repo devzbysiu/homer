@@ -9,43 +9,48 @@ import '../../../../test_utils/mock_return_helpers.dart';
 
 void main() {
   group('searchForBooks', () {
-    test('should use external books and books repo to search for books',
-        () async {
-      // given
-      final externalBooksRepo = makeMockExternalBooksRepo();
-      final query = fakeSearchQuery();
-      final foundBooks = [fakeBook(), fakeBook(), fakeBook()];
-      when(externalBooksRepo.search(query)).thenAnswer(
-        (_) => withSuccess(foundBooks),
-      );
+    test(
+      'should use external books and books repo to search for books',
+      () async {
+        // given
+        final externalBooksRepo = makeMockExternalBooksRepo();
+        final query = fakeSearchQuery();
+        final foundBooks = [fakeBook(), fakeBook(), fakeBook()];
+        when(
+          externalBooksRepo.search(query),
+        ).thenAnswer((_) => withSuccess(foundBooks));
 
-      final booksRepo = makeMockBooksRepo();
-      final savedBooks = [foundBooks[0]];
-      when(booksRepo.listAll()).thenAnswer((_) => withSuccess(savedBooks));
+        final booksRepo = makeMockBooksRepo();
+        final savedBooks = [foundBooks[0]];
+        when(booksRepo.listAll()).thenAnswer((_) => withSuccess(savedBooks));
 
-      final searchForBooks = SearchAndCheckSaved(externalBooksRepo, booksRepo);
+        final searchForBooks = SearchAndCheckSaved(
+          externalBooksRepo,
+          booksRepo,
+        );
 
-      verifyZeroInteractions(externalBooksRepo);
-      verifyZeroInteractions(booksRepo);
+        verifyZeroInteractions(externalBooksRepo);
+        verifyZeroInteractions(booksRepo);
 
-      // when
-      final _ = await searchForBooks(SearchParams(query: query));
+        // when
+        final _ = await searchForBooks(SearchParams(query: query));
 
-      // then
-      verify(externalBooksRepo.search(query));
-      verify(booksRepo.listAll());
-      verifyNoMoreInteractions(externalBooksRepo);
-      verifyNoMoreInteractions(booksRepo);
-    });
+        // then
+        verify(externalBooksRepo.search(query));
+        verify(booksRepo.listAll());
+        verifyNoMoreInteractions(externalBooksRepo);
+        verifyNoMoreInteractions(booksRepo);
+      },
+    );
 
     test('should return failure when external books repo failed', () async {
       // given
       final externalBooksRepo = makeMockExternalBooksRepo();
       final query = fakeSearchQuery();
       final failure = TestingFailure();
-      when(externalBooksRepo.search(query)).thenAnswer(
-        (_) => withError(failure),
-      );
+      when(
+        externalBooksRepo.search(query),
+      ).thenAnswer((_) => withError(failure));
 
       final booksRepo = makeMockBooksRepo();
 
@@ -64,9 +69,9 @@ void main() {
       final externalBooksRepo = makeMockExternalBooksRepo();
       final query = fakeSearchQuery();
       final foundBooks = [fakeBook(), fakeBook(), fakeBook()];
-      when(externalBooksRepo.search(query)).thenAnswer(
-        (_) => withSuccess(foundBooks),
-      );
+      when(
+        externalBooksRepo.search(query),
+      ).thenAnswer((_) => withSuccess(foundBooks));
 
       final booksRepo = makeMockBooksRepo();
       final failure = TestingFailure();
@@ -87,9 +92,9 @@ void main() {
       final externalBooksRepo = makeMockExternalBooksRepo();
       final query = fakeSearchQuery();
       final foundBooks = [fakeBook(), fakeBook(), fakeBook()];
-      when(externalBooksRepo.search(query)).thenAnswer(
-        (_) => withSuccess(foundBooks),
-      );
+      when(
+        externalBooksRepo.search(query),
+      ).thenAnswer((_) => withSuccess(foundBooks));
 
       final booksRepo = makeMockBooksRepo();
       final savedBooks = [foundBooks[0]];
@@ -114,9 +119,9 @@ void main() {
       final externalBooksRepo = makeMockExternalBooksRepo();
       final query = fakeSearchQuery();
       final foundBooks = [fakeBook(), fakeBook(), fakeBook()];
-      when(externalBooksRepo.search(query)).thenAnswer(
-        (_) => withSuccess(foundBooks),
-      );
+      when(
+        externalBooksRepo.search(query),
+      ).thenAnswer((_) => withSuccess(foundBooks));
 
       final booksRepo = makeMockBooksRepo();
       final savedBooks = [fakeBook()];

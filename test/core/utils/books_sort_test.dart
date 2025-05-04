@@ -80,8 +80,7 @@ void main() {
       expect(result, [book3, book2, book1]);
     });
 
-    test(
-        '"readLater" books should be at the beginning, then "reading" sorted by '
+    test('"readLater" books should be at the beginning, then "reading" sorted by '
         'start date, then "read" sorted by end date', () {
       // given
       final readLaterBook1 = fakeBook().copyWith(state: BookState.readLater);

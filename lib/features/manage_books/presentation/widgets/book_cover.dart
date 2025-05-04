@@ -47,14 +47,8 @@ final class _Tag extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
           color: HexColor(tag.hexColor),
         ),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 2,
-        ),
-        child: Text(
-          tag.name,
-          style: const TextStyle(color: Colors.white),
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+        child: Text(tag.name, style: const TextStyle(color: Colors.white)),
       ),
     );
   }

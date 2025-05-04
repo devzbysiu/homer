@@ -79,17 +79,14 @@ final class _MainScreenState extends State<MainScreen> {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                context.primaryContainer,
-                context.lightPrimaryContainer,
-              ],
+              colors: [context.primaryContainer, context.lightPrimaryContainer],
             ),
           ),
           child: Padding(
             padding: const EdgeInsets.only(top: 52),
             child: BooksList(),
           ),
-        )
+        ),
       ],
     );
   }

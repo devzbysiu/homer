@@ -26,10 +26,7 @@ final class BackupRepo implements BackupRepository {
   }
 
   @override
-  Future<Result<Unit, Failure>> saveAll(
-    String path,
-    List<Book> books,
-  ) async {
+  Future<Result<Unit, Failure>> saveAll(String path, List<Book> books) async {
     try {
       final backupBookDTOs = toBackupBookDTOs(books);
       await dataSource.saveAll(path, backupBookDTOs);

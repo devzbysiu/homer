@@ -80,10 +80,7 @@ Map<String, Object> fakeBackupBookDTOJson() {
     'rating': fakeRating(),
     'summary': fakeSummary(),
     'tags': [
-      {
-        'name': fakeTagName(),
-        'hexColor': fakeTagColor(),
-      },
+      {'name': fakeTagName(), 'hexColor': fakeTagColor()},
     ],
     'startDate': fakeDateMillis(),
     'endDate': fakeDateMillis(),
@@ -137,10 +134,7 @@ BookState fakeBookState() {
 }
 
 Map<String, dynamic> fakeBackupTagDTOJson() {
-  return {
-    'name': faker.lorem.word(),
-    'hexColor': faker.color.color(),
-  };
+  return {'name': faker.lorem.word(), 'hexColor': faker.color.color()};
 }
 
 BackupTagDTO fakeBackupTagDTO() {
@@ -197,11 +191,7 @@ bf.BookInfo fakeBookFinderBookInfo() {
 }
 
 Map<String, dynamic> fakeExternalBookInfoDTOJson() {
-  return {
-    'title': fakeTitle(),
-    'isbn10': fakeIsbn(),
-    'isbn13': fakeIsbn(),
-  };
+  return {'title': fakeTitle(), 'isbn10': fakeIsbn(), 'isbn13': fakeIsbn()};
 }
 
 ExternalBookInfoDTO fakeExternalBookInfoDTO() {
@@ -228,10 +218,7 @@ ExternalBookDTO fakeExternalBookDTO() {
 String fakeSearchQuery() => faker.lorem.word();
 
 ExternalBookInfo fakeExternalBookInfo() {
-  return ExternalBookInfo(
-    title: fakeTitle(),
-    isbn: some(fakeIsbn()),
-  );
+  return ExternalBookInfo(title: fakeTitle(), isbn: some(fakeIsbn()));
 }
 
 BookDTO fakeBookDTO() {
@@ -313,12 +300,7 @@ Map<String, dynamic> fakeSettingsDTOJson() {
 }
 
 BooksPerYearData fakeBooksPerYear() {
-  return BooksPerYearData(const {
-    2021: 1,
-    2022: 1,
-    2023: 1,
-    2024: 2,
-  });
+  return BooksPerYearData(const {2021: 1, 2022: 1, 2023: 1, 2024: 2});
 }
 
 BooksPerMonthData fakeBooksPerMonth() {

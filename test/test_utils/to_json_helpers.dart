@@ -39,10 +39,7 @@ String _bookStateToString(BookState state) {
 }
 
 Map<String, dynamic> backupTagDTOToJson(BackupTagDTO tag) {
-  return {
-    'name': tag.name,
-    'hexColor': tag.hexColor,
-  };
+  return {'name': tag.name, 'hexColor': tag.hexColor};
 }
 
 Map<String, dynamic> externalBookInfoDTOToJson(ExternalBookInfoDTO dto) {

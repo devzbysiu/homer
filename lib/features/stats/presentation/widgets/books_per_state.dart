@@ -53,9 +53,7 @@ final class _BarChartBooksPerState extends StatelessWidget {
           Expanded(child: BarChart(mainData(context))),
           RotatedBox(
             quarterTurns: -1,
-            child: _ChartLegend(
-              booksPerState: booksPerState,
-            ),
+            child: _ChartLegend(booksPerState: booksPerState),
           ),
         ],
       ),
@@ -98,7 +96,8 @@ final class _BarChartBooksPerState extends StatelessWidget {
       barRods: [
         BarChartRodData(
           width: 30,
-          toY: forLaterCount.toDouble() +
+          toY:
+              forLaterCount.toDouble() +
               readingCount.toDouble() +
               readCount.toDouble(),
           rodStackItems: [forLaterBar, readingBar, readBar],
@@ -154,11 +153,7 @@ final class _LegendTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          width: 20,
-          height: 20,
-          color: color,
-        ),
+        Container(width: 20, height: 20, color: color),
         const SizedBox(width: 5),
         Text(text, style: context.titleSmall),
         const SizedBox(width: 20),

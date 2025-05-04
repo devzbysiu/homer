@@ -28,7 +28,7 @@ final class BookCardFooter extends StatelessWidget {
       children: [
         _BookRating(rating: rating),
         _ShareButton(shareText: shareText),
-        _BookSize(pageCount: pageCount)
+        _BookSize(pageCount: pageCount),
       ],
     );
   }
@@ -41,20 +41,19 @@ final class _BookRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(children: [
-      Icon(
-        Icons.star,
-        color: context.primary,
-      ),
-      const SizedBox(width: 4),
-      Padding(
-        padding: const EdgeInsets.only(top: 4.0),
-        child: Text(
-          rating.toStringAsFixed(2),
-          style: const TextStyle(color: Colors.white),
+    return Wrap(
+      children: [
+        Icon(Icons.star, color: context.primary),
+        const SizedBox(width: 4),
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Text(
+            rating.toStringAsFixed(2),
+            style: const TextStyle(color: Colors.white),
+          ),
         ),
-      )
-    ]);
+      ],
+    );
   }
 }
 
@@ -70,11 +69,7 @@ final class _ShareButton extends StatelessWidget {
       (text) => Padding(
         padding: const EdgeInsets.only(right: 15),
         child: GestureDetector(
-          child: const Icon(
-            Icons.share,
-            size: 20,
-            color: Colors.white,
-          ),
+          child: const Icon(Icons.share, size: 20, color: Colors.white),
           onTap: () => Share.share(text),
         ),
       ),
@@ -129,10 +124,7 @@ final class _BookSizeLabel extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             border: Border.all(color: sizeColor),
           ),
-          child: Text(
-            sizeLabel,
-            style: const TextStyle(color: Colors.white),
-          ),
+          child: Text(sizeLabel, style: const TextStyle(color: Colors.white)),
         );
       },
     );

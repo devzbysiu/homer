@@ -21,8 +21,9 @@ final class LoadBooksPerMonthImpl implements LoadBooksPerMonth {
     if (result.isError()) return Error(result.tryGetError()!);
     final books = result.tryGetSuccess()!;
     final monthInfos = _groupByFinishedMonthInfo(books);
-    final bookCounts =
-        monthInfos.map((monthInfo, books) => MapEntry(monthInfo, books.length));
+    final bookCounts = monthInfos.map(
+      (monthInfo, books) => MapEntry(monthInfo, books.length),
+    );
     return Success(BooksPerMonthData(bookCounts));
   }
 

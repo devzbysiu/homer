@@ -61,19 +61,19 @@ final class BackupBookDTO extends Equatable {
 
   @override
   List<Object> get props => [
-        title,
-        subtitle,
-        authors,
-        state,
-        pageCount,
-        isbn,
-        thumbnailAddress,
-        rating,
-        summary,
-        tags,
-        startDate,
-        endDate,
-      ];
+    title,
+    subtitle,
+    authors,
+    state,
+    pageCount,
+    isbn,
+    thumbnailAddress,
+    rating,
+    summary,
+    tags,
+    startDate,
+    endDate,
+  ];
 }
 
 Option<String> _toThumbnailAddress(String thumbnail) {

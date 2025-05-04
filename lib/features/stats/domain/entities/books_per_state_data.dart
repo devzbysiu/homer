@@ -8,7 +8,7 @@ typedef BookCounts = int;
 
 final class BooksPerStateData extends Equatable {
   BooksPerStateData(Map<ComparableBookState, BookCounts> booksPerState)
-      : _booksPerState = SplayTreeMap.from(booksPerState);
+    : _booksPerState = SplayTreeMap.from(booksPerState);
 
   BooksPerStateData.empty() : _booksPerState = SplayTreeMap.from({});
 

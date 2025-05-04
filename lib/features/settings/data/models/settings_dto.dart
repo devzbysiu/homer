@@ -39,12 +39,12 @@ final class SettingsDTO extends Equatable {
 
   @override
   List<Object> get props => [
-        isSystemThemeOn,
-        isDarkThemeOn,
-        bookSizeLimits,
-        backupsDirectory.path,
-        readingGoal,
-      ];
+    isSystemThemeOn,
+    isDarkThemeOn,
+    bookSizeLimits,
+    backupsDirectory.path,
+    readingGoal,
+  ];
 }
 
 Directory _directoryFromJson(String backupDirPath) => Directory(backupDirPath);

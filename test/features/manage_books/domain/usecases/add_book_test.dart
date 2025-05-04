@@ -23,18 +23,24 @@ void main() {
       verifyZeroInteractions(booksRepo);
 
       // when
-      final _ = await addBook(AddParams(
-        book: book,
-        bookState: BookState.read,
-        selectedTags: const [],
-      ));
+      final _ = await addBook(
+        AddParams(
+          book: book,
+          bookState: BookState.read,
+          selectedTags: const [],
+        ),
+      );
 
       // then
-      verify(booksRepo.add(book.copyWith(
-        state: BookState.read,
-        tags: const [],
-        alreadySaved: true,
-      )));
+      verify(
+        booksRepo.add(
+          book.copyWith(
+            state: BookState.read,
+            tags: const [],
+            alreadySaved: true,
+          ),
+        ),
+      );
       verifyNoMoreInteractions(booksRepo);
     });
 
@@ -49,11 +55,13 @@ void main() {
       final book = fakeBook();
 
       // when
-      final result = await addBook(AddParams(
-        book: book,
-        bookState: BookState.read,
-        selectedTags: const [],
-      ));
+      final result = await addBook(
+        AddParams(
+          book: book,
+          bookState: BookState.read,
+          selectedTags: const [],
+        ),
+      );
 
       // then
       expect(result.isError(), true);
@@ -70,11 +78,13 @@ void main() {
       final addBook = AddBookImpl(booksRepo);
 
       // when
-      final result = await addBook(AddParams(
-        book: book,
-        bookState: BookState.read,
-        selectedTags: const [],
-      ));
+      final result = await addBook(
+        AddParams(
+          book: book,
+          bookState: BookState.read,
+          selectedTags: const [],
+        ),
+      );
 
       // then
       expect(result.isSuccess(), true);

@@ -30,13 +30,13 @@ final class ExternalBookDTO extends Equatable {
 
   @override
   List<Object?> get props => [
-        title,
-        subtitle,
-        authors,
-        pageCount,
-        industryIdentifiers,
-        imageLinks,
-        averageRating,
-        description,
-      ];
+    title,
+    subtitle,
+    authors,
+    pageCount,
+    industryIdentifiers,
+    imageLinks,
+    averageRating,
+    description,
+  ];
 }

@@ -32,23 +32,27 @@ final class BookSizeSliderState extends State<BookSizeSlider> {
           inactiveTrackSize: 6,
           textHeightOffset: -25,
           horizontalPadding: 13,
-          indicator: (_) => IndicatorOptions(
-            formatter: (value) => value.toInt().toString(),
-          ),
-          selectedIndicator: (_) => IndicatorOptions(
-            formatter: (value) => value.toInt().toString(),
-          ),
+          indicator:
+              (_) => IndicatorOptions(
+                formatter: (value) => value.toInt().toString(),
+              ),
+          selectedIndicator:
+              (_) => IndicatorOptions(
+                formatter: (value) => value.toInt().toString(),
+              ),
           thumbColor: context.primary,
           rangeColors: const [Colors.green, Colors.blue, Colors.orange],
           min: 1,
           max: 1244,
           values: componentBookSizeLimits!.asDoubleList(),
-          onChanged: (value) => setState(() {
-            componentBookSizeLimits = BookSizeLimits.fromDoubleList(value);
-          }),
-          onChangeEnd: (value) => widget.fire(SizeLimitsChanged(
-            BookSizeLimits.fromDoubleList(value),
-          )),
+          onChanged:
+              (value) => setState(() {
+                componentBookSizeLimits = BookSizeLimits.fromDoubleList(value);
+              }),
+          onChangeEnd:
+              (value) => widget.fire(
+                SizeLimitsChanged(BookSizeLimits.fromDoubleList(value)),
+              ),
           divisions: 240,
         ),
       ),

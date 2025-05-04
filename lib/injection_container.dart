@@ -78,9 +78,7 @@ Future<void> initDi({required Env env}) async {
 
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SettingsDataSource>(() {
-    return SharedPrefsSettingsDataSource(
-      sharedPreferences: sharedPreferences,
-    );
+    return SharedPrefsSettingsDataSource(sharedPreferences: sharedPreferences);
   });
 
   // Repositories
@@ -112,9 +110,7 @@ Future<void> initDi({required Env env}) async {
   sl.registerLazySingleton<SearchForBooks>(
     () => SearchAndCheckSaved(sl(), sl()),
   );
-  sl.registerLazySingleton<FetchSharedBook>(
-    () => FetchSharedBookImpl(sl()),
-  );
+  sl.registerLazySingleton<FetchSharedBook>(() => FetchSharedBookImpl(sl()));
   sl.registerLazySingleton<FetchSharedBookInfo>(
     () => FetchSharedBookInfoImpl(sl()),
   );
@@ -128,9 +124,11 @@ Future<void> initDi({required Env env}) async {
   // stats
   sl.registerLazySingleton<LoadBooksPerYear>(() => LoadBooksPerYearImpl(sl()));
   sl.registerLazySingleton<LoadBooksPerMonth>(
-      () => LoadBooksPerMonthImpl(sl()));
+    () => LoadBooksPerMonthImpl(sl()),
+  );
   sl.registerLazySingleton<LoadBooksPerState>(
-      () => LoadBooksPerStateImpl(sl()));
+    () => LoadBooksPerStateImpl(sl()),
+  );
   sl.registerLazySingleton<LoadOtherStats>(() => LoadOtherStatsImpl(sl()));
 
   // Features
@@ -145,10 +143,7 @@ Future<void> initDi({required Env env}) async {
     );
   });
   sl.registerLazySingleton(() {
-    return DeleteBooksBloc(
-      deleteBooks: sl(),
-      eventBus: sl(),
-    );
+    return DeleteBooksBloc(deleteBooks: sl(), eventBus: sl());
   });
   sl.registerLazySingleton(() => TagsBloc(listTags: sl()));
   sl.registerLazySingleton(() => BookSearchBloc(searchForBooks: sl()));
@@ -170,10 +165,7 @@ Future<void> initDi({required Env env}) async {
     ),
   );
   sl.registerLazySingleton(() {
-    return SettingsBloc(
-      saveSettings: sl(),
-      loadSettings: sl(),
-    );
+    return SettingsBloc(saveSettings: sl(), loadSettings: sl());
   });
   sl.registerLazySingleton(() {
     return StatsBloc(
@@ -185,17 +177,19 @@ Future<void> initDi({required Env env}) async {
   });
 
   // Core
-  sl.registerSingleton<Orchestrator>(Orchestrator(
-    eventBus: sl(),
-    appTab: sl(),
-    backup: sl(),
-    stats: sl(),
-    books: sl(),
-    search: sl(),
-    share: sl(),
-    onBookTags: sl(),
-    delete: sl(),
-    summary: sl(),
-    settings: sl(),
-  ));
+  sl.registerSingleton<Orchestrator>(
+    Orchestrator(
+      eventBus: sl(),
+      appTab: sl(),
+      backup: sl(),
+      stats: sl(),
+      books: sl(),
+      search: sl(),
+      share: sl(),
+      onBookTags: sl(),
+      delete: sl(),
+      summary: sl(),
+      settings: sl(),
+    ),
+  );
 }

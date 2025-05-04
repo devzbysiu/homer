@@ -14,7 +14,7 @@ part 'delete_books_state.dart';
 
 final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
   DeleteBooksBloc({required this.eventBus, required this.deleteBooks})
-      : super(const DeleteBooksState.initial()) {
+    : super(const DeleteBooksState.initial()) {
     on<DeleteModeToggled>(_onToggleBookOnDeleteList);
     on<DeletePickedBooks>(_onDeleteBooks);
     on<ClearDeletionList>(_onClearDeletionList);
@@ -29,14 +29,18 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
     Emitter<DeleteBooksState> emit,
   ) async {
     if (state.deletionList.contains(event.book)) {
-      emit(DeleteBooksState.deletionList(
-        List.of(state.deletionList)..remove(event.book),
-      ));
+      emit(
+        DeleteBooksState.deletionList(
+          List.of(state.deletionList)..remove(event.book),
+        ),
+      );
       return;
     }
-    emit(DeleteBooksState.deletionList(
-      List.of(state.deletionList)..add(event.book),
-    ));
+    emit(
+      DeleteBooksState.deletionList(
+        List.of(state.deletionList)..add(event.book),
+      ),
+    );
   }
 
   Future<void> _onDeleteBooks(
@@ -47,13 +51,10 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
     final result = await deleteBooks(
       DeleteParams(books: List.of(state.deletionList)),
     );
-    result.when(
-      (_) {
-        emit(const DeleteBooksState.booksRemoved());
-        eventBus.fire(DeleteBooksFinished());
-      },
-      (error) => emit(const DeleteBooksState.deletionFailed()),
-    );
+    result.when((_) {
+      emit(const DeleteBooksState.booksRemoved());
+      eventBus.fire(DeleteBooksFinished());
+    }, (error) => emit(const DeleteBooksState.deletionFailed()));
   }
 
   Future<void> _onClearDeletionList(

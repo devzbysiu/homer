@@ -111,17 +111,18 @@ void main() {
     });
 
     test(
-        'should return true for pageCount bigger than shortMax but smaller than mediumMax',
-        () {
-      // given
-      final limits = BookSizeLimits(shortMax: 300, mediumMax: 500);
+      'should return true for pageCount bigger than shortMax but smaller than mediumMax',
+      () {
+        // given
+        final limits = BookSizeLimits(shortMax: 300, mediumMax: 500);
 
-      // when
-      final result = limits.isMedium(301);
+        // when
+        final result = limits.isMedium(301);
 
-      // then
-      expect(result, true);
-    });
+        // then
+        expect(result, true);
+      },
+    );
 
     test('should return true for pageCount equal to mediumMax', () {
       // given

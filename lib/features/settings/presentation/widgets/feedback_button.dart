@@ -13,7 +13,7 @@ final class FeedbackButton extends StatelessWidget {
         MenuButton(
           text: 'Feedback',
           onPressed: () => BetterFeedback.of(context).showAndUploadToSentry(),
-        )
+        ),
       ],
     );
   }

@@ -47,20 +47,22 @@ void main() {
   });
 
   group('load', () {
-    test('should return success with default settings when datasource throws',
-        () async {
-      // given
-      final settingsDataSource = makeMockSettingsDataSource();
-      when(settingsDataSource.load()).thenThrow(NoSettingsException());
-      final repo = SettingsRepo(dataSource: settingsDataSource);
+    test(
+      'should return success with default settings when datasource throws',
+      () async {
+        // given
+        final settingsDataSource = makeMockSettingsDataSource();
+        when(settingsDataSource.load()).thenThrow(NoSettingsException());
+        final repo = SettingsRepo(dataSource: settingsDataSource);
 
-      // when
-      final result = await repo.load();
+        // when
+        final result = await repo.load();
 
-      // then
-      expect(result.isSuccess(), true);
-      expect(result.tryGetSuccess()!, Settings.makeDefault());
-    });
+        // then
+        expect(result.isSuccess(), true);
+        expect(result.tryGetSuccess()!, Settings.makeDefault());
+      },
+    );
 
     test('should return success with settings when datasource works', () async {
       // given

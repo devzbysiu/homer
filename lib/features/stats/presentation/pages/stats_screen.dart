@@ -19,10 +19,7 @@ final class StatsScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              context.primaryContainer,
-              context.lightPrimaryContainer,
-            ],
+            colors: [context.primaryContainer, context.lightPrimaryContainer],
           ),
         ),
         child: SafeArea(

@@ -8,24 +8,24 @@ final class BookSummaryState extends Equatable {
   });
 
   const BookSummaryState.initial()
-      : current = const None(),
-        previous = const None(),
-        value = SummaryMode.initial;
+    : current = const None(),
+      previous = const None(),
+      value = SummaryMode.initial;
 
   BookSummaryState.enabled(Book book)
-      : current = some(book),
-        previous = const None(),
-        value = SummaryMode.enabled;
+    : current = some(book),
+      previous = const None(),
+      value = SummaryMode.enabled;
 
   const BookSummaryState.disabled()
-      : current = const None(),
-        previous = const None(),
-        value = SummaryMode.disabled;
+    : current = const None(),
+      previous = const None(),
+      value = SummaryMode.disabled;
 
   const BookSummaryState.disabling(Option<Book> current)
-      : current = const None(),
-        previous = current,
-        value = SummaryMode.disabling;
+    : current = const None(),
+      previous = current,
+      value = SummaryMode.disabling;
 
   final Option<Book> current;
 
@@ -37,9 +37,4 @@ final class BookSummaryState extends Equatable {
   List<Object> get props => [current, previous, value];
 }
 
-enum SummaryMode {
-  initial,
-  enabled,
-  disabled,
-  disabling,
-}
+enum SummaryMode { initial, enabled, disabled, disabling }

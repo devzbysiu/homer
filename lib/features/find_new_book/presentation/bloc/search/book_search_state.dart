@@ -10,48 +10,40 @@ final class BookSearchState extends Equatable {
   });
 
   const BookSearchState.initial()
-      : this(
-          foundBooks: const [],
-          pickedBook: const None(),
-          value: Value.initial,
-          searchFailureCause: const None(),
-        );
-
-  BookSearchState searching() => _copyWith(
-        value: Value.searching,
+    : this(
         foundBooks: const [],
-      );
-
-  BookSearchState searchFinished(List<Book> foundBooks) => _copyWith(
-        value: Value.searchFinished,
-        foundBooks: foundBooks,
-      );
-
-  BookSearchState shareOffloadFinished(List<Book> foundBooks) => _copyWith(
-        value: Value.shareOffloadFinished,
-        foundBooks: foundBooks,
-      );
-
-  BookSearchState resetShareOffload() => _copyWith(
+        pickedBook: const None(),
         value: Value.initial,
+        searchFailureCause: const None(),
       );
+
+  BookSearchState searching() =>
+      _copyWith(value: Value.searching, foundBooks: const []);
+
+  BookSearchState searchFinished(List<Book> foundBooks) =>
+      _copyWith(value: Value.searchFinished, foundBooks: foundBooks);
+
+  BookSearchState shareOffloadFinished(List<Book> foundBooks) =>
+      _copyWith(value: Value.shareOffloadFinished, foundBooks: foundBooks);
+
+  BookSearchState resetShareOffload() => _copyWith(value: Value.initial);
 
   BookSearchState searchFailed(String cause) => _copyWith(
-        value: Value.searchFailed,
-        foundBooks: const [],
-        searchFailureCause: some(cause),
-      );
+    value: Value.searchFailed,
+    foundBooks: const [],
+    searchFailureCause: some(cause),
+  );
 
   const BookSearchState.picked(this.pickedBook)
-      : foundBooks = const [],
-        searchFailureCause = const None(),
-        value = Value.bookPicked;
+    : foundBooks = const [],
+      searchFailureCause = const None(),
+      value = Value.bookPicked;
 
   const BookSearchState.noPickedBook()
-      : foundBooks = const [],
-        searchFailureCause = const None(),
-        pickedBook = const None(),
-        value = Value.bookNotPicked;
+    : foundBooks = const [],
+      searchFailureCause = const None(),
+      pickedBook = const None(),
+      value = Value.bookNotPicked;
 
   bool get isSearching => value == Value.searching;
 

@@ -63,12 +63,7 @@ void main() {
       expect(result.isSuccess(), true);
       expect(
         result.tryGetSuccess()!,
-        BooksPerYearData(const {
-          2021: 1,
-          2022: 1,
-          2023: 1,
-          2024: 2,
-        }),
+        BooksPerYearData(const {2021: 1, 2022: 1, 2023: 1, 2024: 2}),
       );
     });
 
@@ -107,11 +102,7 @@ void main() {
       expect(result.isSuccess(), true);
       expect(
         result.tryGetSuccess()!,
-        BooksPerYearData(const {
-          2022: 1,
-          2023: 1,
-          2024: 1,
-        }),
+        BooksPerYearData(const {2022: 1, 2023: 1, 2024: 1}),
       );
     });
   });

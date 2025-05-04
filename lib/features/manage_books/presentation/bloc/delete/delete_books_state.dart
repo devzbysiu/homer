@@ -5,23 +5,23 @@ final class DeleteBooksState extends Equatable {
   const DeleteBooksState({required this.deletionList, required this.value});
 
   const DeleteBooksState.initial()
-      : deletionList = const [],
-        value = Value.initial;
+    : deletionList = const [],
+      value = Value.initial;
 
   const DeleteBooksState.deletionList(this.deletionList)
-      : value = Value.deletionList;
+    : value = Value.deletionList;
 
   const DeleteBooksState.booksRemoved()
-      : deletionList = const [],
-        value = Value.booksRemoved;
+    : deletionList = const [],
+      value = Value.booksRemoved;
 
   const DeleteBooksState.deletionListCleared()
-      : deletionList = const [],
-        value = Value.deletionListCleared;
+    : deletionList = const [],
+      value = Value.deletionListCleared;
 
   const DeleteBooksState.deletionFailed()
-      : deletionList = const [],
-        value = Value.deletionFailed;
+    : deletionList = const [],
+      value = Value.deletionFailed;
 
   final List<Book> deletionList;
 

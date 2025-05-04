@@ -109,28 +109,24 @@ final class Book extends Equatable {
 
   @override
   List<Object> get props => [
-        title,
-        subtitle,
-        authors,
-        state,
-        pageCount,
-        isbn,
-        thumbnailAddress,
-        rating,
-        summary,
-        tags,
-        alreadySaved
-        // NOTE: Can those be removed?
-        // startDate,
-        // endDate,
-      ];
+    title,
+    subtitle,
+    authors,
+    state,
+    pageCount,
+    isbn,
+    thumbnailAddress,
+    rating,
+    summary,
+    tags,
+    alreadySaved,
+    // NOTE: Can those be removed?
+    // startDate,
+    // endDate,
+  ];
 }
 
-enum BookState {
-  readLater,
-  reading,
-  read,
-}
+enum BookState { readLater, reading, read }
 
 final class ComparableBookState extends Equatable
     implements Comparable<ComparableBookState> {

@@ -39,22 +39,25 @@ void run({required Env env}) async {
       options.tracesSampleRate = env == Env.prod ? 0.1 : 1.0;
       options.environment = envString(env);
     },
-    appRunner: () => runApp(MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => sl<AppTabBloc>()),
-        BlocProvider(create: (_) => sl<BookSummaryBloc>()),
-        BlocProvider(create: (_) => sl<BooksBloc>()),
-        BlocProvider(create: (_) => sl<DeleteBooksBloc>()),
-        BlocProvider(create: (_) => sl<TagsBloc>()),
-        BlocProvider(create: (_) => sl<BookSearchBloc>()),
-        BlocProvider(create: (_) => sl<ShareBookBloc>()),
-        BlocProvider(create: (_) => sl<OnBookTagsBloc>()),
-        BlocProvider(create: (_) => sl<BackupBloc>()),
-        BlocProvider(create: (_) => sl<SettingsBloc>()),
-        BlocProvider(create: (_) => sl<StatsBloc>()..add(LoadStats())),
-      ],
-      child: const BetterFeedback(child: Homer()),
-    )),
+    appRunner:
+        () => runApp(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => sl<AppTabBloc>()),
+              BlocProvider(create: (_) => sl<BookSummaryBloc>()),
+              BlocProvider(create: (_) => sl<BooksBloc>()),
+              BlocProvider(create: (_) => sl<DeleteBooksBloc>()),
+              BlocProvider(create: (_) => sl<TagsBloc>()),
+              BlocProvider(create: (_) => sl<BookSearchBloc>()),
+              BlocProvider(create: (_) => sl<ShareBookBloc>()),
+              BlocProvider(create: (_) => sl<OnBookTagsBloc>()),
+              BlocProvider(create: (_) => sl<BackupBloc>()),
+              BlocProvider(create: (_) => sl<SettingsBloc>()),
+              BlocProvider(create: (_) => sl<StatsBloc>()..add(LoadStats())),
+            ],
+            child: const BetterFeedback(child: Homer()),
+          ),
+        ),
   );
 }
 

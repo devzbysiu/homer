@@ -99,10 +99,7 @@ final class TransparentImageCard extends StatelessWidget {
               height: height,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(borderRadius),
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                ),
+                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
               ),
             ),
           ),
@@ -113,10 +110,7 @@ final class TransparentImageCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: content,
-          ),
+          child: Align(alignment: Alignment.bottomCenter, child: content),
         ),
       ],
     );
@@ -146,7 +140,8 @@ final class _ImageCardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: contentPadding ??
+      padding:
+          contentPadding ??
           const EdgeInsets.only(top: 8, bottom: 12, left: 8, right: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,18 +161,13 @@ final class _ImageCardContent extends StatelessWidget {
                 children: [
                   if (title != null) title!,
                   if (title != null && description != null)
-                    const SizedBox(
-                      height: 2,
-                    ),
+                    const SizedBox(height: 2),
                   if (description != null) description!,
                 ],
               ),
             ),
           if (footer != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 2),
-              child: footer!,
-            ),
+            Padding(padding: const EdgeInsets.only(top: 2), child: footer!),
         ],
       ),
     );

@@ -10,15 +10,8 @@ final class MenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 5),
-          child: MenuItems(),
-        ),
-        Positioned(
-          bottom: 80,
-          left: 5,
-          child: ThemeSwitcher(),
-        )
+        const Padding(padding: EdgeInsets.only(left: 5), child: MenuItems()),
+        Positioned(bottom: 80, left: 5, child: ThemeSwitcher()),
       ],
     );
   }

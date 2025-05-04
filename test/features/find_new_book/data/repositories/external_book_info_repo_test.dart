@@ -33,9 +33,9 @@ void main() {
       // given
       const brokenUrl = 'ht//\\#';
       final bookInfoDataSource = makeMockBookInfoDataSource();
-      when(bookInfoDataSource.getFromWebsite(brokenUrl)).thenThrow(
-        const InvalidUrlException(brokenUrl),
-      );
+      when(
+        bookInfoDataSource.getFromWebsite(brokenUrl),
+      ).thenThrow(const InvalidUrlException(brokenUrl));
 
       final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
@@ -51,9 +51,9 @@ void main() {
       // given
       final url = fakeUrl();
       final bookInfoDataSource = makeMockBookInfoDataSource();
-      when(bookInfoDataSource.getFromWebsite(url)).thenThrow(
-        const NotJsonException('not important'),
-      );
+      when(
+        bookInfoDataSource.getFromWebsite(url),
+      ).thenThrow(const NotJsonException('not important'));
 
       final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
@@ -69,9 +69,9 @@ void main() {
       // given
       final url = fakeUrl();
       final bookInfoDataSource = makeMockBookInfoDataSource();
-      when(bookInfoDataSource.getFromWebsite(url)).thenThrow(
-        const WrongJsonException('not important'),
-      );
+      when(
+        bookInfoDataSource.getFromWebsite(url),
+      ).thenThrow(const WrongJsonException('not important'));
 
       final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
@@ -87,9 +87,9 @@ void main() {
       // given
       final url = fakeUrl();
       final bookInfoDataSource = makeMockBookInfoDataSource();
-      when(bookInfoDataSource.getFromWebsite(url)).thenThrow(
-        TimeoutException('not important'),
-      );
+      when(
+        bookInfoDataSource.getFromWebsite(url),
+      ).thenThrow(TimeoutException('not important'));
 
       final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 
@@ -106,9 +106,9 @@ void main() {
       final url = fakeUrl();
       final bookInfoDTO = fakeExternalBookInfoDTO();
       final bookInfoDataSource = makeMockBookInfoDataSource();
-      when(bookInfoDataSource.getFromWebsite(url)).thenAnswer(
-        (_) => withIt(bookInfoDTO),
-      );
+      when(
+        bookInfoDataSource.getFromWebsite(url),
+      ).thenAnswer((_) => withIt(bookInfoDTO));
 
       final repo = ExternalBookInfoRepo(dataSource: bookInfoDataSource);
 

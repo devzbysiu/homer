@@ -57,9 +57,7 @@ ThemeData _lightDynamicTheme(ColorScheme lightDynamic) {
 }
 
 SliderThemeData _noThumbSlider() {
-  return SliderThemeData(
-    overlayShape: SliderComponentShape.noThumb,
-  );
+  return SliderThemeData(overlayShape: SliderComponentShape.noThumb);
 }
 
 ThemeData _lightFlexTheme() {
@@ -93,6 +91,6 @@ ThemeMode themeMode(SettingsState state) {
   return state.useSystemTheme
       ? ThemeMode.system
       : state.useDarkTheme
-          ? ThemeMode.dark
-          : ThemeMode.light;
+      ? ThemeMode.dark
+      : ThemeMode.light;
 }

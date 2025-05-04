@@ -44,10 +44,7 @@ final class _AverageAndMostRead extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _Average(otherStats.average),
-        _MostRead(otherStats.mostRead),
-      ],
+      children: [_Average(otherStats.average), _MostRead(otherStats.mostRead)],
     );
   }
 }
@@ -69,14 +66,7 @@ class _Average extends StatelessWidget {
             ),
           ],
         ),
-        Row(
-          children: [
-            Text(
-              'books per month',
-              style: context.bodyMedium,
-            ),
-          ],
-        ),
+        Row(children: [Text('books per month', style: context.bodyMedium)]),
       ],
     );
   }
@@ -101,10 +91,7 @@ class _MostRead extends StatelessWidget {
         ),
         Row(
           children: [
-            Text(
-              'books in ${mostRead.monthInfo}',
-              style: context.bodyMedium,
-            ),
+            Text('books in ${mostRead.monthInfo}', style: context.bodyMedium),
           ],
         ),
       ],

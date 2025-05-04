@@ -16,8 +16,4 @@ final class AppTabState extends Equatable {
   List<Object> get props => [currentTab];
 }
 
-enum AppTab {
-  readLater,
-  reading,
-  read,
-}
+enum AppTab { readLater, reading, read }

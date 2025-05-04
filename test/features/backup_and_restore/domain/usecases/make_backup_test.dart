@@ -79,9 +79,9 @@ void main() {
       final backupPath = fakePath();
       final failure = TestingFailure();
       final backupRepo = makeMockBackupRepo();
-      when(backupRepo.saveAll(backupPath, books)).thenAnswer(
-        (_) => withError(failure),
-      );
+      when(
+        backupRepo.saveAll(backupPath, books),
+      ).thenAnswer((_) => withError(failure));
 
       final makeBackup = MakeBackupImpl(backupRepo, booksRepo);
 

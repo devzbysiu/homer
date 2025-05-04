@@ -10,7 +10,7 @@ typedef BookCounts = int;
 
 final class BooksPerYearData extends Equatable {
   BooksPerYearData(Map<Year, BookCounts> booksPerYear)
-      : _booksPerYear = SplayTreeMap.from(booksPerYear);
+    : _booksPerYear = SplayTreeMap.from(booksPerYear);
 
   BooksPerYearData.empty() : _booksPerYear = SplayTreeMap.from({});
 
@@ -19,8 +19,9 @@ final class BooksPerYearData extends Equatable {
   BooksPerYearData add(Book book) {
     final year = book.endDate.toNullable()!.year;
     final newBookCounts = (_booksPerYear[year] ?? 0) + 1;
-    final Map<Year, BookCounts> newBooksPerYear =
-        SplayTreeMap.from(_booksPerYear);
+    final Map<Year, BookCounts> newBooksPerYear = SplayTreeMap.from(
+      _booksPerYear,
+    );
     newBooksPerYear[year] = newBookCounts;
     return BooksPerYearData(newBooksPerYear);
   }
@@ -29,8 +30,9 @@ final class BooksPerYearData extends Equatable {
     final year = book.endDate.toNullable()!.year;
     // can use `!` because we know that the book is finished so it's already in the map
     final newBookCounts = _booksPerYear[year]! - 1;
-    final Map<Year, BookCounts> newBooksPerYear =
-        SplayTreeMap.from(_booksPerYear);
+    final Map<Year, BookCounts> newBooksPerYear = SplayTreeMap.from(
+      _booksPerYear,
+    );
     newBooksPerYear[year] = newBookCounts;
     return BooksPerYearData(newBooksPerYear);
   }

@@ -13,9 +13,9 @@ void main() {
       // given
       final book = fakeBook();
       final externalBooksRepo = makeMockExternalBooksRepo();
-      when(externalBooksRepo.fromIsbn(any)).thenAnswer(
-        (_) => withSuccess(book),
-      );
+      when(
+        externalBooksRepo.fromIsbn(any),
+      ).thenAnswer((_) => withSuccess(book));
 
       final fetchSharedBook = FetchSharedBookImpl(externalBooksRepo);
 
@@ -35,9 +35,9 @@ void main() {
       // given
       final failure = TestingFailure();
       final externalBooksRepo = makeMockExternalBooksRepo();
-      when(externalBooksRepo.fromIsbn(any)).thenAnswer(
-        (_) => withError(failure),
-      );
+      when(
+        externalBooksRepo.fromIsbn(any),
+      ).thenAnswer((_) => withError(failure));
 
       final fetchSharedBook = FetchSharedBookImpl(externalBooksRepo);
 
@@ -55,9 +55,9 @@ void main() {
       // given
       final book = fakeBook();
       final externalBooksRepo = makeMockExternalBooksRepo();
-      when(externalBooksRepo.fromIsbn(any)).thenAnswer(
-        (_) => withSuccess(book),
-      );
+      when(
+        externalBooksRepo.fromIsbn(any),
+      ).thenAnswer((_) => withSuccess(book));
 
       final fetchSharedBook = FetchSharedBookImpl(externalBooksRepo);
 

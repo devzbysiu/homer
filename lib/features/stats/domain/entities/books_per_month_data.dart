@@ -12,7 +12,7 @@ const int _defaultLimit = 13;
 
 final class BooksPerMonthData extends Equatable {
   BooksPerMonthData(Map<MonthInfo, BookCounts> booksPerMonth)
-      : _booksPerMonth = SplayTreeMap.from(booksPerMonth);
+    : _booksPerMonth = SplayTreeMap.from(booksPerMonth);
 
   BooksPerMonthData.empty() : _booksPerMonth = SplayTreeMap.from({});
 
@@ -23,8 +23,9 @@ final class BooksPerMonthData extends Equatable {
     final month = book.endDate.toNullable()!.month;
     final monthInfo = MonthInfo(year, month);
     final newBookCounts = (_booksPerMonth[monthInfo] ?? 0) + 1;
-    final Map<MonthInfo, BookCounts> newBooksPerMonth =
-        SplayTreeMap.from(_booksPerMonth);
+    final Map<MonthInfo, BookCounts> newBooksPerMonth = SplayTreeMap.from(
+      _booksPerMonth,
+    );
     newBooksPerMonth[monthInfo] = newBookCounts;
     return BooksPerMonthData(newBooksPerMonth);
   }
@@ -35,8 +36,9 @@ final class BooksPerMonthData extends Equatable {
     final monthInfo = MonthInfo(year, month);
     // can use `!` because we know that the book is finished so it's already in the map
     final newBookCounts = _booksPerMonth[monthInfo]! - 1;
-    final Map<MonthInfo, BookCounts> newBooksPerMonth =
-        SplayTreeMap.from(_booksPerMonth);
+    final Map<MonthInfo, BookCounts> newBooksPerMonth = SplayTreeMap.from(
+      _booksPerMonth,
+    );
     newBooksPerMonth[monthInfo] = newBookCounts;
     return BooksPerMonthData(newBooksPerMonth);
   }
@@ -57,9 +59,9 @@ final class BooksPerMonthData extends Equatable {
   }
 
   List<BookCounts> bookCounts({Option<MonthInfo> last = const None()}) {
-    return _generateLatestMonthInfos(last)
-        .map((monthInfo) => _booksPerMonth[monthInfo] ?? 0)
-        .toList();
+    return _generateLatestMonthInfos(
+      last,
+    ).map((monthInfo) => _booksPerMonth[monthInfo] ?? 0).toList();
   }
 
   @override

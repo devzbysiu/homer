@@ -25,10 +25,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
-      listeners: [
-        _closeSheetWhenBooksLoaded(),
-        _openSheetWhenBookShared(),
-      ],
+      listeners: [_closeSheetWhenBooksLoaded(), _openSheetWhenBookShared()],
       child: BottomBarWithSheet(
         controller: _sheetCtl,
         duration: const Duration(milliseconds: 200),
@@ -116,10 +113,7 @@ final class _AddButton extends StatelessWidget {
         padding: const EdgeInsets.all(10).wsp(),
         backgroundColor: context.primary.wsp(),
       ),
-      child: Icon(
-        Icons.add,
-        color: context.background,
-      ),
+      child: Icon(Icons.add, color: context.background),
     );
   }
 
@@ -143,10 +137,7 @@ final class _DeleteButton extends StatelessBusWidget {
           shape: const CircleBorder().wsp(),
           padding: const EdgeInsets.all(10).wsp(),
         ),
-        child: Icon(
-          Icons.delete_forever,
-          color: context.background,
-        ),
+        child: Icon(Icons.delete_forever, color: context.background),
       ),
     );
   }

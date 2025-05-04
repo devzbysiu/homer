@@ -40,15 +40,8 @@ final class _SearchError extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(
-          Icons.error,
-          size: 80,
-          color: context.error,
-        ),
-        SelectableText(
-          cause,
-          style: context.errorStyle,
-        )
+        Icon(Icons.error, size: 80, color: context.error),
+        SelectableText(cause, style: context.errorStyle),
       ],
     );
   }

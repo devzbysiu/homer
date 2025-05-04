@@ -112,18 +112,14 @@ final class _LineChartBooksPerYear extends StatelessWidget {
     return LineTouchData(
       enabled: true,
       handleBuiltInTouches: false,
-      getTouchedSpotIndicator: (_, spotIndexes) => _tooltipAreaStyle(
-        context,
-        spotIndexes,
-      ),
+      getTouchedSpotIndicator:
+          (_, spotIndexes) => _tooltipAreaStyle(context, spotIndexes),
       touchTooltipData: LineTouchTooltipData(
         tooltipPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         getTooltipColor: (_) => context.primary,
         tooltipRoundedRadius: 8,
-        getTooltipItems: (lineBarsSpot) => _tooltipTextStyle(
-          context,
-          lineBarsSpot,
-        ),
+        getTooltipItems:
+            (lineBarsSpot) => _tooltipTextStyle(context, lineBarsSpot),
       ),
     );
   }
@@ -175,11 +171,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
   }
 
   AxisTitles _hide() {
-    return const AxisTitles(
-      sideTitles: SideTitles(
-        showTitles: false,
-      ),
-    );
+    return const AxisTitles(sideTitles: SideTitles(showTitles: false));
   }
 
   AxisTitles _bottomTitles(BuildContext context) {
@@ -188,11 +180,8 @@ final class _LineChartBooksPerYear extends StatelessWidget {
         showTitles: true,
         reservedSize: 30,
         interval: 1,
-        getTitlesWidget: (value, meta) => _bottomTitleWidgets(
-          context,
-          value,
-          meta,
-        ),
+        getTitlesWidget:
+            (value, meta) => _bottomTitleWidgets(context, value, meta),
       ),
     );
   }
@@ -207,10 +196,7 @@ final class _LineChartBooksPerYear extends StatelessWidget {
 
     return SideTitleWidget(
       meta: meta,
-      child: Text(
-        '${years[value.toInt()]}',
-        style: context.bodySmall,
-      ),
+      child: Text('${years[value.toInt()]}', style: context.bodySmall),
     );
   }
 
@@ -219,11 +205,8 @@ final class _LineChartBooksPerYear extends StatelessWidget {
       sideTitles: SideTitles(
         showTitles: true,
         interval: 1,
-        getTitlesWidget: (value, meta) => _leftTitleWidgets(
-          context,
-          value,
-          meta,
-        ),
+        getTitlesWidget:
+            (value, meta) => _leftTitleWidgets(context, value, meta),
         reservedSize: 42,
       ),
     );

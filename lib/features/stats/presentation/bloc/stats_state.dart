@@ -9,10 +9,10 @@ final class StatsState extends Equatable {
   });
 
   const StatsState.initial()
-      : booksPerYear = const None(),
-        booksPerMonth = const None(),
-        booksPerState = const None(),
-        otherStats = const None();
+    : booksPerYear = const None(),
+      booksPerMonth = const None(),
+      booksPerState = const None(),
+      otherStats = const None();
 
   const StatsState.loaded(
     this.booksPerYear,
@@ -22,10 +22,10 @@ final class StatsState extends Equatable {
   );
 
   const StatsState.loadFailed()
-      : booksPerYear = const None(),
-        booksPerMonth = const None(),
-        booksPerState = const None(),
-        otherStats = const None();
+    : booksPerYear = const None(),
+      booksPerMonth = const None(),
+      booksPerState = const None(),
+      otherStats = const None();
 
   final Option<BooksPerYearData> booksPerYear;
 
@@ -37,9 +37,9 @@ final class StatsState extends Equatable {
 
   @override
   List<Object> get props => [
-        booksPerYear,
-        booksPerMonth,
-        booksPerState,
-        otherStats,
-      ];
+    booksPerYear,
+    booksPerMonth,
+    booksPerState,
+    otherStats,
+  ];
 }

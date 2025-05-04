@@ -54,23 +54,19 @@ final class BookDTO extends Equatable {
   @ignore
   @override
   List<Object?> get props => [
-        title,
-        subtitle,
-        authors,
-        state,
-        pageCount,
-        isbn,
-        thumbnailAddress,
-        rating,
-        summary,
-        tags,
-        startDate,
-        endDate,
-      ];
+    title,
+    subtitle,
+    authors,
+    state,
+    pageCount,
+    isbn,
+    thumbnailAddress,
+    rating,
+    summary,
+    tags,
+    startDate,
+    endDate,
+  ];
 }
 
-enum BookStateDTO {
-  readLater,
-  reading,
-  read,
-}
+enum BookStateDTO { readLater, reading, read }

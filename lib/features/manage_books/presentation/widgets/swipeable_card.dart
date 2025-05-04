@@ -1,10 +1,7 @@
 part of 'books_list.dart';
 
 final class _SwipeableCard extends StatelessBusWidget {
-  _SwipeableCard({
-    required this.child,
-    required this.book,
-  });
+  _SwipeableCard({required this.child, required this.book});
 
   final Widget child;
 
@@ -188,12 +185,7 @@ final class _AnimatedBackground extends StatelessWidget {
       color: Colors.transparent,
       child: Row(
         mainAxisAlignment: alignment,
-        children: [
-          Padding(
-            padding: padding,
-            child: Icon(icon),
-          ),
-        ],
+        children: [Padding(padding: padding, child: Icon(icon))],
       ),
     );
   }

@@ -28,39 +28,40 @@ void main() {
       'should emit fetchingDetailsFailed when fetching shared book info failed',
       build: () => BlocMock().onFetchSharedBookInfo(Error(failure)).get(),
       act: (bloc) => bloc.add(BookSharedFromOutside(url)),
-      expect: () => [
-        const ShareBookState(
-          sharedBook: None(),
-          value: ShareState.fetchingBookDetails,
-          cause: None(),
-        ),
-        const ShareBookState(
-          sharedBook: None(),
-          value: ShareState.fetchingDetailsFailed,
-          cause: None(),
-        ),
-      ],
-      verify: (bloc) => verify(bloc.fetchSharedBookInfo(
-        FetchInfoParams(url: url),
-      )),
+      expect:
+          () => [
+            const ShareBookState(
+              sharedBook: None(),
+              value: ShareState.fetchingBookDetails,
+              cause: None(),
+            ),
+            const ShareBookState(
+              sharedBook: None(),
+              value: ShareState.fetchingDetailsFailed,
+              cause: None(),
+            ),
+          ],
+      verify:
+          (bloc) => verify(bloc.fetchSharedBookInfo(FetchInfoParams(url: url))),
     );
 
     blocTest<ShareBookBloc, ShareBookState>(
       'should fire ShareOffloaded and go back to initial state when no isbn in book info',
       build: () => BlocMock().onFetchSharedBookInfo(Success(noIsbnBI)).get(),
       act: (bloc) => bloc.add(BookSharedFromOutside(url)),
-      expect: () => [
-        const ShareBookState(
-          sharedBook: None(),
-          value: ShareState.fetchingBookDetails,
-          cause: None(),
-        ),
-        const ShareBookState(
-          sharedBook: None(),
-          value: ShareState.initial,
-          cause: None(),
-        ),
-      ],
+      expect:
+          () => [
+            const ShareBookState(
+              sharedBook: None(),
+              value: ShareState.fetchingBookDetails,
+              cause: None(),
+            ),
+            const ShareBookState(
+              sharedBook: None(),
+              value: ShareState.initial,
+              cause: None(),
+            ),
+          ],
       verify: (bloc) {
         verify(bloc.fetchSharedBookInfo(FetchInfoParams(url: url)));
         verify(bloc.eventBus.fire(ShareOffloaded(noIsbnBI.title)));
@@ -69,55 +70,65 @@ void main() {
 
     blocTest<ShareBookBloc, ShareBookState>(
       'should emit fetchingSharedBookDetails and fetchingDetailsFailed on failure of fetching book details',
-      build: () => BlocMock()
-          .onFetchSharedBookInfo(Success(bookInfo))
-          .onFetchSharedBook(Error(failure))
-          .get(),
+      build:
+          () =>
+              BlocMock()
+                  .onFetchSharedBookInfo(Success(bookInfo))
+                  .onFetchSharedBook(Error(failure))
+                  .get(),
       act: (bloc) => bloc.add(BookSharedFromOutside(url)),
-      expect: () => [
-        const ShareBookState(
-          sharedBook: None(),
-          value: ShareState.fetchingBookDetails,
-          cause: None(),
-        ),
-        ShareBookState(
-          sharedBook: const None(),
-          value: ShareState.fetchingDetailsFailed,
-          cause: some(failure.userMessage()),
-        ),
-      ],
+      expect:
+          () => [
+            const ShareBookState(
+              sharedBook: None(),
+              value: ShareState.fetchingBookDetails,
+              cause: None(),
+            ),
+            ShareBookState(
+              sharedBook: const None(),
+              value: ShareState.fetchingDetailsFailed,
+              cause: some(failure.userMessage()),
+            ),
+          ],
       verify: (bloc) {
         verify(bloc.fetchSharedBookInfo(FetchInfoParams(url: url)));
-        verify(bloc.fetchSharedBook(
-          FetchBookParams(isbn: bookInfo.isbn.toNullable()!),
-        ));
+        verify(
+          bloc.fetchSharedBook(
+            FetchBookParams(isbn: bookInfo.isbn.toNullable()!),
+          ),
+        );
       },
     );
 
     blocTest<ShareBookBloc, ShareBookState>(
       'should emit fetchingSharedBookDetails and bookShared on success',
-      build: () => BlocMock()
-          .onFetchSharedBookInfo(Success(bookInfo))
-          .onFetchSharedBook(Success(pickedBook))
-          .get(),
+      build:
+          () =>
+              BlocMock()
+                  .onFetchSharedBookInfo(Success(bookInfo))
+                  .onFetchSharedBook(Success(pickedBook))
+                  .get(),
       act: (bloc) => bloc.add(BookSharedFromOutside(url)),
-      expect: () => [
-        const ShareBookState(
-          sharedBook: None(),
-          value: ShareState.fetchingBookDetails,
-          cause: None(),
-        ),
-        ShareBookState(
-          sharedBook: some(pickedBook),
-          value: ShareState.bookShared,
-          cause: const None(),
-        ),
-      ],
+      expect:
+          () => [
+            const ShareBookState(
+              sharedBook: None(),
+              value: ShareState.fetchingBookDetails,
+              cause: None(),
+            ),
+            ShareBookState(
+              sharedBook: some(pickedBook),
+              value: ShareState.bookShared,
+              cause: const None(),
+            ),
+          ],
       verify: (bloc) {
         verify(bloc.fetchSharedBookInfo(FetchInfoParams(url: url)));
-        verify(bloc.fetchSharedBook(
-          FetchBookParams(isbn: bookInfo.isbn.toNullable()!),
-        ));
+        verify(
+          bloc.fetchSharedBook(
+            FetchBookParams(isbn: bookInfo.isbn.toNullable()!),
+          ),
+        );
       },
     );
   });
@@ -127,9 +138,9 @@ final class BlocMock {
   BlocMock() {
     provideDummy<Result<List<Book>, Failure>>(const Success([]));
     provideDummy<Result<Book, Failure>>(Success(fakeBook()));
-    provideDummy<Result<ExternalBookInfo, Failure>>(Success(
-      fakeExternalBookInfo(),
-    ));
+    provideDummy<Result<ExternalBookInfo, Failure>>(
+      Success(fakeExternalBookInfo()),
+    );
 
     _eventBus = MockBus();
     _shareHandler = MockShareHandlerPlatform();
@@ -137,9 +148,9 @@ final class BlocMock {
     _fetchSharedBookInfo = MockFetchSharedBookInfo();
 
     when(_shareHandler.getInitialSharedMedia()).thenAnswer((_) => withIt(null));
-    when(_shareHandler.sharedMediaStream).thenAnswer(
-      (_) => const Stream.empty(),
-    );
+    when(
+      _shareHandler.sharedMediaStream,
+    ).thenAnswer((_) => const Stream.empty());
     when(_fetchSharedBook.call(any)).thenAnswer((_) => withSuccess(fakeBook()));
   }
 

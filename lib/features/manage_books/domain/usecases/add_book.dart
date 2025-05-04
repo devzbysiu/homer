@@ -17,11 +17,7 @@ final class AddBookImpl implements AddBook {
 
   @override
   Future<Result<Unit, Failure>> call(AddParams params) async {
-    final book = toBook(
-      params.book,
-      params.bookState,
-      params.selectedTags,
-    );
+    final book = toBook(params.book, params.bookState, params.selectedTags);
     return await booksRepo.add(book);
   }
 }

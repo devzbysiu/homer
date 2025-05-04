@@ -10,10 +10,7 @@ import '../orchestrator/bus_widget.dart';
 import '../utils/theme.dart';
 
 final class BookTitleAndTagTile extends StatelessWidget {
-  const BookTitleAndTagTile({
-    super.key,
-    required this.book,
-  });
+  const BookTitleAndTagTile({super.key, required this.book});
 
   final Book book;
 
@@ -61,17 +58,11 @@ final class _AddTagTile extends StatelessBusWidget {
         width: 25,
         height: 25,
         decoration: BoxDecoration(
-          border: Border.all(
-            color: context.primary,
-          ),
+          border: Border.all(color: context.primary),
           borderRadius: BorderRadius.circular(6),
           color: Colors.black,
         ),
-        child: const Icon(
-          Icons.tag,
-          color: Colors.white,
-          size: 15,
-        ),
+        child: const Icon(Icons.tag, color: Colors.white, size: 15),
       ),
     );
   }

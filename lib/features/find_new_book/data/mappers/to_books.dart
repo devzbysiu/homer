@@ -15,8 +15,9 @@ Book toBook(ExternalBookDTO remoteBookDTO) {
     state: BookState.readLater,
     pageCount: remoteBookDTO.pageCount,
     isbn: remoteBookDTO.industryIdentifiers.firstOrNull ?? '',
-    thumbnailAddress:
-        optionOf(remoteBookDTO.imageLinks.values.firstOrNull?.toString()),
+    thumbnailAddress: optionOf(
+      remoteBookDTO.imageLinks.values.firstOrNull?.toString(),
+    ),
     rating: remoteBookDTO.averageRating,
     summary: optionOf(_descriptionOrDefault(remoteBookDTO)),
     tags: const [],

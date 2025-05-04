@@ -29,8 +29,8 @@ final class MonthInfo extends Equatable implements Comparable<MonthInfo> {
   final Month month;
 
   MonthInfo.current()
-      : year = DateTime.now().year,
-        month = DateTime.now().month;
+    : year = DateTime.now().year,
+      month = DateTime.now().month;
 
   MonthInfo previous() {
     final previousMonth = month - 1;

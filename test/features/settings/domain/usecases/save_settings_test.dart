@@ -31,9 +31,9 @@ void main() {
     test('should return failure when settings repo fails', () async {
       // given
       final settingsRepo = makeMockSettingsRepo();
-      when(settingsRepo.save(any)).thenAnswer(
-        (_) => withError(TestingFailure()),
-      );
+      when(
+        settingsRepo.save(any),
+      ).thenAnswer((_) => withError(TestingFailure()));
       final saveSettings = SaveSettingsImpl(settingsRepo);
 
       final settings = fakeSettings();

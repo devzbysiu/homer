@@ -49,13 +49,10 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
     Emitter<BackupState> emit,
   ) async {
     final result = await replaceAllBooks(ReplaceParams(books: books));
-    result.when(
-      (success) {
-        emit(const BackupState.restoreFinished());
-        eventBus.fire(RestoreFinished());
-      },
-      (error) => emit(const BackupState.restoreFailed()),
-    );
+    result.when((success) {
+      emit(const BackupState.restoreFinished());
+      eventBus.fire(RestoreFinished());
+    }, (error) => emit(const BackupState.restoreFailed()));
   }
 
   Future<void> _onBackupTriggered(

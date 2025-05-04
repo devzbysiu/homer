@@ -45,35 +45,36 @@ void main() {
     });
 
     test(
-        'should return books grouped by latest year and month when books repo works',
-        () async {
-      // given
-      final booksRepo = makeMockBooksRepo();
-      final books = [
-        fakeBook().copyWith(endDate: some(DateTime(2024, 9))),
-        fakeBook().copyWith(endDate: some(DateTime(2023, 9))),
-        fakeBook().copyWith(endDate: some(DateTime(2023, 9))),
-        fakeBook().copyWith(endDate: some(DateTime(2024, 8))),
-        fakeBook().copyWith(endDate: some(DateTime(2021, 9))),
-      ];
-      when(booksRepo.listAll()).thenAnswer((_) => withSuccess(books));
-      final loadBooksPerMonth = LoadBooksPerMonthImpl(booksRepo);
+      'should return books grouped by latest year and month when books repo works',
+      () async {
+        // given
+        final booksRepo = makeMockBooksRepo();
+        final books = [
+          fakeBook().copyWith(endDate: some(DateTime(2024, 9))),
+          fakeBook().copyWith(endDate: some(DateTime(2023, 9))),
+          fakeBook().copyWith(endDate: some(DateTime(2023, 9))),
+          fakeBook().copyWith(endDate: some(DateTime(2024, 8))),
+          fakeBook().copyWith(endDate: some(DateTime(2021, 9))),
+        ];
+        when(booksRepo.listAll()).thenAnswer((_) => withSuccess(books));
+        final loadBooksPerMonth = LoadBooksPerMonthImpl(booksRepo);
 
-      // when
-      final result = await loadBooksPerMonth(NoParams());
+        // when
+        final result = await loadBooksPerMonth(NoParams());
 
-      // then
-      expect(result.isSuccess(), true);
-      expect(
-        result.tryGetSuccess()!,
-        BooksPerMonthData({
-          MonthInfo(2021, 9): 1,
-          MonthInfo(2023, 9): 2,
-          MonthInfo(2024, 8): 1,
-          MonthInfo(2024, 9): 1,
-        }),
-      );
-    });
+        // then
+        expect(result.isSuccess(), true);
+        expect(
+          result.tryGetSuccess()!,
+          BooksPerMonthData({
+            MonthInfo(2021, 9): 1,
+            MonthInfo(2023, 9): 2,
+            MonthInfo(2024, 8): 1,
+            MonthInfo(2024, 9): 1,
+          }),
+        );
+      },
+    );
 
     test('should return empty group of books when no books saved', () async {
       // given

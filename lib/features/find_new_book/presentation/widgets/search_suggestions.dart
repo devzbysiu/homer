@@ -94,9 +94,7 @@ final class _ListTileThumbnail extends StatelessWidget {
     return book.thumbnailAddress.fold(
       () => fallbackThumbnail(),
       (thumbnail) => FadeInImage(
-        image: CachedNetworkImageProvider(
-          thumbnail.toString(),
-        ),
+        image: CachedNetworkImageProvider(thumbnail.toString()),
         placeholder: thumbnailFallbackAssetImage(),
         fit: BoxFit.cover,
         imageErrorBuilder: (_, _, _) => fallbackThumbnail(),

@@ -9,29 +9,29 @@ final class ShareBookState extends Equatable {
   });
 
   const ShareBookState.initial()
-      : sharedBook = const None(),
-        value = ShareState.initial,
-        cause = const None();
+    : sharedBook = const None(),
+      value = ShareState.initial,
+      cause = const None();
 
   ShareBookState.bookShared(Book book)
-      : sharedBook = some(book),
-        value = ShareState.bookShared,
-        cause = const None();
+    : sharedBook = some(book),
+      value = ShareState.bookShared,
+      cause = const None();
 
   const ShareBookState.bookNotShared()
-      : sharedBook = const None(),
-        value = ShareState.bookShared,
-        cause = const None();
+    : sharedBook = const None(),
+      value = ShareState.bookShared,
+      cause = const None();
 
   const ShareBookState.fetchingSharedBookDetails()
-      : sharedBook = const None(),
-        value = ShareState.fetchingBookDetails,
-        cause = const None();
+    : sharedBook = const None(),
+      value = ShareState.fetchingBookDetails,
+      cause = const None();
 
   ShareBookState.fetchingDetailsFailed(String cause)
-      : sharedBook = const None(),
-        value = ShareState.fetchingDetailsFailed,
-        cause = some(cause);
+    : sharedBook = const None(),
+      value = ShareState.fetchingDetailsFailed,
+      cause = some(cause);
 
   bool get isFetchingBookDetails => value == ShareState.fetchingBookDetails;
 

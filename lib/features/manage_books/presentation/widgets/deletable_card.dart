@@ -35,13 +35,7 @@ final class _WithRedOverlay extends StatelessWidget {
     return Blur(
       colorOpacity: 0.8,
       blur: 0.0,
-      overlay: Center(
-        child: Icon(
-          Icons.done,
-          color: context.icon,
-          size: 35,
-        ),
-      ),
+      overlay: Center(child: Icon(Icons.done, color: context.icon, size: 35)),
       blurColor: context.error,
       child: child,
     );

@@ -106,10 +106,21 @@ void main() {
       final booksPerMonthData = BooksPerMonthData.empty();
       final book1 = fakeBook().copyWith(endDate: some(DateTime(2024, 1)));
       final book2 = fakeBook().copyWith(endDate: some(DateTime(2023, 12)));
-      expect(
-        booksPerMonthData.bookCounts(last: some(MonthInfo(2024, 1))),
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      );
+      expect(booksPerMonthData.bookCounts(last: some(MonthInfo(2024, 1))), [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+      ]);
       expect(booksPerMonthData.months(last: some(MonthInfo(2024, 1))), [
         MonthInfo(2023, 1),
         MonthInfo(2023, 2),
@@ -130,10 +141,21 @@ void main() {
       final bpm = booksPerMonthData.add(book1).add(book1).add(book2);
 
       // then
-      expect(
-        bpm.bookCounts(last: some(MonthInfo(2024, 1))),
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2],
-      );
+      expect(bpm.bookCounts(last: some(MonthInfo(2024, 1))), [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+      ]);
       expect(bpm.months(last: some(MonthInfo(2024, 1))), [
         MonthInfo(2023, 1),
         MonthInfo(2023, 2),
@@ -158,10 +180,21 @@ void main() {
       final book1 = fakeBook().copyWith(endDate: some(DateTime(2024, 1)));
       final book2 = fakeBook().copyWith(endDate: some(DateTime(2023, 12)));
       var bpm = BooksPerMonthData.empty().add(book1).add(book1).add(book2);
-      expect(
-        bpm.bookCounts(last: some(MonthInfo(2024, 1))),
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2],
-      );
+      expect(bpm.bookCounts(last: some(MonthInfo(2024, 1))), [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+      ]);
       expect(bpm.months(last: some(MonthInfo(2024, 1))), [
         MonthInfo(2023, 1),
         MonthInfo(2023, 2),
@@ -182,10 +215,21 @@ void main() {
       bpm = bpm.remove(book1);
 
       // then
-      expect(
-        bpm.bookCounts(last: some(MonthInfo(2024, 1))),
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-      );
+      expect(bpm.bookCounts(last: some(MonthInfo(2024, 1))), [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+      ]);
       expect(bpm.months(last: some(MonthInfo(2024, 1))), [
         MonthInfo(2023, 1),
         MonthInfo(2023, 2),
@@ -208,10 +252,21 @@ void main() {
       final book1 = fakeBook().copyWith(endDate: some(DateTime(2024, 1)));
       final book2 = fakeBook().copyWith(endDate: some(DateTime(2023, 12)));
       var bpm = BooksPerMonthData.empty().add(book1).add(book1).add(book2);
-      expect(
-        bpm.bookCounts(last: some(MonthInfo(2024, 1))),
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2],
-      );
+      expect(bpm.bookCounts(last: some(MonthInfo(2024, 1))), [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+      ]);
       expect(bpm.months(last: some(MonthInfo(2024, 1))), [
         MonthInfo(2023, 1),
         MonthInfo(2023, 2),
@@ -232,10 +287,21 @@ void main() {
       bpm = bpm.remove(book2);
 
       // then
-      expect(
-        bpm.bookCounts(last: some(MonthInfo(2024, 1))),
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-      );
+      expect(bpm.bookCounts(last: some(MonthInfo(2024, 1))), [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+      ]);
       expect(bpm.months(last: some(MonthInfo(2024, 1))), [
         MonthInfo(2023, 1),
         MonthInfo(2023, 2),

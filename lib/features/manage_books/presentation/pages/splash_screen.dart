@@ -14,10 +14,7 @@ final class SplashScreen extends StatelessWidget {
       duration: const Duration(milliseconds: 2000),
       backgroundColor: context.primaryContainer,
       splashScreenBody: Center(
-        child: Lottie.asset(
-          'assets/splash-screen.json',
-          repeat: false,
-        ),
+        child: Lottie.asset('assets/splash-screen.json', repeat: false),
       ),
       onEnd: () => context.go('/home'),
     );

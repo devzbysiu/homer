@@ -44,39 +44,42 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookSearchBloc, BookSearchState>(
-        builder: (context, state) {
-      if (state.isSuggestionPicked) _controller.close();
-      if (state.isShareOffloaded) {
-        _controller.open();
-        widget.fire(ResetShareOffload());
-      }
+      builder: (context, state) {
+        if (state.isSuggestionPicked) _controller.close();
+        if (state.isShareOffloaded) {
+          _controller.open();
+          widget.fire(ResetShareOffload());
+        }
 
-      return Animate(
-        // NOTE: `FadeEffect` make the widget rendering delayed. This solves the
-        //  issue with render overflow when the drawer is in the process of opening.
-        //  After it's opened, the overflow is not happening.
-        effects: const [FadeEffect(duration: Duration(milliseconds: 500))],
-        child: FloatingSearchBar(
-          accentColor: context.primary,
-          progress: state.isSearching,
-          controller: _controller,
-          body: const _PickedBookArea(),
-          backgroundColor: context.lightBackground,
-          backdropColor: Colors.transparent,
-          hint: 'Search...',
-          scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-          transitionCurve: Curves.easeInOut,
-          physics: const BouncingScrollPhysics(),
-          axisAlignment: 0.0,
-          openAxisAlignment: 0.0,
-          debounceDelay: const Duration(milliseconds: 600),
-          onQueryChanged: (query) => widget.fire(Searching(query)),
-          transition: CircularFloatingSearchBarTransition(),
-          actions: [FloatingSearchBarAction.searchToClear(showIfClosed: false)],
-          builder: (_, _) => const _SearchSuggestions(),
-        ),
-      );
-    });
+        return Animate(
+          // NOTE: `FadeEffect` make the widget rendering delayed. This solves the
+          //  issue with render overflow when the drawer is in the process of opening.
+          //  After it's opened, the overflow is not happening.
+          effects: const [FadeEffect(duration: Duration(milliseconds: 500))],
+          child: FloatingSearchBar(
+            accentColor: context.primary,
+            progress: state.isSearching,
+            controller: _controller,
+            body: const _PickedBookArea(),
+            backgroundColor: context.lightBackground,
+            backdropColor: Colors.transparent,
+            hint: 'Search...',
+            scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+            transitionCurve: Curves.easeInOut,
+            physics: const BouncingScrollPhysics(),
+            axisAlignment: 0.0,
+            openAxisAlignment: 0.0,
+            debounceDelay: const Duration(milliseconds: 600),
+            onQueryChanged: (query) => widget.fire(Searching(query)),
+            transition: CircularFloatingSearchBarTransition(),
+            actions: [
+              FloatingSearchBarAction.searchToClear(showIfClosed: false),
+            ],
+            builder: (_, _) => const _SearchSuggestions(),
+          ),
+        );
+      },
+    );
   }
 
   @override

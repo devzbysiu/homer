@@ -150,7 +150,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
         const FlLine(strokeWidth: 0),
         FlDotData(
           show: true,
-          getDotPainter: (_, __, ___, ____) => _pointStyle(context),
+          getDotPainter: (_, _, _, _) => _pointStyle(context),
         ),
       );
     }).toList();

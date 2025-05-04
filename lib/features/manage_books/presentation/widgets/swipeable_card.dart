@@ -144,7 +144,7 @@ final class _AnimatedBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: progress,
-      builder: (_, __) {
+      builder: (_, _) {
         if (_swipingToRight()) {
           return _animateRightSwipe(context);
         }

@@ -38,11 +38,15 @@ final class Homer extends StatelessWidget {
 GoRouter _router() {
   return GoRouter(
     routes: [
-      GoRoute(path: '/', builder: (_, __) => const SplashScreen()),
-      GoRoute(path: '/home', builder: (_, __) => const Home(), routes: [
-        GoRoute(path: 'settings', builder: (_, __) => SettingsScreen()),
-        GoRoute(path: 'stats', builder: (_, __) => const StatsScreen()),
-      ]),
+      GoRoute(path: '/', builder: (_, _) => const SplashScreen()),
+      GoRoute(
+        path: '/home',
+        builder: (_, _) => const Home(),
+        routes: [
+          GoRoute(path: 'settings', builder: (_, _) => SettingsScreen()),
+          GoRoute(path: 'stats', builder: (_, _) => const StatsScreen()),
+        ],
+      ),
     ],
   );
 }

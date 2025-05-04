@@ -99,7 +99,7 @@ final class _ListTileThumbnail extends StatelessWidget {
         ),
         placeholder: thumbnailFallbackAssetImage(),
         fit: BoxFit.cover,
-        imageErrorBuilder: (_, __, ___) => fallbackThumbnail(),
+        imageErrorBuilder: (_, _, _) => fallbackThumbnail(),
       ),
     );
   }

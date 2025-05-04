@@ -46,7 +46,7 @@ final class _BooksListState extends State<BooksList> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AppTabBloc, AppTabState>(
-      listener: (_, __) => _scrollController.jumpTo(0),
+      listener: (_, _) => _scrollController.jumpTo(0),
       child: GestureDetector(
         onTap: () => widget.fire(ClearDeletionList()),
         child: FloatingSearchBarScrollNotifier(

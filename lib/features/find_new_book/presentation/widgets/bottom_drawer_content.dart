@@ -73,7 +73,7 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
           onQueryChanged: (query) => widget.fire(Searching(query)),
           transition: CircularFloatingSearchBarTransition(),
           actions: [FloatingSearchBarAction.searchToClear(showIfClosed: false)],
-          builder: (_, __) => const _SearchSuggestions(),
+          builder: (_, _) => const _SearchSuggestions(),
         ),
       );
     });

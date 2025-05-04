@@ -25,15 +25,37 @@ if (flutterVersionName == null) {
 android {
     namespace "dev.zbysiu.homer"
     compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    //  NOTE: Set it because:
+    // Your project is configured with Android NDK 26.3.11579264, but the following plugin(s) depend on a different Android NDK version:
+    // - device_info_plus requires Android NDK 27.0.12077973
+    // - dynamic_color requires Android NDK 27.0.12077973
+    // - file_picker requires Android NDK 27.0.12077973
+    // - flutter_plugin_android_lifecycle requires Android NDK 27.0.12077973
+    // - isar_flutter_libs requires Android NDK 27.0.12077973
+    // - package_info_plus requires Android NDK 27.0.12077973
+    // - path_provider_android requires Android NDK 27.0.12077973
+    // - sentry_flutter requires Android NDK 27.0.12077973
+    // - share_handler_android requires Android NDK 27.0.12077973
+    // - share_plus requires Android NDK 27.0.12077973
+    // - shared_preferences_android requires Android NDK 27.0.12077973
+    // - sqflite_android requires Android NDK 27.0.12077973
+    // - vibration requires Android NDK 27.0.12077973
+    // Fix this issue by using the highest Android NDK version (they are backward compatible).
+    // Add the following to /home/zbyniu/Projects/homer/android/app/build.gradle:
+    //     android {
+    //         ndkVersion = "27.0.12077973"
+    //         ...
+    //     }
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_11.toString()
+        //jvmTarget = '1.8'
     }
 
     sourceSets {

@@ -11,6 +11,7 @@ abstract class BackupDataSource {
   Future<Unit> saveAll(String path, List<BackupBookDTO> books);
 }
 
+// TODO: This should catch library exception and rethrow application exception
 final class JsonFileBackupDataSource implements BackupDataSource {
   @override
   Future<List<BackupBookDTO>> loadAll(String path) async {

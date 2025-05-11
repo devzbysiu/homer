@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 import 'tag.dart';
 
+// TODO: This needs toString
 final class Book extends Equatable {
   const Book({
     this.id,

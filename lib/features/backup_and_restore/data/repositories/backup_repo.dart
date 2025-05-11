@@ -4,6 +4,7 @@ import 'package:multiple_result/multiple_result.dart';
 
 import '../../../../core/entities/book.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../logger.dart';
 import '../../domain/repositories/backup_repository.dart';
 import '../datasources/backup_data_source.dart';
 import '../mappers/to_backup_book_dtos.dart';
@@ -20,7 +21,8 @@ final class BackupRepo implements BackupRepository {
       final backupBookDTO = await dataSource.loadAll(path);
       final books = toBooks(backupBookDTO);
       return Success(books);
-    } on FileSystemException catch (e) {
+    } on FileSystemException catch (e, st) {
+      log.handle(e, st, 'Failed to load data from path "$path"');
       return Error(MissingBackupFileFailure(path, e.message));
     }
   }
@@ -31,7 +33,8 @@ final class BackupRepo implements BackupRepository {
       final backupBookDTOs = toBackupBookDTOs(books);
       await dataSource.saveAll(path, backupBookDTOs);
       return const Success(unit);
-    } on FileSystemException catch (e) {
+    } on FileSystemException catch (e, st) {
+      log.handle(e, st, 'Failed to save books under path "$path"');
       return Error(MissingBackupFileFailure(path, e.message));
     }
   }

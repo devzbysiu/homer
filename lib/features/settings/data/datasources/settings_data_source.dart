@@ -12,6 +12,7 @@ abstract class SettingsDataSource {
   Future<SettingsDTO> load();
 }
 
+// TODO: This should catch library exception and rethrow application exception
 final class SharedPrefsSettingsDataSource implements SettingsDataSource {
   const SharedPrefsSettingsDataSource({required this.sharedPreferences});
 

@@ -5,6 +5,7 @@ import 'package:multiple_result/multiple_result.dart';
 import '../../../../core/entities/book.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../logger.dart';
 import '../../domain/repositories/books_repository.dart';
 import '../datasources/books_data_source.dart';
 import '../mappers/to_book_dtos.dart';
@@ -21,7 +22,8 @@ final class BooksRepo implements BooksRepository {
       final bookDTOs = await dataSource.getBooks();
       final books = toBooks(bookDTOs);
       return Success(books);
-    } on ListBooksException {
+    } on ListBooksException catch (e, st) {
+      log.handle(e, st, 'Failed to list all books');
       return Error(ListingBooksFailure());
     }
   }
@@ -32,7 +34,8 @@ final class BooksRepo implements BooksRepository {
       final bookDTO = toBookDTO(book);
       await dataSource.add(bookDTO);
       return const Success(unit);
-    } on AddBookException {
+    } on AddBookException catch (e, st) {
+      log.handle(e, st, 'Failed to add book "$book"');
       return Error(AddingBookFailure(book));
     }
   }
@@ -43,7 +46,8 @@ final class BooksRepo implements BooksRepository {
       final bookDTOs = toBookDTOs(books);
       await dataSource.replaceAll(bookDTOs);
       return const Success(unit);
-    } on ReplaceBooksException {
+    } on ReplaceBooksException catch (e, st) {
+      log.handle(e, st, 'Failed to replace books');
       return Error(ReplacingBooksFailure(books));
     }
   }
@@ -54,7 +58,8 @@ final class BooksRepo implements BooksRepository {
       final bookDTO = toBookDTO(modified);
       await dataSource.update(bookDTO);
       return const Success(unit);
-    } on UpdateBookException {
+    } on UpdateBookException catch (e, st) {
+      log.handle(e, st, 'Failed to update book with "$modified"');
       return Error(UpdatingBookFailure(modified));
     }
   }
@@ -65,7 +70,8 @@ final class BooksRepo implements BooksRepository {
       final bookDTOs = toBookDTOs(books);
       await dataSource.delete(bookDTOs);
       return const Success(unit);
-    } on DeleteBooksException {
+    } on DeleteBooksException catch (e, st) {
+      log.handle(e, st, 'Failed to delete books');
       return Error(DeletingBooksFailure(books));
     }
   }

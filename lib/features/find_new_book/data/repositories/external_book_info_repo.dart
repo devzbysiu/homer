@@ -26,17 +26,17 @@ final class ExternalBookInfoRepo implements ExternalBookInfoRepository {
       log.i('Fetching info from: $url');
       final bookInfoDTO = await dataSource.getFromWebsite(url);
       return Success(toExternalBookInfo(bookInfoDTO));
-    } on InvalidUrlException catch (e) {
-      log.e('The url $url is invalid: $e');
+    } on InvalidUrlException catch (e, st) {
+      log.handle(e, st, 'The url "$url" is invalid');
       return Error(InvalidUrlSharedFailure(e.url));
-    } on NotJsonException {
-      log.e('Response was not a JSON');
+    } on NotJsonException catch (e, st) {
+      log.handle(e, st, 'Response was not a JSON');
       return Error(ServerFailure());
-    } on WrongJsonException catch (e) {
-      log.e('Wrong JSON: $e');
+    } on WrongJsonException catch (e, st) {
+      log.handle(e, st, 'Wrong JSON');
       return Error(ServerFailure());
-    } on TimeoutException {
-      log.e('Waiting too long for book info response, timeout');
+    } on TimeoutException catch (e, st) {
+      log.handle(e, st, 'Waiting too long for book info response, timeout');
       return const Error(TimeoutOnApiResponseFailure());
     }
   }

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'stats_button.dart';
@@ -18,7 +17,7 @@ final class MenuItems extends StatelessWidget {
       spacing: 20,
       children: [
         BackupButton(),
-        if (kDebugMode) RestoreButton(),
+        RestoreButton(),
         const StatsButton(),
         const SettingsButton(),
         const FeedbackButton(),

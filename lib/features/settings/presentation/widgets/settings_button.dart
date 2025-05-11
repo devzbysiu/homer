@@ -8,13 +8,9 @@ final class SettingsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        MenuButton(
-          text: 'Settings',
-          onPressed: () => context.go('/home/settings'),
-        ),
-      ],
+    return MenuButton(
+      text: 'Settings',
+      onPressed: () => context.go('/home/settings'),
     );
   }
 }

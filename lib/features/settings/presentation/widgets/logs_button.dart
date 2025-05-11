@@ -8,11 +8,6 @@ final class LogsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Why the Row is here?
-    return Row(
-      children: [
-        MenuButton(text: 'Logs', onPressed: () => context.go('/home/logs')),
-      ],
-    );
+    return MenuButton(text: 'Logs', onPressed: () => context.go('/home/logs'));
   }
 }

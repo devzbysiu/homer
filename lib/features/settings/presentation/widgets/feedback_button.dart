@@ -8,13 +8,9 @@ final class FeedbackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        MenuButton(
-          text: 'Feedback',
-          onPressed: () => BetterFeedback.of(context).showAndUploadToSentry(),
-        ),
-      ],
+    return MenuButton(
+      text: 'Feedback',
+      onPressed: () => BetterFeedback.of(context).showAndUploadToSentry(),
     );
   }
 }

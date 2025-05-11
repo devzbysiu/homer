@@ -8,10 +8,9 @@ final class StatsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        MenuButton(text: 'Stats', onPressed: () => context.go('/home/stats')),
-      ],
+    return MenuButton(
+      text: 'Stats',
+      onPressed: () => context.go('/home/stats'),
     );
   }
 }

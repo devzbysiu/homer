@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
 
 import 'app.dart';
 import 'app_config.dart';
@@ -21,9 +22,12 @@ import 'features/settings/presentation/bloc/settings_bloc.dart';
 import 'features/stats/presentation/bloc/stats_bloc.dart';
 import 'features/tags_manager/presentation/bloc/tags_bloc.dart';
 import 'injection_container.dart';
+import 'logger.dart';
 
 void run({required Env env}) async {
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = TalkerBlocObserver(talker: log);
+  log.i('starting the app');
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );

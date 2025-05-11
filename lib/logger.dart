@@ -1,16 +1,9 @@
-import 'package:logger/logger.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
-final Logger log = _getLogger();
+final log = TalkerFlutter.init();
 
-Logger _getLogger() {
-  return Logger(
-    printer: PrettyPrinter(
-      methodCount: 2,
-      errorMethodCount: 5,
-      lineLength: 50,
-      colors: true,
-      printEmojis: true,
-      printTime: false,
-    ),
-  );
+extension LogExt on Talker {
+  void i(String msg) => log.info(msg);
+  void e(String msg) => log.error(msg);
+  void w(String msg) => log.warning(msg);
 }

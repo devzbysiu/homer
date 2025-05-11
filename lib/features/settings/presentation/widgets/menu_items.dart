@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'logs_button.dart';
 import 'stats_button.dart';
 import 'backup_button.dart';
 import 'feedback_button.dart';
@@ -21,6 +22,7 @@ final class MenuItems extends StatelessWidget {
         const StatsButton(),
         const SettingsButton(),
         const FeedbackButton(),
+        const LogsButton(),
       ],
     );
   }

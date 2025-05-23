@@ -33,6 +33,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
       shareHandler.getInitialSharedMedia().then((media) {
         if (media?.content == null) return;
         widget.fire(BookSharedFromOutside(media!.content!));
+        shareHandler.resetInitialSharedMedia();
       });
     });
 
@@ -40,6 +41,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
     shareHandler.sharedMediaStream.listen((media) {
       if (media.content == null) return;
       widget.fire(BookSharedFromOutside(media.content!));
+      shareHandler.resetInitialSharedMedia();
     });
   }
 

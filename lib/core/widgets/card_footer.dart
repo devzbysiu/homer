@@ -26,9 +26,17 @@ final class BookCardFooter extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _BookRating(rating: rating),
-        _ShareButton(shareText: shareText),
-        _BookSize(pageCount: pageCount),
+        Expanded(child: _BookRating(rating: rating)),
+        Expanded(child: _ShareButton(shareText: shareText)),
+        Expanded(
+          flex: 1,
+          child: Center(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: _BookSize(pageCount: pageCount),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -84,7 +92,10 @@ final class _BookSize extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 6.0),

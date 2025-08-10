@@ -13,7 +13,7 @@ final class _TagsState extends State<_Tags> {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<TagsBloc, TagsState, List<Tag>>(
-      selector: (state) => state.tags,
+      selector: (state) => state.tagsOrEmpty,
       builder: (context, tags) {
         return ChipList(
           supportsMultiSelect: true,

@@ -5,6 +5,7 @@ import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
 import '../../domain/entities/book_size_limits.dart';
 import '../bloc/settings_bloc.dart';
+import '../bloc/settings_event.dart';
 
 final class BookSizeSlider extends StatefulBusWidget {
   BookSizeSlider({super.key, super.bus});

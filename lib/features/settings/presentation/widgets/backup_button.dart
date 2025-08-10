@@ -8,7 +8,10 @@ import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/menu_button.dart';
 import '../../../backup_and_restore/presentation/bloc/backup_bloc.dart';
+import '../../../backup_and_restore/presentation/bloc/backup_event.dart';
+import '../../../backup_and_restore/presentation/bloc/backup_state.dart';
 import '../../../settings/presentation/bloc/settings_bloc.dart';
+import '../bloc/settings_state.dart';
 
 final class BackupButton extends StatelessBusWidget {
   BackupButton({super.key, super.bus});
@@ -27,7 +30,7 @@ final class BackupButton extends StatelessBusWidget {
           },
         ),
         BlocSelector<BackupBloc, BackupState, bool>(
-          selector: (state) => state.isBackupInProgress,
+          selector: (state) => state is BackupInProgress,
           builder: (context, isBackupInProgress) {
             if (!isBackupInProgress) return const SizedBox.shrink();
             return JumpingDotsProgressIndicator(
@@ -42,6 +45,6 @@ final class BackupButton extends StatelessBusWidget {
 
   void _triggerBackup(Directory directory) {
     final backupPath = '${directory.path}/homer-backup.json';
-    fire(BackupTriggered(backupPath));
+    fire(BackupEvent.backupTriggered(path: backupPath));
   }
 }

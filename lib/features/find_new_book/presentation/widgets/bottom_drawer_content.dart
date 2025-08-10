@@ -16,10 +16,14 @@ import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
-import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
+import '../../../manage_books/presentation/bloc/listing/books_event.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
+import '../../../tags_manager/presentation/bloc/tags_state.dart';
 import '../bloc/search/book_search_bloc.dart';
+import '../bloc/search/book_search_event.dart';
+import '../bloc/search/book_search_state.dart';
 import '../bloc/share_book/share_book_bloc.dart';
+import '../bloc/share_book/share_book_state.dart';
 import '../bloc/toggle_tags/on_book_tags_bloc.dart';
 import 'with_saved_check_mark.dart';
 
@@ -48,7 +52,7 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
         if (state.isSuggestionPicked) _controller.close();
         if (state.isShareOffloaded) {
           _controller.open();
-          widget.fire(ResetShareOffload());
+          widget.fire(SearchEvent.resetShareOffloaded());
         }
 
         return Animate(
@@ -70,7 +74,7 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
             axisAlignment: 0.0,
             openAxisAlignment: 0.0,
             debounceDelay: const Duration(milliseconds: 600),
-            onQueryChanged: (query) => widget.fire(Searching(query)),
+            onQueryChanged: (q) => widget.fire(SearchEvent.searching(query: q)),
             transition: CircularFloatingSearchBarTransition(),
             actions: [
               FloatingSearchBarAction.searchToClear(showIfClosed: false),

@@ -1,6 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:homer/features/manage_books/presentation/bloc/summary/book_summary_bloc.dart';
+import 'package:homer/features/manage_books/presentation/bloc/summary/book_summary_event.dart';
+import 'package:homer/features/manage_books/presentation/bloc/summary/book_summary_state.dart';
 import 'package:test/test.dart';
 
 import '../../../../../test_utils/fakes.dart';
@@ -13,14 +15,7 @@ void main() {
       'should emit disabling with None() as previous book in summary',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeClosing()),
-      expect:
-          () => [
-            const BookSummaryState(
-              current: None(),
-              previous: None(),
-              value: SummaryMode.disabling,
-            ),
-          ],
+      expect: () => [const BookSummaryState.disabling(None())],
     );
 
     blocTest<BookSummaryBloc, BookSummaryState>(
@@ -28,14 +23,7 @@ void main() {
       seed: () => BookSummaryState.enabled(book),
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeClosing()),
-      expect:
-          () => [
-            BookSummaryState(
-              current: const None(),
-              previous: some(book),
-              value: SummaryMode.disabling,
-            ),
-          ],
+      expect: () => [BookSummaryState.disabling(Some(book))],
     );
   });
 
@@ -46,14 +34,7 @@ void main() {
       'should emit enabled when book is not in summary mode',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeToggled(book)),
-      expect:
-          () => [
-            BookSummaryState(
-              current: some(book),
-              previous: const None(),
-              value: SummaryMode.enabled,
-            ),
-          ],
+      expect: () => [BookSummaryState.enabled(book)],
     );
 
     blocTest<BookSummaryBloc, BookSummaryState>(
@@ -61,14 +42,7 @@ void main() {
       seed: () => BookSummaryState.enabled(book),
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeToggled(book)),
-      expect:
-          () => [
-            BookSummaryState(
-              current: const None(),
-              previous: some(book),
-              value: SummaryMode.disabling,
-            ),
-          ],
+      expect: () => [BookSummaryState.disabling(some(book))],
     );
   });
 
@@ -77,14 +51,7 @@ void main() {
       'should emit disabled',
       build: () => BookSummaryBloc(),
       act: (bloc) => bloc.add(SummaryModeClosed()),
-      expect:
-          () => [
-            const BookSummaryState(
-              current: None(),
-              previous: None(),
-              value: SummaryMode.disabled,
-            ),
-          ],
+      expect: () => [const BookSummaryState.disabled()],
     );
   });
 }

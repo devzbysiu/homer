@@ -8,7 +8,7 @@ final class _BookCard extends StatelessBusWidget {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<DeleteBooksBloc, DeleteBooksState, List<Book>>(
-      selector: (state) => state.deletionList,
+      selector: (state) => state.deletionListOrEmpty,
       builder: (context, booksToDelete) {
         return GestureDetector(
           onLongPress: () => _switchToDeleteMode(context),
@@ -35,7 +35,7 @@ final class _BookCard extends StatelessBusWidget {
     if (booksToDelete.isNotEmpty) return _DeletableCard(book: book);
     return BlocBuilder<BookSummaryBloc, BookSummaryState>(
       builder: (context, state) {
-        switch (state.value) {
+        switch (state.mode) {
           case SummaryMode.enabled:
             return _isInSummaryMode(state.current)
                 ? _AnimatedSummaryCard(book: book)

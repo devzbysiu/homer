@@ -3,6 +3,8 @@ import 'package:homer/core/error/failures.dart';
 import 'package:homer/core/orchestrator/events.dart';
 import 'package:homer/features/manage_books/domain/usecases/delete_books.dart';
 import 'package:homer/features/manage_books/presentation/bloc/delete/delete_books_bloc.dart';
+import 'package:homer/features/manage_books/presentation/bloc/delete/delete_books_event.dart';
+import 'package:homer/features/manage_books/presentation/bloc/delete/delete_books_state.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
@@ -22,7 +24,7 @@ void main() {
       act: (bloc) => bloc.add(DeleteModeToggled(book)),
       expect:
           () => [
-            DeleteBooksState(deletionList: [book], value: Value.deletionList),
+            DeleteBooksState.deletionList([book]),
           ],
     );
 
@@ -36,8 +38,8 @@ void main() {
                 ..add(DeleteModeToggled(book)),
       expect:
           () => [
-            DeleteBooksState(deletionList: [book], value: Value.deletionList),
-            const DeleteBooksState(deletionList: [], value: Value.deletionList),
+            DeleteBooksState.deletionList([book]),
+            DeleteBooksState.deletionList([]),
           ],
     );
   });
@@ -66,8 +68,8 @@ void main() {
                 ..add(DeletePickedBooks()),
       expect:
           () => [
-            DeleteBooksState(deletionList: [book], value: Value.deletionList),
-            const DeleteBooksState(deletionList: [], value: Value.booksRemoved),
+            DeleteBooksState.deletionList([book]),
+            DeleteBooksState.booksRemoved(),
           ],
       verify: (bloc) {
         verify(bloc.deleteBooks(DeleteParams(books: [book])));
@@ -85,11 +87,8 @@ void main() {
                 ..add(DeletePickedBooks()),
       expect:
           () => [
-            DeleteBooksState(deletionList: [book], value: Value.deletionList),
-            const DeleteBooksState(
-              deletionList: [],
-              value: Value.deletionFailed,
-            ),
+            DeleteBooksState.deletionList([book]),
+            DeleteBooksState.deletionFailed(),
           ],
       verify: (bloc) {
         verify(bloc.deleteBooks(DeleteParams(books: [book])));
@@ -103,13 +102,7 @@ void main() {
       'should emit deletionListCleared',
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(ClearDeletionList()),
-      expect:
-          () => [
-            const DeleteBooksState(
-              deletionList: [],
-              value: Value.deletionListCleared,
-            ),
-          ],
+      expect: () => [const DeleteBooksState.deletionListCleared()],
       verify: (bloc) {
         verifyNever(bloc.deleteBooks(const DeleteParams(books: [])));
         verifyNever(bloc.eventBus.fire(DeleteBooksFinished()));

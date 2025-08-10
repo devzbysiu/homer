@@ -5,6 +5,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../features/settings/domain/entities/book_size_limits.dart';
 import '../../features/settings/presentation/bloc/settings_bloc.dart';
+import '../../features/settings/presentation/bloc/settings_state.dart';
 import '../utils/theme.dart';
 
 final class BookCardFooter extends StatelessWidget {

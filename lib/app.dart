@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import 'core/utils/theme.dart';
 import 'features/settings/presentation/bloc/settings_bloc.dart';
+import 'features/settings/presentation/bloc/settings_state.dart';
 import 'router.dart';
 
 final GoRouter appRouter = router();

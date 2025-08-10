@@ -61,7 +61,7 @@ final class _SearchSuggestion extends StatelessBusWidget {
             bannerTextColor: context.background,
             bannerColor: context.primary,
             bannerText: book.rating.toStringAsFixed(2),
-            onTap: () => fire(SuggestionPicked(book)),
+            onTap: () => fire(SearchEvent.suggestionPicked(pickedBook: book)),
             backgroundColor: context.background,
             borderRadius: BorderRadius.circular(8),
             imageContainer: _ListTileThumbnail(book: book),

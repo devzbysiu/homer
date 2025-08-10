@@ -6,8 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../settings/domain/entities/reading_goal.dart';
 import '../../../settings/presentation/bloc/settings_bloc.dart';
+import '../../../settings/presentation/bloc/settings_state.dart';
 import '../../domain/entities/books_per_month_data.dart';
 import '../bloc/stats_bloc.dart';
+import '../bloc/stats_state.dart';
 import 'chart_wrapper.dart';
 
 final class BooksPerMonth extends StatelessWidget {

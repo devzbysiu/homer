@@ -8,6 +8,8 @@ import 'package:homer/features/backup_and_restore/domain/usecases/load_backup.da
 import 'package:homer/features/backup_and_restore/domain/usecases/make_backup.dart';
 import 'package:homer/features/backup_and_restore/domain/usecases/replace_all_books.dart';
 import 'package:homer/features/backup_and_restore/presentation/bloc/backup_bloc.dart';
+import 'package:homer/features/backup_and_restore/presentation/bloc/backup_event.dart';
+import 'package:homer/features/backup_and_restore/presentation/bloc/backup_state.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 
@@ -22,13 +24,13 @@ void main() {
     final books = [fakeBook(), fakeBook(), fakeBook()];
 
     blocTest<BackupBloc, BackupState>(
-      'should emit restoreInProgress and restoredFinished on success',
+      'should emit restoreInProgress and restoreDone on success',
       build: () => BlocMock().onLoadBackup(Success(books)).get(),
-      act: (bloc) => bloc.add(RestoreTriggered(path)),
+      act: (bloc) => bloc.add(BackupEvent.restoreTriggered(path: path)),
       expect:
           () => [
-            const BackupState(value: Value.restoreInProgress),
-            const BackupState(value: Value.restoreFinished),
+            const BackupState.restoreInProgress(),
+            const BackupState.restoreDone(),
           ],
       verify: (bloc) {
         verify(bloc.loadBackup(RestoreParams(path: path)));
@@ -40,11 +42,11 @@ void main() {
     blocTest<BackupBloc, BackupState>(
       'should emit restoreInProgress and failedToRestoreBooks on LoadBackup failure',
       build: () => BlocMock().onLoadBackup(Error(TestingFailure())).get(),
-      act: (bloc) => bloc.add(RestoreTriggered(path)),
+      act: (bloc) => bloc.add(BackupEvent.restoreTriggered(path: path)),
       expect:
           () => [
-            const BackupState(value: Value.restoreInProgress),
-            const BackupState(value: Value.restoreFailed),
+            const BackupState.restoreInProgress(),
+            const BackupState.restoreFailed(),
           ],
       verify: (bloc) => verify(bloc.loadBackup(RestoreParams(path: path))),
     );
@@ -52,11 +54,11 @@ void main() {
     blocTest<BackupBloc, BackupState>(
       'should emit restoreInProgress and failedToRestoreBooks on ReplaceAllBooks failure',
       build: () => BlocMock().onReplaceAllBooks(Error(TestingFailure())).get(),
-      act: (bloc) => bloc.add(RestoreTriggered(path)),
+      act: (bloc) => bloc.add(BackupEvent.restoreTriggered(path: path)),
       expect:
           () => [
-            const BackupState(value: Value.restoreInProgress),
-            const BackupState(value: Value.restoreFailed),
+            const BackupState.restoreInProgress(),
+            const BackupState.restoreFailed(),
           ],
       verify: (bloc) => verify(bloc.loadBackup(RestoreParams(path: path))),
     );
@@ -68,11 +70,11 @@ void main() {
     blocTest<BackupBloc, BackupState>(
       'should emit backupInProgress and backupFinished on success',
       build: () => BlocMock().allWorking(),
-      act: (bloc) => bloc.add(BackupTriggered(backupPath)),
+      act: (bloc) => bloc.add(BackupEvent.backupTriggered(path: backupPath)),
       expect:
           () => [
-            const BackupState(value: Value.backupInProgress),
-            const BackupState(value: Value.backupFinished),
+            const BackupState.backupInProgress(),
+            const BackupState.backupFinished(),
           ],
       verify: (bloc) => verify(bloc.makeBackup(BackupParams(path: backupPath))),
     );
@@ -80,11 +82,11 @@ void main() {
     blocTest<BackupBloc, BackupState>(
       'should emit backupInProgress and backupFailed on failure',
       build: () => BlocMock().onMakeBackup(Error(TestingFailure())).get(),
-      act: (bloc) => bloc.add(BackupTriggered(backupPath)),
+      act: (bloc) => bloc.add(BackupEvent.backupTriggered(path: backupPath)),
       expect:
           () => [
-            const BackupState(value: Value.backupInProgress),
-            const BackupState(value: Value.backupFailed),
+            const BackupState.backupInProgress(),
+            const BackupState.backupFailed(),
           ],
       verify: (bloc) => verify(bloc.makeBackup(BackupParams(path: backupPath))),
     );

@@ -1,20 +1,16 @@
 import 'dart:async';
-import 'dart:io';
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/orchestrator/events.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/book_size_limits.dart';
 import '../../domain/entities/reading_goal.dart';
 import '../../domain/entities/settings.dart';
 import '../../domain/usecases/load_settings.dart';
 import '../../domain/usecases/save_settings.dart';
-
-part 'settings_event.dart';
-part 'settings_state.dart';
+import 'settings_event.dart';
+import 'settings_state.dart';
 
 final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({required this.saveSettings, required this.loadSettings})
@@ -25,7 +21,7 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<BackupsDirPicked>(_onBackupPathSelected);
     on<SizeLimitsChanged>(_onBookSizeLimitsChanged);
     on<ReadingGoalChanged>(_onReadingGoalChanged);
-    // TODO: Move initial even triggering to `run.dart`
+    // TODO: Move initial event triggering to `run.dart`
     add(SettingsLoaded());
   }
 

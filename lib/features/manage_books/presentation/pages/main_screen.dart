@@ -4,7 +4,7 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
 
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
-import '../bloc/listing/books_bloc.dart';
+import '../bloc/listing/books_event.dart';
 import '../widgets/books_list.dart';
 
 final class MainScreen extends StatefulBusWidget {

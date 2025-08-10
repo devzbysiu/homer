@@ -1,38 +1,20 @@
-part of 'backup_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-final class BackupState extends Equatable {
-  const BackupState({required this.value});
+part 'backup_state.freezed.dart';
 
-  const BackupState.initial() : value = Value.initial;
+@freezed
+sealed class BackupState with _$BackupState {
+  const factory BackupState.initial() = Initial;
 
-  const BackupState.restoreInProgress() : value = Value.restoreInProgress;
+  const factory BackupState.restoreInProgress() = RestoreInProgress;
 
-  const BackupState.restoreFinished() : value = Value.restoreFinished;
+  const factory BackupState.restoreDone() = RestoreDone;
 
-  const BackupState.restoreFailed() : value = Value.restoreFailed;
+  const factory BackupState.restoreFailed() = RestoreFailed;
 
-  const BackupState.backupInProgress() : value = Value.backupInProgress;
+  const factory BackupState.backupInProgress() = BackupInProgress;
 
-  const BackupState.backupFinished() : value = Value.backupFinished;
+  const factory BackupState.backupFinished() = BackupFinished;
 
-  const BackupState.backupFailed() : value = Value.backupFailed;
-
-  final Value value;
-
-  bool get isBackupInProgress => value == Value.backupInProgress;
-
-  bool get isRestoreInProgress => value == Value.restoreInProgress;
-
-  @override
-  List<Object> get props => [value];
-}
-
-enum Value {
-  initial,
-  restoreInProgress,
-  restoreFinished,
-  restoreFailed,
-  backupInProgress,
-  backupFinished,
-  backupFailed,
+  const factory BackupState.backupFailed() = BackupFailed;
 }

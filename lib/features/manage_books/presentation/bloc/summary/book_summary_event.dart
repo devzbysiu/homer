@@ -1,17 +1,16 @@
-part of 'book_summary_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class BookSummaryEvent extends Equatable implements BusEvent {
-  @override
-  List<Object> get props => [];
+import '../../../../../core/entities/book.dart';
+import '../../../../../core/orchestrator/events.dart';
+
+part 'book_summary_event.freezed.dart';
+
+@freezed
+sealed class BookSummaryEvent with _$BookSummaryEvent implements BusEvent {
+  const factory BookSummaryEvent.summaryModeClosing() = SummaryModeClosing;
+
+  const factory BookSummaryEvent.summaryModeToggled(Book book) =
+      SummaryModeToggled;
+
+  const factory BookSummaryEvent.summaryModeClosed() = SummaryModeClosed;
 }
-
-final class SummaryModeClosing extends BookSummaryEvent {}
-
-final class SummaryModeToggled extends BookSummaryEvent {
-  SummaryModeToggled(this.book);
-
-  final Book book;
-}
-
-final class SummaryModeClosed extends BookSummaryEvent {}

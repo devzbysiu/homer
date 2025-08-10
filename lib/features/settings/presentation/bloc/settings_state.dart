@@ -1,46 +1,48 @@
-part of 'settings_bloc.dart';
+import 'dart:io';
 
-final class SettingsState extends Equatable {
-  const SettingsState({required this.settings});
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  SettingsState.initial() : settings = Settings.makeDefault();
+import '../../domain/entities/book_size_limits.dart';
+import '../../domain/entities/reading_goal.dart';
+import '../../domain/entities/settings.dart';
 
-  const SettingsState.from(this.settings);
+part 'settings_state.freezed.dart';
 
-  SettingsState.failedToLoad() : settings = Settings.makeDefault();
+@freezed
+class SettingsState with _$SettingsState {
+  const SettingsState._(); // enables instance methods/getters
 
-  SettingsState.failedToSave() : settings = Settings.makeDefault();
+  const factory SettingsState({required Settings settings}) = _SettingsState;
 
-  final Settings settings;
+  factory SettingsState.initial() =>
+      SettingsState(settings: Settings.makeDefault());
 
-  SettingsState toggleDarkTheme() {
-    return SettingsState.from(settings.toggleDarkTheme());
-  }
+  factory SettingsState.from(Settings settings) =>
+      SettingsState(settings: settings);
 
-  SettingsState toggleSystemTheme() {
-    return SettingsState.from(settings.toggleSystemTheme());
-  }
+  factory SettingsState.failedToLoad() =>
+      SettingsState(settings: Settings.makeDefault());
 
-  SettingsState changeBackupDir(Directory newDir) {
-    return SettingsState.from(settings.changeBackupDir(newDir));
-  }
+  factory SettingsState.failedToSave() =>
+      SettingsState(settings: Settings.makeDefault());
 
-  SettingsState changeSizeLimits(BookSizeLimits limits) {
-    return SettingsState.from(settings.changeSizeLimits(limits));
-  }
+  SettingsState toggleDarkTheme() =>
+      copyWith(settings: settings.toggleDarkTheme());
 
-  SettingsState changeReadingGoal(ReadingGoal goal) {
-    return SettingsState.from(settings.changeReadingGoal(goal));
-  }
+  SettingsState toggleSystemTheme() =>
+      copyWith(settings: settings.toggleSystemTheme());
+
+  SettingsState changeBackupDir(Directory newDir) =>
+      copyWith(settings: settings.changeBackupDir(newDir));
+
+  SettingsState changeSizeLimits(BookSizeLimits limits) =>
+      copyWith(settings: settings.changeSizeLimits(limits));
+
+  SettingsState changeReadingGoal(ReadingGoal goal) =>
+      copyWith(settings: settings.changeReadingGoal(goal));
 
   bool get useDarkTheme => settings.useDarkTheme;
-
   bool get useSystemTheme => settings.useSystemTheme;
-
   Directory get backupsDir => settings.backupsDir;
-
   BookSizeLimits get bookSizeLimits => settings.bookSizeLimits;
-
-  @override
-  List<Object> get props => [settings];
 }

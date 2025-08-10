@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/entities/book.dart';
@@ -9,9 +8,8 @@ import '../../../../core/orchestrator/events.dart';
 import '../../domain/usecases/load_backup.dart';
 import '../../domain/usecases/make_backup.dart';
 import '../../domain/usecases/replace_all_books.dart';
-
-part 'backup_event.dart';
-part 'backup_state.dart';
+import 'backup_event.dart';
+import 'backup_state.dart';
 
 final class BackupBloc extends Bloc<BackupEvent, BackupState> {
   BackupBloc({
@@ -50,7 +48,7 @@ final class BackupBloc extends Bloc<BackupEvent, BackupState> {
   ) async {
     final result = await replaceAllBooks(ReplaceParams(books: books));
     result.when((success) {
-      emit(const BackupState.restoreFinished());
+      emit(const BackupState.restoreDone());
       eventBus.fire(RestoreFinished());
     }, (error) => emit(const BackupState.restoreFailed()));
   }

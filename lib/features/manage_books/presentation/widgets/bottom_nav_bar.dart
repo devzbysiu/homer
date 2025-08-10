@@ -9,10 +9,16 @@ import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../injection_container.dart';
 import '../../../find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
+import '../../../find_new_book/presentation/bloc/share_book/share_book_event.dart';
+import '../../../find_new_book/presentation/bloc/share_book/share_book_state.dart';
 import '../../../find_new_book/presentation/widgets/bottom_drawer_content.dart';
 import '../../../manage_books/presentation/bloc/delete/delete_books_bloc.dart';
 import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
-import '../bloc/navigation/app_tab_bloc.dart';
+import '../bloc/delete/delete_books_event.dart';
+import '../bloc/delete/delete_books_state.dart';
+import '../bloc/listing/books_state.dart';
+import '../bloc/navigation/app_tab_event.dart';
+import '../bloc/navigation/app_tab_state.dart';
 
 final class BottomNavBar extends StatefulBusWidget {
   BottomNavBar({super.key, super.bus});
@@ -72,7 +78,9 @@ final class _BottomNavBarState extends State<BottomNavBar> {
   BlocListener<BooksBloc, BooksState> _closeSheetWhenBooksLoaded() {
     return BlocListener<BooksBloc, BooksState>(
       listener: (context, state) {
-        if (state.value == StateValue.booksLoaded) _sheetCtl.closeSheet();
+        if (state case BooksLoaded()) {
+          _sheetCtl.closeSheet();
+        }
       },
     );
   }
@@ -112,7 +120,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
 
   Widget _mainActionButton(BuildContext context) {
     return BlocSelector<DeleteBooksBloc, DeleteBooksState, List<Book>>(
-      selector: (state) => state.deletionList,
+      selector: (state) => state.deletionListOrEmpty,
       builder: (context, booksToDelete) {
         return booksToDelete.isEmpty
             ? _AddButton(sheetController: _sheetCtl)

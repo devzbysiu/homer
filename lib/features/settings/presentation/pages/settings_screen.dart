@@ -9,6 +9,8 @@ import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
 import '../bloc/settings_bloc.dart';
+import '../bloc/settings_event.dart';
+import '../bloc/settings_state.dart';
 import '../widgets/book_size_slider.dart';
 import '../widgets/reading_goal_slider.dart';
 

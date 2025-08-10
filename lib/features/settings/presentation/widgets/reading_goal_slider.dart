@@ -4,6 +4,7 @@ import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
 import '../../domain/entities/reading_goal.dart';
 import '../bloc/settings_bloc.dart';
+import '../bloc/settings_event.dart';
 
 final class ReadingGoalSlider extends StatefulBusWidget {
   ReadingGoalSlider({super.key, super.bus});

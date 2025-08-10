@@ -1,13 +1,11 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/entities/tag.dart';
-
-part 'on_book_tags_event.dart';
-part 'on_book_tags_state.dart';
+import 'on_book_tags_event.dart';
+import 'on_book_tags_state.dart';
 
 final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
   OnBookTagsBloc() : super(const BookTagsState.initial()) {
@@ -20,7 +18,8 @@ final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     TagSelected event,
     Emitter<BookTagsState> emit,
   ) async {
-    final selectedTags = List.of(state.selectedTags)..add(event.tag);
+    final List<Tag> currentSelectedTags = state.selectedTags;
+    final selectedTags = List.of(currentSelectedTags)..add(event.tag);
     emit(BookTagsState.tagsSelected(selectedTags));
   }
 
@@ -28,7 +27,8 @@ final class OnBookTagsBloc extends Bloc<BookTagsEvent, BookTagsState> {
     TagDeselected event,
     Emitter<BookTagsState> emit,
   ) async {
-    final selectedTags = List.of(state.selectedTags)..remove(event.tag);
+    final List<Tag> currentSelectedTags = state.selectedTags;
+    final selectedTags = List.of(currentSelectedTags)..remove(event.tag);
     emit(BookTagsState.tagsSelected(selectedTags));
   }
 

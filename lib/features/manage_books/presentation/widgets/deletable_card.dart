@@ -13,7 +13,7 @@ final class _DeletableCard extends StatelessWidget {
       child: _SwipeableCard(
         book: book,
         child: BlocSelector<DeleteBooksBloc, DeleteBooksState, bool>(
-          selector: (state) => state.deletionList.contains(book),
+          selector: (state) => state.deletionListOrEmpty.contains(book),
           builder: (context, isOnDeleteList) {
             return isOnDeleteList
                 ? _WithRedOverlay(child: _BookCover(book: book))

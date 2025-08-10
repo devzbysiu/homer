@@ -1,20 +1,14 @@
-part of 'delete_books_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class DeleteBooksEvent extends Equatable implements BusEvent {
-  @override
-  List<Object> get props => [];
-}
+import '../../../../../core/entities/book.dart';
+import '../../../../../core/orchestrator/events.dart';
 
-final class DeletePickedBooks extends DeleteBooksEvent {}
+part 'delete_books_event.freezed.dart';
 
-final class ClearDeletionList extends DeleteBooksEvent {}
-
-final class DeleteModeToggled extends DeleteBooksEvent {
-  DeleteModeToggled(this.book);
-
-  final Book book;
-
-  @override
-  List<Object> get props => [book];
+@freezed
+class DeleteBooksEvent with _$DeleteBooksEvent implements BusEvent {
+  const factory DeleteBooksEvent.deletePickedBooks() = DeletePickedBooks;
+  const factory DeleteBooksEvent.clearDeletionList() = ClearDeletionList;
+  const factory DeleteBooksEvent.deleteModeToggled(Book book) =
+      DeleteModeToggled;
 }

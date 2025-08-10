@@ -19,11 +19,18 @@ import '../../../../core/widgets/book_authors.dart';
 import '../../../../core/widgets/book_title.dart';
 import '../../../../core/widgets/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
-import '../../../stats/presentation/bloc/stats_bloc.dart';
+import '../../../stats/presentation/bloc/stats_event.dart';
 import '../bloc/delete/delete_books_bloc.dart';
+import '../bloc/delete/delete_books_event.dart';
+import '../bloc/delete/delete_books_state.dart';
 import '../bloc/listing/books_bloc.dart';
+import '../bloc/listing/books_event.dart';
+import '../bloc/listing/books_state.dart';
 import '../bloc/navigation/app_tab_bloc.dart';
+import '../bloc/navigation/app_tab_state.dart';
 import '../bloc/summary/book_summary_bloc.dart';
+import '../bloc/summary/book_summary_event.dart';
+import '../bloc/summary/book_summary_state.dart';
 
 part 'animated_regular_card.dart';
 part 'animated_summary_card.dart';
@@ -51,7 +58,7 @@ final class _BooksListState extends State<BooksList> {
         onTap: () => widget.fire(ClearDeletionList()),
         child: FloatingSearchBarScrollNotifier(
           child: BlocSelector<BooksBloc, BooksState, List<Book>>(
-            selector: (state) => state.books,
+            selector: (state) => state.booksOrEmpty,
             builder: (context, allBooks) {
               final books =
                   allBooks

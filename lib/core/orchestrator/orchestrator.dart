@@ -1,13 +1,23 @@
 import '../../features/backup_and_restore/presentation/bloc/backup_bloc.dart';
+import '../../features/backup_and_restore/presentation/bloc/backup_event.dart';
 import '../../features/find_new_book/presentation/bloc/search/book_search_bloc.dart';
+import '../../features/find_new_book/presentation/bloc/search/book_search_event.dart';
 import '../../features/find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
+import '../../features/find_new_book/presentation/bloc/share_book/share_book_event.dart';
 import '../../features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_bloc.dart';
+import '../../features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_event.dart';
 import '../../features/manage_books/presentation/bloc/delete/delete_books_bloc.dart';
+import '../../features/manage_books/presentation/bloc/delete/delete_books_event.dart';
 import '../../features/manage_books/presentation/bloc/listing/books_bloc.dart';
+import '../../features/manage_books/presentation/bloc/listing/books_event.dart';
 import '../../features/manage_books/presentation/bloc/navigation/app_tab_bloc.dart';
+import '../../features/manage_books/presentation/bloc/navigation/app_tab_event.dart';
 import '../../features/manage_books/presentation/bloc/summary/book_summary_bloc.dart';
+import '../../features/manage_books/presentation/bloc/summary/book_summary_event.dart';
 import '../../features/settings/presentation/bloc/settings_bloc.dart';
+import '../../features/settings/presentation/bloc/settings_event.dart';
 import '../../features/stats/presentation/bloc/stats_bloc.dart';
+import '../../features/stats/presentation/bloc/stats_event.dart';
 import 'bus.dart';
 import 'events.dart';
 

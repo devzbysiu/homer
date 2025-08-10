@@ -1,18 +1,12 @@
-part of 'share_book_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class ShareBookEvent extends Equatable implements BusEvent {}
+import '../../../../../core/orchestrator/events.dart';
 
-final class BookSharedFromOutside extends ShareBookEvent {
-  BookSharedFromOutside(this.url);
+part 'share_book_event.freezed.dart';
 
-  final String url;
-
-  @override
-  List<Object> get props => [url];
-}
-
-final class ClearSharedBook extends ShareBookEvent {
-  @override
-  List<Object> get props => [];
+@freezed
+sealed class ShareBookEvent with _$ShareBookEvent implements BusEvent {
+  const factory ShareBookEvent.bookSharedFromOutside(String url) =
+      BookSharedFromOutside;
+  const factory ShareBookEvent.clearSharedBook() = ClearSharedBook;
 }

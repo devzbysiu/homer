@@ -1,5 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:homer/features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_bloc.dart';
+import 'package:homer/features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_event.dart';
+import 'package:homer/features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_state.dart';
 import 'package:test/test.dart';
 
 import '../../../../../test_utils/fakes.dart';
@@ -19,8 +21,8 @@ void main() {
                 ..add(TagSelected(tag2)),
       expect:
           () => [
-            BookTagsState(selectedTags: [tag1]),
-            BookTagsState(selectedTags: [tag1, tag2]),
+            BookTagsState.tagsSelected([tag1]),
+            BookTagsState.tagsSelected([tag1, tag2]),
           ],
     );
   });
@@ -40,9 +42,9 @@ void main() {
                 ..add(TagDeselected(tag1)),
       expect:
           () => [
-            BookTagsState(selectedTags: [tag1]),
-            BookTagsState(selectedTags: [tag1, tag2]),
-            BookTagsState(selectedTags: [tag2]),
+            BookTagsState.tagsSelected([tag1]),
+            BookTagsState.tagsSelected([tag1, tag2]),
+            BookTagsState.tagsSelected([tag2]),
           ],
     );
   });
@@ -60,8 +62,8 @@ void main() {
                 ..add(ClearSelectedTags()),
       expect:
           () => [
-            BookTagsState(selectedTags: [tag]),
-            const BookTagsState(selectedTags: []),
+            BookTagsState.tagsSelected([tag]),
+            const BookTagsState.empty(),
           ],
     );
   });

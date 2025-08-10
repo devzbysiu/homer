@@ -1,56 +1,29 @@
-part of 'books_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class BooksEvent extends Equatable implements BusEvent {
-  @override
-  List<Object> get props => [];
+import '../../../../../core/entities/book.dart';
+import '../../../../../core/entities/tag.dart';
+import '../../../../../core/orchestrator/events.dart';
+
+part 'books_event.freezed.dart';
+
+@freezed
+sealed class BooksEvent with _$BooksEvent implements BusEvent {
+  const factory BooksEvent.saveBook({
+    required Book book,
+    required BookState bookState,
+    required List<Tag> selectedTags,
+  }) = SaveBook;
+
+  const factory BooksEvent.bookSwipedRight(Book book) = BookSwipedRight;
+
+  const factory BooksEvent.bookSwipedLeft(Book book) = BookSwipedLeft;
+
+  const factory BooksEvent.refreshBooksList() = RefreshBooksList;
+
+  const factory BooksEvent.tagToggled({required Book book, required Tag tag}) =
+      TagToggled;
+
+  const factory BooksEvent.booksFiltered(String query) = BooksFiltered;
+
+  const factory BooksEvent.bookSaved() = BookSaved;
 }
-
-final class SaveBook extends BooksEvent {
-  SaveBook(this.book, this.bookState, this.selectedTags);
-
-  final Book book;
-
-  final BookState bookState;
-
-  final List<Tag> selectedTags;
-
-  @override
-  List<Object> get props => [book];
-}
-
-final class BookSwipedRight extends BooksEvent {
-  BookSwipedRight(this.book);
-
-  final Book book;
-
-  @override
-  List<Object> get props => [book];
-}
-
-final class BookSwipedLeft extends BooksEvent {
-  BookSwipedLeft(this.book);
-
-  final Book book;
-
-  @override
-  List<Object> get props => [book];
-}
-
-final class RefreshBooksList extends BooksEvent {}
-
-final class TagToggled extends BooksEvent {
-  TagToggled(this.book, this.tag);
-
-  final Book book;
-
-  final Tag tag;
-}
-
-final class BooksFiltered extends BooksEvent {
-  BooksFiltered(this.query);
-
-  final String query;
-}
-
-final class BookSaved {}

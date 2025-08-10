@@ -1,45 +1,47 @@
-part of 'stats_bloc.dart';
+import 'package:dartz/dartz.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-final class StatsState extends Equatable {
-  const StatsState({
-    required this.booksPerYear,
-    required this.booksPerMonth,
-    required this.booksPerState,
-    required this.otherStats,
-  });
+import '../../domain/entities/books_per_month_data.dart';
+import '../../domain/entities/books_per_state_data.dart';
+import '../../domain/entities/books_per_year_data.dart';
+import '../../domain/entities/other_stats_data.dart';
 
-  const StatsState.initial()
-    : booksPerYear = const None(),
-      booksPerMonth = const None(),
-      booksPerState = const None(),
-      otherStats = const None();
+part 'stats_state.freezed.dart';
 
-  const StatsState.loaded(
-    this.booksPerYear,
-    this.booksPerMonth,
-    this.booksPerState,
-    this.otherStats,
+@freezed
+class StatsState with _$StatsState {
+  const StatsState._(); // enables custom getters/methods if you add any later
+
+  const factory StatsState({
+    required Option<BooksPerYearData> booksPerYear,
+    required Option<BooksPerMonthData> booksPerMonth,
+    required Option<BooksPerStateData> booksPerState,
+    required Option<OtherStatsData> otherStats,
+  }) = _StatsState;
+
+  factory StatsState.initial() => const StatsState(
+    booksPerYear: None(),
+    booksPerMonth: None(),
+    booksPerState: None(),
+    otherStats: None(),
   );
 
-  const StatsState.loadFailed()
-    : booksPerYear = const None(),
-      booksPerMonth = const None(),
-      booksPerState = const None(),
-      otherStats = const None();
+  factory StatsState.loaded({
+    required BooksPerYearData booksPerYear,
+    required BooksPerMonthData booksPerMonth,
+    required BooksPerStateData booksPerState,
+    required OtherStatsData otherStats,
+  }) => StatsState(
+    booksPerYear: Some(booksPerYear),
+    booksPerMonth: Some(booksPerMonth),
+    booksPerState: Some(booksPerState),
+    otherStats: Some(otherStats),
+  );
 
-  final Option<BooksPerYearData> booksPerYear;
-
-  final Option<BooksPerMonthData> booksPerMonth;
-
-  final Option<BooksPerStateData> booksPerState;
-
-  final Option<OtherStatsData> otherStats;
-
-  @override
-  List<Object> get props => [
-    booksPerYear,
-    booksPerMonth,
-    booksPerState,
-    otherStats,
-  ];
+  factory StatsState.loadFailed() => const StatsState(
+    booksPerYear: None(),
+    booksPerMonth: None(),
+    booksPerState: None(),
+    otherStats: None(),
+  );
 }

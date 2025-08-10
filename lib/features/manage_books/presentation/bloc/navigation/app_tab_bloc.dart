@@ -1,13 +1,10 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/orchestrator/events.dart';
-
-part 'app_tab_event.dart';
-part 'app_tab_state.dart';
+import 'app_tab_event.dart';
+import 'app_tab_state.dart';
 
 final class AppTabBloc extends Bloc<AppTabEvent, AppTabState> {
   AppTabBloc() : super(const AppTabState.readLater()) {

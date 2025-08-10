@@ -3,6 +3,8 @@ import 'package:homer/core/entities/tag.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/core/usecase/usecase.dart';
 import 'package:homer/features/tags_manager/presentation/bloc/tags_bloc.dart';
+import 'package:homer/features/tags_manager/presentation/bloc/tags_event.dart';
+import 'package:homer/features/tags_manager/presentation/bloc/tags_state.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
@@ -17,26 +19,26 @@ void main() {
     final tags = [fakeTag(), fakeTag(), fakeTag()];
 
     blocTest<TagsBloc, TagsState>(
-      'should emit TagsLoaded on start',
+      'should emit loaded on start',
       build: () => BlocMock().onListTags(Success(tags)).get(),
       act: (bloc) => {/* do nothing */},
-      expect: () => [TagsState(tags: tags)],
+      expect: () => [TagsState.loaded(tags)],
       verify: (bloc) => verify(bloc.listTags(NoParams())),
     );
 
     blocTest<TagsBloc, TagsState>(
-      'should emit TagsLoaded with loaded tags',
+      'should emit loaded with loaded tags',
       build: () => BlocMock().onListTags(Success(tags)).get(),
       act: (bloc) => bloc.add(TagsDisplayed()),
-      expect: () => [TagsState(tags: tags)],
+      expect: () => [TagsState.loaded(tags)],
       verify: (bloc) => verify(bloc.listTags(NoParams())),
     );
 
     blocTest<TagsBloc, TagsState>(
-      'should emit FailedToLoadTags when listTags fails ',
+      'should emit failedToLoad when listTags fails ',
       build: () => BlocMock().onListTags(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(TagsDisplayed()),
-      expect: () => [const TagsState(tags: [])],
+      expect: () => [const TagsState.failedToLoad()],
       verify: (bloc) => verify(bloc.listTags(NoParams())),
     );
   });

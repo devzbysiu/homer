@@ -1,37 +1,25 @@
-part of 'books_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-final class BooksState extends Equatable {
-  const BooksState({required this.books, required this.value});
+import '../../../../../core/entities/book.dart';
 
-  const BooksState.initial() : books = const [], value = StateValue.initial;
+part 'books_state.freezed.dart';
 
-  const BooksState.booksLoaded(this.books) : value = StateValue.booksLoaded;
+@freezed
+sealed class BooksState with _$BooksState {
+  const BooksState._(); // enables instance methods / helpers
 
-  const BooksState.loadingFailed()
-    : books = const [],
-      value = StateValue.loadingFailed;
+  const factory BooksState.initial({@Default(<Book>[]) List<Book> books}) =
+      Initial;
 
-  const BooksState.addingBookFailed()
-    : books = const [],
-      value = StateValue.addingBookFailed;
+  const factory BooksState.booksLoaded(List<Book> books) = BooksLoaded;
 
-  const BooksState.updatingBookFailed()
-    : books = const [],
-      value = StateValue.updatingBookFailed;
+  const factory BooksState.loadingFailed() = LoadingFailed;
+  const factory BooksState.addingBookFailed() = AddingBookFailed;
+  const factory BooksState.updatingBookFailed() = UpdatingBookFailed;
 
-  final List<Book> books;
-
-  final StateValue value;
-
-  @override
-  List<Object> get props => [books];
-}
-
-enum StateValue {
-  initial,
-  booksLoaded,
-  loadingFailed,
-  addingBookFailed,
-  updatingBookFailed,
+  List<Book> get booksOrEmpty => maybeWhen(
+    initial: (b) => b,
+    booksLoaded: (b) => b,
+    orElse: () => const <Book>[],
+  );
 }

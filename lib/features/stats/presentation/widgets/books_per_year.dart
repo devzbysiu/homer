@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/theme.dart';
 import '../../domain/entities/books_per_year_data.dart';
 import '../bloc/stats_bloc.dart';
+import '../bloc/stats_state.dart';
 import 'chart_wrapper.dart';
 
 final class BooksPerYear extends StatelessWidget {

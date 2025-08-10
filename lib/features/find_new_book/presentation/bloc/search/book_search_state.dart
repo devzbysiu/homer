@@ -1,83 +1,11 @@
-part of 'book_search_bloc.dart';
+import 'package:dartz/dartz.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-final class BookSearchState extends Equatable {
-  const BookSearchState({
-    required this.foundBooks,
-    required this.pickedBook,
-    required this.value,
-    required this.searchFailureCause,
-  });
+import '../../../../../core/entities/book.dart';
 
-  const BookSearchState.initial()
-    : this(
-        foundBooks: const [],
-        pickedBook: const None(),
-        value: Value.initial,
-        searchFailureCause: const None(),
-      );
+part 'book_search_state.freezed.dart';
 
-  BookSearchState searching() =>
-      _copyWith(value: Value.searching, foundBooks: const []);
-
-  BookSearchState searchFinished(List<Book> foundBooks) =>
-      _copyWith(value: Value.searchFinished, foundBooks: foundBooks);
-
-  BookSearchState shareOffloadFinished(List<Book> foundBooks) =>
-      _copyWith(value: Value.shareOffloadFinished, foundBooks: foundBooks);
-
-  BookSearchState resetShareOffload() => _copyWith(value: Value.initial);
-
-  BookSearchState searchFailed(String cause) => _copyWith(
-    value: Value.searchFailed,
-    foundBooks: const [],
-    searchFailureCause: some(cause),
-  );
-
-  const BookSearchState.picked(this.pickedBook)
-    : foundBooks = const [],
-      searchFailureCause = const None(),
-      value = Value.bookPicked;
-
-  const BookSearchState.noPickedBook()
-    : foundBooks = const [],
-      searchFailureCause = const None(),
-      pickedBook = const None(),
-      value = Value.bookNotPicked;
-
-  bool get isSearching => value == Value.searching;
-
-  final List<Book> foundBooks;
-
-  final Option<Book> pickedBook;
-
-  final Value value;
-
-  final Option<String> searchFailureCause;
-
-  bool get isSuggestionPicked => value == Value.bookPicked;
-
-  bool get isShareOffloaded => value == Value.shareOffloadFinished;
-
-  BookSearchState _copyWith({
-    List<Book>? foundBooks,
-    Option<Book>? pickedBook,
-    Value? value,
-    Option<String>? searchFailureCause,
-  }) {
-    return BookSearchState(
-      foundBooks: foundBooks ?? this.foundBooks,
-      pickedBook: pickedBook ?? this.pickedBook,
-      value: value ?? this.value,
-      searchFailureCause: searchFailureCause ?? this.searchFailureCause,
-    );
-  }
-
-  @override
-  List<Object> get props => [foundBooks, pickedBook, value];
-}
-
-enum Value {
+enum BookSearchMode {
   initial,
   searching,
   searchFinished,
@@ -85,4 +13,59 @@ enum Value {
   bookPicked,
   bookNotPicked,
   searchFailed,
+}
+
+@freezed
+class BookSearchState with _$BookSearchState {
+  const factory BookSearchState({
+    @Default(<Book>[]) List<Book> foundBooks,
+    @Default(None<Book>()) Option<Book> pickedBook,
+    @Default(BookSearchMode.initial) BookSearchMode mode,
+    @Default(None<String>()) Option<String> searchFailureCause,
+  }) = _BookSearchState;
+
+  const BookSearchState._();
+
+  factory BookSearchState.initial() => const BookSearchState();
+
+  BookSearchState searching() => copyWith(
+    mode: BookSearchMode.searching,
+    foundBooks: const [],
+    searchFailureCause: const None(),
+  );
+
+  BookSearchState searchFinished(List<Book> books) => copyWith(
+    mode: BookSearchMode.searchFinished,
+    foundBooks: books,
+    searchFailureCause: const None(),
+  );
+
+  BookSearchState shareOffloadFinished(List<Book> books) =>
+      copyWith(mode: BookSearchMode.shareOffloadFinished, foundBooks: books);
+
+  BookSearchState resetShareOffload() => copyWith(mode: BookSearchMode.initial);
+
+  BookSearchState searchFailed(String cause) => copyWith(
+    mode: BookSearchMode.searchFailed,
+    foundBooks: const [],
+    searchFailureCause: some(cause),
+  );
+
+  BookSearchState picked(Book book) => copyWith(
+    mode: BookSearchMode.bookPicked,
+    pickedBook: some(book),
+    foundBooks: const [],
+    searchFailureCause: const None(),
+  );
+
+  BookSearchState noPickedBook() => copyWith(
+    mode: BookSearchMode.bookNotPicked,
+    pickedBook: const None(),
+    foundBooks: const [],
+    searchFailureCause: const None(),
+  );
+
+  bool get isSearching => mode == BookSearchMode.searching;
+  bool get isSuggestionPicked => mode == BookSearchMode.bookPicked;
+  bool get isShareOffloaded => mode == BookSearchMode.shareOffloadFinished;
 }

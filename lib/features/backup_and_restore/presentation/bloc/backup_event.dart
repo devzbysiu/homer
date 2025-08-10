@@ -1,18 +1,13 @@
-part of 'backup_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-abstract class BackupEvent extends Equatable implements BusEvent {
-  const BackupEvent(this.path);
+import '../../../../core/orchestrator/events.dart';
 
-  final String path;
+part 'backup_event.freezed.dart';
 
-  @override
-  List<Object> get props => [path];
-}
-
-final class RestoreTriggered extends BackupEvent {
-  const RestoreTriggered(super.path);
-}
-
-final class BackupTriggered extends BackupEvent {
-  const BackupTriggered(super.path);
+@freezed
+sealed class BackupEvent with _$BackupEvent implements BusEvent {
+  const factory BackupEvent.restoreTriggered({required String path}) =
+      RestoreTriggered;
+  const factory BackupEvent.backupTriggered({required String path}) =
+      BackupTriggered;
 }

@@ -1,58 +1,35 @@
-part of 'share_book_bloc.dart';
+import 'package:dartz/dartz.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-final class ShareBookState extends Equatable {
-  const ShareBookState({
-    required this.sharedBook,
-    required this.value,
-    required this.cause,
-  });
+import '../../../../../core/entities/book.dart';
 
-  const ShareBookState.initial()
-    : sharedBook = const None(),
-      value = ShareState.initial,
-      cause = const None();
+part 'share_book_state.freezed.dart';
 
-  ShareBookState.bookShared(Book book)
-    : sharedBook = some(book),
-      value = ShareState.bookShared,
-      cause = const None();
+@freezed
+sealed class ShareBookState with _$ShareBookState {
+  const ShareBookState._();
 
-  const ShareBookState.bookNotShared()
-    : sharedBook = const None(),
-      value = ShareState.bookShared,
-      cause = const None();
+  const factory ShareBookState.initial() = Initial;
 
-  const ShareBookState.fetchingSharedBookDetails()
-    : sharedBook = const None(),
-      value = ShareState.fetchingBookDetails,
-      cause = const None();
+  const factory ShareBookState.bookShared({required Book book}) = BookShared;
 
-  ShareBookState.fetchingDetailsFailed(String cause)
-    : sharedBook = const None(),
-      value = ShareState.fetchingDetailsFailed,
-      cause = some(cause);
+  const factory ShareBookState.bookNotShared() = BookNotShared;
 
-  bool get isFetchingBookDetails => value == ShareState.fetchingBookDetails;
+  const factory ShareBookState.fetchingSharedBookDetails() =
+      FetchingSharedBookDetails;
+
+  const factory ShareBookState.fetchingDetailsFailed({required String cause}) =
+      FetchingDetailsFailed;
+
+  bool get isFetchingBookDetails =>
+      maybeWhen(fetchingSharedBookDetails: () => true, orElse: () => false);
 
   bool get failedToLookUpSharedBook =>
-      value == ShareState.fetchingDetailsFailed;
+      maybeWhen(fetchingDetailsFailed: (_) => true, orElse: () => false);
 
-  String get failureCause => cause.toNullable()!;
+  String? get failureCause =>
+      maybeWhen(fetchingDetailsFailed: (cause) => cause, orElse: () => null);
 
-  final Option<Book> sharedBook;
-
-  final ShareState value;
-
-  final Option<String> cause;
-
-  @override
-  List<Object> get props => [sharedBook, value];
-}
-
-enum ShareState {
-  initial,
-  fetchingBookDetails,
-  fetchingDetailsFailed,
-  bookShared,
+  Option<Book> get sharedBook =>
+      maybeWhen(bookShared: (book) => Some(book), orElse: () => None());
 }

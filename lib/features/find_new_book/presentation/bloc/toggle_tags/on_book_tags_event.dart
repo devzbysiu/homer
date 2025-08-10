@@ -1,27 +1,12 @@
-part of 'on_book_tags_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class BookTagsEvent extends Equatable {}
+import '../../../../../core/entities/tag.dart';
 
-final class TagSelected extends BookTagsEvent {
-  TagSelected(this.tag);
+part 'on_book_tags_event.freezed.dart';
 
-  final Tag tag;
-
-  @override
-  List<Object> get props => [tag];
-}
-
-final class TagDeselected extends BookTagsEvent {
-  TagDeselected(this.tag);
-
-  final Tag tag;
-
-  @override
-  List<Object> get props => [tag];
-}
-
-final class ClearSelectedTags extends BookTagsEvent {
-  @override
-  List<Object> get props => [];
+@freezed
+class BookTagsEvent with _$BookTagsEvent {
+  const factory BookTagsEvent.tagSelected(Tag tag) = TagSelected;
+  const factory BookTagsEvent.tagDeselected(Tag tag) = TagDeselected;
+  const factory BookTagsEvent.clearSelectedTags() = ClearSelectedTags;
 }

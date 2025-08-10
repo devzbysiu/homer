@@ -1,17 +1,21 @@
-part of 'on_book_tags_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-final class BookTagsState extends Equatable {
-  const BookTagsState({required this.selectedTags});
+import '../../../../../core/entities/tag.dart';
 
-  const BookTagsState.initial() : selectedTags = const [];
+part 'on_book_tags_state.freezed.dart';
 
-  const BookTagsState.tagsSelected(this.selectedTags);
+@freezed
+class BookTagsState with _$BookTagsState {
+  const BookTagsState._(); // enables instance methods
+  const factory BookTagsState.initial() = Initial;
+  const factory BookTagsState.tagsSelected(List<Tag> selectedTags) =
+      TagsSelected;
+  const factory BookTagsState.empty() = Empty;
 
-  const BookTagsState.empty() : selectedTags = const [];
-
-  final List<Tag> selectedTags;
-
-  @override
-  List<Object> get props => [selectedTags];
+  List<Tag> get selectedTags => maybeWhen(
+    initial: () => const <Tag>[],
+    tagsSelected: (t) => t,
+    empty: () => const <Tag>[],
+    orElse: () => const <Tag>[],
+  );
 }

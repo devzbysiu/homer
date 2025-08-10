@@ -7,6 +7,8 @@ import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/menu_button.dart';
 import '../../../backup_and_restore/presentation/bloc/backup_bloc.dart';
+import '../../../backup_and_restore/presentation/bloc/backup_event.dart';
+import '../../../backup_and_restore/presentation/bloc/backup_state.dart';
 
 final class RestoreButton extends StatelessBusWidget {
   RestoreButton({super.key, super.bus});
@@ -20,7 +22,7 @@ final class RestoreButton extends StatelessBusWidget {
           onPressed: () async => await _triggerRestore(context),
         ),
         BlocSelector<BackupBloc, BackupState, bool>(
-          selector: (state) => state.isRestoreInProgress,
+          selector: (state) => state is RestoreInProgress,
           builder: (context, isRestoreInProgress) {
             if (!isRestoreInProgress) return const SizedBox.shrink();
             return JumpingDotsProgressIndicator(
@@ -36,6 +38,6 @@ final class RestoreButton extends StatelessBusWidget {
   Future<void> _triggerRestore(BuildContext context) async {
     final directory = await getApplicationDocumentsDirectory();
     final backupPath = '${directory.path}/homer-backup.json';
-    fire(RestoreTriggered(backupPath));
+    fire(BackupEvent.restoreTriggered(path: backupPath));
   }
 }

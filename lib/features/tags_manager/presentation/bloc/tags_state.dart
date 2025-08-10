@@ -1,16 +1,22 @@
-part of 'tags_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-final class TagsState extends Equatable {
-  const TagsState({required this.tags});
+import '../../../../core/entities/tag.dart';
 
-  const TagsState.initial() : tags = const [];
+part 'tags_state.freezed.dart';
 
-  const TagsState.loaded(this.tags);
+@freezed
+sealed class TagsState with _$TagsState {
+  const TagsState._(); // enables helpers
 
-  const TagsState.failedToLoad() : tags = const [];
+  const factory TagsState.initial({@Default(<Tag>[]) List<Tag> tags}) = Initial;
 
-  final List<Tag> tags;
+  const factory TagsState.loaded(List<Tag> tags) = Loaded;
 
-  @override
-  List<Object> get props => [tags];
+  const factory TagsState.failedToLoad() = FailedToLoad;
+
+  List<Tag> get tagsOrEmpty => maybeWhen(
+    initial: (t) => t,
+    loaded: (t) => t,
+    orElse: () => const <Tag>[],
+  );
 }

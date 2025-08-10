@@ -1,13 +1,11 @@
-part of 'app_tab_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class AppTabEvent extends Equatable {}
+import '../../../../../core/orchestrator/events.dart';
+import 'app_tab_state.dart';
 
-final class TabChanged extends AppTabEvent implements BusEvent {
-  TabChanged(this.selectedTab);
+part 'app_tab_event.freezed.dart';
 
-  final AppTab selectedTab;
-
-  @override
-  List<Object> get props => [selectedTab];
+@freezed
+sealed class AppTabEvent with _$AppTabEvent implements BusEvent {
+  const factory AppTabEvent.tabChanged(AppTab selectedTab) = TabChanged;
 }

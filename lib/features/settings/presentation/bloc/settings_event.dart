@@ -1,33 +1,27 @@
-part of 'settings_bloc.dart';
+import 'dart:io';
 
-abstract class SettingsEvent extends Equatable implements BusEvent {
-  @override
-  List<Object> get props => [];
-}
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-final class SettingsLoaded extends SettingsEvent {}
+import '../../../../core/orchestrator/events.dart';
+import '../../domain/entities/book_size_limits.dart';
+import '../../domain/entities/reading_goal.dart';
 
-final class ThemeToggled extends SettingsEvent {}
+part 'settings_event.freezed.dart';
 
-final class SystemThemeToggled extends SettingsEvent {}
+@freezed
+sealed class SettingsEvent with _$SettingsEvent implements BusEvent {
+  const factory SettingsEvent.settingsLoaded() = SettingsLoaded;
 
-final class BackupsDirPicked extends SettingsEvent {
-  BackupsDirPicked(this.directory);
+  const factory SettingsEvent.themeToggled() = ThemeToggled;
 
-  final Directory directory;
+  const factory SettingsEvent.systemThemeToggled() = SystemThemeToggled;
 
-  @override
-  List<Object> get props => [directory];
-}
+  const factory SettingsEvent.backupsDirPicked(Directory directory) =
+      BackupsDirPicked;
 
-final class SizeLimitsChanged extends SettingsEvent {
-  SizeLimitsChanged(this.limits);
+  const factory SettingsEvent.sizeLimitsChanged(BookSizeLimits limits) =
+      SizeLimitsChanged;
 
-  final BookSizeLimits limits;
-}
-
-final class ReadingGoalChanged extends SettingsEvent {
-  ReadingGoalChanged(this.goal);
-
-  final ReadingGoal goal;
+  const factory SettingsEvent.readingGoalChanged(ReadingGoal goal) =
+      ReadingGoalChanged;
 }

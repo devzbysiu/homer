@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
-import '../../features/manage_books/presentation/bloc/listing/books_bloc.dart';
+import '../../features/manage_books/presentation/bloc/listing/books_event.dart';
 import '../../features/tags_manager/presentation/bloc/tags_bloc.dart';
 import '../entities/book.dart';
 import '../entities/tag.dart';
@@ -71,7 +71,7 @@ final class _AddTagTile extends StatelessBusWidget {
     return tags.map((tag) {
       return PullDownMenuItem.selectable(
         selected: book.tags.contains(tag),
-        onTap: () => fire(TagToggled(book, tag)),
+        onTap: () => fire(TagToggled(book: book, tag: tag)),
         title: tag.name,
         icon: Icons.circle,
         iconColor: HexColor(tag.hexColor),

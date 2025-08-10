@@ -1,40 +1,28 @@
-part of 'delete_books_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-final class DeleteBooksState extends Equatable {
-  const DeleteBooksState({required this.deletionList, required this.value});
+import '../../../../../core/entities/book.dart';
 
-  const DeleteBooksState.initial()
-    : deletionList = const [],
-      value = Value.initial;
+part 'delete_books_state.freezed.dart';
 
-  const DeleteBooksState.deletionList(this.deletionList)
-    : value = Value.deletionList;
+@freezed
+class DeleteBooksState with _$DeleteBooksState {
+  const DeleteBooksState._(); // enables instance methods
 
-  const DeleteBooksState.booksRemoved()
-    : deletionList = const [],
-      value = Value.booksRemoved;
+  const factory DeleteBooksState.initial({
+    @Default(<Book>[]) List<Book> deletionList,
+  }) = Initial;
 
-  const DeleteBooksState.deletionListCleared()
-    : deletionList = const [],
-      value = Value.deletionListCleared;
+  const factory DeleteBooksState.deletionList(List<Book> deletionList) =
+      DeletionList;
+  const factory DeleteBooksState.booksRemoved() = BooksRemoved;
+  const factory DeleteBooksState.deletionListCleared() = DeletionListCleared;
+  const factory DeleteBooksState.deletionFailed() = DeletionFailed;
 
-  const DeleteBooksState.deletionFailed()
-    : deletionList = const [],
-      value = Value.deletionFailed;
+  List<Book> get deletionListOrEmpty => maybeWhen(
+    initial: (l) => l,
+    deletionList: (l) => l,
+    orElse: () => const <Book>[],
+  );
 
-  final List<Book> deletionList;
-
-  final Value value;
-
-  @override
-  List<Object> get props => [deletionList];
-}
-
-enum Value {
-  initial,
-  deletionList,
-  booksRemoved,
-  deletionListCleared,
-  deletionFailed,
+  bool get hasSelection => deletionListOrEmpty.isNotEmpty;
 }

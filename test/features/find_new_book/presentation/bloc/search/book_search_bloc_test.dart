@@ -5,6 +5,8 @@ import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/features/find_new_book/domain/usecases/search_and_check_saved.dart';
 import 'package:homer/features/find_new_book/presentation/bloc/search/book_search_bloc.dart';
+import 'package:homer/features/find_new_book/presentation/bloc/search/book_search_event.dart';
+import 'package:homer/features/find_new_book/presentation/bloc/search/book_search_state.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 
@@ -23,13 +25,13 @@ void main() {
     blocTest<BookSearchBloc, BookSearchState>(
       'should emit searchFinished with zero found books when query is empty',
       build: () => BlocMock().allWorking(),
-      act: (bloc) => bloc.add(Searching(emptyQuery)),
+      act: (bloc) => bloc.add(SearchEvent.searching(query: emptyQuery)),
       expect:
           () => [
             const BookSearchState(
               foundBooks: [],
               pickedBook: None(),
-              value: Value.searchFinished,
+              mode: BookSearchMode.searchFinished,
               searchFailureCause: None(),
             ),
           ],
@@ -42,19 +44,19 @@ void main() {
     blocTest<BookSearchBloc, BookSearchState>(
       'should emit searching and searchFinished when query is not empty',
       build: () => BlocMock().onSearchForBooks(Success(foundBooks)).get(),
-      act: (bloc) => bloc.add(Searching(notEmptyQuery)),
+      act: (bloc) => bloc.add(SearchEvent.searching(query: notEmptyQuery)),
       expect:
           () => [
             const BookSearchState(
               foundBooks: [],
               pickedBook: None(),
-              value: Value.searching,
+              mode: BookSearchMode.searching,
               searchFailureCause: None(),
             ),
             BookSearchState(
               foundBooks: foundBooks,
               pickedBook: const None(),
-              value: Value.searchFinished,
+              mode: BookSearchMode.searchFinished,
               searchFailureCause: const None(),
             ),
           ],
@@ -66,19 +68,19 @@ void main() {
     blocTest<BookSearchBloc, BookSearchState>(
       'should emit searching and searchFailed when search failed',
       build: () => BlocMock().onSearchForBooks(Error(failure)).get(),
-      act: (bloc) => bloc.add(Searching(notEmptyQuery)),
+      act: (bloc) => bloc.add(SearchEvent.searching(query: notEmptyQuery)),
       expect:
           () => [
             const BookSearchState(
               foundBooks: [],
               pickedBook: None(),
-              value: Value.searching,
+              mode: BookSearchMode.searching,
               searchFailureCause: None(),
             ),
             BookSearchState(
               foundBooks: const [],
               pickedBook: const None(),
-              value: Value.searchFailed,
+              mode: BookSearchMode.searchFailed,
               searchFailureCause: some(failure.userMessage()),
             ),
           ],
@@ -94,13 +96,13 @@ void main() {
     blocTest<BookSearchBloc, BookSearchState>(
       'should emit bookPicked',
       build: () => BlocMock().allWorking(),
-      act: (bloc) => bloc.add(SuggestionPicked(book)),
+      act: (bloc) => bloc.add(SearchEvent.suggestionPicked(pickedBook: book)),
       expect:
           () => [
             BookSearchState(
               foundBooks: const [],
               pickedBook: some(book),
-              value: Value.bookPicked,
+              mode: BookSearchMode.bookPicked,
               searchFailureCause: const None(),
             ),
           ],
@@ -117,7 +119,7 @@ void main() {
             const BookSearchState(
               foundBooks: [],
               pickedBook: None(),
-              value: Value.bookNotPicked,
+              mode: BookSearchMode.bookNotPicked,
               searchFailureCause: None(),
             ),
           ],

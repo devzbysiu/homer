@@ -1,15 +1,9 @@
 import 'dart:async';
 
-import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/entities/book.dart';
-import '../../../../../core/orchestrator/events.dart';
-
-part 'book_summary_event.dart';
-part 'book_summary_state.dart';
+import 'book_summary_event.dart';
+import 'book_summary_state.dart';
 
 final class BookSummaryBloc extends Bloc<BookSummaryEvent, BookSummaryState> {
   BookSummaryBloc() : super(const BookSummaryState.initial()) {

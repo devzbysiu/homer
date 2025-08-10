@@ -8,6 +8,8 @@ import 'package:homer/features/settings/domain/entities/reading_goal.dart';
 import 'package:homer/features/settings/domain/entities/settings.dart';
 import 'package:homer/features/settings/domain/usecases/save_settings.dart';
 import 'package:homer/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:homer/features/settings/presentation/bloc/settings_event.dart';
+import 'package:homer/features/settings/presentation/bloc/settings_state.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
@@ -170,7 +172,7 @@ void main() {
     );
 
     blocTest<SettingsBloc, SettingsState>(
-      'should emit FailedToSaveSettings when saving fails',
+      'should emit default settings when saving fails',
       build:
           () =>
               BlocMock()
@@ -222,7 +224,7 @@ void main() {
     );
 
     blocTest<SettingsBloc, SettingsState>(
-      'should emit FailedToSaveSettings when saving fails',
+      'should emit default settings when saving fails',
       build:
           () =>
               BlocMock()

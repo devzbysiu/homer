@@ -1,38 +1,17 @@
-part of 'book_search_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class BookSearchEvent extends Equatable implements BusEvent {
-  @override
-  List<Object> get props => [];
+import '../../../../../core/entities/book.dart';
+import '../../../../../core/orchestrator/events.dart';
+
+part 'book_search_event.freezed.dart';
+
+@freezed
+sealed class SearchEvent with _$SearchEvent implements BusEvent {
+  const factory SearchEvent.searching({required String query}) = Searching;
+  const factory SearchEvent.suggestionPicked({required Book pickedBook}) =
+      SuggestionPicked;
+  const factory SearchEvent.clearPickedBook() = ClearPickedBook;
+  const factory SearchEvent.shareOffloaded({required String query}) =
+      ShareOffloaded;
+  const factory SearchEvent.resetShareOffloaded() = ResetShareOffload;
 }
-
-final class Searching extends BookSearchEvent {
-  Searching(this.query);
-
-  final String query;
-
-  @override
-  List<Object> get props => [query];
-}
-
-final class SuggestionPicked extends BookSearchEvent {
-  SuggestionPicked(this.pickedBook);
-
-  final Book pickedBook;
-
-  @override
-  List<Object> get props => [pickedBook];
-}
-
-final class ClearPickedBook extends BookSearchEvent {}
-
-final class ShareOffloaded extends BookSearchEvent {
-  ShareOffloaded(this.query);
-
-  final String query;
-
-  @override
-  List<Object> get props => [query];
-}
-
-final class ResetShareOffload extends BookSearchEvent {}

@@ -8,6 +8,8 @@ import 'package:homer/features/stats/domain/entities/books_per_state_data.dart';
 import 'package:homer/features/stats/domain/entities/books_per_year_data.dart';
 import 'package:homer/features/stats/domain/entities/other_stats_data.dart';
 import 'package:homer/features/stats/presentation/bloc/stats_bloc.dart';
+import 'package:homer/features/stats/presentation/bloc/stats_event.dart';
+import 'package:homer/features/stats/presentation/bloc/stats_state.dart';
 import 'package:mockito/mockito.dart';
 import 'package:multiple_result/multiple_result.dart';
 import 'package:test/test.dart';
@@ -38,11 +40,11 @@ void main() {
       act: (bloc) => bloc.add(LoadStats()),
       expect:
           () => [
-            StatsState(
-              booksPerYear: some(booksPerYear),
-              booksPerMonth: some(booksPerMonth),
-              booksPerState: some(booksPerState),
-              otherStats: some(otherStats),
+            StatsState.loaded(
+              booksPerYear: booksPerYear,
+              booksPerMonth: booksPerMonth,
+              booksPerState: booksPerState,
+              otherStats: otherStats,
             ),
           ],
       verify: (bloc) {
@@ -66,15 +68,7 @@ void main() {
                   )
                   .get(),
       act: (bloc) => bloc.add(LoadStats()),
-      expect:
-          () => [
-            const StatsState(
-              booksPerYear: None(),
-              booksPerMonth: None(),
-              booksPerState: None(),
-              otherStats: None(),
-            ),
-          ],
+      expect: () => [StatsState.loadFailed()],
       verify: (bloc) {
         verify(bloc.loadBooksPerYear(NoParams()));
         verify(bloc.loadBooksPerMonth(NoParams()));
@@ -96,15 +90,7 @@ void main() {
                   )
                   .get(),
       act: (bloc) => bloc.add(LoadStats()),
-      expect:
-          () => [
-            const StatsState(
-              booksPerYear: None(),
-              booksPerMonth: None(),
-              booksPerState: None(),
-              otherStats: None(),
-            ),
-          ],
+      expect: () => [StatsState.loadFailed()],
       verify: (bloc) {
         verify(bloc.loadBooksPerYear(NoParams()));
         verify(bloc.loadBooksPerMonth(NoParams()));
@@ -126,15 +112,7 @@ void main() {
                   )
                   .get(),
       act: (bloc) => bloc.add(LoadStats()),
-      expect:
-          () => [
-            const StatsState(
-              booksPerYear: None(),
-              booksPerMonth: None(),
-              booksPerState: None(),
-              otherStats: None(),
-            ),
-          ],
+      expect: () => [StatsState.loadFailed()],
       verify: (bloc) {
         verify(bloc.loadBooksPerYear(NoParams()));
         verify(bloc.loadBooksPerMonth(NoParams()));
@@ -156,15 +134,7 @@ void main() {
                   )
                   .get(),
       act: (bloc) => bloc.add(LoadStats()),
-      expect:
-          () => [
-            const StatsState(
-              booksPerYear: None(),
-              booksPerMonth: None(),
-              booksPerState: None(),
-              otherStats: None(),
-            ),
-          ],
+      expect: () => [StatsState.loadFailed()],
       verify: (bloc) {
         verify(bloc.loadBooksPerYear(NoParams()));
         verify(bloc.loadBooksPerMonth(NoParams()));
@@ -194,13 +164,14 @@ void main() {
       act: (bloc) => bloc.add(BookFinished(book)),
       expect:
           () => [
-            StatsState(
-              booksPerYear: some(booksPerYear.add(book)),
-              booksPerMonth: some(booksPerMonth.add(book)),
-              booksPerState: some(
-                booksPerState.move(BookState.reading, BookState.read),
+            StatsState.loaded(
+              booksPerYear: booksPerYear.add(book),
+              booksPerMonth: booksPerMonth.add(book),
+              booksPerState: booksPerState.move(
+                BookState.reading,
+                BookState.read,
               ),
-              otherStats: some(otherStats.add(book)),
+              otherStats: otherStats.add(book),
             ),
           ],
     );
@@ -214,7 +185,7 @@ void main() {
     final book = fakeBook().copyWith(endDate: some(DateTime(2024)));
 
     blocTest<StatsBloc, StatsState>(
-      'should emit undoFinished with updated stats',
+      'should emit loaded with undone finish book with updated stats',
       seed:
           () => StatsState(
             booksPerYear: some(booksPerYear),
@@ -226,13 +197,14 @@ void main() {
       act: (bloc) => bloc.add(BookUnfinished(book)),
       expect:
           () => [
-            StatsState(
-              booksPerYear: some(booksPerYear.remove(book)),
-              booksPerMonth: some(booksPerMonth.remove(book)),
-              booksPerState: some(
-                booksPerState.move(BookState.read, BookState.reading),
+            StatsState.loaded(
+              booksPerYear: booksPerYear.remove(book),
+              booksPerMonth: booksPerMonth.remove(book),
+              booksPerState: booksPerState.move(
+                BookState.read,
+                BookState.reading,
               ),
-              otherStats: some(otherStats.remove(book)),
+              otherStats: otherStats.remove(book),
             ),
           ],
     );

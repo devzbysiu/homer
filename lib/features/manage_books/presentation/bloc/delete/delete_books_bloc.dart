@@ -1,16 +1,13 @@
 import 'dart:async';
 
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/entities/book.dart';
 import '../../../../../core/orchestrator/bus.dart';
 import '../../../../../core/orchestrator/events.dart';
 import '../../../domain/usecases/delete_books.dart';
-
-part 'delete_books_event.dart';
-part 'delete_books_state.dart';
+import 'delete_books_event.dart';
+import 'delete_books_state.dart';
 
 final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
   DeleteBooksBloc({required this.eventBus, required this.deleteBooks})
@@ -28,29 +25,28 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
     DeleteModeToggled event,
     Emitter<DeleteBooksState> emit,
   ) async {
-    if (state.deletionList.contains(event.book)) {
-      emit(
-        DeleteBooksState.deletionList(
-          List.of(state.deletionList)..remove(event.book),
-        ),
-      );
-      return;
+    final List<Book> current = state.deletionListOrEmpty;
+
+    final updated = [...current];
+    if (updated.contains(event.book)) {
+      updated.remove(event.book);
+    } else {
+      updated.add(event.book);
     }
-    emit(
-      DeleteBooksState.deletionList(
-        List.of(state.deletionList)..add(event.book),
-      ),
-    );
+
+    emit(DeleteBooksState.deletionList(updated));
   }
 
   Future<void> _onDeleteBooks(
     DeletePickedBooks event,
     Emitter<DeleteBooksState> emit,
   ) async {
-    if (state.deletionList.isEmpty) return;
-    final result = await deleteBooks(
-      DeleteParams(books: List.of(state.deletionList)),
-    );
+    final List<Book> toDelete = state.deletionListOrEmpty;
+
+    if (toDelete.isEmpty) return;
+
+    final result = await deleteBooks(DeleteParams(books: List.of(toDelete)));
+
     result.when((_) {
       emit(const DeleteBooksState.booksRemoved());
       eventBus.fire(DeleteBooksFinished());

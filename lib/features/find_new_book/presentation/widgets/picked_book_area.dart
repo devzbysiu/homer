@@ -7,14 +7,11 @@ final class _PickedBookArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ShareBookBloc, ShareBookState>(
       builder: (context, state) {
-        switch (state.value) {
-          case ShareState.fetchingBookDetails:
-            return const _SearchProgressIndicator();
-          case ShareState.fetchingDetailsFailed:
-            return _SearchError(cause: state.failureCause);
-          default:
-            return const _SavableBookWithSummary();
-        }
+        return state.maybeWhen(
+          fetchingSharedBookDetails: () => const _SearchProgressIndicator(),
+          fetchingDetailsFailed: (cause) => _SearchError(cause: cause),
+          orElse: () => const _SavableBookWithSummary(),
+        );
       },
     );
   }

@@ -1,9 +1,8 @@
-part of '../../../../../features/tags_manager/presentation/bloc/tags_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class TagsEvent extends Equatable {}
+part 'tags_event.freezed.dart';
 
-final class TagsDisplayed extends TagsEvent {
-  @override
-  List<Object> get props => [];
+@freezed
+sealed class TagsEvent with _$TagsEvent {
+  const factory TagsEvent.tagsDisplayed() = TagsDisplayed;
 }

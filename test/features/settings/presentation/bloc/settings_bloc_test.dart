@@ -250,7 +250,7 @@ void main() {
     blocTest<SettingsBloc, SettingsState>(
       'should emit SettingsState with changed reading goal',
       build: () => BlocMock().onLoadSettings(Success(settings)).get(),
-      act: (bloc) => bloc.add(ReadingGoalChanged(const ReadingGoal(books: 6))),
+      act: (bloc) => bloc.add(ReadingGoalChanged(const ReadingGoal(books: 16))),
       expect:
           () => [
             SettingsState(settings: _from(settings)),
@@ -260,7 +260,7 @@ void main() {
                 useDarkTheme: settings.useDarkTheme,
                 backupsDir: settings.backupsDir,
                 bookSizeLimits: settings.bookSizeLimits,
-                readingGoal: const ReadingGoal(books: 6),
+                readingGoal: const ReadingGoal(books: 16),
               ),
             ),
           ],
@@ -269,7 +269,7 @@ void main() {
             bloc.saveSettings(
               SettingsParams(
                 settings: settings.changeReadingGoal(
-                  const ReadingGoal(books: 6),
+                  const ReadingGoal(books: 16),
                 ),
               ),
             ),

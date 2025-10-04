@@ -8,3 +8,10 @@ scripts:
   gencode: flutter pub run build_runner build --delete-conflicting-outputs
   backup: adb pull /storage/emulated/0/Documents/homer-backups-release/homer-backup.json ./assets/homer-backup.json
   test: flutter test --coverage && genhtml coverage/lcov.info -o coverage/html
+  fmt: |
+    find . -type f \
+      -name '*.dart' \
+      ! -name '*.freezed.dart' \
+      ! -name '*.g.dart' \
+      ! -name '*.mocks.dart' \
+      -exec dart format {} +

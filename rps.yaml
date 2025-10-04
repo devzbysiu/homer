@@ -1,7 +1,7 @@
 scripts:
-  run:
-    release: rps backup && ./tools/ctl.sh run prod
-    debug: ./tools/ctl.sh run debug
+  start:
+    prod: rps backup && ./tools/ctl.sh run prod
+    dev: ./tools/ctl.sh run dev
   install:
     release: rps backup && ./tools/ctl.sh install prod
     debug: ./tools/ctl.sh install debug

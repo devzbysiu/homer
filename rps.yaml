@@ -5,7 +5,7 @@ scripts:
   install:
     release: rps backup && ./tools/ctl.sh install prod
     debug: ./tools/ctl.sh install debug
-  gencode: flutter pub run build_runner build --delete-conflicting-outputs
+  gencode: dart run build_runner build --delete-conflicting-outputs
   backup: adb pull /storage/emulated/0/Documents/homer-backups-release/homer-backup.json ./assets/homer-backup.json
   test: flutter test
   testcov: flutter test --coverage && genhtml coverage/lcov.info -o coverage/html

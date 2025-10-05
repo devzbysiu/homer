@@ -42,7 +42,5 @@ List<TagDTO> _toTagDTOs(List<Tag> tags) {
 }
 
 TagDTO _toTagDTO(Tag tag) {
-  return TagDTO()
-    ..name = tag.name
-    ..hexColor = tag.hexColor;
+  return TagDTO(name: tag.name, hexColor: tag.hexColor);
 }

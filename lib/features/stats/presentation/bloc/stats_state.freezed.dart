@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,209 +9,272 @@ part of 'stats_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$StatsState {
-  Option<BooksPerYearData> get booksPerYear =>
-      throw _privateConstructorUsedError;
-  Option<BooksPerMonthData> get booksPerMonth =>
-      throw _privateConstructorUsedError;
-  Option<BooksPerStateData> get booksPerState =>
-      throw _privateConstructorUsedError;
-  Option<OtherStatsData> get otherStats => throw _privateConstructorUsedError;
 
-  /// Create a copy of StatsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $StatsStateCopyWith<StatsState> get copyWith =>
-      throw _privateConstructorUsedError;
+ Option<BooksPerYearData> get booksPerYear; Option<BooksPerMonthData> get booksPerMonth; Option<BooksPerStateData> get booksPerState; Option<OtherStatsData> get otherStats;
+/// Create a copy of StatsState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$StatsStateCopyWith<StatsState> get copyWith => _$StatsStateCopyWithImpl<StatsState>(this as StatsState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StatsState&&(identical(other.booksPerYear, booksPerYear) || other.booksPerYear == booksPerYear)&&(identical(other.booksPerMonth, booksPerMonth) || other.booksPerMonth == booksPerMonth)&&(identical(other.booksPerState, booksPerState) || other.booksPerState == booksPerState)&&(identical(other.otherStats, otherStats) || other.otherStats == otherStats));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,booksPerYear,booksPerMonth,booksPerState,otherStats);
+
+@override
+String toString() {
+  return 'StatsState(booksPerYear: $booksPerYear, booksPerMonth: $booksPerMonth, booksPerState: $booksPerState, otherStats: $otherStats)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $StatsStateCopyWith<$Res> {
-  factory $StatsStateCopyWith(
-          StatsState value, $Res Function(StatsState) then) =
-      _$StatsStateCopyWithImpl<$Res, StatsState>;
-  @useResult
-  $Res call(
-      {Option<BooksPerYearData> booksPerYear,
-      Option<BooksPerMonthData> booksPerMonth,
-      Option<BooksPerStateData> booksPerState,
-      Option<OtherStatsData> otherStats});
-}
+abstract mixin class $StatsStateCopyWith<$Res>  {
+  factory $StatsStateCopyWith(StatsState value, $Res Function(StatsState) _then) = _$StatsStateCopyWithImpl;
+@useResult
+$Res call({
+ Option<BooksPerYearData> booksPerYear, Option<BooksPerMonthData> booksPerMonth, Option<BooksPerStateData> booksPerState, Option<OtherStatsData> otherStats
+});
 
+
+
+
+}
 /// @nodoc
-class _$StatsStateCopyWithImpl<$Res, $Val extends StatsState>
+class _$StatsStateCopyWithImpl<$Res>
     implements $StatsStateCopyWith<$Res> {
-  _$StatsStateCopyWithImpl(this._value, this._then);
+  _$StatsStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final StatsState _self;
+  final $Res Function(StatsState) _then;
 
-  /// Create a copy of StatsState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? booksPerYear = null,
-    Object? booksPerMonth = null,
-    Object? booksPerState = null,
-    Object? otherStats = null,
-  }) {
-    return _then(_value.copyWith(
-      booksPerYear: null == booksPerYear
-          ? _value.booksPerYear
-          : booksPerYear // ignore: cast_nullable_to_non_nullable
-              as Option<BooksPerYearData>,
-      booksPerMonth: null == booksPerMonth
-          ? _value.booksPerMonth
-          : booksPerMonth // ignore: cast_nullable_to_non_nullable
-              as Option<BooksPerMonthData>,
-      booksPerState: null == booksPerState
-          ? _value.booksPerState
-          : booksPerState // ignore: cast_nullable_to_non_nullable
-              as Option<BooksPerStateData>,
-      otherStats: null == otherStats
-          ? _value.otherStats
-          : otherStats // ignore: cast_nullable_to_non_nullable
-              as Option<OtherStatsData>,
-    ) as $Val);
-  }
+/// Create a copy of StatsState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? booksPerYear = null,Object? booksPerMonth = null,Object? booksPerState = null,Object? otherStats = null,}) {
+  return _then(_self.copyWith(
+booksPerYear: null == booksPerYear ? _self.booksPerYear : booksPerYear // ignore: cast_nullable_to_non_nullable
+as Option<BooksPerYearData>,booksPerMonth: null == booksPerMonth ? _self.booksPerMonth : booksPerMonth // ignore: cast_nullable_to_non_nullable
+as Option<BooksPerMonthData>,booksPerState: null == booksPerState ? _self.booksPerState : booksPerState // ignore: cast_nullable_to_non_nullable
+as Option<BooksPerStateData>,otherStats: null == otherStats ? _self.otherStats : otherStats // ignore: cast_nullable_to_non_nullable
+as Option<OtherStatsData>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [StatsState].
+extension StatsStatePatterns on StatsState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _StatsState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _StatsState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _StatsState value)  $default,){
+final _that = this;
+switch (_that) {
+case _StatsState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _StatsState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _StatsState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Option<BooksPerYearData> booksPerYear,  Option<BooksPerMonthData> booksPerMonth,  Option<BooksPerStateData> booksPerState,  Option<OtherStatsData> otherStats)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _StatsState() when $default != null:
+return $default(_that.booksPerYear,_that.booksPerMonth,_that.booksPerState,_that.otherStats);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Option<BooksPerYearData> booksPerYear,  Option<BooksPerMonthData> booksPerMonth,  Option<BooksPerStateData> booksPerState,  Option<OtherStatsData> otherStats)  $default,) {final _that = this;
+switch (_that) {
+case _StatsState():
+return $default(_that.booksPerYear,_that.booksPerMonth,_that.booksPerState,_that.otherStats);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Option<BooksPerYearData> booksPerYear,  Option<BooksPerMonthData> booksPerMonth,  Option<BooksPerStateData> booksPerState,  Option<OtherStatsData> otherStats)?  $default,) {final _that = this;
+switch (_that) {
+case _StatsState() when $default != null:
+return $default(_that.booksPerYear,_that.booksPerMonth,_that.booksPerState,_that.otherStats);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
-abstract class _$$StatsStateImplCopyWith<$Res>
-    implements $StatsStateCopyWith<$Res> {
-  factory _$$StatsStateImplCopyWith(
-          _$StatsStateImpl value, $Res Function(_$StatsStateImpl) then) =
-      __$$StatsStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {Option<BooksPerYearData> booksPerYear,
-      Option<BooksPerMonthData> booksPerMonth,
-      Option<BooksPerStateData> booksPerState,
-      Option<OtherStatsData> otherStats});
+
+
+class _StatsState extends StatsState {
+  const _StatsState({required this.booksPerYear, required this.booksPerMonth, required this.booksPerState, required this.otherStats}): super._();
+  
+
+@override final  Option<BooksPerYearData> booksPerYear;
+@override final  Option<BooksPerMonthData> booksPerMonth;
+@override final  Option<BooksPerStateData> booksPerState;
+@override final  Option<OtherStatsData> otherStats;
+
+/// Create a copy of StatsState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$StatsStateCopyWith<_StatsState> get copyWith => __$StatsStateCopyWithImpl<_StatsState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StatsState&&(identical(other.booksPerYear, booksPerYear) || other.booksPerYear == booksPerYear)&&(identical(other.booksPerMonth, booksPerMonth) || other.booksPerMonth == booksPerMonth)&&(identical(other.booksPerState, booksPerState) || other.booksPerState == booksPerState)&&(identical(other.otherStats, otherStats) || other.otherStats == otherStats));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,booksPerYear,booksPerMonth,booksPerState,otherStats);
+
+@override
+String toString() {
+  return 'StatsState(booksPerYear: $booksPerYear, booksPerMonth: $booksPerMonth, booksPerState: $booksPerState, otherStats: $otherStats)';
+}
+
+
 }
 
 /// @nodoc
-class __$$StatsStateImplCopyWithImpl<$Res>
-    extends _$StatsStateCopyWithImpl<$Res, _$StatsStateImpl>
-    implements _$$StatsStateImplCopyWith<$Res> {
-  __$$StatsStateImplCopyWithImpl(
-      _$StatsStateImpl _value, $Res Function(_$StatsStateImpl) _then)
-      : super(_value, _then);
+abstract mixin class _$StatsStateCopyWith<$Res> implements $StatsStateCopyWith<$Res> {
+  factory _$StatsStateCopyWith(_StatsState value, $Res Function(_StatsState) _then) = __$StatsStateCopyWithImpl;
+@override @useResult
+$Res call({
+ Option<BooksPerYearData> booksPerYear, Option<BooksPerMonthData> booksPerMonth, Option<BooksPerStateData> booksPerState, Option<OtherStatsData> otherStats
+});
 
-  /// Create a copy of StatsState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? booksPerYear = null,
-    Object? booksPerMonth = null,
-    Object? booksPerState = null,
-    Object? otherStats = null,
-  }) {
-    return _then(_$StatsStateImpl(
-      booksPerYear: null == booksPerYear
-          ? _value.booksPerYear
-          : booksPerYear // ignore: cast_nullable_to_non_nullable
-              as Option<BooksPerYearData>,
-      booksPerMonth: null == booksPerMonth
-          ? _value.booksPerMonth
-          : booksPerMonth // ignore: cast_nullable_to_non_nullable
-              as Option<BooksPerMonthData>,
-      booksPerState: null == booksPerState
-          ? _value.booksPerState
-          : booksPerState // ignore: cast_nullable_to_non_nullable
-              as Option<BooksPerStateData>,
-      otherStats: null == otherStats
-          ? _value.otherStats
-          : otherStats // ignore: cast_nullable_to_non_nullable
-              as Option<OtherStatsData>,
-    ));
-  }
+
+
+
 }
-
 /// @nodoc
+class __$StatsStateCopyWithImpl<$Res>
+    implements _$StatsStateCopyWith<$Res> {
+  __$StatsStateCopyWithImpl(this._self, this._then);
 
-class _$StatsStateImpl extends _StatsState {
-  const _$StatsStateImpl(
-      {required this.booksPerYear,
-      required this.booksPerMonth,
-      required this.booksPerState,
-      required this.otherStats})
-      : super._();
+  final _StatsState _self;
+  final $Res Function(_StatsState) _then;
 
-  @override
-  final Option<BooksPerYearData> booksPerYear;
-  @override
-  final Option<BooksPerMonthData> booksPerMonth;
-  @override
-  final Option<BooksPerStateData> booksPerState;
-  @override
-  final Option<OtherStatsData> otherStats;
-
-  @override
-  String toString() {
-    return 'StatsState(booksPerYear: $booksPerYear, booksPerMonth: $booksPerMonth, booksPerState: $booksPerState, otherStats: $otherStats)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$StatsStateImpl &&
-            (identical(other.booksPerYear, booksPerYear) ||
-                other.booksPerYear == booksPerYear) &&
-            (identical(other.booksPerMonth, booksPerMonth) ||
-                other.booksPerMonth == booksPerMonth) &&
-            (identical(other.booksPerState, booksPerState) ||
-                other.booksPerState == booksPerState) &&
-            (identical(other.otherStats, otherStats) ||
-                other.otherStats == otherStats));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, booksPerYear, booksPerMonth, booksPerState, otherStats);
-
-  /// Create a copy of StatsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$StatsStateImplCopyWith<_$StatsStateImpl> get copyWith =>
-      __$$StatsStateImplCopyWithImpl<_$StatsStateImpl>(this, _$identity);
+/// Create a copy of StatsState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? booksPerYear = null,Object? booksPerMonth = null,Object? booksPerState = null,Object? otherStats = null,}) {
+  return _then(_StatsState(
+booksPerYear: null == booksPerYear ? _self.booksPerYear : booksPerYear // ignore: cast_nullable_to_non_nullable
+as Option<BooksPerYearData>,booksPerMonth: null == booksPerMonth ? _self.booksPerMonth : booksPerMonth // ignore: cast_nullable_to_non_nullable
+as Option<BooksPerMonthData>,booksPerState: null == booksPerState ? _self.booksPerState : booksPerState // ignore: cast_nullable_to_non_nullable
+as Option<BooksPerStateData>,otherStats: null == otherStats ? _self.otherStats : otherStats // ignore: cast_nullable_to_non_nullable
+as Option<OtherStatsData>,
+  ));
 }
 
-abstract class _StatsState extends StatsState {
-  const factory _StatsState(
-      {required final Option<BooksPerYearData> booksPerYear,
-      required final Option<BooksPerMonthData> booksPerMonth,
-      required final Option<BooksPerStateData> booksPerState,
-      required final Option<OtherStatsData> otherStats}) = _$StatsStateImpl;
-  const _StatsState._() : super._();
 
-  @override
-  Option<BooksPerYearData> get booksPerYear;
-  @override
-  Option<BooksPerMonthData> get booksPerMonth;
-  @override
-  Option<BooksPerStateData> get booksPerState;
-  @override
-  Option<OtherStatsData> get otherStats;
-
-  /// Create a copy of StatsState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$StatsStateImplCopyWith<_$StatsStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
+
+// dart format on

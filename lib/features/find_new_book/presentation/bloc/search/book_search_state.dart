@@ -16,7 +16,7 @@ enum BookSearchMode {
 }
 
 @freezed
-class BookSearchState with _$BookSearchState {
+abstract class BookSearchState with _$BookSearchState {
   const factory BookSearchState({
     @Default(<Book>[]) List<Book> foundBooks,
     @Default(None<Book>()) Option<Book> pickedBook,

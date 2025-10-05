@@ -26,6 +26,7 @@ import 'features/find_new_book/presentation/bloc/search/book_search_bloc.dart';
 import 'features/find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
 import 'features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_bloc.dart';
 import 'features/manage_books/data/datasources/books_data_source.dart';
+import 'features/manage_books/data/datasources/drift_books_data_source.dart';
 import 'features/manage_books/data/repositories/books_repo.dart';
 import 'features/manage_books/domain/repositories/books_repository.dart';
 import 'features/manage_books/domain/usecases/add_book.dart';
@@ -68,8 +69,8 @@ Future<void> initDi({required Env env}) async {
   });
 
   // Data sources
-  final isarDataSource = await IsarDataSource.create();
-  sl.registerLazySingleton<BooksDataSource>(() => isarDataSource);
+  final driftDataSource = await DriftDataSource.create();
+  sl.registerLazySingleton<BooksDataSource>(() => driftDataSource);
   sl.registerLazySingleton<ExternalBooksDataSource>(() => ExternalBooks());
   sl.registerLazySingleton<ExternalBookInfoDataSource>(
     () => ScraperDataSource(config: sl()),

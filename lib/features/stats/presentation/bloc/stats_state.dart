@@ -9,7 +9,7 @@ import '../../domain/entities/other_stats_data.dart';
 part 'stats_state.freezed.dart';
 
 @freezed
-class StatsState with _$StatsState {
+abstract class StatsState with _$StatsState {
   const StatsState._(); // enables custom getters/methods if you add any later
 
   const factory StatsState({

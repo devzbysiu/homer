@@ -7,12 +7,12 @@ part of 'settings_dto.dart';
 // **************************************************************************
 
 SettingsDTO _$SettingsDTOFromJson(Map<String, dynamic> json) => SettingsDTO(
-      isSystemThemeOn: json['isSystemThemeOn'] as bool,
-      isDarkThemeOn: json['isDarkThemeOn'] as bool,
-      backupsDirectory: _directoryFromJson(json['backupsDirectory'] as String),
-      bookSizeLimits: _sizeLimitsFromJson(json['bookSizeLimits'] as List),
-      readingGoal: _readingGoalFromJson((json['readingGoal'] as num).toInt()),
-    );
+  isSystemThemeOn: json['isSystemThemeOn'] as bool,
+  isDarkThemeOn: json['isDarkThemeOn'] as bool,
+  backupsDirectory: _directoryFromJson(json['backupsDirectory'] as String),
+  bookSizeLimits: _sizeLimitsFromJson(json['bookSizeLimits'] as List),
+  readingGoal: _readingGoalFromJson((json['readingGoal'] as num).toInt()),
+);
 
 Map<String, dynamic> _$SettingsDTOToJson(SettingsDTO instance) =>
     <String, dynamic>{

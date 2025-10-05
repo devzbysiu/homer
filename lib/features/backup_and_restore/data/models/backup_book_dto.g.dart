@@ -10,8 +10,9 @@ BackupBookDTO _$BackupBookDTOFromJson(Map<String, dynamic> json) =>
     BackupBookDTO(
       title: json['title'] as String,
       subtitle: json['subtitle'] as String,
-      authors:
-          (json['authors'] as List<dynamic>).map((e) => e as String).toList(),
+      authors: (json['authors'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       state: $enumDecode(_$BookStateEnumMap, json['state']),
       pageCount: (json['pageCount'] as num).toInt(),
       isbn: json['isbn'] as String,

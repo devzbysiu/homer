@@ -233,12 +233,8 @@ BookDTO fakeBookDTO() {
     rating: fakeRating(),
     summary: fakeSummary(),
     tags: [
-      TagDTO()
-        ..name = fakeTagName()
-        ..hexColor = fakeTagColor(),
-      TagDTO()
-        ..name = fakeTagName()
-        ..hexColor = fakeTagColor(),
+      TagDTO(name: fakeTagName(), hexColor: fakeTagColor()),
+      TagDTO(name: fakeTagName(), hexColor: fakeTagColor()),
     ],
     startDate: fakeDateMillis(),
     endDate: fakeDateMillis(),

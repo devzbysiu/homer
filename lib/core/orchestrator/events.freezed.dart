@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,142 +9,390 @@ part of 'events.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
-mixin _$RestoreFinished {}
+mixin _$RestoreFinished {
 
-/// @nodoc
-abstract class $RestoreFinishedCopyWith<$Res> {
-  factory $RestoreFinishedCopyWith(
-          RestoreFinished value, $Res Function(RestoreFinished) then) =
-      _$RestoreFinishedCopyWithImpl<$Res, RestoreFinished>;
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RestoreFinished);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'RestoreFinished()';
+}
+
+
 }
 
 /// @nodoc
-class _$RestoreFinishedCopyWithImpl<$Res, $Val extends RestoreFinished>
-    implements $RestoreFinishedCopyWith<$Res> {
-  _$RestoreFinishedCopyWithImpl(this._value, this._then);
+class $RestoreFinishedCopyWith<$Res>  {
+$RestoreFinishedCopyWith(RestoreFinished _, $Res Function(RestoreFinished) __);
+}
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
 
-  /// Create a copy of RestoreFinished
-  /// with the given fields replaced by the non-null parameter values.
+/// Adds pattern-matching-related methods to [RestoreFinished].
+extension RestoreFinishedPatterns on RestoreFinished {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RestoreFinished value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RestoreFinished() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RestoreFinished value)  $default,){
+final _that = this;
+switch (_that) {
+case _RestoreFinished():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RestoreFinished value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RestoreFinished() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function()?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RestoreFinished() when $default != null:
+return $default();case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function()  $default,) {final _that = this;
+switch (_that) {
+case _RestoreFinished():
+return $default();case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function()?  $default,) {final _that = this;
+switch (_that) {
+case _RestoreFinished() when $default != null:
+return $default();case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
-abstract class _$$RestoreFinishedImplCopyWith<$Res> {
-  factory _$$RestoreFinishedImplCopyWith(_$RestoreFinishedImpl value,
-          $Res Function(_$RestoreFinishedImpl) then) =
-      __$$RestoreFinishedImplCopyWithImpl<$Res>;
+
+
+class _RestoreFinished implements RestoreFinished {
+  const _RestoreFinished();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RestoreFinished);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'RestoreFinished()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+mixin _$DeleteBooksFinished {
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteBooksFinished);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'DeleteBooksFinished()';
+}
+
+
 }
 
 /// @nodoc
-class __$$RestoreFinishedImplCopyWithImpl<$Res>
-    extends _$RestoreFinishedCopyWithImpl<$Res, _$RestoreFinishedImpl>
-    implements _$$RestoreFinishedImplCopyWith<$Res> {
-  __$$RestoreFinishedImplCopyWithImpl(
-      _$RestoreFinishedImpl _value, $Res Function(_$RestoreFinishedImpl) _then)
-      : super(_value, _then);
+class $DeleteBooksFinishedCopyWith<$Res>  {
+$DeleteBooksFinishedCopyWith(DeleteBooksFinished _, $Res Function(DeleteBooksFinished) __);
+}
 
-  /// Create a copy of RestoreFinished
-  /// with the given fields replaced by the non-null parameter values.
+
+/// Adds pattern-matching-related methods to [DeleteBooksFinished].
+extension DeleteBooksFinishedPatterns on DeleteBooksFinished {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DeleteBooksFinished value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _DeleteBooksFinished() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DeleteBooksFinished value)  $default,){
+final _that = this;
+switch (_that) {
+case _DeleteBooksFinished():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DeleteBooksFinished value)?  $default,){
+final _that = this;
+switch (_that) {
+case _DeleteBooksFinished() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function()?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _DeleteBooksFinished() when $default != null:
+return $default();case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function()  $default,) {final _that = this;
+switch (_that) {
+case _DeleteBooksFinished():
+return $default();case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function()?  $default,) {final _that = this;
+switch (_that) {
+case _DeleteBooksFinished() when $default != null:
+return $default();case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 
-class _$RestoreFinishedImpl implements _RestoreFinished {
-  const _$RestoreFinishedImpl();
 
-  @override
-  String toString() {
-    return 'RestoreFinished()';
-  }
+class _DeleteBooksFinished implements DeleteBooksFinished {
+  const _DeleteBooksFinished();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RestoreFinishedImpl);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeleteBooksFinished);
 }
 
-abstract class _RestoreFinished implements RestoreFinished {
-  const factory _RestoreFinished() = _$RestoreFinishedImpl;
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'DeleteBooksFinished()';
 }
 
-/// @nodoc
-mixin _$DeleteBooksFinished {}
 
-/// @nodoc
-abstract class $DeleteBooksFinishedCopyWith<$Res> {
-  factory $DeleteBooksFinishedCopyWith(
-          DeleteBooksFinished value, $Res Function(DeleteBooksFinished) then) =
-      _$DeleteBooksFinishedCopyWithImpl<$Res, DeleteBooksFinished>;
 }
 
-/// @nodoc
-class _$DeleteBooksFinishedCopyWithImpl<$Res, $Val extends DeleteBooksFinished>
-    implements $DeleteBooksFinishedCopyWith<$Res> {
-  _$DeleteBooksFinishedCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
 
-  /// Create a copy of DeleteBooksFinished
-  /// with the given fields replaced by the non-null parameter values.
-}
 
-/// @nodoc
-abstract class _$$DeleteBooksFinishedImplCopyWith<$Res> {
-  factory _$$DeleteBooksFinishedImplCopyWith(_$DeleteBooksFinishedImpl value,
-          $Res Function(_$DeleteBooksFinishedImpl) then) =
-      __$$DeleteBooksFinishedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$DeleteBooksFinishedImplCopyWithImpl<$Res>
-    extends _$DeleteBooksFinishedCopyWithImpl<$Res, _$DeleteBooksFinishedImpl>
-    implements _$$DeleteBooksFinishedImplCopyWith<$Res> {
-  __$$DeleteBooksFinishedImplCopyWithImpl(_$DeleteBooksFinishedImpl _value,
-      $Res Function(_$DeleteBooksFinishedImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of DeleteBooksFinished
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$DeleteBooksFinishedImpl implements _DeleteBooksFinished {
-  const _$DeleteBooksFinishedImpl();
-
-  @override
-  String toString() {
-    return 'DeleteBooksFinished()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DeleteBooksFinishedImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-}
-
-abstract class _DeleteBooksFinished implements DeleteBooksFinished {
-  const factory _DeleteBooksFinished() = _$DeleteBooksFinishedImpl;
-}
+// dart format on

@@ -95,8 +95,9 @@ ExternalBookDTO fromBookFinderBook(bf.Book book) {
     subtitle: book.info.subtitle,
     authors: book.info.authors,
     pageCount: book.info.pageCount,
-    industryIdentifiers:
-        book.info.industryIdentifiers.map((isbn) => isbn.identifier).toList(),
+    industryIdentifiers: book.info.industryIdentifiers
+        .map((isbn) => isbn.identifier)
+        .toList(),
     imageLinks: book.info.imageLinks,
     averageRating: book.info.averageRating,
     description: book.info.description,
@@ -141,9 +142,7 @@ List<TagDTO> _toTagDTOs(List<Tag> tags) {
 }
 
 TagDTO _toTagDTO(Tag tag) {
-  return TagDTO()
-    ..name = tag.name
-    ..hexColor = tag.hexColor;
+  return TagDTO(name: tag.name, hexColor: tag.hexColor);
 }
 
 Book bookFromBookDTO(BookDTO bookDTO) {

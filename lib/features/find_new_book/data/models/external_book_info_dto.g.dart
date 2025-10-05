@@ -14,9 +14,9 @@ ExternalBookInfoDTO _$ExternalBookInfoDTOFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ExternalBookInfoDTOToJson(
-        ExternalBookInfoDTO instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'isbn10': _isbnToJson(instance.isbn10),
-      'isbn13': _isbnToJson(instance.isbn13),
-    };
+  ExternalBookInfoDTO instance,
+) => <String, dynamic>{
+  'title': instance.title,
+  'isbn10': _isbnToJson(instance.isbn10),
+  'isbn13': _isbnToJson(instance.isbn13),
+};

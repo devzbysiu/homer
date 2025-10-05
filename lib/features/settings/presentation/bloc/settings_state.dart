@@ -9,7 +9,7 @@ import '../../domain/entities/settings.dart';
 part 'settings_state.freezed.dart';
 
 @freezed
-class SettingsState with _$SettingsState {
+abstract class SettingsState with _$SettingsState {
   const SettingsState._(); // enables instance methods/getters
 
   const factory SettingsState({required Settings settings}) = _SettingsState;

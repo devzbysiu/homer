@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,445 +9,302 @@ part of 'book_summary_event.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$BookSummaryEvent {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() summaryModeClosing,
-    required TResult Function(Book book) summaryModeToggled,
-    required TResult Function() summaryModeClosed,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? summaryModeClosing,
-    TResult? Function(Book book)? summaryModeToggled,
-    TResult? Function()? summaryModeClosed,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? summaryModeClosing,
-    TResult Function(Book book)? summaryModeToggled,
-    TResult Function()? summaryModeClosed,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SummaryModeClosing value) summaryModeClosing,
-    required TResult Function(SummaryModeToggled value) summaryModeToggled,
-    required TResult Function(SummaryModeClosed value) summaryModeClosed,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SummaryModeClosing value)? summaryModeClosing,
-    TResult? Function(SummaryModeToggled value)? summaryModeToggled,
-    TResult? Function(SummaryModeClosed value)? summaryModeClosed,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SummaryModeClosing value)? summaryModeClosing,
-    TResult Function(SummaryModeToggled value)? summaryModeToggled,
-    TResult Function(SummaryModeClosed value)? summaryModeClosed,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookSummaryEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'BookSummaryEvent()';
+}
+
+
 }
 
 /// @nodoc
-abstract class $BookSummaryEventCopyWith<$Res> {
-  factory $BookSummaryEventCopyWith(
-          BookSummaryEvent value, $Res Function(BookSummaryEvent) then) =
-      _$BookSummaryEventCopyWithImpl<$Res, BookSummaryEvent>;
+class $BookSummaryEventCopyWith<$Res>  {
+$BookSummaryEventCopyWith(BookSummaryEvent _, $Res Function(BookSummaryEvent) __);
 }
 
-/// @nodoc
-class _$BookSummaryEventCopyWithImpl<$Res, $Val extends BookSummaryEvent>
-    implements $BookSummaryEventCopyWith<$Res> {
-  _$BookSummaryEventCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+/// Adds pattern-matching-related methods to [BookSummaryEvent].
+extension BookSummaryEventPatterns on BookSummaryEvent {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  /// Create a copy of BookSummaryEvent
-  /// with the given fields replaced by the non-null parameter values.
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SummaryModeClosing value)?  summaryModeClosing,TResult Function( SummaryModeToggled value)?  summaryModeToggled,TResult Function( SummaryModeClosed value)?  summaryModeClosed,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case SummaryModeClosing() when summaryModeClosing != null:
+return summaryModeClosing(_that);case SummaryModeToggled() when summaryModeToggled != null:
+return summaryModeToggled(_that);case SummaryModeClosed() when summaryModeClosed != null:
+return summaryModeClosed(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SummaryModeClosing value)  summaryModeClosing,required TResult Function( SummaryModeToggled value)  summaryModeToggled,required TResult Function( SummaryModeClosed value)  summaryModeClosed,}){
+final _that = this;
+switch (_that) {
+case SummaryModeClosing():
+return summaryModeClosing(_that);case SummaryModeToggled():
+return summaryModeToggled(_that);case SummaryModeClosed():
+return summaryModeClosed(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SummaryModeClosing value)?  summaryModeClosing,TResult? Function( SummaryModeToggled value)?  summaryModeToggled,TResult? Function( SummaryModeClosed value)?  summaryModeClosed,}){
+final _that = this;
+switch (_that) {
+case SummaryModeClosing() when summaryModeClosing != null:
+return summaryModeClosing(_that);case SummaryModeToggled() when summaryModeToggled != null:
+return summaryModeToggled(_that);case SummaryModeClosed() when summaryModeClosed != null:
+return summaryModeClosed(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  summaryModeClosing,TResult Function( Book book)?  summaryModeToggled,TResult Function()?  summaryModeClosed,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case SummaryModeClosing() when summaryModeClosing != null:
+return summaryModeClosing();case SummaryModeToggled() when summaryModeToggled != null:
+return summaryModeToggled(_that.book);case SummaryModeClosed() when summaryModeClosed != null:
+return summaryModeClosed();case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  summaryModeClosing,required TResult Function( Book book)  summaryModeToggled,required TResult Function()  summaryModeClosed,}) {final _that = this;
+switch (_that) {
+case SummaryModeClosing():
+return summaryModeClosing();case SummaryModeToggled():
+return summaryModeToggled(_that.book);case SummaryModeClosed():
+return summaryModeClosed();}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  summaryModeClosing,TResult? Function( Book book)?  summaryModeToggled,TResult? Function()?  summaryModeClosed,}) {final _that = this;
+switch (_that) {
+case SummaryModeClosing() when summaryModeClosing != null:
+return summaryModeClosing();case SummaryModeToggled() when summaryModeToggled != null:
+return summaryModeToggled(_that.book);case SummaryModeClosed() when summaryModeClosed != null:
+return summaryModeClosed();case _:
+  return null;
+
+}
 }
 
-/// @nodoc
-abstract class _$$SummaryModeClosingImplCopyWith<$Res> {
-  factory _$$SummaryModeClosingImplCopyWith(_$SummaryModeClosingImpl value,
-          $Res Function(_$SummaryModeClosingImpl) then) =
-      __$$SummaryModeClosingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$SummaryModeClosingImplCopyWithImpl<$Res>
-    extends _$BookSummaryEventCopyWithImpl<$Res, _$SummaryModeClosingImpl>
-    implements _$$SummaryModeClosingImplCopyWith<$Res> {
-  __$$SummaryModeClosingImplCopyWithImpl(_$SummaryModeClosingImpl _value,
-      $Res Function(_$SummaryModeClosingImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of BookSummaryEvent
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$SummaryModeClosingImpl implements SummaryModeClosing {
-  const _$SummaryModeClosingImpl();
-
-  @override
-  String toString() {
-    return 'BookSummaryEvent.summaryModeClosing()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SummaryModeClosingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() summaryModeClosing,
-    required TResult Function(Book book) summaryModeToggled,
-    required TResult Function() summaryModeClosed,
-  }) {
-    return summaryModeClosing();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? summaryModeClosing,
-    TResult? Function(Book book)? summaryModeToggled,
-    TResult? Function()? summaryModeClosed,
-  }) {
-    return summaryModeClosing?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? summaryModeClosing,
-    TResult Function(Book book)? summaryModeToggled,
-    TResult Function()? summaryModeClosed,
-    required TResult orElse(),
-  }) {
-    if (summaryModeClosing != null) {
-      return summaryModeClosing();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SummaryModeClosing value) summaryModeClosing,
-    required TResult Function(SummaryModeToggled value) summaryModeToggled,
-    required TResult Function(SummaryModeClosed value) summaryModeClosed,
-  }) {
-    return summaryModeClosing(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SummaryModeClosing value)? summaryModeClosing,
-    TResult? Function(SummaryModeToggled value)? summaryModeToggled,
-    TResult? Function(SummaryModeClosed value)? summaryModeClosed,
-  }) {
-    return summaryModeClosing?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SummaryModeClosing value)? summaryModeClosing,
-    TResult Function(SummaryModeToggled value)? summaryModeToggled,
-    TResult Function(SummaryModeClosed value)? summaryModeClosed,
-    required TResult orElse(),
-  }) {
-    if (summaryModeClosing != null) {
-      return summaryModeClosing(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SummaryModeClosing implements BookSummaryEvent {
-  const factory SummaryModeClosing() = _$SummaryModeClosingImpl;
-}
-
-/// @nodoc
-abstract class _$$SummaryModeToggledImplCopyWith<$Res> {
-  factory _$$SummaryModeToggledImplCopyWith(_$SummaryModeToggledImpl value,
-          $Res Function(_$SummaryModeToggledImpl) then) =
-      __$$SummaryModeToggledImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Book book});
-}
-
-/// @nodoc
-class __$$SummaryModeToggledImplCopyWithImpl<$Res>
-    extends _$BookSummaryEventCopyWithImpl<$Res, _$SummaryModeToggledImpl>
-    implements _$$SummaryModeToggledImplCopyWith<$Res> {
-  __$$SummaryModeToggledImplCopyWithImpl(_$SummaryModeToggledImpl _value,
-      $Res Function(_$SummaryModeToggledImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of BookSummaryEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? book = null,
-  }) {
-    return _then(_$SummaryModeToggledImpl(
-      null == book
-          ? _value.book
-          : book // ignore: cast_nullable_to_non_nullable
-              as Book,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$SummaryModeToggledImpl implements SummaryModeToggled {
-  const _$SummaryModeToggledImpl(this.book);
 
-  @override
-  final Book book;
+class SummaryModeClosing implements BookSummaryEvent {
+  const SummaryModeClosing();
+  
 
-  @override
-  String toString() {
-    return 'BookSummaryEvent.summaryModeToggled(book: $book)';
-  }
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SummaryModeToggledImpl &&
-            (identical(other.book, book) || other.book == book));
-  }
 
-  @override
-  int get hashCode => Object.hash(runtimeType, book);
 
-  /// Create a copy of BookSummaryEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SummaryModeToggledImplCopyWith<_$SummaryModeToggledImpl> get copyWith =>
-      __$$SummaryModeToggledImplCopyWithImpl<_$SummaryModeToggledImpl>(
-          this, _$identity);
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() summaryModeClosing,
-    required TResult Function(Book book) summaryModeToggled,
-    required TResult Function() summaryModeClosed,
-  }) {
-    return summaryModeToggled(book);
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? summaryModeClosing,
-    TResult? Function(Book book)? summaryModeToggled,
-    TResult? Function()? summaryModeClosed,
-  }) {
-    return summaryModeToggled?.call(book);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? summaryModeClosing,
-    TResult Function(Book book)? summaryModeToggled,
-    TResult Function()? summaryModeClosed,
-    required TResult orElse(),
-  }) {
-    if (summaryModeToggled != null) {
-      return summaryModeToggled(book);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SummaryModeClosing value) summaryModeClosing,
-    required TResult Function(SummaryModeToggled value) summaryModeToggled,
-    required TResult Function(SummaryModeClosed value) summaryModeClosed,
-  }) {
-    return summaryModeToggled(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SummaryModeClosing value)? summaryModeClosing,
-    TResult? Function(SummaryModeToggled value)? summaryModeToggled,
-    TResult? Function(SummaryModeClosed value)? summaryModeClosed,
-  }) {
-    return summaryModeToggled?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SummaryModeClosing value)? summaryModeClosing,
-    TResult Function(SummaryModeToggled value)? summaryModeToggled,
-    TResult Function(SummaryModeClosed value)? summaryModeClosed,
-    required TResult orElse(),
-  }) {
-    if (summaryModeToggled != null) {
-      return summaryModeToggled(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SummaryModeClosing);
 }
 
-abstract class SummaryModeToggled implements BookSummaryEvent {
-  const factory SummaryModeToggled(final Book book) = _$SummaryModeToggledImpl;
 
-  Book get book;
+@override
+int get hashCode => runtimeType.hashCode;
 
-  /// Create a copy of BookSummaryEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SummaryModeToggledImplCopyWith<_$SummaryModeToggledImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+String toString() {
+  return 'BookSummaryEvent.summaryModeClosing()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class SummaryModeToggled implements BookSummaryEvent {
+  const SummaryModeToggled(this.book);
+  
+
+ final  Book book;
+
+/// Create a copy of BookSummaryEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SummaryModeToggledCopyWith<SummaryModeToggled> get copyWith => _$SummaryModeToggledCopyWithImpl<SummaryModeToggled>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SummaryModeToggled&&(identical(other.book, book) || other.book == book));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,book);
+
+@override
+String toString() {
+  return 'BookSummaryEvent.summaryModeToggled(book: $book)';
+}
+
+
 }
 
 /// @nodoc
-abstract class _$$SummaryModeClosedImplCopyWith<$Res> {
-  factory _$$SummaryModeClosedImplCopyWith(_$SummaryModeClosedImpl value,
-          $Res Function(_$SummaryModeClosedImpl) then) =
-      __$$SummaryModeClosedImplCopyWithImpl<$Res>;
+abstract mixin class $SummaryModeToggledCopyWith<$Res> implements $BookSummaryEventCopyWith<$Res> {
+  factory $SummaryModeToggledCopyWith(SummaryModeToggled value, $Res Function(SummaryModeToggled) _then) = _$SummaryModeToggledCopyWithImpl;
+@useResult
+$Res call({
+ Book book
+});
+
+
+
+
+}
+/// @nodoc
+class _$SummaryModeToggledCopyWithImpl<$Res>
+    implements $SummaryModeToggledCopyWith<$Res> {
+  _$SummaryModeToggledCopyWithImpl(this._self, this._then);
+
+  final SummaryModeToggled _self;
+  final $Res Function(SummaryModeToggled) _then;
+
+/// Create a copy of BookSummaryEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? book = null,}) {
+  return _then(SummaryModeToggled(
+null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
+as Book,
+  ));
 }
 
-/// @nodoc
-class __$$SummaryModeClosedImplCopyWithImpl<$Res>
-    extends _$BookSummaryEventCopyWithImpl<$Res, _$SummaryModeClosedImpl>
-    implements _$$SummaryModeClosedImplCopyWith<$Res> {
-  __$$SummaryModeClosedImplCopyWithImpl(_$SummaryModeClosedImpl _value,
-      $Res Function(_$SummaryModeClosedImpl) _then)
-      : super(_value, _then);
 
-  /// Create a copy of BookSummaryEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
-class _$SummaryModeClosedImpl implements SummaryModeClosed {
-  const _$SummaryModeClosedImpl();
 
-  @override
-  String toString() {
-    return 'BookSummaryEvent.summaryModeClosed()';
-  }
+class SummaryModeClosed implements BookSummaryEvent {
+  const SummaryModeClosed();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SummaryModeClosedImpl);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() summaryModeClosing,
-    required TResult Function(Book book) summaryModeToggled,
-    required TResult Function() summaryModeClosed,
-  }) {
-    return summaryModeClosed();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? summaryModeClosing,
-    TResult? Function(Book book)? summaryModeToggled,
-    TResult? Function()? summaryModeClosed,
-  }) {
-    return summaryModeClosed?.call();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? summaryModeClosing,
-    TResult Function(Book book)? summaryModeToggled,
-    TResult Function()? summaryModeClosed,
-    required TResult orElse(),
-  }) {
-    if (summaryModeClosed != null) {
-      return summaryModeClosed();
-    }
-    return orElse();
-  }
 
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SummaryModeClosing value) summaryModeClosing,
-    required TResult Function(SummaryModeToggled value) summaryModeToggled,
-    required TResult Function(SummaryModeClosed value) summaryModeClosed,
-  }) {
-    return summaryModeClosed(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SummaryModeClosing value)? summaryModeClosing,
-    TResult? Function(SummaryModeToggled value)? summaryModeToggled,
-    TResult? Function(SummaryModeClosed value)? summaryModeClosed,
-  }) {
-    return summaryModeClosed?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SummaryModeClosing value)? summaryModeClosing,
-    TResult Function(SummaryModeToggled value)? summaryModeToggled,
-    TResult Function(SummaryModeClosed value)? summaryModeClosed,
-    required TResult orElse(),
-  }) {
-    if (summaryModeClosed != null) {
-      return summaryModeClosed(this);
-    }
-    return orElse();
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SummaryModeClosed);
 }
 
-abstract class SummaryModeClosed implements BookSummaryEvent {
-  const factory SummaryModeClosed() = _$SummaryModeClosedImpl;
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'BookSummaryEvent.summaryModeClosed()';
 }
+
+
+}
+
+
+
+
+// dart format on

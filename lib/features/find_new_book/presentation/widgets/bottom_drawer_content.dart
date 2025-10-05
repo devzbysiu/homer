@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 
 import '../../../../core/entities/book.dart';
 import '../../../../core/entities/tag.dart';
@@ -33,62 +32,102 @@ part 'save_buttons.dart';
 part 'search_suggestions.dart';
 part 'tags.dart';
 
-final class BottomDrawerContent extends StatefulBusWidget {
-  BottomDrawerContent({super.key, super.bus});
+class BottomDrawerContent extends StatefulWidget {
+  const BottomDrawerContent({super.key});
 
   @override
   State<BottomDrawerContent> createState() => _BottomDrawerContentState();
 }
 
-final class _BottomDrawerContentState extends State<BottomDrawerContent> {
-  _BottomDrawerContentState();
-
-  final FloatingSearchBarController _controller = FloatingSearchBarController();
+class _BottomDrawerContentState extends State<BottomDrawerContent> {
+  final _controller = SearchController();
+  bool _showPanel = false;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BookSearchBloc, BookSearchState>(
-      builder: (context, state) {
-        if (state.isSuggestionPicked) _controller.close();
-        if (state.isShareOffloaded) {
-          _controller.open();
-          widget.fire(SearchEvent.resetShareOffloaded());
-        }
-
-        return Animate(
-          // NOTE: `FadeEffect` make the widget rendering delayed. This solves the
-          //  issue with render overflow when the drawer is in the process of opening.
-          //  After it's opened, the overflow is not happening.
-          effects: const [FadeEffect(duration: Duration(milliseconds: 500))],
-          child: FloatingSearchBar(
-            accentColor: context.primary,
-            progress: state.isSearching,
+    // top-pinned, non-expanding container so it doesn’t center in the sheet
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // The input (no SearchAnchor route)
+          SearchBar(
             controller: _controller,
-            body: const _PickedBookArea(),
-            backgroundColor: context.lightBackground,
-            backdropColor: Colors.transparent,
-            hint: 'Search...',
-            scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-            transitionCurve: Curves.easeInOut,
-            physics: const BouncingScrollPhysics(),
-            axisAlignment: 0.0,
-            openAxisAlignment: 0.0,
-            debounceDelay: const Duration(milliseconds: 600),
-            onQueryChanged: (q) => widget.fire(SearchEvent.searching(query: q)),
-            transition: CircularFloatingSearchBarTransition(),
-            actions: [
-              FloatingSearchBarAction.searchToClear(showIfClosed: false),
+            hintText: 'Filter...',
+            shape: const WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+            ),
+            constraints: BoxConstraints(minHeight: 50, maxHeight: 50),
+            padding: const WidgetStatePropertyAll(
+              EdgeInsets.symmetric(horizontal: 12),
+            ),
+            leading: const Icon(Icons.search),
+            trailing: [
+              IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  setState(() => _showPanel = false);
+                  _controller.clear();
+                },
+              ),
             ],
-            builder: (_, _) => const _SearchSuggestions(),
+            onChanged: (q) {
+              context.read<BookSearchBloc>().add(
+                SearchEvent.searching(query: q),
+              );
+              setState(() => _showPanel = q.isNotEmpty);
+            },
           ),
-        );
-      },
-    );
-  }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
+          // Inline suggestions panel that never leaves the sheet
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 180),
+            child: !_showPanel
+                ? const SizedBox.shrink()
+                : ConstrainedBox(
+                    constraints: const BoxConstraints(maxHeight: 320),
+                    child: Material(
+                      elevation: 3,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: BlocBuilder<BookSearchBloc, BookSearchState>(
+                        builder: (context, state) {
+                          final items = state.foundBooks;
+                          if (items.isEmpty) {
+                            return const SizedBox.shrink();
+                          }
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            itemCount: items.length,
+                            itemBuilder: (context, i) {
+                              final s = items[i];
+                              return ListTile(
+                                title: Text(s.title),
+                                onTap: () {
+                                  setState(() => _showPanel = false);
+                                  // close + apply
+                                  _controller.text = s.title;
+                                  context.read<BookSearchBloc>().add(
+                                    SearchEvent.suggestionPicked(pickedBook: s),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+          ),
+        ],
+      ),
+    );
   }
 }

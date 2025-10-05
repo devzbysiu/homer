@@ -61,7 +61,16 @@ final class _BottomNavBarState extends State<BottomNavBar> {
         mainActionButtonBuilder: _mainActionButton,
         bottomBarTheme: _bottomBarTheme(context),
         onSelectItem: (idx) => _changeTab(idx),
-        sheetChild: BottomDrawerContent(),
+        sheetChild: SafeArea(
+          top: false,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              child: BottomDrawerContent(),
+            ),
+          ),
+        ),
         items: [
           _item('Read Later', Icons.bookmark_outline),
           _item('Reading', Icons.book_outlined),

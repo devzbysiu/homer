@@ -1,6 +1,6 @@
 scripts:
   start:
-    prod: rps backup && ./tools/ctl.sh run prod
+    prod: ./tools/ctl.sh run prod
     dev: ./tools/ctl.sh run dev
   install:
     release: rps backup && ./tools/ctl.sh install prod

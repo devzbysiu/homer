@@ -34,14 +34,12 @@ final class ReadingGoalSliderState extends State<ReadingGoalSlider> {
           padding: const EdgeInsets.only(top: 13),
           child: Slider(
             value: componentReadingGoal!.books.toDouble(),
-            onChanged:
-                (value) => setState(() {
-                  componentReadingGoal = ReadingGoal(books: value.toInt());
-                }),
-            onChangeEnd:
-                (value) => widget.fire(
-                  ReadingGoalChanged(ReadingGoal(books: value.toInt())),
-                ),
+            onChanged: (value) => setState(() {
+              componentReadingGoal = ReadingGoal(books: value.toInt());
+            }),
+            onChangeEnd: (value) => widget.fire(
+              ReadingGoalChanged(ReadingGoal(books: value.toInt())),
+            ),
             min: 0,
             max: 30,
             divisions: 30,

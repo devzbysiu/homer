@@ -27,26 +27,23 @@ void main() {
 
     blocTest<StatsBloc, StatsState>(
       'should emit loaded with loaded stats on start',
-      build:
-          () =>
-              BlocMock()
-                  .onLoadStats(
-                    Success(booksPerYear),
-                    Success(booksPerMonth),
-                    Success(booksPerState),
-                    Success(otherStats),
-                  )
-                  .get(),
+      build: () => BlocMock()
+          .onLoadStats(
+            Success(booksPerYear),
+            Success(booksPerMonth),
+            Success(booksPerState),
+            Success(otherStats),
+          )
+          .get(),
       act: (bloc) => bloc.add(LoadStats()),
-      expect:
-          () => [
-            StatsState.loaded(
-              booksPerYear: booksPerYear,
-              booksPerMonth: booksPerMonth,
-              booksPerState: booksPerState,
-              otherStats: otherStats,
-            ),
-          ],
+      expect: () => [
+        StatsState.loaded(
+          booksPerYear: booksPerYear,
+          booksPerMonth: booksPerMonth,
+          booksPerState: booksPerState,
+          otherStats: otherStats,
+        ),
+      ],
       verify: (bloc) {
         verify(bloc.loadBooksPerYear(NoParams()));
         verify(bloc.loadBooksPerMonth(NoParams()));
@@ -57,16 +54,14 @@ void main() {
 
     blocTest<StatsBloc, StatsState>(
       'should emit loadFailed when loading bpy fails but other stats work',
-      build:
-          () =>
-              BlocMock()
-                  .onLoadStats(
-                    Error(TestingFailure()),
-                    Success(booksPerMonth),
-                    Success(booksPerState),
-                    Success(otherStats),
-                  )
-                  .get(),
+      build: () => BlocMock()
+          .onLoadStats(
+            Error(TestingFailure()),
+            Success(booksPerMonth),
+            Success(booksPerState),
+            Success(otherStats),
+          )
+          .get(),
       act: (bloc) => bloc.add(LoadStats()),
       expect: () => [StatsState.loadFailed()],
       verify: (bloc) {
@@ -79,16 +74,14 @@ void main() {
 
     blocTest<StatsBloc, StatsState>(
       'should emit loadFailed when loading bpm fails but other stats work',
-      build:
-          () =>
-              BlocMock()
-                  .onLoadStats(
-                    Success(booksPerYear),
-                    Error(TestingFailure()),
-                    Success(booksPerState),
-                    Success(otherStats),
-                  )
-                  .get(),
+      build: () => BlocMock()
+          .onLoadStats(
+            Success(booksPerYear),
+            Error(TestingFailure()),
+            Success(booksPerState),
+            Success(otherStats),
+          )
+          .get(),
       act: (bloc) => bloc.add(LoadStats()),
       expect: () => [StatsState.loadFailed()],
       verify: (bloc) {
@@ -101,16 +94,14 @@ void main() {
 
     blocTest<StatsBloc, StatsState>(
       'should emit loadFailed when loading bps fails but other stats work',
-      build:
-          () =>
-              BlocMock()
-                  .onLoadStats(
-                    Success(booksPerYear),
-                    Success(booksPerMonth),
-                    Error(TestingFailure()),
-                    Success(otherStats),
-                  )
-                  .get(),
+      build: () => BlocMock()
+          .onLoadStats(
+            Success(booksPerYear),
+            Success(booksPerMonth),
+            Error(TestingFailure()),
+            Success(otherStats),
+          )
+          .get(),
       act: (bloc) => bloc.add(LoadStats()),
       expect: () => [StatsState.loadFailed()],
       verify: (bloc) {
@@ -123,16 +114,14 @@ void main() {
 
     blocTest<StatsBloc, StatsState>(
       'should emit loadFailed when loading os fails but other stats work',
-      build:
-          () =>
-              BlocMock()
-                  .onLoadStats(
-                    Success(booksPerYear),
-                    Success(booksPerMonth),
-                    Success(booksPerState),
-                    Error(TestingFailure()),
-                  )
-                  .get(),
+      build: () => BlocMock()
+          .onLoadStats(
+            Success(booksPerYear),
+            Success(booksPerMonth),
+            Success(booksPerState),
+            Error(TestingFailure()),
+          )
+          .get(),
       act: (bloc) => bloc.add(LoadStats()),
       expect: () => [StatsState.loadFailed()],
       verify: (bloc) {
@@ -153,27 +142,22 @@ void main() {
 
     blocTest<StatsBloc, StatsState>(
       'should emit loaded with updated stats',
-      seed:
-          () => StatsState(
-            booksPerYear: some(booksPerYear),
-            booksPerMonth: some(booksPerMonth),
-            booksPerState: some(booksPerState),
-            otherStats: some(otherStats),
-          ),
+      seed: () => StatsState(
+        booksPerYear: some(booksPerYear),
+        booksPerMonth: some(booksPerMonth),
+        booksPerState: some(booksPerState),
+        otherStats: some(otherStats),
+      ),
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(BookFinished(book)),
-      expect:
-          () => [
-            StatsState.loaded(
-              booksPerYear: booksPerYear.add(book),
-              booksPerMonth: booksPerMonth.add(book),
-              booksPerState: booksPerState.move(
-                BookState.reading,
-                BookState.read,
-              ),
-              otherStats: otherStats.add(book),
-            ),
-          ],
+      expect: () => [
+        StatsState.loaded(
+          booksPerYear: booksPerYear.add(book),
+          booksPerMonth: booksPerMonth.add(book),
+          booksPerState: booksPerState.move(BookState.reading, BookState.read),
+          otherStats: otherStats.add(book),
+        ),
+      ],
     );
   });
 
@@ -186,27 +170,22 @@ void main() {
 
     blocTest<StatsBloc, StatsState>(
       'should emit loaded with undone finish book with updated stats',
-      seed:
-          () => StatsState(
-            booksPerYear: some(booksPerYear),
-            booksPerMonth: some(booksPerMonth),
-            booksPerState: some(booksPerState),
-            otherStats: some(otherStats),
-          ),
+      seed: () => StatsState(
+        booksPerYear: some(booksPerYear),
+        booksPerMonth: some(booksPerMonth),
+        booksPerState: some(booksPerState),
+        otherStats: some(otherStats),
+      ),
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(BookUnfinished(book)),
-      expect:
-          () => [
-            StatsState.loaded(
-              booksPerYear: booksPerYear.remove(book),
-              booksPerMonth: booksPerMonth.remove(book),
-              booksPerState: booksPerState.move(
-                BookState.read,
-                BookState.reading,
-              ),
-              otherStats: otherStats.remove(book),
-            ),
-          ],
+      expect: () => [
+        StatsState.loaded(
+          booksPerYear: booksPerYear.remove(book),
+          booksPerMonth: booksPerMonth.remove(book),
+          booksPerState: booksPerState.move(BookState.read, BookState.reading),
+          otherStats: otherStats.remove(book),
+        ),
+      ],
     );
   });
 }

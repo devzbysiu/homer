@@ -22,25 +22,21 @@ void main() {
       'should emit deletionList with book if it was not on the list before',
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(DeleteModeToggled(book)),
-      expect:
-          () => [
-            DeleteBooksState.deletionList([book]),
-          ],
+      expect: () => [
+        DeleteBooksState.deletionList([book]),
+      ],
     );
 
     blocTest<DeleteBooksBloc, DeleteBooksState>(
       'should emit deletionList without book if it was on the list before',
       build: () => BlocMock().allWorking(),
-      act:
-          (bloc) =>
-              bloc
-                ..add(DeleteModeToggled(book))
-                ..add(DeleteModeToggled(book)),
-      expect:
-          () => [
-            DeleteBooksState.deletionList([book]),
-            DeleteBooksState.deletionList([]),
-          ],
+      act: (bloc) => bloc
+        ..add(DeleteModeToggled(book))
+        ..add(DeleteModeToggled(book)),
+      expect: () => [
+        DeleteBooksState.deletionList([book]),
+        DeleteBooksState.deletionList([]),
+      ],
     );
   });
 
@@ -61,16 +57,13 @@ void main() {
     blocTest<DeleteBooksBloc, DeleteBooksState>(
       'should emit booksRemoved on success',
       build: () => BlocMock().allWorking(),
-      act:
-          (bloc) =>
-              bloc
-                ..add(DeleteModeToggled(book))
-                ..add(DeletePickedBooks()),
-      expect:
-          () => [
-            DeleteBooksState.deletionList([book]),
-            DeleteBooksState.booksRemoved(),
-          ],
+      act: (bloc) => bloc
+        ..add(DeleteModeToggled(book))
+        ..add(DeletePickedBooks()),
+      expect: () => [
+        DeleteBooksState.deletionList([book]),
+        DeleteBooksState.booksRemoved(),
+      ],
       verify: (bloc) {
         verify(bloc.deleteBooks(DeleteParams(books: [book])));
         verify(bloc.eventBus.fire(DeleteBooksFinished()));
@@ -80,16 +73,13 @@ void main() {
     blocTest<DeleteBooksBloc, DeleteBooksState>(
       'should emit deletionFailed on failure',
       build: () => BlocMock().onDeleteBooks(Error(TestingFailure())).get(),
-      act:
-          (bloc) =>
-              bloc
-                ..add(DeleteModeToggled(book))
-                ..add(DeletePickedBooks()),
-      expect:
-          () => [
-            DeleteBooksState.deletionList([book]),
-            DeleteBooksState.deletionFailed(),
-          ],
+      act: (bloc) => bloc
+        ..add(DeleteModeToggled(book))
+        ..add(DeletePickedBooks()),
+      expect: () => [
+        DeleteBooksState.deletionList([book]),
+        DeleteBooksState.deletionFailed(),
+      ],
       verify: (bloc) {
         verify(bloc.deleteBooks(DeleteParams(books: [book])));
         verifyNever(bloc.eventBus.fire(DeleteBooksFinished()));

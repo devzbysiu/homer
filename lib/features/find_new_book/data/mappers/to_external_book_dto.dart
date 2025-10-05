@@ -8,8 +8,9 @@ ExternalBookDTO toExternalBookDTO(Book book) {
     subtitle: book.info.subtitle,
     authors: book.info.authors,
     pageCount: book.info.pageCount,
-    industryIdentifiers:
-        book.info.industryIdentifiers.map((isbn) => isbn.identifier).toList(),
+    industryIdentifiers: book.info.industryIdentifiers
+        .map((isbn) => isbn.identifier)
+        .toList(),
     imageLinks: book.info.imageLinks,
     averageRating: book.info.averageRating,
     description: book.info.description,

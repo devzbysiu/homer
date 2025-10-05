@@ -14,16 +14,13 @@ void main() {
     blocTest<OnBookTagsBloc, BookTagsState>(
       'should emit selected tags with all tags selected so far',
       build: () => OnBookTagsBloc(),
-      act:
-          (bloc) =>
-              bloc
-                ..add(TagSelected(tag1))
-                ..add(TagSelected(tag2)),
-      expect:
-          () => [
-            BookTagsState.tagsSelected([tag1]),
-            BookTagsState.tagsSelected([tag1, tag2]),
-          ],
+      act: (bloc) => bloc
+        ..add(TagSelected(tag1))
+        ..add(TagSelected(tag2)),
+      expect: () => [
+        BookTagsState.tagsSelected([tag1]),
+        BookTagsState.tagsSelected([tag1, tag2]),
+      ],
     );
   });
 
@@ -34,18 +31,15 @@ void main() {
     blocTest<OnBookTagsBloc, BookTagsState>(
       'should emit tagsSelected with removed deselected tag',
       build: () => OnBookTagsBloc(),
-      act:
-          (bloc) =>
-              bloc
-                ..add(TagSelected(tag1))
-                ..add(TagSelected(tag2))
-                ..add(TagDeselected(tag1)),
-      expect:
-          () => [
-            BookTagsState.tagsSelected([tag1]),
-            BookTagsState.tagsSelected([tag1, tag2]),
-            BookTagsState.tagsSelected([tag2]),
-          ],
+      act: (bloc) => bloc
+        ..add(TagSelected(tag1))
+        ..add(TagSelected(tag2))
+        ..add(TagDeselected(tag1)),
+      expect: () => [
+        BookTagsState.tagsSelected([tag1]),
+        BookTagsState.tagsSelected([tag1, tag2]),
+        BookTagsState.tagsSelected([tag2]),
+      ],
     );
   });
 
@@ -55,16 +49,13 @@ void main() {
     blocTest<OnBookTagsBloc, BookTagsState>(
       'should emit empty',
       build: () => OnBookTagsBloc(),
-      act:
-          (bloc) =>
-              bloc
-                ..add(TagSelected(tag))
-                ..add(ClearSelectedTags()),
-      expect:
-          () => [
-            BookTagsState.tagsSelected([tag]),
-            const BookTagsState.empty(),
-          ],
+      act: (bloc) => bloc
+        ..add(TagSelected(tag))
+        ..add(ClearSelectedTags()),
+      expect: () => [
+        BookTagsState.tagsSelected([tag]),
+        const BookTagsState.empty(),
+      ],
     );
   });
 }

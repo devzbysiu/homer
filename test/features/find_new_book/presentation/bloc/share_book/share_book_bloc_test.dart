@@ -30,24 +30,22 @@ void main() {
       'should emit fetchingDetailsFailed when fetching shared book info failed',
       build: () => BlocMock().onFetchSharedBookInfo(Error(failure)).get(),
       act: (bloc) => bloc.add(ShareBookEvent.bookSharedFromOutside(url)),
-      expect:
-          () => [
-            const ShareBookState.fetchingSharedBookDetails(),
-            ShareBookState.fetchingDetailsFailed(cause: failure.userMessage()),
-          ],
-      verify:
-          (bloc) => verify(bloc.fetchSharedBookInfo(FetchInfoParams(url: url))),
+      expect: () => [
+        const ShareBookState.fetchingSharedBookDetails(),
+        ShareBookState.fetchingDetailsFailed(cause: failure.userMessage()),
+      ],
+      verify: (bloc) =>
+          verify(bloc.fetchSharedBookInfo(FetchInfoParams(url: url))),
     );
 
     blocTest<ShareBookBloc, ShareBookState>(
       'should fire ShareOffloaded and go back to initial state when no isbn in book info',
       build: () => BlocMock().onFetchSharedBookInfo(Success(noIsbnBI)).get(),
       act: (bloc) => bloc.add(ShareBookEvent.bookSharedFromOutside(url)),
-      expect:
-          () => const [
-            ShareBookState.fetchingSharedBookDetails(),
-            ShareBookState.initial(),
-          ],
+      expect: () => const [
+        ShareBookState.fetchingSharedBookDetails(),
+        ShareBookState.initial(),
+      ],
       verify: (bloc) {
         verify(bloc.fetchSharedBookInfo(FetchInfoParams(url: url)));
         verify(
@@ -58,18 +56,15 @@ void main() {
 
     blocTest<ShareBookBloc, ShareBookState>(
       'should emit fetchingSharedBookDetails and fetchingDetailsFailed on failure of fetching book details',
-      build:
-          () =>
-              BlocMock()
-                  .onFetchSharedBookInfo(Success(bookInfo))
-                  .onFetchSharedBook(Error(failure))
-                  .get(),
+      build: () => BlocMock()
+          .onFetchSharedBookInfo(Success(bookInfo))
+          .onFetchSharedBook(Error(failure))
+          .get(),
       act: (bloc) => bloc.add(ShareBookEvent.bookSharedFromOutside(url)),
-      expect:
-          () => [
-            const ShareBookState.fetchingSharedBookDetails(),
-            ShareBookState.fetchingDetailsFailed(cause: failure.userMessage()),
-          ],
+      expect: () => [
+        const ShareBookState.fetchingSharedBookDetails(),
+        ShareBookState.fetchingDetailsFailed(cause: failure.userMessage()),
+      ],
       verify: (bloc) {
         verify(bloc.fetchSharedBookInfo(FetchInfoParams(url: url)));
         verify(
@@ -82,18 +77,15 @@ void main() {
 
     blocTest<ShareBookBloc, ShareBookState>(
       'should emit fetchingSharedBookDetails and bookShared on success',
-      build:
-          () =>
-              BlocMock()
-                  .onFetchSharedBookInfo(Success(bookInfo))
-                  .onFetchSharedBook(Success(pickedBook))
-                  .get(),
+      build: () => BlocMock()
+          .onFetchSharedBookInfo(Success(bookInfo))
+          .onFetchSharedBook(Success(pickedBook))
+          .get(),
       act: (bloc) => bloc.add(ShareBookEvent.bookSharedFromOutside(url)),
-      expect:
-          () => [
-            const ShareBookState.fetchingSharedBookDetails(),
-            ShareBookState.bookShared(book: pickedBook),
-          ],
+      expect: () => [
+        const ShareBookState.fetchingSharedBookDetails(),
+        ShareBookState.bookShared(book: pickedBook),
+      ],
       verify: (bloc) {
         verify(bloc.fetchSharedBookInfo(FetchInfoParams(url: url)));
         verify(

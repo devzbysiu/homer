@@ -32,13 +32,12 @@ final _observer = _BufferingObserver();
 
 // Use TalkerFlutter.init() in normal runs (pretty, OS-aware console output).
 // In tests, disable console output and buffer everything via the observer.
-final log =
-    _inTest
-        ? Talker(
-          settings: TalkerSettings(useConsoleLogs: false),
-          observer: _observer,
-        )
-        : TalkerFlutter.init();
+final log = _inTest
+    ? Talker(
+        settings: TalkerSettings(useConsoleLogs: false),
+        observer: _observer,
+      )
+    : TalkerFlutter.init();
 
 String takeTestLogs() => _observer.take();
 

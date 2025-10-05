@@ -152,8 +152,9 @@ final class _DropCapText extends StatelessWidget {
         if (rows > 0) {
           textPainter.layout(maxWidth: boundsWidth);
           double yPos = rows * lineHeight;
-          int charIndex =
-              textPainter.getPositionForOffset(Offset(0, yPos)).offset;
+          int charIndex = textPainter
+              .getPositionForOffset(Offset(0, yPos))
+              .offset;
           textPainter.maxLines = rows;
           textPainter.layout(maxWidth: boundsWidth);
           if (textPainter.didExceedMaxLines) charIndexEnd = charIndex;

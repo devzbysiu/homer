@@ -18,7 +18,10 @@ GoRouter router() {
         routes: [
           GoRoute(path: 'settings', builder: (_, _) => SettingsScreen()),
           GoRoute(path: 'stats', builder: (_, _) => const StatsScreen()),
-          GoRoute(path: 'logs', builder: (_, _) => TalkerScreen(talker: log)),
+          GoRoute(
+            path: 'logs',
+            builder: (_, _) => TalkerScreen(talker: log),
+          ),
         ],
       ),
     ],

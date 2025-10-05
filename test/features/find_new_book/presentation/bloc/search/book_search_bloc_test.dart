@@ -26,67 +26,61 @@ void main() {
       'should emit searchFinished with zero found books when query is empty',
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(SearchEvent.searching(query: emptyQuery)),
-      expect:
-          () => [
-            const BookSearchState(
-              foundBooks: [],
-              pickedBook: None(),
-              mode: BookSearchMode.searchFinished,
-              searchFailureCause: None(),
-            ),
-          ],
-      verify:
-          (bloc) => verifyNever(
-            bloc.searchForBooks(const SearchParams(query: emptyQuery)),
-          ),
+      expect: () => [
+        const BookSearchState(
+          foundBooks: [],
+          pickedBook: None(),
+          mode: BookSearchMode.searchFinished,
+          searchFailureCause: None(),
+        ),
+      ],
+      verify: (bloc) => verifyNever(
+        bloc.searchForBooks(const SearchParams(query: emptyQuery)),
+      ),
     );
 
     blocTest<BookSearchBloc, BookSearchState>(
       'should emit searching and searchFinished when query is not empty',
       build: () => BlocMock().onSearchForBooks(Success(foundBooks)).get(),
       act: (bloc) => bloc.add(SearchEvent.searching(query: notEmptyQuery)),
-      expect:
-          () => [
-            const BookSearchState(
-              foundBooks: [],
-              pickedBook: None(),
-              mode: BookSearchMode.searching,
-              searchFailureCause: None(),
-            ),
-            BookSearchState(
-              foundBooks: foundBooks,
-              pickedBook: const None(),
-              mode: BookSearchMode.searchFinished,
-              searchFailureCause: const None(),
-            ),
-          ],
-      verify:
-          (bloc) =>
-              verify(bloc.searchForBooks(SearchParams(query: notEmptyQuery))),
+      expect: () => [
+        const BookSearchState(
+          foundBooks: [],
+          pickedBook: None(),
+          mode: BookSearchMode.searching,
+          searchFailureCause: None(),
+        ),
+        BookSearchState(
+          foundBooks: foundBooks,
+          pickedBook: const None(),
+          mode: BookSearchMode.searchFinished,
+          searchFailureCause: const None(),
+        ),
+      ],
+      verify: (bloc) =>
+          verify(bloc.searchForBooks(SearchParams(query: notEmptyQuery))),
     );
 
     blocTest<BookSearchBloc, BookSearchState>(
       'should emit searching and searchFailed when search failed',
       build: () => BlocMock().onSearchForBooks(Error(failure)).get(),
       act: (bloc) => bloc.add(SearchEvent.searching(query: notEmptyQuery)),
-      expect:
-          () => [
-            const BookSearchState(
-              foundBooks: [],
-              pickedBook: None(),
-              mode: BookSearchMode.searching,
-              searchFailureCause: None(),
-            ),
-            BookSearchState(
-              foundBooks: const [],
-              pickedBook: const None(),
-              mode: BookSearchMode.searchFailed,
-              searchFailureCause: some(failure.userMessage()),
-            ),
-          ],
-      verify:
-          (bloc) =>
-              verify(bloc.searchForBooks(SearchParams(query: notEmptyQuery))),
+      expect: () => [
+        const BookSearchState(
+          foundBooks: [],
+          pickedBook: None(),
+          mode: BookSearchMode.searching,
+          searchFailureCause: None(),
+        ),
+        BookSearchState(
+          foundBooks: const [],
+          pickedBook: const None(),
+          mode: BookSearchMode.searchFailed,
+          searchFailureCause: some(failure.userMessage()),
+        ),
+      ],
+      verify: (bloc) =>
+          verify(bloc.searchForBooks(SearchParams(query: notEmptyQuery))),
     );
   });
 
@@ -97,15 +91,14 @@ void main() {
       'should emit bookPicked',
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(SearchEvent.suggestionPicked(pickedBook: book)),
-      expect:
-          () => [
-            BookSearchState(
-              foundBooks: const [],
-              pickedBook: some(book),
-              mode: BookSearchMode.bookPicked,
-              searchFailureCause: const None(),
-            ),
-          ],
+      expect: () => [
+        BookSearchState(
+          foundBooks: const [],
+          pickedBook: some(book),
+          mode: BookSearchMode.bookPicked,
+          searchFailureCause: const None(),
+        ),
+      ],
     );
   });
 
@@ -114,15 +107,14 @@ void main() {
       'should emit bookNotPicked',
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc.add(ClearPickedBook()),
-      expect:
-          () => [
-            const BookSearchState(
-              foundBooks: [],
-              pickedBook: None(),
-              mode: BookSearchMode.bookNotPicked,
-              searchFailureCause: None(),
-            ),
-          ],
+      expect: () => [
+        const BookSearchState(
+          foundBooks: [],
+          pickedBook: None(),
+          mode: BookSearchMode.bookNotPicked,
+          searchFailureCause: None(),
+        ),
+      ],
     );
   });
 }

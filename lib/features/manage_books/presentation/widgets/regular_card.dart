@@ -7,6 +7,9 @@ final class _RegularCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _SwipeableCard(book: book, child: _BookCover(book: book));
+    return _SwipeableCard(
+      book: book,
+      child: _BookCover(book: book),
+    );
   }
 }

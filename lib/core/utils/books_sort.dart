@@ -2,18 +2,19 @@ import '../entities/book.dart';
 import 'date_option_ext.dart';
 
 List<Book> sortByStateAndDate(List<Book> books) {
-  final List<Book> filteredAndSorted =
-      books
-          .where((book) => book.state == BookState.readLater)
-          .toList()
-          .reversed
-          .toList();
+  final List<Book> filteredAndSorted = books
+      .where((book) => book.state == BookState.readLater)
+      .toList()
+      .reversed
+      .toList();
 
-  final List<Book> readingBooks =
-      books.where((book) => book.state == BookState.reading).toList();
+  final List<Book> readingBooks = books
+      .where((book) => book.state == BookState.reading)
+      .toList();
 
-  final List<Book> readBooks =
-      books.where((book) => book.state == BookState.read).toList();
+  final List<Book> readBooks = books
+      .where((book) => book.state == BookState.read)
+      .toList();
 
   readingBooks.sort((a, b) {
     final startDateB = b.startDate.millisSinceEpoch();

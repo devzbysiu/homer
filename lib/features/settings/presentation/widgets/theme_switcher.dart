@@ -17,9 +17,9 @@ final class ThemeSwitcher extends StatelessBusWidget {
         return state.useSystemTheme
             ? const SizedBox.shrink()
             : DayNightSwitcher(
-              isDarkModeEnabled: state.useDarkTheme,
-              onStateChanged: (_) => fire(ThemeToggled()),
-            );
+                isDarkModeEnabled: state.useDarkTheme,
+                onStateChanged: (_) => fire(ThemeToggled()),
+              );
       },
     );
   }

@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +33,6 @@ final class SettingsScreen extends StatelessBusWidget {
         SettingsSection(
           tiles: [
             _useSystemTheme(context, state.useSystemTheme),
-            _backupDirPicker(context, state),
             CustomSettingsTile(child: BookSizeSlider()),
             CustomSettingsTile(child: ReadingGoalSlider()),
           ],
@@ -57,20 +53,5 @@ final class SettingsScreen extends StatelessBusWidget {
       initialValue: useSystemTheme,
       onToggle: (_) => fire(SystemThemeToggled()),
     );
-  }
-
-  SettingsTile _backupDirPicker(BuildContext context, SettingsState state) {
-    return SettingsTile(
-      title: Text('Backups directory', style: context.headlineSmall),
-      leading: const Icon(Icons.backup),
-      description: Text(state.backupsDir.path),
-      onPressed: _pickBackupsPath,
-    );
-  }
-
-  Future<void> _pickBackupsPath(BuildContext context) async {
-    final directory = await FilePicker.platform.getDirectoryPath();
-    if (directory == null) return;
-    fire(BackupsDirPicked(Directory(directory)));
   }
 }

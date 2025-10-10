@@ -1,50 +1,26 @@
-import 'dart:io';
-
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:progress_indicators/progress_indicators.dart';
+import 'package:path/path.dart' as p;
 
 import '../../../../core/orchestrator/bus_widget.dart';
-import '../../../../core/utils/theme.dart';
 import '../../../../core/widgets/menu_button.dart';
-import '../../../backup_and_restore/presentation/bloc/backup_bloc.dart';
 import '../../../backup_and_restore/presentation/bloc/backup_event.dart';
-import '../../../backup_and_restore/presentation/bloc/backup_state.dart';
-import '../../../settings/presentation/bloc/settings_bloc.dart';
-import '../bloc/settings_state.dart';
 
 final class BackupButton extends StatelessBusWidget {
   BackupButton({super.key, super.bus});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        BlocSelector<SettingsBloc, SettingsState, Directory>(
-          selector: (state) => state.backupsDir,
-          builder: (context, backupDirectory) {
-            return MenuButton(
-              text: 'Backup',
-              onPressed: () => _triggerBackup(backupDirectory),
-            );
-          },
-        ),
-        BlocSelector<BackupBloc, BackupState, bool>(
-          selector: (state) => state is BackupInProgress,
-          builder: (context, isBackupInProgress) {
-            if (!isBackupInProgress) return const SizedBox.shrink();
-            return JumpingDotsProgressIndicator(
-              fontSize: 30,
-              color: context.headlineMedium.color!,
-            );
-          },
-        ),
-      ],
+    return MenuButton(
+      text: 'Backup',
+      onPressed: () => _openFilePicker(context),
     );
   }
 
-  void _triggerBackup(Directory directory) {
-    final backupPath = '${directory.path}/homer-backup.json';
-    fire(BackupEvent.backupTriggered(path: backupPath));
+  Future<void> _openFilePicker(BuildContext context) async {
+    final directory = await FilePicker.platform.getDirectoryPath();
+    if (directory == null) return;
+    final jsonPath = p.join(directory, 'homer-export.json');
+    fire(BackupTriggered(path: jsonPath));
   }
 }

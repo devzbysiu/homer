@@ -1,6 +1,6 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 import '../../../../core/orchestrator/bus_widget.dart';
@@ -19,7 +19,7 @@ final class RestoreButton extends StatelessBusWidget {
       children: [
         MenuButton(
           text: 'Restore',
-          onPressed: () async => await _triggerRestore(context),
+          onPressed: () async => await _openFilePicker(context),
         ),
         BlocSelector<BackupBloc, BackupState, bool>(
           selector: (state) => state is RestoreInProgress,
@@ -35,9 +35,19 @@ final class RestoreButton extends StatelessBusWidget {
     );
   }
 
-  Future<void> _triggerRestore(BuildContext context) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final backupPath = '${directory.path}/homer-backup.json';
-    fire(BackupEvent.restoreTriggered(path: backupPath));
+  Future<void> _openFilePicker(BuildContext context) async {
+    final selection = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['json'],
+      allowMultiple: false,
+    );
+    if (selection == null || selection.files.isEmpty) {
+      // TODO: Error handling is needed here
+      return;
+    }
+    assert(selection.files.length == 1);
+    // TODO: Error checking is needed here
+    final jsonFilePath = selection.files[0].path!;
+    fire(RestoreTriggered(path: jsonFilePath));
   }
 }

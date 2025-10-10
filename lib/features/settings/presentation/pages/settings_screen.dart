@@ -9,6 +9,8 @@ import '../bloc/settings_bloc.dart';
 import '../bloc/settings_event.dart';
 import '../bloc/settings_state.dart';
 import '../widgets/book_size_slider.dart';
+import '../widgets/export_books_tile.dart';
+import '../widgets/import_books_tile.dart';
 import '../widgets/reading_goal_slider.dart';
 
 final class SettingsScreen extends StatelessBusWidget {
@@ -35,6 +37,8 @@ final class SettingsScreen extends StatelessBusWidget {
             _useSystemTheme(context, state.useSystemTheme),
             CustomSettingsTile(child: BookSizeSlider()),
             CustomSettingsTile(child: ReadingGoalSlider()),
+            CustomSettingsTile(child: ExportBooksTile()),
+            CustomSettingsTile(child: ImportBooksTile()),
           ],
         ),
       ],

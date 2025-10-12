@@ -68,7 +68,6 @@ final class Orchestrator {
     eventBus.on<SummaryModeClosed>(_onSummaryModeClosed);
 
     // Settings
-    eventBus.on<BackupsDirPicked>(_onBackupsDirPicked);
     eventBus.on<SizeLimitsChanged>(_onSizeLimitsChanged);
     eventBus.on<ReadingGoalChanged>(_onReadingGoalChanged);
     eventBus.on<ThemeToggled>(_onThemeToggled);
@@ -154,7 +153,6 @@ final class Orchestrator {
   void _onSummaryModeClosing(SummaryModeClosing event) => summary.add(event);
   void _onSummaryModeClosed(SummaryModeClosed event) => summary.add(event);
 
-  void _onBackupsDirPicked(BackupsDirPicked event) => settings.add(event);
   void _onSizeLimitsChanged(SizeLimitsChanged event) => settings.add(event);
   void _onReadingGoalChanged(ReadingGoalChanged event) => settings.add(event);
   void _onThemeToggled(ThemeToggled event) => settings.add(event);

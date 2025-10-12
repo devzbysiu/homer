@@ -55,14 +55,13 @@ extension SettingsEventPatterns on SettingsEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SettingsLoaded value)?  settingsLoaded,TResult Function( ThemeToggled value)?  themeToggled,TResult Function( SystemThemeToggled value)?  systemThemeToggled,TResult Function( BackupsDirPicked value)?  backupsDirPicked,TResult Function( SizeLimitsChanged value)?  sizeLimitsChanged,TResult Function( ReadingGoalChanged value)?  readingGoalChanged,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SettingsLoaded value)?  settingsLoaded,TResult Function( ThemeToggled value)?  themeToggled,TResult Function( SystemThemeToggled value)?  systemThemeToggled,TResult Function( SizeLimitsChanged value)?  sizeLimitsChanged,TResult Function( ReadingGoalChanged value)?  readingGoalChanged,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case SettingsLoaded() when settingsLoaded != null:
 return settingsLoaded(_that);case ThemeToggled() when themeToggled != null:
 return themeToggled(_that);case SystemThemeToggled() when systemThemeToggled != null:
-return systemThemeToggled(_that);case BackupsDirPicked() when backupsDirPicked != null:
-return backupsDirPicked(_that);case SizeLimitsChanged() when sizeLimitsChanged != null:
+return systemThemeToggled(_that);case SizeLimitsChanged() when sizeLimitsChanged != null:
 return sizeLimitsChanged(_that);case ReadingGoalChanged() when readingGoalChanged != null:
 return readingGoalChanged(_that);case _:
   return orElse();
@@ -82,14 +81,13 @@ return readingGoalChanged(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SettingsLoaded value)  settingsLoaded,required TResult Function( ThemeToggled value)  themeToggled,required TResult Function( SystemThemeToggled value)  systemThemeToggled,required TResult Function( BackupsDirPicked value)  backupsDirPicked,required TResult Function( SizeLimitsChanged value)  sizeLimitsChanged,required TResult Function( ReadingGoalChanged value)  readingGoalChanged,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SettingsLoaded value)  settingsLoaded,required TResult Function( ThemeToggled value)  themeToggled,required TResult Function( SystemThemeToggled value)  systemThemeToggled,required TResult Function( SizeLimitsChanged value)  sizeLimitsChanged,required TResult Function( ReadingGoalChanged value)  readingGoalChanged,}){
 final _that = this;
 switch (_that) {
 case SettingsLoaded():
 return settingsLoaded(_that);case ThemeToggled():
 return themeToggled(_that);case SystemThemeToggled():
-return systemThemeToggled(_that);case BackupsDirPicked():
-return backupsDirPicked(_that);case SizeLimitsChanged():
+return systemThemeToggled(_that);case SizeLimitsChanged():
 return sizeLimitsChanged(_that);case ReadingGoalChanged():
 return readingGoalChanged(_that);}
 }
@@ -105,14 +103,13 @@ return readingGoalChanged(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SettingsLoaded value)?  settingsLoaded,TResult? Function( ThemeToggled value)?  themeToggled,TResult? Function( SystemThemeToggled value)?  systemThemeToggled,TResult? Function( BackupsDirPicked value)?  backupsDirPicked,TResult? Function( SizeLimitsChanged value)?  sizeLimitsChanged,TResult? Function( ReadingGoalChanged value)?  readingGoalChanged,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SettingsLoaded value)?  settingsLoaded,TResult? Function( ThemeToggled value)?  themeToggled,TResult? Function( SystemThemeToggled value)?  systemThemeToggled,TResult? Function( SizeLimitsChanged value)?  sizeLimitsChanged,TResult? Function( ReadingGoalChanged value)?  readingGoalChanged,}){
 final _that = this;
 switch (_that) {
 case SettingsLoaded() when settingsLoaded != null:
 return settingsLoaded(_that);case ThemeToggled() when themeToggled != null:
 return themeToggled(_that);case SystemThemeToggled() when systemThemeToggled != null:
-return systemThemeToggled(_that);case BackupsDirPicked() when backupsDirPicked != null:
-return backupsDirPicked(_that);case SizeLimitsChanged() when sizeLimitsChanged != null:
+return systemThemeToggled(_that);case SizeLimitsChanged() when sizeLimitsChanged != null:
 return sizeLimitsChanged(_that);case ReadingGoalChanged() when readingGoalChanged != null:
 return readingGoalChanged(_that);case _:
   return null;
@@ -131,13 +128,12 @@ return readingGoalChanged(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  settingsLoaded,TResult Function()?  themeToggled,TResult Function()?  systemThemeToggled,TResult Function( Directory directory)?  backupsDirPicked,TResult Function( BookSizeLimits limits)?  sizeLimitsChanged,TResult Function( ReadingGoal goal)?  readingGoalChanged,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  settingsLoaded,TResult Function()?  themeToggled,TResult Function()?  systemThemeToggled,TResult Function( BookSizeLimits limits)?  sizeLimitsChanged,TResult Function( ReadingGoal goal)?  readingGoalChanged,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SettingsLoaded() when settingsLoaded != null:
 return settingsLoaded();case ThemeToggled() when themeToggled != null:
 return themeToggled();case SystemThemeToggled() when systemThemeToggled != null:
-return systemThemeToggled();case BackupsDirPicked() when backupsDirPicked != null:
-return backupsDirPicked(_that.directory);case SizeLimitsChanged() when sizeLimitsChanged != null:
+return systemThemeToggled();case SizeLimitsChanged() when sizeLimitsChanged != null:
 return sizeLimitsChanged(_that.limits);case ReadingGoalChanged() when readingGoalChanged != null:
 return readingGoalChanged(_that.goal);case _:
   return orElse();
@@ -157,13 +153,12 @@ return readingGoalChanged(_that.goal);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  settingsLoaded,required TResult Function()  themeToggled,required TResult Function()  systemThemeToggled,required TResult Function( Directory directory)  backupsDirPicked,required TResult Function( BookSizeLimits limits)  sizeLimitsChanged,required TResult Function( ReadingGoal goal)  readingGoalChanged,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  settingsLoaded,required TResult Function()  themeToggled,required TResult Function()  systemThemeToggled,required TResult Function( BookSizeLimits limits)  sizeLimitsChanged,required TResult Function( ReadingGoal goal)  readingGoalChanged,}) {final _that = this;
 switch (_that) {
 case SettingsLoaded():
 return settingsLoaded();case ThemeToggled():
 return themeToggled();case SystemThemeToggled():
-return systemThemeToggled();case BackupsDirPicked():
-return backupsDirPicked(_that.directory);case SizeLimitsChanged():
+return systemThemeToggled();case SizeLimitsChanged():
 return sizeLimitsChanged(_that.limits);case ReadingGoalChanged():
 return readingGoalChanged(_that.goal);}
 }
@@ -179,13 +174,12 @@ return readingGoalChanged(_that.goal);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  settingsLoaded,TResult? Function()?  themeToggled,TResult? Function()?  systemThemeToggled,TResult? Function( Directory directory)?  backupsDirPicked,TResult? Function( BookSizeLimits limits)?  sizeLimitsChanged,TResult? Function( ReadingGoal goal)?  readingGoalChanged,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  settingsLoaded,TResult? Function()?  themeToggled,TResult? Function()?  systemThemeToggled,TResult? Function( BookSizeLimits limits)?  sizeLimitsChanged,TResult? Function( ReadingGoal goal)?  readingGoalChanged,}) {final _that = this;
 switch (_that) {
 case SettingsLoaded() when settingsLoaded != null:
 return settingsLoaded();case ThemeToggled() when themeToggled != null:
 return themeToggled();case SystemThemeToggled() when systemThemeToggled != null:
-return systemThemeToggled();case BackupsDirPicked() when backupsDirPicked != null:
-return backupsDirPicked(_that.directory);case SizeLimitsChanged() when sizeLimitsChanged != null:
+return systemThemeToggled();case SizeLimitsChanged() when sizeLimitsChanged != null:
 return sizeLimitsChanged(_that.limits);case ReadingGoalChanged() when readingGoalChanged != null:
 return readingGoalChanged(_that.goal);case _:
   return null;
@@ -290,72 +284,6 @@ String toString() {
 
 
 
-
-/// @nodoc
-
-
-class BackupsDirPicked implements SettingsEvent {
-  const BackupsDirPicked(this.directory);
-  
-
- final  Directory directory;
-
-/// Create a copy of SettingsEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$BackupsDirPickedCopyWith<BackupsDirPicked> get copyWith => _$BackupsDirPickedCopyWithImpl<BackupsDirPicked>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupsDirPicked&&(identical(other.directory, directory) || other.directory == directory));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,directory);
-
-@override
-String toString() {
-  return 'SettingsEvent.backupsDirPicked(directory: $directory)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $BackupsDirPickedCopyWith<$Res> implements $SettingsEventCopyWith<$Res> {
-  factory $BackupsDirPickedCopyWith(BackupsDirPicked value, $Res Function(BackupsDirPicked) _then) = _$BackupsDirPickedCopyWithImpl;
-@useResult
-$Res call({
- Directory directory
-});
-
-
-
-
-}
-/// @nodoc
-class _$BackupsDirPickedCopyWithImpl<$Res>
-    implements $BackupsDirPickedCopyWith<$Res> {
-  _$BackupsDirPickedCopyWithImpl(this._self, this._then);
-
-  final BackupsDirPicked _self;
-  final $Res Function(BackupsDirPicked) _then;
-
-/// Create a copy of SettingsEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? directory = null,}) {
-  return _then(BackupsDirPicked(
-null == directory ? _self.directory : directory // ignore: cast_nullable_to_non_nullable
-as Directory,
-  ));
-}
-
-
-}
 
 /// @nodoc
 

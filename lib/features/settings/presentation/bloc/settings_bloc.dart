@@ -18,7 +18,6 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingsLoaded>(_onSettingsLoaded);
     on<ThemeToggled>(_onThemeToggled);
     on<SystemThemeToggled>(_onSystemThemeToggled);
-    on<BackupsDirPicked>(_onBackupPathSelected);
     on<SizeLimitsChanged>(_onBookSizeLimitsChanged);
     on<ReadingGoalChanged>(_onReadingGoalChanged);
     // TODO: Move initial event triggering to `run.dart`
@@ -61,14 +60,6 @@ final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) async {
     final newState = state.toggleSystemTheme();
-    await _saveAndEmit(newState, emit);
-  }
-
-  void _onBackupPathSelected(
-    BackupsDirPicked event,
-    Emitter<SettingsState> emit,
-  ) async {
-    final newState = state.changeBackupDir(event.directory);
     await _saveAndEmit(newState, emit);
   }
 

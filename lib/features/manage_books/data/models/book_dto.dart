@@ -1,54 +1,30 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'tag_dto.dart';
 
-class BookDTO extends Equatable {
-  BookDTO({
-    this.id,
-    required this.title,
-    required this.subtitle,
-    required this.authors,
-    required this.state,
-    required this.pageCount,
-    required this.isbn,
-    required this.thumbnailAddress,
-    required this.rating,
-    required this.summary,
-    required this.tags,
-    required this.startDate,
-    required this.endDate,
-  });
+part 'book_dto.freezed.dart';
+part 'book_dto.g.dart';
 
-  int? id;
+@freezed
+abstract class BookDTO with _$BookDTO {
+  const factory BookDTO({
+    int? id,
+    required String title,
+    required String subtitle,
+    required List<String> authors,
+    required BookStateDTO state,
+    required int pageCount,
+    required String isbn,
+    String? thumbnailAddress,
+    required double rating,
+    String? summary,
+    required List<TagDTO> tags,
+    int? startDate,
+    int? endDate,
+  }) = _BookDTO;
 
-  final String title;
-  final String subtitle;
-  final List<String> authors;
-  final BookStateDTO state;
-  final int pageCount;
-  final String isbn;
-  final String? thumbnailAddress;
-  final double rating;
-  final String? summary;
-  final List<TagDTO> tags;
-  final int? startDate;
-  final int? endDate;
-
-  @override
-  List<Object?> get props => [
-    title,
-    subtitle,
-    authors,
-    state,
-    pageCount,
-    isbn,
-    thumbnailAddress,
-    rating,
-    summary,
-    tags,
-    startDate,
-    endDate,
-  ];
+  factory BookDTO.fromJson(Map<String, dynamic> json) =>
+      _$BookDTOFromJson(json);
 }
 
 enum BookStateDTO { readLater, reading, read }

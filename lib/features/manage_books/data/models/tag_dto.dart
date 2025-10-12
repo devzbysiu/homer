@@ -1,11 +1,12 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class TagDTO extends Equatable {
-  TagDTO({required this.name, required this.hexColor});
+part 'tag_dto.freezed.dart';
+part 'tag_dto.g.dart';
 
-  late final String name;
-  late final String hexColor;
+@freezed
+abstract class TagDTO with _$TagDTO {
+  const factory TagDTO({required String name, required String hexColor}) =
+      _TagDTO;
 
-  @override
-  List<Object> get props => [name, hexColor];
+  factory TagDTO.fromJson(Map<String, dynamic> json) => _$TagDTOFromJson(json);
 }

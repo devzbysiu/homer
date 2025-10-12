@@ -23,7 +23,7 @@ BookDTO toBookDTO(Book book) {
     startDate: book.startDate.millisSinceEpoch(),
     endDate: book.endDate.millisSinceEpoch(),
   );
-  return book.id != null ? (bookDTO..id = book.id!) : bookDTO;
+  return book.id != null ? bookDTO.copyWith(id: book.id!) : bookDTO;
 }
 
 BookStateDTO _toBookStateDTO(BookState state) {

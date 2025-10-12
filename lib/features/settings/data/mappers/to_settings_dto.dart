@@ -5,7 +5,6 @@ SettingsDTO toSettingsDTO(Settings settings) {
   return SettingsDTO(
     isDarkThemeOn: settings.useDarkTheme,
     isSystemThemeOn: settings.useSystemTheme,
-    backupsDirectory: settings.backupsDir,
     bookSizeLimits: settings.bookSizeLimits,
     readingGoal: settings.readingGoal,
   );

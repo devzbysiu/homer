@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:homer/core/error/failures.dart';
 import 'package:homer/core/usecase/usecase.dart';
@@ -53,7 +51,6 @@ void main() {
           settings: Settings(
             useSystemTheme: settings.useSystemTheme,
             useDarkTheme: !settings.useDarkTheme,
-            backupsDir: settings.backupsDir,
             bookSizeLimits: settings.bookSizeLimits,
             readingGoal: settings.readingGoal,
           ),
@@ -94,7 +91,6 @@ void main() {
           settings: Settings(
             useSystemTheme: !settings.useSystemTheme,
             useDarkTheme: settings.useDarkTheme,
-            backupsDir: settings.backupsDir,
             bookSizeLimits: settings.bookSizeLimits,
             readingGoal: settings.readingGoal,
           ),
@@ -126,52 +122,6 @@ void main() {
     );
   });
 
-  group('_onBackupPathSelected', () {
-    final settings = fakeSettings();
-    final directory = Directory(fakePath());
-
-    blocTest<SettingsBloc, SettingsState>(
-      'should emit SettingsState with changed backup path setting',
-      build: () => BlocMock().onLoadSettings(Success(settings)).get(),
-      act: (bloc) => bloc.add(BackupsDirPicked(directory)),
-      expect: () => [
-        SettingsState(settings: _from(settings)),
-        SettingsState(
-          settings: Settings(
-            useSystemTheme: settings.useSystemTheme,
-            useDarkTheme: settings.useDarkTheme,
-            backupsDir: directory,
-            bookSizeLimits: settings.bookSizeLimits,
-            readingGoal: settings.readingGoal,
-          ),
-        ),
-      ],
-      verify: (bloc) => verify(
-        bloc.saveSettings(
-          SettingsParams(settings: settings.changeBackupDir(directory)),
-        ),
-      ),
-    );
-
-    blocTest<SettingsBloc, SettingsState>(
-      'should emit default settings when saving fails',
-      build: () => BlocMock()
-          .onLoadSettings(Success(settings))
-          .onSaveSettings(Error(TestingFailure()))
-          .get(),
-      act: (bloc) => bloc.add(BackupsDirPicked(directory)),
-      expect: () => [
-        SettingsState(settings: _from(settings)),
-        SettingsState(settings: _defaultSettings()),
-      ],
-      verify: (bloc) => verify(
-        bloc.saveSettings(
-          SettingsParams(settings: settings.changeBackupDir(directory)),
-        ),
-      ),
-    );
-  });
-
   group('_onBookSizeLimitsChanged', () {
     final settings = fakeSettings();
     final limits = BookSizeLimits(shortMax: 100, mediumMax: 200);
@@ -186,7 +136,6 @@ void main() {
           settings: Settings(
             useSystemTheme: settings.useSystemTheme,
             useDarkTheme: settings.useDarkTheme,
-            backupsDir: settings.backupsDir,
             bookSizeLimits: limits,
             readingGoal: settings.readingGoal,
           ),
@@ -231,7 +180,6 @@ void main() {
           settings: Settings(
             useSystemTheme: settings.useSystemTheme,
             useDarkTheme: settings.useDarkTheme,
-            backupsDir: settings.backupsDir,
             bookSizeLimits: settings.bookSizeLimits,
             readingGoal: const ReadingGoal(books: 16),
           ),
@@ -272,7 +220,6 @@ Settings _from(Settings settings) {
   return Settings(
     useSystemTheme: settings.useSystemTheme,
     useDarkTheme: settings.useDarkTheme,
-    backupsDir: settings.backupsDir,
     bookSizeLimits: settings.bookSizeLimits,
     readingGoal: settings.readingGoal,
   );
@@ -282,7 +229,6 @@ Settings _defaultSettings() {
   return Settings(
     useSystemTheme: true,
     useDarkTheme: true,
-    backupsDir: Directory('/storage/emulated/0/Documents'),
     bookSizeLimits: BookSizeLimits(shortMax: 300, mediumMax: 500),
     readingGoal: const ReadingGoal(books: 0),
   );

@@ -3,8 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/entities/tag.dart';
 import 'package:homer/core/utils/date_option_ext.dart';
-import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
-import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
+import 'package:homer/features/import_export/data/models/exported_book_dto.dart';
+import 'package:homer/features/import_export/data/models/exported_tag_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
 import 'package:homer/features/find_new_book/domain/entities/external_book_info.dart';
@@ -13,8 +13,8 @@ import 'package:homer/features/manage_books/data/models/tag_dto.dart';
 import 'package:homer/features/settings/data/models/settings_dto.dart';
 import 'package:homer/features/settings/domain/entities/settings.dart';
 
-BackupBookDTO backupDTOFromBook(Book book) {
-  return BackupBookDTO(
+ExportedBookDTO exportedDTOFromBook(Book book) {
+  return ExportedBookDTO(
     title: book.title,
     subtitle: book.subtitle,
     authors: book.authors,
@@ -24,21 +24,21 @@ BackupBookDTO backupDTOFromBook(Book book) {
     thumbnailAddress: book.thumbnailAddress,
     rating: book.rating,
     summary: book.summary,
-    tags: _toBackupTagDTOs(book.tags),
+    tags: _toExportedTagDTOs(book.tags),
     startDate: book.startDate,
     endDate: book.endDate,
   );
 }
 
-List<BackupTagDTO> _toBackupTagDTOs(List<Tag> tags) {
-  return tags.map(_toBackupTagDTO).toList();
+List<ExportedTagDTO> _toExportedTagDTOs(List<Tag> tags) {
+  return tags.map(_toExportedTagDTO).toList();
 }
 
-BackupTagDTO _toBackupTagDTO(Tag tag) {
-  return BackupTagDTO(name: tag.name, hexColor: tag.hexColor);
+ExportedTagDTO _toExportedTagDTO(Tag tag) {
+  return ExportedTagDTO(name: tag.name, hexColor: tag.hexColor);
 }
 
-Book bookFromBackupDTO(BackupBookDTO book) {
+Book bookFromExportedBookDTO(ExportedBookDTO book) {
   return Book(
     title: book.title,
     subtitle: book.subtitle,
@@ -56,11 +56,11 @@ Book bookFromBackupDTO(BackupBookDTO book) {
   );
 }
 
-List<Tag> _toTags(List<BackupTagDTO> tags) {
+List<Tag> _toTags(List<ExportedTagDTO> tags) {
   return tags.map(_toTag).toList();
 }
 
-Tag _toTag(BackupTagDTO tag) {
+Tag _toTag(ExportedTagDTO tag) {
   return Tag(name: tag.name, hexColor: tag.hexColor);
 }
 
@@ -193,7 +193,6 @@ SettingsDTO settingsDTOFromSettings(Settings settings) {
   return SettingsDTO(
     isDarkThemeOn: settings.useDarkTheme,
     isSystemThemeOn: settings.useSystemTheme,
-    backupsDirectory: settings.backupsDir,
     bookSizeLimits: settings.bookSizeLimits,
     readingGoal: settings.readingGoal,
   );
@@ -203,7 +202,6 @@ Settings settingsFromSettingsDTO(SettingsDTO settingsDTO) {
   return Settings(
     useDarkTheme: settingsDTO.isDarkThemeOn,
     useSystemTheme: settingsDTO.isSystemThemeOn,
-    backupsDir: settingsDTO.backupsDirectory,
     bookSizeLimits: settingsDTO.bookSizeLimits,
     readingGoal: settingsDTO.readingGoal,
   );

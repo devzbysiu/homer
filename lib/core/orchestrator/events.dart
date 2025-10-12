@@ -6,8 +6,8 @@ abstract class BusEvent {}
 
 // TODO: Why it is here? Is this the correct place?
 @freezed
-abstract class RestoreFinished with _$RestoreFinished implements BusEvent {
-  const factory RestoreFinished() = _RestoreFinished;
+abstract class ImportFinished with _$ImportFinished implements BusEvent {
+  const factory ImportFinished() = _ImportFinished;
 }
 
 @freezed

@@ -29,7 +29,6 @@ final class SettingsRepo implements SettingsRepository {
       final settings = toSettings(
         isSystemThemeOn: settingsDTO.isSystemThemeOn,
         isDarkThemeOn: settingsDTO.isDarkThemeOn,
-        backupsDirectory: settingsDTO.backupsDirectory,
         bookSizeLimits: settingsDTO.bookSizeLimits,
         readingGoal: settingsDTO.readingGoal,
       );

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/entities/book_size_limits.dart';
@@ -32,9 +30,6 @@ abstract class SettingsState with _$SettingsState {
   SettingsState toggleSystemTheme() =>
       copyWith(settings: settings.toggleSystemTheme());
 
-  SettingsState changeBackupDir(Directory newDir) =>
-      copyWith(settings: settings.changeBackupDir(newDir));
-
   SettingsState changeSizeLimits(BookSizeLimits limits) =>
       copyWith(settings: settings.changeSizeLimits(limits));
 
@@ -43,6 +38,5 @@ abstract class SettingsState with _$SettingsState {
 
   bool get useDarkTheme => settings.useDarkTheme;
   bool get useSystemTheme => settings.useSystemTheme;
-  Directory get backupsDir => settings.backupsDir;
   BookSizeLimits get bookSizeLimits => settings.bookSizeLimits;
 }

@@ -1,10 +1,10 @@
 import 'package:homer/core/entities/book.dart';
-import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
-import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
+import 'package:homer/features/import_export/data/models/exported_book_dto.dart';
+import 'package:homer/features/import_export/data/models/exported_tag_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
 import 'package:homer/features/settings/data/models/settings_dto.dart';
 
-Map<String, dynamic> backupBookDTOToJson(BackupBookDTO book) {
+Map<String, dynamic> exportedBookDTOToJson(ExportedBookDTO book) {
   return {
     'title': book.title,
     'subtitle': book.subtitle,
@@ -38,7 +38,7 @@ String _bookStateToString(BookState state) {
   }
 }
 
-Map<String, dynamic> backupTagDTOToJson(BackupTagDTO tag) {
+Map<String, dynamic> exportedTagDTOToJson(ExportedTagDTO tag) {
   return {'name': tag.name, 'hexColor': tag.hexColor};
 }
 
@@ -52,7 +52,6 @@ Map<String, dynamic> externalBookInfoDTOToJson(ExternalBookInfoDTO dto) {
 
 Map<String, dynamic> settingsDTOToJson(SettingsDTO dto) {
   return {
-    'backupsDirectory': dto.backupsDirectory.path,
     'isSystemThemeOn': dto.isSystemThemeOn,
     'isDarkThemeOn': dto.isDarkThemeOn,
     'bookSizeLimits': [

@@ -11,18 +11,6 @@ import 'package:homer/core/error/failures.dart' as _i6;
 import 'package:homer/core/orchestrator/bus.dart' as _i49;
 import 'package:homer/core/orchestrator/events.dart' as _i50;
 import 'package:homer/core/usecase/usecase.dart' as _i29;
-import 'package:homer/features/backup_and_restore/data/datasources/backup_data_source.dart'
-    as _i8;
-import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart'
-    as _i9;
-import 'package:homer/features/backup_and_restore/domain/repositories/backup_repository.dart'
-    as _i10;
-import 'package:homer/features/backup_and_restore/domain/usecases/load_backup.dart'
-    as _i13;
-import 'package:homer/features/backup_and_restore/domain/usecases/make_backup.dart'
-    as _i14;
-import 'package:homer/features/backup_and_restore/domain/usecases/replace_all_books.dart'
-    as _i15;
 import 'package:homer/features/find_new_book/data/datasources/external_book_info_data_source.dart'
     as _i19;
 import 'package:homer/features/find_new_book/data/datasources/external_books_data_source.dart'
@@ -43,6 +31,18 @@ import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book_i
     as _i51;
 import 'package:homer/features/find_new_book/domain/usecases/search_and_check_saved.dart'
     as _i24;
+import 'package:homer/features/import_export/data/datasources/import_export_data_source.dart'
+    as _i8;
+import 'package:homer/features/import_export/data/models/exported_book_dto.dart'
+    as _i9;
+import 'package:homer/features/import_export/domain/repositories/import_export_repository.dart'
+    as _i10;
+import 'package:homer/features/import_export/domain/usecases/export_books.dart'
+    as _i14;
+import 'package:homer/features/import_export/domain/usecases/import_books.dart'
+    as _i13;
+import 'package:homer/features/import_export/domain/usecases/replace_all_books.dart'
+    as _i15;
 import 'package:homer/features/manage_books/data/datasources/books_data_source.dart'
     as _i11;
 import 'package:homer/features/manage_books/data/models/book_dto.dart' as _i12;
@@ -185,26 +185,30 @@ class MockBooksRepository extends _i1.Mock implements _i2.BooksRepository {
           as _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>>);
 }
 
-/// A class which mocks [BackupDataSource].
+/// A class which mocks [ImportExportDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockBackupDataSource extends _i1.Mock implements _i8.BackupDataSource {
-  MockBackupDataSource() {
+class MockImportExportDataSource extends _i1.Mock
+    implements _i8.ImportExportDataSource {
+  MockImportExportDataSource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<List<_i9.BackupBookDTO>> loadAll(String? path) =>
+  _i3.Future<List<_i9.ExportedBookDTO>> loadAll(String? path) =>
       (super.noSuchMethod(
             Invocation.method(#loadAll, [path]),
-            returnValue: _i3.Future<List<_i9.BackupBookDTO>>.value(
-              <_i9.BackupBookDTO>[],
+            returnValue: _i3.Future<List<_i9.ExportedBookDTO>>.value(
+              <_i9.ExportedBookDTO>[],
             ),
           )
-          as _i3.Future<List<_i9.BackupBookDTO>>);
+          as _i3.Future<List<_i9.ExportedBookDTO>>);
 
   @override
-  _i3.Future<_i4.Unit> saveAll(String? path, List<_i9.BackupBookDTO>? books) =>
+  _i3.Future<_i4.Unit> saveAll(
+    String? path,
+    List<_i9.ExportedBookDTO>? books,
+  ) =>
       (super.noSuchMethod(
             Invocation.method(#saveAll, [path, books]),
             returnValue: _i3.Future<_i4.Unit>.value(
@@ -217,11 +221,12 @@ class MockBackupDataSource extends _i1.Mock implements _i8.BackupDataSource {
           as _i3.Future<_i4.Unit>);
 }
 
-/// A class which mocks [BackupRepository].
+/// A class which mocks [ImportExportRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockBackupRepository extends _i1.Mock implements _i10.BackupRepository {
-  MockBackupRepository() {
+class MockImportExportRepository extends _i1.Mock
+    implements _i10.ImportExportRepository {
+  MockImportExportRepository() {
     _i1.throwOnMissingStub(this);
   }
 
@@ -322,17 +327,17 @@ class MockBooksDataSource extends _i1.Mock implements _i11.BooksDataSource {
           as _i3.Future<_i4.Unit>);
 }
 
-/// A class which mocks [LoadBackup].
+/// A class which mocks [ImportBooks].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoadBackup extends _i1.Mock implements _i13.LoadBackup {
-  MockLoadBackup() {
+class MockImportBooks extends _i1.Mock implements _i13.ImportBooks {
+  MockImportBooks() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>> call(
-    _i13.RestoreParams? params,
+    _i13.ImportParams? params,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#call, [params]),
@@ -347,17 +352,17 @@ class MockLoadBackup extends _i1.Mock implements _i13.LoadBackup {
           as _i3.Future<_i4.Result<List<_i5.Book>, _i6.Failure>>);
 }
 
-/// A class which mocks [MakeBackup].
+/// A class which mocks [ExportBooks].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMakeBackup extends _i1.Mock implements _i14.MakeBackup {
-  MockMakeBackup() {
+class MockExportBooks extends _i1.Mock implements _i14.ExportBooks {
+  MockExportBooks() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i3.Future<_i4.Result<_i4.Unit, _i6.Failure>> call(
-    _i14.BackupParams? params,
+    _i14.ExportParams? params,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#call, [params]),

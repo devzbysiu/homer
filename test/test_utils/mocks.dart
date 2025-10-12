@@ -1,9 +1,9 @@
 import 'package:homer/core/orchestrator/bus.dart';
-import 'package:homer/features/backup_and_restore/data/datasources/backup_data_source.dart';
-import 'package:homer/features/backup_and_restore/domain/repositories/backup_repository.dart';
-import 'package:homer/features/backup_and_restore/domain/usecases/load_backup.dart';
-import 'package:homer/features/backup_and_restore/domain/usecases/make_backup.dart';
-import 'package:homer/features/backup_and_restore/domain/usecases/replace_all_books.dart';
+import 'package:homer/features/import_export/data/datasources/import_export_data_source.dart';
+import 'package:homer/features/import_export/domain/repositories/import_export_repository.dart';
+import 'package:homer/features/import_export/domain/usecases/export_books.dart';
+import 'package:homer/features/import_export/domain/usecases/import_books.dart';
+import 'package:homer/features/import_export/domain/usecases/replace_all_books.dart';
 import 'package:homer/features/find_new_book/data/datasources/external_book_info_data_source.dart';
 import 'package:homer/features/find_new_book/data/datasources/external_books_data_source.dart';
 import 'package:homer/features/find_new_book/domain/repositories/external_book_info_repository.dart';
@@ -33,11 +33,11 @@ import 'package:share_handler/share_handler.dart';
 
 @GenerateMocks([
   BooksRepository,
-  BackupDataSource,
-  BackupRepository,
+  ImportExportDataSource,
+  ImportExportRepository,
   BooksDataSource,
-  LoadBackup,
-  MakeBackup,
+  ImportBooks,
+  ExportBooks,
   ReplaceAllBooks,
   ExternalBooksRepository,
   ExternalBookInfoRepository,

@@ -6,13 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'app_config.dart';
 import 'core/orchestrator/bus.dart';
 import 'core/orchestrator/orchestrator.dart';
-import 'features/backup_and_restore/data/datasources/backup_data_source.dart';
-import 'features/backup_and_restore/data/repositories/backup_repo.dart';
-import 'features/backup_and_restore/domain/repositories/backup_repository.dart';
-import 'features/backup_and_restore/domain/usecases/load_backup.dart';
-import 'features/backup_and_restore/domain/usecases/make_backup.dart';
-import 'features/backup_and_restore/domain/usecases/replace_all_books.dart';
-import 'features/backup_and_restore/presentation/bloc/backup_bloc.dart';
+import 'features/import_export/data/datasources/import_export_data_source.dart';
+import 'features/import_export/data/repositories/import_export_repo.dart';
+import 'features/import_export/domain/repositories/import_export_repository.dart';
+import 'features/import_export/domain/usecases/export_books.dart';
+import 'features/import_export/domain/usecases/import_books.dart';
+import 'features/import_export/domain/usecases/replace_all_books.dart';
 import 'features/find_new_book/data/datasources/external_book_info_data_source.dart';
 import 'features/find_new_book/data/datasources/external_books_data_source.dart';
 import 'features/find_new_book/data/repositories/external_book_info_repo.dart';
@@ -25,6 +24,7 @@ import 'features/find_new_book/domain/usecases/search_and_check_saved.dart';
 import 'features/find_new_book/presentation/bloc/search/book_search_bloc.dart';
 import 'features/find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
 import 'features/find_new_book/presentation/bloc/toggle_tags/on_book_tags_bloc.dart';
+import 'features/import_export/presentation/bloc/import_export_bloc.dart';
 import 'features/manage_books/data/datasources/books_data_source.dart';
 import 'features/manage_books/data/datasources/drift_books_data_source.dart';
 import 'features/manage_books/data/repositories/books_repo.dart';
@@ -75,7 +75,9 @@ Future<void> initDi({required Env env}) async {
   sl.registerLazySingleton<ExternalBookInfoDataSource>(
     () => ScraperDataSource(config: sl()),
   );
-  sl.registerLazySingleton<BackupDataSource>(() => JsonFileBackupDataSource());
+  sl.registerLazySingleton<ImportExportDataSource>(
+    () => JsonFileImportExportDataSource(),
+  );
 
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SettingsDataSource>(() {
@@ -91,8 +93,8 @@ Future<void> initDi({required Env env}) async {
   sl.registerLazySingleton<ExternalBookInfoRepository>(() {
     return ExternalBookInfoRepo(dataSource: sl());
   });
-  sl.registerLazySingleton<BackupRepository>(() {
-    return BackupRepo(dataSource: sl());
+  sl.registerLazySingleton<ImportExportRepository>(() {
+    return ImportExportRepo(dataSource: sl());
   });
   sl.registerLazySingleton<SettingsRepository>(() {
     return SettingsRepo(dataSource: sl());
@@ -115,10 +117,10 @@ Future<void> initDi({required Env env}) async {
   sl.registerLazySingleton<FetchSharedBookInfo>(
     () => FetchSharedBookInfoImpl(sl()),
   );
-  // backup and restore
-  sl.registerLazySingleton<LoadBackup>(() => LoadBackupImpl(sl()));
+  // import export
+  sl.registerLazySingleton<ImportBooks>(() => ImportBooksImpl(sl()));
   sl.registerLazySingleton<ReplaceAllBooks>(() => ReplaceAllBooksImpl(sl()));
-  sl.registerLazySingleton<MakeBackup>(() => MakeBackupImpl(sl(), sl()));
+  sl.registerLazySingleton<ExportBooks>(() => ExportBooksImpl(sl(), sl()));
   // settings
   sl.registerLazySingleton<SaveSettings>(() => SaveSettingsImpl(sl()));
   sl.registerLazySingleton<LoadSettings>(() => LoadSettingsImpl(sl()));
@@ -157,11 +159,11 @@ Future<void> initDi({required Env env}) async {
   });
   sl.registerLazySingleton(() => OnBookTagsBloc());
   sl.registerLazySingleton(
-    () => BackupBloc(
+    () => ImportExportBloc(
       eventBus: sl(),
-      loadBackup: sl(),
+      importBooks: sl(),
       replaceAllBooks: sl(),
-      makeBackup: sl(),
+      exportBooks: sl(),
     ),
   );
   sl.registerLazySingleton(() {
@@ -181,7 +183,7 @@ Future<void> initDi({required Env env}) async {
     Orchestrator(
       eventBus: sl(),
       appTab: sl(),
-      backup: sl(),
+      importExport: sl(),
       stats: sl(),
       books: sl(),
       search: sl(),

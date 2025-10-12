@@ -20,10 +20,10 @@ MockBooksRepository makeMockBooksRepo() {
   return mockRepo;
 }
 
-MockBackupRepository makeMockBackupRepo() {
-  final mockRepo = MockBackupRepository();
+MockImportExportRepository makeMockImportExportRepo() {
+  final mockRepo = MockImportExportRepository();
   provideDummy<Result<List<Book>, Failure>>(const Success([]));
-  // NOTE: BackupRepo does not return `Unit`, but some tests need this dummy
+  // NOTE: ImportExportRepo does not return `Unit`, but some tests need this dummy
   provideDummy<Result<Unit, Failure>>(const Success(unit));
   return mockRepo;
 }
@@ -59,8 +59,8 @@ MockExternalBookInfoRepository makeMockExternalBookInfoRepo() {
   return mockRepo;
 }
 
-MockBackupDataSource makeMockBackupDataSource() {
-  final mockDataSource = MockBackupDataSource();
+MockImportExportDataSource makeMockImportExportDataSource() {
+  final mockDataSource = MockImportExportDataSource();
   provideDummy<Unit>(unit);
   return mockDataSource;
 }

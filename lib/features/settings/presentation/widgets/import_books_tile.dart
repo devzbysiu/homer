@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
-import '../../../backup_and_restore/presentation/bloc/backup_event.dart';
+import '../../../import_export/presentation/bloc/import_export_event.dart';
 
 final class ImportBooksTile extends StatelessBusWidget {
   ImportBooksTile({super.key, super.bus});
@@ -39,6 +39,6 @@ final class ImportBooksTile extends StatelessBusWidget {
     assert(selection.files.length == 1);
     // TODO: Error checking is needed here
     final jsonFilePath = selection.files[0].path!;
-    fire(RestoreTriggered(path: jsonFilePath));
+    fire(ImportTriggered(path: jsonFilePath));
   }
 }

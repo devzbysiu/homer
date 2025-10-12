@@ -1,12 +1,10 @@
-import 'dart:io';
-
 import 'package:books_finder/books_finder.dart' as bf;
 import 'package:dartz/dartz.dart';
 import 'package:faker/faker.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/entities/tag.dart';
-import 'package:homer/features/backup_and_restore/data/models/backup_book_dto.dart';
-import 'package:homer/features/backup_and_restore/data/models/backup_tag_dto.dart';
+import 'package:homer/features/import_export/data/models/exported_book_dto.dart';
+import 'package:homer/features/import_export/data/models/exported_tag_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_dto.dart';
 import 'package:homer/features/find_new_book/data/models/external_book_info_dto.dart';
 import 'package:homer/features/find_new_book/domain/entities/external_book_info.dart';
@@ -68,7 +66,7 @@ DateTime fakeDate() => faker.date.dateTime(minYear: 1990, maxYear: 2023);
 
 Tag fakeTag() => Tag(name: fakeTagName(), hexColor: fakeTagColor());
 
-Map<String, Object> fakeBackupBookDTOJson() {
+Map<String, Object> fakeExportedBookDTOJson() {
   return {
     'title': fakeTitle(),
     'subtitle': fakeSubtitle(),
@@ -100,8 +98,8 @@ String fakeBookStateString() {
   }
 }
 
-BackupBookDTO fakeBackupBookDTO() {
-  return BackupBookDTO(
+ExportedBookDTO fakeExportedBookDTO() {
+  return ExportedBookDTO(
     title: fakeTitle(),
     subtitle: fakeSubtitle(),
     authors: [fakeAuthor()],
@@ -112,8 +110,8 @@ BackupBookDTO fakeBackupBookDTO() {
     rating: fakeRating(),
     summary: some(fakeSummary()),
     tags: [
-      BackupTagDTO(name: fakeTagName(), hexColor: fakeTagColor()),
-      BackupTagDTO(name: fakeTagName(), hexColor: fakeTagColor()),
+      ExportedTagDTO(name: fakeTagName(), hexColor: fakeTagColor()),
+      ExportedTagDTO(name: fakeTagName(), hexColor: fakeTagColor()),
     ],
     startDate: some(fakeDate()),
     endDate: some(fakeDate()),
@@ -133,12 +131,15 @@ BookState fakeBookState() {
   }
 }
 
-Map<String, dynamic> fakeBackupTagDTOJson() {
+Map<String, dynamic> fakeExportedTagDTOJson() {
   return {'name': faker.lorem.word(), 'hexColor': faker.color.color()};
 }
 
-BackupTagDTO fakeBackupTagDTO() {
-  return BackupTagDTO(name: faker.lorem.word(), hexColor: faker.color.color());
+ExportedTagDTO fakeExportedTagDTO() {
+  return ExportedTagDTO(
+    name: faker.lorem.word(),
+    hexColor: faker.color.color(),
+  );
 }
 
 String fakePath() => '/${faker.lorem.words(3).join('/')}';
@@ -258,7 +259,6 @@ Settings fakeSettings() {
   return Settings(
     useSystemTheme: fakeBool(),
     useDarkTheme: fakeBool(),
-    backupsDir: Directory(fakePath()),
     bookSizeLimits: BookSizeLimits(
       shortMax: faker.randomGenerator.integer(100),
       mediumMax: faker.randomGenerator.integer(min: 100, 200),
@@ -273,7 +273,6 @@ SettingsDTO fakeSettingsDTO() {
   return SettingsDTO(
     isSystemThemeOn: fakeBool(),
     isDarkThemeOn: fakeBool(),
-    backupsDirectory: Directory(fakePath()),
     bookSizeLimits: BookSizeLimits(
       shortMax: faker.randomGenerator.integer(100),
       mediumMax: faker.randomGenerator.integer(min: 100, 200),
@@ -286,7 +285,6 @@ Map<String, dynamic> fakeSettingsDTOJson() {
   return {
     'isSystemThemeOn': fakeBool(),
     'isDarkThemeOn': fakeBool(),
-    'backupsDirectory': fakePath(),
     'bookSizeLimits': [
       faker.randomGenerator.integer(100),
       faker.randomGenerator.integer(min: 100, 200),

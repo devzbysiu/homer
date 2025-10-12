@@ -14,7 +14,6 @@ void main() {
       final result = toSettings(
         isDarkThemeOn: settingsDTO.isDarkThemeOn,
         isSystemThemeOn: settingsDTO.isSystemThemeOn,
-        backupsDirectory: settingsDTO.backupsDirectory,
         bookSizeLimits: settingsDTO.bookSizeLimits,
         readingGoal: settingsDTO.readingGoal,
       );

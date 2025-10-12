@@ -81,6 +81,5 @@ flutter:
   assets:
     - assets/book-thumbnail-fallback.png
     - assets/book-cover-fallback.webp
-    - assets/homer-backup.json
     - assets/splash-screen.json
     - assets/config/

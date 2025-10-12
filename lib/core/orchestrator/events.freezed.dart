@@ -12,7 +12,7 @@ part of 'events.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$RestoreFinished {
+mixin _$ImportFinished {
 
 
 
@@ -20,7 +20,7 @@ mixin _$RestoreFinished {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RestoreFinished);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportFinished);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RestoreFinished()';
+  return 'ImportFinished()';
 }
 
 
 }
 
 /// @nodoc
-class $RestoreFinishedCopyWith<$Res>  {
-$RestoreFinishedCopyWith(RestoreFinished _, $Res Function(RestoreFinished) __);
+class $ImportFinishedCopyWith<$Res>  {
+$ImportFinishedCopyWith(ImportFinished _, $Res Function(ImportFinished) __);
 }
 
 
-/// Adds pattern-matching-related methods to [RestoreFinished].
-extension RestoreFinishedPatterns on RestoreFinished {
+/// Adds pattern-matching-related methods to [ImportFinished].
+extension ImportFinishedPatterns on ImportFinished {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -55,10 +55,10 @@ extension RestoreFinishedPatterns on RestoreFinished {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RestoreFinished value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ImportFinished value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _RestoreFinished() when $default != null:
+case _ImportFinished() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -77,10 +77,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RestoreFinished value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ImportFinished value)  $default,){
 final _that = this;
 switch (_that) {
-case _RestoreFinished():
+case _ImportFinished():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -98,10 +98,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RestoreFinished value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ImportFinished value)?  $default,){
 final _that = this;
 switch (_that) {
-case _RestoreFinished() when $default != null:
+case _ImportFinished() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -121,7 +121,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function()?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _RestoreFinished() when $default != null:
+case _ImportFinished() when $default != null:
 return $default();case _:
   return orElse();
 
@@ -142,7 +142,7 @@ return $default();case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function()  $default,) {final _that = this;
 switch (_that) {
-case _RestoreFinished():
+case _ImportFinished():
 return $default();case _:
   throw StateError('Unexpected subclass');
 
@@ -162,7 +162,7 @@ return $default();case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function()?  $default,) {final _that = this;
 switch (_that) {
-case _RestoreFinished() when $default != null:
+case _ImportFinished() when $default != null:
 return $default();case _:
   return null;
 
@@ -174,8 +174,8 @@ return $default();case _:
 /// @nodoc
 
 
-class _RestoreFinished implements RestoreFinished {
-  const _RestoreFinished();
+class _ImportFinished implements ImportFinished {
+  const _ImportFinished();
   
 
 
@@ -185,7 +185,7 @@ class _RestoreFinished implements RestoreFinished {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RestoreFinished);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ImportFinished);
 }
 
 
@@ -194,7 +194,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RestoreFinished()';
+  return 'ImportFinished()';
 }
 
 

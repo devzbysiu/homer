@@ -1,12 +1,8 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-final class Tag extends Equatable {
-  const Tag({required this.name, required this.hexColor});
+part 'tag.freezed.dart';
 
-  final String name;
-
-  final String hexColor;
-
-  @override
-  List<Object> get props => [name, hexColor];
+@freezed
+abstract class Tag with _$Tag {
+  const factory Tag({required String name, required String hexColor}) = _Tag;
 }

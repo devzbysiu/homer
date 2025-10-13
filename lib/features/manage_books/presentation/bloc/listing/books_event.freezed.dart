@@ -252,7 +252,7 @@ $Res call({
 });
 
 
-
+$BookCopyWith<$Res> get book;
 
 }
 /// @nodoc
@@ -274,7 +274,16 @@ as List<Tag>,
   ));
 }
 
-
+/// Create a copy of BooksEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$BookCopyWith<$Res> get book {
+  
+  return $BookCopyWith<$Res>(_self.book, (value) {
+    return _then(_self.copyWith(book: value));
+  });
+}
 }
 
 /// @nodoc
@@ -320,7 +329,7 @@ $Res call({
 });
 
 
-
+$BookCopyWith<$Res> get book;
 
 }
 /// @nodoc
@@ -340,7 +349,16 @@ as Book,
   ));
 }
 
-
+/// Create a copy of BooksEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$BookCopyWith<$Res> get book {
+  
+  return $BookCopyWith<$Res>(_self.book, (value) {
+    return _then(_self.copyWith(book: value));
+  });
+}
 }
 
 /// @nodoc
@@ -386,7 +404,7 @@ $Res call({
 });
 
 
-
+$BookCopyWith<$Res> get book;
 
 }
 /// @nodoc
@@ -406,7 +424,16 @@ as Book,
   ));
 }
 
-
+/// Create a copy of BooksEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$BookCopyWith<$Res> get book {
+  
+  return $BookCopyWith<$Res>(_self.book, (value) {
+    return _then(_self.copyWith(book: value));
+  });
+}
 }
 
 /// @nodoc
@@ -485,7 +512,7 @@ $Res call({
 });
 
 
-
+$BookCopyWith<$Res> get book;$TagCopyWith<$Res> get tag;
 
 }
 /// @nodoc
@@ -506,7 +533,25 @@ as Tag,
   ));
 }
 
-
+/// Create a copy of BooksEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$BookCopyWith<$Res> get book {
+  
+  return $BookCopyWith<$Res>(_self.book, (value) {
+    return _then(_self.copyWith(book: value));
+  });
+}/// Create a copy of BooksEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TagCopyWith<$Res> get tag {
+  
+  return $TagCopyWith<$Res>(_self.tag, (value) {
+    return _then(_self.copyWith(tag: value));
+  });
+}
 }
 
 /// @nodoc

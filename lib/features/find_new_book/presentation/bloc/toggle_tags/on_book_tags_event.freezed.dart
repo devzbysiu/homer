@@ -226,7 +226,7 @@ $Res call({
 });
 
 
-
+$TagCopyWith<$Res> get tag;
 
 }
 /// @nodoc
@@ -246,7 +246,16 @@ as Tag,
   ));
 }
 
-
+/// Create a copy of BookTagsEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TagCopyWith<$Res> get tag {
+  
+  return $TagCopyWith<$Res>(_self.tag, (value) {
+    return _then(_self.copyWith(tag: value));
+  });
+}
 }
 
 /// @nodoc
@@ -292,7 +301,7 @@ $Res call({
 });
 
 
-
+$TagCopyWith<$Res> get tag;
 
 }
 /// @nodoc
@@ -312,7 +321,16 @@ as Tag,
   ));
 }
 
-
+/// Create a copy of BookTagsEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TagCopyWith<$Res> get tag {
+  
+  return $TagCopyWith<$Res>(_self.tag, (value) {
+    return _then(_self.copyWith(tag: value));
+  });
+}
 }
 
 /// @nodoc

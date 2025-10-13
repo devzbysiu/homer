@@ -252,7 +252,7 @@ $Res call({
 });
 
 
-
+$BookCopyWith<$Res> get book;
 
 }
 /// @nodoc
@@ -272,7 +272,16 @@ as Book,
   ));
 }
 
-
+/// Create a copy of BookSummaryEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$BookCopyWith<$Res> get book {
+  
+  return $BookCopyWith<$Res>(_self.book, (value) {
+    return _then(_self.copyWith(book: value));
+  });
+}
 }
 
 /// @nodoc

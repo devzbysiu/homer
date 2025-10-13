@@ -298,7 +298,7 @@ $Res call({
 });
 
 
-
+$BookCopyWith<$Res> get pickedBook;
 
 }
 /// @nodoc
@@ -318,7 +318,16 @@ as Book,
   ));
 }
 
-
+/// Create a copy of SearchEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$BookCopyWith<$Res> get pickedBook {
+  
+  return $BookCopyWith<$Res>(_self.pickedBook, (value) {
+    return _then(_self.copyWith(pickedBook: value));
+  });
+}
 }
 
 /// @nodoc

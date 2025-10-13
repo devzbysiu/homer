@@ -34,7 +34,7 @@ final class SearchAndCheckSaved implements SearchForBooks {
     return [
       for (final book in found)
         savedTitles.containsKey(book.title)
-            ? book.copyWith(alreadySaved: true, state: savedTitles[book.title])
+            ? book.copyWith(alreadySaved: true, state: savedTitles[book.title]!)
             : book,
     ];
   }

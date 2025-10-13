@@ -79,7 +79,7 @@ final class _ShareButton extends StatelessWidget {
         padding: const EdgeInsets.only(right: 15),
         child: GestureDetector(
           child: const Icon(Icons.share, size: 20, color: Colors.white),
-          onTap: () => Share.share(text),
+          onTap: () => SharePlus.instance.share(ShareParams(text: text)),
         ),
       ),
     );

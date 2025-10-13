@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
+import '../../../../logger.dart';
 import '../../../import_export/presentation/bloc/import_export_event.dart';
 
 final class ImportBooksTile extends StatelessBusWidget {
@@ -33,7 +34,7 @@ final class ImportBooksTile extends StatelessBusWidget {
       allowMultiple: false,
     );
     if (selection == null || selection.files.isEmpty) {
-      // TODO: Error handling is needed here
+      log.info('No file was selected, skipping import');
       return;
     }
     assert(selection.files.length == 1);

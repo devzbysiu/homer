@@ -1,6 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
+import 'features/manage_books/presentation/bloc/navigation/app_tab_state.dart';
+
+int defaultTabIdx() => AppTab.reading.index;
+
 enum Env { dev, prod }
 
 final class AppConfig {

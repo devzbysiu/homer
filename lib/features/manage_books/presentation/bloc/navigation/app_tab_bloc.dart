@@ -7,7 +7,7 @@ import 'app_tab_event.dart';
 import 'app_tab_state.dart';
 
 final class AppTabBloc extends Bloc<AppTabEvent, AppTabState> {
-  AppTabBloc() : super(const AppTabState.readLater()) {
+  AppTabBloc() : super(const AppTabState.reading()) {
     on<TabChanged>(_onTabChanged);
   }
 

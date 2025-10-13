@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_handler/share_handler.dart';
 
+import '../../../../app_config.dart';
 import '../../../../core/entities/book.dart';
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/utils/theme.dart';
@@ -28,7 +29,7 @@ final class BottomNavBar extends StatefulBusWidget {
 }
 
 final class _BottomNavBarState extends State<BottomNavBar> {
-  final _sheetCtl = BottomBarWithSheetController(initialIndex: 0);
+  final _sheetCtl = BottomBarWithSheetController(initialIndex: defaultTabIdx());
 
   @override
   void initState() {

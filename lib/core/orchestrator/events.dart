@@ -4,7 +4,10 @@ part 'events.freezed.dart';
 
 abstract class BusEvent {}
 
-// TODO: Why it is here? Is this the correct place?
+// INFO: The events below are the events coordinating different BLoCs
+// - that's why those are here and not as part of a BLoC
+// ===========================[   Events   ]===========================
+
 @freezed
 abstract class ImportFinished with _$ImportFinished implements BusEvent {
   const factory ImportFinished() = _ImportFinished;

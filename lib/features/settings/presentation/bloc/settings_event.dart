@@ -8,7 +8,7 @@ part 'settings_event.freezed.dart';
 
 @freezed
 sealed class SettingsEvent with _$SettingsEvent implements BusEvent {
-  const factory SettingsEvent.settingsLoaded() = SettingsLoaded;
+  const factory SettingsEvent.loadSettings() = LoadSettings;
 
   const factory SettingsEvent.themeToggled() = ThemeToggled;
 

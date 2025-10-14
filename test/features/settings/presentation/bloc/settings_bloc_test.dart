@@ -18,21 +18,21 @@ import '../../../../test_utils/mock_return_helpers.dart';
 import '../../../../test_utils/mocks.mocks.dart';
 
 void main() {
-  group('_onSettingsLoaded', () {
+  group('_onLoadSettings', () {
     final settings = fakeSettings();
 
     blocTest<SettingsBloc, SettingsState>(
       'should emit SettingsState with loaded settings',
       build: () => BlocMock().onLoadSettings(Success(settings)).get(),
-      act: (bloc) => bloc.add(SettingsLoaded()),
-      expect: () => [SettingsState(settings: _from(settings))],
+      act: (bloc) => bloc.add(LoadSettings()),
+      expect: () => [SettingsState(settings: settings)],
       verify: (bloc) => verify(bloc.loadSettings(NoParams())),
     );
 
     blocTest<SettingsBloc, SettingsState>(
       'should emit default settings when loading failed',
       build: () => BlocMock().onLoadSettings(Error(TestingFailure())).get(),
-      act: (bloc) => {/* do nothing */},
+      act: (bloc) => bloc.add(LoadSettings()),
       expect: () => [SettingsState(settings: _defaultSettings())],
       verify: (bloc) => verify(bloc.loadSettings(NoParams())),
     );
@@ -43,10 +43,10 @@ void main() {
 
     blocTest<SettingsBloc, SettingsState>(
       'should emit SettingsState with toggled dark theme setting',
-      build: () => BlocMock().onLoadSettings(Success(settings)).get(),
+      seed: () => SettingsState(settings: settings),
+      build: () => BlocMock().get(),
       act: (bloc) => bloc.add(ThemeToggled()),
       expect: () => [
-        SettingsState(settings: _from(settings)),
         SettingsState(
           settings: Settings(
             useSystemTheme: settings.useSystemTheme,
@@ -63,15 +63,10 @@ void main() {
 
     blocTest<SettingsBloc, SettingsState>(
       'should emit default settings when saving fails',
-      build: () => BlocMock()
-          .onLoadSettings(Success(settings))
-          .onSaveSettings(Error(TestingFailure()))
-          .get(),
+      seed: () => SettingsState(settings: settings),
+      build: () => BlocMock().onSaveSettings(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(ThemeToggled()),
-      expect: () => [
-        SettingsState(settings: _from(settings)),
-        SettingsState(settings: _defaultSettings()),
-      ],
+      expect: () => [SettingsState(settings: _defaultSettings())],
       verify: (bloc) => verify(
         bloc.saveSettings(SettingsParams(settings: settings.toggleDarkTheme())),
       ),
@@ -83,10 +78,10 @@ void main() {
 
     blocTest<SettingsBloc, SettingsState>(
       'should emit SettingsState with toggled system theme setting',
-      build: () => BlocMock().onLoadSettings(Success(settings)).get(),
+      seed: () => SettingsState(settings: settings),
+      build: () => BlocMock().get(),
       act: (bloc) => bloc.add(SystemThemeToggled()),
       expect: () => [
-        SettingsState(settings: _from(settings)),
         SettingsState(
           settings: Settings(
             useSystemTheme: !settings.useSystemTheme,
@@ -105,15 +100,10 @@ void main() {
 
     blocTest<SettingsBloc, SettingsState>(
       'should emit default settings when saving fails',
-      build: () => BlocMock()
-          .onLoadSettings(Success(settings))
-          .onSaveSettings(Error(TestingFailure()))
-          .get(),
+      seed: () => SettingsState(settings: settings),
+      build: () => BlocMock().onSaveSettings(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(SystemThemeToggled()),
-      expect: () => [
-        SettingsState(settings: _from(settings)),
-        SettingsState(settings: _defaultSettings()),
-      ],
+      expect: () => [SettingsState(settings: _defaultSettings())],
       verify: (bloc) => verify(
         bloc.saveSettings(
           SettingsParams(settings: settings.toggleSystemTheme()),
@@ -128,10 +118,10 @@ void main() {
 
     blocTest<SettingsBloc, SettingsState>(
       'should emit SettingsState with changed book size limits',
-      build: () => BlocMock().onLoadSettings(Success(settings)).get(),
+      seed: () => SettingsState(settings: settings),
+      build: () => BlocMock().get(),
       act: (bloc) => bloc.add(SizeLimitsChanged(limits)),
       expect: () => [
-        SettingsState(settings: _from(settings)),
         SettingsState(
           settings: Settings(
             useSystemTheme: settings.useSystemTheme,
@@ -150,15 +140,10 @@ void main() {
 
     blocTest<SettingsBloc, SettingsState>(
       'should emit default settings when saving fails',
-      build: () => BlocMock()
-          .onLoadSettings(Success(settings))
-          .onSaveSettings(Error(TestingFailure()))
-          .get(),
+      seed: () => SettingsState(settings: settings),
+      build: () => BlocMock().onSaveSettings(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(SizeLimitsChanged(limits)),
-      expect: () => [
-        SettingsState(settings: _from(settings)),
-        SettingsState(settings: _defaultSettings()),
-      ],
+      expect: () => [SettingsState(settings: _defaultSettings())],
       verify: (bloc) => verify(
         bloc.saveSettings(
           SettingsParams(settings: settings.changeSizeLimits(limits)),
@@ -172,10 +157,10 @@ void main() {
 
     blocTest<SettingsBloc, SettingsState>(
       'should emit SettingsState with changed reading goal',
-      build: () => BlocMock().onLoadSettings(Success(settings)).get(),
+      seed: () => SettingsState(settings: settings),
+      build: () => BlocMock().get(),
       act: (bloc) => bloc.add(ReadingGoalChanged(const ReadingGoal(books: 16))),
       expect: () => [
-        SettingsState(settings: _from(settings)),
         SettingsState(
           settings: Settings(
             useSystemTheme: settings.useSystemTheme,
@@ -196,15 +181,10 @@ void main() {
 
     blocTest<SettingsBloc, SettingsState>(
       'should emit default settings when saving fails',
-      build: () => BlocMock()
-          .onLoadSettings(Success(settings))
-          .onSaveSettings(Error(TestingFailure()))
-          .get(),
+      seed: () => SettingsState(settings: settings),
+      build: () => BlocMock().onSaveSettings(Error(TestingFailure())).get(),
       act: (bloc) => bloc.add(ReadingGoalChanged(const ReadingGoal(books: 6))),
-      expect: () => [
-        SettingsState(settings: _from(settings)),
-        SettingsState(settings: _defaultSettings()),
-      ],
+      expect: () => [SettingsState(settings: _defaultSettings())],
       verify: (bloc) => verify(
         bloc.saveSettings(
           SettingsParams(
@@ -214,15 +194,6 @@ void main() {
       ),
     );
   });
-}
-
-Settings _from(Settings settings) {
-  return Settings(
-    useSystemTheme: settings.useSystemTheme,
-    useDarkTheme: settings.useDarkTheme,
-    bookSizeLimits: settings.bookSizeLimits,
-    readingGoal: settings.readingGoal,
-  );
 }
 
 Settings _defaultSettings() {

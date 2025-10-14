@@ -55,11 +55,11 @@ extension SettingsEventPatterns on SettingsEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SettingsLoaded value)?  settingsLoaded,TResult Function( ThemeToggled value)?  themeToggled,TResult Function( SystemThemeToggled value)?  systemThemeToggled,TResult Function( SizeLimitsChanged value)?  sizeLimitsChanged,TResult Function( ReadingGoalChanged value)?  readingGoalChanged,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadSettings value)?  loadSettings,TResult Function( ThemeToggled value)?  themeToggled,TResult Function( SystemThemeToggled value)?  systemThemeToggled,TResult Function( SizeLimitsChanged value)?  sizeLimitsChanged,TResult Function( ReadingGoalChanged value)?  readingGoalChanged,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case SettingsLoaded() when settingsLoaded != null:
-return settingsLoaded(_that);case ThemeToggled() when themeToggled != null:
+case LoadSettings() when loadSettings != null:
+return loadSettings(_that);case ThemeToggled() when themeToggled != null:
 return themeToggled(_that);case SystemThemeToggled() when systemThemeToggled != null:
 return systemThemeToggled(_that);case SizeLimitsChanged() when sizeLimitsChanged != null:
 return sizeLimitsChanged(_that);case ReadingGoalChanged() when readingGoalChanged != null:
@@ -81,11 +81,11 @@ return readingGoalChanged(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SettingsLoaded value)  settingsLoaded,required TResult Function( ThemeToggled value)  themeToggled,required TResult Function( SystemThemeToggled value)  systemThemeToggled,required TResult Function( SizeLimitsChanged value)  sizeLimitsChanged,required TResult Function( ReadingGoalChanged value)  readingGoalChanged,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadSettings value)  loadSettings,required TResult Function( ThemeToggled value)  themeToggled,required TResult Function( SystemThemeToggled value)  systemThemeToggled,required TResult Function( SizeLimitsChanged value)  sizeLimitsChanged,required TResult Function( ReadingGoalChanged value)  readingGoalChanged,}){
 final _that = this;
 switch (_that) {
-case SettingsLoaded():
-return settingsLoaded(_that);case ThemeToggled():
+case LoadSettings():
+return loadSettings(_that);case ThemeToggled():
 return themeToggled(_that);case SystemThemeToggled():
 return systemThemeToggled(_that);case SizeLimitsChanged():
 return sizeLimitsChanged(_that);case ReadingGoalChanged():
@@ -103,11 +103,11 @@ return readingGoalChanged(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SettingsLoaded value)?  settingsLoaded,TResult? Function( ThemeToggled value)?  themeToggled,TResult? Function( SystemThemeToggled value)?  systemThemeToggled,TResult? Function( SizeLimitsChanged value)?  sizeLimitsChanged,TResult? Function( ReadingGoalChanged value)?  readingGoalChanged,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadSettings value)?  loadSettings,TResult? Function( ThemeToggled value)?  themeToggled,TResult? Function( SystemThemeToggled value)?  systemThemeToggled,TResult? Function( SizeLimitsChanged value)?  sizeLimitsChanged,TResult? Function( ReadingGoalChanged value)?  readingGoalChanged,}){
 final _that = this;
 switch (_that) {
-case SettingsLoaded() when settingsLoaded != null:
-return settingsLoaded(_that);case ThemeToggled() when themeToggled != null:
+case LoadSettings() when loadSettings != null:
+return loadSettings(_that);case ThemeToggled() when themeToggled != null:
 return themeToggled(_that);case SystemThemeToggled() when systemThemeToggled != null:
 return systemThemeToggled(_that);case SizeLimitsChanged() when sizeLimitsChanged != null:
 return sizeLimitsChanged(_that);case ReadingGoalChanged() when readingGoalChanged != null:
@@ -128,10 +128,10 @@ return readingGoalChanged(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  settingsLoaded,TResult Function()?  themeToggled,TResult Function()?  systemThemeToggled,TResult Function( BookSizeLimits limits)?  sizeLimitsChanged,TResult Function( ReadingGoal goal)?  readingGoalChanged,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadSettings,TResult Function()?  themeToggled,TResult Function()?  systemThemeToggled,TResult Function( BookSizeLimits limits)?  sizeLimitsChanged,TResult Function( ReadingGoal goal)?  readingGoalChanged,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case SettingsLoaded() when settingsLoaded != null:
-return settingsLoaded();case ThemeToggled() when themeToggled != null:
+case LoadSettings() when loadSettings != null:
+return loadSettings();case ThemeToggled() when themeToggled != null:
 return themeToggled();case SystemThemeToggled() when systemThemeToggled != null:
 return systemThemeToggled();case SizeLimitsChanged() when sizeLimitsChanged != null:
 return sizeLimitsChanged(_that.limits);case ReadingGoalChanged() when readingGoalChanged != null:
@@ -153,10 +153,10 @@ return readingGoalChanged(_that.goal);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  settingsLoaded,required TResult Function()  themeToggled,required TResult Function()  systemThemeToggled,required TResult Function( BookSizeLimits limits)  sizeLimitsChanged,required TResult Function( ReadingGoal goal)  readingGoalChanged,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadSettings,required TResult Function()  themeToggled,required TResult Function()  systemThemeToggled,required TResult Function( BookSizeLimits limits)  sizeLimitsChanged,required TResult Function( ReadingGoal goal)  readingGoalChanged,}) {final _that = this;
 switch (_that) {
-case SettingsLoaded():
-return settingsLoaded();case ThemeToggled():
+case LoadSettings():
+return loadSettings();case ThemeToggled():
 return themeToggled();case SystemThemeToggled():
 return systemThemeToggled();case SizeLimitsChanged():
 return sizeLimitsChanged(_that.limits);case ReadingGoalChanged():
@@ -174,10 +174,10 @@ return readingGoalChanged(_that.goal);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  settingsLoaded,TResult? Function()?  themeToggled,TResult? Function()?  systemThemeToggled,TResult? Function( BookSizeLimits limits)?  sizeLimitsChanged,TResult? Function( ReadingGoal goal)?  readingGoalChanged,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadSettings,TResult? Function()?  themeToggled,TResult? Function()?  systemThemeToggled,TResult? Function( BookSizeLimits limits)?  sizeLimitsChanged,TResult? Function( ReadingGoal goal)?  readingGoalChanged,}) {final _that = this;
 switch (_that) {
-case SettingsLoaded() when settingsLoaded != null:
-return settingsLoaded();case ThemeToggled() when themeToggled != null:
+case LoadSettings() when loadSettings != null:
+return loadSettings();case ThemeToggled() when themeToggled != null:
 return themeToggled();case SystemThemeToggled() when systemThemeToggled != null:
 return systemThemeToggled();case SizeLimitsChanged() when sizeLimitsChanged != null:
 return sizeLimitsChanged(_that.limits);case ReadingGoalChanged() when readingGoalChanged != null:
@@ -192,8 +192,8 @@ return readingGoalChanged(_that.goal);case _:
 /// @nodoc
 
 
-class SettingsLoaded implements SettingsEvent {
-  const SettingsLoaded();
+class LoadSettings implements SettingsEvent {
+  const LoadSettings();
   
 
 
@@ -203,7 +203,7 @@ class SettingsLoaded implements SettingsEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsLoaded);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadSettings);
 }
 
 
@@ -212,7 +212,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SettingsEvent.settingsLoaded()';
+  return 'SettingsEvent.loadSettings()';
 }
 
 

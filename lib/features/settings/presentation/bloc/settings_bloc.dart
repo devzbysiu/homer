@@ -7,7 +7,7 @@ import '../../../../core/usecase/usecase.dart';
 import '../../domain/entities/book_size_limits.dart';
 import '../../domain/entities/reading_goal.dart';
 import '../../domain/entities/settings.dart';
-import '../../domain/usecases/load_settings.dart';
+import '../../domain/usecases/load_settings.dart' as uc;
 import '../../domain/usecases/save_settings.dart';
 import 'settings_event.dart';
 import 'settings_state.dart';
@@ -15,21 +15,19 @@ import 'settings_state.dart';
 final class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({required this.saveSettings, required this.loadSettings})
     : super(SettingsState.initial()) {
-    on<SettingsLoaded>(_onSettingsLoaded);
+    on<LoadSettings>(_onLoadSettings);
     on<ThemeToggled>(_onThemeToggled);
     on<SystemThemeToggled>(_onSystemThemeToggled);
     on<SizeLimitsChanged>(_onBookSizeLimitsChanged);
     on<ReadingGoalChanged>(_onReadingGoalChanged);
-    // TODO: Move initial event triggering to `run.dart`
-    add(SettingsLoaded());
   }
 
   final SaveSettings saveSettings;
 
-  final LoadSettings loadSettings;
+  final uc.LoadSettings loadSettings;
 
-  Future<void> _onSettingsLoaded(
-    SettingsLoaded event,
+  Future<void> _onLoadSettings(
+    LoadSettings event,
     Emitter<SettingsState> emit,
   ) async {
     final result = await loadSettings(NoParams());

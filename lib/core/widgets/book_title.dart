@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 import '../../features/manage_books/presentation/bloc/listing/books_event.dart';
 import '../../features/tags_manager/presentation/bloc/tags_bloc.dart';
+import '../../features/tags_manager/presentation/bloc/tags_state.dart';
 import '../entities/book.dart';
 import '../entities/tag.dart';
 import '../orchestrator/bus_widget.dart';
@@ -45,25 +47,29 @@ final class _AddTagTile extends StatelessBusWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tags = context.allTags();
-    return InkWell(
-      onTap: () async {
-        await showPullDownMenu(
-          context: context,
-          items: _listTags(tags, context),
-          position: context.globalPaintBounds!,
+    return BlocSelector<TagsBloc, TagsState, List<Tag>>(
+      selector: (state) => state.tagsOrEmpty,
+      builder: (context, tags) {
+        return InkWell(
+          onTap: () async {
+            await showPullDownMenu(
+              context: context,
+              items: _listTags(tags, context),
+              position: context.globalPaintBounds!,
+            );
+          },
+          child: Container(
+            width: 25,
+            height: 25,
+            decoration: BoxDecoration(
+              border: Border.all(color: context.primary),
+              borderRadius: BorderRadius.circular(6),
+              color: Colors.black,
+            ),
+            child: const Icon(Icons.tag, color: Colors.white, size: 15),
+          ),
         );
       },
-      child: Container(
-        width: 25,
-        height: 25,
-        decoration: BoxDecoration(
-          border: Border.all(color: context.primary),
-          borderRadius: BorderRadius.circular(6),
-          color: Colors.black,
-        ),
-        child: const Icon(Icons.tag, color: Colors.white, size: 15),
-      ),
     );
   }
 

@@ -13,7 +13,6 @@ final class FetchSharedBookImpl implements FetchSharedBook {
 
   final ExternalBooksRepository booksRepo;
 
-  // TODO: Add check if book is already saved
   @override
   Future<Result<Book, Failure>> call(FetchBookParams params) async {
     return booksRepo.fromIsbn(params.isbn);

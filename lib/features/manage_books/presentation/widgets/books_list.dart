@@ -63,7 +63,7 @@ final class _BooksListState extends State<BooksList> {
               final books = allBooks
                   .where((b) => b.state.name == context.currentTab().name)
                   .toList();
-              if (books.isEmpty) return Container();
+              if (books.isEmpty) return const SizedBox.shrink();
               return GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   childAspectRatio: 0.78,

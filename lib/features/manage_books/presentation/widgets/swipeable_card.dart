@@ -161,7 +161,7 @@ final class _AnimatedBackground extends StatelessWidget {
       case BookState.reading:
         return _animateToRead(context);
       case BookState.read:
-        return Container();
+        return const SizedBox.shrink();
     }
   }
 
@@ -202,7 +202,7 @@ final class _AnimatedBackground extends StatelessWidget {
   Widget _animateLeftSwipe(BuildContext context) {
     switch (currentState) {
       case BookState.readLater:
-        return Container();
+        return const SizedBox.shrink();
       case BookState.reading:
         return _animateToReadLater(context);
       case BookState.read:

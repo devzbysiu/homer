@@ -15,7 +15,7 @@ final class _SavableBookWithSummary extends StatelessWidget {
         );
         final bookCandidate = pickedBook.orElse(() => sharedBook);
         return bookCandidate.fold(
-          () => Container(),
+          () => const SizedBox.shrink(),
           (book) => _showBookCandidate(book, context),
         );
       },

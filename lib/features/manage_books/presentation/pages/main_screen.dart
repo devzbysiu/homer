@@ -31,7 +31,7 @@ final class _MainScreenState extends State<MainScreen> {
       backgroundColor: context.background,
       hint: 'Filter...',
       body: _booksListing(context),
-      builder: (_, _) => Container(),
+      builder: (_, _) => const SizedBox.shrink(),
     );
   }
 

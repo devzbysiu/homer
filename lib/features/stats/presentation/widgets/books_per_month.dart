@@ -25,7 +25,7 @@ final class BooksPerMonth extends StatelessWidget {
             child: BlocBuilder<StatsBloc, StatsState>(
               builder: (context, state) {
                 if (state.booksPerMonth.isNone()) {
-                  return Container();
+                  return const SizedBox.shrink();
                 }
 
                 final booksPerMonth = state.booksPerMonth.toNullable()!;
@@ -206,7 +206,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
     TitleMeta meta,
   ) {
     final months = booksPerMonth.months();
-    if (value < 0 || value > months.length - 1) return Container();
+    if (value < 0 || value > months.length - 1) return const SizedBox.shrink();
 
     return SideTitleWidget(
       meta: meta,
@@ -234,7 +234,7 @@ final class _LineChartBooksPerMonth extends StatelessWidget {
     final bookCounts = booksPerMonth.bookCounts();
     final maxReadBooks = bookCounts.max;
     if (value < 0 || value > maxReadBooks + 2 || value % 2 != 0) {
-      return Container();
+      return const SizedBox.shrink();
     }
 
     return Text(

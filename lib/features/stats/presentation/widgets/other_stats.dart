@@ -22,7 +22,7 @@ final class OtherStats extends StatelessWidget {
             child: BlocBuilder<StatsBloc, StatsState>(
               builder: (context, state) {
                 if (state.otherStats.isNone()) {
-                  return Container();
+                  return const SizedBox.shrink();
                 }
 
                 final otherStats = state.otherStats.toNullable()!;

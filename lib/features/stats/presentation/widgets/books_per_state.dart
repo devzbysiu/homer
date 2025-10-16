@@ -23,7 +23,7 @@ final class BooksPerState extends StatelessWidget {
             child: BlocBuilder<StatsBloc, StatsState>(
               builder: (context, state) {
                 if (state.booksPerMonth.isNone()) {
-                  return Container();
+                  return const SizedBox.shrink();
                 }
 
                 final booksPerState = state.booksPerState.toNullable()!;

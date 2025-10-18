@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/orchestrator/bus.dart';
+import '../../../../../core/orchestrator/events.dart';
 import '../../../../../core/usecase/usecase.dart';
+import '../../../../../core/utils/option_ext.dart';
 import '../../../domain/usecases/add_book.dart';
 import '../../../domain/usecases/filter_books.dart';
 import '../../../domain/usecases/list_books.dart';
@@ -12,6 +15,7 @@ import 'books_state.dart';
 
 final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   BooksBloc({
+    required this.eventBus,
     required this.addBook,
     required this.listBooks,
     required this.updateBook,
@@ -19,12 +23,13 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   }) : super(const BooksState.initial()) {
     on<RefreshBooksList>(_onRefreshBooksList);
     on<SaveBook>(_onBookAdded);
-    on<BookSwipedRight>(_onBookSwipedRight);
-    on<BookSwipedLeft>(_onBookSwipedLeft);
+    on<BookSwiped>(_onBookSwiped);
     on<TagToggled>(_onTagToggled);
     on<BooksFiltered>(_onBooksFiltered);
     add(RefreshBooksList());
   }
+
+  final Bus eventBus;
 
   final AddBook addBook;
 
@@ -63,28 +68,20 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
     );
   }
 
-  Future<void> _onBookSwipedRight(
-    BookSwipedRight event,
-    Emitter<BooksState> emit,
-  ) async {
-    final modifiedBook = event.book;
-    final result = await updateBook(UpdateParams(modified: modifiedBook));
-    await result.when(
-      (success) async => await _emitSavedBooks(emit),
-      (error) async => emit(const BooksState.updatingBookFailed()),
-    );
-  }
-
-  Future<void> _onBookSwipedLeft(
-    BookSwipedLeft event,
-    Emitter<BooksState> emit,
-  ) async {
-    final modifiedBook = event.book;
-    final result = await updateBook(UpdateParams(modified: modifiedBook));
-    await result.when(
-      (success) async => await _emitSavedBooks(emit),
-      (error) async => emit(const BooksState.updatingBookFailed()),
-    );
+  Future<void> _onBookSwiped(BookSwiped event, Emitter<BooksState> emit) async {
+    await event.book.move(event.dir).ifSome((updatedBook) async {
+      final result = await updateBook(UpdateParams(modified: updatedBook));
+      await result.when((success) async {
+        await _emitSavedBooks(emit);
+        eventBus.fire(
+          BookStateUpdated(
+            oldBook: event.book,
+            direction: event.dir,
+            updatedBook: updatedBook,
+          ),
+        );
+      }, (error) async => emit(const BooksState.updatingBookFailed()));
+    });
   }
 
   Future<void> _onTagToggled(TagToggled event, Emitter<BooksState> emit) async {

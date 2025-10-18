@@ -14,9 +14,7 @@ sealed class BooksEvent with _$BooksEvent implements BusEvent {
     required List<Tag> selectedTags,
   }) = SaveBook;
 
-  const factory BooksEvent.bookSwipedRight(Book book) = BookSwipedRight;
-
-  const factory BooksEvent.bookSwipedLeft(Book book) = BookSwipedLeft;
+  const factory BooksEvent.bookSwiped(Book book, Swiped dir) = BookSwiped;
 
   const factory BooksEvent.refreshBooksList() = RefreshBooksList;
 

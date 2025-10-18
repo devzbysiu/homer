@@ -18,6 +18,7 @@ import '../../features/settings/presentation/bloc/settings_bloc.dart';
 import '../../features/settings/presentation/bloc/settings_event.dart';
 import '../../features/stats/presentation/bloc/stats_bloc.dart';
 import '../../features/stats/presentation/bloc/stats_event.dart';
+import '../entities/book.dart';
 import 'bus.dart';
 import 'events.dart';
 
@@ -58,9 +59,8 @@ final class Orchestrator {
 
     // Listing
     eventBus.on<BooksFiltered>(_onBooksFiltered);
-    eventBus.on<BookSwipedRight>(_onSwipedRight);
-    eventBus.on<BookSwipedLeft>(_onSwipedLeft);
     eventBus.on<TagToggled>(_onTagToggled);
+    eventBus.on<BookSwiped>(_onSwiped);
 
     // Summary
     eventBus.on<SummaryModeToggled>(_onSummaryModeToggled);
@@ -74,10 +74,7 @@ final class Orchestrator {
     eventBus.on<SystemThemeToggled>(_onSystemThemeEnabled);
 
     // Stats
-    eventBus.on<BookFinished>(_onBookFinished);
-    eventBus.on<BookStarted>(_onBookStarted);
-    eventBus.on<BookUnfinished>(_onBookUnfinished);
-    eventBus.on<BookUnstarted>(_onBookUnstarted);
+    eventBus.on<BookStateUpdated>(_onBookStateUpdated);
 
     // Bottom Drawer
     eventBus.on<BookSharedFromOutside>(_onBookSharedFromOutside);
@@ -105,8 +102,10 @@ final class Orchestrator {
 
   final SettingsBloc settings;
 
+  // AppTab
   void _onTabChanged(TabChanged event) => appTab.add(event);
 
+  // Import Export
   void _onImportTriggered(ImportTriggered event) => importExport.add(event);
 
   void _onImportFinished(ImportFinished event) {
@@ -116,6 +115,7 @@ final class Orchestrator {
 
   void _onExportTriggered(ExportTriggered event) => importExport.add(event);
 
+  // Find new Book
   void _onSearching(Searching event) {
     search.add(event);
     // reset error if happened
@@ -135,6 +135,7 @@ final class Orchestrator {
     onBookTags.add(ClearSelectedTags());
   }
 
+  // Delete
   void _onDeleteModeToggled(DeleteModeToggled event) => delete.add(event);
   void _onClearDeletionList(ClearDeletionList event) => delete.add(event);
   void _onDeletePickedBooks(DeletePickedBooks event) => delete.add(event);
@@ -144,25 +145,42 @@ final class Orchestrator {
     stats.add(LoadStats());
   }
 
+  // Listing
   void _onBooksFiltered(BooksFiltered event) => books.add(event);
-  void _onSwipedRight(BookSwipedRight event) => books.add(event);
-  void _onSwipedLeft(BookSwipedLeft event) => books.add(event);
   void _onTagToggled(TagToggled event) => books.add(event);
+  void _onSwiped(BookSwiped event) => books.add(event);
 
+  // Summary
   void _onSummaryModeToggled(SummaryModeToggled event) => summary.add(event);
   void _onSummaryModeClosing(SummaryModeClosing event) => summary.add(event);
   void _onSummaryModeClosed(SummaryModeClosed event) => summary.add(event);
 
+  // Settings
   void _onSizeLimitsChanged(SizeLimitsChanged event) => settings.add(event);
   void _onReadingGoalChanged(ReadingGoalChanged event) => settings.add(event);
   void _onThemeToggled(ThemeToggled event) => settings.add(event);
   void _onSystemThemeEnabled(SystemThemeToggled event) => settings.add(event);
 
-  void _onBookFinished(BookFinished event) => stats.add(event);
-  void _onBookStarted(BookStarted event) => stats.add(event);
-  void _onBookUnfinished(BookUnfinished event) => stats.add(event);
-  void _onBookUnstarted(BookUnstarted event) => stats.add(event);
+  // Stats
+  void _onBookStateUpdated(BookStateUpdated event) {
+    assert(switch ((event.direction, event.oldBook.state)) {
+      (Swiped.right, BookState.read) => false,
+      (Swiped.left, BookState.readLater) => false,
+      _ => true,
+    }, 'Invalid swipe for current book state.');
 
+    final stat = switch ((event.direction, event.updatedBook.state)) {
+      (Swiped.right, BookState.read) => BookFinished(event.updatedBook),
+      (Swiped.right, BookState.reading) => BookStarted(),
+      (Swiped.left, BookState.reading) => BookUnfinished(event.oldBook),
+      (Swiped.left, BookState.readLater) => BookUnstarted(),
+      _ => null,
+    };
+
+    if (stat != null) stats.add(stat);
+  }
+
+  // Bottom Drawer
   void _onBookSharedFromOutside(BookSharedFromOutside event) =>
       share.add(event);
 }

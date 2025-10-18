@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../entities/book.dart';
+
 part 'events.freezed.dart';
 
 abstract class BusEvent {}
@@ -18,4 +20,13 @@ abstract class DeleteBooksFinished
     with _$DeleteBooksFinished
     implements BusEvent {
   const factory DeleteBooksFinished() = _DeleteBooksFinished;
+}
+
+@freezed
+abstract class BookStateUpdated with _$BookStateUpdated implements BusEvent {
+  const factory BookStateUpdated({
+    required Book oldBook,
+    required Swiped direction,
+    required Book updatedBook,
+  }) = _BookStateUpdated;
 }

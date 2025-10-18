@@ -55,13 +55,12 @@ extension BooksEventPatterns on BooksEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SaveBook value)?  saveBook,TResult Function( BookSwipedRight value)?  bookSwipedRight,TResult Function( BookSwipedLeft value)?  bookSwipedLeft,TResult Function( RefreshBooksList value)?  refreshBooksList,TResult Function( TagToggled value)?  tagToggled,TResult Function( BooksFiltered value)?  booksFiltered,TResult Function( BookSaved value)?  bookSaved,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SaveBook value)?  saveBook,TResult Function( BookSwiped value)?  bookSwiped,TResult Function( RefreshBooksList value)?  refreshBooksList,TResult Function( TagToggled value)?  tagToggled,TResult Function( BooksFiltered value)?  booksFiltered,TResult Function( BookSaved value)?  bookSaved,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case SaveBook() when saveBook != null:
-return saveBook(_that);case BookSwipedRight() when bookSwipedRight != null:
-return bookSwipedRight(_that);case BookSwipedLeft() when bookSwipedLeft != null:
-return bookSwipedLeft(_that);case RefreshBooksList() when refreshBooksList != null:
+return saveBook(_that);case BookSwiped() when bookSwiped != null:
+return bookSwiped(_that);case RefreshBooksList() when refreshBooksList != null:
 return refreshBooksList(_that);case TagToggled() when tagToggled != null:
 return tagToggled(_that);case BooksFiltered() when booksFiltered != null:
 return booksFiltered(_that);case BookSaved() when bookSaved != null:
@@ -83,13 +82,12 @@ return bookSaved(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SaveBook value)  saveBook,required TResult Function( BookSwipedRight value)  bookSwipedRight,required TResult Function( BookSwipedLeft value)  bookSwipedLeft,required TResult Function( RefreshBooksList value)  refreshBooksList,required TResult Function( TagToggled value)  tagToggled,required TResult Function( BooksFiltered value)  booksFiltered,required TResult Function( BookSaved value)  bookSaved,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SaveBook value)  saveBook,required TResult Function( BookSwiped value)  bookSwiped,required TResult Function( RefreshBooksList value)  refreshBooksList,required TResult Function( TagToggled value)  tagToggled,required TResult Function( BooksFiltered value)  booksFiltered,required TResult Function( BookSaved value)  bookSaved,}){
 final _that = this;
 switch (_that) {
 case SaveBook():
-return saveBook(_that);case BookSwipedRight():
-return bookSwipedRight(_that);case BookSwipedLeft():
-return bookSwipedLeft(_that);case RefreshBooksList():
+return saveBook(_that);case BookSwiped():
+return bookSwiped(_that);case RefreshBooksList():
 return refreshBooksList(_that);case TagToggled():
 return tagToggled(_that);case BooksFiltered():
 return booksFiltered(_that);case BookSaved():
@@ -107,13 +105,12 @@ return bookSaved(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SaveBook value)?  saveBook,TResult? Function( BookSwipedRight value)?  bookSwipedRight,TResult? Function( BookSwipedLeft value)?  bookSwipedLeft,TResult? Function( RefreshBooksList value)?  refreshBooksList,TResult? Function( TagToggled value)?  tagToggled,TResult? Function( BooksFiltered value)?  booksFiltered,TResult? Function( BookSaved value)?  bookSaved,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SaveBook value)?  saveBook,TResult? Function( BookSwiped value)?  bookSwiped,TResult? Function( RefreshBooksList value)?  refreshBooksList,TResult? Function( TagToggled value)?  tagToggled,TResult? Function( BooksFiltered value)?  booksFiltered,TResult? Function( BookSaved value)?  bookSaved,}){
 final _that = this;
 switch (_that) {
 case SaveBook() when saveBook != null:
-return saveBook(_that);case BookSwipedRight() when bookSwipedRight != null:
-return bookSwipedRight(_that);case BookSwipedLeft() when bookSwipedLeft != null:
-return bookSwipedLeft(_that);case RefreshBooksList() when refreshBooksList != null:
+return saveBook(_that);case BookSwiped() when bookSwiped != null:
+return bookSwiped(_that);case RefreshBooksList() when refreshBooksList != null:
 return refreshBooksList(_that);case TagToggled() when tagToggled != null:
 return tagToggled(_that);case BooksFiltered() when booksFiltered != null:
 return booksFiltered(_that);case BookSaved() when bookSaved != null:
@@ -134,12 +131,11 @@ return bookSaved(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Book book,  BookState bookState,  List<Tag> selectedTags)?  saveBook,TResult Function( Book book)?  bookSwipedRight,TResult Function( Book book)?  bookSwipedLeft,TResult Function()?  refreshBooksList,TResult Function( Book book,  Tag tag)?  tagToggled,TResult Function( String query)?  booksFiltered,TResult Function()?  bookSaved,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( Book book,  BookState bookState,  List<Tag> selectedTags)?  saveBook,TResult Function( Book book,  Swiped dir)?  bookSwiped,TResult Function()?  refreshBooksList,TResult Function( Book book,  Tag tag)?  tagToggled,TResult Function( String query)?  booksFiltered,TResult Function()?  bookSaved,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SaveBook() when saveBook != null:
-return saveBook(_that.book,_that.bookState,_that.selectedTags);case BookSwipedRight() when bookSwipedRight != null:
-return bookSwipedRight(_that.book);case BookSwipedLeft() when bookSwipedLeft != null:
-return bookSwipedLeft(_that.book);case RefreshBooksList() when refreshBooksList != null:
+return saveBook(_that.book,_that.bookState,_that.selectedTags);case BookSwiped() when bookSwiped != null:
+return bookSwiped(_that.book,_that.dir);case RefreshBooksList() when refreshBooksList != null:
 return refreshBooksList();case TagToggled() when tagToggled != null:
 return tagToggled(_that.book,_that.tag);case BooksFiltered() when booksFiltered != null:
 return booksFiltered(_that.query);case BookSaved() when bookSaved != null:
@@ -161,12 +157,11 @@ return bookSaved();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Book book,  BookState bookState,  List<Tag> selectedTags)  saveBook,required TResult Function( Book book)  bookSwipedRight,required TResult Function( Book book)  bookSwipedLeft,required TResult Function()  refreshBooksList,required TResult Function( Book book,  Tag tag)  tagToggled,required TResult Function( String query)  booksFiltered,required TResult Function()  bookSaved,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( Book book,  BookState bookState,  List<Tag> selectedTags)  saveBook,required TResult Function( Book book,  Swiped dir)  bookSwiped,required TResult Function()  refreshBooksList,required TResult Function( Book book,  Tag tag)  tagToggled,required TResult Function( String query)  booksFiltered,required TResult Function()  bookSaved,}) {final _that = this;
 switch (_that) {
 case SaveBook():
-return saveBook(_that.book,_that.bookState,_that.selectedTags);case BookSwipedRight():
-return bookSwipedRight(_that.book);case BookSwipedLeft():
-return bookSwipedLeft(_that.book);case RefreshBooksList():
+return saveBook(_that.book,_that.bookState,_that.selectedTags);case BookSwiped():
+return bookSwiped(_that.book,_that.dir);case RefreshBooksList():
 return refreshBooksList();case TagToggled():
 return tagToggled(_that.book,_that.tag);case BooksFiltered():
 return booksFiltered(_that.query);case BookSaved():
@@ -184,12 +179,11 @@ return bookSaved();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Book book,  BookState bookState,  List<Tag> selectedTags)?  saveBook,TResult? Function( Book book)?  bookSwipedRight,TResult? Function( Book book)?  bookSwipedLeft,TResult? Function()?  refreshBooksList,TResult? Function( Book book,  Tag tag)?  tagToggled,TResult? Function( String query)?  booksFiltered,TResult? Function()?  bookSaved,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( Book book,  BookState bookState,  List<Tag> selectedTags)?  saveBook,TResult? Function( Book book,  Swiped dir)?  bookSwiped,TResult? Function()?  refreshBooksList,TResult? Function( Book book,  Tag tag)?  tagToggled,TResult? Function( String query)?  booksFiltered,TResult? Function()?  bookSaved,}) {final _that = this;
 switch (_that) {
 case SaveBook() when saveBook != null:
-return saveBook(_that.book,_that.bookState,_that.selectedTags);case BookSwipedRight() when bookSwipedRight != null:
-return bookSwipedRight(_that.book);case BookSwipedLeft() when bookSwipedLeft != null:
-return bookSwipedLeft(_that.book);case RefreshBooksList() when refreshBooksList != null:
+return saveBook(_that.book,_that.bookState,_that.selectedTags);case BookSwiped() when bookSwiped != null:
+return bookSwiped(_that.book,_that.dir);case RefreshBooksList() when refreshBooksList != null:
 return refreshBooksList();case TagToggled() when tagToggled != null:
 return tagToggled(_that.book,_that.tag);case BooksFiltered() when booksFiltered != null:
 return booksFiltered(_that.query);case BookSaved() when bookSaved != null:
@@ -289,43 +283,44 @@ $BookCopyWith<$Res> get book {
 /// @nodoc
 
 
-class BookSwipedRight implements BooksEvent {
-  const BookSwipedRight(this.book);
+class BookSwiped implements BooksEvent {
+  const BookSwiped(this.book, this.dir);
   
 
  final  Book book;
+ final  Swiped dir;
 
 /// Create a copy of BooksEvent
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$BookSwipedRightCopyWith<BookSwipedRight> get copyWith => _$BookSwipedRightCopyWithImpl<BookSwipedRight>(this, _$identity);
+$BookSwipedCopyWith<BookSwiped> get copyWith => _$BookSwipedCopyWithImpl<BookSwiped>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookSwipedRight&&(identical(other.book, book) || other.book == book));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookSwiped&&(identical(other.book, book) || other.book == book)&&(identical(other.dir, dir) || other.dir == dir));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,book);
+int get hashCode => Object.hash(runtimeType,book,dir);
 
 @override
 String toString() {
-  return 'BooksEvent.bookSwipedRight(book: $book)';
+  return 'BooksEvent.bookSwiped(book: $book, dir: $dir)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $BookSwipedRightCopyWith<$Res> implements $BooksEventCopyWith<$Res> {
-  factory $BookSwipedRightCopyWith(BookSwipedRight value, $Res Function(BookSwipedRight) _then) = _$BookSwipedRightCopyWithImpl;
+abstract mixin class $BookSwipedCopyWith<$Res> implements $BooksEventCopyWith<$Res> {
+  factory $BookSwipedCopyWith(BookSwiped value, $Res Function(BookSwiped) _then) = _$BookSwipedCopyWithImpl;
 @useResult
 $Res call({
- Book book
+ Book book, Swiped dir
 });
 
 
@@ -333,94 +328,20 @@ $BookCopyWith<$Res> get book;
 
 }
 /// @nodoc
-class _$BookSwipedRightCopyWithImpl<$Res>
-    implements $BookSwipedRightCopyWith<$Res> {
-  _$BookSwipedRightCopyWithImpl(this._self, this._then);
+class _$BookSwipedCopyWithImpl<$Res>
+    implements $BookSwipedCopyWith<$Res> {
+  _$BookSwipedCopyWithImpl(this._self, this._then);
 
-  final BookSwipedRight _self;
-  final $Res Function(BookSwipedRight) _then;
+  final BookSwiped _self;
+  final $Res Function(BookSwiped) _then;
 
 /// Create a copy of BooksEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? book = null,}) {
-  return _then(BookSwipedRight(
+@pragma('vm:prefer-inline') $Res call({Object? book = null,Object? dir = null,}) {
+  return _then(BookSwiped(
 null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
-as Book,
-  ));
-}
-
-/// Create a copy of BooksEvent
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$BookCopyWith<$Res> get book {
-  
-  return $BookCopyWith<$Res>(_self.book, (value) {
-    return _then(_self.copyWith(book: value));
-  });
-}
-}
-
-/// @nodoc
-
-
-class BookSwipedLeft implements BooksEvent {
-  const BookSwipedLeft(this.book);
-  
-
- final  Book book;
-
-/// Create a copy of BooksEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$BookSwipedLeftCopyWith<BookSwipedLeft> get copyWith => _$BookSwipedLeftCopyWithImpl<BookSwipedLeft>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BookSwipedLeft&&(identical(other.book, book) || other.book == book));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,book);
-
-@override
-String toString() {
-  return 'BooksEvent.bookSwipedLeft(book: $book)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $BookSwipedLeftCopyWith<$Res> implements $BooksEventCopyWith<$Res> {
-  factory $BookSwipedLeftCopyWith(BookSwipedLeft value, $Res Function(BookSwipedLeft) _then) = _$BookSwipedLeftCopyWithImpl;
-@useResult
-$Res call({
- Book book
-});
-
-
-$BookCopyWith<$Res> get book;
-
-}
-/// @nodoc
-class _$BookSwipedLeftCopyWithImpl<$Res>
-    implements $BookSwipedLeftCopyWith<$Res> {
-  _$BookSwipedLeftCopyWithImpl(this._self, this._then);
-
-  final BookSwipedLeft _self;
-  final $Res Function(BookSwipedLeft) _then;
-
-/// Create a copy of BooksEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? book = null,}) {
-  return _then(BookSwipedLeft(
-null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
-as Book,
+as Book,null == dir ? _self.dir : dir // ignore: cast_nullable_to_non_nullable
+as Swiped,
   ));
 }
 

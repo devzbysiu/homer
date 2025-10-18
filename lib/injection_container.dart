@@ -139,6 +139,7 @@ Future<void> initDi({required Env env}) async {
   sl.registerLazySingleton(() => BookSummaryBloc());
   sl.registerLazySingleton(() {
     return BooksBloc(
+      eventBus: sl(),
       addBook: sl(),
       listBooks: sl(),
       updateBook: sl(),
@@ -146,7 +147,7 @@ Future<void> initDi({required Env env}) async {
     );
   });
   sl.registerLazySingleton(() {
-    return DeleteBooksBloc(deleteBooks: sl(), eventBus: sl());
+    return DeleteBooksBloc(eventBus: sl(), deleteBooks: sl());
   });
   sl.registerLazySingleton(() => TagsBloc(listTags: sl()));
   sl.registerLazySingleton(() => BookSearchBloc(searchForBooks: sl()));

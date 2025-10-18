@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/orchestrator/bus.dart';
 import '../../../domain/usecases/fetch_shared_book.dart';
 import '../../../domain/usecases/fetch_shared_book_info.dart';
+// TODO: This should not be here, it should be orchestrator event to avoid coupling
 import '../search/book_search_event.dart';
 import 'share_book_event.dart';
 import 'share_book_state.dart';

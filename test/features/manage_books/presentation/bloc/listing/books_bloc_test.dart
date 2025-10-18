@@ -1,6 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
+import 'package:homer/core/orchestrator/bus.dart';
 import 'package:homer/core/usecase/usecase.dart';
 import 'package:homer/features/manage_books/domain/usecases/add_book.dart';
 import 'package:homer/features/manage_books/domain/usecases/filter_books.dart';
@@ -122,7 +123,7 @@ void main() {
     );
   });
 
-  group('_onBookSwipedRight', () {
+  group('_onBookSwiped to right', () {
     final books = [fakeBook(), fakeBook(), fakeBook()];
     final book = fakeBook();
 
@@ -132,10 +133,11 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
-      act: (bloc) => bloc.add(BookSwipedRight(book.moveRight())),
+      act: (bloc) => bloc.add(BookSwiped(book, Swiped.right)),
       expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) {
-        verify(bloc.updateBook(UpdateParams(modified: book.moveRight())));
+        final modifiedBook = book.move(Swiped.right).toNullable()!;
+        verify(bloc.updateBook(UpdateParams(modified: modifiedBook)));
         verify(bloc.listBooks(NoParams()));
       },
     );
@@ -146,19 +148,20 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
-      act: (bloc) => bloc.add(BookSwipedRight(book.moveRight())),
+      act: (bloc) => bloc.add(BookSwiped(book, Swiped.right)),
       expect: () => [
         BooksState.booksLoaded(books),
         const BooksState.updatingBookFailed(),
       ],
       verify: (bloc) {
-        verify(bloc.updateBook(UpdateParams(modified: book.moveRight())));
+        final modifiedBook = book.move(Swiped.right).toNullable()!;
+        verify(bloc.updateBook(UpdateParams(modified: modifiedBook)));
         verify(bloc.listBooks(NoParams()));
       },
     );
   });
 
-  group('_onBookSwipedLeft', () {
+  group('_onBookSwiped to left', () {
     final books = [fakeBook(), fakeBook(), fakeBook()];
     final book = fakeBook();
 
@@ -168,10 +171,11 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
-      act: (bloc) => bloc.add(BookSwipedLeft(book.moveLeft())),
+      act: (bloc) => bloc.add(BookSwiped(book, Swiped.left)),
       expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) {
-        verify(bloc.updateBook(UpdateParams(modified: book.moveLeft())));
+        final modifiedBook = book.move(Swiped.left).toNullable()!;
+        verify(bloc.updateBook(UpdateParams(modified: modifiedBook)));
         verify(bloc.listBooks(NoParams()));
       },
     );
@@ -182,13 +186,14 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
-      act: (bloc) => bloc.add(BookSwipedLeft(book.moveLeft())),
+      act: (bloc) => bloc.add(BookSwiped(book, Swiped.left)),
       expect: () => [
         BooksState.booksLoaded(books),
         const BooksState.updatingBookFailed(),
       ],
       verify: (bloc) {
-        verify(bloc.updateBook(UpdateParams(modified: book.moveLeft())));
+        final modifiedBook = book.move(Swiped.left).toNullable()!;
+        verify(bloc.updateBook(UpdateParams(modified: modifiedBook)));
         verify(bloc.listBooks(NoParams()));
       },
     );
@@ -292,6 +297,7 @@ final class BlocMock {
     provideDummy<Result<List<Book>, Failure>>(const Success([]));
     provideDummy<Result<Unit, Failure>>(const Success(unit));
 
+    _eventBus = MockBus();
     _addBook = MockAddBook();
     _listBooks = MockListSortedBooks();
     _updateBook = MockUpdateBook();
@@ -299,6 +305,8 @@ final class BlocMock {
 
     when(_listBooks.call(any)).thenAnswer((_) => withSuccess([]));
   }
+
+  late final Bus _eventBus;
 
   late final MockAddBook _addBook;
 
@@ -330,6 +338,7 @@ final class BlocMock {
 
   BooksBloc get() {
     return BooksBloc(
+      eventBus: _eventBus,
       addBook: _addBook,
       listBooks: _listBooks,
       updateBook: _updateBook,

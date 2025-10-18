@@ -24,48 +24,12 @@ final class _SwipeableCard extends StatelessBusWidget {
   }
 
   void _onSwiped(BuildContext context, SwipeDirection direction) {
-    if (_swipingToRight(direction) && _canSwipeRight()) {
-      _showSnackbarOnRightSwipe(context);
-      final movedBook = book.moveRight();
-      fire(BookSwipedRight(movedBook));
-      // Update stats
-      if (movedBook.state == BookState.read) {
-        fire(BookFinished(movedBook));
-      } else if (movedBook.state == BookState.reading) {
-        fire(BookStarted());
-      }
-    } else if (_swipingToLeft(direction) && _canSwipeLeft()) {
-      _showSnackbarOnLeftSwipe(context);
-      final movedBook = book.moveLeft();
-      fire(BookSwipedLeft(movedBook));
-      // Update stats
-      if (movedBook.state == BookState.reading) {
-        // so it was in `read` state before
-        // need to use `book` with set `endDate` (not `movedBook`)
-        fire(BookUnfinished(book));
-      } else if (movedBook.state == BookState.readLater) {
-        // so it was in `reading` state before
-        fire(BookUnstarted());
-      }
-    }
+    final swipedTo = direction.into();
+    fire(BookSwiped(book, swipedTo));
   }
 
-  bool _swipingToRight(SwipeDirection direction) {
-    return direction == SwipeDirection.startToEnd;
-  }
-
-  bool _swipingToLeft(SwipeDirection direction) {
-    return direction == SwipeDirection.endToStart;
-  }
-
-  bool _canSwipeRight() {
-    return book.state != BookState.read;
-  }
-
-  bool _canSwipeLeft() {
-    return book.state != BookState.readLater;
-  }
-
+  // TODO: Use this
+  // ignore: unused_element
   void _showSnackbarOnRightSwipe(BuildContext context) {
     switch (book.state) {
       case BookState.readLater:
@@ -98,6 +62,8 @@ final class _SwipeableCard extends StatelessBusWidget {
       ..showSnackBar(snackBar);
   }
 
+  // TODO: Use this
+  // ignore: unused_element
   void _showSnackbarOnLeftSwipe(BuildContext context) {
     switch (book.state) {
       case BookState.readLater:
@@ -226,5 +192,15 @@ final class _AnimatedBackground extends StatelessWidget {
       MainAxisAlignment.end,
       const EdgeInsets.only(right: 30),
     );
+  }
+}
+
+extension SwipeDirectionExt on SwipeDirection {
+  Swiped into() {
+    return switch (this) {
+      SwipeDirection.startToEnd => Swiped.right,
+      SwipeDirection.endToStart => Swiped.left,
+      _ => throw Exception('This should not happen'),
+    };
   }
 }

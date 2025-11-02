@@ -49,7 +49,7 @@ final class DeleteBooksBloc extends Bloc<DeleteBooksEvent, DeleteBooksState> {
 
     result.when((_) {
       emit(const DeleteBooksState.booksRemoved());
-      eventBus.fire(DeleteBooksFinished());
+      eventBus.fire($DeleteBooksFinished());
     }, (error) => emit(const DeleteBooksState.deletionFailed()));
   }
 

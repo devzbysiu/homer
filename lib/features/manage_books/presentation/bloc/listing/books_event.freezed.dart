@@ -284,7 +284,7 @@ $BookCopyWith<$Res> get book {
 
 
 class BookSwiped implements BooksEvent {
-  const BookSwiped(this.book, this.dir);
+  const BookSwiped({required this.book, required this.dir});
   
 
  final  Book book;
@@ -339,8 +339,8 @@ class _$BookSwipedCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? book = null,Object? dir = null,}) {
   return _then(BookSwiped(
-null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
-as Book,null == dir ? _self.dir : dir // ignore: cast_nullable_to_non_nullable
+book: null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
+as Book,dir: null == dir ? _self.dir : dir // ignore: cast_nullable_to_non_nullable
 as Swiped,
   ));
 }
@@ -479,7 +479,7 @@ $TagCopyWith<$Res> get tag {
 
 
 class BooksFiltered implements BooksEvent {
-  const BooksFiltered(this.query);
+  const BooksFiltered({required this.query});
   
 
  final  String query;
@@ -533,7 +533,7 @@ class _$BooksFilteredCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? query = null,}) {
   return _then(BooksFiltered(
-null == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
+query: null == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

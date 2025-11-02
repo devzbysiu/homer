@@ -213,7 +213,7 @@ String toString() {
 
 
 class SummaryModeToggled implements BookSummaryEvent {
-  const SummaryModeToggled(this.book);
+  const SummaryModeToggled({required this.book});
   
 
  final  Book book;
@@ -267,7 +267,7 @@ class _$SummaryModeToggledCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? book = null,}) {
   return _then(SummaryModeToggled(
-null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
+book: null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
 as Book,
   ));
 }

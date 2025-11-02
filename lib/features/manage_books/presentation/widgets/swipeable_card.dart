@@ -25,7 +25,7 @@ final class _SwipeableCard extends StatelessBusWidget {
 
   void _onSwiped(BuildContext context, SwipeDirection direction) {
     final swipedTo = direction.into();
-    fire(BookSwiped(book, swipedTo));
+    fire($BookSwiped(book: book, dir: swipedTo));
   }
 
   // TODO: Use this

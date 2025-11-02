@@ -67,7 +67,7 @@ final class _SavingButton extends StatelessBusWidget {
   void _addBook(BuildContext context, Book pickedBook, BookState pickedState) {
     final selectedTags = context.selectedTags();
     fire(
-      SaveBook(
+      $SaveBook(
         book: pickedBook,
         bookState: pickedState,
         selectedTags: selectedTags,

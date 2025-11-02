@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' as p;
 
 import '../../../../core/orchestrator/bus_widget.dart';
+import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
-import '../../../import_export/presentation/bloc/import_export_event.dart';
 
 final class ExportBooksTile extends StatelessBusWidget {
   ExportBooksTile({super.key, super.bus});
@@ -31,6 +31,6 @@ final class ExportBooksTile extends StatelessBusWidget {
     final directory = await FilePicker.platform.getDirectoryPath();
     if (directory == null) return;
     final jsonPath = p.join(directory, 'homer-export.json');
-    fire(ExportTriggered(path: jsonPath));
+    fire($ExportTriggered(path: jsonPath));
   }
 }

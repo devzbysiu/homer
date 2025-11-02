@@ -7,18 +7,16 @@ import 'package:share_handler/share_handler.dart';
 import '../../../../app_config.dart';
 import '../../../../core/entities/book.dart';
 import '../../../../core/orchestrator/bus_widget.dart';
+import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
 import '../../../../injection_container.dart';
 import '../../../find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
-import '../../../find_new_book/presentation/bloc/share_book/share_book_event.dart';
 import '../../../find_new_book/presentation/bloc/share_book/share_book_state.dart';
 import '../../../find_new_book/presentation/widgets/bottom_drawer_content.dart';
 import '../../../manage_books/presentation/bloc/delete/delete_books_bloc.dart';
 import '../../../manage_books/presentation/bloc/listing/books_bloc.dart';
-import '../bloc/delete/delete_books_event.dart';
 import '../bloc/delete/delete_books_state.dart';
 import '../bloc/listing/books_state.dart';
-import '../bloc/navigation/app_tab_event.dart';
 import '../bloc/navigation/app_tab_state.dart';
 
 final class BottomNavBar extends StatefulBusWidget {
@@ -39,7 +37,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
       // This happens when user shares URL, but the app was not running.
       shareHandler.getInitialSharedMedia().then((media) {
         if (media?.content == null) return;
-        widget.fire(BookSharedFromOutside(media!.content!));
+        widget.fire($BookSharedFromOutside(url: media!.content!));
         shareHandler.resetInitialSharedMedia();
       });
     });
@@ -47,7 +45,7 @@ final class _BottomNavBarState extends State<BottomNavBar> {
     // This happens when the app is already running.
     shareHandler.sharedMediaStream.listen((media) {
       if (media.content == null) return;
-      widget.fire(BookSharedFromOutside(media.content!));
+      widget.fire($BookSharedFromOutside(url: media.content!));
       shareHandler.resetInitialSharedMedia();
     });
   }
@@ -117,7 +115,8 @@ final class _BottomNavBarState extends State<BottomNavBar> {
     );
   }
 
-  void _changeTab(int i) => widget.fire(TabChanged(AppTab.values[i]));
+  void _changeTab(int i) =>
+      widget.fire($TabChanged(selectedTab: AppTab.values[i]));
 
   Widget _mainActionButton(BuildContext context) {
     return BlocSelector<DeleteBooksBloc, DeleteBooksState, List<Book>>(
@@ -163,7 +162,7 @@ final class _DeleteButton extends StatelessBusWidget {
       onPlay: (controller) => controller.repeat(),
       effects: const [ShakeEffect(hz: 2.5)],
       child: ElevatedButton(
-        onPressed: () => fire(DeletePickedBooks()),
+        onPressed: () => fire($DeletePickedBooks()),
         style: ButtonStyle(
           backgroundColor: context.error.wsp(),
           shape: const CircleBorder().wsp(),

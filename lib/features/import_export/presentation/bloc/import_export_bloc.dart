@@ -50,7 +50,7 @@ final class ImportExportBloc
     final result = await replaceAllBooks(ReplaceParams(books: books));
     result.when((success) {
       emit(const ImportExportState.importDone());
-      eventBus.fire(ImportFinished());
+      eventBus.fire($ImportFinished());
     }, (error) => emit(const ImportExportState.importFailed()));
   }
 

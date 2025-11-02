@@ -175,7 +175,7 @@ return clearSharedBook();case _:
 
 
 class BookSharedFromOutside implements ShareBookEvent {
-  const BookSharedFromOutside(this.url);
+  const BookSharedFromOutside({required this.url});
   
 
  final  String url;
@@ -229,7 +229,7 @@ class _$BookSharedFromOutsideCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? url = null,}) {
   return _then(BookSharedFromOutside(
-null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
+url: null == url ? _self.url : url // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

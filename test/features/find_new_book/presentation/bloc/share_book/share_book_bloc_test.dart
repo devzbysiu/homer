@@ -3,10 +3,10 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:homer/core/entities/book.dart';
 import 'package:homer/core/error/failures.dart';
+import 'package:homer/core/orchestrator/events.dart';
 import 'package:homer/features/find_new_book/domain/entities/external_book_info.dart';
 import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book.dart';
 import 'package:homer/features/find_new_book/domain/usecases/fetch_shared_book_info.dart';
-import 'package:homer/features/find_new_book/presentation/bloc/search/book_search_event.dart';
 import 'package:homer/features/find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
 import 'package:homer/features/find_new_book/presentation/bloc/share_book/share_book_event.dart';
 import 'package:homer/features/find_new_book/presentation/bloc/share_book/share_book_state.dart';
@@ -29,7 +29,7 @@ void main() {
     blocTest<ShareBookBloc, ShareBookState>(
       'should emit fetchingDetailsFailed when fetching shared book info failed',
       build: () => BlocMock().onFetchSharedBookInfo(Error(failure)).get(),
-      act: (bloc) => bloc.add(ShareBookEvent.bookSharedFromOutside(url)),
+      act: (bloc) => bloc.add(BookSharedFromOutside(url: url)),
       expect: () => [
         const ShareBookState.fetchingSharedBookDetails(),
         ShareBookState.fetchingDetailsFailed(cause: failure.userMessage()),
@@ -41,16 +41,14 @@ void main() {
     blocTest<ShareBookBloc, ShareBookState>(
       'should fire ShareOffloaded and go back to initial state when no isbn in book info',
       build: () => BlocMock().onFetchSharedBookInfo(Success(noIsbnBI)).get(),
-      act: (bloc) => bloc.add(ShareBookEvent.bookSharedFromOutside(url)),
+      act: (bloc) => bloc.add(BookSharedFromOutside(url: url)),
       expect: () => const [
         ShareBookState.fetchingSharedBookDetails(),
         ShareBookState.initial(),
       ],
       verify: (bloc) {
         verify(bloc.fetchSharedBookInfo(FetchInfoParams(url: url)));
-        verify(
-          bloc.eventBus.fire(SearchEvent.shareOffloaded(query: noIsbnBI.title)),
-        );
+        verify(bloc.eventBus.fire($ShareOffloaded(query: noIsbnBI.title)));
       },
     );
 
@@ -60,7 +58,7 @@ void main() {
           .onFetchSharedBookInfo(Success(bookInfo))
           .onFetchSharedBook(Error(failure))
           .get(),
-      act: (bloc) => bloc.add(ShareBookEvent.bookSharedFromOutside(url)),
+      act: (bloc) => bloc.add(BookSharedFromOutside(url: url)),
       expect: () => [
         const ShareBookState.fetchingSharedBookDetails(),
         ShareBookState.fetchingDetailsFailed(cause: failure.userMessage()),
@@ -81,7 +79,7 @@ void main() {
           .onFetchSharedBookInfo(Success(bookInfo))
           .onFetchSharedBook(Success(pickedBook))
           .get(),
-      act: (bloc) => bloc.add(ShareBookEvent.bookSharedFromOutside(url)),
+      act: (bloc) => bloc.add(BookSharedFromOutside(url: url)),
       expect: () => [
         const ShareBookState.fetchingSharedBookDetails(),
         ShareBookState.bookShared(book: pickedBook),

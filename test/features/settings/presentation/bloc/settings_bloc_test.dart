@@ -120,7 +120,7 @@ void main() {
       'should emit SettingsState with changed book size limits',
       seed: () => SettingsState(settings: settings),
       build: () => BlocMock().get(),
-      act: (bloc) => bloc.add(SizeLimitsChanged(limits)),
+      act: (bloc) => bloc.add(SizeLimitsChanged(limits: limits)),
       expect: () => [
         SettingsState(
           settings: Settings(
@@ -142,7 +142,7 @@ void main() {
       'should emit default settings when saving fails',
       seed: () => SettingsState(settings: settings),
       build: () => BlocMock().onSaveSettings(Error(TestingFailure())).get(),
-      act: (bloc) => bloc.add(SizeLimitsChanged(limits)),
+      act: (bloc) => bloc.add(SizeLimitsChanged(limits: limits)),
       expect: () => [SettingsState(settings: _defaultSettings())],
       verify: (bloc) => verify(
         bloc.saveSettings(
@@ -159,7 +159,8 @@ void main() {
       'should emit SettingsState with changed reading goal',
       seed: () => SettingsState(settings: settings),
       build: () => BlocMock().get(),
-      act: (bloc) => bloc.add(ReadingGoalChanged(const ReadingGoal(books: 16))),
+      act: (bloc) =>
+          bloc.add(ReadingGoalChanged(goal: const ReadingGoal(books: 16))),
       expect: () => [
         SettingsState(
           settings: Settings(
@@ -183,7 +184,8 @@ void main() {
       'should emit default settings when saving fails',
       seed: () => SettingsState(settings: settings),
       build: () => BlocMock().onSaveSettings(Error(TestingFailure())).get(),
-      act: (bloc) => bloc.add(ReadingGoalChanged(const ReadingGoal(books: 6))),
+      act: (bloc) =>
+          bloc.add(ReadingGoalChanged(goal: const ReadingGoal(books: 6))),
       expect: () => [SettingsState(settings: _defaultSettings())],
       verify: (bloc) => verify(
         bloc.saveSettings(

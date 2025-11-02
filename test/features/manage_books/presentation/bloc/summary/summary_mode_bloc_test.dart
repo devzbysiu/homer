@@ -33,7 +33,7 @@ void main() {
     blocTest<BookSummaryBloc, BookSummaryState>(
       'should emit enabled when book is not in summary mode',
       build: () => BookSummaryBloc(),
-      act: (bloc) => bloc.add(SummaryModeToggled(book)),
+      act: (bloc) => bloc.add(SummaryModeToggled(book: book)),
       expect: () => [BookSummaryState.enabled(book)],
     );
 
@@ -41,7 +41,7 @@ void main() {
       'should emit disabling when this book is already in summary mode',
       seed: () => BookSummaryState.enabled(book),
       build: () => BookSummaryBloc(),
-      act: (bloc) => bloc.add(SummaryModeToggled(book)),
+      act: (bloc) => bloc.add(SummaryModeToggled(book: book)),
       expect: () => [BookSummaryState.disabling(some(book))],
     );
   });

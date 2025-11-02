@@ -34,7 +34,7 @@ void main() {
       verify: (bloc) {
         verify(bloc.importBooks(ImportParams(path: path)));
         verify(bloc.replaceAllBooks(ReplaceParams(books: books)));
-        verify(bloc.eventBus.fire(ImportFinished()));
+        verify(bloc.eventBus.fire($ImportFinished()));
       },
     );
 

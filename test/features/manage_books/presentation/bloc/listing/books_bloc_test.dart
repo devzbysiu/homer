@@ -133,7 +133,7 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
-      act: (bloc) => bloc.add(BookSwiped(book, Swiped.right)),
+      act: (bloc) => bloc.add(BookSwiped(book: book, dir: Swiped.right)),
       expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) {
         final modifiedBook = book.move(Swiped.right).toNullable()!;
@@ -148,7 +148,7 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
-      act: (bloc) => bloc.add(BookSwiped(book, Swiped.right)),
+      act: (bloc) => bloc.add(BookSwiped(book: book, dir: Swiped.right)),
       expect: () => [
         BooksState.booksLoaded(books),
         const BooksState.updatingBookFailed(),
@@ -171,7 +171,7 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(const Success(unit))
           .get(),
-      act: (bloc) => bloc.add(BookSwiped(book, Swiped.left)),
+      act: (bloc) => bloc.add(BookSwiped(book: book, dir: Swiped.left)),
       expect: () => [BooksState.booksLoaded(books)],
       verify: (bloc) {
         final modifiedBook = book.move(Swiped.left).toNullable()!;
@@ -186,7 +186,7 @@ void main() {
           .onListBooks(Success(books))
           .onUpdateBook(Error(TestingFailure()))
           .get(),
-      act: (bloc) => bloc.add(BookSwiped(book, Swiped.left)),
+      act: (bloc) => bloc.add(BookSwiped(book: book, dir: Swiped.left)),
       expect: () => [
         BooksState.booksLoaded(books),
         const BooksState.updatingBookFailed(),
@@ -271,7 +271,7 @@ void main() {
     blocTest<BooksBloc, BooksState>(
       'should emit booksLoaded on success',
       build: () => BlocMock().onFilterBooks(Success(books)).get(),
-      act: (bloc) => bloc.add(BooksFiltered(query)),
+      act: (bloc) => bloc.add(BooksFiltered(query: query)),
       expect: () => [
         const BooksState.booksLoaded([]),
         BooksState.booksLoaded(books),
@@ -282,7 +282,7 @@ void main() {
     blocTest<BooksBloc, BooksState>(
       'should emit loadingFailed on failure',
       build: () => BlocMock().onFilterBooks(Error(TestingFailure())).get(),
-      act: (bloc) => bloc.add(BooksFiltered(query)),
+      act: (bloc) => bloc.add(BooksFiltered(query: query)),
       expect: () => [
         const BooksState.booksLoaded([]),
         const BooksState.loadingFailed(),

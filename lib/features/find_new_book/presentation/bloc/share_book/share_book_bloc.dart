@@ -1,10 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/orchestrator/bus.dart';
+import '../../../../../core/orchestrator/events.dart';
 import '../../../domain/usecases/fetch_shared_book.dart';
 import '../../../domain/usecases/fetch_shared_book_info.dart';
-// TODO: This should not be here, it should be orchestrator event to avoid coupling
-import '../search/book_search_event.dart';
 import 'share_book_event.dart';
 import 'share_book_state.dart';
 
@@ -39,7 +38,7 @@ final class ShareBookBloc extends Bloc<ShareBookEvent, ShareBookState> {
     if (bookInfo.isbn.isNone()) {
       // We can't find shared book by ISBN so we try to find it by querying it's
       // title -> offload share to regular query search
-      eventBus.fire(SearchEvent.shareOffloaded(query: bookInfo.title));
+      eventBus.fire($ShareOffloaded(query: bookInfo.title));
       emit(const ShareBookState.initial());
       return;
     }

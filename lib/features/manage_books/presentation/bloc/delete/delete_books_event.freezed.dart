@@ -251,7 +251,7 @@ String toString() {
 
 
 class DeleteModeToggled implements DeleteBooksEvent {
-  const DeleteModeToggled(this.book);
+  const DeleteModeToggled({required this.book});
   
 
  final  Book book;
@@ -305,7 +305,7 @@ class _$DeleteModeToggledCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? book = null,}) {
   return _then(DeleteModeToggled(
-null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
+book: null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
 as Book,
   ));
 }

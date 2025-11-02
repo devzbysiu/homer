@@ -12,7 +12,7 @@ final class _BookCard extends StatelessBusWidget {
       builder: (context, booksToDelete) {
         return GestureDetector(
           onLongPress: () => _switchToDeleteMode(context),
-          onDoubleTap: () => fire(SummaryModeToggled(book)),
+          onDoubleTap: () => fire($SummaryModeToggled(book: book)),
           onTap: () => _toggleModes(booksToDelete, context),
           child: _bookCard(booksToDelete),
         );
@@ -21,14 +21,14 @@ final class _BookCard extends StatelessBusWidget {
   }
 
   void _switchToDeleteMode(BuildContext context) {
-    fire(DeleteModeToggled(book));
+    fire($DeleteModeToggled(book: book));
     Vibration.vibrate(duration: 100);
   }
 
   void _toggleModes(List<Book> booksToDelete, BuildContext context) {
-    fire(SummaryModeClosing()); // always disable summary mode on tap
+    fire($SummaryModeClosing()); // always disable summary mode on tap
     if (booksToDelete.isEmpty) return; // not in delete mode
-    fire(DeleteModeToggled(book));
+    fire($DeleteModeToggled(book: book));
   }
 
   Widget _bookCard(List<Book> booksToDelete) {

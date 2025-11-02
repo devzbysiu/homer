@@ -21,7 +21,7 @@ void main() {
     blocTest<DeleteBooksBloc, DeleteBooksState>(
       'should emit deletionList with book if it was not on the list before',
       build: () => BlocMock().allWorking(),
-      act: (bloc) => bloc.add(DeleteModeToggled(book)),
+      act: (bloc) => bloc.add(DeleteModeToggled(book: book)),
       expect: () => [
         DeleteBooksState.deletionList([book]),
       ],
@@ -31,8 +31,8 @@ void main() {
       'should emit deletionList without book if it was on the list before',
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc
-        ..add(DeleteModeToggled(book))
-        ..add(DeleteModeToggled(book)),
+        ..add(DeleteModeToggled(book: book))
+        ..add(DeleteModeToggled(book: book)),
       expect: () => [
         DeleteBooksState.deletionList([book]),
         DeleteBooksState.deletionList([]),
@@ -50,7 +50,7 @@ void main() {
       expect: () => [],
       verify: (bloc) {
         verifyNever(bloc.deleteBooks(const DeleteParams(books: [])));
-        verifyNever(bloc.eventBus.fire(DeleteBooksFinished()));
+        verifyNever(bloc.eventBus.fire($DeleteBooksFinished()));
       },
     );
 
@@ -58,7 +58,7 @@ void main() {
       'should emit booksRemoved on success',
       build: () => BlocMock().allWorking(),
       act: (bloc) => bloc
-        ..add(DeleteModeToggled(book))
+        ..add(DeleteModeToggled(book: book))
         ..add(DeletePickedBooks()),
       expect: () => [
         DeleteBooksState.deletionList([book]),
@@ -66,7 +66,7 @@ void main() {
       ],
       verify: (bloc) {
         verify(bloc.deleteBooks(DeleteParams(books: [book])));
-        verify(bloc.eventBus.fire(DeleteBooksFinished()));
+        verify(bloc.eventBus.fire($DeleteBooksFinished()));
       },
     );
 
@@ -74,7 +74,7 @@ void main() {
       'should emit deletionFailed on failure',
       build: () => BlocMock().onDeleteBooks(Error(TestingFailure())).get(),
       act: (bloc) => bloc
-        ..add(DeleteModeToggled(book))
+        ..add(DeleteModeToggled(book: book))
         ..add(DeletePickedBooks()),
       expect: () => [
         DeleteBooksState.deletionList([book]),
@@ -82,7 +82,7 @@ void main() {
       ],
       verify: (bloc) {
         verify(bloc.deleteBooks(DeleteParams(books: [book])));
-        verifyNever(bloc.eventBus.fire(DeleteBooksFinished()));
+        verifyNever(bloc.eventBus.fire($DeleteBooksFinished()));
       },
     );
   });
@@ -95,7 +95,7 @@ void main() {
       expect: () => [const DeleteBooksState.deletionListCleared()],
       verify: (bloc) {
         verifyNever(bloc.deleteBooks(const DeleteParams(books: [])));
-        verifyNever(bloc.eventBus.fire(DeleteBooksFinished()));
+        verifyNever(bloc.eventBus.fire($DeleteBooksFinished()));
       },
     );
   });

@@ -12,7 +12,7 @@ final class _AnimatedRegularCard extends StatelessBusWidget {
         FlipEffect(direction: Axis.horizontal, begin: -0.6, end: 0),
       ],
       child: _RegularCard(book: book),
-      onComplete: (_) => fire(SummaryModeClosed()),
+      onComplete: (_) => fire($SummaryModeClosed()),
     );
   }
 }

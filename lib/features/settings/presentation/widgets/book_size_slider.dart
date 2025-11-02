@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_slider/flutter_multi_slider.dart';
 
 import '../../../../core/orchestrator/bus_widget.dart';
+import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
 import '../../domain/entities/book_size_limits.dart';
 import '../bloc/settings_bloc.dart';
-import '../bloc/settings_event.dart';
 
 final class BookSizeSlider extends StatefulBusWidget {
   BookSizeSlider({super.key, super.bus});
@@ -46,7 +46,7 @@ final class BookSizeSliderState extends State<BookSizeSlider> {
             componentBookSizeLimits = BookSizeLimits.fromDoubleList(value);
           }),
           onChangeEnd: (value) => widget.fire(
-            SizeLimitsChanged(BookSizeLimits.fromDoubleList(value)),
+            $SizeLimitsChanged(limits: BookSizeLimits.fromDoubleList(value)),
           ),
           divisions: 240,
         ),

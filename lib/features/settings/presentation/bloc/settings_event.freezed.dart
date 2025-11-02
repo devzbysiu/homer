@@ -289,7 +289,7 @@ String toString() {
 
 
 class SizeLimitsChanged implements SettingsEvent {
-  const SizeLimitsChanged(this.limits);
+  const SizeLimitsChanged({required this.limits});
   
 
  final  BookSizeLimits limits;
@@ -343,7 +343,7 @@ class _$SizeLimitsChangedCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? limits = null,}) {
   return _then(SizeLimitsChanged(
-null == limits ? _self.limits : limits // ignore: cast_nullable_to_non_nullable
+limits: null == limits ? _self.limits : limits // ignore: cast_nullable_to_non_nullable
 as BookSizeLimits,
   ));
 }
@@ -355,7 +355,7 @@ as BookSizeLimits,
 
 
 class ReadingGoalChanged implements SettingsEvent {
-  const ReadingGoalChanged(this.goal);
+  const ReadingGoalChanged({required this.goal});
   
 
  final  ReadingGoal goal;
@@ -409,7 +409,7 @@ class _$ReadingGoalChangedCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? goal = null,}) {
   return _then(ReadingGoalChanged(
-null == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
+goal: null == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
 as ReadingGoal,
   ));
 }

@@ -37,47 +37,48 @@ final class Orchestrator {
     required this.stats,
   }) {
     // AppTab
-    eventBus.on<TabChanged>(_onTabChanged);
+    eventBus.on<$TabChanged>(_onTabChanged);
 
     // Import Export
-    eventBus.on<ImportTriggered>(_onImportTriggered);
-    eventBus.on<ImportFinished>(_onImportFinished);
-    eventBus.on<ExportTriggered>(_onExportTriggered);
+    eventBus.on<$ImportTriggered>(_onImportTriggered);
+    eventBus.on<$ImportFinished>(_onImportFinished);
+    eventBus.on<$ExportTriggered>(_onExportTriggered);
 
     // Find new Book
-    eventBus.on<Searching>(_onSearching);
-    eventBus.on<ShareOffloaded>(_onShareOffloaded);
-    eventBus.on<ResetShareOffload>(_onResetShareOffload);
-    eventBus.on<SuggestionPicked>(_onSuggestionPicked);
-    eventBus.on<SaveBook>(_onSaveBookStarted);
+    eventBus.on<$Searching>(_onSearching);
+    eventBus.on<$ShareOffloaded>(_onShareOffloaded);
+    eventBus.on<$ResetShareOffloaded>(_onResetShareOffload);
+    eventBus.on<$SuggestionPicked>(_onSuggestionPicked);
+    // TODO: Is this in the correct BLoC?
+    eventBus.on<$SaveBook>(_onSaveBookStarted);
 
     // Delete
-    eventBus.on<DeleteModeToggled>(_onDeleteModeToggled);
-    eventBus.on<ClearDeletionList>(_onClearDeletionList);
-    eventBus.on<DeletePickedBooks>(_onDeletePickedBooks);
-    eventBus.on<DeleteBooksFinished>(_onDeleteBooksFinished);
+    eventBus.on<$DeleteModeToggled>(_onDeleteModeToggled);
+    eventBus.on<$ClearDeletionList>(_onClearDeletionList);
+    eventBus.on<$DeletePickedBooks>(_onDeletePickedBooks);
+    eventBus.on<$DeleteBooksFinished>(_onDeleteBooksFinished);
 
     // Listing
-    eventBus.on<BooksFiltered>(_onBooksFiltered);
-    eventBus.on<TagToggled>(_onTagToggled);
-    eventBus.on<BookSwiped>(_onSwiped);
+    eventBus.on<$BooksFiltered>(_onBooksFiltered);
+    eventBus.on<$TagToggled>(_onTagToggled);
+    eventBus.on<$BookSwiped>(_onSwiped);
 
     // Summary
-    eventBus.on<SummaryModeToggled>(_onSummaryModeToggled);
-    eventBus.on<SummaryModeClosing>(_onSummaryModeClosing);
-    eventBus.on<SummaryModeClosed>(_onSummaryModeClosed);
+    eventBus.on<$SummaryModeToggled>(_onSummaryModeToggled);
+    eventBus.on<$SummaryModeClosing>(_onSummaryModeClosing);
+    eventBus.on<$SummaryModeClosed>(_onSummaryModeClosed);
 
     // Settings
-    eventBus.on<SizeLimitsChanged>(_onSizeLimitsChanged);
-    eventBus.on<ReadingGoalChanged>(_onReadingGoalChanged);
-    eventBus.on<ThemeToggled>(_onThemeToggled);
-    eventBus.on<SystemThemeToggled>(_onSystemThemeEnabled);
+    eventBus.on<$SizeLimitsChanged>(_onSizeLimitsChanged);
+    eventBus.on<$ReadingGoalChanged>(_onReadingGoalChanged);
+    eventBus.on<$ThemeToggled>(_onThemeToggled);
+    eventBus.on<$SystemThemeToggled>(_onSystemThemeEnabled);
 
     // Stats
-    eventBus.on<BookStateUpdated>(_onBookStateUpdated);
+    eventBus.on<$BookStateUpdated>(_onBookStateUpdated);
 
     // Bottom Drawer
-    eventBus.on<BookSharedFromOutside>(_onBookSharedFromOutside);
+    eventBus.on<$BookSharedFromOutside>(_onBookSharedFromOutside);
   }
 
   final Bus eventBus;
@@ -103,42 +104,57 @@ final class Orchestrator {
   final SettingsBloc settings;
 
   // AppTab
-  void _onTabChanged(TabChanged event) => appTab.add(event);
+  void _onTabChanged($TabChanged event) =>
+      appTab.add(TabChanged(selectedTab: event.selectedTab));
 
   // Import Export
-  void _onImportTriggered(ImportTriggered event) => importExport.add(event);
+  void _onImportTriggered($ImportTriggered event) =>
+      importExport.add(ImportTriggered(path: event.path));
 
-  void _onImportFinished(ImportFinished event) {
+  void _onImportFinished($ImportFinished _) {
     stats.add(LoadStats());
     books.add(RefreshBooksList());
   }
 
-  void _onExportTriggered(ExportTriggered event) => importExport.add(event);
+  void _onExportTriggered($ExportTriggered event) =>
+      importExport.add(ExportTriggered(path: event.path));
 
   // Find new Book
-  void _onSearching(Searching event) {
-    search.add(event);
+  void _onSearching($Searching event) {
+    search.add(Searching(query: event.query));
     // reset error if happened
     if (share.state.failedToLookUpSharedBook) {
       share.add(ClearSharedBook());
     }
   }
 
-  void _onShareOffloaded(ShareOffloaded event) => search.add(event);
-  void _onResetShareOffload(ResetShareOffload event) => search.add(event);
-  void _onSuggestionPicked(SuggestionPicked event) => search.add(event);
+  void _onShareOffloaded($ShareOffloaded event) =>
+      search.add(ShareOffloaded(query: event.query));
+  void _onResetShareOffload($ResetShareOffloaded _) =>
+      search.add(ResetShareOffload());
+  void _onSuggestionPicked($SuggestionPicked event) =>
+      search.add(SuggestionPicked(pickedBook: event.pickedBook));
 
-  void _onSaveBookStarted(SaveBook event) {
-    books.add(event);
+  void _onSaveBookStarted($SaveBook event) {
+    books.add(
+      SaveBook(
+        book: event.book,
+        bookState: event.bookState,
+        selectedTags: event.selectedTags,
+      ),
+    );
     search.add(ClearPickedBook());
     share.add(ClearSharedBook());
     onBookTags.add(ClearSelectedTags());
   }
 
   // Delete
-  void _onDeleteModeToggled(DeleteModeToggled event) => delete.add(event);
-  void _onClearDeletionList(ClearDeletionList event) => delete.add(event);
-  void _onDeletePickedBooks(DeletePickedBooks event) => delete.add(event);
+  void _onDeleteModeToggled($DeleteModeToggled event) =>
+      delete.add(DeleteModeToggled(book: event.book));
+  void _onClearDeletionList($ClearDeletionList _) =>
+      delete.add(ClearDeletionList());
+  void _onDeletePickedBooks($DeletePickedBooks _) =>
+      delete.add(DeletePickedBooks());
 
   void _onDeleteBooksFinished(_) {
     books.add(RefreshBooksList());
@@ -146,23 +162,32 @@ final class Orchestrator {
   }
 
   // Listing
-  void _onBooksFiltered(BooksFiltered event) => books.add(event);
-  void _onTagToggled(TagToggled event) => books.add(event);
-  void _onSwiped(BookSwiped event) => books.add(event);
+  void _onBooksFiltered($BooksFiltered event) =>
+      books.add(BooksFiltered(query: event.query));
+  void _onTagToggled($TagToggled event) =>
+      books.add(TagToggled(book: event.book, tag: event.tag));
+  void _onSwiped($BookSwiped event) =>
+      books.add(BookSwiped(book: event.book, dir: event.dir));
 
   // Summary
-  void _onSummaryModeToggled(SummaryModeToggled event) => summary.add(event);
-  void _onSummaryModeClosing(SummaryModeClosing event) => summary.add(event);
-  void _onSummaryModeClosed(SummaryModeClosed event) => summary.add(event);
+  void _onSummaryModeToggled($SummaryModeToggled event) =>
+      summary.add(SummaryModeToggled(book: event.book));
+  void _onSummaryModeClosing($SummaryModeClosing _) =>
+      summary.add(SummaryModeClosing());
+  void _onSummaryModeClosed($SummaryModeClosed _) =>
+      summary.add(SummaryModeClosed());
 
   // Settings
-  void _onSizeLimitsChanged(SizeLimitsChanged event) => settings.add(event);
-  void _onReadingGoalChanged(ReadingGoalChanged event) => settings.add(event);
-  void _onThemeToggled(ThemeToggled event) => settings.add(event);
-  void _onSystemThemeEnabled(SystemThemeToggled event) => settings.add(event);
+  void _onSizeLimitsChanged($SizeLimitsChanged event) =>
+      settings.add(SizeLimitsChanged(limits: event.limits));
+  void _onReadingGoalChanged($ReadingGoalChanged event) =>
+      settings.add(ReadingGoalChanged(goal: event.goal));
+  void _onThemeToggled($ThemeToggled _) => settings.add(ThemeToggled());
+  void _onSystemThemeEnabled($SystemThemeToggled _) =>
+      settings.add(SystemThemeToggled());
 
   // Stats
-  void _onBookStateUpdated(BookStateUpdated event) {
+  void _onBookStateUpdated($BookStateUpdated event) {
     assert(switch ((event.direction, event.oldBook.state)) {
       (Swiped.right, BookState.read) => false,
       (Swiped.left, BookState.readLater) => false,
@@ -181,6 +206,6 @@ final class Orchestrator {
   }
 
   // Bottom Drawer
-  void _onBookSharedFromOutside(BookSharedFromOutside event) =>
-      share.add(event);
+  void _onBookSharedFromOutside($BookSharedFromOutside event) =>
+      share.add(BookSharedFromOutside(url: event.url));
 }

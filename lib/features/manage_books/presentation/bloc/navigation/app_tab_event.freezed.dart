@@ -200,7 +200,7 @@ return tabChanged(_that.selectedTab);case _:
 
 
 class TabChanged implements AppTabEvent {
-  const TabChanged(this.selectedTab);
+  const TabChanged({required this.selectedTab});
   
 
 @override final  AppTab selectedTab;
@@ -254,7 +254,7 @@ class _$TabChangedCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? selectedTab = null,}) {
   return _then(TabChanged(
-null == selectedTab ? _self.selectedTab : selectedTab // ignore: cast_nullable_to_non_nullable
+selectedTab: null == selectedTab ? _self.selectedTab : selectedTab // ignore: cast_nullable_to_non_nullable
 as AppTab,
   ));
 }

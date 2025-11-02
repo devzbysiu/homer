@@ -9,21 +9,21 @@ void main() {
     blocTest<AppTabBloc, AppTabState>(
       'should emit readLater when selected tab is readLater',
       build: () => AppTabBloc(),
-      act: (bloc) => bloc.add(TabChanged(AppTab.readLater)),
+      act: (bloc) => bloc.add(TabChanged(selectedTab: AppTab.readLater)),
       expect: () => [const AppTabState.readLater()],
     );
 
     blocTest<AppTabBloc, AppTabState>(
       'should emit reading when selected tab is reading',
       build: () => AppTabBloc(),
-      act: (bloc) => bloc.add(TabChanged(AppTab.reading)),
+      act: (bloc) => bloc.add(TabChanged(selectedTab: AppTab.reading)),
       expect: () => [const AppTabState.reading()],
     );
 
     blocTest<AppTabBloc, AppTabState>(
       'should emit readLater when selected tab is read',
       build: () => AppTabBloc(),
-      act: (bloc) => bloc.add(TabChanged(AppTab.read)),
+      act: (bloc) => bloc.add(TabChanged(selectedTab: AppTab.read)),
       expect: () => [const AppTabState.read()],
     );
   });

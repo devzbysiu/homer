@@ -74,7 +74,7 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
       await result.when((success) async {
         await _emitSavedBooks(emit);
         eventBus.fire(
-          BookStateUpdated(
+          $BookStateUpdated(
             oldBook: event.book,
             direction: event.dir,
             updatedBook: updatedBook,

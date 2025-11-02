@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 
 import '../../../../core/orchestrator/bus_widget.dart';
+import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/theme.dart';
 import '../bloc/settings_bloc.dart';
-import '../bloc/settings_event.dart';
 import '../bloc/settings_state.dart';
 import '../widgets/book_size_slider.dart';
 import '../widgets/export_books_tile.dart';
@@ -55,7 +55,7 @@ final class SettingsScreen extends StatelessBusWidget {
       title: Text('Use system theme', style: context.headlineSmall),
       leading: const Icon(Icons.brush),
       initialValue: useSystemTheme,
-      onToggle: (_) => fire(SystemThemeToggled()),
+      onToggle: (_) => fire($SystemThemeToggled()),
     );
   }
 }

@@ -25,7 +25,7 @@ sealed class BusEvent with _$BusEvent {
   const factory BusEvent.$searching({required String query}) = $Searching;
   const factory BusEvent.$shareOffloaded({required String query}) =
       $ShareOffloaded;
-  const factory BusEvent.$resetShareOffloaded() = $ResetShareOffloaded;
+  const factory BusEvent.$resetShareOffload() = $ResetShareOffload;
   const factory BusEvent.$suggestionPicked({required Book pickedBook}) =
       $SuggestionPicked;
   const factory BusEvent.$saveBook({

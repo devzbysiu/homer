@@ -51,7 +51,7 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
         if (state.isSuggestionPicked) _controller.close();
         if (state.isShareOffloaded) {
           _controller.open();
-          widget.fire($ResetShareOffloaded());
+          widget.fire($ResetShareOffload());
         }
 
         return Animate(

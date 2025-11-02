@@ -55,7 +55,7 @@ extension BusEventPatterns on BusEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( $TabChanged value)?  $tabChanged,TResult Function( $ImportTriggered value)?  $importTriggered,TResult Function( $ImportFinished value)?  $importFinished,TResult Function( $ExportTriggered value)?  $exportTriggered,TResult Function( $Searching value)?  $searching,TResult Function( $ShareOffloaded value)?  $shareOffloaded,TResult Function( $ResetShareOffloaded value)?  $resetShareOffloaded,TResult Function( $SuggestionPicked value)?  $suggestionPicked,TResult Function( $SaveBook value)?  $saveBook,TResult Function( $DeleteBooksFinished value)?  $deleteBooksFinished,TResult Function( $DeletePickedBooks value)?  $deletePickedBooks,TResult Function( $ClearDeletionList value)?  $clearDeletionList,TResult Function( $DeleteModeToggled value)?  $deleteModeToggled,TResult Function( $BooksFiltered value)?  $booksFiltered,TResult Function( $TagToggled value)?  $tagToggled,TResult Function( $BookSwiped value)?  $bookSwiped,TResult Function( $SummaryModeClosing value)?  $summaryModeClosing,TResult Function( $SummaryModeToggled value)?  $summaryModeToggled,TResult Function( $SummaryModeClosed value)?  $summaryModeClosed,TResult Function( $ThemeToggled value)?  $themeToggled,TResult Function( $SystemThemeToggled value)?  $systemThemeToggled,TResult Function( $SizeLimitsChanged value)?  $sizeLimitsChanged,TResult Function( $ReadingGoalChanged value)?  $readingGoalChanged,TResult Function( $BookStateUpdated value)?  $bookStateUpdated,TResult Function( $BookSharedFromOutside value)?  $bookSharedFromOutside,TResult Function( $ClearSharedBook value)?  $clearSharedBook,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( $TabChanged value)?  $tabChanged,TResult Function( $ImportTriggered value)?  $importTriggered,TResult Function( $ImportFinished value)?  $importFinished,TResult Function( $ExportTriggered value)?  $exportTriggered,TResult Function( $Searching value)?  $searching,TResult Function( $ShareOffloaded value)?  $shareOffloaded,TResult Function( $ResetShareOffload value)?  $resetShareOffload,TResult Function( $SuggestionPicked value)?  $suggestionPicked,TResult Function( $SaveBook value)?  $saveBook,TResult Function( $DeleteBooksFinished value)?  $deleteBooksFinished,TResult Function( $DeletePickedBooks value)?  $deletePickedBooks,TResult Function( $ClearDeletionList value)?  $clearDeletionList,TResult Function( $DeleteModeToggled value)?  $deleteModeToggled,TResult Function( $BooksFiltered value)?  $booksFiltered,TResult Function( $TagToggled value)?  $tagToggled,TResult Function( $BookSwiped value)?  $bookSwiped,TResult Function( $SummaryModeClosing value)?  $summaryModeClosing,TResult Function( $SummaryModeToggled value)?  $summaryModeToggled,TResult Function( $SummaryModeClosed value)?  $summaryModeClosed,TResult Function( $ThemeToggled value)?  $themeToggled,TResult Function( $SystemThemeToggled value)?  $systemThemeToggled,TResult Function( $SizeLimitsChanged value)?  $sizeLimitsChanged,TResult Function( $ReadingGoalChanged value)?  $readingGoalChanged,TResult Function( $BookStateUpdated value)?  $bookStateUpdated,TResult Function( $BookSharedFromOutside value)?  $bookSharedFromOutside,TResult Function( $ClearSharedBook value)?  $clearSharedBook,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case $TabChanged() when $tabChanged != null:
@@ -64,8 +64,8 @@ return $importTriggered(_that);case $ImportFinished() when $importFinished != nu
 return $importFinished(_that);case $ExportTriggered() when $exportTriggered != null:
 return $exportTriggered(_that);case $Searching() when $searching != null:
 return $searching(_that);case $ShareOffloaded() when $shareOffloaded != null:
-return $shareOffloaded(_that);case $ResetShareOffloaded() when $resetShareOffloaded != null:
-return $resetShareOffloaded(_that);case $SuggestionPicked() when $suggestionPicked != null:
+return $shareOffloaded(_that);case $ResetShareOffload() when $resetShareOffload != null:
+return $resetShareOffload(_that);case $SuggestionPicked() when $suggestionPicked != null:
 return $suggestionPicked(_that);case $SaveBook() when $saveBook != null:
 return $saveBook(_that);case $DeleteBooksFinished() when $deleteBooksFinished != null:
 return $deleteBooksFinished(_that);case $DeletePickedBooks() when $deletePickedBooks != null:
@@ -102,7 +102,7 @@ return $clearSharedBook(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( $TabChanged value)  $tabChanged,required TResult Function( $ImportTriggered value)  $importTriggered,required TResult Function( $ImportFinished value)  $importFinished,required TResult Function( $ExportTriggered value)  $exportTriggered,required TResult Function( $Searching value)  $searching,required TResult Function( $ShareOffloaded value)  $shareOffloaded,required TResult Function( $ResetShareOffloaded value)  $resetShareOffloaded,required TResult Function( $SuggestionPicked value)  $suggestionPicked,required TResult Function( $SaveBook value)  $saveBook,required TResult Function( $DeleteBooksFinished value)  $deleteBooksFinished,required TResult Function( $DeletePickedBooks value)  $deletePickedBooks,required TResult Function( $ClearDeletionList value)  $clearDeletionList,required TResult Function( $DeleteModeToggled value)  $deleteModeToggled,required TResult Function( $BooksFiltered value)  $booksFiltered,required TResult Function( $TagToggled value)  $tagToggled,required TResult Function( $BookSwiped value)  $bookSwiped,required TResult Function( $SummaryModeClosing value)  $summaryModeClosing,required TResult Function( $SummaryModeToggled value)  $summaryModeToggled,required TResult Function( $SummaryModeClosed value)  $summaryModeClosed,required TResult Function( $ThemeToggled value)  $themeToggled,required TResult Function( $SystemThemeToggled value)  $systemThemeToggled,required TResult Function( $SizeLimitsChanged value)  $sizeLimitsChanged,required TResult Function( $ReadingGoalChanged value)  $readingGoalChanged,required TResult Function( $BookStateUpdated value)  $bookStateUpdated,required TResult Function( $BookSharedFromOutside value)  $bookSharedFromOutside,required TResult Function( $ClearSharedBook value)  $clearSharedBook,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( $TabChanged value)  $tabChanged,required TResult Function( $ImportTriggered value)  $importTriggered,required TResult Function( $ImportFinished value)  $importFinished,required TResult Function( $ExportTriggered value)  $exportTriggered,required TResult Function( $Searching value)  $searching,required TResult Function( $ShareOffloaded value)  $shareOffloaded,required TResult Function( $ResetShareOffload value)  $resetShareOffload,required TResult Function( $SuggestionPicked value)  $suggestionPicked,required TResult Function( $SaveBook value)  $saveBook,required TResult Function( $DeleteBooksFinished value)  $deleteBooksFinished,required TResult Function( $DeletePickedBooks value)  $deletePickedBooks,required TResult Function( $ClearDeletionList value)  $clearDeletionList,required TResult Function( $DeleteModeToggled value)  $deleteModeToggled,required TResult Function( $BooksFiltered value)  $booksFiltered,required TResult Function( $TagToggled value)  $tagToggled,required TResult Function( $BookSwiped value)  $bookSwiped,required TResult Function( $SummaryModeClosing value)  $summaryModeClosing,required TResult Function( $SummaryModeToggled value)  $summaryModeToggled,required TResult Function( $SummaryModeClosed value)  $summaryModeClosed,required TResult Function( $ThemeToggled value)  $themeToggled,required TResult Function( $SystemThemeToggled value)  $systemThemeToggled,required TResult Function( $SizeLimitsChanged value)  $sizeLimitsChanged,required TResult Function( $ReadingGoalChanged value)  $readingGoalChanged,required TResult Function( $BookStateUpdated value)  $bookStateUpdated,required TResult Function( $BookSharedFromOutside value)  $bookSharedFromOutside,required TResult Function( $ClearSharedBook value)  $clearSharedBook,}){
 final _that = this;
 switch (_that) {
 case $TabChanged():
@@ -111,8 +111,8 @@ return $importTriggered(_that);case $ImportFinished():
 return $importFinished(_that);case $ExportTriggered():
 return $exportTriggered(_that);case $Searching():
 return $searching(_that);case $ShareOffloaded():
-return $shareOffloaded(_that);case $ResetShareOffloaded():
-return $resetShareOffloaded(_that);case $SuggestionPicked():
+return $shareOffloaded(_that);case $ResetShareOffload():
+return $resetShareOffload(_that);case $SuggestionPicked():
 return $suggestionPicked(_that);case $SaveBook():
 return $saveBook(_that);case $DeleteBooksFinished():
 return $deleteBooksFinished(_that);case $DeletePickedBooks():
@@ -145,7 +145,7 @@ return $clearSharedBook(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( $TabChanged value)?  $tabChanged,TResult? Function( $ImportTriggered value)?  $importTriggered,TResult? Function( $ImportFinished value)?  $importFinished,TResult? Function( $ExportTriggered value)?  $exportTriggered,TResult? Function( $Searching value)?  $searching,TResult? Function( $ShareOffloaded value)?  $shareOffloaded,TResult? Function( $ResetShareOffloaded value)?  $resetShareOffloaded,TResult? Function( $SuggestionPicked value)?  $suggestionPicked,TResult? Function( $SaveBook value)?  $saveBook,TResult? Function( $DeleteBooksFinished value)?  $deleteBooksFinished,TResult? Function( $DeletePickedBooks value)?  $deletePickedBooks,TResult? Function( $ClearDeletionList value)?  $clearDeletionList,TResult? Function( $DeleteModeToggled value)?  $deleteModeToggled,TResult? Function( $BooksFiltered value)?  $booksFiltered,TResult? Function( $TagToggled value)?  $tagToggled,TResult? Function( $BookSwiped value)?  $bookSwiped,TResult? Function( $SummaryModeClosing value)?  $summaryModeClosing,TResult? Function( $SummaryModeToggled value)?  $summaryModeToggled,TResult? Function( $SummaryModeClosed value)?  $summaryModeClosed,TResult? Function( $ThemeToggled value)?  $themeToggled,TResult? Function( $SystemThemeToggled value)?  $systemThemeToggled,TResult? Function( $SizeLimitsChanged value)?  $sizeLimitsChanged,TResult? Function( $ReadingGoalChanged value)?  $readingGoalChanged,TResult? Function( $BookStateUpdated value)?  $bookStateUpdated,TResult? Function( $BookSharedFromOutside value)?  $bookSharedFromOutside,TResult? Function( $ClearSharedBook value)?  $clearSharedBook,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( $TabChanged value)?  $tabChanged,TResult? Function( $ImportTriggered value)?  $importTriggered,TResult? Function( $ImportFinished value)?  $importFinished,TResult? Function( $ExportTriggered value)?  $exportTriggered,TResult? Function( $Searching value)?  $searching,TResult? Function( $ShareOffloaded value)?  $shareOffloaded,TResult? Function( $ResetShareOffload value)?  $resetShareOffload,TResult? Function( $SuggestionPicked value)?  $suggestionPicked,TResult? Function( $SaveBook value)?  $saveBook,TResult? Function( $DeleteBooksFinished value)?  $deleteBooksFinished,TResult? Function( $DeletePickedBooks value)?  $deletePickedBooks,TResult? Function( $ClearDeletionList value)?  $clearDeletionList,TResult? Function( $DeleteModeToggled value)?  $deleteModeToggled,TResult? Function( $BooksFiltered value)?  $booksFiltered,TResult? Function( $TagToggled value)?  $tagToggled,TResult? Function( $BookSwiped value)?  $bookSwiped,TResult? Function( $SummaryModeClosing value)?  $summaryModeClosing,TResult? Function( $SummaryModeToggled value)?  $summaryModeToggled,TResult? Function( $SummaryModeClosed value)?  $summaryModeClosed,TResult? Function( $ThemeToggled value)?  $themeToggled,TResult? Function( $SystemThemeToggled value)?  $systemThemeToggled,TResult? Function( $SizeLimitsChanged value)?  $sizeLimitsChanged,TResult? Function( $ReadingGoalChanged value)?  $readingGoalChanged,TResult? Function( $BookStateUpdated value)?  $bookStateUpdated,TResult? Function( $BookSharedFromOutside value)?  $bookSharedFromOutside,TResult? Function( $ClearSharedBook value)?  $clearSharedBook,}){
 final _that = this;
 switch (_that) {
 case $TabChanged() when $tabChanged != null:
@@ -154,8 +154,8 @@ return $importTriggered(_that);case $ImportFinished() when $importFinished != nu
 return $importFinished(_that);case $ExportTriggered() when $exportTriggered != null:
 return $exportTriggered(_that);case $Searching() when $searching != null:
 return $searching(_that);case $ShareOffloaded() when $shareOffloaded != null:
-return $shareOffloaded(_that);case $ResetShareOffloaded() when $resetShareOffloaded != null:
-return $resetShareOffloaded(_that);case $SuggestionPicked() when $suggestionPicked != null:
+return $shareOffloaded(_that);case $ResetShareOffload() when $resetShareOffload != null:
+return $resetShareOffload(_that);case $SuggestionPicked() when $suggestionPicked != null:
 return $suggestionPicked(_that);case $SaveBook() when $saveBook != null:
 return $saveBook(_that);case $DeleteBooksFinished() when $deleteBooksFinished != null:
 return $deleteBooksFinished(_that);case $DeletePickedBooks() when $deletePickedBooks != null:
@@ -191,7 +191,7 @@ return $clearSharedBook(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( AppTab selectedTab)?  $tabChanged,TResult Function( String path)?  $importTriggered,TResult Function()?  $importFinished,TResult Function( String path)?  $exportTriggered,TResult Function( String query)?  $searching,TResult Function( String query)?  $shareOffloaded,TResult Function()?  $resetShareOffloaded,TResult Function( Book pickedBook)?  $suggestionPicked,TResult Function( Book book,  BookState bookState,  List<Tag> selectedTags)?  $saveBook,TResult Function()?  $deleteBooksFinished,TResult Function()?  $deletePickedBooks,TResult Function()?  $clearDeletionList,TResult Function( Book book)?  $deleteModeToggled,TResult Function( String query)?  $booksFiltered,TResult Function( Book book,  Tag tag)?  $tagToggled,TResult Function( Book book,  Swiped dir)?  $bookSwiped,TResult Function()?  $summaryModeClosing,TResult Function( Book book)?  $summaryModeToggled,TResult Function()?  $summaryModeClosed,TResult Function()?  $themeToggled,TResult Function()?  $systemThemeToggled,TResult Function( BookSizeLimits limits)?  $sizeLimitsChanged,TResult Function( ReadingGoal goal)?  $readingGoalChanged,TResult Function( Book oldBook,  Swiped direction,  Book updatedBook)?  $bookStateUpdated,TResult Function( String url)?  $bookSharedFromOutside,TResult Function()?  $clearSharedBook,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( AppTab selectedTab)?  $tabChanged,TResult Function( String path)?  $importTriggered,TResult Function()?  $importFinished,TResult Function( String path)?  $exportTriggered,TResult Function( String query)?  $searching,TResult Function( String query)?  $shareOffloaded,TResult Function()?  $resetShareOffload,TResult Function( Book pickedBook)?  $suggestionPicked,TResult Function( Book book,  BookState bookState,  List<Tag> selectedTags)?  $saveBook,TResult Function()?  $deleteBooksFinished,TResult Function()?  $deletePickedBooks,TResult Function()?  $clearDeletionList,TResult Function( Book book)?  $deleteModeToggled,TResult Function( String query)?  $booksFiltered,TResult Function( Book book,  Tag tag)?  $tagToggled,TResult Function( Book book,  Swiped dir)?  $bookSwiped,TResult Function()?  $summaryModeClosing,TResult Function( Book book)?  $summaryModeToggled,TResult Function()?  $summaryModeClosed,TResult Function()?  $themeToggled,TResult Function()?  $systemThemeToggled,TResult Function( BookSizeLimits limits)?  $sizeLimitsChanged,TResult Function( ReadingGoal goal)?  $readingGoalChanged,TResult Function( Book oldBook,  Swiped direction,  Book updatedBook)?  $bookStateUpdated,TResult Function( String url)?  $bookSharedFromOutside,TResult Function()?  $clearSharedBook,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case $TabChanged() when $tabChanged != null:
 return $tabChanged(_that.selectedTab);case $ImportTriggered() when $importTriggered != null:
@@ -199,8 +199,8 @@ return $importTriggered(_that.path);case $ImportFinished() when $importFinished 
 return $importFinished();case $ExportTriggered() when $exportTriggered != null:
 return $exportTriggered(_that.path);case $Searching() when $searching != null:
 return $searching(_that.query);case $ShareOffloaded() when $shareOffloaded != null:
-return $shareOffloaded(_that.query);case $ResetShareOffloaded() when $resetShareOffloaded != null:
-return $resetShareOffloaded();case $SuggestionPicked() when $suggestionPicked != null:
+return $shareOffloaded(_that.query);case $ResetShareOffload() when $resetShareOffload != null:
+return $resetShareOffload();case $SuggestionPicked() when $suggestionPicked != null:
 return $suggestionPicked(_that.pickedBook);case $SaveBook() when $saveBook != null:
 return $saveBook(_that.book,_that.bookState,_that.selectedTags);case $DeleteBooksFinished() when $deleteBooksFinished != null:
 return $deleteBooksFinished();case $DeletePickedBooks() when $deletePickedBooks != null:
@@ -237,7 +237,7 @@ return $clearSharedBook();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( AppTab selectedTab)  $tabChanged,required TResult Function( String path)  $importTriggered,required TResult Function()  $importFinished,required TResult Function( String path)  $exportTriggered,required TResult Function( String query)  $searching,required TResult Function( String query)  $shareOffloaded,required TResult Function()  $resetShareOffloaded,required TResult Function( Book pickedBook)  $suggestionPicked,required TResult Function( Book book,  BookState bookState,  List<Tag> selectedTags)  $saveBook,required TResult Function()  $deleteBooksFinished,required TResult Function()  $deletePickedBooks,required TResult Function()  $clearDeletionList,required TResult Function( Book book)  $deleteModeToggled,required TResult Function( String query)  $booksFiltered,required TResult Function( Book book,  Tag tag)  $tagToggled,required TResult Function( Book book,  Swiped dir)  $bookSwiped,required TResult Function()  $summaryModeClosing,required TResult Function( Book book)  $summaryModeToggled,required TResult Function()  $summaryModeClosed,required TResult Function()  $themeToggled,required TResult Function()  $systemThemeToggled,required TResult Function( BookSizeLimits limits)  $sizeLimitsChanged,required TResult Function( ReadingGoal goal)  $readingGoalChanged,required TResult Function( Book oldBook,  Swiped direction,  Book updatedBook)  $bookStateUpdated,required TResult Function( String url)  $bookSharedFromOutside,required TResult Function()  $clearSharedBook,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( AppTab selectedTab)  $tabChanged,required TResult Function( String path)  $importTriggered,required TResult Function()  $importFinished,required TResult Function( String path)  $exportTriggered,required TResult Function( String query)  $searching,required TResult Function( String query)  $shareOffloaded,required TResult Function()  $resetShareOffload,required TResult Function( Book pickedBook)  $suggestionPicked,required TResult Function( Book book,  BookState bookState,  List<Tag> selectedTags)  $saveBook,required TResult Function()  $deleteBooksFinished,required TResult Function()  $deletePickedBooks,required TResult Function()  $clearDeletionList,required TResult Function( Book book)  $deleteModeToggled,required TResult Function( String query)  $booksFiltered,required TResult Function( Book book,  Tag tag)  $tagToggled,required TResult Function( Book book,  Swiped dir)  $bookSwiped,required TResult Function()  $summaryModeClosing,required TResult Function( Book book)  $summaryModeToggled,required TResult Function()  $summaryModeClosed,required TResult Function()  $themeToggled,required TResult Function()  $systemThemeToggled,required TResult Function( BookSizeLimits limits)  $sizeLimitsChanged,required TResult Function( ReadingGoal goal)  $readingGoalChanged,required TResult Function( Book oldBook,  Swiped direction,  Book updatedBook)  $bookStateUpdated,required TResult Function( String url)  $bookSharedFromOutside,required TResult Function()  $clearSharedBook,}) {final _that = this;
 switch (_that) {
 case $TabChanged():
 return $tabChanged(_that.selectedTab);case $ImportTriggered():
@@ -245,8 +245,8 @@ return $importTriggered(_that.path);case $ImportFinished():
 return $importFinished();case $ExportTriggered():
 return $exportTriggered(_that.path);case $Searching():
 return $searching(_that.query);case $ShareOffloaded():
-return $shareOffloaded(_that.query);case $ResetShareOffloaded():
-return $resetShareOffloaded();case $SuggestionPicked():
+return $shareOffloaded(_that.query);case $ResetShareOffload():
+return $resetShareOffload();case $SuggestionPicked():
 return $suggestionPicked(_that.pickedBook);case $SaveBook():
 return $saveBook(_that.book,_that.bookState,_that.selectedTags);case $DeleteBooksFinished():
 return $deleteBooksFinished();case $DeletePickedBooks():
@@ -279,7 +279,7 @@ return $clearSharedBook();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( AppTab selectedTab)?  $tabChanged,TResult? Function( String path)?  $importTriggered,TResult? Function()?  $importFinished,TResult? Function( String path)?  $exportTriggered,TResult? Function( String query)?  $searching,TResult? Function( String query)?  $shareOffloaded,TResult? Function()?  $resetShareOffloaded,TResult? Function( Book pickedBook)?  $suggestionPicked,TResult? Function( Book book,  BookState bookState,  List<Tag> selectedTags)?  $saveBook,TResult? Function()?  $deleteBooksFinished,TResult? Function()?  $deletePickedBooks,TResult? Function()?  $clearDeletionList,TResult? Function( Book book)?  $deleteModeToggled,TResult? Function( String query)?  $booksFiltered,TResult? Function( Book book,  Tag tag)?  $tagToggled,TResult? Function( Book book,  Swiped dir)?  $bookSwiped,TResult? Function()?  $summaryModeClosing,TResult? Function( Book book)?  $summaryModeToggled,TResult? Function()?  $summaryModeClosed,TResult? Function()?  $themeToggled,TResult? Function()?  $systemThemeToggled,TResult? Function( BookSizeLimits limits)?  $sizeLimitsChanged,TResult? Function( ReadingGoal goal)?  $readingGoalChanged,TResult? Function( Book oldBook,  Swiped direction,  Book updatedBook)?  $bookStateUpdated,TResult? Function( String url)?  $bookSharedFromOutside,TResult? Function()?  $clearSharedBook,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( AppTab selectedTab)?  $tabChanged,TResult? Function( String path)?  $importTriggered,TResult? Function()?  $importFinished,TResult? Function( String path)?  $exportTriggered,TResult? Function( String query)?  $searching,TResult? Function( String query)?  $shareOffloaded,TResult? Function()?  $resetShareOffload,TResult? Function( Book pickedBook)?  $suggestionPicked,TResult? Function( Book book,  BookState bookState,  List<Tag> selectedTags)?  $saveBook,TResult? Function()?  $deleteBooksFinished,TResult? Function()?  $deletePickedBooks,TResult? Function()?  $clearDeletionList,TResult? Function( Book book)?  $deleteModeToggled,TResult? Function( String query)?  $booksFiltered,TResult? Function( Book book,  Tag tag)?  $tagToggled,TResult? Function( Book book,  Swiped dir)?  $bookSwiped,TResult? Function()?  $summaryModeClosing,TResult? Function( Book book)?  $summaryModeToggled,TResult? Function()?  $summaryModeClosed,TResult? Function()?  $themeToggled,TResult? Function()?  $systemThemeToggled,TResult? Function( BookSizeLimits limits)?  $sizeLimitsChanged,TResult? Function( ReadingGoal goal)?  $readingGoalChanged,TResult? Function( Book oldBook,  Swiped direction,  Book updatedBook)?  $bookStateUpdated,TResult? Function( String url)?  $bookSharedFromOutside,TResult? Function()?  $clearSharedBook,}) {final _that = this;
 switch (_that) {
 case $TabChanged() when $tabChanged != null:
 return $tabChanged(_that.selectedTab);case $ImportTriggered() when $importTriggered != null:
@@ -287,8 +287,8 @@ return $importTriggered(_that.path);case $ImportFinished() when $importFinished 
 return $importFinished();case $ExportTriggered() when $exportTriggered != null:
 return $exportTriggered(_that.path);case $Searching() when $searching != null:
 return $searching(_that.query);case $ShareOffloaded() when $shareOffloaded != null:
-return $shareOffloaded(_that.query);case $ResetShareOffloaded() when $resetShareOffloaded != null:
-return $resetShareOffloaded();case $SuggestionPicked() when $suggestionPicked != null:
+return $shareOffloaded(_that.query);case $ResetShareOffload() when $resetShareOffload != null:
+return $resetShareOffload();case $SuggestionPicked() when $suggestionPicked != null:
 return $suggestionPicked(_that.pickedBook);case $SaveBook() when $saveBook != null:
 return $saveBook(_that.book,_that.bookState,_that.selectedTags);case $DeleteBooksFinished() when $deleteBooksFinished != null:
 return $deleteBooksFinished();case $DeletePickedBooks() when $deletePickedBooks != null:
@@ -680,8 +680,8 @@ as String,
 /// @nodoc
 
 
-class $ResetShareOffloaded implements BusEvent {
-  const $ResetShareOffloaded();
+class $ResetShareOffload implements BusEvent {
+  const $ResetShareOffload();
   
 
 
@@ -691,7 +691,7 @@ class $ResetShareOffloaded implements BusEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is $ResetShareOffloaded);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is $ResetShareOffload);
 }
 
 
@@ -700,7 +700,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'BusEvent.\$resetShareOffloaded()';
+  return 'BusEvent.\$resetShareOffload()';
 }
 
 

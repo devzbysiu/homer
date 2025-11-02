@@ -125,7 +125,8 @@ void main() {
 
   group('_onBookSwiped to right', () {
     final books = [fakeBook(), fakeBook(), fakeBook()];
-    final book = fakeBook();
+    // make sure we can swipe right - update state
+    final book = fakeBook().copyWith(state: BookState.reading);
 
     blocTest<BooksBloc, BooksState>(
       'should emit booksLoaded on success',
@@ -163,7 +164,8 @@ void main() {
 
   group('_onBookSwiped to left', () {
     final books = [fakeBook(), fakeBook(), fakeBook()];
-    final book = fakeBook();
+    // make sure we can swipe left - update state
+    final book = fakeBook().copyWith(state: BookState.reading);
 
     blocTest<BooksBloc, BooksState>(
       'should emit booksLoaded on success',

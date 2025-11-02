@@ -225,7 +225,7 @@ String toString() {
 
 
 class BookFinished implements StatsEvent {
-  const BookFinished(this.book);
+  const BookFinished({required this.book});
   
 
  final  Book book;
@@ -279,7 +279,7 @@ class _$BookFinishedCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? book = null,}) {
   return _then(BookFinished(
-null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
+book: null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
 as Book,
   ));
 }
@@ -300,7 +300,7 @@ $BookCopyWith<$Res> get book {
 
 
 class BookUnfinished implements StatsEvent {
-  const BookUnfinished(this.book);
+  const BookUnfinished({required this.book});
   
 
  final  Book book;
@@ -354,7 +354,7 @@ class _$BookUnfinishedCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? book = null,}) {
   return _then(BookUnfinished(
-null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
+book: null == book ? _self.book : book // ignore: cast_nullable_to_non_nullable
 as Book,
   ));
 }

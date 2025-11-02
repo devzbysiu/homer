@@ -7,6 +7,7 @@ import '../../features/manage_books/presentation/bloc/listing/books_event.dart';
 import '../../features/manage_books/presentation/bloc/navigation/app_tab_event.dart';
 import '../../features/manage_books/presentation/bloc/summary/book_summary_event.dart';
 import '../../features/settings/presentation/bloc/settings_event.dart';
+import '../../features/stats/presentation/bloc/stats_event.dart';
 import 'events.dart';
 
 extension $TabChangedInto on $TabChanged {
@@ -98,6 +99,23 @@ extension $ThemeToggledInto on $ThemeToggled {
 
 extension $SystemThemeToggledInto on $SystemThemeToggled {
   SystemThemeToggled into() => SystemThemeToggled();
+}
+
+// Stats
+extension $BookFinishedInto on $BookFinished {
+  BookFinished into() => BookFinished(book: updatedBook);
+}
+
+extension $BookStartedInto on $BookStarted {
+  BookStarted into() => BookStarted();
+}
+
+extension $BookUnfinishedInto on $BookUnfinished {
+  BookUnfinished into() => BookUnfinished(book: book);
+}
+
+extension $BookUnstartedInto on $BookUnstarted {
+  BookUnstarted into() => BookUnstarted();
 }
 
 // Bottom Drawer

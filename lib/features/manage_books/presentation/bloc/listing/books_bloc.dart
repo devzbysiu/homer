@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/entities/book.dart';
 import '../../../../../core/orchestrator/bus.dart';
 import '../../../../../core/orchestrator/events.dart';
 import '../../../../../core/usecase/usecase.dart';
@@ -69,17 +70,26 @@ final class BooksBloc extends Bloc<BooksEvent, BooksState> {
   }
 
   Future<void> _onBookSwiped(BookSwiped event, Emitter<BooksState> emit) async {
-    await event.book.move(event.dir).ifSome((updatedBook) async {
-      final result = await updateBook(UpdateParams(modified: updatedBook));
+    await event.book.move(event.dir).ifSome((updated) async {
+      final result = await updateBook(UpdateParams(modified: updated));
       await result.when((success) async {
         await _emitSavedBooks(emit);
-        eventBus.fire(
-          $BookStateUpdated(
-            oldBook: event.book,
-            direction: event.dir,
-            updatedBook: updatedBook,
-          ),
-        );
+
+        assert(switch ((event.dir, event.book.state)) {
+          (Swiped.right, BookState.read) => false,
+          (Swiped.left, BookState.readLater) => false,
+          _ => true,
+        }, 'Invalid swipe for current book state.');
+
+        final stat = switch ((event.dir, updated.state)) {
+          (Swiped.right, BookState.read) => $BookFinished(updatedBook: updated),
+          (Swiped.right, BookState.reading) => $BookStarted(),
+          (Swiped.left, BookState.reading) => $BookUnfinished(book: event.book),
+          (Swiped.left, BookState.readLater) => $BookUnstarted(),
+          _ => null,
+        };
+
+        if (stat != null) eventBus.fire(stat);
       }, (error) async => emit(const BooksState.updatingBookFailed()));
     });
   }

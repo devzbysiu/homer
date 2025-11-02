@@ -8,9 +8,10 @@ part 'stats_event.freezed.dart';
 sealed class StatsEvent with _$StatsEvent {
   const factory StatsEvent.loadStats() = LoadStats;
 
-  const factory StatsEvent.bookFinished(Book book) = BookFinished;
+  const factory StatsEvent.bookFinished({required Book book}) = BookFinished;
 
-  const factory StatsEvent.bookUnfinished(Book book) = BookUnfinished;
+  const factory StatsEvent.bookUnfinished({required Book book}) =
+      BookUnfinished;
 
   const factory StatsEvent.bookStarted() = BookStarted;
 

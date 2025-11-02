@@ -13,7 +13,6 @@ import '../../features/manage_books/presentation/bloc/summary/book_summary_bloc.
 import '../../features/settings/presentation/bloc/settings_bloc.dart';
 import '../../features/stats/presentation/bloc/stats_bloc.dart';
 import '../../features/stats/presentation/bloc/stats_event.dart';
-import '../entities/book.dart';
 import 'bus.dart';
 import 'event_mappers.dart';
 import 'events.dart';
@@ -70,7 +69,10 @@ final class Orchestrator {
     eventBus.on<$SystemThemeToggled>(_onSystemThemeEnabled);
 
     // Stats
-    eventBus.on<$BookStateUpdated>(_onBookStateUpdated);
+    eventBus.on<$BookFinished>(_onBookFinished);
+    eventBus.on<$BookStarted>(_onBookStarted);
+    eventBus.on<$BookUnfinished>(_onBookUnfinished);
+    eventBus.on<$BookUnstarted>(_onBookUnstarted);
 
     // Bottom Drawer
     eventBus.on<$BookSharedFromOutside>(_onBookSharedFromOutside);
@@ -136,7 +138,7 @@ final class Orchestrator {
   void _onClearDeletionList($ClearDeletionList e) => delete.add(e.into());
   void _onDeletePickedBooks($DeletePickedBooks e) => delete.add(e.into());
 
-  void _onDeleteBooksFinished(_) {
+  void _onDeleteBooksFinished($DeleteBooksFinished _) {
     books.add(RefreshBooksList());
     stats.add(LoadStats());
   }
@@ -158,23 +160,10 @@ final class Orchestrator {
   void _onSystemThemeEnabled($SystemThemeToggled e) => settings.add(e.into());
 
   // Stats
-  void _onBookStateUpdated($BookStateUpdated e) {
-    assert(switch ((e.direction, e.oldBook.state)) {
-      (Swiped.right, BookState.read) => false,
-      (Swiped.left, BookState.readLater) => false,
-      _ => true,
-    }, 'Invalid swipe for current book state.');
-
-    final stat = switch ((e.direction, e.updatedBook.state)) {
-      (Swiped.right, BookState.read) => BookFinished(e.updatedBook),
-      (Swiped.right, BookState.reading) => BookStarted(),
-      (Swiped.left, BookState.reading) => BookUnfinished(e.oldBook),
-      (Swiped.left, BookState.readLater) => BookUnstarted(),
-      _ => null,
-    };
-
-    if (stat != null) stats.add(stat);
-  }
+  void _onBookFinished($BookFinished e) => stats.add(e.into());
+  void _onBookStarted($BookStarted e) => stats.add(e.into());
+  void _onBookUnfinished($BookUnfinished e) => stats.add(e.into());
+  void _onBookUnstarted($BookUnstarted e) => stats.add(e.into());
 
   // Bottom Drawer
   void _onBookSharedFromOutside($BookSharedFromOutside e) =>

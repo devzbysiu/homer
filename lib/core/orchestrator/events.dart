@@ -66,11 +66,12 @@ sealed class BusEvent with _$BusEvent {
       $ReadingGoalChanged;
 
   // Stats
-  const factory BusEvent.$bookStateUpdated({
-    required Book oldBook,
-    required Swiped direction,
-    required Book updatedBook,
-  }) = $BookStateUpdated;
+  const factory BusEvent.$bookFinished({required Book updatedBook}) =
+      $BookFinished;
+  const factory BusEvent.$bookStarted() = $BookStarted;
+  const factory BusEvent.$bookUnfinished({required Book book}) =
+      $BookUnfinished;
+  const factory BusEvent.$bookUnstarted() = $BookUnstarted;
 
   // Bottom Drawer
   const factory BusEvent.$bookSharedFromOutside({required String url}) =

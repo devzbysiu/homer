@@ -149,7 +149,7 @@ void main() {
         otherStats: some(otherStats),
       ),
       build: () => BlocMock().allWorking(),
-      act: (bloc) => bloc.add(BookFinished(book)),
+      act: (bloc) => bloc.add(BookFinished(book: book)),
       expect: () => [
         StatsState.loaded(
           booksPerYear: booksPerYear.add(book),
@@ -177,7 +177,7 @@ void main() {
         otherStats: some(otherStats),
       ),
       build: () => BlocMock().allWorking(),
-      act: (bloc) => bloc.add(BookUnfinished(book)),
+      act: (bloc) => bloc.add(BookUnfinished(book: book)),
       expect: () => [
         StatsState.loaded(
           booksPerYear: booksPerYear.remove(book),

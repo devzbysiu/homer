@@ -23,22 +23,23 @@ final class _SavableBookWithSummary extends StatelessWidget {
   }
 
   Padding _showBookCandidate(Book book, BuildContext context) {
+    final t = context.bottomDrawerTheme;
     return Padding(
-      padding: const EdgeInsets.only(top: 80.0),
+      padding: EdgeInsets.only(top: t.bookAreaTopPadding),
       child: Stack(
         children: [
           _BookWithSummary(pickedBook: book),
           Positioned(
             width: MediaQuery.of(context).size.width,
-            bottom: 60,
-            child: const Padding(
-              padding: EdgeInsets.only(right: 18.0),
-              child: _Tags(),
+            bottom: t.tagsRowBottomPosition,
+            child: Padding(
+              padding: EdgeInsets.only(right: t.tagsRowRightPadding),
+              child: const _Tags(),
             ),
           ),
           Positioned(
             width: MediaQuery.of(context).size.width,
-            bottom: 10,
+            bottom: t.saveButtonsBottomPosition,
             child: _SaveButtons(pickedBook: book),
           ),
         ],
@@ -54,24 +55,30 @@ final class _BookWithSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.bottomDrawerTheme;
     return Container(
-      padding: const EdgeInsets.only(left: 9, right: 9),
+      padding: EdgeInsets.symmetric(
+        horizontal: t.bookContainerHorizontalPadding,
+      ),
       child: _DropCapText(
         // NOTE: mapper takes care of mapping null summary to default 'No description'
         text: pickedBook.summary.toNullable()!,
         overflow: TextOverflow.ellipsis,
         dropCap: _DropCap(
-          width: 150,
-          height: 220,
+          width: t.dropCapWidth,
+          height: t.dropCapHeight,
           child: WithSavedCheckMark(
             book: pickedBook,
-            width: 24,
-            height: 30,
-            iconSize: 30,
+            width: t.savedMarkOverlayWidth,
+            height: t.savedMarkOverlayHeight,
+            iconSize: t.savedMarkIconSize,
             child: _RemoteBookCard(book: pickedBook),
           ),
         ),
-        dropCapPadding: const EdgeInsets.only(bottom: 5, right: 15),
+        dropCapPadding: EdgeInsets.only(
+          bottom: t.dropCapBottomPadding,
+          right: t.dropCapRightPadding,
+        ),
       ),
     );
   }
@@ -130,7 +137,10 @@ final class _DropCapText extends StatelessWidget {
     capWidth += dropCapPadding.left + dropCapPadding.right;
     capHeight += dropCapPadding.top + dropCapPadding.bottom;
 
-    TextSpan textSpan = TextSpan(text: text, style: context.bodyLarge);
+    TextSpan textSpan = TextSpan(
+      text: text,
+      style: context.bottomDrawerTheme.summaryStyle,
+    );
 
     TextPainter textPainter = TextPainter(
       textDirection: textDirection,
@@ -161,7 +171,7 @@ final class _DropCapText extends StatelessWidget {
         }
 
         return SizedBox(
-          height: 340,
+          height: context.bottomDrawerTheme.summaryBoxHeight,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,7 +199,7 @@ final class _DropCapText extends StatelessWidget {
                   textDirection: textDirection,
                   text: TextSpan(
                     text: text.substring(charIndexEnd),
-                    style: context.bodyLarge,
+                    style: context.bottomDrawerTheme.summaryStyle,
                   ),
                 ),
               ],
@@ -208,13 +218,14 @@ final class _RemoteBookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.bottomDrawerTheme;
     return TransparentImageCard(
-      contentMarginTop: 183,
-      height: 280,
+      contentMarginTop: t.remoteBookCardContentMarginTop,
+      height: t.remoteBookCardHeight,
       imageProvider: _imageProvider() as ImageProvider<Object>,
       tags: const [],
       title: BookTitleAndTagTile(book: book),
-      endColor: Colors.black,
+      endColor: t.remoteBookCardEndColor,
       description: BookAuthors(authorNames: book.authors),
       footer: BookCardFooter(rating: book.rating, pageCount: book.pageCount),
     );

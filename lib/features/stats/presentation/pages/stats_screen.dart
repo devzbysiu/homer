@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../../../core/utils/theme.dart';
+import '../../../../core/utils/spacing.dart';
+import 'stats_screen_theme.dart';
 import '../widgets/books_per_month.dart';
 import '../widgets/books_per_state.dart';
 import '../widgets/books_per_year.dart';
@@ -12,6 +13,7 @@ final class StatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.statsScreenTheme;
     return Animate(
       effects: const [FadeEffect()],
       child: Container(
@@ -19,18 +21,18 @@ final class StatsScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [context.primaryContainer, context.lightPrimaryContainer],
+            colors: [theme.gradientStart, theme.gradientEnd],
           ),
         ),
         child: SafeArea(
           child: ListView(
             children: [
               const BooksPerState().animate(effects: _effects),
-              spaceBetween(50),
+              spaceBetween(theme.sectionSpacing),
               const BooksPerYear().animate(effects: _effects),
-              spaceBetween(50),
+              spaceBetween(theme.sectionSpacing),
               const BooksPerMonth().animate(effects: _effects),
-              spaceBetween(50),
+              spaceBetween(theme.sectionSpacing),
               const OtherStats().animate(effects: _effects),
             ],
           ),

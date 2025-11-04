@@ -16,10 +16,10 @@ final class _AnimatedSummaryCard extends StatelessWidget {
       child: _SwipeableCard(
         book: book,
         child: Blur(
-          colorOpacity: 1.0,
-          blur: 0.0,
+          colorOpacity: context.booksListTheme.summaryColorOpacity,
+          blur: context.booksListTheme.summaryBlurAmount,
           overlay: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(context.booksListTheme.summaryPadding),
             child: _ScrollPropagationStopper(
               child: SingleChildScrollView(
                 child: Text(
@@ -27,12 +27,12 @@ final class _AnimatedSummaryCard extends StatelessWidget {
                     () => _noSummaryText,
                     (summary) => summary.isEmpty ? _noSummaryText : summary,
                   ),
-                  style: context.bodyLarge,
+                  style: context.booksListTheme.summaryTextStyle,
                 ),
               ),
             ),
           ),
-          blurColor: context.background,
+          blurColor: context.booksListTheme.summaryBlurColor,
           child: _BookCover(book: book),
         ),
       ),

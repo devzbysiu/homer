@@ -39,7 +39,9 @@ void main() {
       when(booksRepo.listAll()).thenAnswer((_) => withSuccess(books));
 
       final importExportRepo = makeMockImportExportRepo();
-      when(importExportRepo.saveAll(any, any)).thenAnswer((_) => withSuccess(unit));
+      when(
+        importExportRepo.saveAll(any, any),
+      ).thenAnswer((_) => withSuccess(unit));
       final exportBooks = ExportBooksImpl(importExportRepo, booksRepo);
 
       final exportPath = fakePath();

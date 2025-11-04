@@ -59,7 +59,7 @@ final class _SavingButton extends StatelessBusWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => _addBook(context, pickedBook, bookState),
-      color: context.secondary,
+      color: context.bottomDrawerTheme.saveButtonColor,
       icon: Icon(icon),
     );
   }

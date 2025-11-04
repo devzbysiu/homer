@@ -4,23 +4,28 @@ import 'package:path/path.dart' as p;
 
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/orchestrator/events.dart';
-import '../../../../core/utils/theme.dart';
+import 'export_books_tile_theme.dart';
 
 final class ExportBooksTile extends StatelessBusWidget {
   ExportBooksTile({super.key, super.bus});
 
   @override
   Widget build(BuildContext context) {
+    final t = context.exportBooksTileTheme;
     return Material(
       child: ListTile(
-        contentPadding: const EdgeInsets.only(top: 10, left: 23, right: 25),
+        contentPadding: EdgeInsets.only(
+          top: t.contentPaddingTop,
+          left: t.contentPaddingLeft,
+          right: t.contentPaddingRight,
+        ),
         leading: const Icon(Icons.upload),
         title: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: EdgeInsets.only(left: t.titleLeftPadding),
           child: InkWell(
-            splashColor: context.primaryContainer,
+            splashColor: t.splashColor,
             onTap: () => _openFilePicker(context),
-            child: Text('Export books', style: context.headlineSmall),
+            child: Text('Export books', style: t.titleStyle),
           ),
         ),
       ),

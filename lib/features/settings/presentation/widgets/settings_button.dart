@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/widgets/menu_button.dart';
+import '../../../../core/widgets/menu_button/menu_button.dart';
 
 final class SettingsButton extends StatelessWidget {
   const SettingsButton({super.key});

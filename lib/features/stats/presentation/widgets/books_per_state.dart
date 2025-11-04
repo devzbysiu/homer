@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/entities/book.dart';
-import '../../../../core/utils/theme.dart';
 import '../../domain/entities/books_per_state_data.dart';
 import '../bloc/stats_bloc.dart';
 import '../bloc/stats_state.dart';
+import 'books_per_state_theme.dart';
 import 'chart_wrapper.dart';
 
 final class BooksPerState extends StatelessWidget {
@@ -17,7 +17,7 @@ final class BooksPerState extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Text('Books', style: context.headlineSmall),
+          Text('Books', style: context.booksPerStateTheme.headlineStyle),
           ChartWrapper(
             height: 100,
             child: BlocBuilder<StatsBloc, StatsState>(
@@ -72,6 +72,7 @@ final class _BarChartBooksPerState extends StatelessWidget {
   }
 
   List<BarChartGroupData> _barGroupsFromData(BuildContext context) {
+    final theme = context.booksPerStateTheme;
     final forLaterCount = booksPerState[BookState.readLater];
     final readingCount = booksPerState[BookState.reading];
     final readCount = booksPerState[BookState.read];
@@ -79,24 +80,24 @@ final class _BarChartBooksPerState extends StatelessWidget {
     final forLaterBar = BarChartRodStackItem(
       0,
       forLaterCount.toDouble(),
-      context.primary,
+      theme.waitingColor,
     );
     final readingBar = BarChartRodStackItem(
       forLaterCount.toDouble(),
       forLaterCount.toDouble() + readingCount.toDouble(),
-      context.secondary,
+      theme.inProgressColor,
     );
     final readBar = BarChartRodStackItem(
       forLaterCount.toDouble() + readingCount.toDouble(),
       forLaterCount.toDouble() + readingCount.toDouble() + readCount.toDouble(),
-      Colors.green,
+      theme.readColor,
     );
 
     final group = BarChartGroupData(
       x: 0,
       barRods: [
         BarChartRodData(
-          width: 30,
+          width: theme.barWidth,
           toY:
               forLaterCount.toDouble() +
               readingCount.toDouble() +
@@ -117,12 +118,13 @@ final class _ChartLegend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.booksPerStateTheme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _LegendTile(color: context.primary, text: _waiting()),
-        _LegendTile(color: context.secondary, text: _inProgress()),
-        _LegendTile(color: Colors.green, text: _read()),
+        _LegendTile(color: theme.waitingColor, text: _waiting()),
+        _LegendTile(color: theme.inProgressColor, text: _inProgress()),
+        _LegendTile(color: theme.readColor, text: _read()),
       ],
     );
   }
@@ -152,12 +154,17 @@ final class _LegendTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.booksPerStateTheme;
     return Row(
       children: [
-        Container(width: 20, height: 20, color: color),
-        const SizedBox(width: 5),
-        Text(text, style: context.titleSmall),
-        const SizedBox(width: 20),
+        Container(
+          width: t.legendSwatchSize,
+          height: t.legendSwatchSize,
+          color: color,
+        ),
+        SizedBox(width: t.legendSwatchSpacing),
+        Text(text, style: t.legendStyle),
+        SizedBox(width: t.legendItemSpacing),
       ],
     );
   }

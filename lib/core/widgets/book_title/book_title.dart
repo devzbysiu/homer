@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
-import '../../features/tags_manager/presentation/bloc/tags_bloc.dart';
-import '../../features/tags_manager/presentation/bloc/tags_state.dart';
-import '../entities/book.dart';
-import '../entities/tag.dart';
-import '../orchestrator/bus_widget.dart';
-import '../orchestrator/events.dart';
-import '../utils/theme.dart';
+import '../../../features/tags_manager/presentation/bloc/tags_bloc.dart';
+import '../../../features/tags_manager/presentation/bloc/tags_state.dart';
+import '../../entities/book.dart';
+import '../../entities/tag.dart';
+import '../../orchestrator/bus_widget.dart';
+import '../../orchestrator/events.dart';
+import 'book_title_theme.dart';
 
 final class BookTitleAndTagTile extends StatelessWidget {
   const BookTitleAndTagTile({super.key, required this.book});
@@ -29,7 +29,9 @@ final class BookTitleAndTagTile extends StatelessWidget {
                 // (but max lines is 2 so it's always 2 lines)
                 '${book.title}\n',
                 maxLines: 2,
-                style: context.bodyLarge.copyWith(color: Colors.white),
+                style: context.bookTitleTheme.titleStyle.copyWith(
+                  color: context.bookTitleTheme.titleColor,
+                ),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -59,14 +61,20 @@ final class _AddTagTile extends StatelessBusWidget {
             );
           },
           child: Container(
-            width: 25,
-            height: 25,
+            width: context.bookTitleTheme.tagSize,
+            height: context.bookTitleTheme.tagSize,
             decoration: BoxDecoration(
-              border: Border.all(color: context.primary),
-              borderRadius: BorderRadius.circular(6),
-              color: Colors.black,
+              border: Border.all(color: context.bookTitleTheme.tagBorderColor),
+              borderRadius: BorderRadius.circular(
+                context.bookTitleTheme.tagBorderRadius,
+              ),
+              color: context.bookTitleTheme.tagBackgroundColor,
             ),
-            child: const Icon(Icons.tag, color: Colors.white, size: 15),
+            child: Icon(
+              Icons.tag,
+              color: context.bookTitleTheme.tagIconColor,
+              size: context.bookTitleTheme.tagIconSize,
+            ),
           ),
         );
       },

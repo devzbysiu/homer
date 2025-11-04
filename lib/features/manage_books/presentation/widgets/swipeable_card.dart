@@ -9,12 +9,13 @@ final class _SwipeableCard extends StatelessBusWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.booksListTheme;
     return SwipeableTile.swipeToTriggerCard(
-      color: context.card,
+      color: t.cardColor,
       shadow: const BoxShadow(),
-      horizontalPadding: 10,
-      verticalPadding: 10,
-      borderRadius: 8,
+      horizontalPadding: t.cardHorizontalPadding,
+      verticalPadding: t.cardVerticalPadding,
+      borderRadius: t.cardBorderRadius,
       direction: SwipeDirection.horizontal,
       onSwiped: (direction) => _onSwiped(context, direction),
       backgroundBuilder: _animatedBackground,
@@ -49,8 +50,10 @@ final class _SwipeableCard extends StatelessBusWidget {
       behavior: SnackBarBehavior.floating,
       backgroundColor: Colors.transparent,
       content: AwesomeSnackbarContent(
-        color: context.primaryContainer,
-        messageTextStyle: TextStyle(fontSize: 18),
+        color: context.booksListTheme.swipeColor,
+        messageTextStyle: TextStyle(
+          fontSize: context.booksListTheme.snackbarMessageFontSize,
+        ),
         title: 'Yay!',
         message: msg,
         contentType: ContentType.success,
@@ -105,13 +108,14 @@ final class _AnimatedBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.booksListTheme;
     return AnimatedBuilder(
       animation: progress,
       builder: (_, _) {
         if (_swipingToRight()) {
-          return _animateRightSwipe(context);
+          return _animateRightSwipe(context, t);
         }
-        return _animateLeftSwipe(context);
+        return _animateLeftSwipe(context, t);
       },
     );
   }
@@ -120,23 +124,24 @@ final class _AnimatedBackground extends StatelessWidget {
     return direction == SwipeDirection.startToEnd;
   }
 
-  Widget _animateRightSwipe(BuildContext context) {
+  Widget _animateRightSwipe(BuildContext context, BooksListTheme t) {
     switch (currentState) {
       case BookState.readLater:
-        return _animateToReadingRight(context);
+        return _animateToReadingRight(t);
       case BookState.reading:
-        return _animateToRead(context);
+        return _animateToRead(t);
       case BookState.read:
         return const SizedBox.shrink();
     }
   }
 
-  Widget _animateToReadingRight(BuildContext context) {
+  Widget _animateToReadingRight(BooksListTheme t) {
     return _animateTo(
       Icons.book,
       progress,
       MainAxisAlignment.start,
-      const EdgeInsets.only(left: 30),
+      EdgeInsets.only(left: t.swipeLeftIndicatorPadding),
+      t.swipeBackgroundColor,
     );
   }
 
@@ -145,10 +150,11 @@ final class _AnimatedBackground extends StatelessWidget {
     AnimationController progress,
     MainAxisAlignment alignment,
     EdgeInsets padding,
+    Color bgColor,
   ) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
-      color: Colors.transparent,
+      color: bgColor,
       child: Row(
         mainAxisAlignment: alignment,
         children: [Padding(padding: padding, child: Icon(icon))],
@@ -156,41 +162,44 @@ final class _AnimatedBackground extends StatelessWidget {
     );
   }
 
-  Widget _animateToRead(BuildContext context) {
+  Widget _animateToRead(BooksListTheme t) {
     return _animateTo(
       Icons.done,
       progress,
       MainAxisAlignment.start,
-      const EdgeInsets.only(left: 30),
+      EdgeInsets.only(left: t.swipeLeftIndicatorPadding),
+      t.swipeBackgroundColor,
     );
   }
 
-  Widget _animateLeftSwipe(BuildContext context) {
+  Widget _animateLeftSwipe(BuildContext context, BooksListTheme t) {
     switch (currentState) {
       case BookState.readLater:
         return const SizedBox.shrink();
       case BookState.reading:
-        return _animateToReadLater(context);
+        return _animateToReadLater(t);
       case BookState.read:
-        return _animateToReadingLeft(context);
+        return _animateToReadingLeft(t);
     }
   }
 
-  Widget _animateToReadLater(BuildContext context) {
+  Widget _animateToReadLater(BooksListTheme t) {
     return _animateTo(
       Icons.bookmark,
       progress,
       MainAxisAlignment.end,
-      const EdgeInsets.only(right: 30),
+      EdgeInsets.only(right: t.swipeRightIndicatorPadding),
+      t.swipeBackgroundColor,
     );
   }
 
-  Widget _animateToReadingLeft(BuildContext context) {
+  Widget _animateToReadingLeft(BooksListTheme t) {
     return _animateTo(
       Icons.book,
       progress,
       MainAxisAlignment.end,
-      const EdgeInsets.only(right: 30),
+      EdgeInsets.only(right: t.swipeRightIndicatorPadding),
+      t.swipeBackgroundColor,
     );
   }
 }

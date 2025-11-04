@@ -4,7 +4,7 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
 
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/orchestrator/events.dart';
-import '../../../../core/utils/theme.dart';
+import 'main_screen_theme.dart';
 import '../widgets/books_list.dart';
 
 final class MainScreen extends StatefulBusWidget {
@@ -28,7 +28,7 @@ final class _MainScreenState extends State<MainScreen> {
       onQueryChanged: (query) => _onQueryChanged(query),
       actions: _clearOrSearchIcon(),
       leadingActions: _openDrawerIcon(context),
-      backgroundColor: context.background,
+      backgroundColor: context.mainScreenTheme.searchBarColor,
       hint: 'Filter...',
       body: _booksListing(context),
       builder: (_, _) => const SizedBox.shrink(),
@@ -50,9 +50,11 @@ final class _MainScreenState extends State<MainScreen> {
           icon: const Icon(Icons.close),
         ),
       if (!isSearchInProgress)
-        const Padding(
-          padding: EdgeInsets.only(right: 8.0),
-          child: Icon(Icons.search),
+        Padding(
+          padding: EdgeInsets.only(
+            right: context.mainScreenTheme.searchIconRightPadding,
+          ),
+          child: const Icon(Icons.search),
         ),
     ];
   }
@@ -79,11 +81,16 @@ final class _MainScreenState extends State<MainScreen> {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [context.primaryContainer, context.lightPrimaryContainer],
+              colors: [
+                context.mainScreenTheme.gradientStart,
+                context.mainScreenTheme.gradientEnd,
+              ],
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 52),
+            padding: EdgeInsets.only(
+              top: context.mainScreenTheme.booksListTopPadding,
+            ),
             child: BooksList(),
           ),
         ),

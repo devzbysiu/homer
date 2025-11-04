@@ -5,14 +5,15 @@ final class _SearchSuggestions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.bottomDrawerTheme;
     return SizedBox(
-      height: 470 - MediaQuery.of(context).viewInsets.bottom,
+      height: t.suggestionsHeight - MediaQuery.of(context).viewInsets.bottom,
       child: SingleChildScrollView(
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(t.suggestionsBorderRadius),
           child: Material(
-            color: context.lightBackground,
-            elevation: 4.0,
+            color: t.searchBarColor,
+            elevation: t.suggestionsElevation,
             child: const _SuggestionsList(),
           ),
         ),
@@ -51,23 +52,24 @@ final class _SearchSuggestion extends StatelessBusWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.bottomDrawerTheme;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(t.suggestionTilePadding),
       child: Material(
-        elevation: 3,
+        elevation: t.suggestionTileElevation,
         child: WithSavedCheckMark(
           book: book,
           child: BannerListTile(
-            bannerTextColor: context.background,
-            bannerColor: context.primary,
+            bannerTextColor: t.bannerTextColor,
+            bannerColor: t.bannerColor,
             bannerText: book.rating.toStringAsFixed(2),
             onTap: () => fire($SuggestionPicked(pickedBook: book)),
-            backgroundColor: context.background,
-            borderRadius: BorderRadius.circular(8),
+            backgroundColor: t.suggestionBgColor,
+            borderRadius: BorderRadius.circular(t.suggestionTileBorderRadius),
             imageContainer: _ListTileThumbnail(book: book),
             title: Text(
               book.title,
-              style: context.titleMedium,
+              style: context.bottomDrawerTheme.titleStyle,
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
@@ -75,7 +77,7 @@ final class _SearchSuggestion extends StatelessBusWidget {
               'by ${book.authors.join(', ')}',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: context.titleSmall,
+              style: context.bottomDrawerTheme.subtitleStyle,
             ),
           ),
         ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/orchestrator/events.dart';
-import '../../../../core/utils/theme.dart';
+import 'reading_goal_slider_theme.dart';
 import '../../domain/entities/reading_goal.dart';
 import '../bloc/settings_bloc.dart';
 
@@ -19,19 +19,24 @@ final class ReadingGoalSliderState extends State<ReadingGoalSlider> {
   @override
   Widget build(BuildContext context) {
     componentReadingGoal ??= context.readingGoal();
+    final t = context.readingGoalSliderTheme;
     return Material(
       child: ListTile(
-        contentPadding: const EdgeInsets.only(top: 10, left: 23, right: 25),
+        contentPadding: EdgeInsets.only(
+          top: t.contentPaddingTop,
+          left: t.contentPaddingLeft,
+          right: t.contentPaddingRight,
+        ),
         leading: const Icon(Icons.library_books),
         title: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: EdgeInsets.only(left: t.titleLeftPadding),
           child: Text(
             'Reading goal: ${componentReadingGoal!.books} / month',
-            style: context.headlineSmall,
+            style: t.headerStyle,
           ),
         ),
         subtitle: Padding(
-          padding: const EdgeInsets.only(top: 13),
+          padding: EdgeInsets.only(top: t.sliderTopPadding),
           child: Slider(
             value: componentReadingGoal!.books.toDouble(),
             onChanged: (value) => setState(() {

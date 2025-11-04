@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/theme.dart';
 import '../../domain/entities/most_read_info.dart';
 import '../../domain/entities/other_stats_data.dart';
 import '../bloc/stats_bloc.dart';
 import '../bloc/stats_state.dart';
 import 'chart_wrapper.dart';
+import 'other_stats_theme.dart';
 
 final class OtherStats extends StatelessWidget {
   const OtherStats({super.key});
@@ -16,7 +16,7 @@ final class OtherStats extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Text('Other', style: context.headlineSmall),
+          Text('Other', style: context.otherStatsTheme.headlineStyle),
           ChartWrapper(
             height: 150,
             child: BlocBuilder<StatsBloc, StatsState>(
@@ -57,17 +57,18 @@ class _Average extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.otherStatsTheme;
     return Column(
       children: [
         Row(
           children: [
             Text(
               average.toStringAsFixed(1),
-              style: context.bodyLarge.copyWith(fontSize: 60),
+              style: theme.valueStyle.copyWith(fontSize: theme.valueFontSize),
             ),
           ],
         ),
-        Row(children: [Text('books per month', style: context.bodyMedium)]),
+        Row(children: [Text('books per month', style: theme.labelStyle)]),
       ],
     );
   }
@@ -80,19 +81,20 @@ class _MostRead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.otherStatsTheme;
     return Column(
       children: [
         Row(
           children: [
             Text(
               mostRead.booksCount.toString(),
-              style: context.bodyLarge.copyWith(fontSize: 60),
+              style: theme.valueStyle.copyWith(fontSize: theme.valueFontSize),
             ),
           ],
         ),
         Row(
           children: [
-            Text('books in ${mostRead.monthInfo}', style: context.bodyMedium),
+            Text('books in ${mostRead.monthInfo}', style: theme.labelStyle),
           ],
         ),
       ],

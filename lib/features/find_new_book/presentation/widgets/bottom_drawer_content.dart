@@ -12,10 +12,10 @@ import '../../../../core/entities/tag.dart';
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/orchestrator/events.dart';
 import '../../../../core/utils/fallback_img.dart';
-import '../../../../core/utils/theme.dart';
-import '../../../../core/widgets/book_authors.dart';
-import '../../../../core/widgets/book_title.dart';
-import '../../../../core/widgets/card_footer.dart';
+import 'bottom_drawer_content_theme.dart';
+import '../../../../core/widgets/book_authors/book_authors.dart';
+import '../../../../core/widgets/book_title/book_title.dart';
+import '../../../../core/widgets/card_footer/card_footer.dart';
 import '../../../../core/widgets/transparent_image_card.dart';
 import '../../../tags_manager/presentation/bloc/tags_bloc.dart';
 import '../../../tags_manager/presentation/bloc/tags_state.dart';
@@ -60,14 +60,17 @@ final class _BottomDrawerContentState extends State<BottomDrawerContent> {
           //  After it's opened, the overflow is not happening.
           effects: const [FadeEffect(duration: Duration(milliseconds: 500))],
           child: FloatingSearchBar(
-            accentColor: context.primary,
+            accentColor: context.bottomDrawerTheme.accentColor,
             progress: state.isSearching,
             controller: _controller,
             body: const _PickedBookArea(),
-            backgroundColor: context.lightBackground,
-            backdropColor: Colors.transparent,
+            backgroundColor: context.bottomDrawerTheme.searchBarColor,
+            backdropColor: context.bottomDrawerTheme.backdropColor,
             hint: 'Search...',
-            scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+            scrollPadding: EdgeInsets.only(
+              top: context.bottomDrawerTheme.scrollPaddingTop,
+              bottom: context.bottomDrawerTheme.scrollPaddingBottom,
+            ),
             transitionCurve: Curves.easeInOut,
             physics: const BouncingScrollPhysics(),
             axisAlignment: 0.0,

@@ -5,7 +5,7 @@ import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/orchestrator/events.dart';
-import '../../../../core/utils/theme.dart';
+import 'settings_screen_theme.dart';
 import '../bloc/settings_bloc.dart';
 import '../bloc/settings_state.dart';
 import '../widgets/book_size_slider.dart';
@@ -28,7 +28,9 @@ final class SettingsScreen extends StatelessBusWidget {
 
   SettingsList _settingsList(BuildContext context, SettingsState state) {
     return SettingsList(
-      contentPadding: const EdgeInsets.only(top: 50),
+      contentPadding: EdgeInsets.only(
+        top: context.settingsScreenTheme.listTopPadding,
+      ),
       darkTheme: _themeBackground(context),
       lightTheme: _themeBackground(context),
       sections: [
@@ -46,13 +48,18 @@ final class SettingsScreen extends StatelessBusWidget {
   }
 
   SettingsThemeData _themeBackground(BuildContext context) {
-    return SettingsThemeData(settingsListBackground: context.background);
+    return SettingsThemeData(
+      settingsListBackground: context.settingsScreenTheme.backgroundColor,
+    );
   }
 
   SettingsTile _useSystemTheme(BuildContext context, bool useSystemTheme) {
     return SettingsTile.switchTile(
-      activeSwitchColor: context.primary,
-      title: Text('Use system theme', style: context.headlineSmall),
+      activeSwitchColor: context.settingsScreenTheme.switchColor,
+      title: Text(
+        'Use system theme',
+        style: context.settingsScreenTheme.titleStyle,
+      ),
       leading: const Icon(Icons.brush),
       initialValue: useSystemTheme,
       onToggle: (_) => fire($SystemThemeToggled()),

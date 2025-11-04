@@ -7,12 +7,13 @@ final class _BookCover extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.booksListTheme;
     return TransparentImageCard(
-      height: 250,
-      tagRunSpacing: 8,
+      height: t.coverHeight,
+      tagRunSpacing: t.coverTagRunSpacing,
       imageProvider: _imageProvider() as ImageProvider<Object>,
       tags: _tags(),
-      endColor: Colors.black,
+      endColor: t.coverEndColor,
       title: BookTitleAndTagTile(book: book),
       description: BookAuthors(authorNames: book.authors),
       footer: BookCardFooter(
@@ -44,11 +45,19 @@ final class _Tag extends StatelessWidget {
       onTap: () {},
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(
+            context.booksListTheme.tagChipBorderRadius,
+          ),
           color: HexColor(tag.hexColor),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-        child: Text(tag.name, style: const TextStyle(color: Colors.white)),
+        padding: EdgeInsets.symmetric(
+          horizontal: context.booksListTheme.tagChipHorizontalPadding,
+          vertical: context.booksListTheme.tagChipVerticalPadding,
+        ),
+        child: Text(
+          tag.name,
+          style: TextStyle(color: context.booksListTheme.tagChipTextColor),
+        ),
       ),
     );
   }

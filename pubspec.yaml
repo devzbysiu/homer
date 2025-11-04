@@ -60,6 +60,7 @@ dependencies:
   drift: ^2.28.2
   drift_flutter: ^0.2.7
   path: ^1.9.1
+  theme_tailor_annotation: ^3.1.1
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,7 @@ dev_dependencies:
   mutation_test: ^1.7.0
   drift_dev: ^2.28.2
   build_runner: ^2.7.1
+  theme_tailor: ^3.1.0
 
 flutter:
   uses-material-design: true

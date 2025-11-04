@@ -8,7 +8,7 @@ import '../../../../app_config.dart';
 import '../../../../core/entities/book.dart';
 import '../../../../core/orchestrator/bus_widget.dart';
 import '../../../../core/orchestrator/events.dart';
-import '../../../../core/utils/theme.dart';
+import 'bottom_nav_bar_theme.dart';
 import '../../../../injection_container.dart';
 import '../../../find_new_book/presentation/bloc/share_book/share_book_bloc.dart';
 import '../../../find_new_book/presentation/bloc/share_book/share_book_state.dart';
@@ -93,25 +93,28 @@ final class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   BottomBarTheme _bottomBarTheme(BuildContext context) {
+    final theme = context.bottomNavBarTheme;
     return BottomBarTheme(
-      heightOpened: 600,
-      heightClosed: 68,
+      heightOpened: theme.sheetOpenHeight,
+      heightClosed: theme.barHeight,
       mainButtonPosition: MainButtonPosition.right,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: context.shadow,
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: const Offset(0, 3),
+            color: theme.shadowColor,
+            spreadRadius: theme.shadowSpreadRadius,
+            blurRadius: theme.shadowBlurRadius,
+            offset: theme.shadowOffset,
           ),
         ],
-        color: context.background,
-        borderRadius: const BorderRadius.only(topRight: Radius.circular(45)),
+        color: theme.backgroundColor,
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(theme.barTopRightRadius),
+        ),
       ),
-      itemIconColor: context.unselected,
-      itemTextStyle: context.bodyMedium,
-      selectedItemTextStyle: context.bodyMedium,
+      itemIconColor: theme.unselectedColor,
+      itemTextStyle: theme.labelStyle,
+      selectedItemTextStyle: theme.labelStyle,
     );
   }
 
@@ -141,10 +144,10 @@ final class _AddButton extends StatelessWidget {
       onPressed: _toggleSheet,
       style: ButtonStyle(
         shape: const CircleBorder().wsp(),
-        padding: const EdgeInsets.all(10).wsp(),
-        backgroundColor: context.primary.wsp(),
+        padding: EdgeInsets.all(context.bottomNavBarTheme.buttonPadding).wsp(),
+        backgroundColor: context.bottomNavBarTheme.accentColor.wsp(),
       ),
-      child: Icon(Icons.add, color: context.background),
+      child: Icon(Icons.add, color: context.bottomNavBarTheme.backgroundColor),
     );
   }
 
@@ -164,11 +167,16 @@ final class _DeleteButton extends StatelessBusWidget {
       child: ElevatedButton(
         onPressed: () => fire($DeletePickedBooks()),
         style: ButtonStyle(
-          backgroundColor: context.error.wsp(),
+          backgroundColor: context.bottomNavBarTheme.deleteColor.wsp(),
           shape: const CircleBorder().wsp(),
-          padding: const EdgeInsets.all(10).wsp(),
+          padding: EdgeInsets.all(
+            context.bottomNavBarTheme.buttonPadding,
+          ).wsp(),
         ),
-        child: Icon(Icons.delete_forever, color: context.background),
+        child: Icon(
+          Icons.delete_forever,
+          color: context.bottomNavBarTheme.backgroundColor,
+        ),
       ),
     );
   }

@@ -24,7 +24,7 @@ final class _TagsState extends State<_Tags> {
           inactiveBorderColorList: _tagColors(tags),
           inactiveTextColorList: _inactiveText(context, tags),
           activeBgColorList: _tagColors(tags),
-          activeTextColorList: _whiteColors(tags),
+          activeTextColorList: _whiteColors(context, tags),
         );
       },
     );
@@ -35,11 +35,15 @@ final class _TagsState extends State<_Tags> {
   }
 
   List<Color> _inactiveText(BuildContext context, List<Tag> tags) {
-    return tags.map((_) => context.onBackground).toList();
+    return tags
+        .map((_) => context.bottomDrawerTheme.tagInactiveTextColor)
+        .toList();
   }
 
-  List<Color> _whiteColors(List<Tag> tags) {
-    return tags.map((_) => Colors.white).toList();
+  List<Color> _whiteColors(BuildContext context, List<Tag> tags) {
+    return tags
+        .map((_) => context.bottomDrawerTheme.activeTagTextColor)
+        .toList();
   }
 
   void _tagSelected(BuildContext context, int idx, List<Tag> tags) {
@@ -54,6 +58,8 @@ final class _TagsState extends State<_Tags> {
   }
 
   List<Color> _inactiveColors(BuildContext context, List<Tag> tags) {
-    return tags.map((_) => context.background).toList();
+    return tags
+        .map((_) => context.bottomDrawerTheme.tagInactiveBgColor)
+        .toList();
   }
 }

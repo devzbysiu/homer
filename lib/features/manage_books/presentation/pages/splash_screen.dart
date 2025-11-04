@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../../core/utils/theme.dart';
+import 'splash_screen_theme.dart';
 
 final class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -12,7 +12,7 @@ final class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlutterSplashScreen(
       duration: const Duration(milliseconds: 2000),
-      backgroundColor: context.primaryContainer,
+      backgroundColor: context.splashScreenTheme.backgroundColor,
       splashScreenBody: Center(
         child: Lottie.asset('assets/splash-screen.json', repeat: false),
       ),

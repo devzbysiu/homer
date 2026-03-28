@@ -1,8 +1,6 @@
-import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
 
 import 'app.dart';
@@ -36,28 +34,22 @@ void run({required Env env}) async {
   ]);
   await initDi(env: env);
 
-  await SentryFlutter.init(
-    (options) {
-      options.tracesSampleRate = env == Env.prod ? 0.1 : 1.0;
-      options.environment = envString(env);
-    },
-    appRunner: () => runApp(
-      MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (_) => sl<AppTabBloc>()),
-          BlocProvider(create: (_) => sl<BookSummaryBloc>()),
-          BlocProvider(create: (_) => sl<BooksBloc>()),
-          BlocProvider(create: (_) => sl<DeleteBooksBloc>()),
-          BlocProvider(create: (_) => sl<TagsBloc>()),
-          BlocProvider(create: (_) => sl<BookSearchBloc>()),
-          BlocProvider(create: (_) => sl<ShareBookBloc>()),
-          BlocProvider(create: (_) => sl<OnBookTagsBloc>()),
-          BlocProvider(create: (_) => sl<ImportExportBloc>()),
-          BlocProvider(create: (_) => sl<SettingsBloc>()..add(LoadSettings())),
-          BlocProvider(create: (_) => sl<StatsBloc>()..add(LoadStats())),
-        ],
-        child: const BetterFeedback(child: Homer()),
-      ),
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => sl<AppTabBloc>()),
+        BlocProvider(create: (_) => sl<BookSummaryBloc>()),
+        BlocProvider(create: (_) => sl<BooksBloc>()),
+        BlocProvider(create: (_) => sl<DeleteBooksBloc>()),
+        BlocProvider(create: (_) => sl<TagsBloc>()),
+        BlocProvider(create: (_) => sl<BookSearchBloc>()),
+        BlocProvider(create: (_) => sl<ShareBookBloc>()),
+        BlocProvider(create: (_) => sl<OnBookTagsBloc>()),
+        BlocProvider(create: (_) => sl<ImportExportBloc>()),
+        BlocProvider(create: (_) => sl<SettingsBloc>()..add(LoadSettings())),
+        BlocProvider(create: (_) => sl<StatsBloc>()..add(LoadStats())),
+      ],
+      child: const Homer(),
     ),
   );
 }

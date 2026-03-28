@@ -26,21 +26,14 @@ function load_props() {
   source "${props_path}"
 }
 
-function check_required_props() {
-  if [[ ! -v SENTRY_DSN ]]; then
-    error "Property 'SENTRY_DSN' is required."
-    exit 1
-  fi
-}
-
 function run_app() {
   local env="$1"
   if [[ "${env}" == "prod" ]]; then
-    info "Running 'flutter run --flavor prod --release -t lib/envs/prod.dart --dart-define SENTRY_DSN=<value>'"
-    flutter run --flavor prod --release -t lib/envs/prod.dart --dart-define SENTRY_DSN="${SENTRY_DSN}"
+    info "Running 'flutter run --flavor prod --release -t lib/envs/prod.dart'"
+    flutter run --flavor prod --release -t lib/envs/prod.dart
   elif [[ "${env}" == "dev" ]]; then
-    info "Running 'flutter run --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN=<value>'"
-    flutter run --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN="${SENTRY_DSN}"
+    info "Running 'flutter run --flavor dev -t lib/envs/dev.dart'"
+    flutter run --flavor dev -t lib/envs/dev.dart
   else
     error "Unknown environment '${env}'."
     exit 1
@@ -50,13 +43,13 @@ function run_app() {
 function install_app() {
   local env="$1"
   if [[ "${env}" == "prod" ]]; then
-    info "Building 'flutter build apk --release --flavor prod -t lib/envs/prod.dart --dart-define SENTRY_DSN=${SENTRY_DSN}'"
-    flutter build apk --release --flavor prod -t lib/envs/prod.dart --dart-define SENTRY_DSN="${SENTRY_DSN}"
+    info "Building 'flutter build apk --release --flavor prod -t lib/envs/prod.dart'"
+    flutter build apk --release --flavor prod -t lib/envs/prod.dart
     info "Installing the app"
     flutter install --release --flavor prod
   elif [[ "${env}" == "dev" ]]; then
-    info "Building 'flutter build apk --debug --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN=${SENTRY_DSN}'"
-    flutter build apk --debug --flavor dev -t lib/envs/dev.dart --dart-define SENTRY_DSN="${SENTRY_DSN}"
+    info "Building 'flutter build apk --debug --flavor dev -t lib/envs/dev.dart"
+    flutter build apk --debug --flavor dev -t lib/envs/dev.dart
     info "Installing the app"
     flutter install --debug --flavor dev
   else
@@ -79,7 +72,6 @@ function main() {
 
   local env="$2"
   load_props "${env}"
-  check_required_props
 
   local cmd="$1"
 

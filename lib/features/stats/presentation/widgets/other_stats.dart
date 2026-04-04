@@ -8,6 +8,8 @@ import '../bloc/stats_state.dart';
 import 'chart_wrapper.dart';
 import 'other_stats_theme.dart';
 
+const lastNMonths = 3;
+
 final class OtherStats extends StatelessWidget {
   const OtherStats({super.key});
 
@@ -45,7 +47,10 @@ final class _AverageAndMostRead extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [_Average(otherStats.average), _MostRead(otherStats.mostRead)],
+      children: [
+        _Average(otherStats.average(lastNMonths)),
+        _MostRead(otherStats.mostRead),
+      ],
     );
   }
 }

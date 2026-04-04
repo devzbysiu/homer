@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/entities/book.dart';
@@ -36,10 +37,12 @@ final class OtherStatsData extends Equatable {
     return OtherStatsData(readByMonth);
   }
 
-  double get average {
-    final totalMonths = _readByMonth.length;
-    final totalBooks = _readByMonth.values.reduce((a, b) => a + b);
-    return totalBooks / totalMonths;
+  double average(int n) {
+    final sorted = _readByMonth.entries.toList()
+      ..sort((a, b) => a.key.compareTo(b.key));
+    final lastNMonths = sorted.reversed.take(n);
+    final totalBooks = lastNMonths.map((entry) => entry.value).sum;
+    return totalBooks / n;
   }
 
   MostReadInfo get mostRead {

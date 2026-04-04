@@ -26,19 +26,14 @@ final class DriftDataSource implements BooksDataSource {
 
   @override
   Future<Unit> replaceAll(List<BookDTO> books) async {
-    // Wipe and reinsert (simple + predictable).
-    // Because we set onDelete: cascade on joins, deleting books clears link rows.
     await _db.transaction(() async {
-      // Clear link tables explicitly (optional since cascade also handles them)
       await _db.delete(_db.bookAuthors).go();
       await _db.delete(_db.bookTags).go();
 
-      // Clear main tables
       await _db.delete(_db.books).go();
       await _db.delete(_db.authors).go();
       await _db.delete(_db.tags).go();
 
-      // Re-insert everything
       for (final b in books) {
         await _db.insertBookDTO(b);
       }
@@ -48,7 +43,6 @@ final class DriftDataSource implements BooksDataSource {
 
   @override
   Future<Unit> update(BookDTO book) async {
-    // Requires id
     if (book.id == null) {
       throw ArgumentError('update() requires book.id to be non-null');
     }
@@ -68,20 +62,7 @@ final class DriftDataSource implements BooksDataSource {
     if (ids.isEmpty) return unit;
 
     await _db.transaction(() async {
-      // Delete books by id; join rows removed via cascade.
       await (_db.delete(_db.books)..where((t) => t.id.isIn(ids))).go();
-
-      // (Optional) prune orphan authors/tags with no remaining links.
-      // You can keep this simple and skip pruning, or enable it using custom deletes:
-      //
-      // await _db.customStatement('''
-      //   DELETE FROM authors
-      //   WHERE id NOT IN (SELECT author_id FROM book_authors)
-      // ''');
-      // await _db.customStatement('''
-      //   DELETE FROM tags
-      //   WHERE id NOT IN (SELECT tag_id FROM book_tags)
-      // ''');
     });
 
     return unit;

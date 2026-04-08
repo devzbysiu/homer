@@ -1,0 +1,283 @@
+openapi: 3.0.3
+info:
+  title: Homer Backend API
+  description: Backend service for the Homer Flutter app.
+  version: 1.0.0
+
+servers:
+  - url: https://api.homer-app.com
+    description: Production
+  - url: https://dev.api.homer-app.com
+    description: Development
+
+tags:
+  - name: books
+    description: Book search and lookup
+  - name: book-info
+    description: Extract book metadata from a webpage URL
+
+paths:
+
+  /books:
+    get:
+      tags: [books]
+      operationId: searchBooks
+      summary: Search books by text query
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Free-text search term (title, author, keyword, …).
+          schema:
+            type: string
+            minLength: 1
+          example: "Clean Code"
+      responses:
+        "200":
+          description: Search completed. Empty array when no books match.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Book"
+              example:
+                - title: "Clean Code"
+                  subtitle: "A Handbook of Agile Software Craftsmanship"
+                  authors: ["Robert C. Martin"]
+                  pageCount: 464
+                  industryIdentifiers: ["0132350882", "9780132350884"]
+                  imageLinks:
+                    thumbnail: "https://books.google.com/books/content?id=hjEFCAAAQBAJ&printsec=frontcover&img=1&zoom=1"
+                    smallThumbnail: "https://books.google.com/books/content?id=hjEFCAAAQBAJ&printsec=frontcover&img=1&zoom=5"
+                  averageRating: 4.5
+                  description: "Even bad code can function. But if code isn't clean..."
+        "400":
+          description: Missing or blank `q` parameter.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /books/{isbn}:
+    get:
+      tags: [books]
+      operationId: getBookByIsbn
+      summary: Look up a single book by ISBN
+      description: |
+        Returns exactly one book for the given ISBN-10 or ISBN-13.
+
+        Note: the literal path `/books/info` is matched before this parameter,
+        so `GET /books/info` and `GET /books/{isbn}` do not conflict.
+      parameters:
+        - name: isbn
+          in: path
+          required: true
+          description: ISBN-10 or ISBN-13.
+          schema:
+            type: string
+          examples:
+            isbn10:
+              summary: ISBN-10
+              value: "0132350882"
+            isbn13:
+              summary: ISBN-13
+              value: "9780132350884"
+      responses:
+        "200":
+          description: Book found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+              example:
+                title: "Clean Code"
+                subtitle: "A Handbook of Agile Software Craftsmanship"
+                authors: ["Robert C. Martin"]
+                pageCount: 464
+                industryIdentifiers: ["0132350882", "9780132350884"]
+                imageLinks:
+                  thumbnail: "https://books.google.com/books/content?id=hjEFCAAAQBAJ&printsec=frontcover&img=1&zoom=1"
+                  smallThumbnail: "https://books.google.com/books/content?id=hjEFCAAAQBAJ&printsec=frontcover&img=1&zoom=5"
+                averageRating: 4.5
+                description: "Even bad code can function. But if code isn't clean..."
+        "404":
+          description: No book found for this ISBN.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Multiple books found for this ISBN (ambiguous result).
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /books/info:
+    get:
+      tags: [book-info]
+      operationId: getBookInfoFromUrl
+      summary: Extract book metadata from a webpage URL
+      description: |
+        Scrapes the given URL and returns whatever book metadata can be found:
+        title and ISBN(s). Intended for resolving a shared book page URL into
+        something searchable.
+
+        `isbn10` and `isbn13` are null when not found on the page. If neither
+        is present the client can fall back to a text search using `title`.
+      parameters:
+        - name: url
+          in: query
+          required: true
+          description: The webpage URL to scrape for book metadata.
+          schema:
+            type: string
+            format: uri
+          example: "https://www.goodreads.com/book/show/3735293-clean-code"
+      responses:
+        "200":
+          description: Metadata extracted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookInfo"
+              examples:
+                withIsbn13Only:
+                  summary: ISBN-13 found, no ISBN-10
+                  value:
+                    title: "Clean Code: A Handbook of Agile Software Craftsmanship"
+                    isbn10: null
+                    isbn13: "9780132350884"
+                withBothIsbns:
+                  summary: Both ISBN-10 and ISBN-13 found
+                  value:
+                    title: "The Great Gatsby"
+                    isbn10: "0743273567"
+                    isbn13: "9780743273565"
+                noIsbn:
+                  summary: No ISBN found
+                  value:
+                    title: "Some Book Title"
+                    isbn10: null
+                    isbn13: null
+        "400":
+          description: Missing or malformed `url` parameter.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          description: Target page could not be scraped or contained no book metadata.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "504":
+          description: Timed out while fetching the target URL.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+
+    Book:
+      type: object
+      required:
+        - title
+        - subtitle
+        - authors
+        - pageCount
+        - industryIdentifiers
+        - imageLinks
+        - averageRating
+      properties:
+        title:
+          type: string
+          example: "Clean Code"
+        subtitle:
+          type: string
+          description: Empty string when no subtitle.
+          example: "A Handbook of Agile Software Craftsmanship"
+          default: ""
+        authors:
+          type: array
+          items:
+            type: string
+          example: ["Robert C. Martin"]
+          default: []
+        pageCount:
+          type: integer
+          example: 464
+          default: 0
+        industryIdentifiers:
+          type: array
+          description: ISBN-10 and/or ISBN-13 strings.
+          items:
+            type: string
+          example: ["0132350882", "9780132350884"]
+          default: []
+        imageLinks:
+          type: object
+          description: |
+            Map of image-size key → absolute URL.
+            Typical keys: `thumbnail`, `smallThumbnail`.
+          additionalProperties:
+            type: string
+            format: uri
+          example:
+            thumbnail: "https://books.google.com/books/content?id=hjEFCAAAQBAJ&printsec=frontcover&img=1&zoom=1"
+            smallThumbnail: "https://books.google.com/books/content?id=hjEFCAAAQBAJ&printsec=frontcover&img=1&zoom=5"
+          default: {}
+        averageRating:
+          type: number
+          format: double
+          example: 4.5
+          default: 0.0
+        description:
+          type: string
+          nullable: true
+          description: Book description/blurb. Null when not available.
+          example: "Even bad code can function. But if code isn't clean..."
+
+    BookInfo:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          example: "Clean Code: A Handbook of Agile Software Craftsmanship"
+        isbn10:
+          type: string
+          nullable: true
+          description: ISBN-10 identifier, or null if not found.
+          example: "0132350882"
+        isbn13:
+          type: string
+          nullable: true
+          description: ISBN-13 identifier, or null if not found.
+          example: "9780132350884"
+
+    ErrorResponse:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+          description: Human-readable error description.
+          example: "No book found for ISBN 9780000000000"

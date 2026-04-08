@@ -1,9 +1,9 @@
-import 'dart:convert';
+import 'dart:async';
 
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:http/http.dart' as http;
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:homer_api_client/homer_api_client.dart' as api;
 
-import '../../../../app_config.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../logger.dart';
 import '../models/external_book_info_dto.dart';
@@ -13,40 +13,35 @@ abstract class ExternalBookInfoDataSource {
 }
 
 final class ScraperDataSource implements ExternalBookInfoDataSource {
-  ScraperDataSource({required this.config});
+  ScraperDataSource({required this.bookInfoApi});
 
-  final AppConfig config;
+  final api.BookInfoApi bookInfoApi;
 
   @override
   Future<ExternalBookInfoDTO> getFromWebsite(String websiteUrl) async {
-    final apiUrl = config.bookInfoEndpoint(websiteUrl);
-    log.i('Fetching book info from: $apiUrl');
-    final resp = await http.get(_tryParse(apiUrl)).timeout(30.seconds);
-    final json = _tryJsonDecode(utf8.decode(resp.bodyBytes));
-    return _tryFromJson(json);
-  }
-
-  Uri _tryParse(String apiUrl) {
+    log.i('Fetching book info from: $websiteUrl');
     try {
-      return Uri.parse(apiUrl);
-    } on FormatException {
-      throw InvalidUrlException(apiUrl);
-    }
-  }
-
-  Map<String, dynamic> _tryJsonDecode(String body) {
-    try {
-      return jsonDecode(body);
-    } on FormatException catch (e) {
-      throw NotJsonException(e.message);
-    }
-  }
-
-  ExternalBookInfoDTO _tryFromJson(Map<String, dynamic> json) {
-    try {
-      return ExternalBookInfoDTO.fromJson(json);
-    } catch (e) {
+      final response = await bookInfoApi.getBookInfoFromUrl(url: websiteUrl);
+      final bookInfo = response.data!;
+      return ExternalBookInfoDTO(
+        title: bookInfo.title,
+        isbn10: _toOption(bookInfo.isbn10),
+        isbn13: _toOption(bookInfo.isbn13),
+      );
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.receiveTimeout ||
+          e.response?.statusCode == 504) {
+        throw TimeoutException(null, const Duration(seconds: 30));
+      }
+      if (e.response?.statusCode == 400) {
+        throw InvalidUrlException(websiteUrl);
+      }
       throw WrongJsonException(e);
     }
   }
+}
+
+Option<String> _toOption(String? value) {
+  return (value == null || value.isEmpty) ? none() : some(value);
 }

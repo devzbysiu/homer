@@ -8,9 +8,9 @@ int defaultTabIdx() => AppTab.reading.index;
 enum Env { dev, prod }
 
 final class AppConfig {
-  AppConfig({required String bookInfoUrl}) : _apiUrl = bookInfoUrl;
+  AppConfig({required this.apiBaseUrl});
 
-  final String _apiUrl;
+  final String apiBaseUrl;
 
   static Future<AppConfig> forEnvironment(Env env) async {
     final contents = await rootBundle.loadString(
@@ -19,10 +19,8 @@ final class AppConfig {
 
     final json = jsonDecode(contents);
 
-    return AppConfig(bookInfoUrl: json['bookInfoUrl']);
+    return AppConfig(apiBaseUrl: json['apiBaseUrl']);
   }
-
-  String bookInfoEndpoint(String websiteUrl) => '$_apiUrl?url=$websiteUrl';
 }
 
 String envString(Env env) {

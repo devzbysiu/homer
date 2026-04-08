@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:homer_api_client/homer_api_client.dart' as api;
 import 'package:share_handler/share_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -67,13 +69,21 @@ Future<void> initDi({required Env env}) async {
   sl.registerLazySingleton<ShareHandlerPlatform>(() {
     return ShareHandlerPlatform.instance;
   });
+  sl.registerLazySingleton(() => Dio(BaseOptions(
+        baseUrl: config.apiBaseUrl,
+        receiveTimeout: const Duration(seconds: 30),
+      )));
+  sl.registerLazySingleton(() => api.BooksApi(sl()));
+  sl.registerLazySingleton(() => api.BookInfoApi(sl()));
 
   // Data sources
   final driftDataSource = await DriftDataSource.create();
   sl.registerLazySingleton<BooksDataSource>(() => driftDataSource);
-  sl.registerLazySingleton<ExternalBooksDataSource>(() => ExternalBooks());
+  sl.registerLazySingleton<ExternalBooksDataSource>(
+    () => ExternalBooks(booksApi: sl()),
+  );
   sl.registerLazySingleton<ExternalBookInfoDataSource>(
-    () => ScraperDataSource(config: sl()),
+    () => ScraperDataSource(bookInfoApi: sl()),
   );
   sl.registerLazySingleton<ImportExportDataSource>(
     () => JsonFileImportExportDataSource(),

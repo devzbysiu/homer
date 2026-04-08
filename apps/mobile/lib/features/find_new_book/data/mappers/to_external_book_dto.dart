@@ -1,18 +1,16 @@
-import 'package:books_finder/books_finder.dart';
+import 'package:homer_api_client/homer_api_client.dart' as api;
 
 import '../models/external_book_dto.dart';
 
-ExternalBookDTO toExternalBookDTO(Book book) {
+ExternalBookDTO toExternalBookDTO(api.Book book) {
   return ExternalBookDTO(
-    title: book.info.title,
-    subtitle: book.info.subtitle,
-    authors: book.info.authors,
-    pageCount: book.info.pageCount,
-    industryIdentifiers: book.info.industryIdentifiers
-        .map((isbn) => isbn.identifier)
-        .toList(),
-    imageLinks: book.info.imageLinks,
-    averageRating: book.info.averageRating,
-    description: book.info.description,
+    title: book.title,
+    subtitle: book.subtitle,
+    authors: book.authors,
+    pageCount: book.pageCount,
+    industryIdentifiers: book.industryIdentifiers,
+    imageLinks: book.imageLinks.map((key, url) => MapEntry(key, Uri.parse(url))),
+    averageRating: book.averageRating,
+    description: book.description,
   );
 }

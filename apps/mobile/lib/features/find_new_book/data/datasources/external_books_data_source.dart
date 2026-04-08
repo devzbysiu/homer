@@ -1,4 +1,5 @@
-import 'package:books_finder/books_finder.dart';
+import 'package:dio/dio.dart';
+import 'package:homer_api_client/homer_api_client.dart' as api;
 
 import '../../../../core/error/exceptions.dart';
 import '../mappers/to_external_book_dto.dart';
@@ -7,25 +8,38 @@ import '../models/external_book_dto.dart';
 abstract class ExternalBooksDataSource {
   Future<List<ExternalBookDTO>> getFromQuery(String query);
 
-  Future<ExternalBookDTO> getFromIsbn(String url);
+  Future<ExternalBookDTO> getFromIsbn(String isbn);
 }
 
 final class ExternalBooks implements ExternalBooksDataSource {
+  ExternalBooks({required this.booksApi});
+
+  final api.BooksApi booksApi;
+
   @override
   Future<List<ExternalBookDTO>> getFromQuery(String query) async {
     try {
-      final List<Book> books = await queryBooks(query);
-      return books.map(toExternalBookDTO).toList();
-    } catch (e) {
+      final response = await booksApi.searchBooks(q: query);
+      return (response.data ?? []).map(toExternalBookDTO).toList();
+    } on DioException catch (e) {
       throw BooksQueryException('$e');
     }
   }
 
   @override
   Future<ExternalBookDTO> getFromIsbn(String isbn) async {
-    final List<Book> books = await queryBooks(isbn, queryType: QueryType.isbn);
-    if (books.isEmpty) throw NoBookFoundException(isbn);
-    if (books.length > 1) throw TooManyBooksFoundException(isbn);
-    return toExternalBookDTO(books.first);
+    try {
+      final response = await booksApi.getBookByIsbn(isbn: isbn);
+      return toExternalBookDTO(response.data!);
+    } on DioException catch (e) {
+      switch (e.response?.statusCode) {
+        case 404:
+          throw NoBookFoundException(isbn);
+        case 422:
+          throw TooManyBooksFoundException(isbn);
+        default:
+          throw BooksQueryException('$e');
+      }
+    }
   }
 }
